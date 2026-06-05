@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Yashiro Runner</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap');
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            padding: 0 0 36px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            min-height: 100dvh;
+            background: linear-gradient(135deg, #fce4ec 0%, #e1bee7 100%);
+            font-family: 'Quicksand', sans-serif;
+            color: #5c3a6b;
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        /* ── Badge offline ── */
+        .offline-badge {
+            background: #d32f2f;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin: 10px 0 6px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            animation: pulse 2s infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+
+        /* ── Canvas container ── */
+        #gameContainer {
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.4);
+            border: 3px solid #d1a3c6;
+            flex-shrink: 0;
+            /* Tamaño controlado por JS */
+        }
+
+        canvas {
+            display: block;
+            image-rendering: auto;
+            image-rendering: crisp-edges;
+        }
+
+        /* ── Panel de mecánicas (ambas plataformas) ── */
+        .instructions {
+            margin-top: 12px;
+            text-align: center;
+            animation: slideUp 0.5s ease-out;
+            flex-shrink: 0;
+        }
+
+        .instructions h2 {
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .game-info {
+            font-size: 0.85rem;
+            color: #5c3a6b;
+            margin-top: 8px;
+            background: rgba(255,255,255,0.5);
+            padding: 10px 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(209,163,198,0.6);
+            text-align: left;
+            display: inline-block;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .game-info p {
+            margin: 5px 0;
+            line-height: 1.4;
+        }
+
+        .game-info strong { color: #7b4f91; }
+
+        /* ── Panel de mecánicas (ambas plataformas) — fijo en la parte inferior ── */
+        .mechanics-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 4px 8px;
+            padding: 6px 10px 8px;
+            background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-top: 1px solid rgba(209,163,198,0.3);
+            z-index: 10;
+        }
+
+        .mechanic-tip {
+            font-size: 0.68rem;
+            color: #7b4f91;
+            background: rgba(255,255,255,0.6);
+            border: 1px solid rgba(209,163,198,0.45);
+            border-radius: 20px;
+            padding: 3px 10px;
+            white-space: nowrap;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        /* En móvil, el panel de mecánicas va encima de los controles táctiles */
+        @media (max-width: 500px) {
+            .mechanics-panel {
+                position: static;
+                background: transparent;
+                border-top: none;
+                backdrop-filter: none;
+                padding: 4px 8px 2px;
+                order: 3;
+            }
+            .mechanic-tip { font-size: 0.63rem; padding: 2px 8px; }
+        }
+
+        @media (max-height: 580px) {
+            .mechanics-panel { display: none; }
+        }
+
+        @media (max-height: 700px) {
+            .instructions { display: none; }
+        }
+
+        @media (max-width: 500px) {
+            .instructions { display: none; }
+            .offline-badge { margin: 6px 0 3px; }
+        }
+        /* ════════════════════════════════════════
+           CONTROLES TÁCTILES MÓVIL
+           ════════════════════════════════════════ */
+        #mobileControls {
+            display: none; /* se activa por JS si es touch */
+            width: 100%;
+            padding: 10px 16px 14px;
+            flex-shrink: 0;
+        }
+
+        .mobile-controls-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        /* Botón grande de SALTO (izquierda) */
+        .btn-jump {
+            flex: 1;
+            height: 70px;
+            border-radius: 18px;
+            border: none;
+            background: linear-gradient(135deg, #f9c6d0 0%, #e8789a 50%, #c94f7c 100%);
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            box-shadow: 0 6px 0 #a03060, 0 8px 20px rgba(201,79,124,0.4);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            user-select: none;
+            touch-action: none;
+            transition: transform 0.08s, box-shadow 0.08s, filter 0.08s;
+            -webkit-user-select: none;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-jump:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #a03060, 0 4px 10px rgba(201,79,124,0.3);
+            filter: brightness(0.95);
+        }
+
+        .btn-jump .btn-icon { font-size: 1.6rem; line-height: 1; }
+        .btn-jump .btn-label { font-size: 0.75rem; opacity: 0.9; letter-spacing: 0.5px; }
+
+        /* Botón de DISPARO (derecha) */
+        .btn-shoot {
+            flex: 1;
+            height: 70px;
+            border-radius: 18px;
+            border: none;
+            background: linear-gradient(135deg, #d4b8f0 0%, #9b6fd4 50%, #6c3ab5 100%);
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            box-shadow: 0 6px 0 #4a2580, 0 8px 20px rgba(108,58,181,0.4);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            user-select: none;
+            touch-action: none;
+            transition: transform 0.08s, box-shadow 0.08s, filter 0.08s;
+            -webkit-user-select: none;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-shoot:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #4a2580, 0 4px 10px rgba(108,58,181,0.3);
+            filter: brightness(0.95);
+        }
+
+        .btn-shoot .btn-icon { font-size: 1.6rem; line-height: 1; }
+        .btn-shoot .btn-label { font-size: 0.75rem; opacity: 0.9; letter-spacing: 0.5px; }
+
+        /* Texto de ayuda entre botones */
+        .mobile-hint {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #9e7bb5;
+            margin-top: 6px;
+            opacity: 0.8;
+        }
+
+        /* ── Responsive: en pantallas pequeñas ocultamos las instrucciones ── */
+        @media (max-height: 700px) {
+            .instructions { display: none; }
+        }
+
+        @media (max-width: 500px) {
+            .instructions { display: none; }
+            .offline-badge { margin: 8px 0 4px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="offline-badge">Sin conexión a internet</div>
+
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="800" height="300"></canvas>
+    </div>
+
+    <!-- Panel de mecánicas — visible en ambas plataformas -->
+    <div class="mechanics-panel" id="mechanicsPanel">
+        <span class="mechanic-tip">🌧️ Lluvia de estrellas cada 50s · dura 15s · estrellas azules aguantan 4 disparos</span>
+        <span class="mechanic-tip">🍩 Dona de invulnerabilidad cada 60s · desaparece en 5s si no la recoges</span>
+        <span class="mechanic-tip">⚡ Velocidad sube cada ~15s · aumento notable cada ~25s</span>
+        <span class="mechanic-tip">🎮 ESPACIO saltar · ↓ boomerang · combo al esquivar</span>
+    </div>
+
+    <!-- Botones táctiles para móvil -->
+    <div id="mobileControls">
+        <div class="mobile-controls-row">
+            <button class="btn-jump" id="btnJump" aria-label="Saltar">
+                <span class="btn-label">SALTAR</span>
+            </button>
+            <button class="btn-shoot" id="btnShoot" aria-label="Disparar boomerang">
+                <span class="btn-label">BOOMERANG</span>
+            </button>
+        </div>
+        <p class="mobile-hint">Toca SALTAR para reiniciar cuando pierdas</p>
+    </div>
+
+    <!-- Instrucciones desktop -->
+    <div class="instructions" id="desktopInstructions">
+        <h2>Presiona ESPACIO o toca la pantalla para saltar</h2>
+        <div class="game-info">
+            <p><strong>🌧️ Lluvia de Estrellas (cada 50 seg):</strong> Evento de 15 segundos con estrellas azules (requieren 4 disparos).</p>
+            <p><strong>🍩 Dona de Poder (cada 60 seg):</strong> ¡Recógela en 5 segundos para invulnerabilidad temporal!</p>
+        </div>
+    </div>
+
+    <script>
+        // ─────────────────────────────────────────────────────────────
+        // RESPONSIVE: escalar canvas al tamaño disponible de pantalla
+        // ─────────────────────────────────────────────────────────────
+        const CANVAS_BASE_W = 800;
+        const CANVAS_BASE_H = 300;
+
+        const canvas  = document.getElementById('gameCanvas');
+        const ctx     = canvas.getContext('2d');
+        const container     = document.getElementById('gameContainer');
+        const mobileControls = document.getElementById('mobileControls');
+        const btnJump        = document.getElementById('btnJump');
+        const btnShoot       = document.getElementById('btnShoot');
+
+        let isTouchDevice = false;
+        let canvasScale   = 1; // ratio de escala CSS (no cambia la lógica interna)
+
+        function resizeCanvas() {
+            const badge       = document.querySelector('.offline-badge');
+            const badgeH      = badge ? badge.offsetHeight + 16 : 0;
+            const ctrlH       = isTouchDevice ? (mobileControls.offsetHeight || 104) : 0;
+            const padding     = 20;
+
+            const availW = window.innerWidth  - padding;
+            const availH = window.innerHeight - badgeH - ctrlH - padding * 2;
+
+            // Calcular escala manteniendo aspect ratio 800×300
+            const scaleW = availW / CANVAS_BASE_W;
+            const scaleH = availH / CANVAS_BASE_H;
+            canvasScale  = Math.min(scaleW, scaleH, isTouchDevice ? 1 : 1.5); // desktop puede agrandar hasta 1.5×
+
+            const displayW = Math.floor(CANVAS_BASE_W * canvasScale);
+            const displayH = Math.floor(CANVAS_BASE_H * canvasScale);
+
+            // Canvas lógico siempre 800×300 (toda la lógica usa estas coords)
+            canvas.width  = CANVAS_BASE_W;
+            canvas.height = CANVAS_BASE_H;
+
+            // Sólo CSS cambia el tamaño visual
+            canvas.style.width  = displayW + 'px';
+            canvas.style.height = displayH + 'px';
+            container.style.width  = displayW + 'px';
+            container.style.height = displayH + 'px';
+
+            ctx.imageSmoothingEnabled  = true;
+            ctx.imageSmoothingQuality  = 'high';
+        }
+
+        // Detectar si es dispositivo táctil
+        function detectTouch() {
+            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+                isTouchDevice = true;
+                mobileControls.style.display = 'block';
+                const di = document.getElementById('desktopInstructions');
+                if (di) di.style.display = 'none';
+                // Panel de mecánicas sí se muestra en móvil
+            }
+        }
+
+        detectTouch();
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // ─────────────────────────────────────────────────────────────
+        // ESTADO DEL JUEGO
+        // ─────────────────────────────────────────────────────────────
+        let frames = 0;
+        let score = 0;
+        let highScore = localStorage.getItem('adashima_hs') || 0;
+        let isGameOver = false;
+        let gameSpeed = 4;
+        let obstacles = [];
+        let spawnRate = 90;
+        let particles = [];
+        let combo = 0;
+        let boomerangs = [];
+        let gamePhase = 1;
+        let isInvulnerable = false;
+        let invulnerabilityTime = 0;
+        let lastDonaSpawn = -100;
+        let powerUpParticles = [];
+        let lastScoreTime = 0;
+        let gameTimeSeconds = 0;
+        let starRainActive = false;
+        let lastStarRainTime = 0;
+
+        // ─────────────────────────────────────────────────────────────
+        // IMÁGENES
+        // ─────────────────────────────────────────────────────────────
+        const imgYashiro = new Image();
+        imgYashiro.src = 'Imagenes/Yashiro_flotante_pixel-Photoroom.png';
+
+        const imgmeteoro = new Image();
+        imgmeteoro.src = 'Imagenes/meteoro-Photoroom.png';
+
+        const imgEstrella = new Image();
+        imgEstrella.src = 'Imagenes/Estrella-Photoroom.png';
+
+        const imgEstrellaAzul = new Image();
+        imgEstrellaAzul.src = 'Imagenes/Estrella_Azul-Photoroom.png';
+
+        const imgFondo = new Image();
+        imgFondo.src = 'Imagenes/Fondo_pixel.png';
+
+        const imgBoomerang = new Image();
+        imgBoomerang.src = 'Imagenes/boomerang-Photoroom.png';
+
+        const imgDona = new Image();
+        imgDona.src = 'Imagenes/dona_pixel-Photoroom.png';
+
+        // ─────────────────────────────────────────────────────────────
+        // PERSONAJE
+        // ─────────────────────────────────────────────────────────────
+        const yashiro = {
+            x: 50,
+            y: 200,
+            width: 100,
+            height: 100,
+            dy: 0,
+            jumpForce: 11,
+            gravity: 0.65,
+            grounded: false,
+
+            hitboxOffset: { x: 35, y: 15, w: -70, h: -25 },
+
+            getHitbox() {
+                return {
+                    x: this.x + this.hitboxOffset.x,
+                    y: this.y + this.hitboxOffset.y,
+                    width:  this.width  + this.hitboxOffset.w,
+                    height: this.height + this.hitboxOffset.h
+                };
+            },
+
+            draw() {
+                ctx.drawImage(imgYashiro, this.x, this.y, this.width, this.height);
+                ctx.fillStyle = "rgba(0,0,0,0.15)";
+                ctx.beginPath();
+                ctx.ellipse(this.x + this.width/2, 255, this.width * 0.4, 6, 0, 0, Math.PI * 2);
+                ctx.fill();
+            },
+
+            jump() {
+                if (this.grounded) {
+                    this.dy = -this.jumpForce;
+                    this.grounded = false;
+                }
+            },
+
+            update() {
+                this.y += this.dy;
+                if (this.y + this.height < 250) {
+                    this.dy += this.gravity;
+                    this.grounded = false;
+                } else {
+                    this.dy = 0;
+                    this.grounded = true;
+                    this.y = 250 - this.height;
+                }
+                this.draw();
+            }
+        };
+
+        // ─────────────────────────────────────────────────────────────
+        // RESET
+        // ─────────────────────────────────────────────────────────────
+        function resetGame() {
+            obstacles = [];
+            score = 0;
+            frames = 0;
+            gameSpeed = 4;
+            spawnRate = 90;
+            isGameOver = false;
+            gamePhase = 1;
+            yashiro.y = 200;
+            yashiro.dy = 0;
+            boomerangs = [];
+            isInvulnerable = false;
+            invulnerabilityTime = 0;
+            lastDonaSpawn = -100;
+            powerUpParticles = [];
+            gameTimeSeconds = 0;
+            starRainActive = false;
+            lastStarRainTime = -100;
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // SPAWN OBSTÁCULOS
+        // ─────────────────────────────────────────────────────────────
+        function spawnObstacle() {
+            let size = 35;
+            let typeImg;
+            let yPos;
+            let isBluestar = false;
+            let health = 1;
+
+            if (!starRainActive) {
+                let types = score >= 100 ? [imgmeteoro, imgEstrella] : [imgmeteoro];
+                typeImg = types[Math.floor(Math.random() * types.length)];
+                let randomStarY = Math.floor(Math.random() * 110) + 100;
+
+                // Meteoros con tamaño variable: 40% pequeño (35), 40% mediano (55), 20% grande (75)
+                if (typeImg === imgmeteoro) {
+                    let roll = Math.random();
+                    if (roll < 0.4)      size = 32;
+                    else if (roll < 0.8) size = 44;
+                    else                 size = 50;
+                    yPos = 250 - size;
+                } else {
+                    size = 35;
+                    yPos = randomStarY;
+                }
+            } else {
+                let randomType = Math.random();
+                if (randomType > 0.6) {
+                    typeImg = imgEstrella;
+                    health = 1;
+                } else {
+                    typeImg = imgEstrellaAzul;
+                    health = 4;
+                    isBluestar = true;
+                }
+                let randomStarY = Math.floor(Math.random() * 110) + 100;
+                yPos = randomStarY;
+            }
+
+            obstacles.push({
+                x: canvas.width,
+                y: yPos,
+                width: size,
+                height: size,
+                image: typeImg,
+                rotation: 0,
+                health: health,
+                isBluestar: isBluestar,
+                baseY: yPos,
+                verticalOscillation: starRainActive ? Math.sin(Math.random() * Math.PI * 2) * 40 : 0,
+                oscillationSpeed: starRainActive ? 0.08 + Math.random() * 0.04 : 0,
+                oscillationPhase: Math.random() * Math.PI * 2,
+                hitboxOffset: { x: 3, y: 3, w: -6, h: -6 },
+
+                getHitbox() {
+                    return {
+                        x: this.x + this.hitboxOffset.x,
+                        y: this.y + this.hitboxOffset.y,
+                        width:  this.width  + this.hitboxOffset.w,
+                        height: this.height + this.hitboxOffset.h
+                    };
+                },
+
+                draw() {
+                    if (this.image === imgEstrella || this.image === imgEstrellaAzul) {
+                        ctx.save();
+                        ctx.translate(this.x + this.width/2, this.y + this.height/2);
+                        ctx.rotate(this.rotation);
+                        ctx.drawImage(this.image, -this.width/2, -this.height/2, this.width, this.height);
+                        ctx.restore();
+                        if (this.isBluestar && this.health > 1) {
+                            ctx.fillStyle = "rgba(255,255,255,0.7)";
+                            ctx.font = "bold 16px Quicksand";
+                            ctx.textAlign = "center";
+                            ctx.textBaseline = "middle";
+                            ctx.fillText(this.health, this.x + this.width/2, this.y + this.height/2);
+                        }
+                    } else {
+                        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+                    }
+                },
+
+                update() {
+                    this.x -= gameSpeed;
+                    if (starRainActive && this.oscillationSpeed > 0) {
+                        this.oscillationPhase += this.oscillationSpeed;
+                        this.y = this.baseY + Math.sin(this.oscillationPhase) * this.verticalOscillation;
+                    }
+                    this.rotation += 0.1;
+                    this.draw();
+                }
+            });
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // PARTÍCULAS
+        // ─────────────────────────────────────────────────────────────
+        function spawnParticles(x, y, color = '#a28cbd') {
+            for (let i = 0; i < 8; i++) {
+                particles.push({
+                    x, y,
+                    vx: (Math.random() - 0.5) * 10,
+                    vy: (Math.random() - 0.5) * 10,
+                    life: 40,
+                    color,
+                    draw() {
+                        ctx.globalAlpha = this.life / 40;
+                        ctx.fillStyle = this.color;
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.globalAlpha = 1;
+                    },
+                    update() {
+                        this.x += this.vx;
+                        this.y += this.vy;
+                        this.vy += 0.3;
+                        this.life--;
+                        this.draw();
+                    }
+                });
+            }
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // DONA
+        // ─────────────────────────────────────────────────────────────
+        function spawnDona() {
+            let size = 30;
+            let randomStarY = Math.floor(Math.random() * 110) + 100;
+            obstacles.push({
+                x: canvas.width,
+                y: randomStarY,
+                width: size,
+                height: size,
+                image: imgDona,
+                rotation: 0,
+                isPowerUp: true,
+                hitboxOffset: { x: 3, y: 3, w: -6, h: -6 },
+                getHitbox() {
+                    return {
+                        x: this.x + this.hitboxOffset.x,
+                        y: this.y + this.hitboxOffset.y,
+                        width:  this.width  + this.hitboxOffset.w,
+                        height: this.height + this.hitboxOffset.h
+                    };
+                },
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x + this.width/2, this.y + this.height/2);
+                    ctx.rotate(this.rotation);
+                    ctx.drawImage(this.image, -this.width/2, -this.height/2, this.width, this.height);
+                    ctx.restore();
+                    ctx.strokeStyle = "rgba(255,215,0,0.4)";
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.arc(this.x + this.width/2, this.y + this.height/2, this.width/2 + 8, 0, Math.PI * 2);
+                    ctx.stroke();
+                },
+                update() {
+                    this.x -= gameSpeed;
+                    this.rotation += 0.15;
+                    this.draw();
+                }
+            });
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // BOOMERANG
+        // ─────────────────────────────────────────────────────────────
+        function fireBoomerang() {
+            boomerangs.push({
+                x: yashiro.x + yashiro.width,
+                y: yashiro.y + yashiro.height / 2,
+                width: 30,
+                height: 30,
+                speed: 8,
+                rotation: 0,
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x + this.width/2, this.y + this.height/2);
+                    ctx.rotate(this.rotation);
+                    ctx.drawImage(imgBoomerang, -this.width/2, -this.height/2, this.width, this.height);
+                    ctx.restore();
+                },
+                update() {
+                    this.x += this.speed;
+                    this.rotation += 0.3;
+                    this.draw();
+                }
+            });
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // BUCLE PRINCIPAL
+        // ─────────────────────────────────────────────────────────────
+        function animate() {
+            if (isGameOver) {
+                ctx.fillStyle = "rgba(0,0,0,0.7)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = "rgba(255,255,255,0.15)";
+                ctx.fillRect(canvas.width/2 - 180, canvas.height/2 - 90, 360, 180);
+
+                ctx.strokeStyle = "rgba(255,255,255,0.4)";
+                ctx.lineWidth = 2;
+                ctx.strokeRect(canvas.width/2 - 180, canvas.height/2 - 90, 360, 180);
+
+                ctx.fillStyle = "#ff6b6b";
+                ctx.font = "bold 48px Quicksand";
+                ctx.textAlign = "center";
+                ctx.fillText("GAME OVER", canvas.width/2, canvas.height/2 - 35);
+
+                ctx.fillStyle = "white";
+                ctx.font = "22px Quicksand";
+                ctx.fillText(`Puntos: ${score}`, canvas.width/2, canvas.height/2 + 10);
+
+                ctx.fillStyle = "#ffd700";
+                ctx.font = "22px Quicksand";
+                ctx.fillText(`Récord: ${highScore}`, canvas.width/2, canvas.height/2 + 40);
+
+                ctx.fillStyle = "rgba(255,255,255,0.8)";
+                ctx.font = "16px Quicksand";
+                // Mensaje adaptado según plataforma
+                const restartMsg = isTouchDevice
+                    ? "Toca SALTAR para reiniciar"
+                    : "Presiona ESPACIO o toca para reiniciar";
+                ctx.fillText(restartMsg, canvas.width/2, canvas.height/2 + 75);
+
+                return;
+            }
+
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.drawImage(imgFondo, 0, 0, canvas.width, canvas.height);
+
+            ctx.beginPath();
+            ctx.moveTo(0, 250);
+            ctx.lineTo(canvas.width, 250);
+            ctx.strokeStyle = "rgba(162,140,189,0.5)";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            yashiro.update();
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                if (particles[i].life <= 0) particles.splice(i, 1);
+            }
+
+            if (isInvulnerable) {
+                invulnerabilityTime--;
+                if (invulnerabilityTime <= 0) isInvulnerable = false;
+            }
+
+            // Boomerangs
+            for (let i = boomerangs.length - 1; i >= 0; i--) {
+                let boom = boomerangs[i];
+                boom.update();
+
+                if (boom.x > canvas.width) {
+                    boomerangs.splice(i, 1);
+                    continue;
+                }
+
+                for (let j = obstacles.length - 1; j >= 0; j--) {
+                    let obs = obstacles[j];
+                    if ((obs.image === imgEstrella || obs.image === imgEstrellaAzul) && !obs.isPowerUp) {
+                        if (boom.x < obs.x + obs.width &&
+                            boom.x + boom.width > obs.x &&
+                            boom.y < obs.y + obs.height &&
+                            boom.y + boom.height > obs.y) {
+
+                            obs.health--;
+                            spawnParticles(obs.x + obs.width/2, obs.y + obs.height/2, '#ffd700');
+
+                            if (obs.health <= 0) obstacles.splice(j, 1);
+
+                            boomerangs.splice(i, 1);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            frames++;
+
+            if (frames % 6 === 0) {
+                score++;
+            }
+
+            // gameTimeSeconds se actualiza una vez por segundo real
+            const newTime = Math.floor(frames / 60);
+            if (newTime !== gameTimeSeconds) {
+                gameTimeSeconds = newTime;
+
+                // ── Velocidad gradual y fluida ──
+                // Incremento muy pequeño cada 15s (suave)
+                if (gameTimeSeconds > 0 && gameTimeSeconds % 15 === 0) {
+                    gameSpeed = Math.min(gameSpeed + 0.15, 9);
+                }
+                // Incremento algo mayor cada 30s (notable pero no brusco)
+                if (gameTimeSeconds > 0 && gameTimeSeconds % 30 === 0) {
+                    gameSpeed = Math.min(gameSpeed + 0.25, 9);
+                    if (spawnRate > 60) spawnRate = Math.max(60, spawnRate - 3);
+                }
+            }
+
+            if (gameTimeSeconds > 0 && gameTimeSeconds % 50 === 0 && gameTimeSeconds !== lastStarRainTime) {
+                starRainActive = true;
+                lastStarRainTime = gameTimeSeconds;
+            }
+
+            if (starRainActive && gameTimeSeconds - lastStarRainTime >= 15) {
+                starRainActive = false;
+            }
+
+            // Dona: aparece cada 60s, se autodestruye a los 5s si no es recogida
+            if (gameTimeSeconds > 0 && gameTimeSeconds % 60 === 0 && gameTimeSeconds !== lastDonaSpawn) {
+                spawnDona();
+                lastDonaSpawn = gameTimeSeconds;
+            }
+            // Eliminar donas que llevan más de 5s en pantalla sin ser recogidas
+            for (let i = obstacles.length - 1; i >= 0; i--) {
+                if (obstacles[i].isPowerUp && gameTimeSeconds - lastDonaSpawn >= 5) {
+                    obstacles.splice(i, 1);
+                }
+            }
+
+            let adjustedSpawnRate = starRainActive ? 45 : spawnRate;
+            if (frames % adjustedSpawnRate === 0) spawnObstacle();
+
+            for (let i = 0; i < obstacles.length; i++) {
+                let obs = obstacles[i];
+                obs.update();
+
+                let yBox = yashiro.getHitbox();
+                let oBox = obs.getHitbox();
+
+                if (yBox.x < oBox.x + oBox.width &&
+                    yBox.x + yBox.width > oBox.x &&
+                    yBox.y < oBox.y + oBox.height &&
+                    yBox.y + yBox.height > oBox.y) {
+
+                    if (obs.isPowerUp) {
+                        isInvulnerable = true;
+                        invulnerabilityTime = 300;
+                        spawnParticles(obs.x + obs.width/2, obs.y + obs.height/2, '#ffd700');
+                        for (let k = 0; k < 15; k++) {
+                            powerUpParticles.push({
+                                x: yashiro.x + yashiro.width/2,
+                                y: yashiro.y + yashiro.height/2,
+                                vx: (Math.random() - 0.5) * 12,
+                                vy: (Math.random() - 0.5) * 12,
+                                life: 60,
+                                color: '#FFD700',
+                                draw() {
+                                    ctx.globalAlpha = this.life / 60;
+                                    ctx.fillStyle = this.color;
+                                    ctx.beginPath();
+                                    ctx.arc(this.x, this.y, 4, 0, Math.PI * 2);
+                                    ctx.fill();
+                                    ctx.globalAlpha = 1;
+                                },
+                                update() {
+                                    this.x += this.vx;
+                                    this.y += this.vy;
+                                    this.vy += 0.2;
+                                    this.life--;
+                                    this.draw();
+                                }
+                            });
+                        }
+                        obstacles.splice(i, 1);
+                        i--;
+                        continue;
+                    }
+
+                    if (!isInvulnerable) {
+                        isGameOver = true;
+                        combo = 0;
+                        spawnParticles(yashiro.x + yashiro.width/2, yashiro.y + yashiro.height/2, '#d32f2f');
+                        if (score > highScore) {
+                            highScore = score;
+                            localStorage.setItem('adashima_hs', highScore);
+                        }
+                    } else {
+                        obstacles.splice(i, 1);
+                        i--;
+                        continue;
+                    }
+                }
+
+                if (obs.x + obs.width < 0) {
+                    obstacles.splice(i, 1);
+                    i--;
+                    if (!obs.isPowerUp) {
+                        combo++;
+                        spawnParticles(yashiro.x + yashiro.width/2, yashiro.y + yashiro.height/2, '#4caf50');
+                    }
+                }
+            }
+
+            // ── UI ──
+            ctx.fillStyle = "rgba(0,0,0,0.4)";
+            ctx.font = "20px Quicksand";
+            ctx.textAlign = "left";
+            ctx.fillText(`Puntos: ${score}`, 22, 42);
+            ctx.textAlign = "right";
+            ctx.fillText(`Récord: ${highScore}`, canvas.width - 18, 42);
+
+            ctx.fillStyle = "rgb(255,255,255)";
+            ctx.font = "bold 20px Quicksand";
+            ctx.textAlign = "left";
+            ctx.fillText(`Puntos: ${score}`, 20, 40);
+            ctx.textAlign = "right";
+            ctx.fillText(`Récord: ${highScore}`, canvas.width - 20, 40);
+
+            if (combo >= 3) {
+                ctx.fillStyle = "rgba(0,0,0,0.5)";
+                ctx.font = "bold 28px Quicksand";
+                ctx.textAlign = "center";
+                ctx.fillText(`🔥 COMBO x${combo}`, canvas.width/2 + 2, 54);
+                ctx.fillStyle = "#ff9800";
+                ctx.fillText(`🔥 COMBO x${combo}`, canvas.width/2, 50);
+            }
+
+            if (isInvulnerable) {
+                let invulPercent = Math.ceil((invulnerabilityTime / 300) * 100);
+                ctx.fillStyle = "rgba(255,215,0,0.6)";
+                ctx.font = "bold 24px Quicksand";
+                ctx.textAlign = "center";
+                ctx.fillText(`🛡️ INVULNERABLE ${invulPercent}%`, canvas.width/2, canvas.height - 30);
+                ctx.strokeStyle = `rgba(255,215,0,${0.5 - (300 - invulnerabilityTime) / 1200})`;
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(yashiro.x + yashiro.width/2, yashiro.y + yashiro.height/2, yashiro.width/2 + 15, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
+            if (starRainActive) {
+                let timeRemainingInRain = 15 - (gameTimeSeconds - lastStarRainTime);
+                ctx.fillStyle = "rgba(100,200,255,0.7)";
+                ctx.font = "bold 32px Quicksand";
+                ctx.textAlign = "center";
+                ctx.fillText(`🌧️ LLUVIA DE ESTRELLAS - ${timeRemainingInRain}s`, canvas.width/2, 90);
+            } else {
+                let timeToNextEvent = 50 - (gameTimeSeconds % 50);
+                ctx.fillStyle = "rgba(255,255,255,0.5)";
+                ctx.font = "14px Quicksand";
+                ctx.textAlign = "center";
+                ctx.fillText(`Próx. Lluvia: ${timeToNextEvent}s`, canvas.width/2, 270);
+            }
+
+            for (let i = powerUpParticles.length - 1; i >= 0; i--) {
+                powerUpParticles[i].update();
+                if (powerUpParticles[i].life <= 0) powerUpParticles.splice(i, 1);
+            }
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // INPUT: teclado
+        // ─────────────────────────────────────────────────────────────
+        function handleKeyDown(e) {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (isGameOver) { resetGame(); animate(); }
+                else { yashiro.jump(); }
+            }
+            if (e.code === 'ArrowDown' && !isGameOver) {
+                e.preventDefault();
+                fireBoomerang();
+            }
+        }
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        // ─────────────────────────────────────────────────────────────
+        // INPUT: toque directo en canvas (saltar / reiniciar)
+        // Sólo para desktop táctil o cuando no hay botones móviles visibles
+        // ─────────────────────────────────────────────────────────────
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            // Si hay botones de móvil, el canvas sólo reinicia en game over
+            if (isTouchDevice) {
+                if (isGameOver) { resetGame(); animate(); }
+                // Saltar se hace con el botón dedicado
+            } else {
+                if (isGameOver) { resetGame(); animate(); }
+                else { yashiro.jump(); }
+            }
+        }, { passive: false });
+
+        // Click de ratón en canvas (desktop sin teclado)
+        canvas.addEventListener('click', () => {
+            if (!isTouchDevice) {
+                if (isGameOver) { resetGame(); animate(); }
+                else { yashiro.jump(); }
+            }
+        });
+
+        // ─────────────────────────────────────────────────────────────
+        // BOTONES MÓVILES
+        // ─────────────────────────────────────────────────────────────
+        // Botón SALTAR
+        btnJump.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if (isGameOver) { resetGame(); animate(); }
+            else { yashiro.jump(); }
+        }, { passive: false });
+
+        btnJump.addEventListener('click', () => {
+            if (isGameOver) { resetGame(); animate(); }
+            else { yashiro.jump(); }
+        });
+
+        // Botón DISPARAR BOOMERANG
+        btnShoot.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if (!isGameOver) fireBoomerang();
+        }, { passive: false });
+
+        btnShoot.addEventListener('click', () => {
+            if (!isGameOver) fireBoomerang();
+        });
+
+        // ─────────────────────────────────────────────────────────────
+        // INICIO
+        // ─────────────────────────────────────────────────────────────
+        animate();
+
+        window.addEventListener('online', () => {
+            window.location.reload();
+        });
+    </script>
+</body>
+</html>

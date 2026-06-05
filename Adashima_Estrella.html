@@ -1,0 +1,2997 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adashima Constelación</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Quicksand:wght@300;400;600&family=Pacifico&family=Yanone+Kaffeesatz:wght@400;600&family=Chewy&family=Nunito:wght@400;600;700&display=swap');
+
+        :root {
+            --sakura-pink: #fce4ec;
+            --sakura-dark: #f06292;
+            --hougetsu-blue: #e3f2fd;
+            --hougetsu-dark: #64b5f6;
+            --cream-white: #fffbf0;
+            --text-main: #5c4b51;
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --star-glow: rgba(255, 220, 180, 0.8);
+            --constellation-color: rgba(255, 200, 240, 0.9);
+            --deep-sky: rgba(10, 5, 30, 0.95);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            min-height: 100vh;
+            background: #0a051e;
+            color: #e8d5f0;
+            overflow-x: hidden;
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            width: 300px;
+            flex-shrink: 0;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+            background: linear-gradient(135deg, rgba(252,228,236,0.72), rgba(227,242,253,0.72));
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-right: 1px solid var(--glass-border);
+            box-shadow: 2px 0 20px rgba(135,107,145,0.12);
+            z-index: 11000;
+            transition: transform 0.4s cubic-bezier(0.25,0.8,0.25,1);
+            -webkit-overflow-scrolling: touch;
+        }
+        .sidebar::-webkit-scrollbar { width: 6px; }
+        .sidebar::-webkit-scrollbar-thumb { background: rgba(240,98,146,0.3); border-radius: 10px; }
+
+        .sidebar-inner {
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            min-height: 100%;
+        }
+
+        .sidebar-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+        .sidebar-box:hover { transform: translateY(-5px); }
+        .sidebar-box img {
+            width: 100%;
+            max-width: 220px;
+            filter: drop-shadow(0 8px 15px rgba(240,98,146,0.25));
+            transition: transform 0.3s ease;
+        }
+        .sidebar-box:hover img { transform: scale(1.03); }
+
+        .logo-label {
+            position: relative;
+            margin-top: -15px;
+            transform: rotate(-2deg);
+            font-family: 'Chewy', cursive;
+            font-size: 1.8rem;
+            color: #e63971;
+            text-align: center;
+            letter-spacing: 1px;
+            line-height: 1.1;
+            z-index: 10;
+            pointer-events: none;
+            width: 100%;
+            text-shadow:
+                -3px -3px 0 #fff, 3px -3px 0 #fff, -3px 3px 0 #fff, 3px 3px 0 #fff,
+                -3px 0px 0 #fff, 3px 0px 0 #fff, 0px -3px 0 #fff, 0px 3px 0 #fff,
+                0px 8px 15px rgba(230,57,113,0.4);
+        }
+        .logo-label span.to-text { font-size: 1.1rem; vertical-align: middle; }
+        .logo-label span.sub-text { display: block; font-size: 1.3rem; margin-top: -2px; }
+
+        .menu-btn {
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            width: 100%;
+            background: var(--glass-bg);
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+            box-sizing: border-box;
+        }
+        .menu-btn:hover {
+            background: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(240,98,146,0.15);
+            color: var(--sakura-dark);
+        }
+        .menu-btn i { font-size: 1.1rem; color: var(--hougetsu-dark); transition: color 0.3s; }
+        .menu-btn:hover i { color: var(--sakura-dark); }
+
+        .fb-btn {
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            width: 100%;
+            background: rgba(24,119,242,0.1);
+            color: #1877F2;
+            border: 1px solid rgba(24,119,242,0.2);
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+        }
+        .fb-btn i { color: #1877F2; }
+        .fb-btn:hover { background: #1877F2; color: white; transform: translateY(-3px); }
+        .fb-btn:hover i { color: white; }
+
+        .info-card {
+            background: rgba(255,255,255,0.5);
+            padding: 18px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            box-shadow: inset 0 0 10px rgba(255,255,255,0.5);
+        }
+        .info-card h4 {
+            margin: 0 0 10px 0;
+            font-size: 0.9rem;
+            color: var(--sakura-dark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Nunito', sans-serif;
+        }
+        .status-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--hougetsu-blue), var(--sakura-pink));
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+        .links-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 15px; }
+        .link-tag {
+            background: white; padding: 8px 12px; border-radius: 12px;
+            font-size: 0.85rem; text-decoration: none; color: var(--text-main);
+            font-weight: 600; transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: space-between;
+            border: 1px solid transparent; font-family: 'Nunito', sans-serif;
+        }
+        .link-tag:hover { border-color: var(--sakura-pink); background: var(--sakura-pink); color: var(--sakura-dark); transform: translateX(5px); }
+
+        .char-section { position: relative; }
+        .char-section::before, .char-section::after {
+            content: ''; position: absolute; color: var(--sakura-dark); opacity: 0.4;
+            animation: menu-twinkle 3s infinite ease-in-out;
+        }
+        .char-section::before { top: -10px; left: 10px; font-size: 1.2rem; }
+        .char-section::after { top: -5px; right: 20px; font-size: 0.8rem; animation-delay: 1.5s; }
+        @keyframes menu-twinkle {
+            0%,100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 0.7; transform: scale(1.2); }
+        }
+
+        /* Progress section */
+        .progress-card {
+            background: linear-gradient(135deg, rgba(20,10,40,0.85), rgba(40,20,70,0.85));
+            border: 1px solid rgba(255,180,220,0.3);
+            border-radius: 20px;
+            padding: 18px;
+            color: #f0d0ff;
+        }
+        .progress-card h4 { color: #ffb3d9; font-size: 0.9rem; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        .progress-bar-wrap { background: rgba(255,255,255,0.1); border-radius: 10px; height: 8px; margin-bottom: 8px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, #f06292, #64b5f6); transition: width 0.6s ease; }
+        .progress-text { font-size: 0.8rem; opacity: 0.8; text-align: center; }
+
+        /* ── MOBILE TOGGLE: checkbox puro, sin JS ── */
+        #nav-toggle { display: none; }
+
+        .nav-toggle-label {
+            display: none;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 12000;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(135,107,145,0.15);
+            transition: transform 0.25s ease, background 0.25s ease;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        .nav-toggle-label:hover { transform: scale(1.1); background: white; }
+
+        .nav-toggle-label .bar {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--sakura-dark);
+            border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            position: absolute;
+        }
+        .nav-toggle-label .bar:nth-child(1) { transform: translateY(-6px); }
+        .nav-toggle-label .bar:nth-child(3) { transform: translateY(6px); }
+
+        #nav-toggle:checked ~ .nav-toggle-label .bar:nth-child(1) { transform: translateY(0) rotate(45deg); }
+        #nav-toggle:checked ~ .nav-toggle-label .bar:nth-child(2) { opacity: 0; }
+        #nav-toggle:checked ~ .nav-toggle-label .bar:nth-child(3) { transform: translateY(0) rotate(-45deg); }
+
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 10999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        /* ── MAIN CONTENT ── */
+        .main-content {
+            flex: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        /* Sky canvas */
+        #sky-canvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            cursor: grab;
+            z-index: 10;
+        }
+        #sky-canvas:active { cursor: grabbing; }
+
+        /* Background image with parallax */
+        .sky-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('Imagenes/Fondo_Estrellado.png') center/cover no-repeat;
+            z-index: 0;
+        }
+        .sky-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(ellipse at center, rgba(10,5,30,0.3) 0%, rgba(5,0,20,0.7) 100%);
+            z-index: 1;
+        }
+
+        /* Title */
+        .sky-title {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            text-align: center;
+            pointer-events: none;
+        }
+        .sky-title h1 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2.8rem;
+            color: #ffe8f5;
+            text-shadow: 0 0 30px rgba(240,98,146,0.8), 0 0 60px rgba(100,181,246,0.4), 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 3px;
+            animation: title-glow 4s ease-in-out infinite;
+        }
+        .sky-title p {
+            font-size: 0.9rem;
+            color: rgba(255,200,230,0.8);
+            margin-top: 5px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        @keyframes title-glow {
+            0%,100% { text-shadow: 0 0 30px rgba(240,98,146,0.8), 0 0 60px rgba(100,181,246,0.4), 2px 2px 4px rgba(0,0,0,0.5); }
+            50% { text-shadow: 0 0 50px rgba(240,98,146,1), 0 0 100px rgba(100,181,246,0.6), 0 0 15px rgba(255,255,255,0.3), 2px 2px 4px rgba(0,0,0,0.5); }
+        }
+
+        /* Particles layer */
+        .particles {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particle-drift linear infinite;
+        }
+        @keyframes particle-drift {
+            0% { transform: translateY(100vh) translateX(0) scale(0.5); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) translateX(30px) scale(1); opacity: 0; }
+        }
+
+        /* Floating Adashima */
+        .floating-adashima {
+            position: absolute;
+            bottom: 80px;
+            right: 20px;
+            width: 130px;
+            z-index: 30;
+            pointer-events: none;
+            animation: float-adashima 7s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(200,150,255,0.5));
+        }
+        .floating-adashima img { width: 100%; display: block; }
+        @keyframes float-adashima {
+            0%,100% { transform: translateY(0) rotate(-3deg); }
+            33% { transform: translateY(-18px) rotate(3deg); }
+            66% { transform: translateY(8px) rotate(-2deg); }
+        }
+
+        /* HUD */
+        .hud {
+            position: absolute;
+            top: 100px;
+            right: 15px;
+            z-index: 30;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: all;
+        }
+        .hud-btn {
+            background: rgba(20,10,40,0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,180,220,0.3);
+            color: #ffb3d9;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: 0.8rem;
+            font-family: 'Quicksand', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-weight: 600;
+        }
+        .hud-btn:hover {
+            background: rgba(240,98,146,0.2);
+            border-color: rgba(240,98,146,0.6);
+            transform: translateX(-3px);
+        }
+
+        /* Constellation list panel */
+        .const-panel {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+            pointer-events: all;
+            padding: 0 8px;
+            max-width: 85%;
+            max-height: none;
+            overflow: visible;
+        }
+        .const-chip {
+            background: transparent;
+            backdrop-filter: none;
+            border: none;
+            border-radius: 20px;
+            padding: 4px 10px;
+            font-size: 0.68rem;
+            color: rgba(255,200,230,0.7);
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            line-height: 1.2;
+        }
+        .const-chip:hover { background: transparent; color: #ffb3d9; border-color: transparent; }
+        .const-chip.done { border-color: transparent; color: #ffd166; background: transparent; }
+        .const-chip i { font-size: 0.6rem; }
+
+        /* ── MODALS ── */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(5,0,20,0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .modal-overlay.show { opacity: 1; }
+
+        .modal-dialog {
+            max-width: 95vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.85) translateY(40px);
+            transition: all 0.45s cubic-bezier(0.175,0.885,0.32,1.275);
+            border-radius: 24px;
+            position: relative;
+        }
+        .modal-overlay.show .modal-dialog { transform: scale(1) translateY(0); }
+        .modal-dialog::-webkit-scrollbar { width: 6px; }
+        .modal-dialog::-webkit-scrollbar-thumb { background: rgba(240,98,146,0.4); border-radius: 10px; }
+
+        .btn-close-modal {
+            position: absolute; top: 15px; right: 20px;
+            background: white; border: none; color: var(--sakura-dark);
+            font-size: 1.1rem; width: 36px; height: 36px;
+            border-radius: 50%; cursor: pointer;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 100;
+            transition: all 0.3s ease;
+        }
+        .btn-close-modal:hover { transform: scale(1.1) rotate(90deg); background: var(--sakura-pink); }
+
+        /* Binder cards (reutilizadas de menu.html) */
+        .binder-page {
+            background-color: var(--cream-white);
+            background-image:
+                linear-gradient(90deg, transparent 58px, #abced4 58px, #abced4 60px, transparent 60px),
+                repeating-linear-gradient(transparent, transparent 34px, #e1e8ed 34px, #e1e8ed 35px);
+            width: 100%;
+            max-width: 700px;
+            border-radius: 15px 35px 35px 15px;
+            box-shadow: 15px 15px 35px rgba(0,0,0,0.3), inset 0 0 20px rgba(255,255,255,0.8);
+            position: relative;
+            padding: 50px 45px 50px 80px;
+            border-left: 18px solid #ffcc80;
+            box-sizing: border-box;
+            font-family: 'Yanone Kaffeesatz', sans-serif;
+            color: #333;
+        }
+        .binder-page .holes {
+            position: absolute; left: -10px; top: 5%; height: 90%;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .binder-page .hole {
+            width: 22px; height: 22px; background: #2c2c2c;
+            border-radius: 50%; box-shadow: inset 3px 3px 6px rgba(0,0,0,0.8), 1px 1px 1px rgba(255,255,255,0.5);
+        }
+        .binder-page h2.section-title {
+            font-family: 'Pacifico', cursive;
+            background: linear-gradient(135deg, var(--sakura-dark), #ff94c2);
+            color: white; font-size: 1.8rem; padding: 5px 20px;
+            border-radius: 15px; margin: 30px 0 20px 0;
+            font-weight: normal; display: inline-block;
+            box-shadow: 0 4px 10px rgba(240,98,146,0.3);
+            transform: rotate(-2deg);
+        }
+        .binder-page .profile-section { display: flex; gap: 30px; align-items: center; }
+        .binder-page .profile-text { flex: 1; font-size: 1.5rem; line-height: 35px; font-weight: 600; }
+        .binder-page .highlight { background: rgba(255,235,59,0.4); padding: 0 6px; border-radius: 5px; }
+        .binder-page .profile-image-container {
+            width: 200px; height: 240px; border: 6px solid white;
+            border-radius: 15px; overflow: hidden; flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); transform: rotate(3deg);
+            transition: transform 0.3s ease;
+        }
+        .binder-page .profile-image-container:hover { transform: rotate(0deg) scale(1.05); }
+        .binder-page .profile-image-container img { width: 100%; height: 100%; object-fit: cover; }
+        .binder-page .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 30px; }
+        .binder-page .qa-item { display: flex; flex-direction: column; margin-bottom: 15px; }
+        .binder-page .qa-label { font-size: 1.2rem; color: #757575; font-weight: 600; margin-bottom: 4px; }
+        .binder-page .qa-answer {
+            background: rgba(227,242,253,0.7); border-radius: 10px; padding: 10px 15px;
+            font-size: 1.4rem; font-weight: 600; border-bottom: 2px solid var(--hougetsu-dark);
+        }
+        .binder-page .yes-no-container {
+            display: flex; justify-content: space-around; align-items: center;
+            background: rgba(255,255,255,0.5); border-radius: 10px;
+            padding: 10px 15px; font-size: 1.4rem; font-weight: 600;
+            border: 1px dashed #ccc;
+        }
+        .binder-page .circle-highlight { position: relative; z-index: 1; color: #4da6ff; }
+        .binder-page .circle-highlight::before {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            width: 50px; height: 50px; border: 3px solid #4da6ff;
+            border-radius: 50%; z-index: -1; opacity: 0.6;
+        }
+        #adachiModal .binder-page { border-left-color: var(--sakura-dark); }
+        #adachiModal .qa-answer { background: rgba(252,228,236,0.7); border-bottom-color: var(--sakura-dark); }
+        #shimamuraModal .binder-page { border-left-color: var(--hougetsu-dark); }
+        #shimamuraModal .binder-page h2.section-title { background: linear-gradient(135deg, var(--hougetsu-dark), #90caf9); box-shadow: 0 4px 10px rgba(100,181,246,0.3); }
+
+        /* Reward modal */
+        .reward-modal-content {
+            background: linear-gradient(135deg, rgba(15,8,35,0.97), rgba(30,15,55,0.97));
+            border: 1px solid rgba(255,180,220,0.3);
+            border-radius: 24px;
+            padding: 40px 30px;
+            max-width: 500px;
+            width: 90vw;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-height: 85vh; /* Asegura que no se desborde en móvil */
+        }
+        .reward-modal-content::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(240,98,146,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .reward-modal-content h2 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.8rem;
+            color: #ffd6f0;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(240,98,146,0.6);
+            flex-shrink: 0;
+        }
+        .reward-modal-content .reward-icon {
+            font-size: 3rem;
+            margin: 15px 0;
+            animation: reward-bounce 0.6s ease;
+            flex-shrink: 0;
+        }
+        @keyframes reward-bounce {
+            0% { transform: scale(0) rotate(-10deg); }
+            60% { transform: scale(1.2) rotate(5deg); }
+            100% { transform: scale(1) rotate(0); }
+        }
+        
+        /* Ajuste para que la historia en el modal tenga scroll */
+        .reward-modal-content p#reward-body {
+            font-size: 1.05rem;
+            color: rgba(255,200,230,0.9);
+            line-height: 1.7;
+            margin: 15px 0;
+            overflow-y: auto;
+            max-height: 40vh;
+            padding-right: 8px;
+            text-align: justify;
+            white-space: pre-wrap;
+        }
+        .reward-modal-content p#reward-body::-webkit-scrollbar { width: 6px; }
+        .reward-modal-content p#reward-body::-webkit-scrollbar-thumb { background: rgba(240,98,146,0.4); border-radius: 10px; }
+
+        .reward-modal-content .btn-close-reward {
+            margin-top: 20px;
+            background: linear-gradient(135deg, #f06292, #64b5f6);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+        .reward-modal-content .btn-close-reward:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(240,98,146,0.4);
+        }
+        .reward-stars {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; overflow: hidden;
+        }
+        .reward-star-particle {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: reward-star-fly 1.5s ease-out forwards;
+        }
+        @keyframes reward-star-fly {
+            0% { opacity: 1; transform: translate(0,0) scale(1); }
+            100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
+        }
+
+        /* Final event overlay */
+        #final-event-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: transparent;
+            z-index: 8999;
+            display: none;
+            pointer-events: none;
+        }
+        #final-event-overlay.show { display: block; }
+        .final-aurora {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg,
+                rgba(240,98,146,0) 0%,
+                rgba(100,181,246,0.15) 30%,
+                rgba(240,98,146,0.1) 60%,
+                rgba(255,220,100,0.05) 100%);
+            animation: aurora-wave 5s ease-in-out infinite;
+        }
+        @keyframes aurora-wave {
+            0%,100% { opacity: 0.6; transform: scaleY(1); }
+            50% { opacity: 1; transform: scaleY(1.05); }
+        }
+        .final-girls {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 30px;
+            align-items: flex-end;
+            animation: girls-appear 2s ease forwards;
+        }
+        @keyframes girls-appear {
+            0% { opacity: 0; transform: translateX(-50%) translateY(60px); }
+            100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+        .final-girl-img { width: 140px; filter: drop-shadow(0 0 25px rgba(255,180,220,0.8)); }
+        .final-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-60%);
+            text-align: center;
+            pointer-events: all;
+        }
+        .final-message h2 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2.2rem;
+            color: #ffe8f5;
+            text-shadow: 0 0 30px rgba(240,98,146,1), 0 0 60px rgba(100,181,246,0.7);
+            animation: pulse-glow 3s ease-in-out infinite;
+            line-height: 1.4;
+        }
+        @keyframes pulse-glow {
+            0%,100% { text-shadow: 0 0 30px rgba(240,98,146,1), 0 0 60px rgba(100,181,246,0.7); }
+            50% { text-shadow: 0 0 50px rgba(240,98,146,1), 0 0 100px rgba(100,181,246,1), 0 0 20px white; }
+        }
+        .final-message p { color: rgba(255,210,240,0.9); font-size: 1.1rem; margin-top: 15px; line-height: 1.7; }
+        .final-close-btn {
+            margin-top: 20px;
+            background: linear-gradient(135deg, rgba(240,98,146,0.8), rgba(100,181,246,0.8));
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto 0;
+            transition: all 0.3s;
+        }
+        .final-close-btn:hover { transform: scale(1.05); }
+
+        .btn-all-stories {
+            background: linear-gradient(90deg, rgba(240,98,146,0.8), rgba(100,181,246,0.8));
+            color: white;
+            border: 1px solid rgba(255,180,220,0.4);
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(240,98,146,0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-all-stories:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(240,98,146,0.5);
+        }
+
+        /* Contenedor Final de Descarga */
+        #final-download-container {
+            position: absolute;
+            left: 50%;
+            top: 160px; /* Debajo del título central */
+            transform: translateX(-50%);
+            z-index: 8500;
+            display: none; /* Se oculta por defecto hasta completar todo */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px 25px;
+            border-radius: 20px;
+            background: rgba(20,10,50,0.85);
+            border: 1px solid rgba(255,180,220,0.55);
+            box-shadow: 0 8px 32px rgba(240,98,146,0.35), 0 4px 12px rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            width: 90vw;
+            max-width: 500px;
+            text-align: center;
+            pointer-events: auto;
+            transition: all 0.5s ease;
+        }
+        
+        .final-download-text {
+            font-size: 1rem;
+            color: #ffd6f0;
+            line-height: 1.5;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        /* When sidebar is open on mobile, hide the final container so it never overlaps */
+        @media (max-width: 900px) {
+            body.sidebar-open #final-download-container {
+                display: none !important;
+            }
+        }
+
+        /* Tooltip */
+        .star-tooltip {
+            position: fixed;
+            background: rgba(15,8,35,0.92);
+            border: 1px solid rgba(255,180,220,0.4);
+            border-radius: 12px;
+            padding: 8px 14px;
+            font-size: 0.8rem;
+            color: #ffd6f0;
+            pointer-events: none;
+            z-index: 40;
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+        }
+
+        /* Sound toggle */
+        .sound-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 40;
+            background: rgba(20,10,40,0.7);
+            border: 1px solid rgba(255,180,220,0.3);
+            color: #ffb3d9;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .sound-toggle:hover { background: rgba(240,98,146,0.2); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .nav-toggle-label { display: flex; }
+            .nav-overlay { display: block; }
+            .main-content { width: 100%; }
+
+            .sidebar {
+                position: fixed;
+                top: 0; left: 0;
+                height: 100vh;
+                width: min(300px, 85vw);
+                transform: translateX(-110%);
+                border-radius: 0 30px 30px 0;
+                border-right: none;
+                box-shadow: 4px 0 30px rgba(135,107,145,0.25);
+                z-index: 11000;
+            }
+            /* Sidebar abierto cuando el checkbox está marcado */
+            #nav-toggle:checked ~ .sidebar { transform: translateX(0); }
+            /* Overlay visible cuando el checkbox está marcado */
+            #nav-toggle:checked ~ .nav-overlay { opacity: 1; pointer-events: auto; }
+
+            .sky-title h1 { font-size: 2rem; }
+        }
+
+        @media (max-width: 600px) {
+            .sky-title h1 { font-size: 1.6rem; letter-spacing: 1px; }
+            .sky-title p { font-size: 0.75rem; }
+            .const-panel { display: none !important; }
+            .const-chip { font-size: 0.6rem; padding: 3px 7px; }
+            .floating-adashima { width: 70px; bottom: 55px; right: 4px; }
+            .binder-page { padding: 40px 25px 40px 50px; }
+            .binder-page .profile-section { flex-direction: column; }
+            .binder-page .profile-image-container { margin: 0 auto; transform: rotate(0); }
+            .binder-page .grid-2 { grid-template-columns: 1fr; }
+            .binder-page h2.section-title { font-size: 1.4rem; }
+            .binder-page .qa-answer { font-size: 1.2rem; }
+            .hud { position: fixed !important; top: 70px; right: 8px; display: flex !important; z-index: 9000; }
+            .hud-btn { font-size: 0.65rem; padding: 7px 9px; }
+            .final-message {
+                top: 58%;
+                transform: translate(-50%, -50%);
+                max-width: 90vw;
+                padding: 20px;
+            }
+            .final-message h2 { font-size: 1.5rem; line-height: 1.2; }
+            .final-message p { font-size: 0.9rem; margin-top: 12px; line-height: 1.5; }
+            .final-close-btn { margin-top: 15px; padding: 10px 24px; font-size: 0.9rem; }
+            .btn-all-stories { padding: 8px 12px; font-size: 0.75rem; gap: 6px; }
+            #final-download-container {
+                top: 90px; /* Ajuste para móvil debajo del título más pequeño */
+                width: auto;
+                padding: 8px 10px;
+            }
+            .final-download-text { display: none; }
+            .final-girls { bottom: 20px; gap: 15px; }
+            .final-girl-img { width: 80px; }
+        }
+
+        @media (min-width: 901px) {
+            .reward-modal-content {
+                max-width: 900px;
+                width: 92vw;
+                padding: 50px 55px;
+            }
+            .reward-modal-content h2 { font-size: 2.1rem; }
+            .reward-modal-content p#reward-body {
+                font-size: 1.15rem;
+                line-height: 1.85;
+                max-height: 55vh;
+            }
+        }
+        
+        /* Download button in profile modals */
+        .btn-download-profile {
+            display: inline-flex; align-items: center; gap: 8px;
+            margin-top: 24px;
+            background: linear-gradient(135deg, var(--sakura-dark), #64b5f6);
+            color: white; border: none; padding: 10px 22px;
+            border-radius: 20px; font-family: 'Nunito', sans-serif;
+            font-weight: 700; font-size: 0.9rem; cursor: pointer;
+            transition: all 0.3s; box-shadow: 0 4px 12px rgba(240,98,146,0.25);
+        }
+        .btn-download-profile:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(240,98,146,0.4); }
+
+        /* PDF download button inside reward */
+        .btn-pdf-download {
+            display: inline-flex; align-items: center; gap: 8px;
+            margin-top: 12px;
+            background: rgba(255,180,220,0.15);
+            color: #ffb3d9; border: 1px solid rgba(255,180,220,0.4);
+            padding: 10px 20px; border-radius: 20px;
+            font-family: 'Quicksand', sans-serif; font-weight: 700;
+            font-size: 0.95rem; cursor: pointer; transition: all 0.3s;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        .btn-pdf-download:hover { background: rgba(240,98,146,0.3); color: white; transform: translateY(-2px); }
+
+        /* Unlock items in sidebar */
+        .unlock-item {
+            background: rgba(255,255,255,0.6);
+            border-radius: 10px;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease;
+            border: 1px solid transparent;
+            transition: border-color 0.3s, background 0.3s;
+            cursor: pointer;
+        }
+        .unlock-item:hover { border-color: rgba(240,98,146,0.5); background: rgba(255,255,255,0.85); }
+        .unlock-header {
+            display: flex; align-items: center; gap: 8px;
+            padding: 9px 12px;
+            font-size: 0.82rem; color: #5c4b51; font-weight: 600;
+            user-select: none;
+        }
+        .unlock-header .unlock-arrow {
+            margin-left: auto; font-size: 0.75rem;
+            color: var(--sakura-dark); opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .unlock-item:hover .unlock-arrow { opacity: 1; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<audio id="bg-audio" src="Estrella.mp3" loop preload="auto" style="display:none"></audio>
+
+<!-- ── MENÚ MÓVIL: checkbox como controlador de estado, cero JS ── -->
+<input type="checkbox" id="nav-toggle">
+<label class="nav-toggle-label" for="nav-toggle" aria-label="Abrir menú">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+</label>
+<!-- Overlay: al hacer clic desmarca el checkbox y cierra el sidebar -->
+<label class="nav-overlay" for="nav-toggle" aria-hidden="true"></label>
+
+<nav class="sidebar" id="sideMenu">
+    <div class="sidebar-inner">
+        <div class="sidebar-box">
+            <img src="Imagenes/Yashiro-Photoroom.png"
+                 alt="Adachi to Shimamura"
+                 onerror="this.style.display='none'">
+            <div class="logo-label">
+                Adachi <span class="to-text">to</span> Shimamura<br>
+                <span class="sub-text">Latinoamérica</span>
+            </div>
+        </div>
+
+        <a href="https://www.facebook.com/p/Adachi-to-Shimamura-Latinoamérica-61551058385796/"
+           target="_blank" class="fb-btn">
+            <i class="fab fa-facebook-f"></i> Visítanos en Facebook
+        </a>
+
+        <div class="progress-card" id="sidebar-progress">
+            <h4><i class="fas fa-star"></i> Constelaciones</h4>
+            <div class="progress-bar-wrap">
+                <div class="progress-bar-fill" id="prog-bar" style="width:0%"></div>
+            </div>
+            <div class="progress-text" id="prog-text">0 / 10 completadas</div>
+        </div>
+
+        <div class="info-card">
+            <h4><i class="fas fa-gift"></i> Desbloqueos</h4>
+            <div class="links-grid" id="unlocks-list">
+                <span style="font-size:0.82rem;color:#aaa;">Completa constelaciones para desbloquear recompensas...</span>
+            </div>
+        </div>
+
+        <div class="info-card char-section">
+            <h4><i class="fas fa-lock" id="profiles-lock-icon"></i> Perfiles</h4>
+            <div class="links-grid">
+                <button class="menu-btn" id="btn-shimamura" onclick="openProfileModal('shimamuraModal')" disabled style="opacity:0.4;cursor:not-allowed;">
+                    Hougetsu Shimamura <i class="fas fa-moon"></i>
+                </button>
+                <button class="menu-btn" id="btn-adachi" onclick="openProfileModal('adachiModal')" disabled style="opacity:0.4;cursor:not-allowed;">
+                    Sakura Adachi <i class="fas fa-leaf"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h4><i class="fas fa-book-reader"></i> Estado de la Novela</h4>
+            <span class="status-badge">En Publicación</span>
+        </div>
+
+        <div class="info-card">
+            <h4><i class="fas fa-heart"></i> Apoya la Obra Original</h4>
+            <div class="links-grid">
+                <a href="https://dengekibunko.jp/product/adashima/" target="_blank" class="link-tag">
+                    Novela Ligera <i class="fas fa-external-link-alt"></i>
+                </a>
+                <a href="https://comic-walker.com/detail/KC_004197_S?episodeType=first" target="_blank" class="link-tag">
+                    Manga <i class="fas fa-external-link-alt"></i>
+                </a>
+                <a href="https://kakuyomu.jp/works/1177354054897444952" target="_blank" class="link-tag">
+                    Blog del autor <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+        </div>
+
+        <a href="index.html" class="menu-btn">
+            <i class="fas fa-home"></i> Volver al Inicio
+        </a>
+    </div>
+</nav>
+
+<div class="main-content">
+    <div class="sky-bg" id="sky-bg"></div>
+    <div class="sky-overlay"></div>
+
+    <div class="particles" id="particles"></div>
+
+    <div class="sky-title">
+        <h1>Adashima Constelación</h1>
+        <p>Arrastra las estrellas para desbloquear historias extra y mucho más</p>
+    </div>
+
+    <canvas id="sky-canvas"></canvas>
+
+    <div class="hud">
+        <button class="hud-btn" onclick="showInstructions()">
+            <i class="fas fa-question-circle"></i><br>Ayuda
+        </button>
+        <button class="hud-btn" onclick="resetStars()">
+            <i class="fas fa-redo-alt"></i><br>Reset
+        </button>
+    </div>
+
+    <button class="sound-toggle" id="sound-btn" onclick="toggleSound()" title="Sonido">
+        <i class="fas fa-volume-mute" id="sound-icon"></i>
+    </button>
+
+    <div class="const-panel" id="const-panel"></div>
+
+    <div class="floating-adashima">
+        <img src="Imagenes/FlotanteEstrella.png" alt="Adashima" onerror="this.style.display='none'">
+    </div>
+
+    <div class="star-tooltip" id="star-tooltip"></div>
+
+    <div id="final-download-container">
+        <p class="final-download-text">Las historias ya desbloqueadas y contenido adicional/exclusivo se encuentran dentro del PDF recopilatorio.</p>
+        <button class="btn-all-stories" onclick="downloadAllMiniStories()">
+            <i class="fas fa-file-pdf"></i> Descargar todo
+        </button>
+    </div>
+</div>
+
+<div id="final-event-overlay">
+    <div class="final-aurora"></div>
+    <div class="final-message">
+        <h2>El cielo de Adashima<br>está completo</h2>
+        <button class="final-close-btn" onclick="closeFinalEvent()">Cerrar</button>
+    </div>
+    <div class="final-girls">
+        <img src="Imagenes/Carta adachi.png" class="final-girl-img" alt="Adachi" onerror="this.style.display='none'">
+        <img src="Imagenes/Carta shimamura.png" class="final-girl-img" alt="Shimamura" onerror="this.style.display='none'">
+    </div>
+</div>
+
+<div id="rewardModal" class="modal-overlay">
+    <div class="modal-dialog">
+        <div class="reward-modal-content">
+            <div class="reward-stars" id="reward-stars"></div>
+            <div class="reward-icon" id="reward-icon" style="display:none"></div>
+            <h2 id="reward-title">¡Recompensa desbloqueada!</h2>
+            <p id="reward-body">Texto de recompensa</p>
+            <div id="reward-pdf-btn" style="display:none; margin-top: auto;">
+                <button class="btn-pdf-download" onclick="downloadStoryPDF()">
+                    <i class="fas fa-file-pdf"></i> Descargar historia en PDF
+                </button>
+            </div>
+            <button class="btn-close-reward" onclick="closeRewardModal()">Continuar</button>
+        </div>
+    </div>
+</div>
+
+<div id="instructionsModal" class="modal-overlay">
+    <div class="modal-dialog">
+        <div class="reward-modal-content">
+            <button class="btn-close-modal" onclick="closeModal('instructionsModal')"><i class="fas fa-times"></i></button>
+            
+            <h2 style="flex-shrink:0;">Cómo jugar</h2>
+            <p id="reward-body" style="text-align:left;max-width:360px;margin:0 auto; max-height:50vh;">
+            <strong style="color:#ffb3d9;">Arrastra estrellas:</strong> Toca y mueve cualquier estrella libremente por el cielo.<br><br>
+
+            <strong style="color:#ffb3d9;">Forma constelaciones:</strong> Acerca las estrellas a los puntos marcados para completar cada figura.<br><br>
+
+            <strong style="color:#ffb3d9;">Desbloquea historias:</strong> Cada constelación completada habilita una historia especial del blog de Iruma relacionada con AdaShima.<br><br>
+
+            <strong style="color:#ffb3d9;">Recompensa final:</strong> Al completar las 10 constelaciones obtendrás acceso a todas las historias y a 2 tarjetas especiales de información de Adachi y Shimamura.<br><br>
+
+            <strong style="color:#ffb3d9;">Progreso guardado:</strong> Tu avance permanecerá almacenado automáticamente para que puedas volver después y descargar las historias o tarjetas sin necesidad de completar todo otra vez.
+            </p>
+            <button class="btn-close-reward" onclick="closeModal('instructionsModal')">¡Entendido!</button>
+        </div>
+    </div>
+</div>
+
+<div id="adachiModal" class="modal-overlay">
+    <div class="modal-dialog">
+        <button class="btn-close-modal" onclick="closeModal('adachiModal')"><i class="fas fa-times"></i></button>
+        <div class="binder-page">
+            <div class="holes"><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div></div>
+            <h2 class="section-title">Mi perfil</h2>
+            <div class="profile-section">
+                <div class="profile-text">
+                    Mi nombre es <span class="highlight">Adachi Sakura.</span><br>
+                    Shimamura me llama <span class="highlight">Adachi.</span><br>
+                    Mi cumpleaños es el <span class="highlight">19 de octubre.</span><br>
+                    Mi signo zodiacal es <span class="highlight">Libra,</span><br>
+                    y mi tipo de sangre es <span class="highlight">A.</span><br>
+                    Me considero <span class="highlight">normal,</span> pero Shimamura dice que soy <span class="highlight">rara.</span>
+                </div>
+                <div class="profile-image-container">
+                    <img src="Imagenes/Adachi_perfil.png" alt="Adachi Sakura" onerror="this.src='https://via.placeholder.com/200x240/fce4ec/f06292?text=Adachi'">
+                </div>
+            </div>
+            <h2 class="section-title">Mi favorito</h2>
+            <div class="grid-2">
+                <div class="qa-item"><span class="qa-label">Comida</span><div class="qa-answer">Mmm... Ninguna</div></div>
+                <div class="qa-item"><span class="qa-label">Color</span><div class="qa-answer">Colores suaves</div></div>
+                <div class="qa-item"><span class="qa-label">Género literario</span><div class="qa-answer">No se me ocurre nada</div></div>
+                <div class="qa-item"><span class="qa-label">Persona</span><div class="qa-answer" style="color:var(--sakura-dark);">Shimamura</div></div>
+            </div>
+            <h2 class="section-title">Rincón del “¿Y si…?”</h2>
+            <div class="qa-item"><span class="qa-label">¿En qué te gustaría renacer?</span><div class="qa-answer">Cualquier animal que le guste más a Shimamura</div></div>
+            <div class="qa-item"><span class="qa-label">Si pudieras tomar unas vacaciones de un año, ¿qué harías?</span><div class="qa-answer">Ir a la casa de Shimamura</div></div>
+            <h2 class="section-title">Rincón del AMOR</h2>
+            <div class="grid-2">
+                <div class="qa-item"><span class="qa-label">¿Hay alguien que te guste?</span><div class="yes-no-container"><span class="circle-highlight">SÍ</span><span>NO</span></div></div>
+                <div class="qa-item"><span class="qa-label">¿Te has confesado?</span><div class="yes-no-container"><span class="circle-highlight">SÍ</span><span>NO</span></div></div>
+            </div>
+            <div class="qa-item"><span class="qa-label">¿Cuál es tu tipo?</span><div class="qa-answer">Shimamura</div></div>
+            <div class="qa-item"><span class="qa-label">¿Cómo quieres que te llame tu pareja?</span><div class="qa-answer">Adachi</div></div>
+            <div class="qa-item"><span class="qa-label">¿Qué gesto acelera tu corazón?</span><div class="qa-answer">Esos momentos ocasionales en los que ella ríe de todo corazón</div></div>
+            <div class="qa-item"><span class="qa-label">¿A dónde te gustaría ir en una cita?</span><div class="qa-answer">Aguas termales</div></div>
+            <div style="text-align:center;">
+                <button class="btn-download-profile" onclick="downloadProfile('adachiModal')">
+                    <i class="fas fa-download"></i> Descargar perfil
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="shimamuraModal" class="modal-overlay">
+    <div class="modal-dialog">
+        <button class="btn-close-modal" onclick="closeModal('shimamuraModal')"><i class="fas fa-times"></i></button>
+        <div class="binder-page">
+            <div class="holes"><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div></div>
+            <h2 class="section-title">Mi perfil</h2>
+            <div class="profile-section">
+            <div class="profile-text">
+                Mi nombre es <span class="highlight">Shimamura Hougetsu.</span><br>
+                ¡Todos me llaman <span class="highlight">Shimamura!</span><br>
+                Mi cumpleaños es el <span class="highlight">10 de abril.</span><br>
+                Mi signo zodiacal es <span class="highlight">Aries,</span><br>
+                y mi tipo de sangre es <span class="highlight">B.</span><br>
+                En cuanto a mi personalidad, yo me considero una persona <span class="highlight">tranquila,</span> 
+                pero quienes me rodean suelen decir que soy <span class="highlight">apática.</span>
+            </div>
+                <div class="profile-image-container">
+                    <img src="Imagenes/PERFIL_SHIMAMURA.png" alt="Shimamura" onerror="this.src='https://via.placeholder.com/200x240/e3f2fd/64b5f6?text=Shimamura'">
+                </div>
+            </div>
+            <h2 class="section-title">Mi favorito</h2>
+            <div class="grid-2">
+                <div class="qa-item"><span class="qa-label">Comida</span><div class="qa-answer">Okonomiyaki y huevos revueltos</div></div>
+                <div class="qa-item"><span class="qa-label">Color</span><div class="qa-answer">Azul</div></div>
+                <div class="qa-item"><span class="qa-label">Género literario</span><div class="qa-answer">Ciencia ficción</div></div>
+                <div class="qa-item"><span class="qa-label">Persona</span><div class="qa-answer">Mmm... ¿Alguien devoto?</div></div>
+            </div>
+            <h2 class="section-title">Rincón del “¿Y si…?”</h2>
+            <div class="qa-item"><span class="qa-label">¿En qué te gustaría renacer?</span><div class="qa-answer">Perro</div></div>
+            <div class="qa-item"><span class="qa-label">Si pudieras tomar unas vacaciones de un año, ¿qué harías?</span><div class="qa-answer">Adachi probablemente vendría todos los días, así que algo con ella</div></div>
+            <h2 class="section-title">Rincón del AMOR</h2>
+            <div class="grid-2">
+                <div class="qa-item"><span class="qa-label">¿Hay alguien que te guste?</span><div class="yes-no-container"><span class="circle-highlight">Sí</span><span>No</span></div></div>
+                <div class="qa-item"><span class="qa-label">¿Te has confesado?</span><div class="yes-no-container"><span>Sí</span><span class="circle-highlight">No</span></div></div>
+            </div>
+            <div class="qa-item"><span class="qa-label">¿Cuál es tu tipo?</span><div class="qa-answer">Personas como mi novia</div></div>
+            <div class="qa-item"><span class="qa-label">¿Cómo quieres que te llame tu pareja?</span><div class="qa-answer">Shimamura</div></div>
+            <div class="qa-item"><span class="qa-label">¿Qué gesto acelera tu corazón?</span><div class="qa-answer">Cuando se pone toda nerviosa y sonrojada, pero no aparta la mirada</div></div>
+            <div class="qa-item"><span class="qa-label">¿A dónde te gustaría ir en una cita?</span><div class="qa-answer">Algún lugar cerca del mar</div></div>
+            <div style="text-align:center;">
+                <button class="btn-download-profile" onclick="downloadProfile('shimamuraModal')">
+                    <i class="fas fa-download"></i> Descargar perfil
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════
+// CONFIGURATION
+// ════════════════════════════════════════════════════════
+const TOTAL_CONSTELLATIONS = 10;
+
+// REWARDS MAP
+// Mini historias en hitos: 1, 2, 4, 5, 6, 7, 8, 9
+// Cartas (mantienen lógica actual): 3, 10
+const REWARDS = [
+    {
+        at: 1, type: 'mini_historia',
+        title: 'Happy birthday',
+        body: `Mientras pedaleaba como de costumbre, de repente me di cuenta de algo.
+Ahora que lo pienso, ¿cuándo era el cumpleaños de Shimamura?
+Como si me hubiera acordado de algo muy importante que había olvidado, me di la vuelta en el acto. Por supuesto, de camino a casa no había ni rastro de Shimamura. Me había dado cuenta, pero no sabía qué hacer y eso me carcomía por dentro.
+Me detuve y lo pensé un momento.
+Entonces bajé un pie, salté como un saltamontes y giré la bicicleta en la otra dirección.
+Si lo dejaba para mañana, estaba segura de que no podría dormir por la noche, así que decidí ir a felicitarla de inmediato.
+Mientras me dirigía a la casa de Shimamura, el sol se había ocultado a medias y la noche empezaba a despertar. El aire que aspiraba en la oscuridad era tan frío que parecía imitar al invierno. El invierno estaba por llegar.
+Lo que más me preocupaba ahora era si Shimamura siquiera saldría de debajo de las cobijas.
+Llegué a su casa. Mis ojos se dirigieron a la luz que escapaba por la ventana. Mientras la observaba, saqué el teléfono.
+“¿Hola, Shimamura?”
+Mientras hablaba, pensé en por qué la estaba llamando si había un timbre.
+«Bueno, ¿sí?»
+“Estoy frente a tu casa.”
+«¿Eh? ¿Qué pasa? Bueno, da igual, espera un momento.»
+“Sí.”
+Colgué. Me quedé quieta un instante, sosteniendo el teléfono contra mi pecho, y luego levanté la vista para esperar a Shimamura.
+“Adachi, de verdad apareces de la nada.”
+Shimamura salió. Ya no llevaba el uniforme. Y además venían otras dos personas con ella: la hermana menor de Shimamura y aquella chica con el color de pelo un poco raro. Las tres estaban masticando crujientemente las mismas galletas de arroz frito. Su postura era casi idéntica, y al verlas así, incluso la chica de cabello diferente parecía ser su hermana. Me desconcertó la inesperada cantidad de gente.
+“B-buenas noches.”	
+“Sí, buenas noches. Y eso que hace nada estábamos volviendo a casa juntas.”
+“Qué rara eres”, dijo Shimamura mientras seguía mordisqueando la galleta. ¿Rara? Siempre me dicen eso.
+Aun sintiéndome intimidada, le dije a lo que había venido.
+“¿Puedo, esto... celebrar tu cumpleaños ahora?”
+“¿Eh?”
+Shimamura abrió mucho los ojos, como si se preguntara de qué hablaba tan de repente. Era una expresión suya que veía a menudo.
+Supongo que, por lo general, soy demasiado impulsiva. Quisiera actuar con más lógica.
+“Es que… olvidé tu cumpleaños este año.”
+“Ah, claro. Mi cumpleaños es en abril. Yo también me había olvidado.”
+“¿Eh?”
+“¿De qué hablas? Yo sí te felicité.”
+La hermana de Shimamura tiró de la camiseta de su hermana. “¿Ah, sí?”, inclinó la cabeza Shimamura, y la pequeña infló las mejillas. “Ah, sí, sí, claro que pasó”, intentó arreglarlo Shimamura. “Mentira”, respondió la niña sin dejarle tiempo, descubriéndola al instante. “Jejeje”, Shimamura se rió para disimular.
+“Sí pasó, ¿verdad?”
+Shimamura buscó apoyo en la chica del cabello extraño, pero ella respondió con sorprendente calma: “Lo desconozco por completo.” Luego, me ofreció una galleta de arroz frito diciendo: “Tome una”. Vi que abrazaba la bolsa de dulces como si fuera un tesoro. ¿Se las estaba repartiendo a todas?
+“G-gracias.”
+Al aceptarla, me mostró una sonrisa amplia y muy amigable… No sabía muy bien cómo reaccionar.
+No se me daban bien los niños. O más bien, era consciente de que no se me daba bien tratar con la gente en general.
+“Entonces, ¿qué vamos a hacer para celebrar?”
+Preguntó Shimamura tras terminarse su galleta y limpiarse los dedos.
+“Eh…”
+Había venido por impulso, así que ni siquiera tenía un regalo preparado. ¿Qué hago?
+“¡F-feliz cumpleaños!”
+“Gracias.”
+Asentí torpemente con la cabeza, haciendo varias reverencias. Al menos había podido felicitarla… Le daría su regalo mañana.
+“¿Eso es todo?”
+“S-sí.”
+“Entonces… si no tienes nada que hacer, ¿quieres quedarte a cenar? Aunque habrá que esperar a que vuelva mi papá.”
+“¿Eh? Ah, sí… sí.”
+Comer con todos realmente sonaba agotador, pero quería pasar más tiempo con Shimamura, así que acabé asintiendo sin pensarlo. 
+“Entonces entra”, dijo haciéndome señas con la mano. 
+Aunque pensé que me estaba tratando como a un perro, la seguí igual.
+Mientras me quitaba los zapatos en la entrada, la hermana menor de Shimamura me observaba con una expresión ligeramente severa. ¿Debería saludarla?
+“B-buenas noches.”
+Cuando la saludé rígidamente, inclinó un poco la cabeza y enseguida salió corriendo detrás de su hermana.
+…Ninguna de las dos estaba acostumbrada.
+En la sala, la madre de Shimamura estaba relajada viendo televisión y riendo a carcajadas.
+“Así que, resulta que hoy es mi cumpleaños.”
+“¿Ah, sí? Has nacido, qué increíble.”
+La madre de Shimamura aplaudió con total desinterés. Luego, al verme esperando detrás, su rostro se suavizó.
+“Vaya, bienvenida.”
+La forma en que relajaba su expresión era muy parecida a la de Shimamura.
+“¿Has venido a pasar el rato a esta hora?”
+“Dice que vino porque olvidó felicitarme por mi cumpleaños.”
+“Qué chica tan interesante.”
+La madre de Shimamura se echó a reír despreocupadamente, mostrando los dientes y sacudiendo los hombros. Yo, por mi parte, me encogí avergonzada al escucharlo.
+Los adultos, al parecer, en vez de llamarte rara, intentaban ser considerados.
+“Ya veo, con que cumpleaños. Entonces te prepararé tu comida favorita.”
+“¿Qué es, qué es?”
+“El tamagoyaki casero de mamá.”
+“Claro, cómo no.”
+“Prepárate para llorar de emoción cuando lo pruebes.”
+La madre de Shimamura se levantó, y en cuanto ella dejó el sitio, Shimamura se sentó. Entonces su hermana menor se acomodó rápidamente entre las piernas de Shimamura.
+Ah…
+Casi dejé escapar un sonido sin querer.
+La hermana de Shimamura me miró hacia arriba, entrecerrando los ojos. Como diciendo: Es lo normal, ¿no?
+“Uuu...”, gemí internamente; como mi rival era quien era, no pude decir nada y me senté dócilmente al lado de Shimamura.
+“Entonces yo me pondré en la cabeza de Shimamura.”
+Trepa, trepa, trepa… la niña del pelo raro subió hábilmente desde sus hombros hasta su cabeza. ¿Su cabeza? Mientras yo lo dudaba, ella realmente se acomodó justo en la cima. Se aferró y se quedó tranquilamente ahí sentada.
+“¿No pesa?”
+“Curiosamente, no siento su peso.”
+Un mechón de su cabello azul pálido cayó, adornando a Shimamura. Un brillo casi luminoso bañó sus mejillas.
+“Más que nada, da calor.”
+“Todas están pegadas a mí”, dijo Shimamura con una sonrisa incómoda.
+“Feliz cumpleaños, Shimamura.”
+La chica rara la felicitó mientras agitaba los brazos sobre su cabeza. Shimamura levantó la vista y sonrió suavemente.
+“Gracias.”
+“¿Hoy habrá banquete?”
+“Te gusta el tamagoyaki, ¿no?”
+“¡Waa!”
+La chica de cabello extraño levantó los brazos emocionada. Por alguna razón, no se resbaló de su cabeza a pesar de haberse soltado.
+“Bueno, y ahora tu turno.”
+Shimamura picó la espalda de su hermana menor.
+La niña se giró haciendo un puchero.
+“Creo que obligar a la gente a hacer este tipo de cosas es de muy mal gusto.”
+“Está de moda.”
+Su respuesta no tenía ningún sentido.
+“Ya lo dije antes.”
+“No pasa nada por repetirlo.”
+Shimamura tomó el cabello atado de su hermana y empezó a moverlo de un lado a otro, jugando con él.
+“¡Graaah!”, gruñó la pequeña.
+Pareciendo satisfecha con la reacción, Shimamura se rio de forma inocente.
+A veces, al presenciar esa faceta tan infantil suya, siento que algo tan intenso como un mareo se arremolina dentro de mí.
+Sin previo aviso, Shimamura acercó su rostro al mío. Su cabello rozó mi cara como una caricia, y mis ojos empezaron a divagar, nerviosos.
+Ya estaba con el corazón acelerado de por sí. 
+“Quizás a Adachi no le guste mucho… pero a mí no me desagrada este ambiente.”
+“¿Eh? Ah, no, no es eso…”
+Antes de que pudiera excusarme diciendo que no me molestaba, Shimamura me miró fijamente a los ojos.
+“Si es posible, me gustaría que lo aceptaras.”
+Mientras decía eso, me atrajo hacia ella, abrazándome la cabeza, y mis pensamientos se dispersaron de golpe.
+Envuelta en algo suave y esponjoso, terminé asintiendo como si me hubieran hipnotizado.
+`,
+        pdf: 'Mini historias/Mini historia 1.pdf'
+    },
+    {
+        at: 2, type: 'mini_historia',
+        title: 'The Noes of Elephant',
+        body: `“Hace siglos que no iba al acuario, pero la verdad es que fue muy divertido. Vaya que ha cambiado ese lugar con los años.”
+“Ah.”
+“Si estuviera más cerca, iría todo el tiempo.”
+“Mmm…”
+“Sí. Fue muy divertido.”
+“A diferencia de hablar contigo.”
+“¿Por qué dices eso?”
+“Porque no escuchas ni una sola palabra de lo que digo.”
+“Claro que sí. Por cierto, ¿sabías que no sé nadar?”
+“Estoy casi segura de que nos conocimos en la piscina.”
+“Da igual. En fin, estaba pensando en ir al zoológico la próxima vez.”
+“Ah, sí.”
+“¡Tú también deberías venir!”
+“¿Eh?”
+
+
+“¡Va a ser divertido!”
+“Cállate.”
+No estaba muy segura de por qué, pero al final había dejado que aquella mujer me arrastrara con ella otra vez. Definitivamente había algún tipo de magia en sus irritantes payasadas y en esa forma de hablar que rozaba lo desesperante. Si la llenaras de mercancía o algo así y la pusieras a venderla, seguro podrías ganar bastante dinero.
+Tampoco es que fuera asunto mío, pensé para mis adentros mientras me dirigía a su casa. Allí, junto al auto, un grupo de personas me esperaba. Estaba ella —obviamente—, su esposo, su hija menor y luego… alguien más.
+Ella me vio enseguida y comenzó inmediatamente con sus tonterías habituales. En cuanto a su esposo, me saludó de una manera mucho más normal.
+“Buenos días.”
+“Buenos días. Perdón… no quiero entrometerme en su paseo familiar.”
+“No, no. Está bien. Cuantos más seamos, mejor.”
+“¿Oh? ¿Oh? ¿Quién es? Obviamente yo lo sé, pero ¿quién es?”
+Ambos la ignoramos.
+“Pero en serio, no te preocupes por eso. Además, no eres la única invitada que tenemos.”
+Su esposo rodeó a la niña con los brazos y la levantó, casi como si me estuviera enseñando al gato de la familia o algo así. Casualidad o no, la niña llevaba un mameluco —o quizá un pijama— con temática animal, así que tampoco era una comparación tan alejada de la realidad. Me quedé observando cómo sus pequeñas extremidades colgaban en el aire.
+No era la primera vez que me lo preguntaba, pero… ¿quién era exactamente ella? ¿Y por qué su cabello era tan… azul?
+“¿Y qué se supone que eres hoy?”
+“Un tigre.”
+Un intento de gruñido salió de su diminuta boca. Eso no sonaba como ningún tigre que hubiera escuchado en mi vida.
+“A mí me pareces más bien un gato muy colorido.”
+Dicho eso, su esposo soltó al gato —ejem, cachorro de tigre— solo para que su hija la atrapara en el aire. Luego empezaron a dar vueltas en círculos mientras se reían. A decir verdad, parecía que se lo estaban pasando bastante bien.
+“Los niños, ¿verdad? Jajaja.”
+La mujer parecía muy orgullosa de sí misma. ¿Okay…?
+“Claramente no es tuya. ¿Por qué siempre está rondando por tu casa?”
+“Ah, sí. Es una alienígena.”
+Sonó como si acabara de encontrar al tercer hijo perdido. ¿En serio? Miré al esposo esperando algún comentario adicional, pero él solo asintió.
+“Eso parece.”
+Sonaba como si apenas pudiera recordarlo.
+“…¿Y qué hace una alienígena en su casa?”
+“La trajo mi hija mayor. Y como es una niña bastante agradable, vive con nosotros.”
+“Así no funcionan las cosas. De verdad deberían… replantearse todo esto.”
+“No, no. Está bien. Me sigue cuando voy de compras y me cuenta todo tipo de cosas sobre el espacio. Es muy interesante hablar con ella.”
+Ahí iba otra vez, ignorándome por completo. ¿Alienígenas? ¿En serio? Aunque, viendo a la pequeña criatura jugueteando frente a mí, no podía negar que tenía una especie de… aura interplanetaria.
+“Qué suerte que casualmente se parece a un humano, ¿no? Sería difícil comunicarse con ella si pareciera más bien, no sé, un pez.”
+“…Personalmente, siento que tú no tendrías problemas comunicándote con un pez.”
+Me resultaba dolorosamente fácil imaginar la escena de ella escuchando emocionada la historia de vida de un pez nadando en una pequeña pecera mientras asentía repetidamente con la cabeza.
+Pero bueno, suficiente de eso. Teníamos un zoológico que visitar. ¿Cuántos años habían pasado desde la última vez? Esperaba que al menos hubieran conseguido animales más graciosos.
+Percibiendo que ya estaba lista para irme, la mujer levantó la mano y abrió la puerta del asiento trasero.
+“¡Yo me siento atrás!”
+“¿Oh? Pensé que tomarías el asiento del copiloto.”
+“Pues no. No quieres meterte con el conductor. Podrías morir.”
+“¿O podrías simplemente… no hacerlo? ¿Nunca lo has pensado?”
+“Eso sería aburrido.”
+Negándose a comentar más, la mujer entró al vehículo. Supuse que eso dejaba el asiento del copiloto para mí. Sinceramente, no me molestaba. Era mucho mejor que tener que sentarme a su lado, eso seguro.
+¿Cuándo fue la última vez que me senté en el asiento delantero? ¿Cuándo fue la última vez que estuve en un coche? Parecía que hoy estaba rompiendo muchas rachas.
+Con pensamientos de todo tipo fluyendo por mi mente, me volví hacia el parabrisas y… nada. Ningún rastro de sentimentalismo. Nada en absoluto.
+Detrás de mí, la niña alienígena —o cachorro de tigre, si lo preferías— había sido colocada en el asiento del medio, entre la mujer a un lado y su hija al otro. Alcancé a ver a la hija ponerle un pequeño caramelo en la boca.
+“Solo uno, ¿okay?”, creo que dijo.
+Las mejillas de la niña se inflaron al instante, hasta el punto de que sí, era prácticamente imposible verla como un tigre y no como un gato.
+“Dame uno a mí también.”
+“Solo uno, ¿okay?”
+La mujer se comió el caramelo con el mismo entusiasmo.
+Mirando a esas dos, terminé cruzando miradas con el cachorro de tigre.
+“Tú eres la mami de Adachi.”
+“Eh… ¿sí?”
+No solo tenía el cabello azul; también los ojos, brillando como un par de gemas. Incluso sus uñas y dientes tenían un ligero tono azulado.
+Sinceramente, estaba empezando a creerme eso de que era una alienígena. Desde luego sonaba más plausible que… cualquier otra alternativa.
+“Es un poco… diferente, ¿no?”
+Espero que puedan perdonarme por no encontrar las palabras adecuadas en este momento. Tampoco es que esperara estar hablando con una alienígena de camino al zoológico.
+“¿Yo?”
+“¿Sí? Tampoco es que haya otros bichos raros aquí.”
+“Bueno, hay una...”
+“Me está llamando bicho raro, papá.”
+“¿Mi propia hija? ¿Un bicho raro? Voy a llorar”, respondió el padre.
+“Qué cruel…”
+Oleadas de llanto falso me llegaron desde todas direcciones.
+“¿Qué pasa con esta familia...?”
+“Wahaha.”
+“Jajaja.”
+“Jejeje.”
+La verdad, la mujer no era el único ser extraño allí. Todos compartían ese título.
+
+
+El zoológico al que fuimos estaba ubicado fuera de la ciudad. Era absolutamente enorme e incluso tenía un jardín lleno de toda clase de plantas exóticas.
+Aunque ni de lejos tan grandioso, yo también recordaba haber visitado alguna vez un zoológico durante un viaje familiar.
+Mientras el olor de los animales y la vegetación llenaba el vehículo, aquellos recuerdos volvieron a mi mente.
+En aquel entonces, mi esposo todavía vivía conmigo. Y mi hija también.
+En estos días, solo estaba yo en esa casa. No es que me importara. En todo caso, sentía que vivir sola se adaptaba mejor a mi personalidad. Había pasado por todo eso, había construido una familia y luego, como si alguien hubiera pulsado un interruptor, lo había perdido todo.
+¿Me arrepentía de algo? No, la verdad es que no.
+Eso habría requerido una cierta cantidad de recuerdos felices... recuerdos de los que carecía.
+Empezamos a caminar juntos por el zoológico. No sabía si era real o solo mi mente jugándome una mala pasada, pero me pareció que la variedad de animales allí era mucho más diversa de lo que había sido en aquel otro zoológico tantos años atrás. Tenían tanukis, serows, pelícanos…
+Sinceramente, ¿cómo se las arreglaban para cuidarlos a todos? Trabajar allí debía de ser una pesadilla. Yo, por mi parte, a duras penas había podido criar a mi propia hija.
+Finalmente llegamos al recinto de los leones. Observé cómo la criatura devoraba majestuosamente un trozo de carne cruda antes de girarme hacia nuestro cachorro de tigre, que en ese momento estaba chupando un caramelo. Me pregunté cómo verían los animales a esa misteriosa alienígena. Además, ¿quién ganaría en una pelea: un alienígena o un león? Lo sé, lo sé. Ya estaba demasiado vieja para pensar en cosas así.
+A continuación, llegamos al aviario. Gritando más fuerte de lo que podría hacerlo cualquier pájaro, la mujer entró corriendo de inmediato con las niñas. Como no tenía muchas ganas de seguirla, decidí quedarme fuera esta vez.
+Mientras esperaba, sentí cómo la garganta comenzaba a secárseme. Inmediatamente empecé a buscar una máquina expendedora o algo parecido, pero entonces el esposo de la mujer apareció desde una esquina. Me hizo un pequeño gesto con la cabeza y yo se lo devolví antes de tomar la botella de té verde que me estaba ofreciendo.
+“Siento mucho eso. Simplemente se emociona demasiado cuando ve animales.”
+“Algunos nunca terminan de madurar, ¿eh?”, comenté en tono de broma, provocando que el hombre soltara una risa.
+“Y que lo digas. Es una persona muy inquieta, eso seguro. Siempre tiene que estar haciendo algo. También era así cuando nos conocimos. Pensé que con el tiempo se le pasaría, pero, si acaso, ha empeorado.”
+Era una manera bastante peculiar para que un esposo hablara de su esposa. Por otro lado, como alguien que había tenido la desgracia de conocerla desde hacía más de una década, definitivamente entendía a qué se refería. La mujer había dominado el arte de ser irritante, retirándose siempre justo cuando su víctima empezaba a perder los estribos. 
+“Se ha ganado unos cuantos amigos con su actitud, pero también una cantidad nada insignificante de enemigos. Y, sin embargo, sin importar cuántas veces le salga el tiro por la culata, ella simplemente sigue adelante. Personalmente, creo que eso es bastante admirable.”
+“Mmm… Tal vez.”
+Ser capaz de actuar tan amistosamente con gente a la que acababas de conocer tenía que ser una especie de don, no había otra forma de verlo.
+Yo, por mi parte, aún no había decidido si eso me gustaba o no.
+No pasó mucho tiempo antes de que la mujer, su hija y la alienígena regresaran del aviario. Las tres tenían enormes sonrisas en el rostro, señal de que habían disfrutado bastante la experiencia. El hombre se apartó de mi lado para ir a cuidar de las niñas y, como si tomara su lugar, la mujer caminó hacia mí.
+“¿De qué estaban hablando ustedes dos?”
+“De ti.”
+“¿En serio? Me vas a hacer sonrojar.”
+Miré en dirección al esposo de la mujer, solo para descubrirlo levantando en el aire a la niña de pelo azul y preguntándole a su hija si “parecían una jirafa”. ¿Qué? Bueno, no importa. No quería saberlo.
+“Es muy cabeza hueca, ese hombre. Mi hija mayor ha salido bastante a él.”
+“¿Tu hija mayor? Ah, cierto…”
+Se refería a la que vivía con mi hija… la persona con la que quería pasar el resto de su vida.
+“¿Y tú qué? ¿Te estás divirtiendo?”
+“Está bien.”
+“¡Ven aquí, déjame levantarte a ti también!”
+La mujer extendió los brazos como si hablara completamente en serio. Le di un golpe en la cabeza y suspiré.
+“Me acordé de la última vez que visité un zoológico. Hace ya décadas de eso.”
+“¿Tu hija estaba contigo?”
+“Sí, y mi esposo también. Mmm… Creo que había un peluche o algo así que ella quería. No sé por qué, pero nunca me pidió que se lo comprara. Aunque ahora sí desearía haberlo hecho. Siento que quizá las cosas habrían sido diferentes…”
+Tal vez debí haber tomado la iniciativa. Tal vez debí mostrarle mi afecto. Personalmente, siempre me molestó que la gente hiciera eso y, por instinto, asumí que ella también lo odiaba. Y aun así, estaba equivocada; aunque éramos madre e hija, difícilmente éramos la misma persona.
+Por alguna razón, la mujer decidió que la siguiente reacción era apropiada:
+“Bueno, en ese caso, ¿por qué no le compras ahora un peluche y se lo das?”
+“…Es una adulta. No una niña.”
+“¿Y? ¿Qué diferencia hay si lo haces ahora?”
+Dios, ¿cuánto podía llegar a fastidiar una persona?
+“¡A mí me encantaban los regalos cuando era pequeña y todavía me encantan ahora! ¡Dame algo!”
+“Cállate.”
+“¡Ya sea una jirafa o un elefante, me encantan todos!”
+“¿Qué voy a hacer contigo…?”
+“Aunque los tigres sí me dan un poco de miedo. No se parecen en nada a nuestro adorable tigrecito. No, ellos tienen ojos de asesino.”
+“…Bueno, sí. Eso es lo que hacen los tigres. Matan.”
+Esta conversación no iba a ninguna parte. Sentía cómo me irritaba más a cada segundo. Tampoco ayudaba que la mujer estuviera prácticamente gritando.
+No había una sola parte de ella con la que creyera que podría haberme llevado bien. Y aun así, juntas, de algún modo, todas esas partes lograban tocarme el corazón.
+Más brillante incluso que el sol, su genuina honestidad brillaba a través de mi frío exterior. Era como si estuviera naciendo de nuevo.
+Así que… eso pasó.
+Pasamos por la tienda de regalos de camino de regreso. Recordando el rostro lloroso de mi hija de hacía tantos años, terminé comprando un peluche de elefante.
+Lo levanté y, detrás de su cabeza, vi a Yoshika peleándose con un oso gigante.
+`,
+        pdf: 'Mini historias/Mini historia 12.pdf'
+    },
+    {
+        at: 3, type: 'perfil',
+        title: '¡Perfil de Shimamura desbloqueado!',
+        body: 'La carta de Shimamura Hougetsu ahora está disponible en el menú lateral.',
+        modalId: 'shimamuraModal'
+    },
+    {
+        at: 4, type: 'mini_historia',
+        title: 'El año pasado celebramos la Navidad, ¿qué tal si estas vacaciones de invierno hacemos algo diferente?',
+        body: `Si tan solo tuviéramos hobbies en común. Entonces tendría algo sobre lo cual escribirle.
+Intenté pensar en algo, cualquier cosa, pero no se me ocurrió absolutamente nada.
+Ya habían pasado dos días completos desde que decidí escribirle a Shimamura. Desde entonces, había pasado horas y horas tratando de encontrar un tema que fuera interesante y valiera la pena —y, más importante aún, que no me hiciera parecer un bicho raro— del que pudiéramos hablar, pero todos mis esfuerzos habían sido en vano. Era bastante extraño. Aunque no la había visto durante todas las vacaciones de invierno, me resultaba imposible pensar en algún tema en particular del que quisiera hablar con ella.
+¿Qué le gustaba a Shimamura? ¿Cuáles eran sus hobbies? Hundí la cabeza en mi almohada mientras intentaba encontrar una respuesta. Claro, no tendría ninguno de estos problemas si lo supiera. Quizá podríamos hablar de Año Nuevo. Después de todo, acababa de pasar. Aunque, pensándolo bien, dudaba que la conversación fuera mucho más allá de cuánto dinero nos habían dado nuestros padres. Hablando de mis padres, comenzaba a preocuparme que pronto tocaran a mi puerta si seguía pasando tanto tiempo pensando en esto. Claro, normalmente me dejaban hacer lo que quisiera, pero incluso ellos tenían sus límites. Con eso en mente, saqué mi teléfono y me obligué a escribir el siguiente mensaje.
+“¿Ha pasado algo interesante?”
+Qué mensaje tan aburrido, incluso para mí. Básicamente estaba dejándole la pelota a Shimamura, aunque, a estas alturas, ¿qué otra opción tenía? Con el mensaje ya enviado, coloqué lentamente el teléfono sobre mi almohada antes de meterme bajo las sábanas, incluyendo la cabeza. Si una olla vigilada nunca hierve, imaginé que lo mismo debía aplicar para los teléfonos.
+El truco pareció funcionar y, al poco tiempo, el dispositivo sonó. De inmediato salí de debajo de las sábanas, tomé mi teléfono y abrí el mensaje.
+“No realmente. Carita feliz.”
+Eso era todo. ¿Qué? ¿“Carita feliz”?
+¿Acaso había intentado escribir una carita sonriente de verdad, pero el autocorrector de su teléfono la había estropeado y no se había molestado en volver atrás para arreglarla? Teniendo en cuenta su personalidad, eso parecía sin duda una posibilidad real. Encajaba perfectamente con la percepción que tenía de ella.
+“Hmm… Mi percepción de ella…”
+Aunque ese mensaje encapsulaba perfectamente a Shimamura en mi mente, terminé preguntándome cómo me veía ella. Más exactamente, ¿cuál era su percepción de mí? Y no, antes de que saques conclusiones precipitadas, no lo decía en ningún sentido raro.
+Preguntándome por qué sentía la necesidad de poner excusas como esas, decidí preguntárselo directamente.
+“Oye, Shimamura. ¿Cómo me ves?”
+Me quedé en silencio unos instantes antes de pulsar finalmente el botón de “enviar”.
+Me pregunto, ¿habría hecho eso con alguien más? ¿O fue específicamente porque estaba hablando con Shimamura que decidí pensarlo dos veces? Antes de poder encontrar la respuesta a esas preguntas, mi teléfono sonó una vez más. Tomé el dispositivo y lo acerqué hacia mí.
+Una oleada de expectación e incertidumbre recorrió mi mente al abrir el mensaje. 
+“🥺”
+“¿Eh? ¿Q-Qué?”
+¿Un emoji? ¿Qué se suponía que significaba eso? Rápidamente le envié otro mensaje para que me lo aclarara.
+Como antes, no terminé teniendo que esperar mucho para recibir mi respuesta.
+“Esa es la cara que pones cuando sales corriendo llorando.”
+“...¿Qué? N-No lo creo...”
+Negué repetidamente con la cabeza hacia la pantalla como si ella pudiera verme. Naturalmente, no podía. Lo que sí ocurrió, sin embargo, fue que recibí un nuevo mensaje.
+“Aquí tienes una mejor imagen.”
+Este venía con un archivo adjunto. Era un dibujo de una versión caricaturizada de mí corriendo mientras lágrimas le caían por las mejillas y mantenía las manos levantadas. Y sí, estaba poniendo esa cara. Todo mientras gritaba “¡Shimamuraaa!”.
+El fondo era —por alguna razón— una llanura cubierta de hierba, con mariposas formando un círculo alrededor de un sol gigantesco con forma de remolino. En medio de todo estaba yo. Espera... Esa parte se veía muy distinta al resto. ¿Acaso lo había dibujado con su hermana?
+Me quedé observando fijamente el dibujo. Así era como Shimamura me veía. Esto era...
+“...¿Nobita Nobi?”
+¿Acaso me veía igual que Doraemon veía a Nobita cuando este corría hacia él llorando? Seguro que no. No podía ser. No. Una vez más, me cubrí la cabeza con las sábanas en un intento desesperado de negar aquella conclusión.
+Mientras mi piel rozaba la tela áspera, pude sentir cómo empezaba a calentarse un poco.
+
+El búmeran de antes seguía sobre mi estante. Le eché un vistazo rápido antes de poner el dibujo de Shimamura como fondo de pantalla de mi teléfono. ¿Habría alguien más en todo este mundo capaz de hacer algo así? Probablemente no. Ese pensamiento cruzó mi mente como una ráfaga de viento fresco, refrescando perfectamente mi piel ardiente.
+`,
+        pdf: 'Mini historias/Mini historia 3.pdf'
+    },
+    {
+        at: 5, type: 'mini_historia',
+        title: 'Quizá no estaba planeado que termináramos así dentro de diez años',
+        body: `El cielo, el día de la semana y mi humor se alinearon perfectamente, como las manecillas superpuestas de un reloj. Justo cuando me preparaba para ir a pescar, la puerta corrediza se abrió de golpe. Una pequeña figura con mangas bermellón ondeando entró corriendo.
+“¡Abuela!”
+“Al menos no te equivoques al llamarme.”
+Que me traten de tía es una cosa, pero que me llamen abuela ya es demasiado.
+Tengo cuatro hermanos mayores, todos con bastante diferencia de edad respecto a mí, y esta era la hija del cuarto. Tiene unos cinco años; es decir, es mi sobrina. Al igual que yo cuando era niña, a pesar de ser tan pequeña, la han vestido con un kimono en toda regla. Aunque, como ha estado corriendo de un lado a otro, se le ha aflojado bastante.
+“Tiita, juega conmigo.”
+Se aferró a mi manga. Cuando se pone así, es difícil lidiar con ella.
+“¿A quién llamas tiita?”
+“Padre me dijo que te llamara así.”
+“¿Ah?”
+“Dijo que decirte solo Tía no tiene ninguna gracia, así que para que sonara más lindo debía ser amable y decirte Tiita.”
+“Ese idiota de mi hermano.”
+Como siempre, su sentido de la consideración está un poco desviado.
+“Ve a que tu padre juegue contigo.”
+“No entiendo muy bien cómo juega padre.”
+“Sí, te entiendo, la verdad es que...”
+Para bien o para mal, mi hermano no trata a los niños como niños. Los trata como iguales, como adultos.
+Para ser la hija de un hermano tan rígido —un hombre que parece haber sido moldeado a presión en el estrecho espacio bajo las suelas de unas geta— es bastante atrevida. Si acaso, su temperamento se parece más al mío. Tal vez sea tradición entre los hijos de la familia Hino que los niños nazcan rígidos y las niñas sean más relajadas.
+“Aquí no hay nadie más que adultos aparte de ti, Tiita.”
+“Oye, ¿exactamente cómo me ves, eh?”
+Me gustaría que se decidiera de una vez si soy una tía o una niña.
+“Es que los adultos, cuando están ocupados, no juegan contigo.”
+“Yo también estoy ocupada, ¿sabes?”
+Bueno, aunque entiendo cómo se siente. Yo era exactamente igual. Incluso mi hermano más cercano en edad ya me parecía casi un adulto cuando yo era niña. Por eso dejaba que la sirvienta me llevara de la mano para ir a jugar a esa casa. Su casa, tan pequeña comparada con la nuestra, me resultaba increíblemente familiar y acogedora.
+Por ahora, parecía que mi sobrina no tenía amigos así.
+“Además, esta ropa es difícil para correr”, se quejó mi sobrina, extendiendo las mangas.
+“Acostúmbrate. Una vez que te acostumbres, hasta podrás dar volteretas hacia atrás con esa ropa.”
+Ooh, a mi sobrina le brillaron los ojos.
+“¡Oye, oye, enséñame!”
+“Tu tía, como puedes ver, está pensando en ir a pescar.”
+“¡Ándaleeee, ándaleeee, ándaleeee!”
+“...Oye.”
+Por alguna razón, me estaban tirando de las mangas desde dos lados diferentes. Miré hacia el lado que no era mi sobrina.
+Era Nagafuji.
+“¿En qué momento entraste?”
+“Estaba dando vueltas por el frente de la casa, y cuando vieron mi cara, me dejaron pasar.”
+“¿Por qué siempre te mueves como si fueras una persona sospechosa?”
+“Es que en la casa de Hino hay muchas cosas que ver en el jardín.”
+“Ah, qué pechos tan grandes.”
+Mi sobrina le sonrió inocentemente a Nagafuji. 
+Nagafuji se quedó de piedra.
+“¿Qué pasa, pechos grandes?”
+“Me pregunto quién te habrá enseñado a decir eso...”
+“Mi tiita.”
+“Oye, tiita.”
+“¿Qué pasa, pechos grandes?”
+No es mentira, ¿verdad que no? Mira. Le di unas palmadas en el pecho y, a cambio, recibí un manotazo en la cabeza.
+Incluso después de diez años, lo básico no cambia. Nuestra diferencia de altura tampoco se acortó al final.
+“Bueno, supongo que está bien.”
+“Si está bien, no me pegues...”
+Nagafuji se quitó las lentes y me miró fijamente.
+“A Hino le gustan los pechos grandes.”
+“...Oye.”
+Supongo que... no se equivoca.
+Las cosas que han aumentado y las que no han cambiado. Ambas están aquí, en esta habitación. Y, la verdad, el equilibrio no está nada mal.
+
+
+ 
+Hoy estábamos en pleno “test de rendimiento de la almohada Adachi”.
+Tumbada en el sofá, usaba el muslo de Adachi como almohada mientras veía la televisión. Era una formación sin ninguna abertura.
+Adachi se había dejado crecer el cabello más que antes y ahora se ponía los lentes para ver la tele.
+“Shimamura, cuando tienes tiempo libre, te duermes enseguida.”
+Su risa, “ahaha”, ahora sonaba mucho más natural. Había madurado bastante más que antes.
+En aquella época las dos éramos más bruscas o, mejor dicho, era como si recogiéramos emociones en bruto solo para romperlas después. A veces eran formas espinosas, otras veces suaves… Así es como lo recuerdo ahora.
+“Una vez escuché a tu madre decir que te encantaba dormir.”
+“Bueno, puede ser.”
+“Dijo que eras una niña que no daba problemas porque te la pasabas durmiendo.”
+“Hmm…”
+¿De verdad era así? Supongo que si me la pasaba durmiendo, es natural que no recuerde nada de eso.
+Me quedé medio divagando. Mi mejilla se hundía contra las suaves piernas de Adachi, y era agradable.
+Las dos viviendo juntas en un apartamento. Yendo casi siempre juntas a cualquier lugar.
+Desde la mañana hasta la noche, Adachi y Shimamura.
+No diré que fue absolutamente todo, pero creo que la mayor parte de lo que imaginamos hace diez años se ha hecho realidad.
+“Adachi.”
+“¿Hm?”
+“Parece un sueño.”
+Me pregunto si esta sensación de estar flotando se debe simplemente al letargo de estar quedándome dormida.
+“Sí.”
+Por alguna razón, me sentí bastante satisfecha con el sentimiento que Adachi había puesto en su respuesta.
+“Ah, es la hora del pronóstico del tiempo…”
+Murmuré perezosamente mientras seguía recostada, buscando el control remoto sin ganas. Giré los ojos en todas direcciones y vi que había rodado hasta el borde del sofá y se había caído.
+“Vaya.”
+Intenté alcanzarlo con la mano.
+“A ver...”
+Luego intenté alcanzarlo con el pie. Estaba en una mala posición, y a menos que me partiera la pierna por la mitad, el ángulo simplemente no daba. 
+“Me rindo con el clima.”
+“¿Está bien?”
+“Sí.”
+Asentí, recargando mi peso aún más sobre las piernas de Adachi.
+“Si llueve, nos quedamos en casa a pasar el rato. Si está soleado, salimos a divertirnos afuera.”
+Porque, sin importar lo que pase, estoy segura de que será un día divertido. 
+Me quedé acostada y comencé a adormecerme. La pantalla del televisor se fue difuminando hasta que ya no pude verla.
+“Suena bien.”
+Escuché la voz de Adachi justo antes de cerrar los ojos.
+Yo había querido responder “sí, suena bien”, pero no sé si llegó a escucharse.
+Por eso, decidí que se lo diría de nuevo en cuanto despertara.
+`,
+        pdf: 'Mini historias/Mini historia 5.pdf'
+    },
+    {
+        at: 6, type: 'mini_historia',
+        title: 'El misterio de la familia Shimamura',
+        body: `Últimamente hay tres cosas que me parecen extrañas.
+La primera es que Hougetsu se ve feliz todos los días.
+“¿Qué opinas, mamá?”
+“¿De qué?”
+Mi esposa, sentada en el suelo con la espalda encorvada mientras se cortaba las uñas de los pies, parecía no estar prestando ni la mitad de atención a la conversación.
+“Si se está divirtiendo, ¿qué tiene de malo?”
+“Sí, es cierto.”
+Durante las vacaciones de fin de año, Hougetsu normalmente siempre estaba somnolienta, o más bien se la pasaba durmiendo. Sin embargo, este año la he visto moverse bastante de un lado a otro. Al ver su perfil con una sonrisa pintada en el rostro mientras caminaba por el pasillo, no pude evitar que me surgiera esta pequeña duda.
+Desde que entró a la preparatoria, da la impresión de haber recuperado esa atmósfera tranquila que tenía cuando iba a la primaria. Durante sus años en la secundaria tuvo una etapa de rebeldía bastante complicada, por lo que llegué a preocuparme un poco por ella.
+“Pues yo siempre me estoy divirtiendo, ¿sabes?”
+“Ya veo. Qué envidia me das.”
+Parecía que mi esposa estaba en uno de esos momentos en los que apaga el cerebro. Justo cuando estaba por darme por vencido, fue ella quien continuó la conversación.
+“¿No será que consiguió novio?”
+“Novio... Ya veo.”
+Pensé que esa podría ser una opción. Aunque... ¿en serio?
+“O tal vez una novia.”
+“¿...Ya veo?”
+¿Qué significaba exactamente eso? Incliné la cabeza confundido mientras mi esposa soltaba una risa desagradable de “ke-ke-ke”.
+“Esa Adachi se ve un poco sospechosa.”
+“¿Sospechosa?”
+“Sí, bastante sospechosa.”
+“Adachi... ¿la chica de la otra vez?”
+“Sí, sí. La calladita.”
+Esa chica con Hougetsu... Mmm. ¿Mmm?
+“Es un mundo complicado.”
+“Bueno, quién sabe. ¡Listo! Con esto el misterio ha quedado resuelto.”
+Mi esposa cerró el asunto con una conclusión bastante vaga. Por mi parte, me quedé mirando alrededor de la habitación y hacia la distancia soltando un “ah” y un “oh”, sintiéndome un poco inquieto. Pero después de un rato, pensé que, bueno, no pasaba nada. No soy tan despreocupado como mi esposa, pero supongo que si mi hija se divierte, entonces todo está bien.
+Ahora, la segunda cosa. Esa niña que mi esposa lleva un buen rato cargando bajo el brazo.
+“Me da la impresión de que está brillando demasiado.”
+“Vaya que brilla, ¿eh?”
+“¡Estoy resplandeciente!”, respondió la niña brillante con total tranquilidad. Es una criatura misteriosa que, sin darme cuenta, siempre está por aquí.
+“Puedo brillar todavía más si quieren.”
+“No lo hagas, que vas a deslumbrarnos.”
+Como mi esposa no dejaba de cargarla, parecía realmente incómodo cortarse las uñas.
+“Es que si no la sujetas, enseguida va a abrir el refrigerador.”
+“¡Es que la cocina es muy divertiiida!”
+Los brazos y piernas de la niña brillante se agitaron con tremenda energía.
+“¿Por qué ustedes nunca miran dentro del refrigerador?”
+“¡Porque si lo abres, la comida se gasta!”
+“Pero... ¿por qué brilla?”
+“No tengo idea, pero de vez en cuando es útil. Como brilla incluso a mitad de la noche, te permite ver los alrededores.”
+“Pikaaa~”
+Acompañando su voz desganada, dio la impresión... de que brilló con aún más intensidad.
+Sin embargo, este resplandor azul claro me recordaba a algo que ya había visto en alguna parte... o tal vez no.
+“Tú solo haz de cuenta que es un gato parlante que se quedó a vivir aquí.”
+“Eso suena bien, pero ¿está bien que se quede?”
+Me gustan los gatos, pero ella es la hija de otra familia. ¿Acaso sus padres no dirán nada?
+“Por lo menos no es una villana.”
+“¿Tú crees?”
+“Nuestras hijas confían en ella.”
+Mi esposa soltó esa frase con total naturalidad. Ella es esa clase de persona.
+“Entonces, supongo que no hay de qué preocuparse.”
+“Sep.”
+“Ah, ahí está Yachii.”
+En cuanto nuestra hija asomó la cabeza por la habitación, mi esposa lanzó a la niña brillante hacia ella.
+“Toma, llévatela.”
+La niña salió volando tras el lanzamiento... ¿Acaso estaba flotando en el aire? Dio una vuelta lenta alrededor de la cabeza de mi hija y luego aterrizó sin hacer el menor ruido. Mientras lo hacía, una estela de partículas de luz azul claro se esparció flotando por el espacio.
+Sin poder evitarlo, me quedé con la boca abierta, incapaz de decir una palabra.
+“¡Entonces, Shou, vayamos de inmediato a la cocina!”
+“No iremos.”
+“¿Oh?”
+Mi hija tomó a la niña brillante de la mano y ambas salieron corriendo de inmediato.
+“...Ellas también parecen estar divirtiéndose allá.”
+“¿A que sí? Eso es bueno.”
+“Bueno, supongo que sí.”
+“¡Y yo también me estoy divirtiendo, je, je!”
+“Ya fue suficiente de eso.”
+“Pues claro que no basta”, respondió mi esposa mientras soltaba una risa escandalosa. Su manera de reír siempre había sido peculiar, y en el fondo agradecía que las niñas no hubieran heredado eso.
+“¿Y la tercera?”
+“¿Eh?”
+“Dijiste que había tres cosas extrañas.”
+Mi esposa comenzó a cortarse las uñas de la mano izquierda, que ahora le había quedado libre.
+“Qué sorpresa, resulta que sí me estabas escuchando.”
+“Siempre me han dicho que soy una mujer llena de sorpresas.”
+Creo que eso se refiere a otra cosa. Probablemente a que sueles aparecer de la nada como si brotaras de un espeso bambuzal, o algo por el estilo.
+“Vamos, pide tu último deseo.”
+“No era esa la intención… En realidad, me refería a que tú también te ves feliz.”
+“Ya te dije que me estoy divirtiendo.”
+“¿Quieres que te lo repita?”, me preguntó mi esposa dándose la vuelta con una sonrisa.
+“No, es solo que me pareció que estabas más animada de lo habitual.”
+“¿Ah, sí? Yo misma no lo noto mucho.”
+Se veía feliz, incluso por cosas que parecía no comprender del todo.
+Mi esposa, que siempre es un poco rara, continuó cortándose las uñas mientras tarareaba una melodía.`,
+        pdf: 'Mini historias/Mini historia 7.pdf'
+    },
+    {
+        at: 7, type: 'mini_historia',
+        title: 'Poco después',
+        body: `Mi reacción inicial cuando mi hija trajo a casa a su prometida fue de asombro.
+“......”
+Ese asombro se triplicó una vez que escuché que era una alumna suya que acababa de graduarse de la preparatoria.
+Para cuando me di cuenta de que era una chica, ya ni siquiera sabía qué decir.
+“¡Mucho gusto! ¡Soy Shimamura! ¡Shimamura Hougetsu! ¡Espero que nos llevemos bien, madre!”
+Qué chica tan ruidosa. Apenas nos habíamos sentado un momento y ya me estaba llamando “madre”. Aunque esperaba que algún día mi hija se casara y se fuera de casa, había tardado tanto que había empezado a preguntarme si alguna vez lo haría, lo cual era parte de la razón por la que todo esto me tomó tan por sorpresa.
+“Tú... ¿te vas a casar con ella?”
+Miré a mi hija mientras preguntaba esto. Los ojos de su prometida brillaban, casi como si le estuviera costando trabajo contenerse de responder por ella. Su expresión era de inocencia, sin mostrar ninguna señal de miedo de ningún tipo. Mi hija la miró, luego me miró a mí, y asintió.
+“Sí...”
+“¿Hmm? ¡Adacchi, anímate! ¡Eisai!”
+“Bueno, es que... no creí que haríamos esto literalmente el día en que te graduaras.”
+Necesito algo de tiempo para prepararme, parecía querer añadir con la expresión de su rostro. Ah, supongo que eso explicaba por qué la chica llevaba puesto su uniforme escolar.
+“Ay, por favor. He estado esperando este día durante muchísimo tiempo.”
+“Ojalá yo también hubiera sabido eso...”
+Una leve sonrisa apareció en su rostro, demostrando que no lo decía de forma del todo negativa.
+Bueno, en ese caso.
+“Si ambas quieren hacerlo... entonces supongo que no hay problema.”
+Por mi parte, no tenía ninguna razón para oponerme a esto. Solo estaba un poco sorprendida de que se fuera a casar con una alumna suya, eso es todo.
+La chica sí se veía mucho más joven que ella, pero repito, si ambas querían esto, supongo que estaba bien. Probablemente.
+“¿Escuchaste eso, Adacchi? ¡Dijo que está bien!”
+“Umm, ¿podrías llamarme señorita Adachi, al menos por esta vez?”
+“¡Traeré a mis padres la próxima vez! Mi madre especialmente es un poco... muy... ¡ligeramente animada!”
+“Claro...”
+No pude evitar tener un mal presentimiento; nunca antes había sonado tan evasiva respecto a nada. ¿Qué quería decir con “ligeramente animada”?
+“Bueno, entonces está decidido. Pasaré rápido por mi casa y tomaré un futón y una muda de ropa.”
+“¿Eh?”
+¿Esa exclamación fue mía o de mi hija? Era imposible saberlo.
+“¿Vas a vivir aquí?”
+“¡Por el momento! ¡Ah, pero no se preocupen! ¡Visitaré mucho a mis padres!”
+Con eso, la chica salió corriendo de la sala. Era tan alegre como toda la primavera del mundo junta. Pude escucharla rebuscar en la entrada y, finalmente, cerrar la puerta de golpe tras de sí.
+Su juventud era casi deslumbrante.
+Sentadas allí, ahora solo nosotras dos, mis ojos se encontraron con los de mi hija.
+“Técnicamente es mi exalumna, sí, pero eso fue cuando solía dar clases en la escuela primaria...”
+“Ya veo...”
+“Sé cómo se ve la diferencia de edad, pero si consideras eso...”
+Mientras mi hija intentaba explicarse lo mejor posible, se me ocurrió un pensamiento: ¿era esto lo que sentían todos los padres cuando sus hijos se casaban? Había esperado sentirme un poco más melancólica, pero en cambio, me recibió una ráfaga de viento que amenazaba con arrastrarme con ella hacia un cielo despejado.
+Aún así, estábamos hablando de mi hija.
+“Felicidades por tu matrimonio.”
+“Gracias...”
+Esas palabras eran probablemente todo lo que se requería de mí.
+Intentando asimilar el ramo de flores verbal que le había arrojado, ella inclinó la cabeza torpemente.
+Un momento después, sonrió.
+
+
+Al día siguiente, me presentaron a los padres de la chica, algo de lo que pronto me arrepentiría, pero esa es una historia para otro momento.`,
+        pdf: 'Mini historias/Mini historia 19.pdf'
+    },
+    {
+        at: 8, type: 'mini_historia',
+        title: 'Charlas de Adachi y Shimamura',
+        body: `Cuando regresé a la habitación, había una foca más.
+Más o menos ya sabía quién era, así que comparé a ambas desde arriba, preguntándome cuál era cuál, y levanté a una de ellas.
+Era la foca de siempre. Hola.
+“Jejeje... Has caído en la trampa.”
+La foca que quedaba en el suelo se puso de pie sobre dos patas con total naturalidad. Ya decía yo.
+La cara de la parte del gorro seguía siendo exactamente la de mi foca.
+“Hola, Shimamura.” 
+“Sí, hola, extraterrestre.”
+“Hoy he intentado mimetizarme como una foca.”
+“¿Por qué?”
+Comparado con cuando suele disfrazarse de tanuki o de ardilla, al menos esta vez sí lograba integrarse en la casa; en ese sentido, era un disfraz sorprendentemente convincente.
+“¡Waa!”
+“¡Es una rareza!”, celebró con ambos brazos en alto, rebosante de alegría.
+Sin embargo, no tenía la menor idea de qué ganaba mimetizándose como una foca. Quizá debería intentar usarla como almohada, tal como hago con la original.
+“¡Gyaaa!”
+La puse de lado e intenté apoyar la cabeza sobre ella, pero era tan extremadamente mullida que, de hecho, resultaba incómoda. ¿De qué demonios estará hecho este ser? Al tocarla, se sentía como la superficie del mar. Poder apoyar la cabeza sobre la superficie del agua era, sin duda, una sensación de lo más extraña. Bueno, da igual.
+“Ya casi es hora de almorzar, así que andando, foca número dos.”
+“¡Siiií!”
+Le hice un gesto de despedida a la foca real, que se quedó en la habitación, y me dirigí a la cocina acompañada por esa criatura tan rara.
+Era una escena de lo más cotidiana en nuestro hogar.`,
+        pdf: 'Mini historias/Mini historia 15.pdf'
+    },
+    {
+        at: 9, type: 'mini_historia',
+        title: 'Charlas de Adachi y Shimamura 2',
+        body: `Mi abuela, que vive en el campo, me envía fotos de Gon de vez en cuando. Cada vez que las veo, se mezclan en mí sentimientos de afecto, el alivio de saber que está bien y una especie de melancolía desgastadora. El destino final de esas emociones solía terminar en mis ojos y mi nariz.
+Se oye el sonido de una gota cayendo sobre la superficie del agua que se ha formado en mi corazón.
+Como si intentara ahogar ese sentimiento, un ruido alegre comenzó a resonar desde el pasillo. Cuando me asomé, vi a un hipopótamo caminando a paso ligero mientras agitaba unas maracas. Parece que le habían gustado mucho, porque últimamente la veía a menudo yendo de aquí para allá con una maraca en cada mano.
+“Oye, tú, la que parece no tener nada que hacer.”
+Se detuvo en seco. Tras quedarse pensando un “Hmm...”, decidió que no se trataba de ella y reanudó alegremente el rítmico shaka shaka de sus maracas.
+“No me equivoqué, hablo de ti.”
+“¡Vaya!”, exclamó, dando un brinco sobre una sola pata antes de acercarse a mí.
+“No pensaba que te referías a mí.”
+“Y a mí me sorprende que te sorprenda. Pero se te ve muy llena de energía.”
+“Es que llegó la temporada en la que la comida sabe mejor.”
+“¿Acaso hay alguna estación en la que no tengas apetito?”
+“La verdad es que no, pero...”
+Que goce de buena salud es excelente. Mientras contemplaba al hipopótamo de mejillas relucientes, se me ocurrió algo de repente.
+“Haz alguna pose.”
+El hipopótamo volvió a reflexionar con un “Hmm...” y, al final, extendió ambos brazos con un “¡Yaa!”, como un oso hormiguero intentando intimidar a alguien.
+“Bueno, con esto basta”, pensé, así que le tomé una foto y se la envié a mi abuela.
+La respuesta llegó enseguida.
+«¡¿Qué es esta criatura tan alegre?!»
+La forma en que reaccionó me hizo sentir la conexión de sangre que compartía con mi madre.
+«Este verano iremos juntas a visitarte.»
+Este año no la dejaré atrás; me la llevaré conmigo.
+Me di cuenta de que, aunque parece que nada cambia, hay pequeñas cosas que sí lo hacen.
+Sin pensarlo mucho, acaricié la cabeza del hipopótamo, que seguía firme en su postura amenazante.`,
+        pdf: 'Mini historias/Mini historia 16.pdf'
+    },
+    {
+        at: 10, type: 'perfil',
+        title: '¡Perfil de Adachi desbloqueado!',
+        body: 'La carta de Adachi Sakura ahora está disponible en el menú lateral.',
+        modalId: 'adachiModal'
+    }
+];
+
+// ════════════════════════════════════════════════════════
+// CONSTELLATION DEFINITIONS
+// ════════════════════════════════════════════════════════
+const CONSTELLATIONS = [
+    {
+        name: 'Elefante',
+        stars: [[0.50,0.10], [0.20,0.18], [0.06,0.42], [0.20,0.62], [0.80,0.18], [0.94,0.42], [0.80,0.62], [0.36,0.32], [0.64,0.32], [0.50,0.52], [0.38,0.70], [0.62,0.70], [0.50,0.90], [0.30,0.82], [0.70,0.82]],
+        edges: [[0,1],[0,4],[1,2],[2,3],[3,9],[4,5],[5,6],[6,9],[7,8],[9,10],[9,11],[10,12],[11,12],[9,13],[9,14]]
+    },
+    {
+        name: 'Boomerang',
+        stars: [[0.10,0.25], [0.28,0.48], [0.50,0.62], [0.72,0.48], [0.90,0.25]],
+        edges: [[0,1],[1,2],[2,3],[3,4]]
+    },
+    {
+        name: 'Lata',
+        stars: [[0.30,0.15], [0.70,0.15], [0.50,0.10], [0.30,0.85], [0.70,0.85], [0.50,0.90], [0.50,0.50]],
+        edges: [[0,2],[2,1],[0,1],[0,3],[1,4],[3,5],[5,4],[3,4],[6,0],[6,1],[6,3],[6,4]]
+    },
+    {
+        name: 'Corazón',
+        stars: [[0.50,0.85], [0.20,0.45], [0.10,0.25], [0.30,0.10], [0.50,0.28], [0.70,0.10], [0.90,0.25], [0.80,0.45]],
+        edges: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,0]]
+    },
+    {
+        name: 'Luna',
+        stars: [[0.55,0.05], [0.80,0.20], [0.92,0.45], [0.80,0.72], [0.55,0.88], [0.42,0.75], [0.32,0.50], [0.42,0.25]],
+        edges: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,0]]
+    },
+    {
+        name: 'Sakura',
+        stars: [[0.50,0.50], [0.50,0.08], [0.88,0.34], [0.74,0.85], [0.26,0.85], [0.12,0.34], [0.50,0.25], [0.73,0.40], [0.65,0.72], [0.35,0.72], [0.27,0.40]],
+        edges: [[0,6],[0,7],[0,8],[0,9],[0,10],[1,6],[2,7],[3,8],[4,9],[5,10],[6,7],[7,8],[8,9],[9,10],[10,6]]
+    },
+    {
+        name: 'Flecha',
+        stars: [[0.10,0.50], [0.28,0.50], [0.50,0.50], [0.72,0.50], [0.90,0.50], [0.68,0.22], [0.68,0.78], [0.15,0.32], [0.15,0.68]],
+        edges: [[0,1],[1,2],[2,3],[3,4],[4,5],[4,6],[0,7],[0,8]]
+    },
+    {
+        name: 'Dona',
+        stars: [[0.50,0.08], [0.82,0.25], [0.92,0.55], [0.78,0.85], [0.50,0.92], [0.22,0.85], [0.08,0.55], [0.18,0.25], [0.50,0.36], [0.68,0.55], [0.50,0.68], [0.32,0.55]],
+        edges: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,0],[8,9],[9,10],[10,11],[11,8]]
+    },
+    {
+        name: 'Ukelele',
+        stars: [[0.50,0.88], [0.30,0.72], [0.70,0.72], [0.25,0.52], [0.75,0.52], [0.30,0.35], [0.70,0.35], [0.50,0.22], [0.50,0.10], [0.40,0.05], [0.60,0.05]],
+        edges: [[0,1],[0,2],[1,3],[2,4],[3,5],[4,6],[5,7],[6,7],[7,8],[8,9],[8,10]]
+    },
+    {
+        name: 'Raqueta de Ping Pong',
+        stars: [[0.50,0.92], [0.50,0.75], [0.50,0.60], [0.32,0.48], [0.18,0.35], [0.22,0.18], [0.50,0.08], [0.78,0.18], [0.82,0.35], [0.68,0.48], [0.50,0.40]],
+        edges: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,2],[10,5],[10,6],[10,7]]
+    }
+];
+
+// ════════════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════════════
+const STORAGE_KEY = 'adashima_constellation_v2';
+
+let canvas, ctx;
+let stars = [];
+let completedCount = 0;
+let completedConsts = new Set();
+let soundEnabled = false;
+let dragging = null;
+let dragOffX = 0, dragOffY = 0;
+let mouseX = 0, mouseY = 0;
+let audioCtx = null;
+
+// ════════════════════════════════════════════════════════
+// PERSISTENCE
+// ════════════════════════════════════════════════════════
+function saveProgress() {
+    try {
+        const data = {
+            completedConsts: [...completedConsts],
+            completedCount,
+            starSnaps: stars.map(s => ({
+                x: s.x / canvas.width,
+                y: s.y / canvas.height,
+                snapped: s.snapped,
+                snappedConstId: s.snappedConstId,
+                snappedPointIdx: s.snappedPointIdx
+            }))
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch(e) {}
+}
+
+function loadProgress() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        return JSON.parse(raw);
+    } catch(e) { return null; }
+}
+
+function clearProgress() {
+    try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+}
+
+// ════════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════════
+function init() {
+    canvas = document.getElementById('sky-canvas');
+    ctx = canvas.getContext('2d');
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    generateStars();
+    restoreProgress();
+    buildConstellationPanel();
+    createParticles();
+    setupEventListeners();
+    drawLoop();
+}
+
+function restoreProgress() {
+    const saved = loadProgress();
+    if (!saved) return;
+
+    // Restore completions
+    completedConsts = new Set(saved.completedConsts || []);
+    completedCount = saved.completedCount || 0;
+
+    // Restore star positions/snaps
+    if (saved.starSnaps && saved.starSnaps.length === stars.length) {
+        saved.starSnaps.forEach((snap, i) => {
+            stars[i].x = snap.x * canvas.width;
+            stars[i].y = snap.y * canvas.height;
+            stars[i].snapped = snap.snapped;
+            stars[i].snappedConstId = snap.snappedConstId;
+            stars[i].snappedPointIdx = snap.snappedPointIdx;
+        });
+    }
+
+    // Restore UI state
+    completedConsts.forEach(ci => {
+        updateConstellationChip(ci);
+    });
+
+    const sortedRewards = REWARDS.filter(r => r.at <= completedCount).sort((a,b) => a.at - b.at);
+    if (sortedRewards.length > 0) {
+        document.getElementById('unlocks-list').innerHTML = '';
+        sortedRewards.forEach(r => addUnlockToSidebar(r, true));
+    }
+
+    // Restore profile unlocks explicitly
+    if (completedCount >= 3) unlockProfile('shimamura');
+    if (completedCount >= 10) unlockProfile('adachi');
+    if (completedCount >= 10) unlockAllStoriesButton();
+
+    updateProgress();
+
+    if (completedCount === TOTAL_CONSTELLATIONS) {
+        document.querySelector('.sky-overlay').style.background =
+            'radial-gradient(ellipse at center, rgba(100,50,120,0.2) 0%, rgba(30,10,60,0.5) 100%)';
+    }
+
+    completedConsts.forEach(ci => {
+        const c = CONSTELLATIONS[ci];
+        const { cx, cy, size } = getConstellationCenter(c);
+        stars.forEach(s => {
+            if (s.snapped && s.snappedConstId === ci && s.snappedPointIdx !== null) {
+                const [rx, ry] = c.stars[s.snappedPointIdx];
+                s.x = cx + (rx - 0.5) * size;
+                s.y = cy + (ry - 0.5) * size;
+            }
+        });
+    });
+}
+
+function resizeCanvas() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width || window.innerWidth;
+    canvas.height = rect.height || window.innerHeight;
+    if (stars.length) repositionStars();
+}
+
+function repositionStars() {
+    stars.forEach(s => {
+        if (s.snapped && s.snappedConstId !== null && s.snappedPointIdx !== null) {
+            const c = CONSTELLATIONS[s.snappedConstId];
+            if (c) {
+                const { cx, cy, size } = getConstellationCenter(c);
+                const [rx, ry] = c.stars[s.snappedPointIdx];
+                s.x = cx + (rx - 0.5) * size;
+                s.y = cy + (ry - 0.5) * size;
+            }
+        } else {
+            s.x = Math.min(Math.max(s.x, 20), canvas.width - 20);
+            s.y = Math.min(Math.max(s.y, 80), canvas.height - 60);
+        }
+    });
+}
+
+// ════════════════════════════════════════════════════════
+// STAR GENERATION
+// ════════════════════════════════════════════════════════
+function generateStars() {
+    stars = [];
+    const W = canvas.width;
+    const H = canvas.height;
+    const margin = 80;
+    const usableW = W - margin * 2;
+    const usableH = H - margin * 2 - 80;
+
+    let totalPoints = 0;
+    CONSTELLATIONS.forEach(c => totalPoints += c.stars.length);
+
+    const totalStars = totalPoints + 10;
+
+    for (let i = 0; i < totalStars; i++) {
+        const x = margin + Math.random() * usableW;
+        const y = margin + 80 + Math.random() * (usableH - 80);
+        const r = 8;
+        stars.push({
+            x, y, r, baseR: r,
+            glow: 0.5 + Math.random() * 0.5,
+            twinkleOffset: Math.random() * Math.PI * 2,
+            snapped: false,
+            snappedConstId: null,
+            snappedPointIdx: null
+        });
+    }
+}
+
+// ════════════════════════════════════════════════════════
+// DRAW LOOP
+// ════════════════════════════════════════════════════════
+function drawLoop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const t = Date.now() / 1000;
+
+    CONSTELLATIONS.forEach((c, ci) => {
+        if (completedConsts.has(ci)) return;
+        drawConstellationGuide(c, ci, t);
+    });
+
+    CONSTELLATIONS.forEach((c, ci) => {
+        if (!completedConsts.has(ci)) return;
+        drawConstellationLines(c, ci, t);
+    });
+
+    drawActiveConnections(t);
+
+    stars.forEach(s => {
+        const twinkle = 0.6 + 0.4 * Math.sin(t * 1.5 + s.twinkleOffset);
+        const completed = s.snapped && s.snappedConstId !== null && completedConsts.has(s.snappedConstId);
+        drawStar(s, twinkle, completed, t);
+    });
+
+    requestAnimationFrame(drawLoop);
+}
+
+function drawStarShape(cx, cy, outerR, innerR, points, color, alpha, glowSize, twinkle) {
+    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, glowSize * twinkle);
+    grad.addColorStop(0, `rgba(255,220,255,${alpha * 0.6})`);
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.beginPath();
+    ctx.arc(cx, cy, glowSize * twinkle, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.beginPath();
+    for (let i = 0; i < points * 2; i++) {
+        const angle = (i * Math.PI / points) - Math.PI / 2;
+        const r = i % 2 === 0 ? outerR * twinkle : innerR * twinkle;
+        const px = cx + Math.cos(angle) * r;
+        const py = cy + Math.sin(angle) * r;
+        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.restore();
+}
+
+function drawStar(s, twinkle, completed, t) {
+    const isSnapping = s.snapped && !completedConsts.has(s.snappedConstId);
+    const glowSize = completed ? 28 : (isSnapping ? 20 : 14);
+    const alpha = completed ? 1 : (0.55 + 0.45 * twinkle);
+    const color = completed
+        ? `hsl(${(t * 20 + s.snappedConstId * 36) % 360}, 85%, 82%)`
+        : (isSnapping ? '#ffd6f0' : '#ffe8f5');
+
+    drawStarShape(s.x, s.y, s.baseR, s.baseR * 0.42, 5, color, alpha, glowSize, twinkle);
+
+    if (completed) {
+        ctx.save();
+        ctx.globalAlpha = 0.35 * twinkle;
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(s.x - 14, s.y); ctx.lineTo(s.x + 14, s.y);
+        ctx.moveTo(s.x, s.y - 14); ctx.lineTo(s.x, s.y + 14);
+        ctx.stroke();
+        ctx.restore();
+    }
+}
+
+function getConstellationCenter(c) {
+    const cols = 2, rows = 5;
+    const ci = CONSTELLATIONS.indexOf(c);
+    const col = ci % cols;
+    const row = Math.floor(ci / cols);
+    const W = canvas.width, H = canvas.height;
+    const cellW = W / cols;
+    const cellH = (H - 120) / rows;
+    const cx = col * cellW + cellW * 0.5;
+    const cy = 100 + row * cellH + cellH * 0.5;
+    const size = Math.min(cellW, cellH) * 0.65;
+    return { cx, cy, size };
+}
+
+function drawConstellationGuide(c, ci, t) {
+    const { cx, cy, size } = getConstellationCenter(c);
+    const pts = c.stars.map(([rx, ry]) => ({
+        x: cx + (rx - 0.5) * size,
+        y: cy + (ry - 0.5) * size
+    }));
+
+    ctx.save();
+    ctx.setLineDash([4, 6]);
+    ctx.strokeStyle = 'rgba(200,150,255,0.22)';
+    ctx.lineWidth = 1.2;
+    c.edges.forEach(([a, b]) => {
+        ctx.beginPath();
+        ctx.moveTo(pts[a].x, pts[a].y);
+        ctx.lineTo(pts[b].x, pts[b].y);
+        ctx.stroke();
+    });
+    ctx.setLineDash([]);
+
+    pts.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(200,150,255,0.28)';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255,180,255,0.35)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+    });
+
+    const snapR = Math.min(70, Math.min(canvas.width, canvas.height) * 0.65 / 2 * 0.38);
+    pts.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, snapR, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(200,150,255,0.07)';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([2, 6]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+    });
+    ctx.restore();
+}
+
+function drawConstellationLines(c, ci, t) {
+    const { cx, cy, size } = getConstellationCenter(c);
+    const pts = c.stars.map(([rx, ry]) => ({
+        x: cx + (rx - 0.5) * size,
+        y: cy + (ry - 0.5) * size
+    }));
+
+    const hue = (ci * 36 + t * 10) % 360;
+    const glowAlpha = 0.6 + 0.3 * Math.sin(t * 2 + ci);
+
+    ctx.save();
+    ctx.shadowBlur = 20;
+    ctx.shadowColor = `hsla(${hue}, 80%, 70%, 0.8)`;
+    ctx.strokeStyle = `hsla(${hue}, 80%, 75%, ${glowAlpha})`;
+    ctx.lineWidth = 2;
+    c.edges.forEach(([a, b]) => {
+        ctx.beginPath();
+        ctx.moveTo(pts[a].x, pts[a].y);
+        ctx.lineTo(pts[b].x, pts[b].y);
+        ctx.stroke();
+    });
+    ctx.shadowBlur = 0;
+
+    const labelAlpha = 0.55 + 0.35 * Math.sin(t * 1.2 + ci * 0.7);
+    ctx.font = 'bold 11px Quicksand, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = `hsla(${hue}, 90%, 85%, ${labelAlpha})`;
+    const labelY = cy + size * 0.5 + 18;
+    ctx.fillText(c.name, cx, labelY);
+    ctx.font = '9px Quicksand, sans-serif';
+    ctx.fillStyle = `rgba(255,200,230,${labelAlpha * 0.7})`;
+    ctx.fillText('toca para ver recompensa', cx, labelY + 14);
+
+    ctx.restore();
+}
+
+function drawActiveConnections(t) {
+    CONSTELLATIONS.forEach((c, ci) => {
+        if (completedConsts.has(ci)) return;
+        const snappedStars = stars.filter(s => s.snapped && s.snappedConstId === ci);
+        if (snappedStars.length < 2) return;
+
+        const positions = new Array(c.stars.length).fill(null);
+        snappedStars.forEach(s => {
+            const { cx, cy, size } = getConstellationCenter(c);
+            const [rx, ry] = c.stars[s.snappedPointIdx];
+            positions[s.snappedPointIdx] = {
+                x: cx + (rx - 0.5) * size,
+                y: cy + (ry - 0.5) * size
+            };
+        });
+
+        ctx.save();
+        ctx.strokeStyle = 'rgba(255, 180, 240, 0.4)';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([5, 5]);
+        c.edges.forEach(([a, b]) => {
+            if (positions[a] && positions[b]) {
+                ctx.beginPath();
+                ctx.moveTo(positions[a].x, positions[a].y);
+                ctx.lineTo(positions[b].x, positions[b].y);
+                ctx.stroke();
+            }
+        });
+        ctx.setLineDash([]);
+        ctx.restore();
+    });
+}
+
+// ════════════════════════════════════════════════════════
+// SNAP / COMPLETION DETECTION
+// ════════════════════════════════════════════════════════
+function checkSnap(star) {
+    let bestDist = Infinity;
+    let bestConstId = null;
+    let bestPointIdx = null;
+
+    CONSTELLATIONS.forEach((c, ci) => {
+        if (completedConsts.has(ci)) return;
+        const { cx, cy, size } = getConstellationCenter(c);
+        const SNAP_R = Math.min(70, size * 0.38);
+
+        c.stars.forEach(([rx, ry], pi) => {
+            const slotTaken = stars.some(s =>
+                s !== star && s.snapped &&
+                s.snappedConstId === ci && s.snappedPointIdx === pi
+            );
+            if (slotTaken) return;
+
+            const tx = cx + (rx - 0.5) * size;
+            const ty = cy + (ry - 0.5) * size;
+            const dist = Math.hypot(star.x - tx, star.y - ty);
+            if (dist < SNAP_R && dist < bestDist) {
+                bestDist = dist;
+                bestConstId = ci;
+                bestPointIdx = pi;
+            }
+        });
+    });
+
+    if (bestConstId !== null) {
+        const c = CONSTELLATIONS[bestConstId];
+        const { cx, cy, size } = getConstellationCenter(c);
+        const [rx, ry] = c.stars[bestPointIdx];
+        star.x = cx + (rx - 0.5) * size;
+        star.y = cy + (ry - 0.5) * size;
+        star.snapped = true;
+        star.snappedConstId = bestConstId;
+        star.snappedPointIdx = bestPointIdx;
+        checkConstellationComplete(bestConstId);
+    } else {
+        star.snapped = false;
+        star.snappedConstId = null;
+        star.snappedPointIdx = null;
+    }
+}
+
+function checkConstellationComplete(ci) {
+    if (completedConsts.has(ci)) return;
+    const c = CONSTELLATIONS[ci];
+    const needed = c.stars.length;
+    const snappedStars = stars.filter(s => s.snapped && s.snappedConstId === ci);
+    if (snappedStars.length < needed) return;
+
+    const { cx, cy, size } = getConstellationCenter(c);
+    snappedStars.forEach(s => {
+        const [rx, ry] = c.stars[s.snappedPointIdx];
+        s.x = cx + (rx - 0.5) * size;
+        s.y = cy + (ry - 0.5) * size;
+        s.snapped = true;
+        s.snappedConstId = ci;
+    });
+
+    completedConsts.add(ci);
+    completedCount++;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const t = Date.now() / 1000;
+    CONSTELLATIONS.forEach((c2, ci2) => {
+        if (completedConsts.has(ci2)) return;
+        drawConstellationGuide(c2, ci2, t);
+    });
+    CONSTELLATIONS.forEach((c2, ci2) => {
+        if (!completedConsts.has(ci2)) return;
+        drawConstellationLines(c2, ci2, t);
+    });
+    drawActiveConnections(t);
+    stars.forEach(s => {
+        const twinkle = 0.8 + 0.2 * Math.sin(t * 1.5 + s.twinkleOffset);
+        const completed = s.snapped && s.snappedConstId !== null && completedConsts.has(s.snappedConstId);
+        drawStar(s, twinkle, completed, t);
+    });
+
+    playCompletionSound();
+    updateProgress();
+    updateConstellationChip(ci);
+    triggerReward(completedCount);
+    saveProgress();
+
+    if (completedCount === TOTAL_CONSTELLATIONS) {
+        unlockAllStoriesButton();
+        setTimeout(triggerFinalEvent, 1800);
+    }
+}
+
+// ════════════════════════════════════════════════════════
+// REWARDS
+// ════════════════════════════════════════════════════════
+function triggerReward(count) {
+    const reward = REWARDS.find(r => r.at === count);
+    if (!reward) return;
+
+    if (reward.modalId === 'shimamuraModal') unlockProfile('shimamura');
+    if (reward.modalId === 'adachiModal') unlockProfile('adachi');
+
+    setTimeout(() => showRewardModal(reward), 600);
+    addUnlockToSidebar(reward, false);
+}
+
+function unlockProfile(which) {
+    const btn = document.getElementById('btn-' + which);
+    if (btn) {
+        btn.removeAttribute('disabled');
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+        document.getElementById('profiles-lock-icon').className = 'fas fa-unlock';
+    }
+}
+
+function showRewardModal(reward) {
+    document.getElementById('reward-icon').textContent = '';
+    document.getElementById('reward-title').textContent = reward.title;
+    document.getElementById('reward-body').textContent = reward.body;
+    
+    // Configuración para el botón de PDF (sólo para mini historias)
+    const pdfBtn = document.getElementById('reward-pdf-btn');
+    if (pdfBtn) {
+        pdfBtn.style.display = reward.type === 'mini_historia' ? 'block' : 'none';
+    }
+    
+    window._currentReward = reward;
+    spawnRewardStars();
+    openModal('rewardModal');
+}
+
+function spawnRewardStars() {
+    const container = document.getElementById('reward-stars');
+    container.innerHTML = '';
+    for (let i = 0; i < 20; i++) {
+        const s = document.createElement('div');
+        s.className = 'reward-star-particle';
+        s.style.cssText = `
+            left:${Math.random()*100}%;
+            top:${Math.random()*100}%;
+            --tx:${(Math.random()-0.5)*200}px;
+            --ty:${(Math.random()-0.5)*200}px;
+            animation-delay:${Math.random()*0.5}s;
+            background:hsl(${Math.random()*60+300},80%,85%);
+        `;
+        container.appendChild(s);
+    }
+}
+
+function closeRewardModal() { closeModal('rewardModal'); }
+
+function addUnlockToSidebar(reward, silent) {
+    const list = document.getElementById('unlocks-list');
+    if (!silent && completedCount === 1) list.innerHTML = '';
+    if (document.getElementById('unlock-reward-' + reward.at)) return;
+
+    const item = document.createElement('div');
+    item.className = 'unlock-item';
+    item.id = 'unlock-reward-' + reward.at;
+    if (!silent) item.style.animation = 'fadeIn 0.5s ease';
+
+    const header = document.createElement('div');
+    header.className = 'unlock-header';
+    const shortLabel = reward.title;
+    header.innerHTML = `<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${shortLabel}</span><i class="fas fa-eye unlock-arrow" style="transform:none;" title="Ver recompensa"></i>`;
+
+    header.addEventListener('click', () => {
+        showRewardModal(reward);
+    });
+
+    item.appendChild(header);
+    list.appendChild(item);
+}
+
+// ════════════════════════════════════════════════════════
+// PROGRESS
+// ════════════════════════════════════════════════════════
+function updateProgress() {
+    const pct = (completedCount / TOTAL_CONSTELLATIONS) * 100;
+    document.getElementById('prog-bar').style.width = pct + '%';
+    document.getElementById('prog-text').textContent = `${completedCount} / ${TOTAL_CONSTELLATIONS} completadas`;
+}
+
+function buildConstellationPanel() {
+    const panel = document.getElementById('const-panel');
+    CONSTELLATIONS.forEach((c, ci) => {
+        const chip = document.createElement('div');
+        chip.className = 'const-chip';
+        chip.id = `chip-${ci}`;
+        chip.innerHTML = `<i class="fas fa-circle-notch fa-spin" style="opacity:0.4;font-size:0.6rem"></i>${c.name}`;
+        chip.title = `Constelación: ${c.name}`;
+        chip.addEventListener('click', () => {
+            if (!completedConsts.has(ci)) return;
+            const completedArr = [...completedConsts];
+            const orderIdx = completedArr.indexOf(ci);
+            if (orderIdx !== -1) {
+                const rewardAtStep = REWARDS.find(r => r.at === orderIdx + 1);
+                if (rewardAtStep) showRewardModal(rewardAtStep);
+            }
+        });
+        panel.appendChild(chip);
+    });
+}
+
+function updateConstellationChip(ci) {
+    const chip = document.getElementById(`chip-${ci}`);
+    if (chip) {
+        chip.classList.add('done');
+        chip.innerHTML = `<i class="fas fa-check-circle" style="color:#ffd166;font-size:0.7rem"></i>${CONSTELLATIONS[ci].name}`;
+        chip.title = `${CONSTELLATIONS[ci].name} — Clic para ver recompensa`;
+        chip.style.cursor = 'pointer';
+    }
+}
+
+// ════════════════════════════════════════════════════════
+// FINAL EVENT
+// ════════════════════════════════════════════════════════
+function triggerFinalEvent() {
+    const overlay = document.getElementById('final-event-overlay');
+    overlay.style.display = 'block';
+    overlay.classList.add('show');
+    overlay.style.pointerEvents = 'all';
+    document.querySelector('.sky-overlay').style.background =
+        'radial-gradient(ellipse at center, rgba(100,50,120,0.2) 0%, rgba(30,10,60,0.5) 100%)';
+    playFinalSound();
+}
+
+function unlockAllStoriesButton() {
+    const finalContainer = document.getElementById('final-download-container');
+    if (finalContainer) {
+        finalContainer.style.display = 'flex';
+    }
+}
+
+function closeFinalEvent() {
+    const overlay = document.getElementById('final-event-overlay');
+    overlay.classList.remove('show');
+    setTimeout(() => { overlay.style.display = 'none'; overlay.style.pointerEvents = 'none'; }, 500);
+}
+
+// ════════════════════════════════════════════════════════
+// SOUND (Web Audio)
+// ════════════════════════════════════════════════════════
+function getAudioCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return audioCtx;
+}
+
+function playCompletionSound() {
+    if (!soundEnabled) return;
+    try {
+        const ac = getAudioCtx();
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, i) => {
+            const osc = ac.createOscillator();
+            const gain = ac.createGain();
+            osc.connect(gain);
+            gain.connect(ac.destination);
+            osc.frequency.value = freq;
+            osc.type = 'sine';
+            gain.gain.setValueAtTime(0, ac.currentTime + i * 0.12);
+            gain.gain.linearRampToValueAtTime(0.12, ac.currentTime + i * 0.12 + 0.05);
+            gain.gain.linearRampToValueAtTime(0, ac.currentTime + i * 0.12 + 0.3);
+            osc.start(ac.currentTime + i * 0.12);
+            osc.stop(ac.currentTime + i * 0.12 + 0.4);
+        });
+    } catch(e) {}
+}
+
+function playFinalSound() {
+    if (!soundEnabled) return;
+    try {
+        const ac = getAudioCtx();
+        const chord = [261.63, 329.63, 392, 523.25, 659.25];
+        chord.forEach((freq, i) => {
+            const osc = ac.createOscillator();
+            const gain = ac.createGain();
+            osc.connect(gain);
+            gain.connect(ac.destination);
+            osc.frequency.value = freq;
+            osc.type = 'sine';
+            gain.gain.setValueAtTime(0, ac.currentTime + i * 0.08);
+            gain.gain.linearRampToValueAtTime(0.08, ac.currentTime + i * 0.08 + 0.1);
+            gain.gain.linearRampToValueAtTime(0, ac.currentTime + i * 0.08 + 2);
+            osc.start(ac.currentTime + i * 0.08);
+            osc.stop(ac.currentTime + i * 0.08 + 2.5);
+        });
+    } catch(e) {}
+}
+
+function toggleSound() {
+    soundEnabled = !soundEnabled;
+    const icon = document.getElementById('sound-icon');
+    icon.className = soundEnabled ? 'fas fa-volume-up' : 'fas fa-volume-mute';
+    if (soundEnabled) {
+        try { getAudioCtx().resume(); } catch(e) {}
+        playCompletionSound();
+    }
+}
+
+// ════════════════════════════════════════════════════════
+// PARTICLES
+// ════════════════════════════════════════════════════════
+function createParticles() {
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 35; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = 1 + Math.random() * 3;
+        const hue = 280 + Math.random() * 80;
+        p.style.cssText = `
+            width:${size}px; height:${size}px;
+            left:${Math.random()*100}%;
+            background:hsla(${hue},60%,80%,0.7);
+            box-shadow:0 0 ${size*3}px hsla(${hue},80%,80%,0.5);
+            animation-duration:${12 + Math.random()*15}s;
+            animation-delay:${Math.random()*15}s;
+        `;
+        container.appendChild(p);
+    }
+}
+
+// ════════════════════════════════════════════════════════
+// DRAG EVENTS
+// ════════════════════════════════════════════════════════
+function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    if (e.touches && e.touches.length > 0) {
+        return {
+            x: e.touches[0].clientX - rect.left,
+            y: e.touches[0].clientY - rect.top
+        };
+    }
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+}
+
+function findStarAt(x, y) {
+    for (let i = stars.length - 1; i >= 0; i--) {
+        const s = stars[i];
+        if (s.snapped && s.snappedConstId !== null && completedConsts.has(s.snappedConstId)) continue;
+        if (Math.hypot(x - s.x, y - s.y) < Math.max(s.baseR + 10, 18)) return s;
+    }
+    return null;
+}
+
+function findCompletedConstAt(x, y) {
+    for (let ci of completedConsts) {
+        const c = CONSTELLATIONS[ci];
+        const { cx, cy, size } = getConstellationCenter(c);
+        const dist = Math.hypot(x - cx, y - cy);
+        if (dist < size * 0.6) return ci;
+    }
+    return null;
+}
+
+function onPointerDown(e) {
+    const pos = getPos(e);
+    const s = findStarAt(pos.x, pos.y);
+    if (s) {
+        dragging = s;
+        dragOffX = pos.x - s.x;
+        dragOffY = pos.y - s.y;
+        s.snapped = false;
+        e.preventDefault();
+        return;
+    }
+    const ci = findCompletedConstAt(pos.x, pos.y);
+    if (ci !== null) {
+        const completedArr = [...completedConsts];
+        const orderIdx = completedArr.indexOf(ci);
+        if (orderIdx !== -1) {
+            const rewardAtStep = REWARDS.find(r => r.at === orderIdx + 1);
+            if (rewardAtStep) {
+                e.preventDefault();
+                showRewardModal(rewardAtStep);
+            }
+        }
+    }
+}
+
+function onPointerMove(e) {
+    const pos = getPos(e);
+    mouseX = pos.x; mouseY = pos.y;
+
+    if (!dragging) return;
+    e.preventDefault();
+    dragging.x = pos.x - dragOffX;
+    dragging.y = pos.y - dragOffY;
+    dragging.x = Math.max(10, Math.min(canvas.width - 10, dragging.x));
+    dragging.y = Math.max(70, Math.min(canvas.height - 40, dragging.y));
+}
+
+function onPointerUp(e) {
+    if (dragging) {
+        checkSnap(dragging);
+        dragging = null;
+        saveProgress();
+    }
+}
+
+function setupEventListeners() {
+    canvas.addEventListener('mousedown', onPointerDown);
+    canvas.addEventListener('mousemove', onPointerMove);
+    canvas.addEventListener('mouseup', onPointerUp);
+    canvas.addEventListener('mouseleave', onPointerUp);
+    canvas.addEventListener('touchstart', onPointerDown, { passive: false });
+    canvas.addEventListener('touchmove', onPointerMove, { passive: false });
+    canvas.addEventListener('touchend', onPointerUp);
+}
+
+// ════════════════════════════════════════════════════════
+// RESET
+// ════════════════════════════════════════════════════════
+function resetStars() {
+    showResetConfirmation().then(confirmed => {
+        if (!confirmed) return;
+        stars.forEach(s => {
+            const W = canvas.width, H = canvas.height;
+            s.x = 80 + Math.random() * (W - 160);
+            s.y = 120 + Math.random() * (H - 200);
+            s.snapped = false;
+            s.snappedConstId = null;
+            s.snappedPointIdx = null;
+        });
+        saveProgress();
+        flashToast('Estrellas reiniciadas', 2200);
+    });
+}
+
+// ════════════════════════════════════════════════════════
+// MODALS
+// ════════════════════════════════════════════════════════
+function openModal(id) {
+    const m = document.getElementById(id);
+    if (!m) return;
+    m.style.display = 'flex';
+    requestAnimationFrame(() => requestAnimationFrame(() => m.classList.add('show')));
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal(id) {
+    const m = document.getElementById(id);
+    if (!m) return;
+    m.classList.remove('show');
+    setTimeout(() => { m.style.display = 'none'; document.body.style.overflow = ''; }, 400);
+}
+
+function openProfileModal(id) {
+    const btn = document.getElementById('btn-' + id.replace('Modal', '').toLowerCase());
+    if (btn && btn.disabled) return;
+    openModal(id);
+}
+
+function showInstructions() { openModal('instructionsModal'); }
+
+document.addEventListener('DOMContentLoaded', () => {
+    ['adachiModal','shimamuraModal','rewardModal','instructionsModal'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('click', e => { if (e.target === el) closeModal(id); });
+    });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            ['adachiModal','shimamuraModal','rewardModal','instructionsModal'].forEach(id => closeModal(id));
+        }
+    });
+});
+
+// ════════════════════════════════════════════════════════
+// SIDEBAR TOGGLE — manejado íntegramente por CSS + checkbox
+// window.menuToggle por compatibilidad con cualquier llamada legada
+// ════════════════════════════════════════════════════════
+window.menuToggle = window.toggleMenu = function () {
+    var cb = document.getElementById('nav-toggle');
+    if (cb) cb.checked = !cb.checked;
+};
+
+// ════════════════════════════════════════════════════════
+// PROFILE IMAGE DOWNLOAD
+// ════════════════════════════════════════════════════════
+function downloadProfile(modalId) {
+    const modal = document.getElementById(modalId);
+    const page = modal ? modal.querySelector('.binder-page') : null;
+    if (!page) return;
+
+    const name = modalId === 'adachiModal' ? 'Adachi_Sakura' : 'Shimamura_Hougetsu';
+    const targetWidth = 1728;
+    const targetHeight = 2377;
+    const targetRatio = targetWidth / targetHeight;
+
+    const container = document.createElement('div');
+    container.style.position = 'absolute';
+    container.style.left = '-9999px';
+    container.style.top = '0';
+    container.style.backgroundColor = '#fffbf0';
+    
+    const clone = page.cloneNode(true);
+    const downloadBtnContainer = clone.querySelector('.btn-download-profile')?.parentElement;
+    if (downloadBtnContainer) {
+        downloadBtnContainer.style.display = 'none';
+    }
+
+    clone.style.margin = '0';
+    clone.style.maxWidth = 'none';
+    clone.style.boxSizing = 'border-box';
+    clone.style.display = 'flex';
+    clone.style.flexDirection = 'column';
+    clone.style.justifyContent = 'space-evenly';
+    
+    container.appendChild(clone);
+    document.body.appendChild(container);
+
+    let testWidth = 700;
+    let requiredHeight = testWidth / targetRatio;
+    
+    while (testWidth <= 1500) {
+        requiredHeight = testWidth / targetRatio;
+        container.style.width = testWidth + 'px';
+        container.style.height = 'auto';
+        clone.style.height = 'auto';
+        
+        const naturalHeight = clone.scrollHeight; 
+        if (naturalHeight + 20 <= requiredHeight) {
+            break;
+        }
+        testWidth += 20;
+    }
+
+    container.style.width = testWidth + 'px';
+    container.style.height = requiredHeight + 'px';
+    clone.style.height = '100%';
+
+    if (typeof html2canvas !== 'undefined') {
+        const scale = targetWidth / testWidth;
+        html2canvas(container, { 
+            backgroundColor: '#fffbf0', 
+            scale: scale, 
+            useCORS: true,
+            width: testWidth,
+            height: requiredHeight,
+            allowTaint: true
+        }).then(canvas => {
+            const finalCanvas = document.createElement('canvas');
+            finalCanvas.width = targetWidth;
+            finalCanvas.height = targetHeight;
+            const ctxFinal = finalCanvas.getContext('2d');
+            ctxFinal.imageSmoothingEnabled = true;
+            ctxFinal.imageSmoothingQuality = 'high';
+            ctxFinal.drawImage(canvas, 0, 0, targetWidth, targetHeight);
+
+            const link = document.createElement('a');
+            link.download = `Perfil_${name}.png`;
+            link.href = finalCanvas.toDataURL('image/png', 1.0);
+            link.click();
+            
+            document.body.removeChild(container);
+        }).catch(err => {
+            console.error('Error generating profile image:', err);
+            document.body.removeChild(container);
+        });
+    } else {
+        const dlCanvas = document.createElement('canvas');
+        dlCanvas.width = targetWidth; dlCanvas.height = targetHeight;
+        const ctx2 = dlCanvas.getContext('2d');
+        ctx2.fillStyle = '#fffbf0'; ctx2.fillRect(0, 0, targetWidth, targetHeight);
+        ctx2.fillStyle = '#5c4b51'; ctx2.font = 'bold 56px serif';
+        ctx2.fillText('Adachi to Shimamura — Perfil', 120, 120);
+        const link = document.createElement('a');
+        link.download = `Perfil_${name}.png`;
+        link.href = dlCanvas.toDataURL('image/png');
+        link.click();
+        document.body.removeChild(container);
+    }
+}
+
+// ════════════════════════════════════════════════════════
+// NUEVA FUNCIONALIDAD: DESCARGA FÍSICA DIRECTA
+// ════════════════════════════════════════════════════════
+function downloadStoryPDF() {
+    const reward = window._currentReward;
+    if (!reward || !reward.pdf) return;
+
+    // Crea un link para forzar/iniciar la descarga del archivo PDF local
+    const link = document.createElement('a');
+    link.href = reward.pdf;
+    // Extrae el nombre del archivo para establecerlo en la descarga
+    link.download = reward.pdf.split('/').pop();
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function downloadAllMiniStories() {
+    // Descargar el PDF general de mini historias
+    const link = document.createElement('a');
+    link.href = 'Mini historias/Mini historias.pdf';
+    link.download = 'Mini historias.pdf';
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// ════════════════════════════════════════════════════════
+// BACKGROUND AUDIO
+// ════════════════════════════════════════════════════════
+function initBgAudio() {
+    const audio = document.getElementById('bg-audio');
+    if (!audio) return;
+    audio.volume = 0.35;
+
+    const tryPlay = () => {
+        audio.play().catch(() => {
+            const unlock = () => {
+                audio.play().catch(() => {});
+                document.removeEventListener('click', unlock);
+                document.removeEventListener('touchstart', unlock);
+                document.removeEventListener('keydown', unlock);
+            };
+            document.addEventListener('click', unlock, { once: true });
+            document.addEventListener('touchstart', unlock, { once: true });
+            document.addEventListener('keydown', unlock, { once: true });
+        });
+    };
+    tryPlay();
+
+    const origToggle = window.toggleSound;
+    window.toggleSound = function() {
+        origToggle();
+        audio.muted = !soundEnabled;
+        if (soundEnabled) audio.play().catch(() => {});
+    };
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    init();
+    initBgAudio();
+});
+</script>
+
+<div id="reset-confirm" class="reset-confirm" aria-hidden="true" role="dialog" aria-label="Confirmación reinicio estrellas">
+    <div class="reset-card" role="document">
+        <p class="reset-message">¿Reiniciar las estrellas? Los desbloqueos se mantendrán.</p>
+        <div class="reset-actions">
+            <button id="reset-cancel" class="reset-btn reset-cancel">Cancelar</button>
+            <button id="reset-confirm-btn" class="reset-btn reset-confirm-btn">Reiniciar</button>
+        </div>
+    </div>
+</div>
+
+<div id="toast-msg" class="toast-msg" aria-hidden="true"></div>
+
+<style>
+/* Reset confirm styles */
+.reset-confirm {
+    position: fixed;
+    top: 22px;
+    right: 22px;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+}
+.reset-confirm .reset-card {
+    min-width: 320px;
+    max-width: 420px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(250,240,250,0.9));
+    border-radius: 14px;
+    padding: 14px 16px;
+    box-shadow: 0 12px 40px rgba(30,10,30,0.18);
+    backdrop-filter: blur(6px) saturate(120%);
+    transform: translateY(-10px) scale(0.98);
+    opacity: 0;
+    pointer-events: auto;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+}
+.reset-confirm.show .reset-card {
+    animation: resetSlideIn 360ms cubic-bezier(0.2,0.9,0.2,1) forwards;
+}
+@keyframes resetSlideIn {
+    from { transform: translateY(-10px) scale(0.98); opacity: 0; }
+    to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+.reset-message { color: #5b2f57; font-size: 0.95rem; margin: 0; padding-right: 12px; flex: 1; }
+.reset-actions { display:flex; gap:8px; }
+.reset-btn { border: none; padding: 8px 12px; border-radius: 10px; cursor: pointer; font-weight:700; }
+.reset-cancel { background: rgba(90,60,90,0.06); color:#5b3b63; }
+.reset-confirm-btn { background: linear-gradient(90deg,#ff9ab3,#f06292); color: #fff; box-shadow: 0 6px 18px rgba(240,98,146,0.25); }
+.reset-btn:active { transform: translateY(1px); }
+
+/* Toast */
+.toast-msg { position: fixed; right: 20px; bottom: 20px; background: rgba(30,20,30,0.9); color: #fff; padding: 10px 14px; border-radius: 10px; font-weight:600; box-shadow: 0 8px 30px rgba(0,0,0,0.3); opacity:0; transform: translateY(8px); transition: all 260ms ease; z-index:99999; pointer-events:none; }
+.toast-msg.show { opacity:1; transform: translateY(0); }
+</style>
+
+<script>
+function showResetConfirmation() {
+    return new Promise(resolve => {
+        const el = document.getElementById('reset-confirm');
+        const btnConfirm = document.getElementById('reset-confirm-btn');
+        const btnCancel = document.getElementById('reset-cancel');
+        if (!el || !btnConfirm || !btnCancel) { resolve(false); return; }
+
+        let finished = false;
+        function cleanup() {
+            el.classList.remove('show');
+            el.setAttribute('aria-hidden', 'true');
+            btnConfirm.removeEventListener('click', onConfirm);
+            btnCancel.removeEventListener('click', onCancel);
+            document.removeEventListener('keydown', onKey);
+            finished = true;
+        }
+        function onConfirm() { cleanup(); resolve(true); }
+        function onCancel()  { cleanup(); resolve(false); }
+        function onKey(e) { if (e.key === 'Escape') onCancel(); }
+
+        btnConfirm.addEventListener('click', onConfirm);
+        btnCancel.addEventListener('click', onCancel);
+        document.addEventListener('keydown', onKey);
+
+        el.setAttribute('aria-hidden', 'false');
+        requestAnimationFrame(() => setTimeout(() => el.classList.add('show'), 10));
+    });
+}
+
+function flashToast(text, dur = 1800) {
+    const t = document.getElementById('toast-msg');
+    if (!t) return;
+    t.textContent = text;
+    t.classList.add('show');
+    t.setAttribute('aria-hidden', 'false');
+    clearTimeout(t._to);
+    t._to = setTimeout(() => { t.classList.remove('show'); t.setAttribute('aria-hidden', 'true'); }, dur);
+}
+</script>
+
+</body>
+</html>

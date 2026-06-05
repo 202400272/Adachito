@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adashima</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Quicksand:wght@400;500;600;700&display=swap');
+
+        /* =========================================================
+           RESET Y BASE
+        ========================================================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Quicksand', 'Noto Serif JP', sans-serif;
+            display: flex;
+            min-height: 100vh;
+            /* Paleta inspirada en el atardecer/anochecer de la portada */
+            background: linear-gradient(165deg, #6c5287 0%, #9a6898 25%, #d187a2 55%, #f1b5a5 85%, #fde4b8 100%);
+            background-attachment: fixed;
+            color: #4a2f57;
+            overflow-x: hidden;
+        }
+
+        /* =========================================================
+           EFECTOS DE FONDO (CIELO, ESTRELLAS, NUBES Y BURBUJAS)
+        ========================================================= */
+        /* Estrellas estáticas sutiles en el fondo */
+        .stars-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            background-image: 
+                radial-gradient(1px 1px at 10% 10%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 20% 30%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 80% 15%, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 75% 45%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 40% 60%, rgba(255,255,255,0.8), rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 90% 70%, rgba(255,255,255,0.8), rgba(0,0,0,0));
+            background-size: 200px 200px;
+            opacity: 0.6;
+        }
+
+        /* Contenedor del Sistema de Nubes (más como pinceladas) */
+        .clouds-container {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .cloud {
+            position: absolute;
+            border-radius: 50% 100% 50% 100% / 50% 100% 50% 100%; /* Formas horizontales y alargadas */
+            filter: blur(80px); /* Difumina mucho más para parecer pinceladas */
+            animation: driftCloud 50s alternate infinite ease-in-out;
+            opacity: 0.6;
+        }
+        /* Nubes estratificadas y alargadas en tonos de atardecer */
+        .cloud-1 { width: 1200px; height: 150px; top: 10%; left: -20%; background: linear-gradient(90deg, rgba(220, 130, 170, 0.4), rgba(255,255,255,0.1)); animation-duration: 60s; }
+        .cloud-2 { width: 1500px; height: 200px; top: 35%; right: -30%; background: linear-gradient(-90deg, rgba(253, 200, 160, 0.35), rgba(255,255,255,0.1)); animation-duration: 75s; animation-direction: alternate-reverse; }
+        .cloud-3 { width: 900px; height: 100px; top: 60%; left: 10%; background: linear-gradient(90deg, rgba(160, 100, 150, 0.3), rgba(255,255,255,0.1)); animation-duration: 55s; }
+        .cloud-4 { width: 1800px; height: 300px; bottom: 5%; left: -50%; background: linear-gradient(90deg, rgba(240, 150, 160, 0.4), rgba(255,255,255,0.1)); animation-duration: 80s; }
+        .cloud-5 { width: 1000px; height: 120px; top: 20%; left: 40%; background: linear-gradient(90deg, rgba(140, 110, 170, 0.3), rgba(255,255,255,0.1)); animation-duration: 65s; animation-direction: alternate-reverse; }
+
+        @keyframes driftCloud {
+            0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+            100% { transform: translate(150px, -20px) scale(1.05) rotate(1deg); }
+        }
+
+        /* Burbujas flotantes estilo Adashima (Colores Intensos y Variados) */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            /* Aumentamos la opacidad del color de fondo y reducimos el blur del backdrop */
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.3), 0 5px 15px rgba(0,0,0,0.1);
+            animation: floatOrb 10s ease-in-out infinite alternate;
+            z-index: 2;
+        }
+        
+        /* Definimos orbes con colores intensos y saturados (una de cada color) */
+        
+        /* Morada (Inspirada en el cielo superior) */
+        .orb-purple { 
+            width: 100px; height: 100px; top: 15%; left: 8%; 
+            background: linear-gradient(135deg, rgba(160, 120, 180, 0.6), rgba(255,255,255,0.2)); 
+            border-color: #d8bff2; 
+            animation-delay: 0s; 
+        }
+        
+        /* Amarilla (Inspirada en el horizonte inferior) */
+        .orb-yellow { 
+            width: 60px; height: 60px; top: 35%; right: 15%; 
+            background: linear-gradient(135deg, rgba(253, 230, 160, 0.6), rgba(255,255,255,0.2)); 
+            border-color: #fdecb8; 
+            animation-delay: -3s; animation-duration: 8s;
+        }
+        
+        /* Azul (Inspirada en el cielo medio y el color de suerte) */
+        .orb-blue { 
+            width: 80px; height: 80px; bottom: 25%; left: 15%; 
+            background: linear-gradient(135deg, rgba(140, 220, 240, 0.6), rgba(255,255,255,0.2)); 
+            border-color: #b8edf8; 
+            animation-delay: -5s; animation-duration: 12s;
+        }
+        
+        /* Rosa (Inspirada en el cielo medio y el color de las flores) */
+        .orb-pink { 
+            width: 45px; height: 45px; bottom: 15%; right: 25%; 
+            background: linear-gradient(135deg, rgba(240, 150, 180, 0.6), rgba(255,255,255,0.2)); 
+            border-color: #f8b8cc; 
+            animation-delay: -2s; 
+        }
+        
+        /* Verde (Inspirada en la naturaleza) */
+        .orb-green { 
+            width: 55px; height: 55px; top: 55%; left: 12%; 
+            background: linear-gradient(135deg, rgba(170, 230, 140, 0.6), rgba(255,255,255,0.2)); 
+            border-color: #c8f8b8; 
+            animation-delay: -1s; animation-duration: 9s; 
+        }
+        
+        /* Naranja (Inspirada en el atardecer) */
+        .orb-orange { 
+            width: 90px; height: 90px; top: 20%; right: 28%; 
+            background: linear-gradient(135deg, rgba(255, 180, 120, 0.6), rgba(255,255,255,0.2)); 
+            border-color: #ffdcb8; 
+            animation-delay: -7s; animation-duration: 14s; 
+        }
+        
+        /* Morada Pequeña */
+        .orb-purple-small { 
+            width: 35px; height: 35px; bottom: 45%; right: 8%; 
+            background: linear-gradient(135deg, rgba(160, 120, 180, 0.7), rgba(255,255,255,0.2)); 
+            border-color: #d8bff2; 
+            animation-delay: -6s; animation-duration: 7s; 
+        }
+        
+        /* Azul Grande */
+        .orb-blue-large { 
+            width: 130px; height: 130px; top: 5%; right: 5%; 
+            background: linear-gradient(135deg, rgba(140, 220, 240, 0.5), rgba(255,255,255,0.2)); 
+            border-color: #b8edf8; 
+            animation-delay: -4s; animation-duration: 15s; 
+        }
+        
+        /* Rosa Superior */
+        .orb-pink-top { 
+            width: 70px; height: 70px; top: 8%; left: 35%; 
+            background: linear-gradient(135deg, rgba(240, 150, 180, 0.6), rgba(255,255,255,0.2)); 
+            border-color: #f8b8cc; 
+            animation-delay: -8s; animation-duration: 11s; 
+        }
+        
+        /* Amarilla Pequeña */
+        .orb-yellow-small { 
+            width: 40px; height: 40px; bottom: 8%; left: 38%; 
+            background: linear-gradient(135deg, rgba(253, 230, 160, 0.7), rgba(255,255,255,0.2)); 
+            border-color: #fdecb8; 
+            animation-delay: -1s; animation-duration: 6s;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translateY(0px) translateX(0px) scale(1); }
+            50% { transform: translateY(-30px) translateX(15px) scale(1.05); }
+            100% { transform: translateY(0px) translateX(0px) scale(1); }
+        }
+
+        /* =========================================================
+           CONTENEDOR PRINCIPAL Y LAYOUT
+        ========================================================= */
+        .main-content {
+            flex: 1;
+            position: relative;
+            padding: 40px 30px 80px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            z-index: 3;
+            width: calc(100% - 300px); /* Resta el ancho del sidebar para PC */
+        }
+
+        /* Título Principal Estético */
+        h1.update-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 3.5rem;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 5px 25px rgba(209, 135, 162, 0.8);
+            letter-spacing: 3px;
+            margin-bottom: 50px;
+            text-align: center;
+            z-index: 4;
+            font-weight: 700;
+        }
+
+        /* =========================================================
+           SECCIÓN HERO (IMAGEN BICICLETA + CAJA DE ENLACES)
+        ========================================================= */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            width: 100%;
+            max-width: 1100px;
+            margin-bottom: 50px;
+            z-index: 4;
+        }
+
+        /* Imagen de la Bicicleta */
+        .bike-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .floating-bike {
+            width: 100%;
+            /* Aumentado para una presencia más marcada en desktop */
+            max-width: 800px;
+            animation: floatBike 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            /* Sombra más definida para mantener sensación de profundidad al aumentar tamaño */
+            filter: drop-shadow(0 34px 48px rgba(74, 47, 87, 0.38));
+            z-index: 5;
+            transition: transform 0.35s cubic-bezier(0.2,0.8,0.2,1);
+        }
+        .floating-bike:hover { transform: scale(1.02); }
+
+        @keyframes floatBike {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(-1.5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* Caja Glassmorphism de Enlaces */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+        }
+
+        .update-box {
+            flex: 1;
+            width: 100%;
+            max-width: 500px;
+            padding: 25px 35px;
+        }
+
+        /* Elementos de Enlace */
+        .update-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 16px 0;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+        }
+        .update-item:last-child { border-bottom: none; }
+        
+        .update-item a {
+            text-decoration: none;
+            font-size: 1.15rem;
+            color: #fff;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+
+        /* Efecto Hover Moderno en los enlaces */
+        .update-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding-left: 15px;
+            padding-right: 15px;
+            border-bottom-color: transparent;
+        }
+        .update-item:hover a {
+            color: #ffdae0;
+            transform: translateX(5px);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Tooltips mejorados */
+        [data-tooltip] { position: relative; }
+        [data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: rgba(255, 255, 255, 0.95);
+            color: #7b4c73;
+            padding: 12px 18px;
+            border-radius: 16px;
+            font-size: 0.9rem;
+            font-style: italic;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.6);
+            z-index: 100;
+        }
+        /* Flecha del tooltip */
+        [data-tooltip]::before {
+            content: '';
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            border-width: 8px;
+            border-style: solid;
+            border-color: rgba(255, 255, 255, 0.95) transparent transparent transparent;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+        .update-item:hover [data-tooltip]::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .update-item:hover [data-tooltip]::before { opacity: 1; transform: translateX(-50%) translateY(10px); }
+
+        /* =========================================================
+           TARJETAS DE INFORMACIÓN (INFO GRID)
+        ========================================================= */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1100px;
+            z-index: 4;
+            margin-bottom: 60px;
+        }
+
+        .info-card {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            color: #4a2f57;
+            background: rgba(255, 255, 255, 0.45);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+        }
+
+        .info-card h2 {
+            font-size: 1.25rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+            padding-bottom: 10px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #633a60;
+        }
+        .char-details { font-size: 0.95rem; line-height: 1.7; }
+        .char-details strong { color: #8a4e80; font-weight: 700; }
+
+        /* =========================================================
+           CHIBI FLOTANTE (MINI-JUEGO)
+        ========================================================= */
+        .floating-adashima {
+            position: fixed;
+            bottom: 30px;
+            right: 40px;
+            width: 160px;
+            animation: float-astronaut 8s ease-in-out infinite;
+            z-index: 100;
+            filter: drop-shadow(0px 8px 15px rgba(0,0,0,0.25));
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .floating-adashima:hover { transform: scale(1.15) rotate(5deg); }
+        .floating-adashima img { width: 100%; border-radius: 50%; }
+
+        @keyframes float-astronaut {
+            0% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-15px) rotate(4deg); }
+            66% { transform: translateY(10px) rotate(-4deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            width: 100%;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            z-index: 4;
+        }
+
+        /* =========================================================
+           DISEÑO RESPONSIVE AUTOMÁTICO
+        ========================================================= */
+        @media (max-width: 960px) {
+            .hero-section {
+                flex-direction: column;
+                gap: 20px;
+            }
+            /* En móviles u ordenadores pequeños, la bici va arriba y el menú abajo */
+            .bike-container { order: -1; margin-bottom: 10px; }
+            .floating-bike { max-width: 80%; }
+            h1.update-title { font-size: 2.5rem; margin-bottom: 30px; }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                width: 100%; /* Toma el 100% porque el menú móvil está oculto */
+                padding: 30px 20px 100px 20px;
+            }
+            .floating-adashima { width: 120px; bottom: 20px; right: 20px; }
+            .update-box { padding: 20px; }
+            /* Ajuste del tooltip para pantallas pequeñas */
+            [data-tooltip]::after {
+                left: 0; transform: translateX(0) translateY(10px);
+                white-space: normal; width: 220px; text-align: center;
+            }
+            [data-tooltip]::before { left: 20px; transform: translateX(0) translateY(20px); }
+            .update-item:hover [data-tooltip]::after { transform: translateX(0) translateY(0); }
+            .update-item:hover [data-tooltip]::before { transform: translateX(0) translateY(10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="sidebar-container" style="display: contents;"></div>
+
+    <div class="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="cloud cloud-4"></div>
+        <div class="cloud cloud-5"></div>
+    </div>
+
+    <div class="main-content">
+        
+        <div class="stars-bg"></div>
+        
+        <div class="orb orb-purple"></div> <div class="orb orb-yellow"></div> <div class="orb orb-blue"></div> <div class="orb orb-pink"></div> <div class="orb orb-green"></div> <div class="orb orb-orange"></div> <div class="orb orb-purple-small"></div> <div class="orb orb-blue-large"></div> <div class="orb orb-pink-top"></div> <div class="orb orb-yellow-small"></div> <a href="Juego.html" class="floating-adashima" title="¡Clickea para ir al mini-juego!">
+            <img src="Imagenes/Yashiro_flotante_art-Photoroom.png" alt="Adashima Chibi Floating">
+        </a>  
+
+        <h1 class="update-title">Adachi to Shimamura</h1>
+
+        <div class="hero-section">
+            
+            <div class="bike-container">
+                <img class="floating-bike" src="Imagenes/Ada_bici-Photoroom.png" alt="Adachi y Shimamura en bicicleta">
+            </div>
+
+            <div class="glass-box update-box">
+                <div class="update-item">
+                    <a href="Adashima_novelas.html" data-tooltip="Prefiero ser la persona más importante de tu vida.">
+                        Novela Ligera en Español <i class="fas fa-book-open"></i>
+                    </a>            
+                </div>
+                <div class="update-item">
+                    <a href="Adashima_manga.html" data-tooltip="Tu color de la suerte es el azul.">
+                        Manga en Español <i class="fas fa-palette"></i>
+                    </a>
+                </div>
+                <div class="update-item">
+                    <a href="Adashima_Drama.html" target="_blank" data-tooltip="¿E-esa es mi voz...? Qué vergüenza...">
+                        CD drama <i class="fas fa-headphones"></i>
+                    </a>
+                </div>
+                <div class="update-item">
+                    <a href="Adashima_mini_anime.html" target="_blank" data-tooltip="Prefiero saberlo de antemano. Cuando sé que la esperanza es real, me permite creer en ella.">
+                        Cortos de AdaShima <i class="fas fa-film"></i>
+                    </a>
+                </div>
+                <div class="update-item">
+                    <a href="Adashima_anime.html" target="_blank" data-tooltip="Puedo sentir que estamos unidas por el destino.">
+                        Anime <i class="fas fa-tv"></i>
+                    </a>
+                </div>
+                <div class="update-item">
+                    <a href="Adashima_Estrella.html" target="_blank" data-tooltip="Realmente me gustaría visitar el espacio antes de morir.">
+                        Relatos AdaShima publicados en el blog de Iruma <i class="fas fa-star"></i>
+                    </a>
+                </div>
+                <div class="update-item">
+                    <a href="Adashima_linea.html" target="_blank" data-tooltip="Lo que los humanos necesitan no es conocer el futuro, sino desearlo, perseguirlo.">
+                        Línea del tiempo de su tiempo en la preparatoria<i class="fas fa-layer-group"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="glass-box info-card">
+                <h2><i class="fas fa-box-open"></i> Último Lanzamiento</h2>
+                <div class="char-details">
+                    <strong>Título:</strong> Adachi to Shimamura Vol. 13<br>
+                    <strong>Tipo:</strong> Novela Ligera (JP)<br>
+                    <strong>Fecha:</strong> 8 de Noviembre, 2025<br>
+                </div>
+            </div>
+
+            <div class="glass-box info-card">
+                <h2><i class="fas fa-info-circle"></i> Ficha Técnica</h2>
+                <div class="char-details">
+                    <strong>Autor Original:</strong> Hitoma Iruma<br>
+                    <strong>Ilustrador:</strong> Raemz<br>
+                    <strong>Género:</strong> Yuri, Slice of Life, Romance<br>
+                    <strong>Editorial:</strong> Dengeki Bunko
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            Fan site no oficial de Adachi to Shimamura.<br>
+            Creado por fans, sin fines de lucro.<br>
+            Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma.
+        </div>
+    </div>
+
+    <script>
+        fetch('menu.html?v=' + Date.now())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error HTTP ' + response.status + ' al cargar el menú');
+                }
+                return response.text();
+            })
+            .then(data => {
+                const sidebarContainer = document.getElementById('sidebar-container');
+                if (!sidebarContainer) {
+                    console.error('El contenedor #sidebar-container no existe');
+                    return;
+                }
+                
+                sidebarContainer.innerHTML = data;
+                
+                const scripts = sidebarContainer.querySelectorAll('script');
+                scripts.forEach(oldScript => {
+                    const newScript = document.createElement('script');
+                    Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                    newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                    oldScript.parentNode.replaceChild(newScript, oldScript);
+                });
+            })
+            .catch(error => {
+                console.error('Error cargando menu.html:', error.message);
+            });
+
+        // Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .catch(err => console.error('Error al registrar el Service Worker', err));
+            });
+        }
+    </script>
+</body>
+</html>

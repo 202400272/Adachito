@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安達としまむら — Mapa de Lugares Sagrados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Zen+Kaku+Gothic+New:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  :root {
+    --sakura: #e8b4c8;
+    --sakura-light: #f5dfe9;
+    --sakura-dark: #c4789a;
+    --sky: #b8d4e8;
+    --sky-deep: #5a8fb5;
+    --cream: #faf6f0;
+    --parchment: #f0e8d8;
+    --ink: #2a1f2e;
+    --ink-soft: #4a3850;
+    --ink-muted: #7a6882;
+    --green-soft: #8fba9a;
+    --amber-soft: #d4a853;
+    --panel-bg: rgba(250,246,240,0.97);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: linear-gradient(135deg, #2a1f2e 0%, #3d2a45 40%, #2a3a4a 100%);
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 1000;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+    flex-shrink: 0;
+  }
+  .header-jp {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.4rem;
+    color: var(--sakura);
+    letter-spacing: 0.15em;
+    font-weight: 300;
+  }
+  .header-sep { color: var(--ink-muted); opacity: 0.5; font-size: 1.2rem; }
+  .header-sub {
+    font-size: 0.75rem;
+    color: var(--sky);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .header-info {
+    display: flex;
+    flex-direction: column;
+  }
+  .header-logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--sakura-dark), var(--sky-deep));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1rem;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 2px rgba(232,180,200,0.3);
+  }
+  .filter-bar {
+    display: flex;
+    gap: 0.4rem;
+    margin-left: auto;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .filter-btn {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.75);
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: rgba(232,180,200,0.25);
+    border-color: var(--sakura);
+    color: var(--sakura);
+  }
+  .filter-btn.all.active {
+    background: rgba(232,180,200,0.3);
+    border-color: var(--sakura);
+    color: var(--sakura);
+  }
+  .main { display: flex; flex: 1; overflow: hidden; position: relative; }
+  #map {
+    flex: 1;
+    transition: filter 0.3s;
+  }
+  .panel-overlay {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 380px;
+    background: var(--panel-bg);
+    z-index: 500;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow-y: auto;
+    border-left: 1px solid rgba(196,120,154,0.2);
+    box-shadow: -4px 0 24px rgba(42,31,46,0.15);
+  }
+  .panel-overlay.open {
+    transform: translateX(0);
+  }
+  .panel-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: none;
+    border: 1px solid var(--sakura-dark);
+    color: var(--sakura-dark);
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    z-index: 10;
+  }
+  .panel-close:hover {
+    background: var(--sakura-dark);
+    color: white;
+  }
+  .panel-header {
+    background: linear-gradient(135deg, #2a1f2e, #3d2a45);
+    padding: 1.5rem 1.5rem 1.2rem;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+  }
+  .panel-region {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sakura);
+    opacity: 0.8;
+    margin-bottom: 0.3rem;
+  }
+  .panel-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.25rem;
+    color: white;
+    font-weight: 300;
+    line-height: 1.3;
+    margin-bottom: 0.2rem;
+  }
+  .panel-num {
+    font-size: 0.7rem;
+    color: var(--sky);
+    opacity: 0.7;
+    letter-spacing: 0.05em;
+  }
+  .panel-body { padding: 1.2rem 1.5rem; }
+  .panel-section {
+    margin-bottom: 1.2rem;
+    animation: fadeSlideIn 0.4s ease forwards;
+    opacity: 0;
+  }
+  .panel-section:nth-child(1) { animation-delay: 0.05s; }
+  .panel-section:nth-child(2) { animation-delay: 0.1s; }
+  .panel-section:nth-child(3) { animation-delay: 0.15s; }
+  .panel-section:nth-child(4) { animation-delay: 0.2s; }
+  .panel-section:nth-child(5) { animation-delay: 0.25s; }
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .section-label {
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sakura-dark);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(196,120,154,0.3), transparent);
+  }
+  .scene-card {
+    background: var(--parchment);
+    border-left: 3px solid var(--sakura-dark);
+    border-radius: 0 6px 6px 0;
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .scene-ep {
+    font-size: 0.68rem;
+    color: var(--sakura-dark);
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+    letter-spacing: 0.03em;
+  }
+  .info-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    margin-bottom: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
+  .info-icon {
+    width: 16px;
+    flex-shrink: 0;
+    color: var(--sakura-dark);
+    margin-top: 1px;
+    font-size: 0.85rem;
+  }
+  .trivia-box {
+    background: linear-gradient(135deg, rgba(184,212,232,0.15), rgba(232,180,200,0.1));
+    border: 1px solid rgba(184,212,232,0.4);
+    border-radius: 8px;
+    padding: 0.8rem;
+    font-size: 0.8rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .type-badge {
+    display: inline-block;
+    font-size: 0.6rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+  .badge-main { background: rgba(232,180,200,0.25); color: var(--sakura-dark); border: 1px solid rgba(196,120,154,0.3); }
+  .badge-shop { background: rgba(212,168,83,0.2); color: #9a6c1a; border: 1px solid rgba(212,168,83,0.3); }
+  .badge-nature { background: rgba(143,186,154,0.25); color: #3d6e4a; border: 1px solid rgba(143,186,154,0.4); }
+  .badge-transport { background: rgba(90,143,181,0.2); color: #2a5a80; border: 1px solid rgba(90,143,181,0.3); }
+  .badge-other { background: rgba(122,104,130,0.15); color: var(--ink-muted); border: 1px solid rgba(122,104,130,0.2); }
+  .img-placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        rgba(196,120,154,0.06) 0px,
+        rgba(196,120,154,0.06) 1px,
+        transparent 1px,
+        transparent 12px
+      ),
+      linear-gradient(135deg, rgba(240,232,216,0.9), rgba(245,223,233,0.7));
+    border: 1.5px dashed rgba(196,120,154,0.35);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .img-placeholder:hover {
+    border-color: rgba(196,120,154,0.65);
+    background:
+      repeating-linear-gradient(
+        45deg,
+        rgba(196,120,154,0.1) 0px,
+        rgba(196,120,154,0.1) 1px,
+        transparent 1px,
+        transparent 12px
+      ),
+      linear-gradient(135deg, rgba(240,232,216,0.95), rgba(245,223,233,0.85));
+  }
+  .img-placeholder input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+  .img-placeholder img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 7px;
+  }
+  .img-placeholder-icon {
+    font-size: 1.6rem;
+    opacity: 0.45;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .img-placeholder-label {
+    font-size: 0.68rem;
+    color: var(--ink-muted);
+    opacity: 0.75;
+    letter-spacing: 0.04em;
+    pointer-events: none;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .img-placeholder-label span {
+    display: block;
+    font-size: 0.6rem;
+    opacity: 0.6;
+    margin-top: 0.15rem;
+  }
+  .maps-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, rgba(66,133,244,0.08), rgba(66,133,244,0.04));
+    border: 1px solid rgba(66,133,244,0.25);
+    border-radius: 8px;
+    padding: 0.55rem 0.8rem;
+    text-decoration: none;
+    color: #1a5fb4;
+    font-size: 0.78rem;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .maps-link:hover {
+    background: linear-gradient(135deg, rgba(66,133,244,0.16), rgba(66,133,244,0.08));
+    border-color: rgba(66,133,244,0.45);
+    color: #0d47a1;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(66,133,244,0.15);
+  }
+  .maps-link:active { transform: translateY(0); }
+  .maps-link-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  .maps-link-text { flex: 1; line-height: 1.3; }
+  .maps-link-text small {
+    display: block;
+    font-size: 0.62rem;
+    font-weight: 400;
+    opacity: 0.65;
+    margin-top: 0.1rem;
+  }
+  .maps-link-arrow {
+    font-size: 0.8rem;
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+  .sakura-divider {
+    text-align: center;
+    color: var(--sakura);
+    opacity: 0.4;
+    font-size: 0.8rem;
+    margin: 0.8rem 0;
+    letter-spacing: 0.3em;
+  }
+  .welcome-panel {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(250,246,240,0.95);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(196,120,154,0.3);
+    border-radius: 12px;
+    padding: 0.8rem 1.5rem;
+    z-index: 400;
+    text-align: center;
+    pointer-events: none;
+    box-shadow: 0 4px 20px rgba(42,31,46,0.12);
+    transition: opacity 0.5s;
+    white-space: nowrap;
+  }
+  .welcome-panel p {
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    letter-spacing: 0.05em;
+  }
+  .welcome-panel .jp-hint {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.85rem;
+    color: var(--sakura-dark);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+  .welcome-panel.hidden { opacity: 0; }
+  .leaflet-popup-content-wrapper {
+    background: rgba(42,31,46,0.92) !important;
+    border-radius: 10px !important;
+    border: 1px solid rgba(232,180,200,0.3) !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
+    backdrop-filter: blur(8px);
+  }
+  .leaflet-popup-tip { background: rgba(42,31,46,0.92) !important; }
+  .leaflet-popup-content { color: white; font-family: 'Zen Kaku Gothic New', sans-serif; margin: 0.5rem 0.7rem !important; }
+  .popup-name { font-family: 'Noto Serif JP', serif; font-size: 0.9rem; font-weight: 300; color: var(--sakura); }
+  .popup-sub { font-size: 0.65rem; color: rgba(255,255,255,0.55); margin-top: 0.15rem; }
+  .popup-click { font-size: 0.62rem; color: var(--sky); margin-top: 0.3rem; opacity: 0.7; }
+  .leaflet-popup-close-button { color: rgba(232,180,200,0.6) !important; font-size: 16px !important; }
+  .count-badge {
+    background: rgba(232,180,200,0.2);
+    border: 1px solid rgba(232,180,200,0.3);
+    border-radius: 20px;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.5);
+    margin-left: auto;
+  }
+  @media (max-width: 768px) {
+    .panel-overlay { width: 100%; }
+    .filter-bar { display: none; }
+    .header-sub { display: none; }
+    .welcome-panel { white-space: normal; max-width: 85vw; }
+  }
+  .leaflet-control-zoom { border: none !important; }
+  .leaflet-control-zoom a {
+    background: rgba(42,31,46,0.85) !important;
+    color: var(--sakura) !important;
+    border: 1px solid rgba(232,180,200,0.2) !important;
+    font-size: 16px !important;
+  }
+  .leaflet-control-zoom a:hover {
+    background: rgba(61,42,69,0.9) !important;
+  }
+  .leaflet-control-attribution {
+    background: rgba(250,246,240,0.8) !important;
+    font-size: 9px !important;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-logo">安</div>
+  <div class="header-info">
+    <span class="header-jp">安達としまむら</span>
+    <span class="header-sub">Adachi to Shimamura — Mapa de Lugares Sagrados</span>
+  </div>
+  <div class="filter-bar">
+    <button class="filter-btn all active" onclick="filterMarkers('all', this)">Todos</button>
+    <button class="filter-btn" onclick="filterMarkers('gifu', this)">岐阜 Gifu</button>
+    <button class="filter-btn" onclick="filterMarkers('nagoya', this)">名古屋 Nagoya</button>
+    <button class="filter-btn" onclick="filterMarkers('tokyo', this)">東京 Tokyo</button>
+    <button class="filter-btn" onclick="filterMarkers('other', this)">Otros</button>
+    <button class="filter-btn" onclick="filterMarkers('morela', this)">モレラ岐阜</button>
+  </div>
+</header>
+
+<div class="main">
+  <div id="map"></div>
+
+  <div class="panel-overlay" id="sidePanel">
+    <div class="panel-header">
+      <button class="panel-close" onclick="closePanel()">✕</button>
+      <div class="panel-region" id="pRegion"></div>
+      <div class="panel-title" id="pTitle"></div>
+      <div class="panel-num" id="pNum"></div>
+    </div>
+    <div class="panel-body" id="pBody"></div>
+  </div>
+
+  <div class="welcome-panel" id="welcomePanel">
+    <span class="jp-hint">聖地巡礼マップ</span>
+    <p>Haz clic en cualquier marcador para descubrir su historia</p>
+  </div>
+</div>
+
+<script>
+const locations = [
+  {
+    id: 1, num: "①", region: "岐阜県本巣市",
+    name: "本巣市立土貴野小学校", nameEs: "Escuela Primaria Tokino",
+    lat: 35.4580, lng: 136.6920,
+    category: "gifu", type: "main",
+    mapsUrl: "https://maps.google.com/maps?q=35.4580,136.6920&z=17",
+    scenes: [
+      { ep: "Anime Ep.10 『桜と春と 春と月と』", text: "Modelo de la escuela primaria de Tarumi y Shimamura. Shimamura llegó antes al portón un sábado de mediados de abril para la cita." }
+    ],
+    info: { access: "4 min caminando desde parada de bus Tokino", address: "岐阜県本巣市七五三658", time: "Abril, sábado / mediodía / soleado" },
+    trivia: "La escena del portón es particularmente emotiva: Shimamura esperaba a Tarumi con esa mezcla característica de indiferencia y ternura que define su personalidad."
+  },
+  {
+    id: 2, num: "②", region: "岐阜県本巣市",
+    name: "古墳公園通り", nameEs: "Calle del Parque del Túmulo",
+    lat: 35.4595, lng: 136.6905,
+    category: "gifu", type: "main",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県本巣市上真桑1167-1&z=17",
+    scenes: [
+      { ep: "Anime Ep.1 『制服ピンポン』", text: "Camino que Shimamura tomó de regreso a su casa. Pasó por aquí camino al barrio residencial." },
+      { ep: "Detalles del lugar", text: "① El pequeño puente donde las dos caminaron juntas. ② El poste eléctrico del corte. ③ La escena de 'imitar el avión'." }
+    ],
+    info: { access: "9 min caminando desde estación Morera Gifu (Tarumi Railway)", address: "Kamimakuwa 1167-1, Motosu, Gifu", time: "Octubre / tarde / soleado" },
+    trivia: "La zona residencial requiere mucho respeto a los vecinos. Evita fotografiar casas privadas."
+  },
+  {
+    id: 3, num: "③", region: "岐阜県本巣市",
+    name: "見延公園", nameEs: "Parque Minobe",
+    lat: 35.4610, lng: 136.6958,
+    category: "gifu", type: "main",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県本巣市見延&z=17",
+    scenes: [
+      { ep: "Anime Ep.6 / Novela Vol.2 『ホワイト・アルバム』", text: "El parque donde Adachi lanzó su bumerán y le declaró a Shimamura: 'Quiero ser tu mejor amiga'." }
+    ],
+    info: { access: "3 min caminando desde estación Morera Gifu", address: "Minobe, Motosu, Gifu", time: "25 de diciembre / noche / soleado" },
+    trivia: "El bumerán que usa Adachi es descrito como azul en la novela original. Esta escena marca un punto de inflexión en su relación: la declaración de amistad que en realidad esconde algo más profundo."
+  },
+  {
+    id: 4, num: "④", region: "岐阜県本巣市",
+    name: "北方自動車学校", nameEs: "Autoescuela Kitagata",
+    lat: 35.4598, lng: 136.6975,
+    category: "gifu", type: "other",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県本巣市三橋字糸貫川通1100&z=17",
+    scenes: [
+      { ep: "Novela Vol.2 『ホワイト・アルバム』", text: "Autoescuela frente al mall de Morera Gifu. Adachi la cruzó en bicicleta camino al centro comercial." },
+      { ep: "Novela Vol.4, Cap.3 『月と決意と』", text: "En el camino desde Morera Gifu hacia el Parque Minobe." }
+    ],
+    info: { access: "7 min caminando desde estación Morera Gifu", address: "Sanjo, Motosu, Gifu 1100", time: "25 de dic / Abril / mediodía-noche / soleado" },
+    trivia: "Aparece como punto de referencia en varias rutas que los personajes toman a pie o en bicicleta."
+  },
+  {
+    id: 5, num: "⑤", region: "岐阜県本巣市",
+    name: "洋服の青山 本巣店", nameEs: "Aoyama Clothing - Tienda Motosu",
+    lat: 35.4602, lng: 136.6985,
+    category: "gifu", type: "shop",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県本巣市三橋1044-100&z=17",
+    scenes: [
+      { ep: "Novela Vol.4, Cap.3 『月と決意と』", text: "Tienda de ropa que Adachi cruzó para llegar al centro comercial después de saltarse clases en el gimnasio." }
+    ],
+    info: { access: "11 min caminando desde estación Morera Gifu", address: "Sanjo 1044-100, Motosu, Gifu", time: "Abril / mediodía / soleado" },
+    trivia: "Se menciona como 'tienda de ropa formal con estacionamiento'. Adachi la usa como atajo durante su rutina de saltarse clases."
+  },
+  {
+    id: 6, num: "⑥", region: "岐阜県本巣市",
+    name: "モレラ岐阜", nameEs: "Morera Gifu Shopping Mall",
+    lat: 35.4615, lng: 136.6990,
+    category: "morela", type: "main",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県本巣市三橋1100&z=17",
+    scenes: [
+      { ep: "Novela Vol.1 / Anime Ep.3 『二等辺トライアングル』", text: "El gran mall. Lugar de encuentro principal de las protagonistas." },
+      { ep: "Novela Vol.2 / Anime Ep.6 『ホワイト・アルバム』", text: "Su cita de Navidad: bolo, air hockey, hamburguesa y el intercambio de regalos." },
+      { ep: "Novela Vol.3 / Anime Ep.7 『私に相応しいチョコを決めてください』", text: "La búsqueda del chocolate perfecto para San Valentín entre múltiples tiendas." },
+      { ep: "Novela Vol.4 / Anime Ep.11 『月と決意と』", text: "Adachi visita la tienda de mascotas y llora al salir por la entrada dorada." },
+      { ep: "Novela Vol.9, Cap.4 『テンペスト～桜花聖誕帖～』", text: "Lugar de reunión en el reencuentro de los últimos volúmenes." }
+    ],
+    info: { access: "1 min caminando desde estación Morera Gifu (Tarumi Railway)", address: "Sanjo 1100, Motosu, Gifu ☎058-320-5100", time: "Tiendas: 10:00-21:00 / Restaurantes: 11:00-22:00" },
+    trivia: "El auténtico parque temático del universo AdaShima. Aparece en prácticamente todos los arcos narrativos. La fotografía está prohibida dentro del recinto sin permiso previo. El té 'Legend of Africa' de la tienda Mikuniya se agotó tras el anime, pero fue relanzado gracias a la popularidad de la serie."
+  },
+  {
+    id: 7, num: "⑦", region: "岐阜県本巣市",
+    name: "鞍掛神社", nameEs: "Santuario Kurakake",
+    lat: 35.4635, lng: 136.7010,
+    category: "gifu", type: "nature",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県本巣市三橋403&z=17",
+    scenes: [
+      { ep: "Anime Ep.3 『二等辺トライアングル'』 / Ep.6 『ホワイト・アルバム』", text: "El lugar donde Yashiro mostró su verdadero rostro por primera vez." }
+    ],
+    info: { access: "15 min caminando desde estación Morera Gifu", address: "Sanjo 403, Motosu, Gifu", time: "Invierno / mediodía-tarde / soleado" },
+    trivia: "El santuario está dedicado a Susanoo-no-Mikoto y concede protección contra el mal, lazos amorosos y buena fortuna. El misterioso primer encuentro con Yashiro aquí adquiere un significado especial dado el dios protector del lugar."
+  },
+  {
+    id: 8, num: "⑧", region: "岐阜県本巣市",
+    name: "眼鏡市場岐阜本巣店", nameEs: "Megane Ichiba - Óptica Motosu",
+    lat: 35.4618, lng: 136.6960,
+    category: "gifu", type: "shop",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県本巣市三橋1-21&z=17",
+    scenes: [
+      { ep: "Novela Vol.1 『制服ピンポン』", text: "Shimamura cruzó diagonalmente el estacionamiento de la óptica mientras buscaba a Adachi." }
+    ],
+    info: { access: "11 min caminando desde estación Morera Gifu", address: "Sanjo 1-21, Motosu, Gifu", time: "Finales de octubre / tarde / soleado" },
+    trivia: "Un detalle pequeño pero entrañable: Shimamura, usualmente indiferente, tomó un atajo cruzando el estacionamiento para buscar a Adachi. Señal sutil de que le importa más de lo que admite."
+  },
+  {
+    id: 9, num: "⑨", region: "岐阜県本巣市",
+    name: "岐阜第一高等学校", nameEs: "Instituto Gifu Daiichi",
+    lat: 35.4555, lng: 136.6880,
+    category: "gifu", type: "main",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県本巣市仏生寺884-7&z=17",
+    scenes: [
+      { ep: "Anime — Modelo del instituto", text: "La escuela secundaria que inspiró el instituto de las protagonistas. La zona trasera tiene un sendero junto al río que Adachi recorrió en bicicleta." }
+    ],
+    info: { access: "7 min caminando desde estación Kitagata Masaka (Tarumi Railway)", address: "Busshouji 884-7, Motosu, Gifu", time: "Escenas en el instituto a lo largo de la serie" },
+    trivia: "Originalmente era una escuela solo de varones, ahora es mixta. El instituto es el punto de partida invisible de toda la historia: el gimnasio del segundo piso donde todo comenzó."
+  },
+  {
+    id: 10, num: "⑩", region: "岐阜県本巣市",
+    name: "リカーマウンテン北方店", nameEs: "Liquor Mountain - Tienda Kitagata",
+    lat: 35.4540, lng: 136.6895,
+    category: "gifu", type: "shop",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県本巣市上真桑2240-148&z=17",
+    scenes: [
+      { ep: "Anime Ep.9 『そして聖母を抱擁する愛 マリーゴールド』", text: "Camino hacia la estación Nagoya después de clases. El intercambio del cheongsam ocurre en la zona del estacionamiento." }
+    ],
+    info: { access: "2 min caminando desde estación Kitagata Masaka", address: "Kamimakuwa 2240-148, Motosu, Gifu", time: "14 de febrero / tarde / soleado" },
+    trivia: "La escena del estacionamiento es parte del arco de San Valentín del Anime."
+  },
+  {
+    id: 13, num: "⑬", region: "岐阜県本巣郡",
+    name: "高橋米穀店", nameEs: "Takahashi Grain Store",
+    lat: 35.4660, lng: 136.7040,
+    category: "gifu", type: "shop",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県本巣郡北方町東加茂1-47&z=17",
+    scenes: [
+      { ep: "Anime Ep.3, 4, 7, 8 — modelo de 'Onikunonagafuji'", text: "La tienda que inspiró la carnicería 'Onikunonagafuji' que aparece en múltiples episodios del anime." }
+    ],
+    info: { access: "18 min caminando desde estación Kitagata Masaka", address: "Higashikamo 1-47, Kitagata-cho, Motosu-gun, Gifu", time: "Episodios de la serie" },
+    trivia: "La tienda de enfrente también fue usada como referencia visual. El modelo combinó varias perspectivas del entorno local para crear la carnicería del anime."
+  },
+  {
+    id: 19, num: "⑲", region: "岐阜県岐阜市 (Shiri-ge)",
+    name: "川部公園", nameEs: "Parque Kawabe",
+    lat: 35.4195, lng: 136.7520,
+    category: "gifu", type: "nature",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県岐阜市川部1-30&z=17",
+    scenes: [
+      { ep: "Anime Ep.4 『女子高生ホリデイ』", text: "Las chicas se detuvieron aquí tras el karaoke." },
+      { ep: "Novela Vol.3, Cap.3 / Anime Ep.8 『過去を紡ぐ茨 オールドローズ』", text: "Pequeño parque junto al cementerio. En la novela, Shimamura ve a Yashiro haciendo ejercicio aquí de camino al instituto." }
+    ],
+    info: { access: "11 min caminando desde parada 'Shimo Shirige'", address: "Kawabe 1-30, Gifu City", time: "2do domingo de nov / 12 feb / mañana / soleado" },
+    trivia: "La escena difiere entre anime y novela. En el anime es post-karaoke; en la novela original, Shimamura descubre a Yashiro haciendo ejercicios matutinos con su característica energía inagotable."
+  },
+  {
+    id: 20, num: "⑳", region: "岐阜県岐阜市 (Shiri-ge)",
+    name: "岐阜尻毛郵便局", nameEs: "Oficina de Correos Gifu Shirige",
+    lat: 35.4182, lng: 136.7508,
+    category: "gifu", type: "transport",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県岐阜市下尻毛483-2&z=17",
+    scenes: [
+      { ep: "Novela Vol.1 / Anime Ep.4 『女子高生ホリデイ』", text: "Punto de reunión donde Adachi, Shimamura, Hino y Nagafuji quedaron para ir al karaoke." }
+    ],
+    info: { access: "1 min caminando desde parada 'Shimo Shirige'", address: "Shimoshirige 483-2, Gifu City", time: "2do domingo de noviembre / mañana / soleado" },
+    trivia: "El banco y el karaoke cercanos ya están cerrados. Los detalles de la zona: ① Puente Shirige (derecha) ② Oficina de correos ③ Cielo ④ Parada de bus ⑤ Confitería Suehiroya ⑥ Cruce de línea ferroviaria abandonada ⑦ Taller de bicicletas"
+  },
+  {
+    id: 21, num: "㉑", region: "岐阜県岐阜市",
+    name: "島西運動場", nameEs: "Campo Deportivo Shimakita",
+    lat: 35.4220, lng: 136.7450,
+    category: "gifu", type: "nature",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県岐阜市旦島2-8-20&z=17",
+    scenes: [
+      { ep: "Novela Vol.7, Cap.3 『ありふれた言葉を並べて』", text: "Adachi eligió este parque para que Shimamura le diera un 'beso en la frente'. Después del bumerán, comieron el sándwich de huevo casero de Shimamura en un banco." }
+    ],
+    info: { access: "5 min caminando desde parada 'Shima Shoubousho Mae'", address: "Tanjima 2-8-20, Gifu City", time: "Domingo de septiembre / mediodía / soleado" },
+    trivia: "La pista deportiva requiere reserva previa para su uso. Esta escena es uno de los momentos más tiernos del Vol.7: Adachi estratégicamente planea el 'deko chuu' (beso en la frente) con toda la inocencia que la caracteriza."
+  },
+  {
+    id: 26, num: "㉖", region: "岐阜県岐阜市 (Nagara River)",
+    name: "昇龍", nameEs: "Restaurante Shouryuu (Dragón Ascendente)",
+    lat: 35.4352, lng: 136.7310,
+    category: "gifu", type: "shop",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県岐阜市早田東町2-63-2&z=17",
+    scenes: [
+      { ep: "Novela Vol.1 『未来フィッシング』 / Anime Ep.2 『安達クエスチョン』", text: "El trabajo a tiempo parcial de Adachi. Cocina china creativa." },
+      { ep: "Múltiples volúmenes", text: "Aparece como el lugar de trabajo de Adachi a lo largo de toda la serie. En el anime se ve la escena de llegada al trabajo." }
+    ],
+    info: { access: "1 min desde parada 'Hayata Higashimachi 2-chome'", address: "Hayata Higashimachi 2-63-2, Gifu City", time: "Múltiples episodios" },
+    trivia: "El menú real del restaurante incluye: karaage, aleta de tiburón, gyoza y menú set (arroz frito, ramen pequeño, gelatina, karaage). En el anime se aprecia el set de fideos dan dan y medio arroz frito."
+  },
+  {
+    id: 27, num: "㉗", region: "Rio Nagara",
+    name: "金華橋", nameEs: "Puente Kinka",
+    lat: 35.4380, lng: 136.7280,
+    category: "gifu", type: "nature",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県岐阜市四屋町&z=17",
+    scenes: [
+      { ep: "Novela Vol.5, Cap.1 『紺碧を発して』", text: "Tarumi dibujó el retrato de Shimamura sobre las piedras bajo el puente." },
+      { ep: "Novela Vol.10 『The Sakura's Ark』", text: "La orilla del río en invierno. Lugar de memorias de Tarumi." }
+    ],
+    info: { access: "5 min caminando desde parada 'Kinkabashi'", address: "Yotsuya-cho, Gifu City", time: "Domingo de septiembre / mediodía / soleado" },
+    trivia: "El río Nagara es famoso por la pesca con cormoranes (ukai) de mayo a octubre. En verano se celebra el festival de fuegos artificiales del río Nagara. Un lugar que en la novela acumula capas de melancolía y belleza natural."
+  },
+  {
+    id: 28, num: "㉘", region: "Rio Nagara",
+    name: "長良川観光ホテル石金", nameEs: "Hotel Onsen Nagaragawa Ishikin",
+    lat: 35.4398, lng: 136.7245,
+    category: "gifu", type: "main",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県岐阜市長良112&z=17",
+    scenes: [
+      { ep: "Novela especial anime Vol.3 『ムラ』", text: "La famosa escena del 'hotel'. El onsen de día está disponible al público. El ashiyu (baño de pies) es gratuito." }
+    ],
+    info: { access: "3 min caminando desde parada 'Ukaimachi'", address: "Nagara 112, Gifu City", time: "La novela especial del Blu-ray Vol.3" },
+    trivia: "El hotel fue elegido entre los '100 mejores onsens de Japón'. Las habitaciones posibles para las protagonistas: 'Tsuru', 'Hisui', 'Kagari' o 'Yamabuki' (primera planta, edificio principal). El hotel desafortunadamente no tiene mesa de ping-pong, como señala la guía con humor."
+  },
+  {
+    id: 29, num: "㉙", region: "岐阜市",
+    name: "金華山", nameEs: "Monte Kinkasan",
+    lat: 35.4420, lng: 136.7620,
+    category: "gifu", type: "nature",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県岐阜市槻谷&z=15",
+    scenes: [
+      { ep: "Novela Vol.5 / Anime — Ending", text: "La montaña que Shimamura divisó desde el puente Kinka. Aparece en el ending del anime." },
+      { ep: "Recuerdos de infancia", text: "Shimamura usó el teleférico de pequeña." }
+    ],
+    info: { access: "5 min desde parada 'Shima Shoubousho Mae'", address: "Tsukitani, Gifu City", time: "Diversas estaciones" },
+    trivia: "El castillo de Gifu corona la cima. El teleférico ofrece vistas del río Nagara que aparecen en el ending. La montaña es un símbolo silencioso de Gifu que permea la estética visual de la serie."
+  },
+  {
+    id: 30, num: "㉚", region: "岐阜県大垣市",
+    name: "大垣駅", nameEs: "Estación Ogaki",
+    lat: 35.3622, lng: 136.6118,
+    category: "gifu", type: "transport",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県大垣市高屋町1&z=17",
+    scenes: [
+      { ep: "Anime Ep.9 『そして聖母を抱擁する愛 マリーゴールド』", text: "La escena del '¡Corramos!' camino a la estación de Nagoya. 13 y 14 de febrero." }
+    ],
+    info: { access: "Centro de la ciudad de Ogaki", address: "Takaya-cho 1, Ogaki City, Gifu", time: "13-14 de febrero / tarde / soleado" },
+    trivia: "En la novela original la escena ocurre en la estación de Gifu. El anime la traslada a Ogaki para mayor dinamismo visual."
+  },
+  {
+    id: 33, num: "㉝", region: "岐阜県岐阜市",
+    name: "JR岐阜駅", nameEs: "Estación JR Gifu",
+    lat: 35.4118, lng: 136.7220,
+    category: "gifu", type: "transport",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県岐阜市橋本町1&z=17",
+    scenes: [
+      { ep: "Novela Vol.1 / Anime Ep.2 『安達クエスチョン』", text: "La estación de dos pisos. Aquí Adachi y Shimamura comieron donuts juntas por primera vez." },
+      { ep: "Múltiples volúmenes", text: "Punto de encuentro recurrente. En la novela, junto a la escalera larga donde tomaron las manos por primera vez." }
+    ],
+    info: { access: "Centro de Gifu City", address: "Hashimoto-cho 1, Gifu City", time: "Múltiples escenas a lo largo de la serie" },
+    trivia: "El lugar exacto donde comieron donuts difiere: en la novela es contra la pared junto a la escalera mecánica; en el anime es junto a una columna. Esta pequeña discrepancia es uno de los detalles más debatidos por el fandom."
+  },
+  {
+    id: 35, num: "㉟", region: "岐阜県各務原市",
+    name: "イオンモール各務原", nameEs: "Aeon Mall Kakamigahara",
+    lat: 35.3920, lng: 136.8560,
+    category: "gifu", type: "shop",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県各務原市那加萱場町3-8&z=17",
+    scenes: [
+      { ep: "Novela Vol.2 / Anime Ep.6 『ホワイト・アルバム』", text: "El mall donde cada quien compró su regalo de Navidad. Adachi fue con Hino, Shimamura con Nagafuji." }
+    ],
+    info: { access: "17 min caminando desde estación Shinkano (Meitetsu)", address: "Nakamo 3-8, Kakamigahara, Gifu", time: "Diciembre / tarde / soleado" },
+    trivia: "El té 'Legend of Africa' de Mikuniya fue comprado aquí. La tienda de ropa deportiva Sports Authority (3F) es donde Shimamura compró el bumerán. Se requiere permiso del centro de información para fotografiar."
+  },
+  {
+    id: 36, num: "㊱", region: "岐阜県各務原市",
+    name: "つりぼり喜水園", nameEs: "Estanque de Pesca Kisui-en",
+    lat: 35.3888, lng: 136.8620,
+    category: "gifu", type: "nature",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県各務原市大野町5-26&z=17",
+    scenes: [
+      { ep: "Novela Vol.1 / Anime Ep.1-2", text: "El estanque de pesca donde Hino y Shimamura fueron juntas. También es donde Shimamura y Hino conocieron a Yashiro por primera vez." },
+      { ep: "Anime Opening", text: "La escena de Yashiro flotando en el río corresponde a esta área." }
+    ],
+    info: { access: "20 min caminando desde estación Shinkano (Meitetsu)", address: "Ono-cho 5-26, Kakamigahara, Gifu", time: "Finales de octubre / mediodía / soleado" },
+    trivia: "¡El primer encuentro con Yashiro! La escena del 'Fish!' es icónica. El primer capítulo de la novela lleva por título 'Pesca del futuro' (未来フィッシング). Hino y Shimamura fueron juntas y de repente apareció la misteriosa Yashiro."
+  },
+  {
+    id: 37, num: "㊲", region: "岐阜県各務原市",
+    name: "那加新橋", nameEs: "Puente Naka Shin",
+    lat: 35.3870, lng: 136.8590,
+    category: "gifu", type: "nature",
+    mapsUrl: "https://maps.google.com/maps?q=岐阜県各務原市那加前洞新町&z=17",
+    scenes: [
+      { ep: "Anime Ep.1, 4, 10 — camino de regreso a casa", text: "El puente que los personajes cruzan al volver del instituto." }
+    ],
+    info: { access: "12 min caminando desde estación Shimin-kouen-mae (Meitetsu)", address: "Naka Maedorashin-machi, Kakamigahara, Gifu", time: "Finales de octubre / tarde / soleado" },
+    trivia: "Puede que no sea exactamente este puente para los Ep.4 y 10 — la forma del río sugiere uno diferente. El opening muestra a Yashiro flotando cerca de esta zona."
+  },
+  {
+    id: 40, num: "㊵", region: "愛知県名古屋市",
+    name: "名古屋駅", nameEs: "Estación de Nagoya",
+    lat: 35.1706, lng: 136.8816,
+    category: "nagoya", type: "transport",
+    mapsUrl: "https://maps.google.com/maps?q=愛知県名古屋市中村区名駅1-1-4&z=17",
+    scenes: [
+      { ep: "Novela Vol.3 / Anime Ep.8-9", text: "Tarumi y Shimamura llegan a Nagoya para comprar el chocolate de San Valentín." },
+      { ep: "Novela Vol.10 『Cherry Blossoms for the Two of Us』", text: "La estación destino para comprar chocolates." }
+    ],
+    info: { access: "Terminal central de Nagoya", address: "Meieki 1-1-4, Nakamura-ku, Nagoya, Aichi", time: "13-14 de febrero / tarde / soleado" },
+    trivia: "La saga de los chocolates de San Valentín es uno de los arcos más queridos. El viaje a Nagoya representa la primera gran 'aventura' compartida de Tarumi y Shimamura."
+  },
+  {
+    id: 41, num: "㊶", region: "愛知県名古屋市",
+    name: "金時計", nameEs: "El Reloj Dorado (Kin-Dokei)",
+    lat: 35.1710, lng: 136.8820,
+    category: "nagoya", type: "main",
+    mapsUrl: "https://maps.google.com/maps?q=35.1710,136.8820&z=18",
+    scenes: [
+      { ep: "Novela Vol.3 / Anime Ep.8 『過去を紡ぐ茨 オールドローズ』", text: "Punto de referencia donde Tarumi y Shimamura se encontraron al llegar a Nagoya. '¿Recuerdas el caso del asesinato?'" }
+    ],
+    info: { access: "Dentro de la estación JR Nagoya", address: "Meieki 1-1-4, Nakamura-ku, Nagoya, Aichi", time: "13 de febrero / tarde / soleado" },
+    trivia: "La referencia al 'caso del asesinato' es un guiño a otra novela del mismo autor: 'Kitsune to Uso' (El zorro y la mentira). Un easter egg para fans del universo Iruma Hitoma."
+  },
+  {
+    id: 42, num: "㊷", region: "愛知県名古屋市",
+    name: "ジェイアール名古屋タカシマヤ", nameEs: "JR Nagoya Takashimaya",
+    lat: 35.1715, lng: 136.8825,
+    category: "nagoya", type: "shop",
+    mapsUrl: "https://maps.google.com/maps?q=愛知県名古屋市中村区名駅1-1-4&z=18",
+    scenes: [
+      { ep: "Novela Vol.3 / Anime Ep.8-9", text: "El gran almacén donde compraron los chocolates. Ruta: sombreros/bolsos → escalera mecánica → sótano de dulces → pastelería." }
+    ],
+    info: { access: "Directamente conectado a la estación JR Nagoya", address: "Meieki 1-1-4, Nakamura-ku, Nagoya, Aichi", time: "13-14 de febrero / tarde / soleado" },
+    trivia: "En la versión manga (Moke-sensei) el chocolate intercambiado es Godiva. El intercambio de chocolates es uno de los momentos más íntimos y llenos de tensión de la serie."
+  },
+  {
+    id: 50, num: "①", region: "東京都西東京市",
+    name: "西武鉄道 田無駅", nameEs: "Estación Tanashi (Seibu Railway)",
+    lat: 35.7365, lng: 139.5388,
+    category: "tokyo", type: "transport",
+    mapsUrl: "https://maps.google.com/maps?q=東京都西東京市田無町4-1&z=17",
+    scenes: [
+      { ep: "Anime Ep.1 『制服ピンポン』", text: "Inicio del anime. El ángulo desde el segundo piso del norte permite replicar exactamente la toma del anime." },
+      { ep: "Múltiples episodios", text: "Aparece en Ep.1, 2, 9, 10, 12 como escenario cotidiano." }
+    ],
+    info: { access: "1 min caminando desde estación Tanashi (Seibu Railway)", address: "Tanashi-cho 4-1, Nishi-Tokyo City, Tokyo", time: "Octubre / tarde / soleado" },
+    trivia: "El monumento circular a la izquierda se llama 'El anillo de la paz'. El anime usa la estación de Tanashi como equivalente al entorno de Gifu de la novela. La primera secuencia establece visualmente el tono melancólico y cotidiano de la serie."
+  },
+  {
+    id: 51, num: "②", region: "東京都西東京市",
+    name: "ASTA前", nameEs: "Frente al ASTA Shopping",
+    lat: 35.7368, lng: 139.5382,
+    category: "tokyo", type: "main",
+    mapsUrl: "https://maps.google.com/maps?q=東京都西東京市田無町4-1&z=18",
+    scenes: [
+      { ep: "Anime Ep.1, 6, 8, 12", text: "Escena con las tres amigas: Shimamura voltea al ver a Adachi en el banco." }
+    ],
+    info: { access: "1 min caminando desde estación Tanashi", address: "Tanashi-cho 4-1, Nishi-Tokyo City", time: "Octubre / tarde / soleado" },
+    trivia: "En el anime está invertido horizontalmente respecto a la realidad. En la novela original, la escena sucede frente a la estación de Gifu. El ASTA es el centro comercial local de referencia del área."
+  },
+  {
+    id: 52, num: "③", region: "東京都西東京市",
+    name: "田無 — 階段", nameEs: "La Escalera de Tanashi",
+    lat: 35.7362, lng: 139.5395,
+    category: "tokyo", type: "main",
+    mapsUrl: "https://maps.google.com/maps?q=東京都西東京市田無町2-1-1&z=18",
+    scenes: [
+      { ep: "Anime Ep.2 『安達クエスチョン』", text: "El primer lugar donde Adachi y Shimamura se tomaron de la mano." }
+    ],
+    info: { access: "2 min caminando desde estación Tanashi", address: "Tanashi-cho 2-1-1, Nishi-Tokyo City", time: "Octubre / tarde / soleado" },
+    trivia: "En la novela original es la larga escalera frente a la estación de Gifu. Este momento define la relación: Adachi busca el contacto, Shimamura lo permite sin entender del todo por qué."
+  },
+  {
+    id: 53, num: "④", region: "東京都西東京市",
+    name: "田無 — ベンチ", nameEs: "El Banco de Adachi",
+    lat: 35.7360, lng: 139.5392,
+    category: "tokyo", type: "main",
+    mapsUrl: "https://maps.google.com/maps?q=東京都西東京市田無町2-1-1&z=18",
+    scenes: [
+      { ep: "Anime Ep.1, 6, 8, 12", text: "El banco donde Adachi solía sentarse. Shimamura la vio aquí, desencadenando toda la historia." }
+    ],
+    info: { access: "2 min caminando desde estación Tanashi", address: "Tanashi-cho 2-1-1, Nishi-Tokyo City", time: "Octubre / tarde / soleado" },
+    trivia: "En la novela, el banco corresponde a la zona de Kamimakuwa en Gifu (p.25). Este pequeño banco es el origen de todo: si Shimamura no hubiera visto a Adachi sentada aquí, nada habría comenzado."
+  }
+];
+
+const categoryColors = {
+  morela: { color: '#c4789a', icon: '🏬' },
+  gifu:   { color: '#5a8fb5', icon: '⛩' },
+  nagoya: { color: '#d4a853', icon: '🗼' },
+  tokyo:  { color: '#8fba9a', icon: '🌸' },
+  other:  { color: '#7a6882', icon: '📍' }
+};
+
+const typeColors = {
+  main: '#c4789a',
+  shop: '#d4a853',
+  nature: '#8fba9a',
+  transport: '#5a8fb5',
+  other: '#7a6882'
+};
+
+const map = L.map('map', {
+  center: [35.44, 136.78],
+  zoom: 10,
+  zoomControl: true
+});
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '©OpenStreetMap ©CartoDB',
+  subdomains: 'abcd',
+  maxZoom: 19
+}).addTo(map);
+
+function createIcon(location) {
+  const cat = categoryColors[location.category] || categoryColors.other;
+  const color = typeColors[location.type] || '#7a6882';
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="42" viewBox="0 0 36 42">
+    <defs>
+      <filter id="shadow-${location.id}" x="-30%" y="-20%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.3)"/>
+      </filter>
+    </defs>
+    <path d="M18 2C10.3 2 4 8.3 4 16c0 11 14 28 14 28S32 27 32 16C32 8.3 25.7 2 18 2z" 
+          fill="${color}" filter="url(#shadow-${location.id})" opacity="0.9"/>
+    <circle cx="18" cy="16" r="9" fill="white" opacity="0.95"/>
+    <text x="18" y="20" text-anchor="middle" font-family="Noto Serif JP, serif" 
+          font-size="9" font-weight="600" fill="${color}">${location.num}</text>
+  </svg>`;
+  return L.divIcon({
+    html: svg,
+    iconSize: [36, 42],
+    iconAnchor: [18, 42],
+    popupAnchor: [0, -44],
+    className: ''
+  });
+}
+
+const markers = [];
+
+locations.forEach(loc => {
+  const marker = L.marker([loc.lat, loc.lng], { icon: createIcon(loc) });
+  const cat = categoryColors[loc.category] || categoryColors.other;
+  marker.bindPopup(`
+    <div class="popup-name">${loc.num} ${loc.name}</div>
+    <div class="popup-sub">${loc.nameEs || ''}</div>
+    <div class="popup-click">Clic para más detalles →</div>
+  `, { maxWidth: 220 });
+  marker.on('click', () => {
+    openPanel(loc);
+    document.getElementById('welcomePanel').classList.add('hidden');
+  });
+  marker.locationData = loc;
+  marker.addTo(map);
+  markers.push(marker);
+});
+
+function openPanel(loc) {
+  document.getElementById('pRegion').textContent = loc.region;
+  document.getElementById('pTitle').textContent = loc.num + ' ' + loc.name;
+  document.getElementById('pNum').textContent = loc.nameEs || '';
+
+  const typeBadgeMap = {
+    main: ['badge-main', 'Lugar principal'],
+    shop: ['badge-shop', 'Tienda / Restaurante'],
+    nature: ['badge-nature', 'Naturaleza / Parque'],
+    transport: ['badge-transport', 'Transporte'],
+    other: ['badge-other', 'Otro']
+  };
+  const [badgeClass, badgeLabel] = typeBadgeMap[loc.type] || ['badge-other', 'Lugar'];
+
+  let scenesHTML = loc.scenes.map(s => `
+    <div class="scene-card">
+      <div class="scene-ep">${s.ep}</div>
+      ${s.text}
+    </div>
+  `).join('');
+
+  let infoHTML = '';
+  if (loc.info) {
+    const i = loc.info;
+    if (i.access) infoHTML += `<div class="info-row"><span class="info-icon">🚌</span><span>${i.access}</span></div>`;
+    if (i.address) infoHTML += `<div class="info-row"><span class="info-icon">📍</span><span>${i.address}</span></div>`;
+    if (i.time) infoHTML += `<div class="info-row"><span class="info-icon">🕐</span><span>${i.time}</span></div>`;
+  }
+
+  const imgId = `img-${loc.id}`;
+  const imgSrc = window._imgCache && window._imgCache[loc.id] ? window._imgCache[loc.id] : null;
+
+  document.getElementById('pBody').innerHTML = `
+    <div class="panel-section">
+      <span class="type-badge ${badgeClass}">${badgeLabel}</span>
+      <div class="section-label">Fotografía del lugar</div>
+      <div class="img-placeholder" id="${imgId}" title="Haz clic para subir una imagen">
+        <input type="file" accept="image/*" onchange="loadImg(event, ${loc.id}, '${imgId}')">
+        ${imgSrc
+          ? `<img src="${imgSrc}" alt="${loc.name}">`
+          : `<div class="img-placeholder-icon">🌸</div>
+             <div class="img-placeholder-label">Espacio para fotografía
+               <span>Haz clic para agregar imagen</span>
+             </div>`
+        }
+      </div>
+    </div>
+    <div class="panel-section">
+      <div class="section-label">Escenas de la historia</div>
+      ${scenesHTML}
+    </div>
+    ${infoHTML ? `<div class="panel-section"><div class="section-label">Información de acceso</div>${infoHTML}</div>` : ''}
+    ${loc.mapsUrl ? `
+    <div class="panel-section">
+      <div class="section-label">Google Maps</div>
+      <a class="maps-link" href="${loc.mapsUrl}" target="_blank" rel="noopener noreferrer">
+        <svg class="maps-link-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335"/>
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 1.82.59 3.5 1.59 4.87L12 2z" fill="#C5221F"/>
+          <path d="M12 2v7l4.41 6.87C17.41 14.5 19 11.82 19 9c0-3.87-3.13-7-7-7z" fill="#FBBC04"/>
+          <path d="M12 9l-4.41 6.87C8.78 17.2 10.31 18 12 18s3.22-.8 4.41-2.13L12 9z" fill="#34A853"/>
+          <circle cx="12" cy="9" r="2.5" fill="white"/>
+        </svg>
+        <span class="maps-link-text">Ver en Google Maps
+          <small>${loc.info && loc.info.address ? loc.info.address : loc.name}</small>
+        </span>
+        <span class="maps-link-arrow">↗</span>
+      </a>
+    </div>` : ''}
+    ${loc.trivia ? `
+    <div class="panel-section">
+      <div class="section-label">Curiosidades</div>
+      <div class="trivia-box">${loc.trivia}</div>
+    </div>` : ''}
+    <div class="sakura-divider">✿ ✿ ✿</div>
+  `;
+
+  document.getElementById('sidePanel').classList.add('open');
+}
+
+function closePanel() {
+  document.getElementById('sidePanel').classList.remove('open');
+}
+
+let activeFilter = 'all';
+function filterMarkers(category, btn) {
+  activeFilter = category;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  markers.forEach(m => {
+    const loc = m.locationData;
+    const show = category === 'all' || loc.category === category;
+    if (show) {
+      if (!map.hasLayer(m)) m.addTo(map);
+    } else {
+      if (map.hasLayer(m)) map.removeLayer(m);
+    }
+  });
+  if (category !== 'all') {
+    const visible = markers.filter(m => m.locationData.category === category && map.hasLayer(m));
+    if (visible.length > 0) {
+      const group = L.featureGroup(visible);
+      map.flyToBounds(group.getBounds().pad(0.2), { duration: 0.8 });
+    }
+  } else {
+    map.flyTo([35.44, 136.78], 10, { duration: 0.8 });
+  }
+}
+
+window._imgCache = {};
+
+function loadImg(event, locId, containerId) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    window._imgCache[locId] = e.target.result;
+    const container = document.getElementById(containerId);
+    if (container) {
+      const existing = container.querySelector('img');
+      const icon = container.querySelector('.img-placeholder-icon');
+      const label = container.querySelector('.img-placeholder-label');
+      if (icon) icon.remove();
+      if (label) label.remove();
+      if (existing) {
+        existing.src = e.target.result;
+      } else {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.alt = 'Lugar';
+        container.appendChild(img);
+      }
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+map.on('click', () => {
+  const panel = document.getElementById('sidePanel');
+  if (panel.classList.contains('open')) closePanel();
+});
+</script>
+</body>
+</html>

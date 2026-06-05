@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adashima - Novelas Ligeras</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Quicksand:wght@300;400;600&display=swap');
+
+        :root {
+            --rose: #d1a3c6;
+            --purple: #8c5a96;
+            --dark-purple: #5c3a6b;
+            --bg-dark: #141018;
+            --text-light: rgba(209,163,198,0.92);
+            --border: rgba(209,163,198,0.18);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fbe9e7 0%, #f3e5f5 50%, #e8eaf6 100%);
+            color: #4a3b52;
+            overflow-x: hidden;
+        }
+
+        .particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+        .star { position: absolute; width: 4px; height: 4px; background: white; border-radius: 50%; box-shadow: 0 0 10px 2px rgba(255,255,255,0.8); animation: float-up 10s linear infinite, twinkle 3s ease-in-out infinite; opacity: 0; }
+        @keyframes float-up { 0% { transform: translateY(100vh) scale(0.5); opacity: 0; } 20% { opacity: 0.8; } 80% { opacity: 0.8; } 100% { transform: translateY(-10vh) scale(1.2); opacity: 0; } }
+        @keyframes twinkle { 0%,100% { box-shadow: 0 0 5px 1px rgba(255,255,255,0.5); } 50% { box-shadow: 0 0 15px 4px rgba(255,200,255,0.9); } }
+
+        .sidebar { width: 300px; background-color: rgba(209,163,198,0.9); backdrop-filter: blur(5px); z-index: 10; box-shadow: 2px 0 10px rgba(0,0,0,0.1); position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+        .sidebar-inner { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100%; padding: 30px 20px; width: 100%; }
+        .sidebar-box { width: 100%; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; }
+        .sidebar-box img { width: 100%; height: auto; object-fit: cover; }
+        .sidebar::-webkit-scrollbar { width: 6px; }
+        .sidebar::-webkit-scrollbar-thumb { background: rgba(92,58,107,0.3); border-radius: 10px; }
+
+        .main-content {
+            flex: 1;
+            position: relative;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+            background: url('Imagenes/Fondo_seccion_novela.png') center/cover no-repeat fixed;
+        }
+
+        .main-content::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 300px; right: 0; bottom: 0;
+            background: rgba(255,255,255,0.75);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        h1.update-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 3.5rem;
+            color: #5c3a6b;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(255,255,255,0.8);
+        }
+
+        .header-container { width: 100%; max-width: 900px; margin-bottom: 30px; position: relative; }
+
+        .back-link-bottom {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            padding: 12px 28px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #d1a3c6 0%, #8c5a96 100%);
+            box-shadow: 0 4px 15px rgba(139,90,150,0.3);
+            margin-top: 40px;
+        }
+        .back-link-bottom:hover { background: linear-gradient(135deg, #8c5a96 0%, #5c3a6b 100%); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(92,58,107,0.4); }
+
+        .update-box {
+            background: rgba(255,255,255,0.78);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            border: 2px solid rgba(209,163,198,0.5);
+            width: 100%;
+            max-width: 900px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(92,58,107,0.12);
+            max-height: 75vh;
+            overflow-y: auto;
+        }
+        .update-box::-webkit-scrollbar { width: 6px; }
+        .update-box::-webkit-scrollbar-thumb { background: #d1a3c6; border-radius: 10px; }
+
+        .novel-item { margin-bottom: 20px; background: rgba(255,255,255,0.6); border-radius: 16px; border: 1px solid rgba(209,163,198,0.3); overflow: hidden; transition: all 0.3s; }
+        .novel-item:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+
+        summary.novel-summary { font-size: 1.1rem; color: #5c3a6b; font-weight: 600; cursor: pointer; padding: 20px; display: flex; justify-content: space-between; align-items: center; list-style: none; transition: background 0.3s; }
+        summary.novel-summary::-webkit-details-marker { display: none; }
+        summary.novel-summary:hover { background: rgba(255,255,255,0.8); }
+        summary.novel-summary i.fa-book { margin-right: 12px; color: #d1a3c6; }
+        details[open] summary.novel-summary .fa-chevron-down { transform: rotate(180deg); transition: transform 0.3s; }
+        summary.novel-summary .fa-chevron-down { transition: transform 0.3s; }
+
+        .novel-content { padding: 0 20px 20px 20px; display: flex; flex-direction: column; gap: 16px; }
+        .novel-description { color: #7b5e8c; font-size: 0.92rem; line-height: 1.6; padding-top: 4px; }
+
+        /* ═══ VISOR PDF MEJORADO ═══ */
+        .custom-pdf-viewer {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 820px;
+            min-height: 600px;
+            background: linear-gradient(135deg, rgba(139,90,150,0.08) 0%, rgba(209,163,198,0.08) 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(209,163,198,0.3);
+            box-shadow: 0 10px 40px rgba(92,58,107,0.15);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .custom-pdf-viewer:hover { box-shadow: 0 15px 50px rgba(92,58,107,0.2); border-color: rgba(209,163,198,0.5); }
+
+        /* ── Toolbar ── */
+        .pdf-toolbar {
+            background: linear-gradient(to right, rgba(255,255,255,0.97), rgba(245,238,242,0.97));
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid rgba(209,163,198,0.2);
+            flex-wrap: wrap;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+            flex-shrink: 0;
+            z-index: 10;
+        }
+
+        .pdf-controls-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.5);
+            padding: 6px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(209,163,198,0.2);
+        }
+
+        .pdf-btn {
+            background: linear-gradient(135deg, #f5eef2 0%, #ead9e8 100%);
+            border: none;
+            color: #5c3a6b;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+            text-decoration: none;
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .pdf-btn:hover { background: linear-gradient(135deg, #d1a3c6 0%, #c993b8 100%); color: white; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(209,163,198,0.4); }
+        .pdf-btn:active { transform: translateY(0); }
+        .pdf-btn.active { background: linear-gradient(135deg, var(--rose), var(--purple)); color: white; box-shadow: 0 2px 8px rgba(140,90,150,0.4); }
+
+        .pdf-btn-reset:hover i,
+        .pdf-btn-reset:active i { animation: spin-once 0.4s ease; }
+        @keyframes spin-once { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .pdf-zoom-display { font-size: 0.88rem; color: #8c5a96; font-weight: 700; padding: 4px 10px; background: rgba(209,163,198,0.12); border-radius: 8px; min-width: 58px; text-align: center; }
+        .pdf-page-info { font-size: 0.88rem; color: #5c3a6b; font-weight: 600; min-width: 110px; text-align: center; white-space: nowrap; }
+        .pdf-page-input { width: 52px; padding: 5px 8px; border: 1px solid rgba(209,163,198,0.4); border-radius: 8px; color: #5c3a6b; font-weight: 600; text-align: center; background: rgba(255,255,255,0.7); font-size: 0.88rem; transition: all 0.2s; }
+        .pdf-page-input:focus { outline: none; border-color: #d1a3c6; background: white; box-shadow: 0 0 0 3px rgba(209,163,198,0.2); }
+
+        /* ── Barra de progreso ── */
+        .pdf-progress-wrap { width: 100%; height: 3px; background: rgba(209,163,198,0.1); flex-shrink: 0; }
+        .pdf-progress-fill { height: 100%; background: linear-gradient(to right, var(--rose), var(--purple)); transition: width 0.2s ease; }
+
+        /* ── Área de canvas ── */
+        .pdf-body { display: flex; flex: 1; min-height: 0; overflow: hidden; }
+
+        /* Canvas container */
+        .pdf-canvas-container {
+            flex: 1;
+            overflow: auto;
+            background: linear-gradient(135deg, #3a3d40 0%, #525659 100%);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 24px;
+            position: relative;
+        }
+        .pdf-canvas-container::-webkit-scrollbar { width: 8px; height: 8px; }
+        .pdf-canvas-container::-webkit-scrollbar-track { background: #2a2d30; }
+        .pdf-canvas-container::-webkit-scrollbar-thumb { background: linear-gradient(var(--rose), var(--purple)); border-radius: 6px; }
+
+        .pdf-canvas-wrapper { position: relative; display: inline-block; }
+        .pdf-canvas-wrapper canvas {
+            display: block;
+            background: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border-radius: 6px;
+        }
+
+        /* Loading overlay */
+        .pdf-loading-overlay {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: rgba(20,10,30,0.75);
+            z-index: 20;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            border-radius: 20px;
+        }
+        .pdf-loading-overlay.visible { display: flex; }
+        .pdf-spinner { width: 40px; height: 40px; border: 3px solid rgba(209,163,198,0.15); border-top-color: var(--rose); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .pdf-loading-text { color: var(--text-light); font-size: 0.88rem; font-weight: 600; }
+
+        /* Error state */
+        .pdf-error-state {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            color: rgba(209,163,198,0.7);
+        }
+        .pdf-error-state i { font-size: 2.5rem; opacity: 0.5; }
+        .pdf-error-state p { font-size: 0.88rem; line-height: 1.6; }
+
+        /* Acciones */
+        .actions { display: flex; justify-content: flex-end; gap: 12px; }
+        .btn { background-color: #fff; color: #5c3a6b; padding: 10px 22px; border-radius: 20px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #d1a3c6; cursor: pointer; }
+        .btn:hover { background: linear-gradient(135deg, #d1a3c6 0%, #c993b8 100%); color: white; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(209,163,198,0.4); }
+        .btn-download { background-color: #7b5e8c; color: white; border: none; }
+        .btn-download:hover { background-color: #5c3a6b; }
+
+        .footer { margin-top: 30px; text-align: center; font-size: 0.8rem; color: rgba(92,58,107,0.6); z-index: 5; }
+
+        .floating-adashima { position: fixed; bottom: 30px; right: 30px; width: 200px; animation: float-astronaut 8s ease-in-out infinite; z-index: 100; filter: drop-shadow(0px 5px 10px rgba(0,0,0,0.2)); }
+        .floating-adashima img { width: 100%; border-radius: 50%; }
+        @keyframes float-astronaut { 0% { transform: translateY(0px) rotate(0deg); } 33% { transform: translateY(-15px) rotate(5deg); } 66% { transform: translateY(10px) rotate(-5deg); } 100% { transform: translateY(0px) rotate(0deg); } }
+
+        /* Fullscreen */
+        .custom-pdf-viewer:fullscreen { border-radius: 0; }
+        .custom-pdf-viewer:fullscreen .pdf-canvas-container { height: calc(100vh - 110px); }
+        .custom-pdf-viewer:-webkit-full-screen { border-radius: 0; }
+        .custom-pdf-viewer:-webkit-full-screen .pdf-canvas-container { height: calc(100vh - 110px); }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; }
+            .main-content { padding: 30px 16px; }
+            .main-content::before { left: 0; }
+            h1.update-title { font-size: 2.2rem; }
+            .floating-adashima { width: 100px; bottom: 10px; right: 10px; }
+            .update-box { padding: 16px; max-height: none; }
+            .custom-pdf-viewer { height: 600px; min-height: 400px; }
+            .pdf-toolbar {
+                padding: 8px 10px;
+                gap: 6px;
+                display: grid;
+                grid-template-columns: 1fr auto;
+                grid-template-rows: auto auto;
+            }
+            .pdf-controls-group:nth-child(1) { grid-column: 1; grid-row: 1; }
+            .pdf-controls-group:nth-child(3) { grid-column: 2; grid-row: 1; }
+            .pdf-controls-group:nth-child(2) { grid-column: 1 / -1; grid-row: 2; justify-content: center; }
+            .pdf-controls-group { padding: 5px 8px; gap: 5px; }
+            .pdf-btn { width: 34px; height: 34px; font-size: 0.82rem; }
+            .pdf-page-input { width: 44px; font-size: 0.8rem; }
+            .pdf-page-info { font-size: 0.8rem; min-width: auto; }
+            .pdf-zoom-display { font-size: 0.78rem; min-width: 46px; }
+            .pdf-canvas-container { padding: 12px; }
+        }
+
+        @media (max-width: 480px) {
+            h1.update-title { font-size: 1.7rem; }
+            .update-box { padding: 12px; }
+            .custom-pdf-viewer { height: 520px; }
+            .floating-adashima { width: 80px; bottom: 5px; right: 5px; }
+            .pdf-btn { width: 32px; height: 32px; font-size: 0.78rem; }
+            .pdf-zoom-display { min-width: 40px; font-size: 0.74rem; }
+            .pdf-page-info { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="particles" id="particles"></div>
+    <div id="menu-container" style="display: contents;"></div>
+
+    <div class="main-content">
+        <div class="header-container">
+            <h1 class="update-title">Novelas Ligeras</h1>
+        </div>
+
+        <div class="update-box" id="novels-container">
+            </div>
+
+        <a href="Juego.html" class="floating-adashima" title="¡Clickea para ir al mini-juego!">
+            <img src="Imagenes/Adashima_flotante2-Photoroom.png" alt="Adashima Chibi Floating" onerror="this.style.display='none'">
+        </a>
+
+        
+
+        <div class="footer">
+            Fan site no oficial de Adachi to Shimamura.<br>
+            Creado por fans, sin fines de lucro.<br>
+            Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma.
+        </div>
+    </div>
+
+    <script>
+    // ═══════════════════════════════════════════════════════════════
+    //  CONFIGURACIÓN DE VOLÚMENES
+    // ═══════════════════════════════════════════════════════════════
+    const VOLUMES = [
+        { id: '1',    title: 'Volumen 1',    desc: 'Publicado el 10 de marzo del 2013. Ilustrado por Non.', file: 'Adachi to Shimamura Volumen 1 Español.pdf' },
+        { id: '2',    title: 'Volumen 2',    desc: 'Publicado el 10 de septiembre del 2013.', file: 'Adachi to Shimamura Volumen 2 Español.pdf' },
+        { id: '3',    title: 'Volumen 3',    desc: 'Publicado el 9 de agosto del 2014. Ilustrado por Non.', file: 'Adachi to Shimamura Volumen 3 Español.pdf' },
+        { id: '4',    title: 'Volumen 4',    desc: 'Publicado el 9 de mayo del 2015. Ilustrado por Non.', file: 'Adachi to Shimamura Volumen 4 Español.pdf' },
+        { id: '5',    title: 'Volumen 5',    desc: 'Publicado el 10 de noviembre del 2015. Ilustrado por Non.', file: 'Adachi to Shimamura Volumen 5 Español.pdf' },
+        { id: '6',    title: 'Volumen 6',    desc: 'Publicado el 10 de mayo del 2016. Ilustrado por Non.', file: 'Adachi to Shimamura Volumen 6 Español.pdf' },
+        { id: '7',    title: 'Volumen 7',    desc: 'Publicado el 10 de noviembre del 2016. Ilustrado por Non.', file: 'Adachi to Shimamura Volumen 7 Español.pdf' },
+        { id: '8',    title: 'Volumen 8',    desc: 'Publicado el 10 de mayo del 2019.', file: 'Adachi to Shimamura Volumen 8 Español.pdf' },
+        { id: '8.5',  title: 'Especial Tarumi',  desc: 'Publicado en 2019.', file: 'Adachi to Shimamura Especial Tarumi Español.pdf' },
+        { id: '9',    title: 'Volumen 9',    desc: 'Publicado el 10 de octubre del 2020.', file: 'Adachi to Shimamura Volumen 9 Español.pdf' },
+        { id: '10',   title: 'Volumen 10',   desc: 'Publicado el 10 de septiembre del 2021. Ilustrado por Raemz.', file: 'Adachi to Shimamura Volumen 10 Español.pdf' },
+        { id: '11',   title: 'Volumen 11',   desc: 'Publicado el 9 de diciembre del 2022. Ilustrado por Raemz.', file: 'Adachi to Shimamura Volumen 11 Español.pdf' },
+        { id: '12',   title: 'Volumen 12',   desc: 'Publicado el 8 de noviembre del 2024. Ilustrado por Raemz.', file: 'Adachi to Shimamura Volumen 12 Español.pdf' },
+        { id: '13',   title: 'Volumen 13',   desc: 'Publicado el 8 de noviembre del 2025. Ilustrado por Raemz.', file: 'Adachi to Shimamura Volumen 13 Español.pdf' },
+        { id: '13.5', title: 'Especiales Volumen 13', desc: 'Publicado el 8 de noviembre del 2025.', file: 'Especiales Volumen 13 Español.pdf' },
+        { id: '99_9', title: 'Volumen 99.9', desc: 'Publicado el 10 de noviembre del 2023. Ilustrado por Raemz. El volumen 99.9 es una recopilación de los cuatro relatos especiales de las ediciones Blu-ray/DVD del anime.', file: 'Adachi to Shimamura Volumen 99.9 Español.pdf' },
+        { id: 'SS',   title: 'Volumen SS',   desc: 'Publicado el 10 de noviembre del 2023. Ilustrado por Raemz.', file: 'Adachi to Shimamura Volumen SS Español.pdf' },
+        { id: 'SS2',  title: 'Volumen SS2',  desc: 'Publicado el 8 de noviembre del 2024. Ilustrado por Raemz.', file: 'Adachi to Shimamura Volumen SS2 Español.pdf' },
+    ];
+
+    // ═══════════════════════════════════════════════════════════════
+    //  PDF.js SETUP
+    // ═══════════════════════════════════════════════════════════════
+    const PDFJS_VERSION = '2.16.105';
+    const PDFJS_CDN     = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDFJS_VERSION}`;
+
+    try {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `${PDFJS_CDN}/pdf.worker.min.js`;
+    } catch(e) {
+        console.warn('[PDF.js] No se pudo configurar el worker:', e);
+    }
+
+    const pdfInstances = {};
+
+    function calcFitScaleSafe(page, containerEl) {
+        const vp = page.getViewport({ scale: 1 });
+        const w  = containerEl.clientWidth  - 48; 
+        const h  = containerEl.clientHeight - 48;
+
+        const safeW = w  > 20 ? w  : Math.max(window.innerWidth  - 380, 300);
+        const safeH = h  > 20 ? h  : Math.max(window.innerHeight - 200, 400);
+
+        const scaleW = safeW / vp.width;
+        const scaleH = safeH / vp.height;
+        const scale  = Math.min(scaleW, scaleH, 2.5);
+
+        return isFinite(scale) && scale > 0 ? scale : 1.0;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  GENERACIÓN DE HTML ACTUALIZADA PARA R2
+    // ═══════════════════════════════════════════════════════════════
+    function buildVolumeHTML(vol) {
+        // Se añade el base URL del R2
+        const baseUrl = 'https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/Novelas/';
+        // Se codifica el nombre para asegurar que los espacios sean '%20' y caracteres como 'ñ' se manejen bien
+        const filePath = baseUrl + encodeURIComponent(vol.file);
+        
+        return `
+        <details class="novel-item" id="novel-${vol.id}">
+            <summary class="novel-summary">
+                <span><i class="fas fa-book"></i> ${vol.title}</span>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="novel-content">
+                <div class="novel-description"><p>${vol.desc}</p></div>
+
+                <div class="custom-pdf-viewer" id="pdf-viewer-${vol.id}" data-url="${filePath}">
+                    <div class="pdf-loading-overlay" id="pdf-loading-${vol.id}">
+                        <div class="pdf-spinner"></div>
+                        <span class="pdf-loading-text" id="pdf-loading-text-${vol.id}">Cargando PDF…</span>
+                    </div>
+
+                    <div class="pdf-toolbar">
+                        <div class="pdf-controls-group">
+                            <button class="pdf-btn" onclick="pdfAction('${vol.id}','zoomOut')" title="Alejar (-)"><i class="fas fa-search-minus"></i></button>
+                            <span class="pdf-zoom-display" id="zoom-display-${vol.id}">100%</span>
+                            <button class="pdf-btn" onclick="pdfAction('${vol.id}','zoomIn')" title="Acercar (+)"><i class="fas fa-search-plus"></i></button>
+                            <button class="pdf-btn pdf-btn-reset" onclick="pdfAction('${vol.id}','zoomReset')" title="Restablecer zoom (0)"><i class="fas fa-sync-alt"></i></button>
+                        </div>
+                        <div class="pdf-controls-group">
+                            <button class="pdf-btn" onclick="pdfAction('${vol.id}','prev')" title="Página anterior (←)"><i class="fas fa-chevron-left"></i></button>
+                            <button class="pdf-btn" onclick="pdfAction('${vol.id}','next')" title="Página siguiente (→)"><i class="fas fa-chevron-right"></i></button>
+                            <span class="pdf-page-info">Pág. <span id="page_num_${vol.id}">-</span> / <span id="page_count_${vol.id}">-</span></span>
+                            <input type="number" id="page-input-${vol.id}" class="pdf-page-input" min="1" placeholder="Ir a" title="Número de página + Enter">
+                        </div>
+                        <div class="pdf-controls-group">
+                            <button class="pdf-btn" onclick="pdfAction('${vol.id}','fullscreen')" title="Pantalla completa (F)"><i class="fas fa-expand" id="fs-icon-${vol.id}"></i></button>
+                            <a href="${filePath}" download class="pdf-btn" title="Descargar PDF"><i class="fas fa-download"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="pdf-progress-wrap">
+                        <div class="pdf-progress-fill" id="pdf-progress-${vol.id}" style="width:0%"></div>
+                    </div>
+
+                    <div class="pdf-body">
+                        <div class="pdf-canvas-container" id="canvas-container-${vol.id}">
+                            <div class="pdf-canvas-wrapper" id="canvas-wrapper-${vol.id}">
+                                <canvas id="pdf-render-${vol.id}"></canvas>
+                            </div>
+                            <div class="pdf-error-state" id="pdf-error-${vol.id}">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <p id="pdf-error-msg-${vol.id}">No se pudo cargar el PDF.</p>
+                                <button class="btn" onclick="retryPdfLoad('${vol.id}')" style="margin-top:8px;"><i class="fas fa-redo"></i> Reintentar</button>
+                                <a href="${filePath}" download class="btn btn-download" style="margin-top:4px;"><i class="fas fa-download"></i> Descargar igualmente</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </details>`;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  CONSTANTES DE CARGA
+    // ═══════════════════════════════════════════════════════════════
+    const PDF_LOAD_TIMEOUT_MS = 30000;
+    const PDF_MAX_RETRIES     = 3;
+    const PDF_RETRY_DELAY_MS  = 1500;
+
+    // ═══════════════════════════════════════════════════════════════
+    //  INICIALIZACIÓN DEL VISOR
+    // ═══════════════════════════════════════════════════════════════
+    async function initPdfViewer(id) {
+        if (pdfInstances[id]?.pdfDoc) return;
+
+        const viewerEl    = document.getElementById('pdf-viewer-' + id);
+        const canvas      = document.getElementById('pdf-render-' + id);
+        const ctx         = canvas.getContext('2d');
+        const loadingEl   = document.getElementById('pdf-loading-' + id);
+        const loadingText = document.getElementById('pdf-loading-text-' + id);
+        const errorEl     = document.getElementById('pdf-error-' + id);
+        const containerEl = document.getElementById('canvas-container-' + id);
+        const url         = viewerEl.getAttribute('data-url');
+
+        if (pdfInstances[id]?.loading) return;
+
+        const inst = pdfInstances[id] || {
+            pdfDoc:      null,
+            pageNum:     1,
+            rendering:   false,
+            pendingPage: null,
+            scale:       1.0,
+            fitScale:    1.0,
+            loading:     false,
+            canvas,
+            ctx,
+            containerEl,
+        };
+        inst.loading = true;
+        pdfInstances[id] = inst;
+
+        if (loadingEl) loadingEl.classList.add('visible');
+        if (errorEl)   errorEl.style.display = 'none';
+        canvas.style.display = 'none';
+
+        if (!inst._pageInputBound) {
+            inst._pageInputBound = true;
+            const pageInput = document.getElementById('page-input-' + id);
+            if (pageInput) {
+                pageInput.addEventListener('keypress', e => {
+                    if (e.key === 'Enter') {
+                        const n = parseInt(pageInput.value);
+                        if (n >= 1 && n <= inst.pdfDoc?.numPages) {
+                            inst.pageNum = n;
+                            queueRender(id);
+                        }
+                        pageInput.value = '';
+                    }
+                });
+            }
+        }
+
+        let lastError = null;
+        for (let attempt = 1; attempt <= PDF_MAX_RETRIES; attempt++) {
+            try {
+                if (loadingText) {
+                    loadingText.textContent = attempt > 1
+                        ? `Reintentando… (${attempt}/${PDF_MAX_RETRIES})`
+                        : 'Cargando PDF…';
+                }
+
+                const pdfPromise = pdfjsLib.getDocument({
+                    url,
+                    cMapUrl:    `${PDFJS_CDN}/cmaps/`,
+                    cMapPacked: true,
+                    rangeChunkSize: 65536,
+                }).promise;
+
+                const timeoutPromise = new Promise((_, reject) =>
+                    setTimeout(() => reject(new Error('Timeout: el PDF tardó demasiado en cargar')), PDF_LOAD_TIMEOUT_MS)
+                );
+
+                inst.pdfDoc = await Promise.race([pdfPromise, timeoutPromise]);
+
+                document.getElementById('page_count_' + id).textContent = inst.pdfDoc.numPages;
+
+                const firstPage = await inst.pdfDoc.getPage(1);
+                inst.fitScale   = calcFitScaleSafe(firstPage, containerEl);
+                inst.scale      = inst.fitScale;
+
+                updateZoomDisplay(id);
+                await renderPage(id, 1);
+
+                inst.loading = false;
+                return;
+
+            } catch (err) {
+                lastError = err;
+                console.warn(`[PDF ${id}] Intento ${attempt}/${PDF_MAX_RETRIES} fallido:`, err.message);
+                inst.pdfDoc = null;
+
+                if (attempt < PDF_MAX_RETRIES) {
+                    await new Promise(r => setTimeout(r, PDF_RETRY_DELAY_MS * attempt));
+                }
+            }
+        }
+
+        console.error(`[PDF ${id}] Error definitivo tras ${PDF_MAX_RETRIES} intentos:`, lastError);
+        inst.loading = false;
+        if (loadingEl) loadingEl.classList.remove('visible');
+        if (errorEl) {
+            const msgEl = document.getElementById('pdf-error-msg-' + id);
+            if (msgEl) msgEl.textContent = 'No se pudo cargar el PDF. Verifica tu conexión e inténtalo de nuevo.';
+            errorEl.style.display = 'flex';
+        }
+        canvas.style.display = 'none';
+    }
+
+    window.retryPdfLoad = function(id) {
+        if (pdfInstances[id] && !pdfInstances[id].pdfDoc) {
+            delete pdfInstances[id];
+        }
+        initPdfViewer(id);
+    };
+
+    // ═══════════════════════════════════════════════════════════════
+    //  RENDERIZADO
+    // ═══════════════════════════════════════════════════════════════
+    async function renderPage(id, num) {
+        const inst = pdfInstances[id];
+        if (!inst || !inst.pdfDoc) return;
+
+        num = Math.max(1, Math.min(num, inst.pdfDoc.numPages));
+        inst.pageNum = num;
+
+        if (inst.rendering) {
+            inst.pendingPage = num;
+            return;
+        }
+        inst.rendering = true;
+
+        const loadingEl  = document.getElementById('pdf-loading-' + id);
+        const progressEl = document.getElementById('pdf-progress-' + id);
+        const pageNumEl  = document.getElementById('page_num_' + id);
+
+        try {
+            const page = await inst.pdfDoc.getPage(num);
+            const viewport = page.getViewport({ scale: inst.scale });
+            
+            const outputScale = window.devicePixelRatio || 1;
+
+            inst.canvas.width = Math.floor(viewport.width * outputScale);
+            inst.canvas.height = Math.floor(viewport.height * outputScale);
+            
+            inst.canvas.style.width = Math.floor(viewport.width) + "px";
+            inst.canvas.style.height =  Math.floor(viewport.height) + "px";
+            inst.canvas.style.display = 'block';
+
+            inst.ctx.clearRect(0, 0, inst.canvas.width, inst.canvas.height);
+
+            const errorEl = document.getElementById('pdf-error-' + id);
+            if (errorEl) errorEl.style.display = 'none';
+
+            const transform = outputScale !== 1 
+                ? [outputScale, 0, 0, outputScale, 0, 0] 
+                : null;
+
+            const renderContext = {
+                canvasContext: inst.ctx,
+                transform: transform,
+                viewport: viewport
+            };
+
+            await page.render(renderContext).promise;
+
+            if (pageNumEl) pageNumEl.textContent = num;
+            if (progressEl) progressEl.style.width = ((num / inst.pdfDoc.numPages) * 100).toFixed(1) + '%';
+
+        } catch (err) {
+            console.warn('[PDF] Error renderizando página', num, id, err);
+            const loadingText = document.getElementById('pdf-loading-text-' + id);
+            const loadingEl   = document.getElementById('pdf-loading-' + id);
+            if (loadingText) loadingText.textContent = `Error en pág. ${num}. Intenta otra.`;
+            if (loadingEl) {
+                loadingEl.classList.add('visible');
+                setTimeout(() => loadingEl.classList.remove('visible'), 2500);
+            }
+        } finally {
+            if (loadingEl) loadingEl.classList.remove('visible');
+            inst.rendering = false;
+
+            if (inst.pendingPage !== null) {
+                const pending = inst.pendingPage;
+                inst.pendingPage = null;
+                renderPage(id, pending);
+            }
+        }
+    }
+
+    function queueRender(id) {
+        const inst = pdfInstances[id];
+        if (!inst) return;
+        if (inst.rendering) {
+            inst.pendingPage = inst.pageNum;
+        } else {
+            renderPage(id, inst.pageNum);
+        }
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  ZOOM
+    // ═══════════════════════════════════════════════════════════════
+    const ZOOM_STEP = 0.15;
+    const ZOOM_MIN  = 0.4;
+    const ZOOM_MAX  = 3.0;
+
+    function updateZoomDisplay(id) {
+        const inst = pdfInstances[id];
+        const el   = document.getElementById('zoom-display-' + id);
+        if (!el || !inst) return;
+        const pct = Math.round((inst.scale / inst.fitScale) * 100);
+        el.textContent = pct + '%';
+    }
+
+    function applyZoom(id, newScale) {
+        const inst = pdfInstances[id];
+        if (!inst || !inst.pdfDoc) return;
+        inst.scale = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, newScale));
+        updateZoomDisplay(id);
+        queueRender(id);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  ACCIONES UNIFICADAS
+    // ═══════════════════════════════════════════════════════════════
+    window.pdfAction = function(id, action) {
+        const inst = pdfInstances[id];
+        if (!inst) return;
+
+        switch (action) {
+            case 'prev':
+                if (inst.pageNum > 1) { inst.pageNum--; queueRender(id); }
+                break;
+            case 'next':
+                if (inst.pdfDoc && inst.pageNum < inst.pdfDoc.numPages) { inst.pageNum++; queueRender(id); }
+                break;
+            case 'zoomIn':
+                applyZoom(id, inst.scale + ZOOM_STEP);
+                break;
+            case 'zoomOut':
+                applyZoom(id, inst.scale - ZOOM_STEP);
+                break;
+            case 'zoomReset':
+                applyZoom(id, inst.fitScale); 
+                break;
+            case 'fullscreen': {
+                const el = document.getElementById('pdf-viewer-' + id);
+                const isFS = document.fullscreenElement || document.webkitFullscreenElement;
+                if (!isFS) {
+                    (el.requestFullscreen || el.webkitRequestFullscreen).call(el);
+                } else {
+                    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+                }
+                break;
+            }
+        }
+    };
+
+    window.zoomIn    = id => pdfAction(id, 'zoomIn');
+    window.zoomOut   = id => pdfAction(id, 'zoomOut');
+    window.resetZoom = id => pdfAction(id, 'zoomReset');
+    window.prevPage  = id => pdfAction(id, 'prev');
+    window.nextPage  = id => pdfAction(id, 'next');
+    window.toggleFullScreen = viewerId => {
+        const el = document.getElementById(viewerId);
+        const isFS = document.fullscreenElement || document.webkitFullscreenElement;
+        if (!isFS) (el.requestFullscreen || el.webkitRequestFullscreen).call(el);
+        else (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    };
+
+    document.addEventListener('fullscreenchange',      updateFSIcon);
+    document.addEventListener('webkitfullscreenchange', updateFSIcon);
+    function updateFSIcon() {
+        const isFS = !!(document.fullscreenElement || document.webkitFullscreenElement);
+        document.querySelectorAll('[id^="fs-icon-"]').forEach(icon => {
+            const id = icon.id.replace('fs-icon-', '');
+            const viewer = document.getElementById('pdf-viewer-' + id);
+            const inFS = viewer && (document.fullscreenElement === viewer || document.webkitFullscreenElement === viewer);
+            icon.className = inFS ? 'fas fa-compress' : 'fas fa-expand';
+
+            if (inFS) {
+                const inst = pdfInstances[id];
+                if (inst && inst.pdfDoc) {
+                    inst.pdfDoc.getPage(inst.pageNum).then(page => {
+                        const containerEl = document.getElementById('canvas-container-' + id);
+                        inst.fitScale = calcFitScaleSafe(page, containerEl);
+                        inst.scale    = inst.fitScale;
+                        updateZoomDisplay(id);
+                        queueRender(id);
+                    });
+                }
+            }
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  ZOOM CON RUEDA (Ctrl+Wheel)
+    // ═══════════════════════════════════════════════════════════════
+    let activeId = null;
+
+    document.addEventListener('wheel', e => {
+        if (!activeId || !pdfInstances[activeId]) return;
+        const viewer = document.getElementById('pdf-viewer-' + activeId);
+        if (!viewer || !viewer.contains(e.target)) return;
+        if (!e.ctrlKey && !e.metaKey) return;
+        e.preventDefault();
+        pdfAction(activeId, e.deltaY < 0 ? 'zoomIn' : 'zoomOut');
+    }, { passive: false });
+
+    // ═══════════════════════════════════════════════════════════════
+    //  TECLADO
+    // ═══════════════════════════════════════════════════════════════
+    document.addEventListener('keydown', e => {
+        if (!activeId || !pdfInstances[activeId]) return;
+        if (['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)) return;
+
+        switch (e.key) {
+            case 'ArrowLeft':  e.preventDefault(); pdfAction(activeId, 'prev'); break;
+            case 'ArrowRight': e.preventDefault(); pdfAction(activeId, 'next'); break;
+            case '+': case '=': pdfAction(activeId, 'zoomIn');    break;
+            case '-': case '_': pdfAction(activeId, 'zoomOut');   break;
+            case '0':           pdfAction(activeId, 'zoomReset'); break;
+            case 'f': case 'F': pdfAction(activeId, 'fullscreen'); break;
+        }
+    });
+
+    // ═══════════════════════════════════════════════════════════════
+    //  ACORDEÓN
+    // ═══════════════════════════════════════════════════════════════
+    function attachAccordion() {
+        document.querySelectorAll('details.novel-item').forEach(detail => {
+            detail.addEventListener('toggle', () => {
+                if (detail.open) {
+                    document.querySelectorAll('details.novel-item').forEach(other => {
+                        if (other !== detail && other.open) other.removeAttribute('open');
+                    });
+                    const id = detail.id.replace('novel-', '');
+                    activeId = id;
+                    requestAnimationFrame(() => initPdfViewer(id));
+                } else {
+                    activeId = null;
+                }
+            });
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  PARTÍCULAS
+    // ═══════════════════════════════════════════════════════════════
+    (function() {
+        const c = document.getElementById('particles');
+        for (let i = 0; i < 25; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            s.style.left = Math.random() * 100 + 'vw';
+            s.style.animationDelay = Math.random() * 10 + 's';
+            s.style.animationDuration = (8 + Math.random() * 5) + 's';
+            c.appendChild(s);
+        }
+    })();
+
+    // ═══════════════════════════════════════════════════════════════
+    //  MENÚ DINÁMICO
+    // ═══════════════════════════════════════════════════════════════
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.getElementById('novels-container');
+        container.innerHTML = VOLUMES.map(buildVolumeHTML).join('');
+        attachAccordion();
+
+        fetch('menu.html?v=' + Date.now())
+            .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+            .then(data => {
+                const mc = document.getElementById('menu-container');
+                if (!mc) return;
+                mc.innerHTML = data;
+                mc.querySelectorAll('script').forEach(old => {
+                    const ns = document.createElement('script');
+                    Array.from(old.attributes).forEach(a => ns.setAttribute(a.name, a.value));
+                    ns.textContent = old.textContent;
+                    old.replaceWith(ns);
+                });
+            })
+            .catch(err => console.warn('menu.html no cargado:', err));
+    });
+
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(() => {});
+        });
+    }
+    </script>
+</body>
+</html>

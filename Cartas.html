@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tarjetas de Perfil - Adashima</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600&family=Pacifico&family=Yanone+Kaffeesatz:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --sd: #f06292;   /* sakura dark */
+            --hd: #64b5f6;   /* hougetsu dark */
+            --cream: #fffbf0;
+        }
+        body {
+            font-family: 'Yanone Kaffeesatz', sans-serif;
+            background: #0a051e;
+            padding: 22px 0 44px;
+            color: #333;
+        }
+
+        /* ── BOTONES ── */
+        .download-row { display:flex; justify-content:center; gap:16px; margin-bottom:24px; }
+        .dl-btn {
+            font-family:'Yanone Kaffeesatz',sans-serif; font-size:1rem; font-weight:600;
+            color:white; border:none; border-radius:30px; padding:9px 24px; cursor:pointer;
+            display:flex; align-items:center; gap:8px;
+            box-shadow:0 4px 12px rgba(0,0,0,.35);
+            transition:transform .15s, box-shadow .15s, opacity .15s;
+        }
+        .dl-btn:hover { transform:translateY(-2px); box-shadow:0 7px 18px rgba(0,0,0,.4); }
+        .dl-btn:active { transform:translateY(0); }
+        .dl-btn.loading { opacity:.65; pointer-events:none; }
+        #btn-adachi    { background:linear-gradient(135deg,#f06292,#ff94c2); }
+        #btn-shimamura { background:linear-gradient(135deg,#64b5f6,#90caf9); }
+
+        /* ── TARJETA ── */
+        .binder-page {
+            position:relative;
+            width:540px;
+            margin:0 auto 28px;
+            background-color:var(--cream);
+            border-radius:6px 20px 20px 6px;
+            border-left:15px solid #ffcc80;
+            padding:18px 22px 22px 62px;
+            box-shadow:8px 8px 26px rgba(0,0,0,.38);
+            overflow:hidden;
+        }
+        #adachi-card    { border-left-color:var(--sd); }
+        #shimamura-card { border-left-color:var(--hd); }
+
+        /* líneas de cuaderno — divs generados por JS */
+        .notebook-lines { position:absolute; inset:0; pointer-events:none; z-index:0; }
+        .nb-vline {
+            position:absolute; left:50px; top:0; bottom:0;
+            width:2px; background:#b8dde4;
+        }
+        .nb-hline {
+            position:absolute; left:0; right:0;
+            height:1px; background:#d6e8ee;
+        }
+
+        /* contenido por encima de las líneas */
+        .card-content { position:relative; z-index:1; }
+
+        /* agujeros */
+        .hole {
+            position:absolute; left:-9px;
+            width:20px; height:20px; background:#2c2c2c;
+            border-radius:50%; z-index:2;
+            box-shadow:inset 2px 2px 5px rgba(0,0,0,.8), 1px 1px 1px rgba(255,255,255,.3);
+        }
+
+        /* ── SECCIÓN TÍTULO ── */
+        .section-title {
+            font-family:'Pacifico',cursive; font-weight:normal;
+            font-size:1.08rem; color:white;
+            background:linear-gradient(135deg,var(--sd),#ff94c2);
+            padding:3px 18px; border-radius:10px;
+            margin:12px 0 6px; display:inline-block;
+            box-shadow:0 3px 8px rgba(240,98,146,.28);
+            transform:rotate(-1.5deg);
+        }
+        #shimamura-card .section-title {
+            background:linear-gradient(135deg,var(--hd),#90caf9);
+            box-shadow:0 3px 8px rgba(100,181,246,.28);
+        }
+
+        /* ── PERFIL ── */
+        .profile-section { display:flex; align-items:flex-start; gap:14px; margin-bottom:8px; }
+        .profile-text {
+            flex:1; font-size:1.12rem; font-weight:600; line-height:1.62; color:#333;
+        }
+        .hl { background:rgba(255,235,59,.45); padding:0 3px; border-radius:3px; font-weight:700; }
+        .profile-image {
+            width:115px; flex-shrink:0; height:142px;
+            border:4px solid white; border-radius:8px; overflow:hidden;
+            box-shadow:0 4px 12px rgba(0,0,0,.15); transform:rotate(1.5deg);
+        }
+        .profile-image img { width:100%; height:100%; object-fit:cover; display:block; }
+        .img-placeholder {
+            width:100%; height:100%;
+            background:linear-gradient(135deg,#fce4ec,#f8bbd0);
+            display:flex; align-items:center; justify-content:center;
+            font-size:.65rem; color:#c2185b; text-align:center; padding:6px;
+        }
+        #shimamura-card .img-placeholder { background:linear-gradient(135deg,#e3f2fd,#bbdefb); color:#1565c0; }
+
+        /* ── FAVORITOS (grid 2×2) ── */
+        .favs-grid { display:grid; grid-template-columns:1fr 1fr; gap:5px 14px; margin-bottom:5px; }
+        .fav-block { }
+        .qa-label, .fav-label {
+            font-size:.7rem; color:#5c4b51; font-weight:600;
+            display:block; text-align:right; padding-right:4px; margin-bottom:2px;
+        }
+        .fav-answer {
+            background:rgba(252,228,236,.7); border-radius:6px;
+            border-bottom:2px solid var(--sd);
+            padding:3px 10px; font-size:1.02rem; font-weight:600;
+            text-align:center; display:block; min-height:26px; color:#444;
+        }
+        #shimamura-card .fav-answer { background:rgba(227,242,253,.7); border-bottom-color:var(--hd); }
+        .fav-pink { color:var(--sd); }
+        .fav-blue { color:var(--hd); }
+
+        /* ── QA genérico (ancho completo) ── */
+        .qa-item { margin-bottom:5px; }
+        .qa-answer {
+            background:rgba(252,228,236,.7); border-radius:6px;
+            border-bottom:2px solid var(--sd);
+            padding:4px 10px; font-size:1.02rem; font-weight:600;
+            text-align:center; display:block; color:#444;
+        }
+        #shimamura-card .qa-answer { background:rgba(227,242,253,.7); border-bottom-color:var(--hd); }
+
+        /* ── YES/NO (2 columnas) ── */
+        .yn-grid { display:grid; grid-template-columns:1fr 1fr; gap:5px 14px; margin-bottom:5px; }
+        .yes-no-box {
+            background:rgba(255,255,255,.5); border:1px dashed #ccc; border-radius:6px;
+            padding:4px 8px; font-size:1rem; font-weight:600; text-align:center;
+            display:flex; align-items:center; justify-content:center; gap:6px; min-height:32px;
+        }
+        .circled-a {
+            display:inline-flex; align-items:center; justify-content:center;
+            border:2.5px solid var(--sd); color:var(--sd);
+            border-radius:50%; width:27px; height:27px; font-size:.75rem;
+        }
+        .circled-s {
+            display:inline-flex; align-items:center; justify-content:center;
+            border:2.5px solid var(--hd); color:var(--hd);
+            border-radius:50%; width:27px; height:27px; font-size:.75rem;
+        }
+        .plain { display:inline-flex; align-items:center; justify-content:center;
+            width:27px; height:27px; font-size:.75rem; color:#666; }
+        .sep { color:#bbb; }
+    </style>
+</head>
+<body>
+
+<!-- BOTONES -->
+<div class="download-row">
+    <button class="dl-btn" id="btn-adachi" onclick="downloadCard('adachi-card','Adachi_Sakura')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Descargar — Adachi
+    </button>
+    <button class="dl-btn" id="btn-shimamura" onclick="downloadCard('shimamura-card','Shimamura_Hougetsu')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Descargar — Shimamura
+    </button>
+</div>
+
+<!-- ════════ ADACHI ════════ -->
+<div id="adachi-card" class="binder-page">
+    <div class="notebook-lines" id="nl-adachi">
+        <div class="nb-vline"></div>
+    </div>
+    <div class="hole" style="top:7%"></div>
+    <div class="hole" style="top:21%"></div>
+    <div class="hole" style="top:35%"></div>
+    <div class="hole" style="top:49%"></div>
+    <div class="hole" style="top:63%"></div>
+    <div class="hole" style="top:77%"></div>
+    <div class="hole" style="top:91%"></div>
+
+    <div class="card-content">
+
+        <div class="section-title">Mi Perfil</div>
+        <div class="profile-section">
+            <div class="profile-text">
+                Mi nombre es <span class="hl">Adachi Sakura.</span><br>
+                Shimamura me llama <span class="hl">Adachi.</span><br>
+                Mi cumpleaños es el <span class="hl">19 de octubre.</span><br>
+                Mi signo del zodiaco es <span class="hl">Libra,</span><br>
+                y mi tipo de sangre es <span class="hl">A.</span><br>
+                Me considero <span class="hl">normal,</span> pero Shimamura dice que soy <span class="hl">rara</span>.
+            </div>
+            <div class="profile-image">
+                <img src="Imagenes/Adachi_perfil.png" alt="Adachi"
+                     onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'img-placeholder\'>Adachi<br>Sakura</div>'">
+            </div>
+        </div>
+
+        <div class="section-title">Mis Favoritos</div>
+        <div class="favs-grid">
+            <div class="fav-block">
+                <span class="fav-label">Comida</span>
+                <span class="fav-answer">Mmm... Ninguna.</span>
+            </div>
+            <div class="fav-block">
+                <span class="fav-label">Color</span>
+                <span class="fav-answer">Colores suaves</span>
+            </div>
+            <div class="fav-block">
+                <span class="fav-label">Género literario</span>
+                <span class="fav-answer">No se me ocurre nada.</span>
+            </div>
+            <div class="fav-block">
+                <span class="fav-label">Persona</span>
+                <span class="fav-answer fav-pink">Shimamura</span>
+            </div>
+        </div>
+
+        <div class="section-title">Rincón "IF"</div>
+        <div class="qa-item">
+            <span class="qa-label">¿En qué te gustaría renacer?</span>
+            <span class="qa-answer">Cualquier animal que le guste más a Shimamura</span>
+        </div>
+        <div class="qa-item">
+            <span class="qa-label">Si pudieras tomarte unas vacaciones de un año, ¿qué harías?</span>
+            <span class="qa-answer">Ir a la casa de Shimamura.</span>
+        </div>
+
+        <div class="section-title">Rincón del AMOR</div>
+        <div class="yn-grid">
+            <div class="qa-item">
+                <span class="qa-label">¿Hay alguien que te guste?</span>
+                <div class="yes-no-box">
+                    <span class="circled-a">SÍ</span><span class="sep">/</span><span class="plain">NO</span>
+                </div>
+            </div>
+            <div class="qa-item">
+                <span class="qa-label">¿Te has confesado?</span>
+                <div class="yes-no-box">
+                    <span class="circled-a">SÍ</span><span class="sep">/</span><span class="plain">NO</span>
+                </div>
+            </div>
+        </div>
+        <div class="qa-item">
+            <span class="qa-label">¿Cuál es tu tipo?</span>
+            <span class="qa-answer">Shimamura</span>
+        </div>
+        <div class="qa-item">
+            <span class="qa-label">¿Cómo quieres que te llame tu pareja?</span>
+            <span class="qa-answer">Adachi</span>
+        </div>
+        <div class="qa-item">
+            <span class="qa-label">¿Qué gesto hace que tu corazón se acelere?</span>
+            <span class="qa-answer">Esos momentos ocasionales en los que ella ríe de todo corazón.</span>
+        </div>
+        <div class="qa-item">
+            <span class="qa-label">¿A qué lugar para una cita te gustaría ir?</span>
+            <span class="qa-answer">Aguas termales</span>
+        </div>
+
+    </div><!-- /card-content -->
+</div>
+
+
+<!-- ════════ SHIMAMURA ════════ -->
+<div id="shimamura-card" class="binder-page">
+    <div class="notebook-lines" id="nl-shimamura">
+        <div class="nb-vline"></div>
+    </div>
+    <div class="hole" style="top:7%"></div>
+    <div class="hole" style="top:21%"></div>
+    <div class="hole" style="top:35%"></div>
+    <div class="hole" style="top:49%"></div>
+    <div class="hole" style="top:63%"></div>
+    <div class="hole" style="top:77%"></div>
+    <div class="hole" style="top:91%"></div>
+
+    <div class="card-content">
+
+        <div class="section-title">Mi Perfil</div>
+        <div class="profile-section">
+            <div class="profile-text">
+                Mi nombre es <span class="hl">Shimamura Hougetsu.</span><br>
+                ¡Todos me llaman <span class="hl">Shimamura!</span><br>
+                Mi cumpleaños es el <span class="hl">10 de abril.</span><br>
+                Mi signo del zodiaco es <span class="hl">Aries,</span><br>
+                y mi tipo de sangre es <span class="hl">B.</span><br>
+                En cuanto a mi personalidad, yo me considero una persona <span class="hl">tranquila,</span>
+                pero quienes me rodean suelen decir que soy <span class="hl">apática.</span>
+            </div>
+            <div class="profile-image">
+                <img src="Imagenes/PERFIL_SHIMAMURA.png" alt="Shimamura"
+                     onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'img-placeholder\'>Shimamura<br>Hougetsu</div>'">
+            </div>
+        </div>
+
+        <div class="section-title">Mis Favoritos</div>
+        <div class="favs-grid">
+            <div class="fav-block">
+                <span class="fav-label">Comida</span>
+                <span class="fav-answer">Okonomiyaki y huevos revueltos</span>
+            </div>
+            <div class="fav-block">
+                <span class="fav-label">Color</span>
+                <span class="fav-answer">Azul</span>
+            </div>
+            <div class="fav-block">
+                <span class="fav-label">Género literario</span>
+                <span class="fav-answer">Ciencia ficción</span>
+            </div>
+            <div class="fav-block">
+                <span class="fav-label">Persona</span>
+                <span class="fav-answer fav-blue">Mmm... ¿Alguien devoto?</span>
+            </div>
+        </div>
+
+        <div class="section-title">Rincón "IF"</div>
+        <div class="qa-item">
+            <span class="qa-label">¿En qué te gustaría renacer?</span>
+            <span class="qa-answer">Perro</span>
+        </div>
+        <div class="qa-item">
+            <span class="qa-label">Si pudieras tomarte unas vacaciones de un año, ¿qué harías?</span>
+            <span class="qa-answer">Adachi probablemente vendría todos los días, así que algo con ella.</span>
+        </div>
+
+        <div class="section-title">Rincón del AMOR</div>
+        <div class="yn-grid">
+            <div class="qa-item">
+                <span class="qa-label">¿Hay alguien que te guste?</span>
+                <div class="yes-no-box">
+                    <span class="circled-s">Sí</span><span class="sep">/</span><span class="plain">No</span>
+                </div>
+            </div>
+            <div class="qa-item">
+                <span class="qa-label">¿Te has confesado?</span>
+                <div class="yes-no-box">
+                    <span class="plain">Sí</span><span class="sep">/</span><span class="circled-s">No</span>
+                </div>
+            </div>
+        </div>
+        <div class="qa-item">
+            <span class="qa-label">¿Cuál es tu tipo?</span>
+            <span class="qa-answer">Personas como mi novia</span>
+        </div>
+        <div class="qa-item">
+            <span class="qa-label">¿Cómo quieres que te llame tu pareja?</span>
+            <span class="qa-answer">Shimamura</span>
+        </div>
+        <div class="qa-item">
+            <span class="qa-label">¿Qué gesto hace que tu corazón se acelere?</span>
+            <span class="qa-answer">Cuando se pone toda nerviosa y sonrojada, pero no aparta la mirada.</span>
+        </div>
+        <div class="qa-item">
+            <span class="qa-label">¿A qué lugar para una cita te gustaría ir?</span>
+            <span class="qa-answer">Algún lugar cerca del mar</span>
+        </div>
+
+    </div><!-- /card-content -->
+</div>
+
+<script>
+    /* ── Líneas horizontales de cuaderno ── */
+    function buildLines(cardId, wrapperId) {
+        const card = document.getElementById(cardId);
+        const wrap = document.getElementById(wrapperId);
+        const totalH = card.offsetHeight;
+        const gap = 30;
+        for (let y = gap; y < totalH; y += gap) {
+            const d = document.createElement('div');
+            d.className = 'nb-hline';
+            d.style.top = y + 'px';
+            wrap.appendChild(d);
+        }
+    }
+    window.addEventListener('load', () => {
+        buildLines('adachi-card',    'nl-adachi');
+        buildLines('shimamura-card', 'nl-shimamura');
+    });
+
+    /* ── Descargar PDF ── */
+    async function downloadCard(cardId, filename) {
+        const btnId = cardId === 'adachi-card' ? 'btn-adachi' : 'btn-shimamura';
+        const btn   = document.getElementById(btnId);
+        const orig  = btn.innerHTML;
+        btn.classList.add('loading');
+        btn.textContent = 'Generando PDF…';
+        await new Promise(r => setTimeout(r, 80));
+
+        try {
+            const card = document.getElementById(cardId);
+            const { jsPDF } = window.jspdf;
+
+            const canvas = await html2canvas(card, {
+                scale: 3,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: '#fffbf0',
+                logging: false,
+            });
+
+            const imgData = canvas.toDataURL('image/png');
+            const pxToMm  = 25.4 / 96;
+            const wMm = (canvas.width  / 3) * pxToMm;
+            const hMm = (canvas.height / 3) * pxToMm;
+
+            const pdf = new jsPDF({ orientation:'portrait', unit:'mm', format:[wMm, hMm] });
+            pdf.addImage(imgData, 'PNG', 0, 0, wMm, hMm);
+            pdf.save(`${filename}.pdf`);
+        } catch (e) {
+            console.error(e);
+            alert('Error al generar el PDF.');
+        } finally {
+            btn.innerHTML = orig;
+            btn.classList.remove('loading');
+        }
+    }
+</script>
+</body>
+</html>

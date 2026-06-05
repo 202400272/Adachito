@@ -1,0 +1,2222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adashima - Manga</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Quicksand:wght@300;400;600&display=swap');
+
+        :root {
+            --rose:    #d1a3c6;
+            --purple:  #8c5a96;
+            --dark-purple: #5c3a6b;
+            --bg-dark: #141018;
+            --bg-mid:  #1e1628;
+            --bg-img-area: #111118;
+            --text-light: rgba(209,163,198,0.92);
+            --text-dim:   rgba(209,163,198,0.5);
+            --border:     rgba(209,163,198,0.18);
+            --toolbar-h:  52px;
+            --progress-h: 3px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fbe9e7 0%, #f3e5f5 50%, #e8eaf6 100%);
+            color: #4a3b52;
+            overflow-x: hidden;
+        }
+
+        /* ─── Partículas ─── */
+        .particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+        .star {
+            position: absolute; border-radius: 50%;
+            background: white; opacity: 0;
+            box-shadow: 0 0 10px 2px rgba(255,255,255,0.8);
+            animation: float-up 10s linear infinite, twinkle 3s ease-in-out infinite;
+        }
+        @keyframes float-up {
+            0%   { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            20%  { opacity: 0.8; }
+            80%  { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+        @keyframes twinkle {
+            0%,100% { box-shadow: 0 0 5px 1px rgba(255,255,255,0.5); }
+            50%     { box-shadow: 0 0 15px 4px rgba(255,200,255,0.9); }
+        }
+
+        /* --- ESTILOS DE SIDEBAR (cargado desde menu.html) --- */
+        .sidebar {
+            width: 300px;
+            background-color: rgba(209, 163, 198, 0.9);
+            backdrop-filter: blur(5px);
+            z-index: 10;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-inner {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100%;
+            padding: 30px 20px;
+            width: 100%;
+        }
+
+        .sidebar-box {
+            width: 100%;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sidebar-box img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        .sidebar::-webkit-scrollbar { width: 6px; }
+        .sidebar::-webkit-scrollbar-thumb { background: rgba(92,58,107,0.3); border-radius: 10px; }
+
+        /* ─── Main y Fondo Adaptativo ─── */
+        .main-content {
+            flex: 1;
+            min-width: 0;
+            position: relative;
+            padding: 40px 32px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+            background-color: #1e1628;
+            background-image: url('Imagenes/Fondo_manga_apartado.jpg');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover; /* Asegura que cubra todo sin importar el aspect ratio */
+        }
+        
+        .main-content::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 300px; right: 0; bottom: 0;
+            /* Overlay dinámico para difuminar bordes del fondo y dar suavidad */
+            background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(243,229,245,0.65) 50%, rgba(255,255,255,0.85) 100%);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        h1.update-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 3.2rem;
+            color: var(--dark-purple);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 28px;
+            text-shadow: 2px 2px 10px rgba(255,255,255,0.8);
+        }
+
+        /* ─── Container ─── */
+        .update-box {
+            background: rgba(255,255,255,0.76);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 2px solid rgba(209,163,198,0.45);
+            width: 100%;
+            max-width: 1100px;
+            padding: 28px;
+            box-shadow: 0 10px 40px rgba(92,58,107,0.12);
+        }
+        .update-box::-webkit-scrollbar { width: 6px; }
+        .update-box::-webkit-scrollbar-thumb { background: var(--rose); border-radius: 10px; }
+
+        /* ─── Botón General de Descarga ─── */
+        .download-all-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 25px;
+            padding: 16px 36px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, rgba(209,163,198,0.85), rgba(140,90,150,0.85));
+            border: 2px solid rgba(255,255,255,0.4);
+            border-radius: 30px;
+            text-decoration: none;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 8px 25px rgba(140,90,150,0.25);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .download-all-btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            background: linear-gradient(135deg, rgba(140,90,150,0.95), rgba(92,58,107,0.95));
+            box-shadow: 0 12px 30px rgba(92,58,107,0.4);
+            border-color: rgba(255,255,255,0.7);
+            color: white;
+        }
+        
+        .download-all-btn i {
+            font-size: 1.3rem;
+        }
+
+        /* ─── Back link ─── */
+        .back-link-bottom {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 26px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #d1a3c6, #8c5a96);
+            box-shadow: 0 4px 15px rgba(139,90,150,0.3);
+            margin-top: 36px;
+            transition: all 0.3s;
+        }
+        .back-link-bottom:hover {
+            background: linear-gradient(135deg, #8c5a96, #5c3a6b);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(92,58,107,0.4);
+        }
+
+        /* ─── Footer ─── */
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(209, 163, 198, 0.7); /* Adaptado al fondo oscuro */
+            line-height: 1.6;
+            z-index: 5;
+        }
+
+     /* ─── Decoraciones Flotantes ─── */
+        .floating-decor {
+            position: fixed;
+            pointer-events: auto;
+            z-index: 10001;
+            opacity: 1;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
+            display: block;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .float-1 {
+            top: 88px;
+            left: 324px;
+            width: 132px;
+            animation: float-decor-1 12s ease-in-out infinite alternate;
+        }
+        .float-2 {
+            bottom: 132px;
+            right: 24px;
+            width: 150px;
+            animation: float-decor-2 15s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes float-decor-1 {
+            0% { transform: translateY(0) rotate(-4deg) scale(1); }
+            100% { transform: translateY(-35px) rotate(6deg) scale(1.05); }
+        }
+        @keyframes float-decor-2 {
+            0% { transform: translateY(0) rotate(5deg) scale(1); }
+            100% { transform: translateY(-40px) rotate(-5deg) scale(0.95); }
+        }
+
+        /* ─── Acordeón y resto del lector (Sin cambios) ─── */
+        .manga-item {
+            margin-bottom: 18px;
+            background: rgba(255,255,255,0.55);
+            border-radius: 14px;
+            border: 1px solid rgba(209,163,198,0.28);
+            overflow: hidden;
+            transition: box-shadow 0.3s;
+        }
+        .manga-item:hover { box-shadow: 0 5px 18px rgba(0,0,0,0.04); }
+        details[open].manga-item { box-shadow: 0 8px 30px rgba(92,58,107,0.12); }
+
+        summary.manga-summary {
+            font-size: 1.05rem;
+            color: var(--dark-purple);
+            font-weight: 600;
+            cursor: pointer;
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+            transition: background 0.25s;
+            user-select: none;
+        }
+        summary.manga-summary::-webkit-details-marker { display: none; }
+        summary.manga-summary:hover { background: rgba(255,255,255,0.8); }
+        summary.manga-summary i.fa-book-open { margin-right: 10px; color: var(--rose); }
+        details[open] summary.manga-summary .fa-chevron-down {
+            transform: rotate(180deg);
+            transition: transform 0.3s;
+        }
+        summary.manga-summary .fa-chevron-down { transition: transform 0.3s; }
+
+        .manga-content {
+            padding: 0 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .chapter-load-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.76rem;
+            color: rgba(209,163,198,0.9);
+            background: rgba(209,163,198,0.1);
+            padding: 2px 9px;
+            border-radius: 20px;
+            margin-left: 8px;
+        }
+
+        .manga-description {
+            color: #7b5e8c;
+            font-size: 0.92rem;
+            line-height: 1.6;
+            padding: 2px 0;
+        }
+
+        /* ─── LECTOR CONTENEDOR ─── */
+        .cascade-reader {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1.5px solid rgba(209,163,198,0.22);
+            box-shadow: 0 8px 36px rgba(18,8,28,0.35);
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-dark);
+            position: relative;
+        }
+
+        /* ─── Toolbar ─── */
+        .cascade-toolbar {
+            background: linear-gradient(to right, rgba(20,12,32,0.98), rgba(38,20,52,0.98));
+            padding: 0 14px;
+            height: var(--toolbar-h);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            gap: 8px;
+            z-index: 30;
+            flex-shrink: 0;
+        }
+
+        .cascade-controls-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255,255,255,0.05);
+            padding: 5px 10px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .cascade-btn {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(209,163,198,0.18);
+            color: var(--text-light);
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.18s ease;
+            font-size: 0.88rem;
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        .cascade-btn:hover {
+            background: rgba(209,163,198,0.22);
+            color: white;
+            border-color: rgba(209,163,198,0.45);
+            transform: translateY(-1px);
+        }
+        .cascade-btn:active { transform: translateY(0); opacity: 0.85; }
+        .cascade-btn.active {
+            background: linear-gradient(135deg, var(--rose), var(--purple));
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 2px 8px rgba(140,90,150,0.4);
+        }
+
+        .cascade-zoom-display {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-weight: 700;
+            padding: 3px 8px;
+            background: rgba(209,163,198,0.08);
+            border-radius: 7px;
+            min-width: 48px;
+            text-align: center;
+        }
+
+        .cascade-page-info {
+            font-size: 0.82rem;
+            color: var(--text-light);
+            font-weight: 600;
+            min-width: 90px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .mode-toggle-btn {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(209,163,198,0.22);
+            color: var(--text-light);
+            height: 34px;
+            padding: 0 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 0.78rem;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            transition: all 0.18s;
+            white-space: nowrap;
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        .mode-toggle-btn:hover {
+            background: rgba(209,163,198,0.22);
+            color: white;
+        }
+        .mode-toggle-btn.active {
+            background: linear-gradient(135deg, var(--rose), var(--purple));
+            color: white;
+            border-color: transparent;
+        }
+
+        .cascade-progress-bar-wrap {
+            width: 100%;
+            height: var(--progress-h);
+            background: rgba(209,163,198,0.08);
+            flex-shrink: 0;
+            position: relative;
+        }
+        .cascade-progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--rose), var(--purple), #e892c8);
+            transition: width 0.15s ease;
+        }
+
+        .cascade-loading-overlay {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            background: var(--bg-dark);
+            gap: 14px;
+            position: absolute;
+            inset: 0;
+            z-index: 25;
+        }
+        .cascade-loading-overlay.visible { display: flex; }
+        .cascade-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(209,163,198,0.12);
+            border-top-color: var(--rose);
+            border-radius: 50%;
+            animation: spin 0.75s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .cascade-loading-text {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .cascade-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            background: var(--bg-dark);
+            gap: 14px;
+            text-align: center;
+        }
+        .cascade-placeholder i { font-size: 2.8rem; color: rgba(209,163,198,0.3); }
+        .cascade-placeholder p { color: var(--text-dim); font-size: 0.88rem; line-height: 1.7; }
+        .cascade-placeholder code {
+            background: rgba(209,163,198,0.1);
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 0.82rem;
+        }
+
+        .cascade-scroll-area {
+            height: calc(100vh - 160px);
+            min-height: 420px;
+            max-height: 92vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background: var(--bg-img-area);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            scroll-behavior: smooth;
+            position: relative;
+            touch-action: pan-y pinch-zoom;
+        }
+        .cascade-scroll-area::-webkit-scrollbar { width: 7px; }
+        .cascade-scroll-area::-webkit-scrollbar-track { background: #0d0d14; }
+        .cascade-scroll-area::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--rose), var(--purple));
+            border-radius: 10px;
+        }
+
+        .cascade-page-wrapper {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            transition: max-width 0.25s ease;
+            contain: layout;              /* limitar reflows al wrapper */
+        }
+
+        .cascade-page-img {
+            width: 100%;
+            max-width: 800px;
+            display: block;
+            margin: 0 auto;
+            opacity: 0;
+            transition: opacity 0.4s ease, max-width 0.3s ease;
+            will-change: opacity;         /* GPU hint para la transición */
+        }
+        .cascade-page-img.loaded { opacity: 1; }
+        .cascade-page-img.errored {
+            opacity: 0.7;
+            min-height: 80px;
+            background: rgba(139,90,150,0.06);
+        }
+
+        .cascade-page-skeleton {
+            width: 100%;
+            max-width: 800px;
+            min-height: 420px;
+            background: linear-gradient(90deg, #1a1a22 25%, #222230 50%, #1a1a22 75%);
+            background-size: 200% 100%;
+            animation: skeleton-shine 1.6s infinite;
+            display: block;
+            margin: 0 auto;
+        }
+        @keyframes skeleton-shine {
+            0%   { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .cascade-page-number {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(10,5,18,0.72);
+            color: rgba(209,163,198,0.95);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+            letter-spacing: 0.5px;
+        }
+        .cascade-page-wrapper:hover .cascade-page-number { opacity: 1; }
+
+        .cascade-end-banner {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 42px 20px;
+            background: linear-gradient(135deg, rgba(209,163,198,0.07), rgba(139,90,150,0.05));
+            border-top: 1px solid rgba(209,163,198,0.18);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+        }
+        .cascade-end-banner p { color: var(--text-dim); font-size: 0.86rem; font-weight: 600; }
+        .cascade-end-banner .end-icon {
+            font-size: 1.7rem;
+            color: rgba(209,163,198,0.38);
+            animation: pulse-icon 2.2s ease-in-out infinite;
+        }
+        @keyframes pulse-icon {
+            0%,100% { transform: scale(1); opacity: 0.38; }
+            50%      { transform: scale(1.14); opacity: 0.7; }
+        }
+
+        .paged-reader {
+            display: none;
+            flex-direction: column;
+            background: var(--bg-img-area);
+            position: relative;
+            user-select: none;
+            touch-action: pan-y pinch-zoom;
+            height: calc(100vh - 110px);
+            min-height: 400px;
+            overflow: hidden;
+        }
+        .paged-reader.active { display: flex; }
+
+        .paged-img-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            min-height: 0;
+            overflow: auto;
+            position: relative;
+            cursor: grab;
+        }
+        .paged-img-area.dragging { cursor: grabbing; }
+        .paged-img-area::-webkit-scrollbar { width: 6px; height: 6px; }
+        .paged-img-area::-webkit-scrollbar-track { background: #0d0d14; }
+        .paged-img-area::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--rose), var(--purple));
+            border-radius: 10px;
+        }
+
+        .paged-img-viewport {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .paged-page-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+            transition: opacity 0.3s ease, transform 0.2s ease;
+            transform-origin: center center;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .paged-page-img.hidden { opacity: 0; }
+        .paged-page-img.slide-left  { animation: slide-in-left  0.22s ease forwards; }
+        .paged-page-img.slide-right { animation: slide-in-right 0.22s ease forwards; }
+
+        @keyframes slide-in-left {
+            from { opacity: 0; transform: translateX(24px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slide-in-right {
+            from { opacity: 0; transform: translateX(-24px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        .paged-skeleton {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .paged-skeleton-inner {
+            width: 400px;
+            max-width: 90%;
+            height: 560px;
+            background: linear-gradient(90deg, #1a1a22 25%, #222230 50%, #1a1a22 75%);
+            background-size: 200% 100%;
+            animation: skeleton-shine 1.6s infinite;
+            border-radius: 8px;
+        }
+
+        @media (min-width: 769px) {
+            .paged-nav-bar-mobile {
+                position: absolute;
+                top: 0; left: 0; right: 0; bottom: 0;
+                pointer-events: none;
+            }
+            .paged-nav-btn {
+                pointer-events: all;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 20;
+                background: rgba(20,10,30,0.72);
+                border: 1.5px solid rgba(209,163,198,0.22);
+                color: var(--text-light);
+                width: 44px;
+                height: 72px;
+                border-radius: 10px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.1rem;
+                transition: all 0.18s;
+                backdrop-filter: blur(4px);
+                -webkit-tap-highlight-color: transparent;
+                touch-action: manipulation;
+            }
+            .paged-nav-btn.left  { left: 12px; }
+            .paged-nav-btn.right { right: 12px; }
+            .paged-img-area { position: relative; }
+        }
+
+        .paged-nav-btn:hover {
+            background: rgba(140,90,150,0.55);
+            color: white;
+            border-color: rgba(209,163,198,0.5);
+        }
+        .paged-nav-btn:active { opacity: 0.7; }
+        .paged-nav-btn:disabled { opacity: 0.2; cursor: default; }
+
+        .paged-thumbs-row {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding: 8px 16px;
+            background: rgba(10,6,16,0.92);
+            border-top: 1px solid var(--border);
+            scroll-behavior: smooth;
+        }
+        .paged-thumbs-row::-webkit-scrollbar { height: 4px; }
+        .paged-thumbs-row::-webkit-scrollbar-thumb { background: var(--rose); border-radius: 4px; }
+
+        .paged-thumb {
+            flex-shrink: 0;
+            width: 44px;
+            height: 62px;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            opacity: 0.55;
+            transition: all 0.18s;
+            background: #1e1e2a;
+        }
+        .paged-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .paged-thumb:hover { opacity: 0.85; }
+        .paged-thumb.current {
+            border-color: var(--rose);
+            opacity: 1;
+            transform: scale(1.06);
+            box-shadow: 0 0 10px rgba(209,163,198,0.4);
+        }
+
+        .cascade-reader:-webkit-full-screen { border-radius: 0; background: #0a0810; }
+        .cascade-reader:-webkit-full-screen .cascade-scroll-area { height: calc(100vh - 55px); max-height: 100vh; }
+        .cascade-reader:-webkit-full-screen .paged-img-area { height: calc(100vh - 55px); max-height: calc(100vh - 55px); min-height: 0; overflow: auto; }
+        .cascade-reader:fullscreen { border-radius: 0; background: #0a0810; }
+        .cascade-reader:fullscreen .cascade-scroll-area { height: calc(100vh - 55px); max-height: 100vh; }
+        .cascade-reader:fullscreen .paged-img-area { height: calc(100vh - 55px); max-height: calc(100vh - 55px); min-height: 0; overflow: auto; }
+
+        .floating-adashima {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 190px;
+            animation: float-astronaut 8s ease-in-out infinite;
+            z-index: 100;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+        }
+        .floating-adashima img { width: 100%; border-radius: 50%; }
+        @keyframes float-astronaut {
+            0%   { transform: translateY(0) rotate(0deg); }
+            33%  { transform: translateY(-14px) rotate(5deg); }
+            66%  { transform: translateY(9px) rotate(-5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        .zoom-toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(20,10,30,0.88);
+            color: var(--text-light);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(6px);
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.2s, transform 0.2s;
+            pointer-events: none;
+        }
+        .zoom-toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+            .main-content::before { left: 0; }
+            /* Ajuste del fondo para móviles: anclamos arriba para que no haya recortes raros */
+            .main-content {
+                background-position: top center;
+                padding: 18px 10px 50px;
+            }
+            h1.update-title { font-size: 2rem; }
+            .floating-adashima { width: 80px; bottom: 6px; right: 6px; }
+            
+            /* PNGs flotantes más pequeños en móvil, sin perder visibilidad */
+            .float-1 { width: 76px; top: 12px; left: 8px; right: auto; }
+            .float-2 { width: 86px; bottom: 78px; right: 8px; }
+
+            .update-box { padding: 12px; border-radius: 14px; }
+            
+            .download-all-btn {
+                width: 90%;
+                font-size: 1rem;
+                padding: 14px 20px;
+            }
+
+            .cascade-scroll-area { height: 80vh; max-height: 80vh; }
+            .paged-reader { height: 75vh; min-height: 300px; }
+            .paged-img-area { min-height: 0; position: relative; }
+            .cascade-toolbar { padding: 6px 8px; height: auto; min-height: 48px; flex-wrap: wrap; gap: 5px; }
+            .cascade-controls-group { padding: 4px 7px; gap: 4px; }
+            .cascade-btn { width: 32px; height: 32px; font-size: 0.82rem; }
+            .mode-toggle-btn { font-size: 0.72rem; padding: 0 8px; height: 30px; }
+
+            .paged-reader { flex-direction: column; }
+            .paged-nav-btn {
+                position: static; transform: none; width: 50%; height: 48px;
+                border-radius: 0; font-size: 1.1rem; border: none;
+                border-top: 1px solid var(--border); background: rgba(20,10,30,0.88);
+            }
+            .paged-nav-btn.left  { left: auto; border-right: 1px solid var(--border); }
+            .paged-nav-btn.right { right: auto; }
+            .paged-nav-bar-mobile { display: flex; width: 100%; order: 10; }
+            .paged-thumb { width: 36px; height: 52px; }
+        }
+
+        @media (max-width: 480px) { .cascade-toolbar { justify-content: center; } }
+
+        /* ─── Botón Descargar ZIP (integrado en toolbar) ─── */
+        .btn-download-zip {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(209,163,198,0.28);
+            color: var(--text-light);
+            height: 34px;
+            padding: 0 11px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.76rem;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            letter-spacing: 0.01em;
+        }
+        .btn-download-zip:hover {
+            background: linear-gradient(135deg, rgba(209,163,198,0.25), rgba(140,90,150,0.3));
+            color: white;
+            border-color: rgba(209,163,198,0.55);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 12px rgba(140,90,150,0.25);
+        }
+        .btn-download-zip:active { transform: translateY(0); opacity: 0.85; }
+        .btn-download-zip.downloading {
+            background: linear-gradient(135deg, rgba(209,163,198,0.18), rgba(140,90,150,0.22));
+            color: var(--rose);
+            border-color: rgba(209,163,198,0.4);
+            cursor: not-allowed;
+            animation: zip-pulse 1.2s ease-in-out infinite;
+        }
+        .btn-download-zip.done {
+            background: linear-gradient(135deg, rgba(100,200,140,0.18), rgba(60,160,100,0.22));
+            color: #7de8a8;
+            border-color: rgba(100,200,140,0.4);
+        }
+        @keyframes zip-pulse {
+            0%,100% { opacity: 1; }
+            50%      { opacity: 0.6; }
+        }
+        /* Spinner mini dentro del botón */
+        .zip-spinner {
+            width: 12px;
+            height: 12px;
+            border: 2px solid rgba(209,163,198,0.3);
+            border-top-color: var(--rose);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            flex-shrink: 0;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Toast de descarga */
+        .zip-toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(20,10,30,0.92);
+            color: var(--text-light);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.86rem;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.25s, transform 0.25s;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            max-width: 90vw;
+            text-align: center;
+        }
+        .zip-toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+        @media (min-width: 1400px) {
+            .cascade-page-img, .cascade-page-skeleton, .cascade-page-wrapper { max-width: 900px; }
+            .cascade-end-banner { max-width: 900px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <a class="floating-decor float-1" href="Juego.html" title="Ir a Juego">
+        <img src="Imagenes/Flotante_manga-Photoroom.png" alt="Decoración Manga 1" style="width:100%; height:auto;">
+    </a>
+    <a class="floating-decor float-2" href="Juego.html" title="Ir a Juego">
+        <img src="Imagenes/Flotantemanga2-Photoroom.png" alt="Decoración Manga 2" style="width:100%; height:auto;">
+    </a>
+
+    <div id="menu-container" style="display: contents;"></div>
+    
+    <main class="main-content">
+        <h1 class="update-title">Manga</h1>
+
+        <div class="update-box" id="chapters-container">
+            <div style="text-align:center; padding: 40px; color: rgba(92,58,107,0.5); font-size: 0.92rem;">
+                <div class="cascade-spinner" style="margin: 0 auto 16px;"></div>
+                <p>Cargando capítulos...</p>
+            </div>
+        </div>
+
+        <a href="https://drive.google.com/uc?export=download&id=1m7rxOE5S-RMLtNXgDPLF2QG7RJmQOgDa" class="download-all-btn">
+    <i class="fas fa-file-archive"></i> Descargar Todos los Capítulos
+</a>
+
+        
+        <div class="footer">
+            Fan site no oficial de Adachi to Shimamura.<br>
+            Creado por fans, sin fines de lucro.<br>
+            Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma.
+        </div>
+        
+    </main>
+
+    <div class="floating-adashima">
+        <img src="Imagenes/astronauta.png" alt="Adashima Astronauta" onerror="this.style.display='none'">
+    </div>
+
+    <div class="zoom-toast" id="zoom-toast"></div>
+    <div class="zip-toast" id="zip-toast"></div>
+
+    <script>
+    // ═══════════════════════════════════════════════════════════════
+    //  CONFIGURACIÓN
+    // ═══════════════════════════════════════════════════════════════
+    const R2_BASE_URL = 'https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/Manga/';
+    const MANGA_CONFIG = {
+        get chapters() {
+            // Capítulos especiales decimales según requerimiento del usuario
+            const special = [5.5, 12.5, 15.2, 16.2, 17.2, 19.2, 27.2, 27.3, 27.4, 29.1, 29.2, 29.3, 30.2, 30.5, 34.2, 36.2, 38.2, 54.5];
+            const list = [];
+            // Rango base de capítulos enteros 1-56
+            for (let i = 1; i <= 56; i++) list.push(i);
+            // Combinar, ordenar numéricamente y añadir Antología al final
+            return [...list, ...special]
+                .sort((a, b) => a - b)
+                .concat(['Antologia']);
+        },
+        maxPagesPerChapter: 150,
+        imagePath: (chapter, page) => {
+            const pageStr = String(page).padStart(3, '0');
+            let folderName;
+            
+            if (chapter === 'Antologia') {
+                folderName = 'Antologia';
+            } else {
+                const num = parseFloat(chapter);
+                // Los capítulos 40 a 55 usan "Capítulo" con acento en el nombre de la carpeta original
+                const useAccent = num >= 40 && num <= 55;
+                folderName = (useAccent ? 'Capítulo ' : 'Capitulo ') + chapter;
+            }
+            
+            return `${R2_BASE_URL}${encodeURIComponent(folderName)}/${pageStr}.jpg`;
+        },
+        chapterDescriptions: {
+            1: 'Primer capítulo de Adashima.',
+        }
+    };
+
+    // Utilidad para limpiar caché de detección (útil al agregar capítulos nuevos)
+    window.clearMangaCache = function() {
+        const keys = Object.keys(localStorage).filter(k => k.startsWith('adashima_ch_'));
+        keys.forEach(k => localStorage.removeItem(k));
+        console.log(`[Manga] Caché limpiada (${keys.length} capítulos). Recarga la página.`);
+    };
+
+    // ═══════════════════════════════════════════════════════════════
+    //  ESTADO GLOBAL
+    // ═══════════════════════════════════════════════════════════════
+    const readerState = {};
+
+    // ═══════════════════════════════════════════════════════════════
+    //  PARTÍCULAS
+    // ═══════════════════════════════════════════════════════════════
+    (function createParticles() {
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const l = Math.random() * 100;
+            const dur = 5 + Math.random() * 10;
+            const del = Math.random() * 10;
+            const sz  = 2 + Math.random() * 4;
+            star.style.cssText = `left:${l}%;animation-duration:${dur}s,3s;animation-delay:${del}s,0s;width:${sz}px;height:${sz}px;`;
+            container.appendChild(star);
+        }
+    })();
+
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch('menu.html?v=' + Date.now())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error HTTP ' + response.status + ' al cargar el menú');
+                }
+                return response.text();
+            })
+            .then(data => {
+                const menuContainer = document.getElementById('menu-container');
+                if (!menuContainer) {
+                    console.error('El contenedor #menu-container no existe');
+                    return;
+                }
+
+                // Inyecta el HTML y ejecuta scripts embebidos del menu.
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
+                const fragment = document.createDocumentFragment();
+
+                const headNodes = Array.from(doc.head ? doc.head.childNodes : []);
+                const bodyNodes = Array.from(doc.body ? doc.body.childNodes : []);
+
+                headNodes.concat(bodyNodes).forEach(node => {
+                    if (node.nodeName.toLowerCase() === 'script') {
+                        const s = document.createElement('script');
+                        if (node.src) {
+                            s.src = node.src;
+                        } else {
+                            s.textContent = node.textContent;
+                        }
+                        fragment.appendChild(s);
+                    } else {
+                        fragment.appendChild(node.cloneNode(true));
+                    }
+                });
+
+                menuContainer.innerHTML = '';
+                menuContainer.appendChild(fragment);
+                console.log('✓ menu.html cargado correctamente');
+            })
+            .catch(error => {
+                console.error('Error cargando menu.html:', error.message);
+            });
+    });
+
+    // ═══════════════════════════════════════════════════════════════
+    //  DETECCIÓN DE PÁGINAS — con caché localStorage + detección paralela
+    // ═══════════════════════════════════════════════════════════════
+    const CACHE_KEY_PREFIX = 'adashima_ch_';
+    const CACHE_VERSION    = 'v2';
+
+    function getCachedPages(chapterNum) {
+        try {
+            const raw = localStorage.getItem(CACHE_KEY_PREFIX + chapterNum);
+            if (!raw) return null;
+            const { version, pages } = JSON.parse(raw);
+            if (version !== CACHE_VERSION || !Array.isArray(pages) || pages.length === 0) return null;
+            return pages;
+        } catch { return null; }
+    }
+
+    function setCachedPages(chapterNum, pages) {
+        try {
+            localStorage.setItem(CACHE_KEY_PREFIX + chapterNum,
+                JSON.stringify({ version: CACHE_VERSION, pages }));
+        } catch { /* quota o modo privado — ignorar */ }
+    }
+
+    // Detección con HEAD y límite de concurrencia
+    const headCache = new Map();
+    let activeHeadRequests = 0;
+    const MAX_CONCURRENT_HEADS = 20;
+    const headRequestQueue = [];
+
+    async function processHeadQueue() {
+        if (activeHeadRequests >= MAX_CONCURRENT_HEADS || headRequestQueue.length === 0) return;
+        activeHeadRequests++;
+        const { url, resolve } = headRequestQueue.shift();
+        try {
+            const response = await fetch(url, { method: 'HEAD' });
+            const exists = response.ok;
+            headCache.set(url, exists);
+            resolve(exists);
+        } catch (error) {
+            headCache.set(url, false);
+            resolve(false);
+        } finally {
+            activeHeadRequests--;
+            processHeadQueue();
+        }
+    }
+
+    function imageExists(url) {
+        if (headCache.has(url)) return Promise.resolve(headCache.get(url));
+        return new Promise(resolve => {
+            headRequestQueue.push({ url, resolve });
+            processHeadQueue();
+        });
+    }
+
+    // Detección en paralelo: prueba todas las páginas posibles a la vez en lotes,
+    // luego toma el prefijo continuo (sin huecos) como resultado.
+    async function detectChapterPages(chapterNum) {
+        // 1) Intentar caché primero
+        const cached = getCachedPages(chapterNum);
+        if (cached) return cached;
+
+        const max   = MANGA_CONFIG.maxPagesPerChapter;
+        const BATCH = 20; // páginas probadas en paralelo por lote
+        const pages = [];
+
+        for (let start = 1; start <= max; start += BATCH) {
+            const end     = Math.min(start + BATCH - 1, max);
+            const indices = [];
+            for (let p = start; p <= end; p++) indices.push(p);
+
+            const results = await Promise.all(
+                indices.map(p => imageExists(MANGA_CONFIG.imagePath(chapterNum, p)))
+            );
+
+            let hitGap = false;
+            for (let i = 0; i < results.length; i++) {
+                if (results[i]) {
+                    pages.push(MANGA_CONFIG.imagePath(chapterNum, indices[i]));
+                } else {
+                    hitGap = true;
+                    break;
+                }
+            }
+            if (hitGap) break; // capítulo termina dentro de este lote
+        }
+
+        if (pages.length > 0) setCachedPages(chapterNum, pages);
+        return pages;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  CONSTRUCCIÓN DE HTML DE CAPÍTULO
+    // ═══════════════════════════════════════════════════════════════
+    function buildChapterHTML(chapterNum, pageCount) {
+        const id   = chapterNum;
+        const desc = MANGA_CONFIG.chapterDescriptions[id] || '';
+
+        const pagesArr = [];
+        for (let p = 1; p <= pageCount; p++) pagesArr.push(MANGA_CONFIG.imagePath(id, p));
+        const dataPagesAttr = pagesArr.join('|');
+
+        const displayTitle = id === 'Antologia' ? 'Antología' : `Capítulo ${id}`;
+
+        return `
+        <details class="manga-item" id="manga-${id}">
+            <summary class="manga-summary">
+                <span>
+                    <i class="fas fa-book-open"></i> ${displayTitle}
+                    <span class="chapter-load-status">
+                        <i class="fas fa-images" style="font-size:0.68rem;"></i> ${pageCount} pág.
+                    </span>
+                </span>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="manga-content">
+                ${desc ? `<div class="manga-description"><p>${desc}</p></div>` : ''}
+
+                <div class="cascade-reader" id="cascade-reader-${id}"
+                     data-pages="${dataPagesAttr}"
+                     data-chapter="${id}">
+
+                    <div class="cascade-toolbar" id="toolbar-${id}">
+
+                        <div class="cascade-controls-group">
+                            <button class="mode-toggle-btn active" id="btn-cascade-${id}"
+                                    onclick="setMode('${id}','cascade')" title="Lectura en cascada">
+                                <i class="fas fa-stream"></i> Cascada
+                            </button>
+                            <button class="mode-toggle-btn" id="btn-paged-${id}"
+                                    onclick="setMode('${id}','paged')" title="Lectura paginada">
+                                <i class="fas fa-file-alt"></i> Página
+                            </button>
+                        </div>
+
+                        <div class="cascade-controls-group">
+                            <button class="cascade-btn" onclick="zoomOut('${id}')" title="Reducir zoom (-)">
+                                <i class="fas fa-search-minus"></i>
+                            </button>
+                            <span class="cascade-zoom-display" id="zoom-display-${id}">100%</span>
+                            <button class="cascade-btn" onclick="zoomIn('${id}')" title="Aumentar zoom (+)">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
+                            <button class="cascade-btn" onclick="zoomReset('${id}')" title="Restablecer zoom (0)">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                        </div>
+
+                        <div class="cascade-controls-group">
+                            <span class="cascade-page-info">
+                                Pág.&nbsp;<span id="cur-page-${id}">0</span>&nbsp;/&nbsp;<span id="tot-page-${id}">0</span>
+                            </span>
+                        </div>
+
+                        <div class="cascade-controls-group">
+                            <button class="cascade-btn" id="btn-thumbs-${id}"
+                                    onclick="toggleThumbs('${id}')" title="Miniaturas">
+                                <i class="fas fa-th"></i>
+                            </button>
+                            <button class="cascade-btn" onclick="scrollToTop('${id}')" title="Inicio (Home)" id="btn-top-${id}">
+                                <i class="fas fa-arrow-up"></i>
+                            </button>
+                            <button class="cascade-btn" onclick="scrollToBottom('${id}')" title="Final (End)" id="btn-bottom-${id}">
+                                <i class="fas fa-arrow-down"></i>
+                            </button>
+                            <button class="cascade-btn" onclick="toggleFullscreen('${id}')" title="Pantalla completa (F)">
+                                <i class="fas fa-expand" id="fs-icon-${id}"></i>
+                            </button>
+                        </div>
+
+                        <div class="cascade-controls-group">
+                            <button class="btn-download-zip" id="btn-zip-${id}"
+                                    onclick="downloadChapterZip('${id}')"
+                                    title="Descargar capítulo como ZIP">
+                                <i class="fas fa-file-archive"></i>
+                                <span id="btn-zip-label-${id}">ZIP</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="cascade-progress-bar-wrap">
+                        <div class="cascade-progress-bar-fill" id="progress-bar-${id}" style="width:0%"></div>
+                    </div>
+
+                    <div class="cascade-loading-overlay" id="loading-${id}">
+                        <div class="cascade-spinner"></div>
+                        <span class="cascade-loading-text">Cargando páginas...</span>
+                    </div>
+
+                    <div class="cascade-scroll-area" id="cascade-area-${id}"></div>
+
+                    <div class="paged-reader" id="paged-reader-${id}">
+                        <div class="paged-img-area" id="paged-img-area-${id}">
+                            <div class="paged-img-viewport" id="paged-viewport-${id}">
+                                <div class="paged-skeleton" id="paged-skeleton-${id}">
+                                    <div class="paged-skeleton-inner"></div>
+                                </div>
+                                <img class="paged-page-img" id="paged-img-${id}" src="" alt=""
+                                     draggable="false" style="display:none;" loading="lazy" decoding="async">
+                            </div>
+                        </div>
+                        <div class="paged-thumbs-row" id="thumbs-row-${id}" style="display:none;"></div>
+                        <div class="paged-nav-bar-mobile">
+                            <button class="paged-nav-btn left" id="btn-prev-${id}"
+                                    onclick="pagedNav('${id}',-1)" title="Página anterior (←)">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="paged-nav-btn right" id="btn-next-${id}"
+                                    onclick="pagedNav('${id}',+1)" title="Página siguiente (→)">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                
+            </div>
+            
+        </details>`;
+        
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  INICIALIZACIÓN DE TODOS LOS CAPÍTULOS — Renderizado inmediato + detección lazy
+    // ═══════════════════════════════════════════════════════════════
+    async function initAllChapters() {
+        const container = document.getElementById('chapters-container');
+        const allChapterIds = MANGA_CONFIG.chapters;
+        const total = allChapterIds.length;
+
+        // Separar capítulos en: con caché (renderizar ya) y sin caché (detectar al abrir)
+        const cached   = [];
+        const pending  = [];
+
+        for (const chId of allChapterIds) {
+            const pages = getCachedPages(chId);
+            if (pages && pages.length > 0) cached.push({ chapter: chId, pages });
+            else pending.push(chId);
+        }
+
+        // Renderizar capítulos con caché de inmediato (manteniendo el orden de MANGA_CONFIG.chapters)
+        let html = '';
+        // Re-mapeamos para asegurar el orden correcto incluso si el cache está desordenado
+        for (const chId of allChapterIds) {
+            const cachedItem = cached.find(c => c.chapter === chId);
+            if (cachedItem) {
+                html += buildChapterHTML(cachedItem.chapter, cachedItem.pages.length);
+            } else if (pending.includes(chId)) {
+                html += buildChapterPlaceholder(chId);
+            }
+        }
+
+        // Si no hay nada en caché, mostrar spinner mientras detectamos el primero
+        if (cached.length === 0) {
+            container.innerHTML = `
+                <div style="text-align:center;padding:40px;color:rgba(92,58,107,0.55);font-size:0.88rem;">
+                    <div class="cascade-spinner" style="margin:0 auto 14px;"></div>
+                    <p id="detection-progress">Detectando capítulos… (0 / ${total})</p>
+                </div>`;
+        } else {
+            container.innerHTML = html;
+            attachAccordionListeners();
+        }
+
+        // Detectar capítulos sin caché en paralelo (por lotes de 5 capítulos a la vez)
+        if (pending.length > 0) {
+            const CAP_BATCH = 5;
+            let done = cached.length;
+            const progressEl = () => document.getElementById('detection-progress');
+
+            for (let i = 0; i < pending.length; i += CAP_BATCH) {
+                const batch = pending.slice(i, i + CAP_BATCH);
+                const results = await Promise.all(
+                    batch.map(ch => detectChapterPages(ch).then(pages => ({ chapter: ch, pages })))
+                );
+                done += batch.length;
+                if (progressEl()) progressEl().textContent = `Detectando capítulos… (${done} / ${total})`;
+
+                for (const { chapter, pages } of results) {
+                    if (pages.length === 0) continue;
+                    const placeholder = document.getElementById(`manga-placeholder-${chapter}`);
+                    const existing    = document.getElementById(`manga-${chapter}`);
+                    const newEl = document.createElement('div');
+                    newEl.innerHTML = buildChapterHTML(chapter, pages.length);
+                    const newDetail = newEl.firstElementChild;
+
+                    if (placeholder) {
+                        placeholder.replaceWith(newDetail);
+                    } else if (!existing) {
+                        // Insertar en posición correcta según el orden de MANGA_CONFIG.chapters
+                        const allDetails = container.querySelectorAll('details.manga-item');
+                        let inserted = false;
+                        
+                        const targetIndex = allChapterIds.indexOf(chapter);
+                        
+                        for (const d of allDetails) {
+                            const currentId = d.id.replace('manga-', '').replace('placeholder-', '');
+                            const currentIndex = allChapterIds.indexOf(isNaN(currentId) ? currentId : (currentId.includes('.') ? parseFloat(currentId) : parseInt(currentId)));
+                            
+                            if (currentIndex > targetIndex) {
+                                container.insertBefore(newDetail, d);
+                                inserted = true;
+                                break;
+                            }
+                        }
+                        if (!inserted) container.appendChild(newDetail);
+                    }
+                    attachSingleAccordionListener(newDetail);
+                }
+
+                // Primera vez: reemplazar spinner por el HTML acumulado
+                if (cached.length === 0 && i === 0) {
+                    const spinner = container.querySelector('div[style]');
+                    if (spinner) spinner.remove();
+                }
+            }
+
+            if (cached.length === 0) {
+                const prog = progressEl();
+                if (prog) prog.closest('div')?.remove();
+            }
+        }
+    }
+
+    function buildChapterPlaceholder(chapterNum) {
+        const displayTitle = chapterNum === 'Antologia' ? 'Antología' : `Capítulo ${chapterNum}`;
+        return `<details class="manga-item" id="manga-placeholder-${chapterNum}" data-pending="${chapterNum}">
+            <summary class="manga-summary">
+                <span><i class="fas fa-book-open"></i> ${displayTitle}
+                    <span class="chapter-load-status"><i class="fas fa-spinner fa-spin" style="font-size:0.68rem;"></i> Cargando…</span>
+                </span>
+                <i class="fas fa-chevron-down"></i>
+            </summary>
+            <div class="manga-content">
+                <div style="padding:20px;text-align:center;color:rgba(92,58,107,0.5);font-size:0.85rem;">
+                    <div class="cascade-spinner" style="margin:0 auto 10px;width:24px;height:24px;"></div>
+                    Detectando páginas…
+                </div>
+            </div>
+        </details>`;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  ACORDEÓN
+    // ═══════════════════════════════════════════════════════════════
+    function attachAccordionListeners() {
+        document.querySelectorAll('details.manga-item').forEach(detail => {
+            attachSingleAccordionListener(detail);
+        });
+    }
+
+    function attachSingleAccordionListener(detail) {
+        if (detail.dataset.listenerAttached) return;
+        detail.dataset.listenerAttached = '1';
+        detail.addEventListener('toggle', () => {
+            if (detail.open) {
+                // Cerrar otros
+                document.querySelectorAll('details.manga-item').forEach(other => {
+                    if (other !== detail && other.open) other.removeAttribute('open');
+                });
+                // Init lector si es primera vez
+                const reader = detail.querySelector('.cascade-reader');
+                if (reader) {
+                    const id = reader.dataset.chapter;
+                    if (!readerState[id]) initReader(id);
+                }
+            }
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  INICIALIZACIÓN DEL LECTOR
+    // ═══════════════════════════════════════════════════════════════
+    function initReader(id) {
+        const reader = document.getElementById('cascade-reader-' + id);
+        const area   = document.getElementById('cascade-area-' + id);
+        if (!reader || !area || readerState[id]) return;
+
+        const pagesAttr = reader.getAttribute('data-pages') || '';
+        const pages     = pagesAttr.split('|').map(p => p.trim()).filter(Boolean);
+
+        readerState[id] = {
+            zoom: 100,
+            pages,
+            initialized: true,
+            mode: 'cascade',
+            currentPage: 1,
+            pagedZoom: 1.0,
+            thumbsVisible: false,
+        };
+
+        const totEl = document.getElementById('tot-page-' + id);
+        if (totEl) totEl.textContent = pages.length;
+
+        if (pages.length === 0) {
+            area.innerHTML = `
+                <div class="cascade-placeholder">
+                    <i class="fas fa-images"></i>
+                    <p>Este capítulo no tiene páginas configuradas.</p>
+                </div>`;
+            return;
+        }
+
+        buildCascadeContent(id);
+        buildPagedThumbs(id);
+        attachWheelZoom(id);
+        attachTouchZoom(id);
+        attachSwipe(id);
+        updateHint(id);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  CONSTRUCCIÓN CONTENIDO CASCADA (Lazy Loading)
+    // ═══════════════════════════════════════════════════════════════
+    function buildCascadeContent(id) {
+        const state   = readerState[id];
+        const area    = document.getElementById('cascade-area-' + id);
+        const loading = document.getElementById('loading-' + id);
+        if (!area) return;
+
+        if (loading) loading.classList.add('visible');
+        area.innerHTML = '';
+
+        const totalPages   = state.pages.length;
+        let loadedCount    = 0;
+        const HIDE_AFTER   = Math.min(5, totalPages); // ocultar spinner tras cargar las primeras 5
+
+        const lazyObs = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const src = img.dataset.lazySrc;
+                    if (src && !img.dataset.lazyLoaded) {
+                        img.dataset.lazyLoaded = '1';
+                        img.src = src;
+                    }
+                    lazyObs.unobserve(img);
+                }
+            });
+        }, {
+            root: area,          // ← raíz = el contenedor con scroll, no el viewport
+            rootMargin: '800px 0px',  // pre-cargar 800px antes de que entre al scroll
+            threshold: 0
+        });
+
+        state.pages.forEach((url, index) => {
+            const pageNum = index + 1;
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'cascade-page-wrapper';
+            wrapper.dataset.page = pageNum;
+
+            const skeleton = document.createElement('div');
+            skeleton.className = 'cascade-page-skeleton';
+
+            const img = document.createElement('img');
+            img.className = 'cascade-page-img';
+            img.alt = `Cap. ${id} — Pág. ${pageNum}`;
+            img.decoding = 'async';
+            img.width = 800;   // evitar reflow: el CSS ya limita el ancho real
+
+            const label = document.createElement('span');
+            label.className = 'cascade-page-number';
+            label.textContent = `${pageNum} / ${totalPages}`;
+
+            img.onload = () => {
+                skeleton.remove();
+                requestAnimationFrame(() => img.classList.add('loaded'));
+                loadedCount++;
+                if (loadedCount >= HIDE_AFTER && loading) loading.classList.remove('visible');
+            };
+            img.onerror = () => {
+                skeleton.remove();
+                img.classList.add('errored', 'loaded');
+                img.style.minHeight = '60px';
+                img.alt = `⚠ Error — Pág. ${pageNum}`;
+                loadedCount++;
+                if (loadedCount >= HIDE_AFTER && loading) loading.classList.remove('visible');
+            };
+
+            if (pageNum <= 8) {
+                // Primeras 8 páginas: carga inmediata con alta prioridad
+                img.fetchPriority = pageNum <= 3 ? 'high' : 'auto';
+                img.loading = 'eager';
+                img.src = url;
+            } else {
+                img.loading = 'lazy';
+                img.dataset.lazySrc = url;
+                img.style.minHeight = '1200px'; // reservar espacio para evitar reflows de layout
+                lazyObs.observe(img);
+            }
+
+            wrapper.appendChild(skeleton);
+            wrapper.appendChild(img);
+            wrapper.appendChild(label);
+            area.appendChild(wrapper);
+        });
+
+        const endBanner = document.createElement('div');
+        endBanner.className = 'cascade-end-banner';
+        endBanner.innerHTML = `
+            <i class="fas fa-star end-icon"></i>
+            <p>Fin del Capítulo ${id}</p>
+            <p style="font-size:0.75rem;opacity:0.45;">¡Gracias por leer!</p>`;
+        area.appendChild(endBanner);
+
+        let scrollRaf = null;
+        area.addEventListener('scroll', () => {
+            if (scrollRaf) return;
+            scrollRaf = requestAnimationFrame(() => {
+                updateCascadeProgress(id);
+                scrollRaf = null;
+            });
+        }, { passive: true });
+        updateCascadeProgress(id);
+
+        setTimeout(() => { if (loading) loading.classList.remove('visible'); }, 4000);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  PROGRESO CASCADA
+    // ═══════════════════════════════════════════════════════════════
+    function updateCascadeProgress(id) {
+        const area     = document.getElementById('cascade-area-' + id);
+        const progBar  = document.getElementById('progress-bar-' + id);
+        const curEl    = document.getElementById('cur-page-' + id);
+        if (!area) return;
+
+        const scrollH = area.scrollHeight - area.clientHeight;
+        const pct = scrollH > 0 ? (area.scrollTop / scrollH) * 100 : 0;
+        if (progBar) progBar.style.width = Math.min(pct, 100).toFixed(1) + '%';
+
+        const wrappers = area.querySelectorAll('.cascade-page-wrapper[data-page]');
+        const areaTop  = area.getBoundingClientRect().top;
+        const midY     = areaTop + area.clientHeight * 0.4;
+        let current    = 1;
+        wrappers.forEach(w => {
+            const r = w.getBoundingClientRect();
+            if (r.top <= midY) current = parseInt(w.dataset.page);
+        });
+        if (curEl) curEl.textContent = current;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  MODO DE LECTURA
+    // ═══════════════════════════════════════════════════════════════
+    function setMode(id, mode) {
+        const state = readerState[id];
+        if (!state) return;
+        state.mode = mode;
+
+        const cascadeArea  = document.getElementById('cascade-area-' + id);
+        const pagedReader  = document.getElementById('paged-reader-' + id);
+        const btnCascade   = document.getElementById('btn-cascade-' + id);
+        const btnPaged     = document.getElementById('btn-paged-' + id);
+        const btnTop       = document.getElementById('btn-top-' + id);
+        const btnBottom    = document.getElementById('btn-bottom-' + id);
+
+        if (mode === 'cascade') {
+            if (cascadeArea) cascadeArea.style.display = 'flex';
+            if (pagedReader) pagedReader.classList.remove('active');
+            if (btnCascade)  btnCascade.classList.add('active');
+            if (btnPaged)    btnPaged.classList.remove('active');
+            if (btnTop)      btnTop.style.display = '';
+            if (btnBottom)   btnBottom.style.display = '';
+            applyCascadeZoom(id);
+        } else {
+            if (cascadeArea) cascadeArea.style.display = 'none';
+            if (pagedReader) pagedReader.classList.add('active');
+            if (btnCascade)  btnCascade.classList.remove('active');
+            if (btnPaged)    btnPaged.classList.add('active');
+            if (btnTop)      btnTop.style.display = 'none';
+            if (btnBottom)   btnBottom.style.display = 'none';
+            renderPagedPage(id, state.currentPage || 1, null);
+        }
+        updateHint(id);
+        updateZoomDisplay(id);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  MODO PAGINADO — RENDERIZADO
+    // ═══════════════════════════════════════════════════════════════
+    function renderPagedPage(id, pageNum, direction) {
+        const state   = readerState[id];
+        if (!state) return;
+        const pages   = state.pages;
+        const total   = pages.length;
+        if (total === 0) return;
+
+        pageNum = Math.max(1, Math.min(pageNum, total));
+        state.currentPage = pageNum;
+
+        const img      = document.getElementById('paged-img-' + id);
+        const skeleton = document.getElementById('paged-skeleton-' + id);
+        const prevBtn  = document.getElementById('btn-prev-' + id);
+        const nextBtn  = document.getElementById('btn-next-' + id);
+        const curEl    = document.getElementById('cur-page-' + id);
+        const progBar  = document.getElementById('progress-bar-' + id);
+        if (!img) return;
+
+        if (curEl)    curEl.textContent = pageNum;
+        if (prevBtn)  prevBtn.disabled  = pageNum <= 1;
+        if (nextBtn)  nextBtn.disabled  = pageNum >= total;
+        if (progBar)  progBar.style.width = ((pageNum / total) * 100).toFixed(1) + '%';
+
+        if (skeleton) skeleton.style.display = 'flex';
+        img.style.display = 'none';
+
+        const newSrc = pages[pageNum - 1];
+
+        img.classList.remove('slide-left', 'slide-right');
+        void img.offsetWidth;
+
+        img.onload = () => {
+            if (skeleton) skeleton.style.display = 'none';
+            img.style.display = 'block';
+            if (direction === 1)  img.classList.add('slide-left');
+            if (direction === -1) img.classList.add('slide-right');
+            applyPagedZoom(id);
+        };
+        img.onerror = () => {
+            if (skeleton) skeleton.style.display = 'none';
+            img.src = '';
+            img.style.display = 'block';
+            img.alt = `⚠ Error — Pág. ${pageNum}`;
+        };
+
+        img.src = newSrc;
+        img.alt = `Cap. ${id} — Pág. ${pageNum}`;
+
+        preloadNeighbors(id, pageNum);
+        updateThumbHighlight(id, pageNum);
+    }
+
+    function pagedNav(id, delta) {
+        const state = readerState[id];
+        if (!state || state.mode !== 'paged') return;
+        renderPagedPage(id, state.currentPage + delta, delta > 0 ? 1 : -1);
+    }
+
+    function preloadNeighbors(id, pageNum) {
+        const state = readerState[id];
+        if (!state) return;
+        const pages = state.pages;
+        // Precargar únicamente página siguiente y segunda página siguiente
+        [1, 2].forEach(d => {
+            const n = pageNum + d;
+            if (n >= 1 && n <= pages.length) {
+                const url = pages[n - 1];
+                if (!document.querySelector(`link[rel="preload"][href="${url}"]`)) {
+                    const link = document.createElement('link');
+                    link.rel = 'preload';
+                    link.as = 'image';
+                    link.href = url;
+                    document.head.appendChild(link);
+                }
+            }
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  MINIATURAS (MODO PAGINADO)
+    // ═══════════════════════════════════════════════════════════════
+    function buildPagedThumbs(id) {
+        const state    = readerState[id];
+        const row      = document.getElementById('thumbs-row-' + id);
+        if (!row || !state) return;
+
+        row.innerHTML = '';
+        state.pages.forEach((url, idx) => {
+            const pageNum = idx + 1;
+            const div = document.createElement('div');
+            div.className = 'paged-thumb';
+            div.dataset.page = pageNum;
+            div.title = `Página ${pageNum}`;
+            div.onclick = () => {
+                renderPagedPage(id, pageNum, pageNum > state.currentPage ? 1 : -1);
+            };
+            const img = document.createElement('img');
+            img.loading = 'lazy';
+            img.src = url;
+            img.alt = `Pág. ${pageNum}`;
+            div.appendChild(img);
+            row.appendChild(div);
+        });
+    }
+
+    function toggleThumbs(id) {
+        const state  = readerState[id];
+        const row    = document.getElementById('thumbs-row-' + id);
+        const btn    = document.getElementById('btn-thumbs-' + id);
+        if (!row || !state) return;
+        state.thumbsVisible = !state.thumbsVisible;
+        row.style.display = state.thumbsVisible ? 'flex' : 'none';
+        if (btn) btn.classList.toggle('active', state.thumbsVisible);
+        if (state.thumbsVisible) updateThumbHighlight(id, state.currentPage);
+    }
+
+    function updateThumbHighlight(id, pageNum) {
+        const row = document.getElementById('thumbs-row-' + id);
+        if (!row) return;
+        row.querySelectorAll('.paged-thumb').forEach(t => {
+            const isCurrent = parseInt(t.dataset.page) === pageNum;
+            t.classList.toggle('current', isCurrent);
+            if (isCurrent) t.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    //  ZOOM
+    // ═══════════════════════════════════════════════════════════════
+    function zoomIn(id)    { applyZoomDelta(id, +10); }
+    function zoomOut(id)   { applyZoomDelta(id, -10); }
+    function zoomReset(id) {
+        const s = readerState[id];
+        if (!s) return;
+        if (s.mode === 'cascade') { s.zoom = 100; applyCascadeZoom(id); }
+        else {
+            s.pagedZoom = 1.0;
+            applyPagedZoom(id);
+        }
+        updateZoomDisplay(id);
+        showZoomToast('100%');
+    }
+
+    function applyZoomDelta(id, delta) {
+        const s = readerState[id];
+        if (!s) return;
+        if (s.mode === 'cascade') {
+            s.zoom = Math.min(200, Math.max(40, s.zoom + delta));
+            applyCascadeZoom(id);
+        } else {
+            const step = delta > 0 ? 0.15 : -0.15;
+            s.pagedZoom = Math.min(3.5, Math.max(0.4, +(s.pagedZoom + step).toFixed(2)));
+            applyPagedZoom(id);
+        }
+        updateZoomDisplay(id);
+        showZoomToast(getCurrentZoomLabel(id));
+    }
+
+    function applyCascadeZoom(id) {
+        const s    = readerState[id];
+        const area = document.getElementById('cascade-area-' + id);
+        if (!area || !s) return;
+        const baseMax = 800;
+        const newMax  = Math.round(baseMax * s.zoom / 100);
+        area.querySelectorAll('.cascade-page-img, .cascade-page-skeleton').forEach(el => {
+            el.style.maxWidth = newMax + 'px';
+            el.style.transition = 'max-width 0.22s ease';
+        });
+        area.querySelectorAll('.cascade-page-wrapper, .cascade-end-banner').forEach(el => {
+            el.style.maxWidth = newMax + 'px';
+        });
+    }
+
+    function applyPagedZoom(id) {
+        const s    = readerState[id];
+        const img  = document.getElementById('paged-img-' + id);
+        const area = document.getElementById('paged-img-area-' + id);
+        if (!img || !s) return;
+
+        const pct = Math.round(s.pagedZoom * 100);
+        img.style.transition = 'width 0.2s ease, max-width 0.2s ease';
+        img.style.transform  = '';
+
+        if (s.pagedZoom <= 1) {
+            img.style.width     = 'auto';
+            img.style.maxWidth  = pct + '%';
+            img.style.maxHeight = '100%';
+            img.style.height    = 'auto';
+        } else {
+            img.style.width     = pct + '%';
+            img.style.maxWidth  = 'none';
+            img.style.maxHeight = 'none';
+            img.style.height    = 'auto';
+        }
+
+        if (area) {
+            area.style.justifyContent = s.pagedZoom <= 1 ? 'center' : 'flex-start';
+            area.style.alignItems     = s.pagedZoom <= 1 ? 'center' : 'flex-start';
+        }
+    }
+
+    function updateZoomDisplay(id) {
+        const s   = readerState[id];
+        const el  = document.getElementById('zoom-display-' + id);
+        if (!el || !s) return;
+        el.textContent = getCurrentZoomLabel(id);
+    }
+
+    function getCurrentZoomLabel(id) {
+        const s = readerState[id];
+        if (!s) return '100%';
+        if (s.mode === 'cascade') return s.zoom + '%';
+        return Math.round(s.pagedZoom * 100) + '%';
+    }
+
+    let zoomToastTimer = null;
+    function showZoomToast(label) {
+        const t = document.getElementById('zoom-toast');
+        if (!t) return;
+        t.textContent = '🔍 ' + label;
+        t.classList.add('visible');
+        clearTimeout(zoomToastTimer);
+        zoomToastTimer = setTimeout(() => t.classList.remove('visible'), 900);
+    }
+
+    function attachWheelZoom(id) {
+        const reader = document.getElementById('cascade-reader-' + id);
+        if (!reader) return;
+
+        let wheelTimer  = null;
+        let accumulated = 0;
+
+        reader.addEventListener('wheel', e => {
+            if (!e.ctrlKey && !e.metaKey) return;
+            e.preventDefault();
+
+            accumulated += e.deltaY;
+
+            if (wheelTimer) return;
+            wheelTimer = setTimeout(() => {
+                const dir = accumulated < 0 ? 1 : -1;
+                applyZoomDelta(id, dir * 10);
+                accumulated = 0;
+                wheelTimer  = null;
+            }, 90);
+        }, { passive: false });
+    }
+
+    function attachTouchZoom(id) {
+        const reader = document.getElementById('cascade-reader-' + id);
+        if (!reader) return;
+
+        let lastDist = null;
+
+        reader.addEventListener('touchstart', e => {
+            if (e.touches.length === 2) {
+                lastDist = getTouchDist(e.touches);
+            }
+        }, { passive: true });
+
+        reader.addEventListener('touchmove', e => {
+            if (e.touches.length === 2 && lastDist !== null) {
+                const dist  = getTouchDist(e.touches);
+                const ratio = dist / lastDist;
+
+                if (Math.abs(ratio - 1) < 0.015) { lastDist = dist; return; }
+
+                const s = readerState[id];
+                if (!s) return;
+                if (s.mode === 'cascade') {
+                    s.zoom = Math.min(200, Math.max(40, Math.round(s.zoom * ratio)));
+                    applyCascadeZoom(id);
+                } else {
+                    s.pagedZoom = Math.min(3.5, Math.max(0.4, +(s.pagedZoom * ratio).toFixed(2)));
+                    applyPagedZoom(id);
+                }
+                updateZoomDisplay(id);
+                showZoomToast(getCurrentZoomLabel(id));
+                lastDist = dist;
+            }
+        }, { passive: true });
+
+        reader.addEventListener('touchend', () => { lastDist = null; }, { passive: true });
+    }
+
+    function getTouchDist(touches) {
+        const dx = touches[0].clientX - touches[1].clientX;
+        const dy = touches[0].clientY - touches[1].clientY;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    function attachSwipe(id) {
+        const area = document.getElementById('paged-img-area-' + id);
+        if (!area) return;
+
+        let startX = null, startY = null, startTime = null;
+
+        area.addEventListener('touchstart', e => {
+            if (e.touches.length !== 1) return;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            startTime = Date.now();
+        }, { passive: true });
+
+        area.addEventListener('touchend', e => {
+            if (startX === null) return;
+            const dx = e.changedTouches[0].clientX - startX;
+            const dy = e.changedTouches[0].clientY - startY;
+            const dt = Date.now() - startTime;
+            const s = readerState[id];
+            if (s && s.mode === 'paged') {
+                if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+                    pagedNav(id, dx < 0 ? 1 : -1);
+                } else if (Math.abs(dx) < 15 && Math.abs(dy) < 15 && dt < 300) {
+                    const rect = area.getBoundingClientRect();
+                    const tapX = e.changedTouches[0].clientX - rect.left;
+                    pagedNav(id, tapX < rect.width / 2 ? -1 : 1);
+                }
+            }
+            startX = null; startY = null; startTime = null;
+        }, { passive: true });
+    }
+
+    function updateHint(id) {
+        const s   = readerState[id];
+        const el  = document.getElementById('hint-text-' + id);
+        if (!el || !s) return;
+        if (s.mode === 'cascade') {
+            el.innerHTML = '↑↓ desplazar &nbsp;·&nbsp; Ctrl+rueda zoom &nbsp;·&nbsp; +/- zoom &nbsp;·&nbsp; 0 reset &nbsp;·&nbsp; Home/End &nbsp;·&nbsp; F pantalla completa';
+        } else {
+            el.innerHTML = '← → cambiar página &nbsp;·&nbsp; Ctrl+rueda zoom &nbsp;·&nbsp; deslizar en móvil &nbsp;·&nbsp; F pantalla completa';
+        }
+    }
+
+    function scrollToTop(id) {
+        const area = document.getElementById('cascade-area-' + id);
+        if (area) area.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function scrollToBottom(id) {
+        const area = document.getElementById('cascade-area-' + id);
+        if (area) area.scrollTo({ top: area.scrollHeight, behavior: 'smooth' });
+    }
+
+    function toggleFullscreen(id) {
+        const reader = document.getElementById('cascade-reader-' + id);
+        const icon   = document.getElementById('fs-icon-' + id);
+        if (!reader) return;
+
+        const isFS = document.fullscreenElement || document.webkitFullscreenElement;
+
+        if (!isFS) {
+            (reader.requestFullscreen || reader.webkitRequestFullscreen || reader.msRequestFullscreen).call(reader);
+        } else {
+            (document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen).call(document);
+        }
+    }
+
+    document.addEventListener('fullscreenchange',      handleFSChange);
+    document.addEventListener('webkitfullscreenchange', handleFSChange);
+    function handleFSChange() {
+        const isFS  = !!(document.fullscreenElement || document.webkitFullscreenElement);
+        document.querySelectorAll('[id^="fs-icon-"]').forEach(icon => {
+            const id     = icon.id.replace('fs-icon-', '');
+            const reader = document.getElementById('cascade-reader-' + id);
+            const inFS   = reader && (document.fullscreenElement === reader || document.webkitFullscreenElement === reader);
+            icon.className = inFS ? 'fas fa-compress' : 'fas fa-expand';
+        });
+    }
+
+    document.addEventListener('keydown', e => {
+        if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
+
+        const openDetail = document.querySelector('details.manga-item[open]');
+        if (!openDetail) return;
+        const reader = openDetail.querySelector('.cascade-reader');
+        if (!reader) return;
+        const id = reader.dataset.chapter;
+        const s  = readerState[id];
+        if (!s) return;
+
+        switch (e.key) {
+            case 'ArrowDown': case 'PageDown':
+                if (s.mode === 'cascade') {
+                    e.preventDefault();
+                    const a = document.getElementById('cascade-area-' + id);
+                    if (a) a.scrollBy({ top: 340, behavior: 'smooth' });
+                }
+                break;
+            case 'ArrowUp': case 'PageUp':
+                if (s.mode === 'cascade') {
+                    e.preventDefault();
+                    const a = document.getElementById('cascade-area-' + id);
+                    if (a) a.scrollBy({ top: -340, behavior: 'smooth' });
+                }
+                break;
+            case 'Home':
+                e.preventDefault();
+                if (s.mode === 'cascade') scrollToTop(id);
+                else renderPagedPage(id, 1, -1);
+                break;
+            case 'End':
+                e.preventDefault();
+                if (s.mode === 'cascade') scrollToBottom(id);
+                else renderPagedPage(id, s.pages.length, 1);
+                break;
+            case 'ArrowRight':
+                if (s.mode === 'paged') { e.preventDefault(); pagedNav(id, +1); }
+                break;
+            case 'ArrowLeft':
+                if (s.mode === 'paged') { e.preventDefault(); pagedNav(id, -1); }
+                break;
+            case '+': case '=':
+                applyZoomDelta(id, +10);
+                break;
+            case '-': case '_':
+                applyZoomDelta(id, -10);
+                break;
+            case '0':
+                zoomReset(id);
+                break;
+            case 'c': case 'C':
+                setMode(id, 'cascade');
+                break;
+            case 'p': case 'P':
+                setMode(id, 'paged');
+                break;
+            case 'f': case 'F':
+                toggleFullscreen(id);
+                break;
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initAllChapters();
+    });
+
+    // ═══════════════════════════════════════════════════════════════
+    //  DESCARGA DE CAPÍTULO COMO ZIP
+    // ═══════════════════════════════════════════════════════════════
+    let zipToastTimer = null;
+
+    function showZipToast(msg, icon = 'fa-info-circle', duration = 3000) {
+        const toast = document.getElementById('zip-toast');
+        if (!toast) return;
+        toast.innerHTML = `<i class="fas ${icon}"></i> ${msg}`;
+        toast.classList.add('visible');
+        if (zipToastTimer) clearTimeout(zipToastTimer);
+        if (duration > 0) {
+            zipToastTimer = setTimeout(() => toast.classList.remove('visible'), duration);
+        }
+    }
+
+    function hideZipToast() {
+        const toast = document.getElementById('zip-toast');
+        if (toast) toast.classList.remove('visible');
+        if (zipToastTimer) clearTimeout(zipToastTimer);
+    }
+
+    async function downloadChapterZip(id) {
+        const btn   = document.getElementById('btn-zip-' + id);
+        const label = document.getElementById('btn-zip-label-' + id);
+        if (!btn || btn.classList.contains('downloading')) return;
+
+        const zipFolderName = id === 'Antologia' ? 'Antologia' : `Capitulo ${id}`;
+        const toastTitle = id === 'Antologia' ? 'Antología' : `Capítulo ${id}`;
+
+        // Obtener páginas desde el estado (ya detectadas) o desde el atributo data
+        let pages = [];
+        if (readerState[id] && readerState[id].pages && readerState[id].pages.length > 0) {
+            pages = readerState[id].pages;
+        } else {
+            const reader = document.getElementById('cascade-reader-' + id);
+            if (reader) {
+                const attr = reader.getAttribute('data-pages') || '';
+                pages = attr.split('|').map(p => p.trim()).filter(Boolean);
+            }
+        }
+
+        if (pages.length === 0) {
+            showZipToast('No se encontraron páginas para descargar.', 'fa-exclamation-triangle', 3500);
+            return;
+        }
+
+        // Estado: descargando
+        btn.classList.add('downloading');
+        btn.title = 'Descargando…';
+        label.innerHTML = '<span class="zip-spinner"></span>';
+        showZipToast(`Preparando ${toastTitle}… (0 / ${pages.length})`, 'fa-spinner fa-spin', 0);
+
+        try {
+            const zip = new JSZip();
+            const folder = zip.folder(zipFolderName);
+
+            let loaded = 0;
+            const fetchImage = async (url, index) => {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`Error ${response.status} en ${url}`);
+                const blob = await response.blob();
+                const ext  = url.split('.').pop().split('?')[0] || 'jpg';
+                const name = String(index + 1).padStart(3, '0') + '.' + ext;
+                folder.file(name, blob);
+                loaded++;
+                showZipToast(
+                    `Descargando ${toastTitle}… (${loaded} / ${pages.length})`,
+                    'fa-spinner fa-spin', 0
+                );
+                // Actualizar label con porcentaje
+                const pct = Math.round((loaded / pages.length) * 100);
+                label.textContent = pct + '%';
+            };
+
+            // Descargar en lotes de 4 para no saturar el navegador
+            const BATCH = 4;
+            for (let i = 0; i < pages.length; i += BATCH) {
+                const batch = pages.slice(i, i + BATCH).map((url, j) => fetchImage(url, i + j));
+                await Promise.all(batch);
+            }
+
+            showZipToast(`Comprimiendo…`, 'fa-file-archive', 0);
+            label.textContent = '…';
+
+            const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE', compressionOptions: { level: 6 } });
+            saveAs(blob, `Adashima - ${zipFolderName}.zip`);
+
+            // Estado: éxito
+            btn.classList.remove('downloading');
+            btn.classList.add('done');
+            btn.title = '¡Descargado!';
+            label.innerHTML = '<i class="fas fa-check"></i>';
+            showZipToast(`¡${toastTitle} descargado! (${pages.length} páginas)`, 'fa-check-circle', 4000);
+
+            // Restaurar botón tras 4s
+            setTimeout(() => {
+                btn.classList.remove('done');
+                btn.title = 'Descargar capítulo como ZIP';
+                label.innerHTML = 'ZIP';
+            }, 4500);
+
+        } catch (err) {
+            console.error('[ZIP] Error al descargar capítulo:', err);
+            btn.classList.remove('downloading');
+            btn.title = 'Descargar capítulo como ZIP';
+            label.innerHTML = 'ZIP';
+            showZipToast('Error al descargar. Revisa tu conexión.', 'fa-exclamation-triangle', 5000);
+        }
+    }
+    
+    </script>
+    
+</body>
+</html>
