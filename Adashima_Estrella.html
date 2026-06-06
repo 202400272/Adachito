@@ -783,6 +783,11 @@
             }
         }
 
+        /* Ocultar el botón de cerrar dentro de modales en móviles pequeños */
+        @media (max-width: 480px) {
+            .btn-close-modal { display: none !important; }
+        }
+
         
         .star-tooltip {
             position: fixed;
@@ -2814,6 +2819,31 @@ document.addEventListener('DOMContentLoaded', () => {
     init();
     initBgAudio();
 });
+</script>
+
+<script>
+    (function(){
+        function isMobile() { return window.matchMedia('(max-width:480px)').matches; }
+
+        document.addEventListener('click', function(e){
+            if(!isMobile()) return;
+            var binder = e.target.closest('.binder-page');
+            if(binder) {
+                var modalDialog = binder.closest('.modal-dialog');
+                if(modalDialog) {
+                    var overlay = modalDialog.closest('.modal-overlay');
+                    var id = overlay && overlay.id ? overlay.id : (modalDialog.id || null);
+                    if(id && typeof closeModal === 'function') {
+                        try { closeModal(id); } catch(err) {}
+                    } else if(overlay) {
+                        overlay.classList.remove('show');
+                        overlay.style.display = 'none';
+                        document.body.style.overflow = '';
+                    }
+                }
+            }
+        }, {passive:true});
+    })();
 </script>
 
 <div id="reset-confirm" class="reset-confirm" aria-hidden="true" role="dialog" aria-label="Confirmación reinicio estrellas">
