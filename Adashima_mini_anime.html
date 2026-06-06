@@ -37,7 +37,6 @@
             overflow-x: hidden;
         }
 
-        /* ─── Partículas ─── */
         .particles {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -68,7 +67,6 @@
             50% { box-shadow: 0 0 12px 3px rgba(200,180,255,0.8); }
         }
 
-        /* ─── Elementos flotantes decorativos ─── */
         .floating-decor {
             position: absolute;
             pointer-events: none;
@@ -85,7 +83,6 @@
             100% { transform: translateY(-25px) rotate(5deg); }
         }
 
-        /* ─── Sidebar ─── */
         .sidebar {
             width: 300px;
             background-color: rgba(209, 163, 198, 0.9);
@@ -102,7 +99,6 @@
         .sidebar::-webkit-scrollbar-track { background: transparent; }
         .sidebar::-webkit-scrollbar-thumb { background: rgba(92,58,107,0.3); border-radius: 10px; }
 
-        /* ─── Contenido principal ─── */
         .main-content {
             flex: 1;
             position: relative;
@@ -141,7 +137,6 @@
             text-shadow: 2px 2px 10px rgba(255,255,255,0.8);
         }
 
-        /* ─── Botones de navegación ─── */
         .back-link-bottom {
             color: white;
             text-decoration: none;
@@ -163,10 +158,6 @@
             box-shadow: 0 6px 20px rgba(92,58,107,0.4);
         }
 
-        /* ────────────────────────────────────────────
-            CRT RETRO TV — ESTILOS PRINCIPALES (Sincronizado)
-        ──────────────────────────────────────────── */
-
         .crt-tv-wrapper {
             width: 100%;
             max-width: 880px;
@@ -177,7 +168,6 @@
             filter: drop-shadow(0 30px 50px rgba(0,0,0,0.5));
         }
 
-        /* ── Cuerpo de la televisión — forma sólida unificada ── */
         .crt-tv-body {
             position: relative;
             width: 100%;
@@ -207,7 +197,6 @@
                 0 0 80px rgba(100,60,150,0.12);
         }
 
-        /* ── Líneas de moldeado ── */
         .crt-tv-body::before {
             content: '';
             position: absolute;
@@ -226,7 +215,6 @@
             z-index: 0;
         }
 
-        /* ── Reflejo plástico curvado ── */
         .crt-tv-body::after {
             content: '';
             position: absolute;
@@ -241,7 +229,6 @@
             z-index: 0;
         }
 
-        /* ── Ventilación trasera simulada ── */
         .tv-vent-panel {
             position: absolute;
             top: 18px; right: 14px; width: 22px;
@@ -253,7 +240,6 @@
             box-shadow: inset 0 1px 1px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.04);
         }
 
-        /* ── Tornillos decorativos en esquinas ── */
         .tv-screw {
             position: absolute; width: 10px; height: 10px; border-radius: 50%;
             background: radial-gradient(circle at 38% 35%, #4a3868, #1e1530);
@@ -269,7 +255,6 @@
         .tv-screw-bl { bottom: 14px; left: 12px; }
         .tv-screw-br { bottom: 14px; right: 12px; }
 
-        /* ── Marca de la TV ── */
         .tv-brand {
             z-index: 5;
             position: absolute;
@@ -284,7 +269,6 @@
             white-space: nowrap;
         }
 
-        /* ── Indicador LED de encendido ── */
         .tv-led {
             position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
             width: 7px; height: 7px; border-radius: 50%; background: #1a0d20;
@@ -296,7 +280,6 @@
             box-shadow: 0 0 6px 2px rgba(168,255,160,0.5), inset 0 1px 1px rgba(255,255,255,0.4);
         }
 
-        /* ── Speaker grill ── */
         .tv-speaker-grill {
             position: absolute; bottom: 56px; left: 16px; width: 30px;
             display: flex; flex-direction: column; gap: 3px; pointer-events: none; z-index: 2;
@@ -308,7 +291,6 @@
         .tv-speaker-slot:nth-child(odd) { width: 90%; }
         .tv-speaker-slot:nth-child(even) { width: 75%; }
 
-        /* ── Marco/bisel empotrado de la pantalla ── */
         .crt-screen-frame {
             z-index: 1; position: relative; width: 100%;
             background:
@@ -341,7 +323,6 @@
             transition: filter 0.15s ease;
         }
 
-        /* Curvatura tipo CRT y Reflejos */
         .crt-screen::before {
             content: ''; position: absolute; inset: -1px;
             background: radial-gradient(ellipse 95% 90% at 50% 50%, transparent 52%, rgba(0,0,0,0.35) 75%, rgba(0,0,0,0.65) 100%);
@@ -386,6 +367,8 @@
             font-family: 'Special Elite', monospace; font-size: 1rem; letter-spacing: 0.2em; gap: 8px; transition: opacity 0.5s;
         }
         .no-signal-screen.off-state { background: #020104; }
+        .no-signal-screen.off-state .no-signal-bar,
+        .no-signal-screen.off-state #noSignalText { display: none; }
         .no-signal-screen .no-signal-bar { width: 60px; height: 3px; background: rgba(200,180,220,0.4); border-radius: 2px; animation: signalBlink 1.2s ease-in-out infinite alternate; }
         @keyframes signalBlink { 0% { opacity: 0.2; transform: scaleX(0.6); } 100% { opacity: 1; transform: scaleX(1); } }
 
@@ -403,18 +386,21 @@
         @keyframes ambientPulse { 0% { opacity: 0.6; transform: scale(1); } 100% { opacity: 1; transform: scale(1.04); } }
 
         /* ════════════════════════════════════════
-            MENÚ OSD DENTRO DE LA PANTALLA
+            OSD MENU — DESKTOP
         ════════════════════════════════════════ */
         .osd-menu {
-            position: absolute; inset: 0; z-index: 30; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            pointer-events: none; opacity: 0; transition: opacity 0.3s ease; background: rgba(4, 2, 10, 0.78); border-radius: inherit; backdrop-filter: contrast(1.05);
+            position: absolute; inset: 0; z-index: 30;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            pointer-events: none; opacity: 0; transition: opacity 0.3s ease;
+            background: rgba(4, 2, 10, 0.78); border-radius: inherit; backdrop-filter: contrast(1.05);
         }
         .osd-menu.visible { opacity: 1; pointer-events: all; }
 
         .osd-box {
             position: relative; background: rgba(10, 6, 20, 0.92); border: 2px solid rgba(200, 160, 220, 0.35); border-radius: 6px;
             padding: 20px 28px 24px; min-width: 200px; width: 80%; max-width: 400px; max-height: 85%;
-            display: flex; flex-direction: column; box-shadow: 0 0 0 1px rgba(200,160,220,0.1), 0 0 30px rgba(160,100,220,0.15), inset 0 0 20px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column;
+            box-shadow: 0 0 0 1px rgba(200,160,220,0.1), 0 0 30px rgba(160,100,220,0.15), inset 0 0 20px rgba(0,0,0,0.5);
             transform: translateY(6px) scale(0.97); transition: transform 0.3s ease, opacity 0.3s ease;
         }
         .osd-menu.visible .osd-box { transform: translateY(0) scale(1); }
@@ -424,7 +410,11 @@
         .osd-title span { display: block; font-size: 0.58rem; color: rgba(200,160,220,0.35); margin-top: 3px; letter-spacing: 0.2em; }
 
         .osd-channel-list {
-            display: flex; flex-direction: column; gap: 8px; overflow-y: auto; flex: 1; padding-right: 5px;
+            display: flex; flex-direction: column; gap: 8px;
+            overflow-y: auto; flex: 1; padding-right: 5px;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
         }
         .osd-channel-list::-webkit-scrollbar { width: 4px; }
         .osd-channel-list::-webkit-scrollbar-track { background: transparent; }
@@ -443,14 +433,100 @@
         .osd-ch-sub { font-family: 'Special Elite', monospace; font-size: 0.58rem; color: rgba(200,160,220,0.45); letter-spacing: 0.08em; margin-top: 2px; }
         .osd-ch-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(200,160,220,0.2); flex-shrink: 0; transition: background 0.18s; }
         .osd-ch-item.active-ch .osd-ch-dot { background: #d1a3c6; box-shadow: 0 0 6px rgba(209,163,198,0.6); animation: dotPulse 1.5s ease-in-out infinite alternate; }
+        @keyframes dotPulse { 0% { opacity: 0.6; } 100% { opacity: 1; } }
 
         .osd-footer { margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(200,160,220,0.1); font-family: 'Special Elite', monospace; font-size: 0.58rem; color: rgba(200,160,220,0.3); letter-spacing: 0.15em; text-align: center; flex-shrink: 0; }
         .osd-menu::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(to bottom, transparent, transparent 3px, rgba(0,0,0,0.08) 3px, rgba(0,0,0,0.08) 4px); pointer-events: none; border-radius: inherit; z-index: 1; }
         .osd-box { z-index: 2; }
 
+        /* ════════════════════════════════════════
+            OSD MENU — MÓVIL: drawer fixed desde abajo
+            JS mueve el nodo al body en móvil para
+            escapar del overflow:hidden del crt-screen.
+        ════════════════════════════════════════ */
+
+        /* Estado del OSD cuando está portado al body en móvil */
+        .osd-menu.osd-portado {
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            align-items: stretch;
+            justify-content: flex-end;
+            background: rgba(4, 2, 10, 0.82);
+            border-radius: 0;
+            backdrop-filter: blur(6px);
+            overscroll-behavior: contain;
+        }
+
+        .osd-menu.osd-portado .osd-box {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            border-radius: 20px 20px 0 0;
+            border-left: none;
+            border-right: none;
+            border-bottom: none;
+            padding: 20px 20px 32px;
+            max-height: 80dvh;
+            max-height: 80vh;
+            transform: translateY(100%);
+            transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+
+        .osd-menu.osd-portado.visible .osd-box {
+            transform: translateY(0);
+        }
+
+        /* Overrides normales de desktop siguen siendo los del .osd-box base */
+        .osd-menu.osd-portado .osd-box::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 4px;
+            background: rgba(200,160,220,0.4);
+            border-radius: 2px;
+        }
+
+        .osd-menu.osd-portado .osd-title { margin-top: 8px; font-size: 0.75rem; }
+        .osd-menu.osd-portado .osd-title span { font-size: 0.65rem; }
+
+        .osd-menu.osd-portado .osd-channel-list {
+            flex: 1;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+            touch-action: pan-y;
+            padding-right: 4px;
+            gap: 10px;
+            scrollbar-width: auto;
+        }
+        .osd-menu.osd-portado .osd-channel-list::-webkit-scrollbar { width: 6px; }
+        .osd-menu.osd-portado .osd-channel-list::-webkit-scrollbar-thumb { background: rgba(200,160,220,0.6); border-radius: 6px; }
+
+        .osd-menu.osd-portado .osd-ch-item { padding: 13px 14px; border-radius: 8px; gap: 10px; }
+        .osd-menu.osd-portado .osd-ch-num { font-size: 0.95rem; min-width: 50px; }
+        .osd-menu.osd-portado .osd-ch-name { font-size: 0.95rem; }
+        .osd-menu.osd-portado .osd-ch-sub { font-size: 0.7rem; }
+        .osd-menu.osd-portado .osd-footer { font-size: 0.65rem; }
+
+        @media (max-width: 480px) {
+            .osd-menu.osd-portado .osd-box {
+                max-height: 88dvh;
+                max-height: 88vh;
+                padding: 18px 16px 28px;
+            }
+            .osd-menu.osd-portado .osd-ch-item { padding: 14px 12px; }
+            .osd-menu.osd-portado .osd-ch-name { font-size: 1rem; }
+            .osd-menu.osd-portado .osd-ch-num { font-size: 1rem; min-width: 52px; }
+            .osd-menu.osd-portado .osd-ch-sub { font-size: 0.74rem; }
+        }
+
         /* ────────────────────────────────────────
             CONTROLES DEL TV
-        ──────────────────────────────────────── */
+        ──────────────────────────── */
         .tv-controls-row {
             display: flex; align-items: center; justify-content: space-between; gap: 16px;
             margin-top: 18px; padding: 12px 8px 4px; flex-wrap: wrap; border-top: 1px solid rgba(0,0,0,0.4); position: relative;
@@ -499,7 +575,6 @@
         .btn-labeled { display: flex; flex-direction: column; align-items: center; gap: 3px; }
         .btn-label-text { font-family: 'Special Elite', monospace; font-size: 0.55rem; color: rgba(255,255,255,0.22); letter-spacing: 0.12em; text-transform: uppercase; }
 
-        /* PERILLAS */
         .tv-knob { display: flex; flex-direction: column; align-items: center; gap: 5px; position: relative; }
         .knob-label { font-family: 'Special Elite', monospace; font-size: 0.6rem; color: rgba(255,255,255,0.25); letter-spacing: 0.1em; }
         .knob-ring-wrap { position: relative; width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; }
@@ -539,7 +614,6 @@
         .knob-value-tip { position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: rgba(10,6,20,0.9); border: 1px solid rgba(200,160,220,0.25); color: rgba(255,240,255,0.75); font-family: 'Special Elite', monospace; font-size: 0.58rem; padding: 2px 6px; border-radius: 3px; opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 100; letter-spacing: 0.1em; white-space: nowrap; }
         .tv-knob:hover:not(.dragging) .knob-value-tip { opacity: 1; }
 
-        /* Fullscreen Reset */
         #crtScreen:fullscreen, #crtScreen:-webkit-full-screen { background: #000; border-radius: 0; display: flex; align-items: center; justify-content: center; }
         #crtScreen:fullscreen .screen-glow, #crtScreen:fullscreen .no-signal-screen, #crtScreen:fullscreen .channel-indicator, #crtScreen:fullscreen .scanlines-overlay, #crtScreen:fullscreen .static-overlay, #crtScreen:fullscreen .interference-overlay, #crtScreen:fullscreen .power-flash, #crtScreen:fullscreen .loading-indicator, #crtScreen:fullscreen .osd-menu,
         #crtScreen:-webkit-full-screen .screen-glow, #crtScreen:-webkit-full-screen .no-signal-screen, #crtScreen:-webkit-full-screen .channel-indicator, #crtScreen:-webkit-full-screen .scanlines-overlay, #crtScreen:-webkit-full-screen .static-overlay, #crtScreen:-webkit-full-screen .interference-overlay, #crtScreen:-webkit-full-screen .power-flash, #crtScreen:-webkit-full-screen .loading-indicator, #crtScreen:-webkit-full-screen .osd-menu { display: none !important; }
@@ -551,7 +625,6 @@
         }
         .download-btn-tv:hover { background: linear-gradient(135deg, #8c5a96, #5c3a6b); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(92,58,107,0.45); }
 
-        /* ── Pie de la TV ── */
         .tv-bottom-section { display: flex; justify-content: center; align-items: flex-start; gap: 0; width: 100%; position: relative; }
         
         .tv-stand-neck {
@@ -566,15 +639,9 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.04), inset 0 -2px 4px rgba(0,0,0,0.5);
             position: relative; z-index: 0;
         }
-        .tv-feet {
-            position: absolute; bottom: -8px; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 20px;
-        }
-        .tv-foot {
-            width: 30px; height: 10px; background: linear-gradient(to bottom, #1a1028, #100c1e);
-            border-radius: 0 0 6px 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-        }
+        .tv-feet { position: absolute; bottom: -8px; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 20px; }
+        .tv-foot { width: 30px; height: 10px; background: linear-gradient(to bottom, #1a1028, #100c1e); border-radius: 0 0 6px 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.5); }
 
-        /* INFO CARD */
         .channel-info-card {
             width: 100%; max-width: 880px; margin-top: 22px; background: rgba(255,255,255,0.72); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 16px; border: 1.5px solid rgba(209,163,198,0.45); padding: 22px 28px; box-shadow: 0 8px 30px rgba(92,58,107,0.1); display: flex; align-items: flex-start; gap: 18px; transition: all 0.4s ease;
         }
@@ -583,39 +650,19 @@
         .channel-info-text p { font-size: 0.9rem; color: #7a5e8a; line-height: 1.6; }
         .channel-badge { margin-left: auto; font-family: 'Special Elite', monospace; font-size: 0.75rem; color: rgba(92,58,107,0.6); background: rgba(209,163,198,0.2); padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(209,163,198,0.4); white-space: nowrap; align-self: center; flex-shrink: 0; }
 
-        .download-all-wrap {
-            width: 100%;
-            max-width: 880px;
-            margin-top: 14px;
-            display: flex;
-            justify-content: center;
-        }
+        .download-all-wrap { width: 100%; max-width: 880px; margin-top: 14px; display: flex; justify-content: center; }
 
         .download-all-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            min-height: 48px;
-            padding: 0 26px;
-            border: none;
-            border-radius: 14px;
-            background: linear-gradient(135deg, #8c5a96, #5c3a6b);
-            color: #fff;
-            font-family: 'Quicksand', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 8px 22px rgba(92,58,107,0.24);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 26px; border: none; border-radius: 14px;
+            background: linear-gradient(135deg, #8c5a96, #5c3a6b); color: #fff; font-family: 'Quicksand', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer;
+            box-shadow: 0 8px 22px rgba(92,58,107,0.24); transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
         }
-
         .download-all-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(92,58,107,0.32); filter: brightness(1.04); }
         .download-all-btn:active { transform: translateY(0); }
         .download-all-btn:disabled { cursor: not-allowed; opacity: 0.7; transform: none; }
 
         .download-modal {
-            position: fixed; inset: 0; z-index: 400; display: flex; align-items: center; justify-content: center;
+            position: fixed; inset: 0; z-index: 600; display: flex; align-items: center; justify-content: center;
             padding: 20px; background: rgba(17, 10, 24, 0.48); backdrop-filter: blur(10px); opacity: 0; pointer-events: none; transition: opacity 0.24s ease;
         }
         .download-modal.show { opacity: 1; pointer-events: auto; }
@@ -629,9 +676,7 @@
         .download-modal-title i { color: #8c5a96; }
         .download-modal-text { font-size: 0.95rem; line-height: 1.6; color: #6f587b; margin-bottom: 18px; }
         .download-modal-actions { display: flex; gap: 12px; justify-content: flex-end; }
-        .download-modal-btn {
-            border: none; border-radius: 12px; padding: 11px 16px; font-family: 'Quicksand', sans-serif; font-size: 0.92rem; font-weight: 700; cursor: pointer; transition: transform 0.18s ease, filter 0.18s ease, box-shadow 0.18s ease;
-        }
+        .download-modal-btn { border: none; border-radius: 12px; padding: 11px 16px; font-family: 'Quicksand', sans-serif; font-size: 0.92rem; font-weight: 700; cursor: pointer; transition: transform 0.18s ease, filter 0.18s ease, box-shadow 0.18s ease; }
         .download-modal-btn:hover { transform: translateY(-1px); }
         .download-modal-btn:active { transform: translateY(0); }
         .download-modal-cancel { background: rgba(92, 58, 107, 0.08); color: #5c3a6b; }
@@ -639,7 +684,6 @@
         @keyframes downloadPulse { 0% { transform: scale(1); } 50% { transform: scale(1.06); } 100% { transform: scale(1); } }
         .download-modal-badge { width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(140, 90, 150, 0.12); color: #8c5a96; animation: downloadPulse 1.2s ease-in-out infinite; flex-shrink: 0; }
 
-        /* CRT Animations */
         @keyframes crtPowerOn { 0% { clip-path: inset(50% 0 50% 0); opacity: 0.3; filter: brightness(3); } 30% { clip-path: inset(48% 0 48% 0); filter: brightness(2); } 60% { clip-path: inset(0% 0 0% 0); filter: brightness(1.5); } 80% { filter: brightness(1.2); } 100% { clip-path: inset(0% 0 0% 0); opacity: 1; filter: brightness(1); } }
         @keyframes crtPowerOff { 0% { clip-path: inset(0% 0 0% 0); opacity: 1; } 40% { clip-path: inset(48% 0 48% 0); opacity: 0.8; filter: brightness(2); } 80% { clip-path: inset(50% 0 50% 0); filter: brightness(3); opacity: 0.3; } 100% { clip-path: inset(50% 0 50% 0); opacity: 0; } }
         @keyframes channelChange { 0% { transform: scaleY(1); filter: brightness(1); } 15% { transform: scaleY(0.02); filter: brightness(8); } 25% { transform: scaleY(0.02); filter: brightness(6); } 40% { transform: scaleY(1.04); filter: brightness(1.3) contrast(1.2); } 60% { transform: scaleY(0.98); filter: brightness(1.1); } 100% { transform: scaleY(1); filter: brightness(1); } }
@@ -661,40 +705,29 @@
         .floating-adashima img { width: 100%; border-radius: 0; display: block; object-fit: contain; background: transparent; }
         @keyframes float-astronaut { 0% { transform: translateY(0px) rotate(0deg); } 33% { transform: translateY(-15px) rotate(5deg); } 66% { transform: translateY(10px) rotate(-5deg); } 100% { transform: translateY(0px) rotate(0deg); } }
 
-        /* RESPONSIVE */
-        @media (max-width: 992px) {
-            .decor-1, .decor-2, .decor-3 { display: none; }
-        }
+        @media (max-width: 992px) { .decor-1, .decor-2, .decor-3 { display: none; } }
 
         @media (max-width: 768px) {
-            .tv-brand { top: 4px; font-size: 0.58rem; }   
+            .tv-brand { top: 4px; font-size: 0.58rem; }
             body { flex-direction: column; }
             .sidebar { width: 100%; height: auto; position: relative; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
             .main-content { padding: 30px 16px; }
             .main-content::before { left: 0; }
             h1.update-title { font-size: 2.2rem; }
-
             .crt-tv-body { padding: 28px 18px 16px 18px; border-radius: 24px 24px 14px 14px; }
             .tv-screw-tl, .tv-screw-tr { top: 8px; }
             .tv-screw-bl, .tv-screw-br { bottom: 10px; }
-            .tv-speaker-grill, .tv-vent-panel, .tv-led { display: none; } /* Ocultar detalles extra en móvil para mejor espacio */
-
+            .tv-speaker-grill, .tv-vent-panel, .tv-led { display: none; }
             .tv-controls-row { gap: 10px; justify-content: center; }
             .tv-controls-left, .tv-controls-right { gap: 8px; }
             .power-btn, .menu-btn, .playpause-btn, .fullscreen-btn { width: 38px; height: 38px; }
             .menu-btn { font-size: 0.55rem; } .playpause-btn { font-size: 0.82rem; } .fullscreen-btn { font-size: 0.88rem; }
             .download-btn-tv { padding: 7px 13px; font-size: 0.76rem; }
-
             .channel-info-card { padding: 16px 18px; gap: 12px; flex-wrap: wrap; }
             .channel-badge { margin-left: 0; align-self: flex-start; }
             .download-all-btn { width: 100%; }
-
             .floating-adashima { width: 100px; bottom: 10px; right: 10px; }
             .tv-knob { display: none; }
-
-            .osd-box { min-width: 160px; padding: 16px 18px 18px; max-height: 85%; }
-            .osd-ch-item { padding: 8px 10px; gap: 8px; }
-            .osd-ch-name { font-size: 0.7rem; }
         }
 
         @media (max-width: 480px) {
@@ -705,7 +738,6 @@
             .tv-controls-left, .tv-controls-right { width: 100%; justify-content: center; }
             .download-btn-tv { width: 100%; justify-content: center; }
             .back-link-bottom { width: 90%; justify-content: center; margin: 20px auto; }
-            .osd-menu { background: rgba(4, 2, 10, 0.88); }
         }
 
         @media (max-width: 768px) { .static-overlay { animation-duration: 0.2s; } }
@@ -760,7 +792,6 @@
                 <div class="tv-brand">YASHONY</div>
 
                 <div class="crt-screen-frame">
-
                     <div class="crt-screen" id="crtScreen">
 
                         <div class="screen-glow" id="screenGlow"></div>
@@ -771,76 +802,56 @@
                             <div class="no-signal-bar" style="animation-delay:0.4s"></div>
                         </div>
 
-                        <video
-                            class="crt-video"
-                            id="crtVideo"
-                            preload="metadata"
-                            playsinline
-                            style="opacity:0;"
-                        ></video>
+                        <video class="crt-video" id="crtVideo" preload="metadata" playsinline style="opacity:0;"></video>
 
                         <div class="channel-indicator" id="channelIndicator">CH 1</div>
 
                         <div class="scanlines-overlay"></div>
-
                         <div class="static-overlay" id="staticOverlay"></div>
-
                         <div class="interference-overlay" id="interferenceOverlay"></div>
-
                         <div class="power-flash" id="powerFlash"></div>
 
                         <div class="loading-indicator" id="loadingIndicator">
-                            <div class="loading-dots">
-                                <span></span><span></span><span></span>
-                            </div>
+                            <div class="loading-dots"><span></span><span></span><span></span></div>
                             <div class="loading-text">Sintonizando canal...</div>
                         </div>
 
                         <div class="osd-menu" id="osdMenu" role="dialog" aria-label="Selección de canal">
                             <div class="osd-box">
                                 <div class="osd-title">
-                                    ADASHIMA · VISION
+                                    YASHONY CHANNELS
                                     <span>SELECCIONAR EPISODIO</span>
                                 </div>
-                                <div class="osd-channel-list" id="osdChannelList">
-                                    </div>
+                                <div class="osd-channel-list" id="osdChannelList"></div>
                                 <div class="osd-footer">[ MENU ] PARA CERRAR</div>
                             </div>
                         </div>
 
                     </div>
-                    </div>
+                </div>
+
                 <div class="tv-controls-row">
-
                     <div class="tv-controls-left">
-
                         <div class="btn-labeled">
                             <button class="power-btn" id="powerBtn" title="Encender / Apagar">
                                 <i class="fas fa-power-off"></i>
                             </button>
                             <span class="btn-label-text">PWR</span>
                         </div>
-
                         <div class="ctrl-separator"></div>
-
                         <div class="btn-labeled">
-                            <button class="menu-btn" id="menuBtn" title="Menú de canales" disabled>
-                                MENU
-                            </button>
+                            <button class="menu-btn" id="menuBtn" title="Menú de canales" disabled>MENU</button>
                             <span class="btn-label-text">CH</span>
                         </div>
-
                         <div class="btn-labeled">
                             <button class="playpause-btn" id="playPauseBtn" title="Reproducir / Pausar" disabled>
                                 <i class="fas fa-play"></i>
                             </button>
                             <span class="btn-label-text">PLAY</span>
                         </div>
-
                     </div>
 
                     <div class="tv-controls-right">
-
                         <div class="tv-knob" id="volKnob" title="Volumen — arrastra arriba/abajo">
                             <div class="knob-label">VOL</div>
                             <div class="knob-ring-wrap">
@@ -848,10 +859,7 @@
                                     <path class="knob-arc-bg"  id="volArcBg"   d=""/>
                                     <path class="knob-arc-fill" id="volArcFill" d=""/>
                                 </svg>
-                                <div class="knob-dir-hint knob-dir-hint-left">
-                                    <span>▲ +</span>
-                                    <span>▼ −</span>
-                                </div>
+                                <div class="knob-dir-hint knob-dir-hint-left"><span>▲ +</span><span>▼ −</span></div>
                                 <div class="knob-circle" id="volKnobCircle">
                                     <div class="knob-indicator" id="volIndicator"></div>
                                 </div>
@@ -860,9 +868,7 @@
                                 <div class="knob-osd" id="volOsd">
                                     <div class="knob-osd-label">VOL</div>
                                     <div class="knob-osd-value" id="volOsdValue">100%</div>
-                                    <div class="knob-osd-bar-wrap">
-                                        <div class="knob-osd-bar-fill" id="volOsdBar" style="width:100%"></div>
-                                    </div>
+                                    <div class="knob-osd-bar-wrap"><div class="knob-osd-bar-fill" id="volOsdBar" style="width:100%"></div></div>
                                 </div>
                             </div>
                             <div class="knob-value-tip" id="volTip">100%</div>
@@ -875,10 +881,7 @@
                                     <path class="knob-arc-bg"   id="brtArcBg"   d=""/>
                                     <path class="knob-arc-fill"  id="brtArcFill" d=""/>
                                 </svg>
-                                <div class="knob-dir-hint knob-dir-hint-left">
-                                    <span>▲ +</span>
-                                    <span>▼ −</span>
-                                </div>
+                                <div class="knob-dir-hint knob-dir-hint-left"><span>▲ +</span><span>▼ −</span></div>
                                 <div class="knob-circle" id="brtKnobCircle">
                                     <div class="knob-indicator" id="brtIndicator"></div>
                                 </div>
@@ -887,32 +890,24 @@
                                 <div class="knob-osd" id="brtOsd">
                                     <div class="knob-osd-label">BRT</div>
                                     <div class="knob-osd-value" id="brtOsdValue">100%</div>
-                                    <div class="knob-osd-bar-wrap">
-                                        <div class="knob-osd-bar-fill" id="brtOsdBar" style="width:100%"></div>
-                                    </div>
+                                    <div class="knob-osd-bar-wrap"><div class="knob-osd-bar-fill" id="brtOsdBar" style="width:100%"></div></div>
                                 </div>
                             </div>
                             <div class="knob-value-tip" id="brtTip">100%</div>
                         </div>
 
-                        <a
-                            class="download-btn-tv"
-                            id="downloadBtn"
-                            href="#"
-                            download
-                            title="Descargar episodio actual"
-                        >
+                        <button class="download-btn-tv" id="downloadBtn" title="Descargar episodio actual">
                             <i class="fas fa-download"></i>
                             <span id="downloadLabel">Descargar</span>
-                        </a>
+                        </button>
 
                         <button class="fullscreen-btn" id="fullscreenBtn" title="Pantalla completa">
                             <i class="fas fa-expand"></i>
                         </button>
-
                     </div>
                 </div>
-                </div>
+            </div>
+
             <div class="tv-bottom-section">
                 <div class="tv-stand-neck"></div>
                 <div class="tv-stand">
@@ -922,12 +917,10 @@
                     </div>
                 </div>
             </div>
-
         </div>
+
         <div class="channel-info-card" id="channelInfoCard">
-            <div class="channel-info-icon">
-                <i class="fas fa-tv"></i>
-            </div>
+            <div class="channel-info-icon"><i class="fas fa-tv"></i></div>
             <div class="channel-info-text">
                 <h3 id="channelTitle">Selecciona un canal</h3>
                 <p id="channelDesc">Enciende la televisión y elige un canal para comenzar a disfrutar los episodios de Mini Anime.</p>
@@ -948,9 +941,7 @@
                     <span class="download-modal-badge"><i class="fas fa-download"></i></span>
                     <span>Descargar todos los episodios</span>
                 </div>
-                <div class="download-modal-text" id="downloadModalText">
-                    Se iniciará la descarga de 30 episodios. ¿Quieres continuar?
-                </div>
+                <div class="download-modal-text" id="downloadModalText">Se iniciará la descarga de 30 episodios. ¿Quieres continuar?</div>
                 <div class="download-modal-actions">
                     <button class="download-modal-btn download-modal-cancel" id="downloadModalCancel" type="button">Cancelar</button>
                     <button class="download-modal-btn download-modal-confirm" id="downloadModalConfirm" type="button">Continuar</button>
@@ -962,8 +953,6 @@
             <img src="Imagenes/Flotante_mini-Photoroom.png" alt="Adashima Chibi Floating">
         </a>
 
-        
-
         <div class="footer">
             Fan site no oficial de Adachi to Shimamura.<br>
             Creado por fans, sin fines de lucro.<br>
@@ -971,20 +960,35 @@
         </div>
 
     </div>
-    <script>
-    /* ══════════════════════════════════════════
-       CRT TV — SISTEMA COMPLETO (MINI ANIME)
-    ══════════════════════════════════════════ */
 
-    // Generar dinámicamente los 30 canales del Mini Anime
+    <script>
+    async function forceDownload(url, fileName) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Network response was not ok');
+            const blob = await response.blob();
+            const blobUrl = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = blobUrl;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(blobUrl);
+            document.body.removeChild(a);
+        } catch (error) {
+            console.error('Error forzando la descarga:', error);
+            window.open(url, '_blank');
+        }
+    }
+
     const CHANNELS = [];
     for (let i = 1; i <= 30; i++) {
         CHANNELS.push({
             id: i - 1,
             label: `CH ${i}`,
-            // URLs actualizadas a la ruta de Cloudflare R2
             src: `https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/Mini%20Anime%20sub%20espa/adashima%20chibi%20${i}%20subs.mp4`,
-            downloadSrc: `https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/Mini%20Anime%20sub%20espa/adashima%20chibi%20${i}%20subs.mp4`, 
+            downloadSrc: `https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/Mini%20Anime%20sub%20espa/adashima%20chibi%20${i}%20subs.mp4`,
             download: `adashima chibi ${i} subs.mp4`,
             title: `Adashima Chibi — Episodio ${i}`,
             desc: `Disfruta del mini episodio ${i} protagonizado por las versiones chibi de Adachi y Shimamura.`,
@@ -993,18 +997,16 @@
         });
     }
 
-    /* ── Estado ── */
     const state = {
         powered: false,
         currentChannel: -1,
         switching: false,
         menuOpen: false,
         playing: false,
-        volume: 1,       // 0–1
-        brightness: 1    // 0.3–1.5
+        volume: 1,
+        brightness: 1
     };
 
-    /* ── Referencias DOM ── */
     const crtScreen       = document.getElementById('crtScreen');
     const crtVideo        = document.getElementById('crtVideo');
     const noSignal        = document.getElementById('noSignal');
@@ -1033,9 +1035,6 @@
     const osdChannelList  = document.getElementById('osdChannelList');
     const tvLed           = document.getElementById('tvLed');
 
-    /* ────────────────────────────
-       CONSTRUCCIÓN MENÚ OSD
-    ──────────────────────────── */
     function buildOsdMenu() {
         osdChannelList.innerHTML = '';
         CHANNELS.forEach((ch, i) => {
@@ -1065,23 +1064,16 @@
         });
     }
 
-    /* ────────────────────────────
-       UTILIDADES
-    ──────────────────────────── */
     function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 
     function showChannelIndicator(text) {
         channelIndicator.textContent = text;
         channelIndicator.classList.add('show');
         clearTimeout(channelIndicator._timer);
-        channelIndicator._timer = setTimeout(() => {
-            channelIndicator.classList.remove('show');
-        }, 2200);
+        channelIndicator._timer = setTimeout(() => channelIndicator.classList.remove('show'), 2200);
     }
 
-    function setStaticIntensity(level) {
-        staticOverlay.style.opacity = level;
-    }
+    function setStaticIntensity(level) { staticOverlay.style.opacity = level; }
 
     async function playInterference(duration = 500) {
         interference.style.opacity = '1';
@@ -1095,9 +1087,6 @@
         interference.style.opacity = '0';
     }
 
-    /* ────────────────────────────
-       PLAY / PAUSE
-    ──────────────────────────── */
     function updatePlayPauseBtn() {
         if (state.playing) {
             playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
@@ -1112,38 +1101,22 @@
 
     function togglePlayPause() {
         if (!state.powered || state.currentChannel < 0 || state.switching) return;
-        if (crtVideo.paused) {
-            crtVideo.play().catch(() => {});
-        } else {
-            crtVideo.pause();
-        }
+        if (crtVideo.paused) { crtVideo.play().catch(() => {}); } else { crtVideo.pause(); }
     }
 
-    crtVideo.addEventListener('play', () => {
-        state.playing = true;
-        updatePlayPauseBtn();
-    });
-    crtVideo.addEventListener('pause', () => {
-        state.playing = false;
-        updatePlayPauseBtn();
-    });
+    crtVideo.addEventListener('play', () => { state.playing = true; updatePlayPauseBtn(); });
+    crtVideo.addEventListener('pause', () => { state.playing = false; updatePlayPauseBtn(); });
 
-    /* ────────────────────────────
-       MENÚ OSD
-    ──────────────────────────── */
     function openMenu() {
         if (!state.powered) return;
         state.menuOpen = true;
         updateOsdActiveChannel();
         osdMenu.classList.add('visible');
         menuBtn.classList.add('active');
-        
-        // Auto-scroll al canal seleccionado si lo hay
-        if(state.currentChannel >= 0) {
+        if (isMobile()) document.body.style.overflow = 'hidden';
+        if (state.currentChannel >= 0) {
             const activeItem = osdChannelList.children[state.currentChannel];
-            if(activeItem) {
-                activeItem.scrollIntoView({ behavior: "smooth", block: "nearest" });
-            }
+            if (activeItem) activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     }
 
@@ -1151,82 +1124,63 @@
         state.menuOpen = false;
         osdMenu.classList.remove('visible');
         menuBtn.classList.remove('active');
+        document.body.style.overflow = '';
     }
 
-    function toggleMenu() {
-        state.menuOpen ? closeMenu() : openMenu();
-    }
+    function toggleMenu() { state.menuOpen ? closeMenu() : openMenu(); }
 
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && state.menuOpen) closeMenu();
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && state.menuOpen) closeMenu(); });
+
+    osdMenu.addEventListener('click', (e) => {
+        if (e.target === osdMenu) closeMenu();
     });
 
-    /* ────────────────────────────
-       ENCENDER TV
-    ──────────────────────────── */
     async function powerOn() {
         if (state.powered || state.switching) return;
         state.switching = true;
-
         powerFlash.style.transition = 'opacity 0.05s';
         powerFlash.style.opacity = '1';
         await wait(60);
         powerFlash.style.transition = 'opacity 0.3s';
         powerFlash.style.opacity = '0';
-
         noSignal.style.transition = 'opacity 0.3s';
         noSignal.style.opacity = '0';
         await wait(300);
         noSignal.classList.remove('off-state');
         noSignalText.textContent = 'SIN SEÑAL';
         noSignal.style.opacity = '0';
-
         setStaticIntensity(0.6);
         await wait(400);
-
         noSignal.style.display = 'flex';
         noSignal.style.transition = 'opacity 0.4s';
         noSignal.style.opacity = '1';
         setStaticIntensity(0.25);
-
         crtScreen.classList.add('powered-on');
         screenGlow.classList.add('active');
-
         powerBtn.classList.add('on');
         if (tvLed) tvLed.classList.add('on');
         state.powered = true;
         state.switching = false;
-
         menuBtn.disabled = false;
         playPauseBtn.disabled = true;
-
         await wait(800);
         crtScreen.classList.remove('powered-on');
         setStaticIntensity(0.08);
     }
 
-    /* ────────────────────────────
-       APAGAR TV
-    ──────────────────────────── */
     async function powerOff() {
         if (!state.powered || state.switching) return;
         state.switching = true;
-
         closeMenu();
         crtVideo.pause();
-
         setStaticIntensity(1);
         await wait(150);
-
         crtScreen.classList.add('powered-off');
         setStaticIntensity(0);
-
         await wait(600);
         crtScreen.classList.remove('powered-off');
-
         crtVideo.style.opacity = '0';
         crtVideo.src = '';
-
         noSignal.classList.add('off-state');
         noSignalText.textContent = '';
         noSignal.style.display = 'flex';
@@ -1234,21 +1188,17 @@
         await wait(50);
         noSignal.style.transition = 'opacity 0.5s';
         noSignal.style.opacity = '1';
-
         screenGlow.classList.remove('active');
         powerBtn.classList.remove('on');
         if (tvLed) tvLed.classList.remove('on');
-
         state.currentChannel = -1;
         state.playing = false;
         state.powered = false;
         state.switching = false;
-
         menuBtn.disabled = true;
         menuBtn.classList.remove('active');
         playPauseBtn.disabled = true;
         updatePlayPauseBtn();
-
         setTimeout(() => {
             volKnobCtrl.reset();
             brtKnobCtrl.reset();
@@ -1257,85 +1207,52 @@
             crtVideo.volume = 1;
             crtScreen.style.filter = '';
         }, 400);
-
         updateInfoCard(null);
     }
 
-    /* ────────────────────────────
-       CAMBIAR CANAL
-    ──────────────────────────── */
     async function switchChannel(index) {
         if (!state.powered || state.switching) return;
         if (index === state.currentChannel) return;
-
         const ch = CHANNELS[index];
         state.switching = true;
-
         showChannelIndicator(ch.label);
-
         setStaticIntensity(1);
         await playInterference(450);
-
         crtVideo.classList.add('channel-switching');
-
         if (noSignal.style.display !== 'none') {
             noSignal.style.transition = 'opacity 0.2s';
             noSignal.style.opacity = '0';
             await wait(200);
             noSignal.style.display = 'none';
         }
-
         loadingInd.classList.add('show');
-
         if (crtVideo.src !== new URL(ch.src, location.href).href) {
             crtVideo.pause();
             crtVideo.src = ch.src;
             crtVideo.load();
         }
-
         crtVideo.style.opacity = '1';
-
         await new Promise((resolve) => {
             if (crtVideo.readyState >= 3) { resolve(); return; }
-            const onCanPlay = () => {
-                crtVideo.removeEventListener('canplay', onCanPlay);
-                crtVideo.removeEventListener('error', onError);
-                resolve();
-            };
-            const onError = () => {
-                crtVideo.removeEventListener('canplay', onCanPlay);
-                crtVideo.removeEventListener('error', onError);
-                resolve();
-            };
+            const onCanPlay = () => { crtVideo.removeEventListener('canplay', onCanPlay); crtVideo.removeEventListener('error', onError); resolve(); };
+            const onError = () => { crtVideo.removeEventListener('canplay', onCanPlay); crtVideo.removeEventListener('error', onError); resolve(); };
             crtVideo.addEventListener('canplay', onCanPlay);
             crtVideo.addEventListener('error', onError);
             setTimeout(resolve, 5000);
         });
-
         loadingInd.classList.remove('show');
-
         await wait(100);
         crtVideo.classList.remove('channel-switching');
         setStaticIntensity(0.06);
-
-        // Usamos la ruta separada de descarga si existe en el channel
-        downloadBtn.href = ch.downloadSrc || ch.src;
-        downloadBtn.setAttribute('download', ch.download);
         downloadLabel.textContent = 'Descargar';
-
         updateInfoCard(ch);
         updateOsdActiveChannel();
-
         state.currentChannel = index;
         state.switching = false;
         playPauseBtn.disabled = false;
-
         crtVideo.play().catch(() => {});
     }
 
-    /* ────────────────────────────
-       INFO CARD
-    ──────────────────────────── */
     function updateInfoCard(ch) {
         const icon = document.querySelector('.channel-info-icon i');
         if (!ch) {
@@ -1351,28 +1268,12 @@
         icon.className = 'fas fa-film';
     }
 
-    async function triggerDownload(url, filename) {
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = filename;
-        link.style.display = 'none';
-        document.body.appendChild(link);
-        link.click();
-        await wait(150);
-        link.remove();
-    }
-
     function showDownloadModal(message) {
         return new Promise((resolve) => {
-            if (!downloadModal) {
-                resolve(false);
-                return;
-            }
-
+            if (!downloadModal) { resolve(false); return; }
             downloadModalText.textContent = message;
             downloadModal.classList.add('show');
             downloadModal.setAttribute('aria-hidden', 'false');
-
             const cleanup = (result) => {
                 downloadModal.classList.remove('show');
                 downloadModal.setAttribute('aria-hidden', 'true');
@@ -1382,16 +1283,10 @@
                 document.removeEventListener('keydown', onKeydown);
                 resolve(result);
             };
-
             const onCancel = () => cleanup(false);
             const onConfirm = () => cleanup(true);
-            const onBackdrop = (event) => {
-                if (event.target === downloadModal) cleanup(false);
-            };
-            const onKeydown = (event) => {
-                if (event.key === 'Escape') cleanup(false);
-            };
-
+            const onBackdrop = (event) => { if (event.target === downloadModal) cleanup(false); };
+            const onKeydown = (event) => { if (event.key === 'Escape') cleanup(false); };
             downloadModalCancel.addEventListener('click', onCancel);
             downloadModalConfirm.addEventListener('click', onConfirm);
             downloadModal.addEventListener('click', onBackdrop);
@@ -1403,14 +1298,13 @@
         if (!CHANNELS.length) return;
         const confirmed = await showDownloadModal(`Se iniciará la descarga de ${CHANNELS.length} episodios. ¿Quieres continuar?`);
         if (!confirmed) return;
-
         const originalHtml = downloadAllBtn.innerHTML;
         downloadAllBtn.disabled = true;
         try {
             for (let i = 0; i < CHANNELS.length; i++) {
                 const ch = CHANNELS[i];
                 downloadAllBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i><span>Descargando ${i + 1}/${CHANNELS.length}</span>`;
-                await triggerDownload(ch.downloadSrc || ch.src, ch.download || `${ch.label}.mp4`);
+                await forceDownload(ch.downloadSrc || ch.src, ch.download || `${ch.label}.mp4`);
             }
         } finally {
             downloadAllBtn.disabled = false;
@@ -1418,15 +1312,8 @@
         }
     }
 
-    /* ────────────────────────────
-       PANTALLA COMPLETA
-    ──────────────────────────── */
     function toggleFullscreen() {
-        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-            enterFullscreen();
-        } else {
-            exitFullscreen();
-        }
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) { enterFullscreen(); } else { exitFullscreen(); }
     }
 
     function enterFullscreen() {
@@ -1456,9 +1343,6 @@
     document.addEventListener('fullscreenchange', onFullscreenChange);
     document.addEventListener('webkitfullscreenchange', onFullscreenChange);
 
-    /* ════════════════════════════════════════
-       PERILLAS — VOL & BRT
-    ════════════════════════════════════════ */
     const ARC_CX = 27, ARC_CY = 27, ARC_R = 24;
     const ARC_START_DEG = 225;
     const ARC_TOTAL_DEG = 270;
@@ -1467,10 +1351,7 @@
 
     function arcPoint(angleDeg) {
         const rad = degToRad(angleDeg - 90);
-        return {
-            x: ARC_CX + ARC_R * Math.cos(rad),
-            y: ARC_CY + ARC_R * Math.sin(rad)
-        };
+        return { x: ARC_CX + ARC_R * Math.cos(rad), y: ARC_CY + ARC_R * Math.sin(rad) };
     }
 
     function buildArcPath(startDeg, sweepDeg) {
@@ -1496,9 +1377,8 @@
 
         function updateArc(v) {
             const t = (v - min) / (max - min);
-            const sweepTotal = ARC_TOTAL_DEG;
-            arcBgEl.setAttribute('d', buildArcPath(SVG_START, sweepTotal));
-            const sweepFill = t * sweepTotal;
+            arcBgEl.setAttribute('d', buildArcPath(SVG_START, ARC_TOTAL_DEG));
+            const sweepFill = t * ARC_TOTAL_DEG;
             arcFillEl.setAttribute('d', sweepFill > 0.5 ? buildArcPath(SVG_START, sweepFill) : '');
             const hue = 300 - t * 60;
             arcFillEl.style.stroke = `hsla(${hue},50%,72%,0.65)`;
@@ -1507,67 +1387,27 @@
         function applyValue(v, isDragging) {
             value = clamp(v);
             const angle = valueToKnobAngle(value);
-            const cx = 18; const cy = 18;
-            const rad = degToRad(angle);
-            
             indicatorEl.style.transform = `translateX(-50%) rotate(${angle}deg)`;
             indicatorEl.style.transformOrigin = 'bottom center';
             updateArc(value);
-
             const txt = formatTip(value);
             tipEl.textContent = txt;
-
             if (osdValueEl) osdValueEl.textContent = formatOsd ? formatOsd(value) : txt;
-            if (osdBarEl) {
-                const pct = ((value - min) / (max - min)) * 100;
-                osdBarEl.style.width = pct + '%';
-            }
-
+            if (osdBarEl) { const pct = ((value - min) / (max - min)) * 100; osdBarEl.style.width = pct + '%'; }
             onChange(value, isDragging);
         }
 
         applyValue(initial, false);
 
         let dragStartY = null, dragStartVal = null;
-        knobEl.addEventListener('mousedown', (e) => {
-            dragStartY   = e.clientY;
-            dragStartVal = value;
-            knobWrapper.classList.add('dragging');
-            e.preventDefault();
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            if (dragStartY === null) return;
-            const delta = (dragStartY - e.clientY) * step;
-            applyValue(dragStartVal + delta, true);
-        });
-
-        document.addEventListener('mouseup', () => {
-            if (dragStartY !== null) {
-                dragStartY = null;
-                knobWrapper.classList.remove('dragging');
-            }
-        });
+        knobEl.addEventListener('mousedown', (e) => { dragStartY = e.clientY; dragStartVal = value; knobWrapper.classList.add('dragging'); e.preventDefault(); });
+        document.addEventListener('mousemove', (e) => { if (dragStartY === null) return; applyValue(dragStartVal + (dragStartY - e.clientY) * step, true); });
+        document.addEventListener('mouseup', () => { if (dragStartY !== null) { dragStartY = null; knobWrapper.classList.remove('dragging'); } });
 
         let touchStartY = null, touchStartVal = null;
-        knobEl.addEventListener('touchstart', (e) => {
-            touchStartY   = e.touches[0].clientY;
-            touchStartVal = value;
-            knobWrapper.classList.add('dragging');
-            e.preventDefault();
-        }, { passive: false });
-
-        knobEl.addEventListener('touchmove', (e) => {
-            if (touchStartY === null) return;
-            const delta = (touchStartY - e.touches[0].clientY) * step;
-            applyValue(touchStartVal + delta, true);
-            e.preventDefault();
-        }, { passive: false });
-
-        knobEl.addEventListener('touchend', () => {
-            touchStartY = null;
-            knobWrapper.classList.remove('dragging');
-        });
+        knobEl.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; touchStartVal = value; knobWrapper.classList.add('dragging'); e.preventDefault(); }, { passive: false });
+        knobEl.addEventListener('touchmove', (e) => { if (touchStartY === null) return; applyValue(touchStartVal + (touchStartY - e.touches[0].clientY) * step, true); e.preventDefault(); }, { passive: false });
+        knobEl.addEventListener('touchend', () => { touchStartY = null; knobWrapper.classList.remove('dragging'); });
 
         knobEl.addEventListener('wheel', (e) => {
             e.preventDefault();
@@ -1575,69 +1415,84 @@
             applyValue(value + dir * step * 18, true);
             knobWrapper.classList.add('dragging');
             clearTimeout(knobWrapper._scrollTimer);
-            knobWrapper._scrollTimer = setTimeout(() => {
-                knobWrapper.classList.remove('dragging');
-            }, 900);
+            knobWrapper._scrollTimer = setTimeout(() => knobWrapper.classList.remove('dragging'), 900);
         }, { passive: false });
 
         return { reset() { applyValue(initial, false); } };
     }
 
     const volKnobCtrl = createKnob({
-        knobEl:      document.getElementById('volKnobCircle'),
-        indicatorEl: document.getElementById('volIndicator'),
-        tipEl:       document.getElementById('volTip'),
-        knobWrapper: document.getElementById('volKnob'),
-        arcBgEl:     document.getElementById('volArcBg'),
-        arcFillEl:   document.getElementById('volArcFill'),
-        osdEl:       document.getElementById('volOsd'),
-        osdValueEl:  document.getElementById('volOsdValue'),
-        osdBarEl:    document.getElementById('volOsdBar'),
+        knobEl: document.getElementById('volKnobCircle'), indicatorEl: document.getElementById('volIndicator'),
+        tipEl: document.getElementById('volTip'), knobWrapper: document.getElementById('volKnob'),
+        arcBgEl: document.getElementById('volArcBg'), arcFillEl: document.getElementById('volArcFill'),
+        osdEl: document.getElementById('volOsd'), osdValueEl: document.getElementById('volOsdValue'), osdBarEl: document.getElementById('volOsdBar'),
         label: 'VOL', min: 0, max: 1, initial: 1, step: 0.008,
-        formatTip: v => Math.round(v * 100) + '%',
-        formatOsd: v => Math.round(v * 100) + '%',
+        formatTip: v => Math.round(v * 100) + '%', formatOsd: v => Math.round(v * 100) + '%',
         onChange: (v) => { state.volume = v; crtVideo.volume = v; }
     });
 
     const brtKnobCtrl = createKnob({
-        knobEl:      document.getElementById('brtKnobCircle'),
-        indicatorEl: document.getElementById('brtIndicator'),
-        tipEl:       document.getElementById('brtTip'),
-        knobWrapper: document.getElementById('brtKnob'),
-        arcBgEl:     document.getElementById('brtArcBg'),
-        arcFillEl:   document.getElementById('brtArcFill'),
-        osdEl:       document.getElementById('brtOsd'),
-        osdValueEl:  document.getElementById('brtOsdValue'),
-        osdBarEl:    document.getElementById('brtOsdBar'),
+        knobEl: document.getElementById('brtKnobCircle'), indicatorEl: document.getElementById('brtIndicator'),
+        tipEl: document.getElementById('brtTip'), knobWrapper: document.getElementById('brtKnob'),
+        arcBgEl: document.getElementById('brtArcBg'), arcFillEl: document.getElementById('brtArcFill'),
+        osdEl: document.getElementById('brtOsd'), osdValueEl: document.getElementById('brtOsdValue'), osdBarEl: document.getElementById('brtOsdBar'),
         label: 'BRT', min: 0.3, max: 1.6, initial: 1.0, step: 0.01,
-        formatTip: v => Math.round(((v - 0.3) / 1.3) * 100) + '%',
-        formatOsd: v => Math.round(((v - 0.3) / 1.3) * 100) + '%',
-        onChange: (v) => {
-            state.brightness = v;
-            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-                crtScreen.style.filter = `brightness(${v})`;
-            }
-        }
+        formatTip: v => Math.round(((v - 0.3) / 1.3) * 100) + '%', formatOsd: v => Math.round(((v - 0.3) / 1.3) * 100) + '%',
+        onChange: (v) => { state.brightness = v; if (!document.fullscreenElement && !document.webkitFullscreenElement) crtScreen.style.filter = `brightness(${v})`; }
     });
 
-    /* ════════════════════════════════════════
-       EVENT LISTENERS
-    ════════════════════════════════════════ */
     powerBtn.addEventListener('click', () => { state.powered ? powerOff() : powerOn(); });
     menuBtn.addEventListener('click', toggleMenu);
     playPauseBtn.addEventListener('click', togglePlayPause);
     downloadAllBtn.addEventListener('click', downloadAllEpisodes);
     fullscreenBtn.addEventListener('click', toggleFullscreen);
 
-    crtVideo.addEventListener('waiting', () => { if(state.powered) setStaticIntensity(0.3); });
-    crtVideo.addEventListener('playing', () => { if(state.powered) setStaticIntensity(0.06); });
-
     /* ══════════════════════════════════════
-       PARTÍCULAS
+       PORTAL MÓVIL: mueve el OSD al body
+       para escapar del overflow:hidden del
+       crt-screen, y lo devuelve en desktop.
     ══════════════════════════════════════ */
+    const osdOriginalParent = crtScreen; // referencia al padre original
+
+    function isMobile() { return window.innerWidth <= 768; }
+
+    function portOsdToBody() {
+        if (osdMenu.parentElement !== document.body) {
+            document.body.appendChild(osdMenu);
+            osdMenu.classList.add('osd-portado');
+        }
+    }
+
+    function portOsdToCrt() {
+        if (osdMenu.parentElement !== osdOriginalParent) {
+            osdOriginalParent.appendChild(osdMenu);
+            osdMenu.classList.remove('osd-portado');
+        }
+    }
+
+    function syncOsdPortal() {
+        if (isMobile()) { portOsdToBody(); } else { portOsdToCrt(); }
+    }
+
+    syncOsdPortal();
+    window.addEventListener('resize', syncOsdPortal);
+
+    downloadBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (state.currentChannel >= 0) {
+            const ch = CHANNELS[state.currentChannel];
+            const icon = downloadBtn.querySelector('i');
+            icon.className = 'fas fa-spinner fa-spin';
+            forceDownload(ch.downloadSrc || ch.src, ch.download || `${ch.label}.mp4`).finally(() => { icon.className = 'fas fa-download'; });
+        }
+    });
+
+    crtVideo.addEventListener('waiting', () => { if (state.powered) setStaticIntensity(0.3); });
+    crtVideo.addEventListener('playing', () => { if (state.powered) setStaticIntensity(0.06); });
+
     const particlesContainer = document.getElementById('particles');
     for (let i = 0; i < 22; i++) {
-        let star = document.createElement('div');
+        const star = document.createElement('div');
         star.className = 'star';
         star.style.left = Math.random() * 100 + 'vw';
         star.style.animationDelay = Math.random() * 10 + 's';
@@ -1645,10 +1500,7 @@
         particlesContainer.appendChild(star);
     }
 
-    /* ══════════════════════════════════════
-       MENÚ DINÁMICO EXTERNO (sidebar)
-    ══════════════════════════════════════ */
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener('DOMContentLoaded', function () {
         fetch('menu.html?v=' + Date.now())
             .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
             .then(data => {
@@ -1665,13 +1517,9 @@
             .catch(e => console.warn('Menú no cargado:', e.message));
     });
 
-    /* ══════════════════════════════════════
-       SERVICE WORKER
-    ══════════════════════════════════════ */
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js', { scope: './' })
-                .catch(e => console.warn('SW error:', e));
+            navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(e => console.warn('SW error:', e));
         });
     }
     </script>

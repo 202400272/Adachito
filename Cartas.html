@@ -93,11 +93,14 @@
             flex:1; font-size:1.12rem; font-weight:600; line-height:1.62; color:#333;
         }
         .hl { background:rgba(255,235,59,.45); padding:0 3px; border-radius:3px; font-weight:700; }
+        
+        /* Modificación: Imágenes más grandes proporcionales */
         .profile-image {
-            width:115px; flex-shrink:0; height:142px;
+            width:150px; flex-shrink:0; height:185px;
             border:4px solid white; border-radius:8px; overflow:hidden;
             box-shadow:0 4px 12px rgba(0,0,0,.15); transform:rotate(1.5deg);
         }
+        
         .profile-image img { width:100%; height:100%; object-fit:cover; display:block; }
         .img-placeholder {
             width:100%; height:100%;
@@ -158,7 +161,6 @@
 </head>
 <body>
 
-<!-- BOTONES -->
 <div class="download-row">
     <button class="dl-btn" id="btn-adachi" onclick="downloadCard('adachi-card','Adachi_Sakura')">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -170,7 +172,6 @@
     </button>
 </div>
 
-<!-- ════════ ADACHI ════════ -->
 <div id="adachi-card" class="binder-page">
     <div class="notebook-lines" id="nl-adachi">
         <div class="nb-vline"></div>
@@ -201,11 +202,11 @@
             </div>
         </div>
 
-        <div class="section-title">Mis Favoritos</div>
+        <div class="section-title">Mi Favorito</div>
         <div class="favs-grid">
             <div class="fav-block">
                 <span class="fav-label">Comida</span>
-                <span class="fav-answer">Mmm... Ninguna.</span>
+                <span class="fav-answer">Mmm... Ninguna</span>
             </div>
             <div class="fav-block">
                 <span class="fav-label">Color</span>
@@ -213,7 +214,7 @@
             </div>
             <div class="fav-block">
                 <span class="fav-label">Género literario</span>
-                <span class="fav-answer">No se me ocurre nada.</span>
+                <span class="fav-answer">No se me ocurre nada</span>
             </div>
             <div class="fav-block">
                 <span class="fav-label">Persona</span>
@@ -221,14 +222,14 @@
             </div>
         </div>
 
-        <div class="section-title">Rincón "IF"</div>
+        <div class="section-title">Rincón del “¿Y si…?”</div>
         <div class="qa-item">
             <span class="qa-label">¿En qué te gustaría renacer?</span>
             <span class="qa-answer">Cualquier animal que le guste más a Shimamura</span>
         </div>
         <div class="qa-item">
             <span class="qa-label">Si pudieras tomarte unas vacaciones de un año, ¿qué harías?</span>
-            <span class="qa-answer">Ir a la casa de Shimamura.</span>
+            <span class="qa-answer">Ir a la casa de Shimamura</span>
         </div>
 
         <div class="section-title">Rincón del AMOR</div>
@@ -256,18 +257,16 @@
         </div>
         <div class="qa-item">
             <span class="qa-label">¿Qué gesto hace que tu corazón se acelere?</span>
-            <span class="qa-answer">Esos momentos ocasionales en los que ella ríe de todo corazón.</span>
+            <span class="qa-answer">Esos momentos ocasionales en los que ella ríe de todo corazón</span>
         </div>
         <div class="qa-item">
             <span class="qa-label">¿A qué lugar para una cita te gustaría ir?</span>
             <span class="qa-answer">Aguas termales</span>
         </div>
 
-    </div><!-- /card-content -->
-</div>
+    </div></div>
 
 
-<!-- ════════ SHIMAMURA ════════ -->
 <div id="shimamura-card" class="binder-page">
     <div class="notebook-lines" id="nl-shimamura">
         <div class="nb-vline"></div>
@@ -299,7 +298,7 @@
             </div>
         </div>
 
-        <div class="section-title">Mis Favoritos</div>
+        <div class="section-title">Mi Favorito</div>
         <div class="favs-grid">
             <div class="fav-block">
                 <span class="fav-label">Comida</span>
@@ -319,7 +318,7 @@
             </div>
         </div>
 
-        <div class="section-title">Rincón "IF"</div>
+        <div class="section-title">Rincón del “¿Y si…?”</div>
         <div class="qa-item">
             <span class="qa-label">¿En qué te gustaría renacer?</span>
             <span class="qa-answer">Perro</span>
@@ -354,15 +353,14 @@
         </div>
         <div class="qa-item">
             <span class="qa-label">¿Qué gesto hace que tu corazón se acelere?</span>
-            <span class="qa-answer">Cuando se pone toda nerviosa y sonrojada, pero no aparta la mirada.</span>
+            <span class="qa-answer">Cuando se pone toda nerviosa y sonrojada, pero no aparta la mirada</span>
         </div>
         <div class="qa-item">
             <span class="qa-label">¿A qué lugar para una cita te gustaría ir?</span>
             <span class="qa-answer">Algún lugar cerca del mar</span>
         </div>
 
-    </div><!-- /card-content -->
-</div>
+    </div></div>
 
 <script>
     /* ── Líneas horizontales de cuaderno ── */

@@ -335,7 +335,7 @@
 </head>
 <body>
 
-    <!-- Audio de Fondo -->
+    <!-- Audio de Fondo (Mantenemos la música) -->
     <audio id="bgMusic" loop preload="auto">
         <source src="Sound/ada8bit.mp3" type="audio/mp3">
     </audio>
@@ -369,7 +369,7 @@
             <!-- Panel de mecánicas -->
             <div class="mechanics-panel" id="mechanicsPanel">
                 <span class="mechanic-tip">Lluvia cada 50s · dura 15s</span>
-                <span class="mechanic-tip">Dona de invulnerabilidad sincronizada a la lluvia</span>
+                <span class="mechanic-tip">Dona a partir de los 100s (cada 30s)</span>
                 <span class="mechanic-tip">Velocidad sube naturalmente</span>
                 <span class="mechanic-tip">ESPACIO saltar · ↓ boomerang</span>
             </div>
@@ -437,7 +437,62 @@
         });
 
         // ─────────────────────────────────────────────────────────────
-        // LOGICA DE AUDIO
+        // LÓGICA DE SÍNTESIS DE AUDIO (Efectos de 8 bits)
+        // ─────────────────────────────────────────────────────────────
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function initAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new AudioContext();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playJumpSound() {
+            initAudioContext();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            osc.type = 'square';
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            const now = audioCtx.currentTime;
+            osc.frequency.setValueAtTime(150, now);
+            osc.frequency.exponentialRampToValueAtTime(400, now + 0.1);
+            
+            gain.gain.setValueAtTime(0.05, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+            
+            osc.start(now);
+            osc.stop(now + 0.1);
+        }
+
+        function playDeathSound() {
+            initAudioContext();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            osc.type = 'sawtooth';
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            const now = audioCtx.currentTime;
+            osc.frequency.setValueAtTime(250, now);
+            osc.frequency.exponentialRampToValueAtTime(50, now + 0.3);
+            
+            gain.gain.setValueAtTime(0.1, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+            
+            osc.start(now);
+            osc.stop(now + 0.3);
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // LÓGICA DE AUDIO DE FONDO
         // ─────────────────────────────────────────────────────────────
         const bgMusic = document.getElementById('bgMusic');
         const musicToggle = document.getElementById('musicToggle');
@@ -450,6 +505,7 @@
                 musicIcon.className = 'fas fa-volume-mute';
                 isMusicPlaying = false;
             } else {
+                initAudioContext(); // Asegurar que el contexto se active
                 bgMusic.play().then(() => {
                     musicIcon.className = 'fas fa-volume-up';
                     isMusicPlaying = true;
@@ -458,11 +514,10 @@
         }
 
         musicToggle.addEventListener('click', (e) => {
-            e.stopPropagation(); // Evitar saltar accidentalmente en movil/escritorio
+            e.stopPropagation(); 
             toggleMusic();
         });
 
-        // Intentar iniciar la música al primer toque/click en la pantalla si está bloqueado
         document.body.addEventListener('click', function initAudio() {
             if (!isMusicPlaying) {
                 toggleMusic();
@@ -547,6 +602,7 @@
         let gameTimeSeconds = 0;
         let starRainActive = false;
         let lastStarRainTime = -100;
+        let donutSpawnActive = false; 
 
         // --- IMÁGENES ---
         const imgYashiro = new Image(); imgYashiro.src = 'Imagenes/Yashiro_flotante_pixel-Photoroom.png';
@@ -580,6 +636,7 @@
                 if (this.grounded) {
                     this.dy = -this.jumpForce;
                     this.grounded = false;
+                    playJumpSound(); // Genera el sonido de salto
                 }
             },
             update() {
@@ -603,7 +660,7 @@
             isGameOver = false; yashiro.y = 200; yashiro.dy = 0; boomerangs = [];
             isInvulnerable = false; invulnerabilityTime = 0; lastDonaSpawn = -100;
             powerUpParticles = []; gameTimeSeconds = 0; starRainActive = false;
-            lastStarRainTime = -100;
+            lastStarRainTime = -100; donutSpawnActive = false;
         }
 
         function spawnObstacle() {
@@ -782,31 +839,39 @@
             frames++;
             if (frames % 6 === 0) score++;
 
-            // --- ESCALADO DE DIFICULTAD MÁS SUAVE ---
+            // --- ESCALADO DE DIFICULTAD MÁS SUAVE Y DONA (NUEVA LÓGICA) ---
             const newTime = Math.floor(frames / 60);
             if (newTime !== gameTimeSeconds) {
                 gameTimeSeconds = newTime;
                 
-                // Incrementos pequeños pero constantes de dificultad cada 5 segundos
                 if (gameTimeSeconds > 0 && gameTimeSeconds % 5 === 0) {
                     gameSpeed = Math.min(gameSpeed + 0.15, 9.5);
                     if (spawnRate > 50) spawnRate = Math.max(50, spawnRate - 2);
                 }
+
+                // Generar dona por primera vez a los 100 segundos
+                if (gameTimeSeconds >= 100) {
+                    if (!donutSpawnActive) {
+                        donutSpawnActive = true;
+                        lastDonaSpawn = gameTimeSeconds;
+                        spawnDona();
+                    }
+
+                    // Después de los 100s iniciales, generar dona cada 30 segundos
+                    if (donutSpawnActive && gameTimeSeconds - lastDonaSpawn >= 30) {
+                        spawnDona();
+                        lastDonaSpawn = gameTimeSeconds;
+                    }
+                }
             }
 
-            // --- LLUVIA DE ESTRELLAS Y DONA (SINCRONIZADO) ---
+            // --- LLUVIA DE ESTRELLAS ---
             if (gameTimeSeconds > 0 && gameTimeSeconds % 50 === 0 && gameTimeSeconds !== lastStarRainTime) {
                 starRainActive = true; 
                 lastStarRainTime = gameTimeSeconds;
             }
             if (starRainActive && gameTimeSeconds - lastStarRainTime >= 15) { 
                 starRainActive = false; 
-            }
-
-            // La dona aparece 3 segundos exactos después de que comienza la lluvia
-            if (starRainActive && gameTimeSeconds === (lastStarRainTime + 3) && gameTimeSeconds !== lastDonaSpawn) {
-                spawnDona(); 
-                lastDonaSpawn = gameTimeSeconds;
             }
 
             let adjustedSpawnRate = starRainActive ? 45 : spawnRate;
@@ -841,6 +906,9 @@
                     }
 
                     if (!isInvulnerable) {
+                        if (!isGameOver) {
+                            playDeathSound(); // Genera el sonido de Game Over
+                        }
                         isGameOver = true; combo = 0;
                         spawnParticlesFunc(yashiro.x + yashiro.width/2, yashiro.y + yashiro.height/2, '#d32f2f');
                         if (score > highScore) { highScore = score; localStorage.setItem('adashima_hs', highScore); }
@@ -864,12 +932,6 @@
             ctx.fillStyle = "rgb(255,255,255)"; ctx.font = "bold 20px Quicksand";
             ctx.textAlign = "left"; ctx.fillText(`Puntos: ${score}`, 20, 40);
             ctx.textAlign = "right"; ctx.fillText(`Récord: ${highScore}`, canvas.width - 20, 40);
-
-            if (combo >= 3) {
-                ctx.fillStyle = "rgba(0,0,0,0.5)"; ctx.font = "bold 28px Quicksand"; ctx.textAlign = "center";
-                ctx.fillText(`🔥 COMBO x${combo}`, canvas.width/2 + 2, 54);
-                ctx.fillStyle = "#ff9800"; ctx.fillText(`🔥 COMBO x${combo}`, canvas.width/2, 50);
-            }
 
             if (isInvulnerable) {
                 let invulPercent = Math.ceil((invulnerabilityTime / 300) * 100);

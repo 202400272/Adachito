@@ -273,6 +273,20 @@
         .custom-pdf-viewer:-webkit-full-screen { border-radius: 0; }
         .custom-pdf-viewer:-webkit-full-screen .pdf-canvas-container { height: calc(100vh - 110px); }
 
+        /* Fullscreen simulado (fallback para móviles/BS que no soportan Fullscreen API) */
+        .custom-pdf-viewer.fs-simulated {
+            position: fixed !important;
+            inset: 0 !important;
+            width: 100% !important;
+            height: 100vh !important;
+            z-index: 99999 !important;
+            border-radius: 0 !important;
+            padding: 12px !important;
+            background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(245,238,242,0.98));
+            box-shadow: none !important;
+        }
+        .custom-pdf-viewer.fs-simulated .pdf-canvas-container { height: calc(100vh - 110px) !important; }
+
         /* ── Responsive ── */
         @media (max-width: 768px) {
             body { flex-direction: column; }
@@ -329,8 +343,6 @@
             <img src="Imagenes/Adashima_flotante2-Photoroom.png" alt="Adashima Chibi Floating" onerror="this.style.display='none'">
         </a>
 
-        
-
         <div class="footer">
             Fan site no oficial de Adachi to Shimamura.<br>
             Creado por fans, sin fines de lucro.<br>
@@ -339,6 +351,39 @@
     </div>
 
     <script>
+    // ═══════════════════════════════════════════════════════════════
+    //  DESCARGA FORZADA CROSS-ORIGIN
+    // ═══════════════════════════════════════════════════════════════
+    async function forceDownload(url, fileName) {
+        try {
+            // Obtenemos el archivo mediante fetch
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Network response was not ok');
+            
+            // Convertimos la respuesta a un Blob (objeto de archivo binario)
+            const blob = await response.blob();
+            
+            // Creamos una URL temporal local para el Blob
+            const blobUrl = window.URL.createObjectURL(blob);
+            
+            // Creamos una etiqueta <a> invisible y la "clickeamos" por código
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = blobUrl;
+            a.download = fileName; // Aquí forzamos el nombre de descarga
+            document.body.appendChild(a);
+            a.click();
+            
+            // Limpiamos la URL temporal para no consumir memoria
+            window.URL.revokeObjectURL(blobUrl);
+            document.body.removeChild(a);
+        } catch (error) {
+            console.error('Error forzando la descarga (probablemente CORS):', error);
+            // Respaldo: si falla, lo abrimos en otra pestaña normalmente
+            window.open(url, '_blank');
+        }
+    }
+
     // ═══════════════════════════════════════════════════════════════
     //  CONFIGURACIÓN DE VOLÚMENES
     // ═══════════════════════════════════════════════════════════════
@@ -431,7 +476,7 @@
                         </div>
                         <div class="pdf-controls-group">
                             <button class="pdf-btn" onclick="pdfAction('${vol.id}','fullscreen')" title="Pantalla completa (F)"><i class="fas fa-expand" id="fs-icon-${vol.id}"></i></button>
-                            <a href="${filePath}" download class="pdf-btn" title="Descargar PDF"><i class="fas fa-download"></i></a>
+                            <button class="pdf-btn" onclick="forceDownload('${filePath}', '${vol.file}')" title="Descargar PDF"><i class="fas fa-download"></i></button>
                         </div>
                     </div>
 
@@ -448,7 +493,7 @@
                                 <i class="fas fa-exclamation-triangle"></i>
                                 <p id="pdf-error-msg-${vol.id}">No se pudo cargar el PDF.</p>
                                 <button class="btn" onclick="retryPdfLoad('${vol.id}')" style="margin-top:8px;"><i class="fas fa-redo"></i> Reintentar</button>
-                                <a href="${filePath}" download class="btn btn-download" style="margin-top:4px;"><i class="fas fa-download"></i> Descargar igualmente</a>
+                                <button class="btn btn-download" onclick="forceDownload('${filePath}', '${vol.file}')" style="margin-top:4px;"><i class="fas fa-download"></i> Descargar igualmente</button>
                             </div>
                         </div>
                     </div>
@@ -712,11 +757,27 @@
                 break;
             case 'fullscreen': {
                 const el = document.getElementById('pdf-viewer-' + id);
-                const isFS = document.fullscreenElement || document.webkitFullscreenElement;
-                if (!isFS) {
-                    (el.requestFullscreen || el.webkitRequestFullscreen).call(el);
+                if (!el) break;
+
+                const isNativeFS = document.fullscreenElement === el || document.webkitFullscreenElement === el || document.msFullscreenElement === el;
+                const isSimulated = el.classList.contains('fs-simulated');
+
+                if (!isNativeFS && !isSimulated) {
+                    const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+                    if (req) {
+                        // Try native fullscreen first; if it fails, fallback to simulated
+                        req.call(el).catch(() => enterSimulatedFS(el, id));
+                    } else {
+                        // No native API -> simulate
+                        enterSimulatedFS(el, id);
+                    }
                 } else {
-                    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+                    if (isNativeFS) {
+                        const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+                        if (exit) exit.call(document);
+                    } else if (isSimulated) {
+                        exitSimulatedFS(el, id);
+                    }
                 }
                 break;
             }
@@ -738,11 +799,12 @@
     document.addEventListener('fullscreenchange',      updateFSIcon);
     document.addEventListener('webkitfullscreenchange', updateFSIcon);
     function updateFSIcon() {
-        const isFS = !!(document.fullscreenElement || document.webkitFullscreenElement);
         document.querySelectorAll('[id^="fs-icon-"]').forEach(icon => {
             const id = icon.id.replace('fs-icon-', '');
             const viewer = document.getElementById('pdf-viewer-' + id);
-            const inFS = viewer && (document.fullscreenElement === viewer || document.webkitFullscreenElement === viewer);
+            const inNativeFS = viewer && (document.fullscreenElement === viewer || document.webkitFullscreenElement === viewer || document.msFullscreenElement === viewer);
+            const inSimulatedFS = viewer && viewer.classList.contains('fs-simulated');
+            const inFS = !!(inNativeFS || inSimulatedFS);
             icon.className = inFS ? 'fas fa-compress' : 'fas fa-expand';
 
             if (inFS) {
@@ -754,10 +816,45 @@
                         inst.scale    = inst.fitScale;
                         updateZoomDisplay(id);
                         queueRender(id);
-                    });
+                    }).catch(()=>{});
                 }
             }
         });
+    }
+
+    function enterSimulatedFS(viewerEl, id) {
+        if (!viewerEl) return;
+        viewerEl.classList.add('fs-simulated');
+        document.body.style.overflow = 'hidden';
+        // recalculate scale
+        const inst = pdfInstances[id];
+        if (inst && inst.pdfDoc) {
+            inst.pdfDoc.getPage(inst.pageNum).then(page => {
+                const containerEl = document.getElementById('canvas-container-' + id);
+                inst.fitScale = calcFitScaleSafe(page, containerEl);
+                inst.scale = inst.fitScale;
+                updateZoomDisplay(id);
+                queueRender(id);
+            }).catch(()=>{});
+        }
+        updateFSIcon();
+    }
+
+    function exitSimulatedFS(viewerEl, id) {
+        if (!viewerEl) return;
+        viewerEl.classList.remove('fs-simulated');
+        document.body.style.overflow = '';
+        const inst = pdfInstances[id];
+        if (inst && inst.pdfDoc) {
+            inst.pdfDoc.getPage(inst.pageNum).then(page => {
+                const containerEl = document.getElementById('canvas-container-' + id);
+                inst.fitScale = calcFitScaleSafe(page, containerEl);
+                inst.scale = inst.fitScale;
+                updateZoomDisplay(id);
+                queueRender(id);
+            }).catch(()=>{});
+        }
+        updateFSIcon();
     }
 
     // ═══════════════════════════════════════════════════════════════

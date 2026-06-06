@@ -37,7 +37,6 @@
             overflow-x: hidden;
         }
 
-        /* ─── Partículas ─── */
         .particles {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -68,7 +67,6 @@
             50% { box-shadow: 0 0 12px 3px rgba(200,180,255,0.8); }
         }
 
-        /* ─── Elementos flotantes decorativos ─── */
         .floating-decor {
             position: absolute;
             pointer-events: none;
@@ -85,7 +83,6 @@
             100% { transform: translateY(-25px) rotate(5deg); }
         }
 
-        /* ─── Sidebar ─── */
         .sidebar {
             width: 300px;
             background-color: rgba(209, 163, 198, 0.9);
@@ -102,7 +99,6 @@
         .sidebar::-webkit-scrollbar-track { background: transparent; }
         .sidebar::-webkit-scrollbar-thumb { background: rgba(92,58,107,0.3); border-radius: 10px; }
 
-        /* ─── Contenido principal ─── */
         .main-content {
             flex: 1;
             position: relative;
@@ -171,10 +167,6 @@
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(92,58,107,0.4);
         }
-
-        /* ────────────────────────────────────────────
-            CRT RETRO TV — ESTILOS PRINCIPALES
-        ──────────────────────────────────────────── */
 
         .crt-tv-wrapper {
             width: 100%;
@@ -354,6 +346,10 @@
             background: #050308; border-radius: inherit; color: rgba(200,180,220,0.6); font-family: 'Special Elite', monospace; font-size: 1rem; letter-spacing: 0.2em; gap: 8px; transition: opacity 0.5s;
         }
         .no-signal-screen.off-state { background: #020104; }
+        .no-signal-screen.off-state .no-signal-bar,
+        .no-signal-screen.off-state #noSignalText {
+            display: none;
+        }
         .no-signal-screen .no-signal-bar { width: 60px; height: 3px; background: rgba(200,180,220,0.4); border-radius: 2px; animation: signalBlink 1.2s ease-in-out infinite alternate; }
 
         @keyframes signalBlink { 0% { opacity: 0.2; transform: scaleX(0.6); } 100% { opacity: 1; transform: scaleX(1); } }
@@ -371,9 +367,6 @@
 
         @keyframes ambientPulse { 0% { opacity: 0.6; transform: scale(1); } 100% { opacity: 1; transform: scale(1.04); } }
 
-        /* ════════════════════════════════════════
-            MENÚ OSD DENTRO DE LA PANTALLA
-        ════════════════════════════════════════ */
         .osd-menu {
             position: absolute; inset: 0; z-index: 30; display: flex; flex-direction: column; align-items: center; justify-content: center;
             pointer-events: none; opacity: 0; transition: opacity 0.3s ease; background: rgba(4, 2, 10, 0.78); border-radius: inherit; backdrop-filter: contrast(1.05);
@@ -424,9 +417,6 @@
         .osd-menu::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(to bottom, transparent, transparent 3px, rgba(0,0,0,0.08) 3px, rgba(0,0,0,0.08) 4px); pointer-events: none; border-radius: inherit; z-index: 1; }
         .osd-box { z-index: 2; }
 
-        /* ────────────────────────────────────────
-            CONTROLES DEL TV
-        ──────────────────────────────────────── */
         .tv-controls-row {
             display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 18px; padding: 12px 8px 4px; flex-wrap: wrap; border-top: 1px solid rgba(0,0,0,0.4); position: relative;
         }
@@ -511,7 +501,6 @@
         .knob-value-tip { position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: rgba(10,6,20,0.9); border: 1px solid rgba(200,160,220,0.25); color: rgba(255,240,255,0.75); font-family: 'Special Elite', monospace; font-size: 0.58rem; padding: 2px 6px; border-radius: 3px; letter-spacing: 0.1em; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 100; }
         .tv-knob:hover:not(.dragging) .knob-value-tip { opacity: 1; }
 
-        /* Fullscreen Reset */
         #crtScreen:fullscreen, #crtScreen:-webkit-full-screen { background: #000; border-radius: 0; display: flex; align-items: center; justify-content: center; }
         #crtScreen:fullscreen .screen-glow, #crtScreen:fullscreen .no-signal-screen, #crtScreen:fullscreen .channel-indicator, #crtScreen:fullscreen .scanlines-overlay, #crtScreen:fullscreen .static-overlay, #crtScreen:fullscreen .interference-overlay, #crtScreen:fullscreen .power-flash, #crtScreen:fullscreen .loading-indicator, #crtScreen:fullscreen .osd-menu,
         #crtScreen:-webkit-full-screen .screen-glow, #crtScreen:-webkit-full-screen .no-signal-screen, #crtScreen:-webkit-full-screen .channel-indicator, #crtScreen:-webkit-full-screen .scanlines-overlay, #crtScreen:-webkit-full-screen .static-overlay, #crtScreen:-webkit-full-screen .interference-overlay, #crtScreen:-webkit-full-screen .power-flash, #crtScreen:-webkit-full-screen .loading-indicator, #crtScreen:-webkit-full-screen .osd-menu { display: none !important; }
@@ -523,20 +512,17 @@
         }
         .download-btn-tv:hover { background: linear-gradient(135deg, #8c5a96, #5c3a6b); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(92,58,107,0.45); }
 
-        /* ── Base / Pie de la TV ── */
         .tv-bottom-section { display: flex; justify-content: center; align-items: flex-start; gap: 0; width: 100%; position: relative;}
         .tv-stand-neck { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 140px; height: 22px; background: linear-gradient(to bottom, #241935 0%, #1e1530 40%, #180f28 100%); box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.4); z-index: 1; }
         .tv-stand { width: 260px; height: 18px; margin-top: 20px; background: linear-gradient(to bottom, #2e2248 0%, #241a38 40%, #1a1028 100%); border-radius: 0 0 16px 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.04), inset 0 -2px 4px rgba(0,0,0,0.5); position: relative; z-index: 0; }
         .tv-feet { position: absolute; bottom: -8px; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 20px; }
         .tv-foot { width: 30px; height: 10px; background: linear-gradient(to bottom, #1a1028, #100c1e); border-radius: 0 0 6px 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.5); }
 
-        /* ── Speaker Grill ── */
         .tv-speaker-grill { position: absolute; bottom: 56px; left: 16px; width: 30px; display: flex; flex-direction: column; gap: 3px; pointer-events: none; z-index: 2; }
         .tv-speaker-slot { height: 3px; border-radius: 2px; background: rgba(0,0,0,0.5); box-shadow: inset 0 1px 1px rgba(0,0,0,0.8), 0 1px 0 rgba(255,255,255,0.03); }
         .tv-speaker-slot:nth-child(odd) { width: 90%; }
         .tv-speaker-slot:nth-child(even) { width: 75%; }
 
-        /* INFO CARD */
         .channel-info-card {
             width: 100%; max-width: 880px; margin-top: 22px; background: rgba(255,255,255,0.72); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 16px; border: 1.5px solid rgba(209,163,198,0.45); padding: 22px 28px; box-shadow: 0 8px 30px rgba(92,58,107,0.1); display: flex; align-items: flex-start; gap: 18px; transition: all 0.4s ease;
         }
@@ -551,7 +537,6 @@
         .download-all-btn:active { transform: translateY(0); }
         .download-all-btn:disabled { cursor: not-allowed; opacity: 0.7; transform: none; }
 
-        /* MODAL */
         .download-modal { position: fixed; inset: 0; z-index: 400; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(17, 10, 24, 0.48); backdrop-filter: blur(10px); opacity: 0; pointer-events: none; transition: opacity 0.24s ease; }
         .download-modal.show { opacity: 1; pointer-events: auto; }
         .download-modal-card { width: min(100%, 420px); background: linear-gradient(180deg, rgba(255,248,252,0.98), rgba(246,235,244,0.96)); border: 1px solid rgba(124, 87, 140, 0.22); border-radius: 22px; box-shadow: 0 24px 60px rgba(37, 19, 49, 0.28); padding: 22px 22px 18px; transform: translateY(18px) scale(0.96); opacity: 0; transition: transform 0.24s ease, opacity 0.24s ease; }
@@ -568,7 +553,6 @@
         @keyframes downloadPulse { 0% { transform: scale(1); } 50% { transform: scale(1.06); } 100% { transform: scale(1); } }
         .download-modal-badge { width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(140, 90, 150, 0.12); color: #8c5a96; animation: downloadPulse 1.2s ease-in-out infinite; flex-shrink: 0; }
 
-        /* CRT Animations */
         @keyframes crtPowerOn { 0% { clip-path: inset(50% 0 50% 0); opacity: 0.3; filter: brightness(3); } 30% { clip-path: inset(48% 0 48% 0); filter: brightness(2); } 60% { clip-path: inset(0% 0 0% 0); filter: brightness(1.5); } 80% { filter: brightness(1.2); } 100% { clip-path: inset(0% 0 0% 0); opacity: 1; filter: brightness(1); } }
         @keyframes crtPowerOff { 0% { clip-path: inset(0% 0 0% 0); opacity: 1; } 40% { clip-path: inset(48% 0 48% 0); opacity: 0.8; filter: brightness(2); } 80% { clip-path: inset(50% 0 50% 0); filter: brightness(3); opacity: 0.3; } 100% { clip-path: inset(50% 0 50% 0); opacity: 0; } }
         @keyframes channelChange { 0% { transform: scaleY(1); filter: brightness(1); } 15% { transform: scaleY(0.02); filter: brightness(8); } 25% { transform: scaleY(0.02); filter: brightness(6); } 40% { transform: scaleY(1.04); filter: brightness(1.3) contrast(1.2); } 60% { transform: scaleY(0.98); filter: brightness(1.1); } 100% { transform: scaleY(1); filter: brightness(1); } }
@@ -638,6 +622,125 @@
             .download-btn-tv { width: 100%; justify-content: center; }
             .back-link-bottom { width: 90%; justify-content: center; margin: 20px auto; }
             .osd-menu { background: rgba(4, 2, 10, 0.88); }
+        }
+
+        /* Mejora del OSD para móviles: expandir el visor de capítulos */
+        @media (max-width: 768px) {
+            .osd-menu { align-items: center; justify-content: flex-start; padding-top: 28px; }
+            .osd-box {
+                width: min(96%, 760px);
+                max-width: 96%;
+                min-width: auto;
+                padding: 18px 20px;
+                border-radius: 12px;
+                max-height: 88vh;
+                width: calc(100% - 32px);
+            }
+            .osd-channel-list { padding-right: 8px; gap: 10px; }
+            .osd-ch-item { padding: 12px 14px; border-radius: 8px; }
+            .osd-ch-num { font-size: 0.95rem; min-width: 48px; }
+            .osd-ch-name { font-size: 0.95rem; }
+            .osd-ch-sub { font-size: 0.72rem; }
+            .osd-footer { font-size: 0.68rem; }
+        }
+
+        /* ════════════════════════════════════════
+            OSD MENU — MÓVIL: drawer fixed desde abajo
+            JS mueve el nodo al body en móvil para
+            escapar del overflow:hidden del crt-screen.
+        ════════════════════════════════════════ */
+
+        .osd-menu.osd-portado {
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            align-items: stretch;
+            justify-content: flex-end;
+            background: rgba(4, 2, 10, 0.82);
+            border-radius: 0;
+            backdrop-filter: blur(6px);
+            overscroll-behavior: contain;
+        }
+
+        .osd-menu.osd-portado .osd-box {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            border-radius: 20px 20px 0 0;
+            border-left: none;
+            border-right: none;
+            border-bottom: none;
+            padding: 20px 20px 32px;
+            max-height: 80dvh;
+            max-height: 80vh;
+            transform: translateY(100%);
+            transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+
+        .osd-menu.osd-portado.visible .osd-box {
+            transform: translateY(0);
+        }
+
+        .osd-menu.osd-portado .osd-box::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 4px;
+            background: rgba(200,160,220,0.4);
+            border-radius: 2px;
+        }
+
+        .osd-menu.osd-portado .osd-title { margin-top: 8px; font-size: 0.75rem; }
+        .osd-menu.osd-portado .osd-title span { font-size: 0.65rem; }
+
+        .osd-menu.osd-portado .osd-channel-list {
+            flex: 1;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+            touch-action: pan-y;
+            padding-right: 4px;
+            gap: 10px;
+            scrollbar-width: auto;
+        }
+        .osd-menu.osd-portado .osd-channel-list::-webkit-scrollbar { width: 6px; }
+        .osd-menu.osd-portado .osd-channel-list::-webkit-scrollbar-thumb { background: rgba(200,160,220,0.6); border-radius: 6px; }
+
+        .osd-menu.osd-portado .osd-ch-item { padding: 13px 14px; border-radius: 8px; gap: 10px; }
+        .osd-menu.osd-portado .osd-ch-num { font-size: 0.95rem; min-width: 50px; }
+        .osd-menu.osd-portado .osd-ch-name { font-size: 0.95rem; }
+        .osd-menu.osd-portado .osd-ch-sub { font-size: 0.7rem; }
+        .osd-menu.osd-portado .osd-footer { font-size: 0.65rem; }
+
+        @media (max-width: 480px) {
+            .osd-menu.osd-portado .osd-box {
+                max-height: 88dvh;
+                max-height: 88vh;
+                padding: 18px 16px 28px;
+            }
+            .osd-menu.osd-portado .osd-ch-item { padding: 14px 12px; }
+            .osd-menu.osd-portado .osd-ch-name { font-size: 1rem; }
+            .osd-menu.osd-portado .osd-ch-num { font-size: 1rem; min-width: 52px; }
+            .osd-menu.osd-portado .osd-ch-sub { font-size: 0.74rem; }
+        }
+
+        @media (max-width: 480px) {
+            .osd-box {
+                width: calc(100% - 20px);
+                max-width: calc(100% - 20px);
+                padding: 16px 16px;
+                border-radius: 10px;
+                min-width: auto;
+                max-height: 92vh;
+            }
+            .osd-channel-list { gap: 12px; }
+            .osd-ch-item { padding: 14px 12px; }
+            .osd-ch-name { font-size: 1rem; }
+            .osd-ch-sub { font-size: 0.74rem; }
+            .osd-ch-num { font-size: 1rem; min-width: 52px; }
         }
 
         @media (prefers-reduced-motion: reduce) { .static-overlay, .scanlines-overlay { display: none; } }
@@ -731,7 +834,7 @@
                         <div class="osd-menu" id="osdMenu" role="dialog" aria-label="Selección de canal">
                             <div class="osd-box">
                                 <div class="osd-title">
-                                    ADASHIMA · VISION
+                                    YASHONY CHANNELS
                                     <span>SELECCIONAR EPISODIO</span>
                                 </div>
                                 <div class="osd-channel-list" id="osdChannelList">
@@ -827,18 +930,14 @@
                             <div class="knob-value-tip" id="brtTip">100%</div>
                         </div>
 
-                        <a
+                        <button
                             class="download-btn-tv"
                             id="downloadBtn"
-                            href="#"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            download
                             title="Descargar episodio actual"
                         >
                             <i class="fas fa-download"></i>
                             <span id="downloadLabel">Descargar</span>
-                        </a>
+                        </button>
 
                         <button class="fullscreen-btn" id="fullscreenBtn" title="Pantalla completa">
                             <i class="fas fa-expand"></i>
@@ -906,14 +1005,32 @@
 
     </div>
     <script>
-    /* ══════════════════════════════════════════
-       CRT TV — SISTEMA COMPLETO (CLOUDFLARE R2)
-    ══════════════════════════════════════════ */
 
-    // [Requisito Configuración] URL Base fácilmente configurable
+    async function forceDownload(url, fileName) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Network response was not ok');
+            
+            const blob = await response.blob();
+            const blobUrl = window.URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = blobUrl;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            
+            window.URL.revokeObjectURL(blobUrl);
+            document.body.removeChild(a);
+        } catch (error) {
+            console.error('Error forzando la descarga:', error);
+            window.open(url, '_blank');
+        }
+    }
+
     const CDN_BASE_URL = 'https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev';
 
-    // Generar dinámicamente los 12 canales desde CDN
     const CHANNELS = [];
     for (let i = 1; i <= 12; i++) {
         const videoUrl = `${CDN_BASE_URL}/Anime/Capitulo%20${i}.mp4`;
@@ -930,18 +1047,16 @@
         });
     }
 
-    /* ── Estado ── */
     const state = {
         powered: false,
         currentChannel: -1,
         switching: false,
         menuOpen: false,
         playing: false,
-        volume: 1,       // 0–1
-        brightness: 1    // 0.3–1.5
+        volume: 1,       
+        brightness: 1    
     };
 
-    /* ── Referencias DOM ── */
     const crtScreen       = document.getElementById('crtScreen');
     const crtVideo        = document.getElementById('crtVideo');
     const noSignal        = document.getElementById('noSignal');
@@ -969,10 +1084,28 @@
     const osdMenu         = document.getElementById('osdMenu');
     const osdChannelList  = document.getElementById('osdChannelList');
     const tvLed           = document.getElementById('tvLed');
+    const osdOriginalParent = crtScreen;
 
-    /* ────────────────────────────
-       CONSTRUCCIÓN MENÚ OSD
-    ──────────────────────────── */
+    function isMobile() { return window.innerWidth <= 768; }
+
+    function portOsdToBody() {
+        if (osdMenu.parentElement !== document.body) {
+            document.body.appendChild(osdMenu);
+            osdMenu.classList.add('osd-portado');
+        }
+    }
+
+    function portOsdToCrt() {
+        if (osdMenu.parentElement !== osdOriginalParent) {
+            osdOriginalParent.appendChild(osdMenu);
+            osdMenu.classList.remove('osd-portado');
+        }
+    }
+
+    function syncOsdPortal() {
+        if (isMobile()) { portOsdToBody(); } else { portOsdToCrt(); }
+    }
+
     function buildOsdMenu() {
         osdChannelList.innerHTML = '';
         CHANNELS.forEach((ch, i) => {
@@ -1002,9 +1135,6 @@
         });
     }
 
-    /* ────────────────────────────
-       UTILIDADES
-    ──────────────────────────── */
     function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 
     function showChannelIndicator(text) {
@@ -1032,9 +1162,6 @@
         interference.style.opacity = '0';
     }
 
-    /* ────────────────────────────
-       PLAY / PAUSE
-    ──────────────────────────── */
     function updatePlayPauseBtn() {
         if (state.playing) {
             playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
@@ -1065,17 +1192,14 @@
         updatePlayPauseBtn();
     });
 
-    /* ────────────────────────────
-       MENÚ OSD
-    ──────────────────────────── */
     function openMenu() {
         if (!state.powered) return;
         state.menuOpen = true;
         updateOsdActiveChannel();
         osdMenu.classList.add('visible');
         menuBtn.classList.add('active');
+        if (isMobile()) document.body.style.overflow = 'hidden';
         
-        // Auto-scroll al canal seleccionado si lo hay
         if(state.currentChannel >= 0) {
             const activeItem = osdChannelList.children[state.currentChannel];
             if(activeItem) {
@@ -1088,6 +1212,7 @@
         state.menuOpen = false;
         osdMenu.classList.remove('visible');
         menuBtn.classList.remove('active');
+        document.body.style.overflow = '';
     }
 
     function toggleMenu() {
@@ -1098,9 +1223,6 @@
         if (e.key === 'Escape' && state.menuOpen) closeMenu();
     });
 
-    /* ────────────────────────────
-       ENCENDER TV
-    ──────────────────────────── */
     async function powerOn() {
         if (state.powered || state.switching) return;
         state.switching = true;
@@ -1142,16 +1264,12 @@
         setStaticIntensity(0.08);
     }
 
-    /* ────────────────────────────
-       APAGAR TV
-    ──────────────────────────── */
     async function powerOff() {
         if (!state.powered || state.switching) return;
         state.switching = true;
 
         closeMenu();
         
-        // [Requisito 11] Limpieza profunda de recursos al apagar
         crtVideo.pause();
         crtVideo.removeAttribute('src'); 
         crtVideo.load();
@@ -1201,9 +1319,6 @@
         updateInfoCard(null);
     }
 
-    /* ────────────────────────────
-       CAMBIAR CANAL (SISTEMA R2)
-    ──────────────────────────── */
     async function switchChannel(index) {
         if (!state.powered || state.switching) return;
         if (index === state.currentChannel) return;
@@ -1227,18 +1342,15 @@
 
         loadingInd.classList.add('show');
 
-        // [Requisito 11] Liberar buffer previo antes de reasignar
         if (crtVideo.src !== ch.src) {
             crtVideo.pause();
             crtVideo.removeAttribute('src');
             crtVideo.load();
             crtVideo.src = ch.src;
-            // No cargamos los videos con 'auto', la pre-carga por defecto de metadata lo maneja.
         }
 
         crtVideo.style.opacity = '1';
 
-        // [Requisito 9] Manejo de Promesas, Timeout y Errores Mejorado
         const loadPromise = new Promise((resolve, reject) => {
             if (crtVideo.readyState >= 3) { resolve(); return; }
 
@@ -1275,7 +1387,6 @@
             crtVideo.addEventListener('canplay', onReady);
             crtVideo.addEventListener('error', onError);
 
-            // Timeout de 15 segundos para conexiones lentas
             timeoutId = setTimeout(() => {
                 cleanup();
                 reject(new Error("La señal de red es muy débil (Timeout)."));
@@ -1290,8 +1401,6 @@
             crtVideo.classList.remove('channel-switching');
             setStaticIntensity(0.06);
 
-            downloadBtn.href = ch.downloadSrc || ch.src;
-            downloadBtn.setAttribute('download', ch.download);
             downloadLabel.textContent = 'Descargar';
 
             updateInfoCard(ch);
@@ -1304,7 +1413,6 @@
             crtVideo.play().catch(() => {});
 
         } catch (error) {
-            // Manejo Visual de errores
             loadingInd.classList.remove('show');
             crtVideo.classList.remove('channel-switching');
             showChannelIndicator("ERR");
@@ -1317,13 +1425,10 @@
             
             console.error("Error CRT-TV:", error);
             state.switching = false;
-            state.currentChannel = -1; // Reset de selección
+            state.currentChannel = -1; 
         }
     }
 
-    /* ────────────────────────────
-       INFO CARD
-    ──────────────────────────── */
     function updateInfoCard(ch) {
         const icon = document.querySelector('.channel-info-icon i');
         if (!ch) {
@@ -1337,18 +1442,6 @@
         channelDesc.textContent = ch.desc;
         channelBadge.textContent = ch.badge;
         icon.className = 'fas fa-film';
-    }
-
-    async function triggerDownload(url, filename) {
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = filename;
-        link.target = "_blank"; // Protección para archivos desde CDN cruzado
-        link.style.display = 'none';
-        document.body.appendChild(link);
-        link.click();
-        await wait(150);
-        link.remove();
     }
 
     function showDownloadModal(message) {
@@ -1399,7 +1492,7 @@
             for (let i = 0; i < CHANNELS.length; i++) {
                 const ch = CHANNELS[i];
                 downloadAllBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i><span>Descargando ${i + 1}/${CHANNELS.length}</span>`;
-                await triggerDownload(ch.downloadSrc || ch.src, ch.download || `${ch.label}.mp4`);
+                await forceDownload(ch.downloadSrc || ch.src, ch.download || `${ch.label}.mp4`);
             }
         } finally {
             downloadAllBtn.disabled = false;
@@ -1407,9 +1500,6 @@
         }
     }
 
-    /* ────────────────────────────
-       PANTALLA COMPLETA
-    ──────────────────────────── */
     function toggleFullscreen() {
         if (!document.fullscreenElement && !document.webkitFullscreenElement) {
             enterFullscreen();
@@ -1445,9 +1535,6 @@
     document.addEventListener('fullscreenchange', onFullscreenChange);
     document.addEventListener('webkitfullscreenchange', onFullscreenChange);
 
-    /* ════════════════════════════════════════
-       PERILLAS — VOL & BRT
-    ════════════════════════════════════════ */
     const ARC_CX = 27, ARC_CY = 27, ARC_R = 24;
     const ARC_START_DEG = 225;
     const ARC_TOTAL_DEG = 270;
@@ -1609,21 +1696,31 @@
         }
     });
 
-    /* ════════════════════════════════════════
-       EVENT LISTENERS
-    ════════════════════════════════════════ */
     powerBtn.addEventListener('click', () => { state.powered ? powerOff() : powerOn(); });
     menuBtn.addEventListener('click', toggleMenu);
     playPauseBtn.addEventListener('click', togglePlayPause);
     downloadAllBtn.addEventListener('click', downloadAllEpisodes);
     fullscreenBtn.addEventListener('click', toggleFullscreen);
 
+    syncOsdPortal();
+    window.addEventListener('resize', syncOsdPortal);
+
+    downloadBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if(state.currentChannel >= 0){
+            const ch = CHANNELS[state.currentChannel];
+            const icon = downloadBtn.querySelector('i');
+            icon.className = 'fas fa-spinner fa-spin';
+            
+            forceDownload(ch.downloadSrc || ch.src, ch.download || `${ch.label}.mp4`).finally(() => {
+                icon.className = 'fas fa-download';
+            });
+        }
+    });
+
     crtVideo.addEventListener('waiting', () => { if(state.powered) setStaticIntensity(0.3); });
     crtVideo.addEventListener('playing', () => { if(state.powered) setStaticIntensity(0.06); });
 
-    /* ══════════════════════════════════════
-       PARTÍCULAS
-    ══════════════════════════════════════ */
     const particlesContainer = document.getElementById('particles');
     for (let i = 0; i < 22; i++) {
         let star = document.createElement('div');
@@ -1634,9 +1731,6 @@
         particlesContainer.appendChild(star);
     }
 
-    /* ══════════════════════════════════════
-       MENÚ DINÁMICO EXTERNO (sidebar)
-    ══════════════════════════════════════ */
     document.addEventListener("DOMContentLoaded", function () {
         fetch('menu.html?v=' + Date.now())
             .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
@@ -1654,9 +1748,6 @@
             .catch(e => console.warn('Menú no cargado:', e.message));
     });
 
-    /* ══════════════════════════════════════
-       SERVICE WORKER
-    ══════════════════════════════════════ */
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js', { scope: './' })

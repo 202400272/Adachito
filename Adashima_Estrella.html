@@ -1,11 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adashima Constelación</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Quicksand:wght@300;400;600&family=Pacifico&family=Yanone+Kaffeesatz:wght@400;600&family=Chewy&family=Nunito:wght@400;600;700&display=swap');
 
@@ -34,7 +33,7 @@
             overflow-x: hidden;
         }
 
-        /* ── SIDEBAR ── */
+        
         .sidebar {
             width: 300px;
             flex-shrink: 0;
@@ -192,7 +191,7 @@
             50% { opacity: 0.7; transform: scale(1.2); }
         }
 
-        /* Progress section */
+        
         .progress-card {
             background: linear-gradient(135deg, rgba(20,10,40,0.85), rgba(40,20,70,0.85));
             border: 1px solid rgba(255,180,220,0.3);
@@ -205,61 +204,76 @@
         .progress-bar-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, #f06292, #64b5f6); transition: width 0.6s ease; }
         .progress-text { font-size: 0.8rem; opacity: 0.8; text-align: center; }
 
-        /* ── MOBILE TOGGLE: checkbox puro, sin JS ── */
-        #nav-toggle { display: none; }
+        
+        #menu-button { display: none; }
 
-        .nav-toggle-label {
+        #menu-button {
             display: none;
             position: fixed;
-            top: 15px;
-            left: 15px;
-            z-index: 12000;
-            width: 48px;
-            height: 48px;
+            right: 20px;
+            bottom: 24px;
+            z-index: 12001;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
-            cursor: pointer;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 32px rgba(135,107,145,0.15);
-            transition: transform 0.25s ease, background 0.25s ease;
-            touch-action: manipulation;
+            box-shadow: 0 10px 30px rgba(135,107,145,0.18);
+            cursor: pointer;
+            transition: transform 0.18s ease, background 0.18s ease;
             -webkit-tap-highlight-color: transparent;
-            user-select: none;
         }
-        .nav-toggle-label:hover { transform: scale(1.1); background: white; }
+        #menu-button:hover { transform: translateY(-3px); }
 
-        .nav-toggle-label .bar {
-            display: block;
-            width: 20px;
-            height: 2px;
-            background: var(--sakura-dark);
-            border-radius: 2px;
-            transition: transform 0.3s ease, opacity 0.3s ease;
+        .menu-close-btn {
+            display: none;
             position: absolute;
+            top: 10px;
+            right: 12px;
+            background: transparent;
+            border: none;
+            font-size: 1.6rem;
+            color: var(--text-main);
+            cursor: pointer;
         }
-        .nav-toggle-label .bar:nth-child(1) { transform: translateY(-6px); }
-        .nav-toggle-label .bar:nth-child(3) { transform: translateY(6px); }
-
-        #nav-toggle:checked ~ .nav-toggle-label .bar:nth-child(1) { transform: translateY(0) rotate(45deg); }
-        #nav-toggle:checked ~ .nav-toggle-label .bar:nth-child(2) { opacity: 0; }
-        #nav-toggle:checked ~ .nav-toggle-label .bar:nth-child(3) { transform: translateY(0) rotate(-45deg); }
 
         .nav-overlay {
             display: none;
             position: fixed;
             inset: 0;
             background: rgba(0,0,0,0.4);
-            z-index: 10999;
+            z-index: 11990;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.25s ease;
         }
 
-        /* ── MAIN CONTENT ── */
+        @media (max-width: 1024px) {
+            #menu-button { display: flex; }
+            .menu-close-btn { display: block; }
+
+            .sidebar {
+                position: fixed;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                top: auto;
+                width: 100%;
+                max-height: 72vh;
+                height: auto;
+                transform: translateY(100%);
+                border-radius: 14px 14px 0 0;
+                transition: transform 0.35s cubic-bezier(0.22,0.9,0.2,1);
+                z-index: 12000;
+            }
+
+            body.menu-open .sidebar { transform: translateY(0); }
+            body.menu-open .nav-overlay { display: block; opacity: 1; pointer-events: auto; }
+        }
+
+        
         .main-content {
             flex: 1;
             position: relative;
@@ -270,7 +284,7 @@
             min-height: 100vh;
         }
 
-        /* Sky canvas */
+        
         #sky-canvas {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -279,7 +293,7 @@
         }
         #sky-canvas:active { cursor: grabbing; }
 
-        /* Background image with parallax */
+        
         .sky-bg {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -293,7 +307,7 @@
             z-index: 1;
         }
 
-        /* Title */
+        
         .sky-title {
             position: absolute;
             top: 25px;
@@ -323,7 +337,7 @@
             50% { text-shadow: 0 0 50px rgba(240,98,146,1), 0 0 100px rgba(100,181,246,0.6), 0 0 15px rgba(255,255,255,0.3), 2px 2px 4px rgba(0,0,0,0.5); }
         }
 
-        /* Particles layer */
+        
         .particles {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -344,7 +358,7 @@
             100% { transform: translateY(-10vh) translateX(30px) scale(1); opacity: 0; }
         }
 
-        /* Floating Adashima */
+        
         .floating-adashima {
             position: absolute;
             bottom: 80px;
@@ -362,7 +376,7 @@
             66% { transform: translateY(8px) rotate(-2deg); }
         }
 
-        /* HUD */
+        
         .hud {
             position: absolute;
             top: 100px;
@@ -393,7 +407,7 @@
             transform: translateX(-3px);
         }
 
-        /* Constellation list panel */
+        
         .const-panel {
             position: absolute;
             bottom: 10px;
@@ -431,7 +445,7 @@
         .const-chip.done { border-color: transparent; color: #ffd166; background: transparent; }
         .const-chip i { font-size: 0.6rem; }
 
-        /* ── MODALS ── */
+        
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -471,7 +485,7 @@
         }
         .btn-close-modal:hover { transform: scale(1.1) rotate(90deg); background: var(--sakura-pink); }
 
-        /* Binder cards (reutilizadas de menu.html) */
+        
         .binder-page {
             background-color: var(--cream-white);
             background-image:
@@ -541,7 +555,7 @@
         #shimamuraModal .binder-page { border-left-color: var(--hougetsu-dark); }
         #shimamuraModal .binder-page h2.section-title { background: linear-gradient(135deg, var(--hougetsu-dark), #90caf9); box-shadow: 0 4px 10px rgba(100,181,246,0.3); }
 
-        /* Reward modal */
+        
         .reward-modal-content {
             background: linear-gradient(135deg, rgba(15,8,35,0.97), rgba(30,15,55,0.97));
             border: 1px solid rgba(255,180,220,0.3);
@@ -554,7 +568,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            max-height: 85vh; /* Asegura que no se desborde en móvil */
+            max-height: 85vh; 
         }
         .reward-modal-content::before {
             content: '';
@@ -582,7 +596,7 @@
             100% { transform: scale(1) rotate(0); }
         }
         
-        /* Ajuste para que la historia en el modal tenga scroll */
+        
         .reward-modal-content p#reward-body {
             font-size: 1.05rem;
             color: rgba(255,200,230,0.9);
@@ -631,7 +645,7 @@
             100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
         }
 
-        /* Final event overlay */
+        
         #final-event-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -728,14 +742,14 @@
             box-shadow: 0 8px 25px rgba(240,98,146,0.5);
         }
 
-        /* Contenedor Final de Descarga */
+        
         #final-download-container {
             position: absolute;
             left: 50%;
-            top: 160px; /* Debajo del título central */
+            top: 160px; 
             transform: translateX(-50%);
             z-index: 8500;
-            display: none; /* Se oculta por defecto hasta completar todo */
+            display: none; 
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -762,14 +776,14 @@
             font-weight: 600;
         }
 
-        /* When sidebar is open on mobile, hide the final container so it never overlaps */
+        
         @media (max-width: 900px) {
             body.sidebar-open #final-download-container {
                 display: none !important;
             }
         }
 
-        /* Tooltip */
+        
         .star-tooltip {
             position: fixed;
             background: rgba(15,8,35,0.92);
@@ -786,7 +800,7 @@
             font-weight: 600;
         }
 
-        /* Sound toggle */
+        
         .sound-toggle {
             position: absolute;
             top: 15px;
@@ -804,7 +818,7 @@
         }
         .sound-toggle:hover { background: rgba(240,98,146,0.2); }
 
-        /* ── RESPONSIVE ── */
+        
         @media (max-width: 1024px) {
             .nav-toggle-label { display: flex; }
             .nav-overlay { display: block; }
@@ -821,9 +835,9 @@
                 box-shadow: 4px 0 30px rgba(135,107,145,0.25);
                 z-index: 11000;
             }
-            /* Sidebar abierto cuando el checkbox está marcado */
+            
             #nav-toggle:checked ~ .sidebar { transform: translateX(0); }
-            /* Overlay visible cuando el checkbox está marcado */
+            
             #nav-toggle:checked ~ .nav-overlay { opacity: 1; pointer-events: auto; }
 
             .sky-title h1 { font-size: 2rem; }
@@ -854,7 +868,7 @@
             .final-close-btn { margin-top: 15px; padding: 10px 24px; font-size: 0.9rem; }
             .btn-all-stories { padding: 8px 12px; font-size: 0.75rem; gap: 6px; }
             #final-download-container {
-                top: 90px; /* Ajuste para móvil debajo del título más pequeño */
+                top: 90px; 
                 width: auto;
                 padding: 8px 10px;
             }
@@ -877,7 +891,7 @@
             }
         }
         
-        /* Download button in profile modals */
+        
         .btn-download-profile {
             display: inline-flex; align-items: center; gap: 8px;
             margin-top: 24px;
@@ -889,7 +903,7 @@
         }
         .btn-download-profile:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(240,98,146,0.4); }
 
-        /* PDF download button inside reward */
+        
         .btn-pdf-download {
             display: inline-flex; align-items: center; gap: 8px;
             margin-top: 12px;
@@ -903,7 +917,7 @@
         }
         .btn-pdf-download:hover { background: rgba(240,98,146,0.3); color: white; transform: translateY(-2px); }
 
-        /* Unlock items in sidebar */
+        
         .unlock-item {
             background: rgba(255,255,255,0.6);
             border-radius: 10px;
@@ -931,19 +945,15 @@
 </head>
 <body>
 
-<audio id="bg-audio" src="Estrella.mp3" loop preload="auto" style="display:none"></audio>
+<audio id="bg-audio" src="Sound/Estrella.mp3" loop preload="auto" style="display:none"></audio>
 
-<!-- ── MENÚ MÓVIL: checkbox como controlador de estado, cero JS ── -->
-<input type="checkbox" id="nav-toggle">
-<label class="nav-toggle-label" for="nav-toggle" aria-label="Abrir menú">
-    <span class="bar"></span>
-    <span class="bar"></span>
-    <span class="bar"></span>
-</label>
-<!-- Overlay: al hacer clic desmarca el checkbox y cierra el sidebar -->
-<label class="nav-overlay" for="nav-toggle" aria-hidden="true"></label>
+<button id="menu-button" aria-label="Abrir menú" type="button">
+    <i class="fas fa-bars" aria-hidden="true"></i>
+</button>
+<div class="nav-overlay" id="menu-overlay" aria-hidden="true"></div>
 
 <nav class="sidebar" id="sideMenu">
+    <button class="menu-close-btn" id="menu-close-btn" aria-label="Cerrar menú" type="button">×</button>
     <div class="sidebar-inner">
         <div class="sidebar-box">
             <img src="Imagenes/Yashiro-Photoroom.png"
@@ -1202,14 +1212,8 @@
 </div>
 
 <script>
-// ════════════════════════════════════════════════════════
-// CONFIGURATION
-// ════════════════════════════════════════════════════════
 const TOTAL_CONSTELLATIONS = 10;
 
-// REWARDS MAP
-// Mini historias en hitos: 1, 2, 4, 5, 6, 7, 8, 9
-// Cartas (mantienen lógica actual): 3, 10
 const REWARDS = [
     {
         at: 1, type: 'mini_historia',
@@ -1324,7 +1328,7 @@ Antes de que pudiera excusarme diciendo que no me molestaba, Shimamura me miró 
 Mientras decía eso, me atrajo hacia ella, abrazándome la cabeza, y mis pensamientos se dispersaron de golpe.
 Envuelta en algo suave y esponjoso, terminé asintiendo como si me hubieran hipnotizado.
 `,
-        pdf: 'Mini historias/Mini historia 1.pdf'
+        pdf: 'https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/Mini%20historias/Mini%20historia%201.pdf'
     },
     {
         at: 2, type: 'mini_historia',
@@ -1469,7 +1473,7 @@ Así que… eso pasó.
 Pasamos por la tienda de regalos de camino de regreso. Recordando el rostro lloroso de mi hija de hacía tantos años, terminé comprando un peluche de elefante.
 Lo levanté y, detrás de su cabeza, vi a Yoshika peleándose con un oso gigante.
 `,
-        pdf: 'Mini historias/Mini historia 12.pdf'
+        pdf: 'https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/Mini%20historias/Mini%20historia%2012.pdf'
     },
     {
         at: 3, type: 'perfil',
@@ -1514,7 +1518,7 @@ Mientras mi piel rozaba la tela áspera, pude sentir cómo empezaba a calentarse
 
 El búmeran de antes seguía sobre mi estante. Le eché un vistazo rápido antes de poner el dibujo de Shimamura como fondo de pantalla de mi teléfono. ¿Habría alguien más en todo este mundo capaz de hacer algo así? Probablemente no. Ese pensamiento cruzó mi mente como una ráfaga de viento fresco, refrescando perfectamente mi piel ardiente.
 `,
-        pdf: 'Mini historias/Mini historia 3.pdf'
+        pdf: 'https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/Mini%20historias/Mini%20historia%203.pdf'
     },
     {
         at: 5, type: 'mini_historia',
@@ -1576,7 +1580,7 @@ Supongo que... no se equivoca.
 Las cosas que han aumentado y las que no han cambiado. Ambas están aquí, en esta habitación. Y, la verdad, el equilibrio no está nada mal.
 
 
- 
+ 
 Hoy estábamos en pleno “test de rendimiento de la almohada Adachi”.
 Tumbada en el sofá, usaba el muslo de Adachi como almohada mientras veía la televisión. Era una formación sin ninguna abertura.
 Adachi se había dejado crecer el cabello más que antes y ahora se ponía los lentes para ver la tele.
@@ -1616,7 +1620,7 @@ Escuché la voz de Adachi justo antes de cerrar los ojos.
 Yo había querido responder “sí, suena bien”, pero no sé si llegó a escucharse.
 Por eso, decidí que se lo diría de nuevo en cuanto despertara.
 `,
-        pdf: 'Mini historias/Mini historia 5.pdf'
+        pdf: 'https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/Mini%20historias/Mini%20historia%205.pdf'
     },
     {
         at: 6, type: 'mini_historia',
@@ -1704,7 +1708,7 @@ Creo que eso se refiere a otra cosa. Probablemente a que sueles aparecer de la n
 “¿Ah, sí? Yo misma no lo noto mucho.”
 Se veía feliz, incluso por cosas que parecía no comprender del todo.
 Mi esposa, que siempre es un poco rara, continuó cortándose las uñas mientras tarareaba una melodía.`,
-        pdf: 'Mini historias/Mini historia 7.pdf'
+        pdf: 'https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/Mini%20historias/Mini%20historia%207.pdf'
     },
     {
         at: 7, type: 'mini_historia',
@@ -1754,7 +1758,7 @@ Un momento después, sonrió.
 
 
 Al día siguiente, me presentaron a los padres de la chica, algo de lo que pronto me arrepentiría, pero esa es una historia para otro momento.`,
-        pdf: 'Mini historias/Mini historia 19.pdf'
+        pdf: 'https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/Mini%20historias/Mini%20historia%2019.pdf'
     },
     {
         at: 8, type: 'mini_historia',
@@ -1779,7 +1783,7 @@ La puse de lado e intenté apoyar la cabeza sobre ella, pero era tan extremadame
 “¡Siiií!”
 Le hice un gesto de despedida a la foca real, que se quedó en la habitación, y me dirigí a la cocina acompañada por esa criatura tan rara.
 Era una escena de lo más cotidiana en nuestro hogar.`,
-        pdf: 'Mini historias/Mini historia 15.pdf'
+        pdf: 'https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/Mini%20historias/Mini%20historia%2015.pdf'
     },
     {
         at: 9, type: 'mini_historia',
@@ -1807,7 +1811,7 @@ La forma en que reaccionó me hizo sentir la conexión de sangre que compartía 
 Este año no la dejaré atrás; me la llevaré conmigo.
 Me di cuenta de que, aunque parece que nada cambia, hay pequeñas cosas que sí lo hacen.
 Sin pensarlo mucho, acaricié la cabeza del hipopótamo, que seguía firme en su postura amenazante.`,
-        pdf: 'Mini historias/Mini historia 16.pdf'
+        pdf: 'https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/Mini%20historias/Mini%20historia%2016.pdf'
     },
     {
         at: 10, type: 'perfil',
@@ -1817,9 +1821,6 @@ Sin pensarlo mucho, acaricié la cabeza del hipopótamo, que seguía firme en su
     }
 ];
 
-// ════════════════════════════════════════════════════════
-// CONSTELLATION DEFINITIONS
-// ════════════════════════════════════════════════════════
 const CONSTELLATIONS = [
     {
         name: 'Elefante',
@@ -1873,9 +1874,6 @@ const CONSTELLATIONS = [
     }
 ];
 
-// ════════════════════════════════════════════════════════
-// STATE
-// ════════════════════════════════════════════════════════
 const STORAGE_KEY = 'adashima_constellation_v2';
 
 let canvas, ctx;
@@ -1888,9 +1886,6 @@ let dragOffX = 0, dragOffY = 0;
 let mouseX = 0, mouseY = 0;
 let audioCtx = null;
 
-// ════════════════════════════════════════════════════════
-// PERSISTENCE
-// ════════════════════════════════════════════════════════
 function saveProgress() {
     try {
         const data = {
@@ -1920,9 +1915,6 @@ function clearProgress() {
     try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
 }
 
-// ════════════════════════════════════════════════════════
-// INIT
-// ════════════════════════════════════════════════════════
 function init() {
     canvas = document.getElementById('sky-canvas');
     ctx = canvas.getContext('2d');
@@ -1941,11 +1933,9 @@ function restoreProgress() {
     const saved = loadProgress();
     if (!saved) return;
 
-    // Restore completions
     completedConsts = new Set(saved.completedConsts || []);
     completedCount = saved.completedCount || 0;
 
-    // Restore star positions/snaps
     if (saved.starSnaps && saved.starSnaps.length === stars.length) {
         saved.starSnaps.forEach((snap, i) => {
             stars[i].x = snap.x * canvas.width;
@@ -1956,7 +1946,6 @@ function restoreProgress() {
         });
     }
 
-    // Restore UI state
     completedConsts.forEach(ci => {
         updateConstellationChip(ci);
     });
@@ -1967,7 +1956,6 @@ function restoreProgress() {
         sortedRewards.forEach(r => addUnlockToSidebar(r, true));
     }
 
-    // Restore profile unlocks explicitly
     if (completedCount >= 3) unlockProfile('shimamura');
     if (completedCount >= 10) unlockProfile('adachi');
     if (completedCount >= 10) unlockAllStoriesButton();
@@ -2016,9 +2004,6 @@ function repositionStars() {
     });
 }
 
-// ════════════════════════════════════════════════════════
-// STAR GENERATION
-// ════════════════════════════════════════════════════════
 function generateStars() {
     stars = [];
     const W = canvas.width;
@@ -2047,9 +2032,6 @@ function generateStars() {
     }
 }
 
-// ════════════════════════════════════════════════════════
-// DRAW LOOP
-// ════════════════════════════════════════════════════════
 function drawLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const t = Date.now() / 1000;
@@ -2249,9 +2231,6 @@ function drawActiveConnections(t) {
     });
 }
 
-// ════════════════════════════════════════════════════════
-// SNAP / COMPLETION DETECTION
-// ════════════════════════════════════════════════════════
 function checkSnap(star) {
     let bestDist = Infinity;
     let bestConstId = null;
@@ -2345,9 +2324,6 @@ function checkConstellationComplete(ci) {
     }
 }
 
-// ════════════════════════════════════════════════════════
-// REWARDS
-// ════════════════════════════════════════════════════════
 function triggerReward(count) {
     const reward = REWARDS.find(r => r.at === count);
     if (!reward) return;
@@ -2374,7 +2350,6 @@ function showRewardModal(reward) {
     document.getElementById('reward-title').textContent = reward.title;
     document.getElementById('reward-body').textContent = reward.body;
     
-    // Configuración para el botón de PDF (sólo para mini historias)
     const pdfBtn = document.getElementById('reward-pdf-btn');
     if (pdfBtn) {
         pdfBtn.style.display = reward.type === 'mini_historia' ? 'block' : 'none';
@@ -2428,9 +2403,6 @@ function addUnlockToSidebar(reward, silent) {
     list.appendChild(item);
 }
 
-// ════════════════════════════════════════════════════════
-// PROGRESS
-// ════════════════════════════════════════════════════════
 function updateProgress() {
     const pct = (completedCount / TOTAL_CONSTELLATIONS) * 100;
     document.getElementById('prog-bar').style.width = pct + '%';
@@ -2468,9 +2440,6 @@ function updateConstellationChip(ci) {
     }
 }
 
-// ════════════════════════════════════════════════════════
-// FINAL EVENT
-// ════════════════════════════════════════════════════════
 function triggerFinalEvent() {
     const overlay = document.getElementById('final-event-overlay');
     overlay.style.display = 'block';
@@ -2494,9 +2463,6 @@ function closeFinalEvent() {
     setTimeout(() => { overlay.style.display = 'none'; overlay.style.pointerEvents = 'none'; }, 500);
 }
 
-// ════════════════════════════════════════════════════════
-// SOUND (Web Audio)
-// ════════════════════════════════════════════════════════
 function getAudioCtx() {
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     return audioCtx;
@@ -2554,9 +2520,6 @@ function toggleSound() {
     }
 }
 
-// ════════════════════════════════════════════════════════
-// PARTICLES
-// ════════════════════════════════════════════════════════
 function createParticles() {
     const container = document.getElementById('particles');
     for (let i = 0; i < 35; i++) {
@@ -2576,9 +2539,6 @@ function createParticles() {
     }
 }
 
-// ════════════════════════════════════════════════════════
-// DRAG EVENTS
-// ════════════════════════════════════════════════════════
 function getPos(e) {
     const rect = canvas.getBoundingClientRect();
     if (e.touches && e.touches.length > 0) {
@@ -2664,9 +2624,6 @@ function setupEventListeners() {
     canvas.addEventListener('touchend', onPointerUp);
 }
 
-// ════════════════════════════════════════════════════════
-// RESET
-// ════════════════════════════════════════════════════════
 function resetStars() {
     showResetConfirmation().then(confirmed => {
         if (!confirmed) return;
@@ -2683,9 +2640,6 @@ function resetStars() {
     });
 }
 
-// ════════════════════════════════════════════════════════
-// MODALS
-// ════════════════════════════════════════════════════════
 function openModal(id) {
     const m = document.getElementById(id);
     if (!m) return;
@@ -2721,145 +2675,113 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// ════════════════════════════════════════════════════════
-// SIDEBAR TOGGLE — manejado íntegramente por CSS + checkbox
-// window.menuToggle por compatibilidad con cualquier llamada legada
-// ════════════════════════════════════════════════════════
+function updateMenuButtonState(isOpen) {
+    var btn = document.getElementById('menu-button');
+    var overlay = document.getElementById('menu-overlay');
+    if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    if (overlay) overlay.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+}
+
+function openMenu() {
+    document.body.classList.add('menu-open');
+    updateMenuButtonState(true);
+}
+
+function closeMenu() {
+    document.body.classList.remove('menu-open');
+    updateMenuButtonState(false);
+}
+
 window.menuToggle = window.toggleMenu = function () {
-    var cb = document.getElementById('nav-toggle');
-    if (cb) cb.checked = !cb.checked;
+    if (document.body.classList.contains('menu-open')) closeMenu(); else openMenu();
 };
 
-// ════════════════════════════════════════════════════════
-// PROFILE IMAGE DOWNLOAD
-// ════════════════════════════════════════════════════════
-function downloadProfile(modalId) {
-    const modal = document.getElementById(modalId);
-    const page = modal ? modal.querySelector('.binder-page') : null;
-    if (!page) return;
-
-    const name = modalId === 'adachiModal' ? 'Adachi_Sakura' : 'Shimamura_Hougetsu';
-    const targetWidth = 1728;
-    const targetHeight = 2377;
-    const targetRatio = targetWidth / targetHeight;
-
-    const container = document.createElement('div');
-    container.style.position = 'absolute';
-    container.style.left = '-9999px';
-    container.style.top = '0';
-    container.style.backgroundColor = '#fffbf0';
-    
-    const clone = page.cloneNode(true);
-    const downloadBtnContainer = clone.querySelector('.btn-download-profile')?.parentElement;
-    if (downloadBtnContainer) {
-        downloadBtnContainer.style.display = 'none';
-    }
-
-    clone.style.margin = '0';
-    clone.style.maxWidth = 'none';
-    clone.style.boxSizing = 'border-box';
-    clone.style.display = 'flex';
-    clone.style.flexDirection = 'column';
-    clone.style.justifyContent = 'space-evenly';
-    
-    container.appendChild(clone);
-    document.body.appendChild(container);
-
-    let testWidth = 700;
-    let requiredHeight = testWidth / targetRatio;
-    
-    while (testWidth <= 1500) {
-        requiredHeight = testWidth / targetRatio;
-        container.style.width = testWidth + 'px';
-        container.style.height = 'auto';
-        clone.style.height = 'auto';
-        
-        const naturalHeight = clone.scrollHeight; 
-        if (naturalHeight + 20 <= requiredHeight) {
-            break;
+function setMenuHandlers() {
+    var overlay = document.getElementById('menu-overlay');
+    var closeBtn = document.getElementById('menu-close-btn');
+    var menuButton = document.getElementById('menu-button');
+    if (overlay) overlay.addEventListener('click', closeMenu);
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    if (menuButton) menuButton.addEventListener('click', window.toggleMenu);
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && document.body.classList.contains('menu-open')) {
+            closeMenu();
         }
-        testWidth += 20;
+    });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setMenuHandlers);
+} else {
+    setMenuHandlers();
+}
+
+function downloadProfile(modalId) {
+    let imageUrl = '';
+    let fileName = '';
+
+    if (modalId === 'adachiModal') {
+        imageUrl = 'Imagenes/Adachi_perfil.jpg';
+        fileName = 'Adachi_perfil.jpg';
+    } else if (modalId === 'shimamuraModal') {
+        imageUrl = 'Imagenes/Shimamura_Perfil.jpg';
+        fileName = 'Shimamura_Perfil.jpg';
+    } else {
+        return; // Salir si el modal no coincide
     }
 
-    container.style.width = testWidth + 'px';
-    container.style.height = requiredHeight + 'px';
-    clone.style.height = '100%';
+    const link = document.createElement('a');
+    link.href = imageUrl;
+    link.download = fileName;
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 
-    if (typeof html2canvas !== 'undefined') {
-        const scale = targetWidth / testWidth;
-        html2canvas(container, { 
-            backgroundColor: '#fffbf0', 
-            scale: scale, 
-            useCORS: true,
-            width: testWidth,
-            height: requiredHeight,
-            allowTaint: true
-        }).then(canvas => {
-            const finalCanvas = document.createElement('canvas');
-            finalCanvas.width = targetWidth;
-            finalCanvas.height = targetHeight;
-            const ctxFinal = finalCanvas.getContext('2d');
-            ctxFinal.imageSmoothingEnabled = true;
-            ctxFinal.imageSmoothingQuality = 'high';
-            ctxFinal.drawImage(canvas, 0, 0, targetWidth, targetHeight);
+async function forceDownload(url, fileName) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Network response was not ok');
 
-            const link = document.createElement('a');
-            link.download = `Perfil_${name}.png`;
-            link.href = finalCanvas.toDataURL('image/png', 1.0);
-            link.click();
-            
-            document.body.removeChild(container);
-        }).catch(err => {
-            console.error('Error generating profile image:', err);
-            document.body.removeChild(container);
-        });
-    } else {
-        const dlCanvas = document.createElement('canvas');
-        dlCanvas.width = targetWidth; dlCanvas.height = targetHeight;
-        const ctx2 = dlCanvas.getContext('2d');
-        ctx2.fillStyle = '#fffbf0'; ctx2.fillRect(0, 0, targetWidth, targetHeight);
-        ctx2.fillStyle = '#5c4b51'; ctx2.font = 'bold 56px serif';
-        ctx2.fillText('Adachi to Shimamura — Perfil', 120, 120);
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+
         const link = document.createElement('a');
-        link.download = `Perfil_${name}.png`;
-        link.href = dlCanvas.toDataURL('image/png');
+        link.style.display = 'none';
+        link.href = blobUrl;
+        link.download = fileName;
+        document.body.appendChild(link);
         link.click();
-        document.body.removeChild(container);
+
+        window.URL.revokeObjectURL(blobUrl);
+        document.body.removeChild(link);
+    } catch (error) {
+        console.error('Error forzando la descarga:', error);
+        const backupLink = document.createElement('a');
+        backupLink.href = url;
+        backupLink.download = fileName;
+        backupLink.target = '_blank';
+        document.body.appendChild(backupLink);
+        backupLink.click();
+        document.body.removeChild(backupLink);
     }
 }
 
-// ════════════════════════════════════════════════════════
-// NUEVA FUNCIONALIDAD: DESCARGA FÍSICA DIRECTA
-// ════════════════════════════════════════════════════════
-function downloadStoryPDF() {
+async function downloadStoryPDF() {
     const reward = window._currentReward;
     if (!reward || !reward.pdf) return;
 
-    // Crea un link para forzar/iniciar la descarga del archivo PDF local
-    const link = document.createElement('a');
-    link.href = reward.pdf;
-    // Extrae el nombre del archivo para establecerlo en la descarga
-    link.download = reward.pdf.split('/').pop();
-    link.target = '_blank';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    await forceDownload(reward.pdf, reward.pdf.split('/').pop());
 }
 
-function downloadAllMiniStories() {
-    // Descargar el PDF general de mini historias
-    const link = document.createElement('a');
-    link.href = 'Mini historias/Mini historias.pdf';
-    link.download = 'Mini historias.pdf';
-    link.target = '_blank';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+async function downloadAllMiniStories() {
+    await forceDownload(
+        'https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/Mini%20historias/Mini%20historias%20completas.pdf',
+        'Mini historias completas.pdf'
+    );
 }
 
-// ════════════════════════════════════════════════════════
-// BACKGROUND AUDIO
-// ════════════════════════════════════════════════════════
 function initBgAudio() {
     const audio = document.getElementById('bg-audio');
     if (!audio) return;
@@ -2907,7 +2829,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div id="toast-msg" class="toast-msg" aria-hidden="true"></div>
 
 <style>
-/* Reset confirm styles */
+
 .reset-confirm {
     position: fixed;
     top: 22px;
@@ -2947,7 +2869,7 @@ document.addEventListener('DOMContentLoaded', () => {
 .reset-confirm-btn { background: linear-gradient(90deg,#ff9ab3,#f06292); color: #fff; box-shadow: 0 6px 18px rgba(240,98,146,0.25); }
 .reset-btn:active { transform: translateY(1px); }
 
-/* Toast */
+
 .toast-msg { position: fixed; right: 20px; bottom: 20px; background: rgba(30,20,30,0.9); color: #fff; padding: 10px 14px; border-radius: 10px; font-weight:600; box-shadow: 0 8px 30px rgba(0,0,0,0.3); opacity:0; transform: translateY(8px); transition: all 260ms ease; z-index:99999; pointer-events:none; }
 .toast-msg.show { opacity:1; transform: translateY(0); }
 </style>

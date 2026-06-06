@@ -37,7 +37,6 @@
             overflow-x: hidden;
         }
 
-        /* ─── Partículas ─── */
         .particles {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -85,7 +84,6 @@
             100% { transform: translateY(-25px) rotate(5deg); }
         }
 
-        /* ─── Sidebar ─── */
         .sidebar {
             width: 300px;
             background-color: rgba(209, 163, 198, 0.9);
@@ -102,7 +100,6 @@
         .sidebar::-webkit-scrollbar-track { background: transparent; }
         .sidebar::-webkit-scrollbar-thumb { background: rgba(92,58,107,0.3); border-radius: 10px; }
 
-        /* ─── Contenido principal ─── */
         .main-content {
             flex: 1;
             position: relative;
@@ -151,7 +148,6 @@
             margin-bottom: 4px;
         }
 
-        /* ─── Botones de navegación ─── */
         .back-link-bottom {
             color: white;
             text-decoration: none;
@@ -173,10 +169,6 @@
             box-shadow: 0 6px 20px rgba(92,58,107,0.4);
         }
 
-        /* ────────────────────────────────────────────
-            CRT RETRO TV — ESTILOS PRINCIPALES
-        ──────────────────────────────────────────── */
-
         .crt-tv-wrapper {
             width: 100%;
             max-width: 880px;
@@ -187,18 +179,13 @@
             filter: drop-shadow(0 30px 50px rgba(0,0,0,0.5));
         }
 
-        /* ── Cuerpo de la televisión — forma sólida unificada ── */
         .crt-tv-body {
             position: relative;
             width: 100%;
 
-            /* Plástico envejecido con gradientes para dar volumen real */
             background:
-                /* Reflejo superior izquierdo — luz especular */
                 radial-gradient(ellipse 60% 30% at 20% 5%, rgba(255,255,255,0.06) 0%, transparent 100%),
-                /* Degradado lateral derecho — sombra de profundidad */
                 linear-gradient(to right, rgba(0,0,0,0.18) 0%, transparent 8%, transparent 92%, rgba(0,0,0,0.25) 100%),
-                /* Degradado principal de la carcasa */
                 linear-gradient(170deg,
                     #45305e 0%,
                     #3a2950 12%,
@@ -209,38 +196,30 @@
                     #140c20 100%
                 );
 
-            /* Radios más generosos en las esquinas superiores, más suaves abajo */
+            
             border-radius: 34px 34px 16px 16px;
 
-            /* Padding asimétrico: más arriba (marca), laterales generosos, abajo para controles */
             padding: 42px 40px 26px 40px;
 
-            /* Borde físico del plástico: borde oscuro + filete claro interno */
             border: none;
             outline: none;
 
-            /* Sombras múltiples para dar ilusión de grosor y tridimensionalidad */
             box-shadow:
-                /* Filete interior superior — luz rebotada en el bisel */
                 inset 0 2px 0 rgba(255,255,255,0.08),
-                /* Bisel derecho oscuro */
+                
                 inset -4px 0 12px rgba(0,0,0,0.35),
-                /* Bisel izquierdo más suave */
+                
                 inset 4px 0 8px rgba(0,0,0,0.2),
-                /* Sombra inferior interna — grosor del plástico */
+                
                 inset 0 -3px 0 rgba(0,0,0,0.5),
-                /* Sombra de la carcasa sobre la mesa */
                 0 25px 60px rgba(0,0,0,0.6),
                 0 10px 25px rgba(0,0,0,0.45),
-                /* Halo ambiental púrpura suave */
                 0 0 80px rgba(100,60,150,0.12);
         }
 
-        /* ── Líneas de moldeado — detalle de fabricación ── */
         .crt-tv-body::before {
             content: '';
             position: absolute;
-            /* Línea horizontal de separación de molde, típica en TV vintage */
             top: 50%;
             left: 6%;
             right: 6%;
@@ -255,8 +234,6 @@
             pointer-events: none;
             z-index: 0;
         }
-
-        /* ── Reflejo plástico curvado en la parte superior ── */
         .crt-tv-body::after {
             content: '';
             position: absolute;
@@ -274,7 +251,6 @@
             z-index: 0;
         }
 
-        /* ── Ventilación trasera simulada (panel lateral decorativo) ── */
         .tv-vent-panel {
             position: absolute;
             top: 18px;
@@ -294,7 +270,6 @@
             box-shadow: inset 0 1px 1px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.04);
         }
 
-        /* ── Tornillos decorativos en esquinas ── */
         .tv-screw {
             position: absolute;
             width: 10px;
@@ -309,7 +284,6 @@
             pointer-events: none;
             z-index: 3;
         }
-        /* Cruz del tornillo */
         .tv-screw::before, .tv-screw::after {
             content: '';
             position: absolute;
@@ -324,7 +298,6 @@
         .tv-screw-bl { bottom: 14px; left: 12px; }
         .tv-screw-br { bottom: 14px; right: 12px; }
 
-        /* Detalle vintage de la TV: marca */
         .tv-brand {
             z-index: 5;
             position: absolute;
@@ -334,7 +307,6 @@
             font-family: 'Special Elite', monospace;
             font-size: 0.72rem;
             letter-spacing: 0.35em;
-            /* Logotipo embossed — efecto relieve en plástico */
             color: transparent;
             background: linear-gradient(180deg,
                 rgba(255,255,255,0.28) 0%,
@@ -349,7 +321,6 @@
             white-space: nowrap;
         }
 
-        /* ── Indicador LED de encendido ── */
         .tv-led {
             position: absolute;
             bottom: 16px;
@@ -369,42 +340,32 @@
             box-shadow: 0 0 6px 2px rgba(168,255,160,0.5), inset 0 1px 1px rgba(255,255,255,0.4);
         }
 
-        /* ── Marco/bisel empotrado de la pantalla ── */
         .crt-screen-frame {
             z-index: 1;
             position: relative;
             width: 100%;
 
-            /* Bisel profundo: color negro azulado con textura interior */
             background:
                 linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 40%),
                 linear-gradient(to bottom, #100c18 0%, #0a0712 60%, #0d0a16 100%);
 
-            /* Esquinas del bisel — más redondeadas que el cuerpo exterior */
             border-radius: 20px;
 
-            /* Padding generoso para crear el "hueco" donde va la pantalla */
             padding: 18px 20px 20px 20px;
 
-            /* Sombras que crean la sensación de profundidad y embebido */
             box-shadow:
-                /* Bisel interior profundo */
                 inset 0 6px 20px rgba(0,0,0,0.95),
                 inset 0 -4px 15px rgba(0,0,0,0.8),
                 inset 6px 0 15px rgba(0,0,0,0.7),
                 inset -6px 0 15px rgba(0,0,0,0.7),
-                /* Línea de luz en el borde superior del bisel */
                 inset 0 1px 0 rgba(255,255,255,0.05),
-                /* Sombra exterior del marco sobre el cuerpo */
                 0 0 0 2px rgba(0,0,0,0.6),
                 0 4px 12px rgba(0,0,0,0.5);
 
-            /* Borde del bisel */
             border: 3px solid #060410;
             border-top-color: #0f0a1a;
         }
 
-        /* Contenedor de la pantalla con efecto curvo CRT */
         .crt-screen {
             position: relative;
             width: 100%;
@@ -574,6 +535,10 @@
             background: #020104;
         }
 
+        .no-signal-screen.off-state .no-signal-bar {
+            display: none;
+        }
+
         .no-signal-screen .no-signal-bar {
             width: 60px;
             height: 3px;
@@ -607,7 +572,6 @@
 
         .channel-indicator.show { opacity: 1; }
 
-        /* ── Glow ambiental ── */
         .screen-glow {
             position: absolute;
             inset: -12px;
@@ -629,10 +593,6 @@
             0% { opacity: 0.6; transform: scale(1); }
             100% { opacity: 1; transform: scale(1.04); }
         }
-
-        /* ════════════════════════════════════════
-            MENÚ OSD DENTRO DE LA PANTALLA
-        ════════════════════════════════════════ */
 
         .osd-menu {
             position: absolute;
@@ -656,7 +616,6 @@
             pointer-events: all;
         }
 
-        /* Cuadro del menú OSD */
         .osd-box {
             position: relative;
             background: rgba(10, 6, 20, 0.92);
@@ -1801,7 +1760,7 @@
                         <div class="osd-menu" id="osdMenu" role="dialog" aria-label="Selección de canal">
                             <div class="osd-box">
                                 <div class="osd-title">
-                                    ADASHIMA · VISION
+                                    YASHONY CHANNELS
                                     <span>SELECCIONAR CANAL</span>
                                 </div>
                                 <div class="osd-channel-list" id="osdChannelList">
@@ -1901,7 +1860,6 @@
                             class="download-btn-tv"
                             id="downloadBtn"
                             href="#"
-                            download
                             title="Descargar episodio actual"
                         >
                             <i class="fas fa-download"></i>
@@ -1972,8 +1930,7 @@
             src: 'https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/CD%20DRAMAS/SHIMAMURA%20SWORD.mp4',
             download: 'SHIMAMURA SWORD.mp4',
             title: 'SHIMAMURA SWORD',
-            desc: 'Un divertido y encantador CD Drama extra. Escucha las aventuras y divagaciones en este escenario especial de "Shimamura Sword".',
-            badge: 'Canal 2 · Extra',
+desc: 'El momento más incómodo de la historia. Escucha el tan icónico "Shimamura Sword".',            badge: 'Canal 2 · Extra',
             sub: 'SHIMAMURA SWORD'
         },
         {
@@ -2325,9 +2282,25 @@
         setStaticIntensity(0.06);
 
         // Actualizar descarga
-        downloadBtn.href = ch.src;
-        downloadBtn.setAttribute('download', ch.download);
-        downloadLabel.textContent = 'Descargar';
+// Actualizar descarga directa (sin redirección a Cloudflare)
+downloadBtn.onclick = async (e) => {
+    e.preventDefault();
+    downloadLabel.textContent = 'Descargando...';
+    try {
+        const response = await fetch(ch.src);
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = ch.download;
+        a.click();
+        URL.revokeObjectURL(url);
+    } catch (err) {
+        console.error('Error al descargar:', err);
+        window.open(ch.src, '_blank');
+    }
+    downloadLabel.textContent = 'Descargar';
+};
 
         // Actualizar info card
         updateInfoCard(ch);
