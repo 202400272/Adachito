@@ -802,7 +802,7 @@
                             <div class="no-signal-bar" style="animation-delay:0.4s"></div>
                         </div>
 
-                        <video class="crt-video" id="crtVideo" preload="metadata" playsinline style="opacity:0;"></video>
+                        <video class="crt-video" id="crtVideo" preload="metadata" playsinline poster="Imagenes/Fondo_mini.jpeg" style="opacity:0;"></video>
 
                         <div class="channel-indicator" id="channelIndicator">CH 1</div>
 
@@ -1501,25 +1501,32 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        fetch('menu.html?v=' + Date.now())
-            .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+        const menuVer = Math.floor(Date.now() / 86400000);
+        fetch('menu.html?v=' + menuVer)
+            .then(response => {
+                if (!response.ok) throw new Error('Error HTTP ' + response.status + ' al cargar el menú');
+                return response.text();
+            })
             .then(data => {
-                const mc = document.getElementById('menu-container');
-                if (!mc) return;
-                mc.innerHTML = data;
-                mc.querySelectorAll('script').forEach(old => {
-                    const s = document.createElement('script');
-                    [...old.attributes].forEach(a => s.setAttribute(a.name, a.value));
-                    s.textContent = old.textContent;
-                    old.replaceWith(s);
+                const container = document.getElementById('sidebar-container') || document.getElementById('menu-container');
+                if (!container) return;
+                container.innerHTML = data;
+                const scripts = container.querySelectorAll('script');
+                scripts.forEach(oldScript => {
+                    const newScript = document.createElement('script');
+                    Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                    newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                    oldScript.parentNode.replaceChild(newScript, oldScript);
                 });
             })
-            .catch(e => console.warn('Menú no cargado:', e.message));
+            .catch(error => {
+                console.error('Error cargando menu.html:', error.message);
+            });
     });
 
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(e => console.warn('SW error:', e));
+            navigator.serviceWorker.register('./sw.js').catch(err => console.error('Error al registrar el Service Worker', err));
         });
     }
     </script>

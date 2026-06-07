@@ -336,7 +336,7 @@
 <body>
 
     <!-- Audio de Fondo (Mantenemos la música) -->
-    <audio id="bgMusic" loop preload="auto">
+    <audio id="bgMusic" loop preload="none">
         <source src="Sound/ada8bit.mp3" type="audio/mp3">
     </audio>
 
@@ -415,7 +415,7 @@
 
         // --- Cargar dinámicamente menu.html ---
         document.addEventListener("DOMContentLoaded", function() {
-            fetch('menu.html?v=' + Date.now())
+            fetch('menu.html?v=' + Math.floor(Date.now() / 86400000))
                 .then(response => {
                     if (!response.ok) throw new Error('Error HTTP al cargar el menú');
                     return response.text();

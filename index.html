@@ -307,26 +307,31 @@
             border-radius: 16px;
             font-size: 0.9rem;
             font-style: italic;
-            white-space: nowrap;
+            /* Permitir salto de línea y limitar ancho para evitar overflow */
+            white-space: normal;
+            max-width: calc(100vw - 80px);
+            overflow-wrap: anywhere;
+            word-break: break-word;
             opacity: 0;
             pointer-events: none;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
             border: 1px solid rgba(255,255,255,0.6);
             z-index: 100;
+            box-sizing: border-box;
         }
         /* Flecha del tooltip */
         [data-tooltip]::before {
             content: '';
             position: absolute;
-            bottom: 120%;
+            bottom: 100%;
             left: 50%;
-            transform: translateX(-50%) translateY(20px);
+            transform: translateX(-50%);
             border-width: 8px;
             border-style: solid;
             border-color: rgba(255, 255, 255, 0.95) transparent transparent transparent;
             opacity: 0;
-            transition: all 0.4s ease;
+            transition: all 0.28s ease;
         }
         .update-item:hover [data-tooltip]::after { opacity: 1; transform: translateX(-50%) translateY(0); }
         .update-item:hover [data-tooltip]::before { opacity: 1; transform: translateX(-50%) translateY(10px); }
@@ -537,7 +542,7 @@
     </div>
 
     <script>
-        fetch('menu.html?v=' + Date.now())
+        fetch('menu.html?v=' + Math.floor(Date.now() / 86400000))
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Error HTTP ' + response.status + ' al cargar el menú');

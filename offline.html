@@ -56,13 +56,44 @@
             background: rgba(255,255,255,0.4);
             border: 3px solid #d1a3c6;
             flex-shrink: 0;
-            /* Tamaño controlado por JS */
+            touch-action: none;
         }
 
         canvas {
             display: block;
             image-rendering: auto;
             image-rendering: crisp-edges;
+        }
+
+        /* ── Botón Toggle Música ── */
+        .music-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.85);
+            border: 2px solid rgba(209, 163, 198, 0.8);
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            color: #7b4f91;
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: transform 0.2s, background 0.2s;
+            outline: none;
+        }
+
+        .music-toggle:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .music-toggle:active {
+            transform: scale(0.95);
         }
 
         /* ── Panel de mecánicas (ambas plataformas) ── */
@@ -103,7 +134,7 @@
 
         .game-info strong { color: #7b4f91; }
 
-        /* ── Panel de mecánicas (ambas plataformas) — fijo en la parte inferior ── */
+        /* ── Panel de mecánicas — fijo en la parte inferior ── */
         .mechanics-panel {
             position: fixed;
             bottom: 0;
@@ -157,6 +188,7 @@
             .instructions { display: none; }
             .offline-badge { margin: 6px 0 3px; }
         }
+
         /* ════════════════════════════════════════
            CONTROLES TÁCTILES MÓVIL
            ════════════════════════════════════════ */
@@ -183,7 +215,7 @@
             background: linear-gradient(135deg, #f9c6d0 0%, #e8789a 50%, #c94f7c 100%);
             color: white;
             font-family: 'Quicksand', sans-serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 700;
             box-shadow: 0 6px 0 #a03060, 0 8px 20px rgba(201,79,124,0.4);
             cursor: pointer;
@@ -206,8 +238,7 @@
             filter: brightness(0.95);
         }
 
-        .btn-jump .btn-icon { font-size: 1.6rem; line-height: 1; }
-        .btn-jump .btn-label { font-size: 0.75rem; opacity: 0.9; letter-spacing: 0.5px; }
+        .btn-jump .btn-label { font-size: 0.85rem; opacity: 0.9; letter-spacing: 0.5px; }
 
         /* Botón de DISPARO (derecha) */
         .btn-shoot {
@@ -218,7 +249,7 @@
             background: linear-gradient(135deg, #d4b8f0 0%, #9b6fd4 50%, #6c3ab5 100%);
             color: white;
             font-family: 'Quicksand', sans-serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 700;
             box-shadow: 0 6px 0 #4a2580, 0 8px 20px rgba(108,58,181,0.4);
             cursor: pointer;
@@ -241,8 +272,7 @@
             filter: brightness(0.95);
         }
 
-        .btn-shoot .btn-icon { font-size: 1.6rem; line-height: 1; }
-        .btn-shoot .btn-label { font-size: 0.75rem; opacity: 0.9; letter-spacing: 0.5px; }
+        .btn-shoot .btn-label { font-size: 0.85rem; opacity: 0.9; letter-spacing: 0.5px; }
 
         /* Texto de ayuda entre botones */
         .mobile-hint {
@@ -253,7 +283,6 @@
             opacity: 0.8;
         }
 
-        /* ── Responsive: en pantallas pequeñas ocultamos las instrucciones ── */
         @media (max-height: 700px) {
             .instructions { display: none; }
         }
@@ -266,18 +295,28 @@
 </head>
 <body>
 
+    <!-- Audio de Fondo -->
+    <audio id="bgMusic" loop preload="none">
+        <source src="Sound/ada8bit.mp3" type="audio/mp3">
+    </audio>
+
     <div class="offline-badge">Sin conexión a internet</div>
 
     <div id="gameContainer">
         <canvas id="gameCanvas" width="800" height="300"></canvas>
+
+        <!-- Botón de Música -->
+        <button id="musicToggle" class="music-toggle" aria-label="Alternar Música">
+            🔇
+        </button>
     </div>
 
     <!-- Panel de mecánicas — visible en ambas plataformas -->
     <div class="mechanics-panel" id="mechanicsPanel">
-        <span class="mechanic-tip">🌧️ Lluvia de estrellas cada 50s · dura 15s · estrellas azules aguantan 4 disparos</span>
-        <span class="mechanic-tip">🍩 Dona de invulnerabilidad cada 60s · desaparece en 5s si no la recoges</span>
-        <span class="mechanic-tip">⚡ Velocidad sube cada ~15s · aumento notable cada ~25s</span>
-        <span class="mechanic-tip">🎮 ESPACIO saltar · ↓ boomerang · combo al esquivar</span>
+        <div class="mechanic-tip-container"><span class="mechanic-tip">Lluvia de estrellas cada 50s · dura 15s · estrellas azules aguantan 4 disparos</span></div>
+        <div class="mechanic-tip-container"><span class="mechanic-tip">Dona a partir de los 100s · luego cada 30s</span></div>
+        <div class="mechanic-tip-container"><span class="mechanic-tip">Velocidad sube cada 5s naturalmente</span></div>
+        <div class="mechanic-tip-container"><span class="mechanic-tip">ESPACIO saltar · ↓ boomerang · combo al esquivar</span></div>
     </div>
 
     <!-- Botones táctiles para móvil -->
@@ -298,11 +337,100 @@
         <h2>Presiona ESPACIO o toca la pantalla para saltar</h2>
         <div class="game-info">
             <p><strong>🌧️ Lluvia de Estrellas (cada 50 seg):</strong> Evento de 15 segundos con estrellas azules (requieren 4 disparos).</p>
-            <p><strong>🍩 Dona de Poder (cada 60 seg):</strong> ¡Recógela en 5 segundos para invulnerabilidad temporal!</p>
+            <p><strong>🍩 Dona de Poder (primer spawn a los 100s, luego cada 30s):</strong> ¡Recógela para obtener invulnerabilidad temporal!</p>
         </div>
     </div>
 
     <script>
+        // ─────────────────────────────────────────────────────────────
+        // SÍNTESIS DE AUDIO (Efectos de 8 bits)
+        // ─────────────────────────────────────────────────────────────
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function initAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new AudioContext();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playJumpSound() {
+            initAudioContext();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'square';
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+            osc.frequency.setValueAtTime(150, now);
+            osc.frequency.exponentialRampToValueAtTime(400, now + 0.1);
+
+            gain.gain.setValueAtTime(0.05, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+
+            osc.start(now);
+            osc.stop(now + 0.1);
+        }
+
+        function playDeathSound() {
+            initAudioContext();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sawtooth';
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+            osc.frequency.setValueAtTime(250, now);
+            osc.frequency.exponentialRampToValueAtTime(50, now + 0.3);
+
+            gain.gain.setValueAtTime(0.1, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+
+            osc.start(now);
+            osc.stop(now + 0.3);
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // AUDIO DE FONDO
+        // ─────────────────────────────────────────────────────────────
+        const bgMusic = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        let isMusicPlaying = false;
+
+        function toggleMusic() {
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                musicToggle.textContent = '🔇';
+                isMusicPlaying = false;
+            } else {
+                initAudioContext();
+                bgMusic.play().then(() => {
+                    musicToggle.textContent = '🔊';
+                    isMusicPlaying = true;
+                }).catch(err => console.log("Autoplay bloqueado:", err));
+            }
+        }
+
+        musicToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMusic();
+        });
+
+        // Iniciar música con la primera interacción del usuario
+        document.body.addEventListener('click', function initAudio() {
+            if (!isMusicPlaying) {
+                toggleMusic();
+            }
+            document.body.removeEventListener('click', initAudio);
+        }, { once: true });
+
         // ─────────────────────────────────────────────────────────────
         // RESPONSIVE: escalar canvas al tamaño disponible de pantalla
         // ─────────────────────────────────────────────────────────────
@@ -317,7 +445,7 @@
         const btnShoot       = document.getElementById('btnShoot');
 
         let isTouchDevice = false;
-        let canvasScale   = 1; // ratio de escala CSS (no cambia la lógica interna)
+        let canvasScale   = 1;
 
         function resizeCanvas() {
             const badge       = document.querySelector('.offline-badge');
@@ -328,19 +456,16 @@
             const availW = window.innerWidth  - padding;
             const availH = window.innerHeight - badgeH - ctrlH - padding * 2;
 
-            // Calcular escala manteniendo aspect ratio 800×300
             const scaleW = availW / CANVAS_BASE_W;
             const scaleH = availH / CANVAS_BASE_H;
-            canvasScale  = Math.min(scaleW, scaleH, isTouchDevice ? 1 : 1.5); // desktop puede agrandar hasta 1.5×
+            canvasScale  = Math.min(scaleW, scaleH, isTouchDevice ? 1 : 1.5);
 
             const displayW = Math.floor(CANVAS_BASE_W * canvasScale);
             const displayH = Math.floor(CANVAS_BASE_H * canvasScale);
 
-            // Canvas lógico siempre 800×300 (toda la lógica usa estas coords)
             canvas.width  = CANVAS_BASE_W;
             canvas.height = CANVAS_BASE_H;
 
-            // Sólo CSS cambia el tamaño visual
             canvas.style.width  = displayW + 'px';
             canvas.style.height = displayH + 'px';
             container.style.width  = displayW + 'px';
@@ -350,20 +475,18 @@
             ctx.imageSmoothingQuality  = 'high';
         }
 
-        // Detectar si es dispositivo táctil
         function detectTouch() {
             if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
                 isTouchDevice = true;
                 mobileControls.style.display = 'block';
                 const di = document.getElementById('desktopInstructions');
                 if (di) di.style.display = 'none';
-                // Panel de mecánicas sí se muestra en móvil
             }
         }
 
         detectTouch();
-        resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
+        setTimeout(resizeCanvas, 50);
 
         // ─────────────────────────────────────────────────────────────
         // ESTADO DEL JUEGO
@@ -372,21 +495,21 @@
         let score = 0;
         let highScore = localStorage.getItem('adashima_hs') || 0;
         let isGameOver = false;
-        let gameSpeed = 4;
+        let baseSpeed = 4.5;
+        let gameSpeed = baseSpeed;
         let obstacles = [];
         let spawnRate = 90;
         let particles = [];
         let combo = 0;
         let boomerangs = [];
-        let gamePhase = 1;
         let isInvulnerable = false;
         let invulnerabilityTime = 0;
         let lastDonaSpawn = -100;
         let powerUpParticles = [];
-        let lastScoreTime = 0;
         let gameTimeSeconds = 0;
         let starRainActive = false;
-        let lastStarRainTime = 0;
+        let lastStarRainTime = -100;
+        let donutSpawnActive = false;
 
         // ─────────────────────────────────────────────────────────────
         // IMÁGENES
@@ -448,6 +571,7 @@
                 if (this.grounded) {
                     this.dy = -this.jumpForce;
                     this.grounded = false;
+                    playJumpSound();
                 }
             },
 
@@ -472,10 +596,9 @@
             obstacles = [];
             score = 0;
             frames = 0;
-            gameSpeed = 4;
+            gameSpeed = baseSpeed;
             spawnRate = 90;
             isGameOver = false;
-            gamePhase = 1;
             yashiro.y = 200;
             yashiro.dy = 0;
             boomerangs = [];
@@ -486,6 +609,7 @@
             gameTimeSeconds = 0;
             starRainActive = false;
             lastStarRainTime = -100;
+            donutSpawnActive = false;
         }
 
         // ─────────────────────────────────────────────────────────────
@@ -503,7 +627,6 @@
                 typeImg = types[Math.floor(Math.random() * types.length)];
                 let randomStarY = Math.floor(Math.random() * 110) + 100;
 
-                // Meteoros con tamaño variable: 40% pequeño (35), 40% mediano (55), 20% grande (75)
                 if (typeImg === imgmeteoro) {
                     let roll = Math.random();
                     if (roll < 0.4)      size = 32;
@@ -515,8 +638,7 @@
                     yPos = randomStarY;
                 }
             } else {
-                let randomType = Math.random();
-                if (randomType > 0.6) {
+                if (Math.random() > 0.6) {
                     typeImg = imgEstrella;
                     health = 1;
                 } else {
@@ -524,8 +646,7 @@
                     health = 4;
                     isBluestar = true;
                 }
-                let randomStarY = Math.floor(Math.random() * 110) + 100;
-                yPos = randomStarY;
+                yPos = Math.floor(Math.random() * 110) + 100;
             }
 
             obstacles.push({
@@ -618,10 +739,9 @@
         // ─────────────────────────────────────────────────────────────
         function spawnDona() {
             let size = 30;
-            let randomStarY = Math.floor(Math.random() * 110) + 100;
             obstacles.push({
                 x: canvas.width,
-                y: randomStarY,
+                y: Math.floor(Math.random() * 110) + 100,
                 width: size,
                 height: size,
                 image: imgDona,
@@ -712,7 +832,6 @@
 
                 ctx.fillStyle = "rgba(255,255,255,0.8)";
                 ctx.font = "16px Quicksand";
-                // Mensaje adaptado según plataforma
                 const restartMsg = isTouchDevice
                     ? "Toca SALTAR para reiniciar"
                     : "Presiona ESPACIO o toca para reiniciar";
@@ -781,23 +900,32 @@
                 score++;
             }
 
-            // gameTimeSeconds se actualiza una vez por segundo real
+            // ── Actualización de tiempo y dificultad (cada segundo) ──
             const newTime = Math.floor(frames / 60);
             if (newTime !== gameTimeSeconds) {
                 gameTimeSeconds = newTime;
 
-                // ── Velocidad gradual y fluida ──
-                // Incremento muy pequeño cada 15s (suave)
-                if (gameTimeSeconds > 0 && gameTimeSeconds % 15 === 0) {
-                    gameSpeed = Math.min(gameSpeed + 0.15, 9);
+                // Incremento suave cada 5 segundos (igual que Juego.html)
+                if (gameTimeSeconds > 0 && gameTimeSeconds % 5 === 0) {
+                    gameSpeed = Math.min(gameSpeed + 0.15, 9.5);
+                    if (spawnRate > 50) spawnRate = Math.max(50, spawnRate - 2);
                 }
-                // Incremento algo mayor cada 30s (notable pero no brusco)
-                if (gameTimeSeconds > 0 && gameTimeSeconds % 30 === 0) {
-                    gameSpeed = Math.min(gameSpeed + 0.25, 9);
-                    if (spawnRate > 60) spawnRate = Math.max(60, spawnRate - 3);
+
+                // Dona: primer spawn a los 100s, luego cada 30s (igual que Juego.html)
+                if (gameTimeSeconds >= 100) {
+                    if (!donutSpawnActive) {
+                        donutSpawnActive = true;
+                        lastDonaSpawn = gameTimeSeconds;
+                        spawnDona();
+                    }
+                    if (donutSpawnActive && gameTimeSeconds - lastDonaSpawn >= 30) {
+                        spawnDona();
+                        lastDonaSpawn = gameTimeSeconds;
+                    }
                 }
             }
 
+            // ── Lluvia de estrellas ──
             if (gameTimeSeconds > 0 && gameTimeSeconds % 50 === 0 && gameTimeSeconds !== lastStarRainTime) {
                 starRainActive = true;
                 lastStarRainTime = gameTimeSeconds;
@@ -805,18 +933,6 @@
 
             if (starRainActive && gameTimeSeconds - lastStarRainTime >= 15) {
                 starRainActive = false;
-            }
-
-            // Dona: aparece cada 60s, se autodestruye a los 5s si no es recogida
-            if (gameTimeSeconds > 0 && gameTimeSeconds % 60 === 0 && gameTimeSeconds !== lastDonaSpawn) {
-                spawnDona();
-                lastDonaSpawn = gameTimeSeconds;
-            }
-            // Eliminar donas que llevan más de 5s en pantalla sin ser recogidas
-            for (let i = obstacles.length - 1; i >= 0; i--) {
-                if (obstacles[i].isPowerUp && gameTimeSeconds - lastDonaSpawn >= 5) {
-                    obstacles.splice(i, 1);
-                }
             }
 
             let adjustedSpawnRate = starRainActive ? 45 : spawnRate;
@@ -869,6 +985,9 @@
                     }
 
                     if (!isInvulnerable) {
+                        if (!isGameOver) {
+                            playDeathSound();
+                        }
                         isGameOver = true;
                         combo = 0;
                         spawnParticles(yashiro.x + yashiro.width/2, yashiro.y + yashiro.height/2, '#d32f2f');
@@ -968,22 +1087,18 @@
         window.addEventListener('keydown', handleKeyDown);
 
         // ─────────────────────────────────────────────────────────────
-        // INPUT: toque directo en canvas (saltar / reiniciar)
-        // Sólo para desktop táctil o cuando no hay botones móviles visibles
+        // INPUT: toque directo en canvas
         // ─────────────────────────────────────────────────────────────
         canvas.addEventListener('touchstart', (e) => {
             e.preventDefault();
-            // Si hay botones de móvil, el canvas sólo reinicia en game over
             if (isTouchDevice) {
                 if (isGameOver) { resetGame(); animate(); }
-                // Saltar se hace con el botón dedicado
             } else {
                 if (isGameOver) { resetGame(); animate(); }
                 else { yashiro.jump(); }
             }
         }, { passive: false });
 
-        // Click de ratón en canvas (desktop sin teclado)
         canvas.addEventListener('click', () => {
             if (!isTouchDevice) {
                 if (isGameOver) { resetGame(); animate(); }
@@ -994,7 +1109,6 @@
         // ─────────────────────────────────────────────────────────────
         // BOTONES MÓVILES
         // ─────────────────────────────────────────────────────────────
-        // Botón SALTAR
         btnJump.addEventListener('touchstart', (e) => {
             e.preventDefault();
             if (isGameOver) { resetGame(); animate(); }
@@ -1006,7 +1120,6 @@
             else { yashiro.jump(); }
         });
 
-        // Botón DISPARAR BOOMERANG
         btnShoot.addEventListener('touchstart', (e) => {
             e.preventDefault();
             if (!isGameOver) fireBoomerang();

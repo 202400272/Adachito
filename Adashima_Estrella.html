@@ -950,7 +950,7 @@
 </head>
 <body>
 
-<audio id="bg-audio" src="Sound/Estrella.mp3" loop preload="auto" style="display:none"></audio>
+<audio id="bg-audio" src="Sound/Estrella.mp3" loop preload="none" style="display:none"></audio>
 
 <button id="menu-button" aria-label="Abrir menú" type="button">
     <i class="fas fa-bars" aria-hidden="true"></i>
@@ -2942,6 +2942,36 @@ function flashToast(text, dur = 1800) {
     t.setAttribute('aria-hidden', 'false');
     clearTimeout(t._to);
     t._to = setTimeout(() => { t.classList.remove('show'); t.setAttribute('aria-hidden', 'true'); }, dur);
+}
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const menuVer = Math.floor(Date.now() / 86400000);
+    fetch('menu.html?v=' + menuVer)
+        .then(response => {
+            if (!response.ok) throw new Error('Error HTTP ' + response.status + ' al cargar el menú');
+            return response.text();
+        })
+        .then(data => {
+            const container = document.getElementById('sidebar-container') || document.getElementById('menu-container');
+            if (!container) return;
+            container.innerHTML = data;
+            const scripts = container.querySelectorAll('script');
+            scripts.forEach(oldScript => {
+                const newScript = document.createElement('script');
+                Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                oldScript.parentNode.replaceChild(newScript, oldScript);
+            });
+        })
+        .catch(error => console.error('Error cargando menu.html:', error.message));
+});
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(err => console.error('Error al registrar el Service Worker', err));
+    });
 }
 </script>
 

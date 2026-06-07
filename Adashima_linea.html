@@ -958,17 +958,21 @@
         window.addEventListener('load',   () => setTimeout(checkVisibility, 150));
 
         /* CARGA DEL MENÚ Y SW */
-        fetch('menu.html?v=' + Date.now())
-            .then(r => { if (!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
+        const menuVer = Math.floor(Date.now() / 86400000);
+        fetch('menu.html?v=' + menuVer)
+            .then(response => {
+                if (!response.ok) throw new Error('Error HTTP ' + response.status + ' al cargar el menú');
+                return response.text();
+            })
             .then(data => {
-                const c = document.getElementById('sidebar-container');
-                if (!c) return;
-                c.innerHTML = data;
-                c.querySelectorAll('script').forEach(old => {
+                const container = document.getElementById('sidebar-container') || document.getElementById('menu-container');
+                if (!container) return;
+                container.innerHTML = data;
+                container.querySelectorAll('script').forEach(oldScript => {
                     const s = document.createElement('script');
-                    Array.from(old.attributes).forEach(a => s.setAttribute(a.name, a.value));
-                    s.appendChild(document.createTextNode(old.innerHTML));
-                    old.parentNode.replaceChild(s, old);
+                    Array.from(oldScript.attributes).forEach(a => s.setAttribute(a.name, a.value));
+                    s.appendChild(document.createTextNode(oldScript.innerHTML));
+                    oldScript.parentNode.replaceChild(s, oldScript);
                 });
             })
             .catch(e => console.warn('menu.html no disponible:', e.message));

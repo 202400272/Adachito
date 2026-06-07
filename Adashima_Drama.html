@@ -1737,6 +1737,7 @@
                             id="crtVideo"
                             preload="metadata"
                             playsinline
+                            poster="Imagenes/FondoCD.png"
                             style="opacity:0;"
                         ></video>
 
@@ -2283,20 +2284,20 @@ desc: 'El momento más incómodo de la historia. Escucha el tan icónico "Shimam
 
         // Actualizar descarga
 // Actualizar descarga directa (sin redirección a Cloudflare)
-downloadBtn.onclick = async (e) => {
+downloadBtn.onclick = (e) => {
     e.preventDefault();
     downloadLabel.textContent = 'Descargando...';
     try {
-        const response = await fetch(ch.src);
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = url;
-        a.download = ch.download;
+        a.href = ch.src;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.download = ch.download || '';
+        document.body.appendChild(a);
         a.click();
-        URL.revokeObjectURL(url);
+        a.remove();
     } catch (err) {
-        console.error('Error al descargar:', err);
+        console.error('Error al iniciar descarga directa:', err);
         window.open(ch.src, '_blank');
     }
     downloadLabel.textContent = 'Descargar';
@@ -2645,30 +2646,31 @@ downloadBtn.onclick = async (e) => {
     /* ══════════════════════════════════════
        MENÚ DINÁMICO EXTERNO (sidebar)
     ══════════════════════════════════════ */
-    document.addEventListener("DOMContentLoaded", function () {
-        fetch('menu.html?v=' + Date.now())
-            .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+    document.addEventListener('DOMContentLoaded', function () {
+        const menuVer = Math.floor(Date.now() / 86400000);
+        fetch('menu.html?v=' + menuVer)
+            .then(response => {
+                if (!response.ok) throw new Error('Error HTTP ' + response.status + ' al cargar el menú');
+                return response.text();
+            })
             .then(data => {
-                const mc = document.getElementById('menu-container');
-                if (!mc) return;
-                mc.innerHTML = data;
-                mc.querySelectorAll('script').forEach(old => {
-                    const s = document.createElement('script');
-                    [...old.attributes].forEach(a => s.setAttribute(a.name, a.value));
-                    s.textContent = old.textContent;
-                    old.replaceWith(s);
+                const container = document.getElementById('sidebar-container') || document.getElementById('menu-container');
+                if (!container) return;
+                container.innerHTML = data;
+                const scripts = container.querySelectorAll('script');
+                scripts.forEach(oldScript => {
+                    const newScript = document.createElement('script');
+                    Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                    newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                    oldScript.parentNode.replaceChild(newScript, oldScript);
                 });
             })
-            .catch(e => console.warn('Menú no cargado:', e.message));
+            .catch(error => console.error('Error cargando menu.html:', error.message));
     });
 
-    /* ══════════════════════════════════════
-       SERVICE WORKER
-    ══════════════════════════════════════ */
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js', { scope: './' })
-                .catch(e => console.warn('SW error:', e));
+            navigator.serviceWorker.register('./sw.js').catch(err => console.error('Error al registrar el Service Worker', err));
         });
     }
     </script>

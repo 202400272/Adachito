@@ -71,6 +71,7 @@ self.addEventListener('fetch', (event) => {
     const { request } = event;
     const url = new URL(request.url);
     const isSameOrigin = url.origin === self.location.origin;
+    const EXCLUDED_HOST = 'pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev';
 
     // Solo interceptar requests del mismo origen
     if (!isSameOrigin) {
@@ -100,6 +101,12 @@ self.addEventListener('fetch', (event) => {
     }
     // Para otros recursos
     else {
+        // Evitar cachear recursos que vienen desde Cloudflare R2 público
+        if (url.host === EXCLUDED_HOST) {
+            event.respondWith(fetch(request).catch(() => caches.match(request)));
+            return;
+        }
+
         event.respondWith(
             caches.match(request)
                 .then((response) => {
@@ -108,13 +115,15 @@ self.addEventListener('fetch', (event) => {
                     }
                     return fetch(request)
                         .then((response) => {
-                            // Cachear si es una respuesta válida
-                            if (response && response.status === 200) {
-                                const clone = response.clone();
-                                caches.open(CACHE_NAME).then((cache) => {
-                                    cache.put(request, clone);
-                                });
-                            }
+                            // Cachear solo respuestas pequeñas y de mismo origen
+                            try {
+                                if (response && response.status === 200 && request.destination !== 'video' && request.destination !== 'audio' && request.destination !== 'document' && request.destination !== 'embed') {
+                                    const clone = response.clone();
+                                    caches.open(CACHE_NAME).then((cache) => {
+                                        cache.put(request, clone);
+                                    });
+                                }
+                            } catch (e) {}
                             return response;
                         })
                         .catch((error) => {
