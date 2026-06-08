@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adashima - Documentos Extra</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Quicksand:wght@300;400;500;600&family=Special+Elite&display=swap');
+
+        :root {
+            --lavender: #c9b8e8;
+            --blush: #f0c8d8;
+            --sage: #b8d4c8;
+            --cream: #faf4ee;
+            --plum: #5c3a6b;
+            --dusty-rose: #d1a3c6;
+            --warm-white: #fff8f4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fbe9e7 0%, #f3e5f5 50%, #e8eaf6 100%);
+            color: #4a3b52;
+            overflow-x: hidden;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px; height: 3px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 8px 2px rgba(255,255,255,0.7);
+            animation: float-up 10s linear infinite, twinkle 3s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes float-up {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            20% { opacity: 0.7; }
+            80% { opacity: 0.7; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { box-shadow: 0 0 5px 1px rgba(255,255,255,0.4); }
+            50% { box-shadow: 0 0 12px 3px rgba(200,180,255,0.8); }
+        }
+
+        .floating-decor {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.7;
+            animation: float-gentle 6s ease-in-out infinite alternate;
+        }
+        .floating-decor img { width: 100%; height: auto; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15)); }
+        .decor-1 { top: 12%; left: 320px; width: 85px; animation-delay: 0s; }
+        .decor-2 { top: 45%; right: 4%; width: 110px; animation-delay: -2s; animation-duration: 8s; }
+        .decor-3 { top: 80%; left: 340px; width: 75px; animation-delay: -4s; animation-duration: 7s; }
+        @keyframes float-gentle {
+            0% { transform: translateY(0) rotate(-5deg); }
+            100% { transform: translateY(-25px) rotate(5deg); }
+        }
+
+        .main-content {
+            flex: 1;
+            position: relative;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+            background: url('Imagenes/Fondo_mini.jpeg') center/cover no-repeat fixed;
+        }
+
+        .main-content::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 300px; right: 0; bottom: 0;
+            background: rgba(255,255,255,0.70);
+            z-index: -1;
+            pointer-events: none;
+            backdrop-filter: blur(4px);
+        }
+
+        .header-container {
+            width: 100%;
+            max-width: 980px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        h1.update-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 3.2rem;
+            color: #5c3a6b;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 6px;
+            text-shadow: 2px 2px 10px rgba(255,255,255,0.8);
+        }
+
+        /* ──────────────────────────────────────── 
+            SISTEMA DE TARJETAS
+        ──────────────────────────────────────── */
+        .documents-wrapper {
+            width: 100%;
+            max-width: 880px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            z-index: 10;
+        }
+
+        .document-card {
+            text-decoration: none;
+            color: inherit;
+            width: 100%;
+            background: rgba(255,255,255,0.72);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            border: 1.5px solid rgba(209,163,198,0.45);
+            padding: 24px 30px;
+            box-shadow: 0 8px 30px rgba(92,58,107,0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .document-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255,255,255,0.9);
+            box-shadow: 0 12px 40px rgba(92,58,107,0.2);
+            border-color: #d1a3c6;
+        }
+
+        .document-icon {
+            font-size: 2.8rem;
+            color: #d1a3c6;
+            flex-shrink: 0;
+            transition: transform 0.4s ease, color 0.4s ease;
+            width: 60px;
+            text-align: center;
+        }
+
+        .document-card:hover .document-icon {
+            transform: scale(1.1) rotate(-5deg);
+            color: #8c5a96;
+        }
+
+        .document-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .document-info h3 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.5rem;
+            color: #5c3a6b;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .document-info p {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            color: #4a3b52;
+            margin: 0;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .document-arrow {
+            font-size: 1.5rem;
+            color: #d1a3c6;
+            opacity: 0.6;
+            transition: all 0.4s ease;
+            margin-left: 10px;
+        }
+
+        .document-card:hover .document-arrow {
+            opacity: 1;
+            transform: translateX(6px);
+            color: #5c3a6b;
+        }
+
+        /* ──────────────────────────────────────── 
+            FOOTER Y ELEMENTOS FLOTANTES
+        ──────────────────────────────────────── */
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(92,58,107,0.8);
+            z-index: 5;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .floating-adashima {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 200px;
+            animation: float-astronaut 8s ease-in-out infinite;
+            z-index: 100;
+            filter: drop-shadow(0px 5px 10px rgba(0,0,0,0.2));
+        }
+
+        .floating-adashima img {
+            width: 100%;
+            border-radius: 0;
+            display: block;
+            object-fit: contain;
+            background: transparent;
+        }
+
+        @keyframes float-astronaut {
+            0% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-15px) rotate(5deg); }
+            66% { transform: translateY(10px) rotate(-5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @media (max-width: 992px) {
+            .decor-1, .decor-2, .decor-3 { display: none; }
+            .floating-adashima { width: 140px; bottom: 20px; right: 20px; }
+            .main-content::before { left: 0; }
+            .main-content { padding: 40px 20px; }
+            h1.update-title { font-size: 2.4rem; }
+            .document-card { flex-direction: column; text-align: center; padding: 25px 20px; gap: 15px; }
+            .document-arrow { display: none; }
+            .document-icon { font-size: 2.4rem; width: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <div class="floating-decor decor-1"><img src="Imagenes/D_1.png" alt="Decor" onerror="this.style.display='none'"></div>
+    <div class="floating-decor decor-2"><img src="Imagenes/D_2.png" alt="Decor" onerror="this.style.display='none'"></div>
+    <div class="floating-decor decor-3"><img src="Imagenes/D_3.png" alt="Decor" onerror="this.style.display='none'"></div>
+
+    <div id="menu-container" style="display: contents;"></div>
+
+    <div class="main-content">
+        <div class="header-container">
+            <h1 class="update-title">Documentos Extra</h1>
+        </div>
+
+        <div class="documents-wrapper">
+            <a href="https://drive.google.com/file/d/1wYDbFfh2676gruhCtNBSFup1DDUGyb1L/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="document-card">
+                <div class="document-icon"><i class="fas fa-comments"></i></div>
+                <div class="document-info">
+                    <h3>Entrevista</h3>
+                    <p>Entrevista relacionada con Adachi to Shimamura, con comentarios y contenido adicional para los fans de la obra.</p>
+                </div>
+                <div class="document-arrow"><i class="fas fa-chevron-right"></i></div>
+            </a>
+
+            <a href="https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/Otros/Guia%20turistica%20de%20lugares%20de%20AdaShima%20(1).pdf" target="_blank" rel="noopener noreferrer" class="document-card">
+                <div class="document-icon"><i class="fas fa-map-marked-alt"></i></div>
+                <div class="document-info">
+                    <h3>Guía turística de lugares de AdaShima</h3>
+                    <p>Guía turística que recopila y explica las ubicaciones reales que inspiraron o aparecen en Adachi to Shimamura.</p>
+                </div>
+                <div class="document-arrow"><i class="fas fa-chevron-right"></i></div>
+            </a>
+        </div>
+        
+        <div class="footer">
+            Fan site no oficial de Adachi to Shimamura.<br>
+            Creado por fans, sin fines de lucro.<br>
+            Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma.
+        </div>
+
+        <div class="floating-adashima">
+            <img src="Imagenes/A_1.png" alt="Adashima Chibi" onerror="this.style.display='none'">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Carga del menú lateral de forma dinámica
+            const menuVer = Math.floor(Date.now() / 86400000);
+            fetch('menu.html?v=' + menuVer)
+                .then(response => {
+                    if (!response.ok) throw new Error('Error HTTP ' + response.status + ' al cargar el menú');
+                    return response.text();
+                })
+                .then(data => {
+                    const container = document.getElementById('sidebar-container') || document.getElementById('menu-container');
+                    if (!container) return;
+                    container.innerHTML = data;
+                    
+                    // Re-ejecutar los scripts dentro del menú cargado
+                    const scripts = container.querySelectorAll('script');
+                    scripts.forEach(oldScript => {
+                        const newScript = document.createElement('script');
+                        Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                        newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                        oldScript.parentNode.replaceChild(newScript, oldScript);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error cargando menu.html:', error.message);
+                });
+
+            // Generación de partículas
+            const particlesContainer = document.getElementById('particles');
+            if (particlesContainer) {
+                for (let i = 0; i < 40; i++) {
+                    let star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.left = Math.random() * 100 + 'vw';
+                    star.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                    star.style.animationDelay = (Math.random() * 5) + 's';
+                    particlesContainer.appendChild(star);
+                }
+            }
+        });
+
+        // Registro del Service Worker para funcionamiento Offline
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').catch(err => console.error('Error al registrar el Service Worker', err));
+            });
+        }
+    </script>
+</body>
+</html>
