@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adashima - Manga</title>
-    <!-- Preconectar al CDN de imágenes para reducir latencia -->
+    
     <link rel="preconnect" href="https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev" crossorigin>
     <link rel="dns-prefetch" href="https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -137,7 +137,7 @@
         .update-box::-webkit-scrollbar { width: 6px; }
         .update-box::-webkit-scrollbar-thumb { background: var(--rose); border-radius: 10px; }
 
-        /* ─── Pantalla de carga global ─── */
+        
         #global-loading-screen {
             display: flex;
             flex-direction: column;
@@ -198,7 +198,7 @@
             font-weight: 600;
         }
 
-        /* ─── Overlay de verificación por capítulo ─── */
+        
         .chapter-verify-overlay {
             display: flex;
             flex-direction: column;
@@ -334,7 +334,7 @@
 
         .manga-description { color: #7b5e8c; font-size: 0.92rem; line-height: 1.6; padding: 2px 0; }
 
-        /* ─── LECTOR ─── */
+        
         .cascade-reader {
             width: 100%;
             border-radius: 16px;
@@ -671,23 +671,23 @@
     <div class="zoom-toast" id="zoom-toast"></div>
 
     <script>
-    // ═══════════════════════════════════════════════════════════════
-    //  CONFIGURACIÓN
-    // ═══════════════════════════════════════════════════════════════
+    
+    
+    
     const R2_BASE_URL = 'https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/Manga/';
 
-    // ── Versión de caché global: incrementar solo cuando cambie la estructura de carpetas/archivos
+    
     const CACHE_PREFIX   = 'adashima_ch_';
-    const CACHE_VERSION  = 'v3';
-    // Tiempo de vida del catálogo de páginas (7 días). Pasado este tiempo se re-verifica
-    // silenciosamente en segundo plano sin bloquear la UI.
+    const CACHE_VERSION  = 'v4';
+    
+    
     const CACHE_TTL_MS   = 7 * 24 * 60 * 60 * 1000;
 
     const MANGA_CONFIG = {
         get chapters() {
             const special = [5.5, 12.5, 15.2, 16.2, 17.2, 19.2, 27.2, 27.3, 27.4, 29.1, 29.2, 29.3, 30.2, 30.5, 34.2, 36.2, 38.2, 54.5];
             const list = [];
-            for (let i = 1; i <= 56; i++) if (i !== 29) list.push(i);
+            for (let i = 1; i <= 57; i++) if (i !== 29) list.push(i);
             return [...list, ...special].sort((a, b) => a - b).concat(['Antologia']);
         },
         maxPagesPerChapter: 150,
@@ -716,14 +716,14 @@
         return `Eliminadas ${keys.length} entradas de caché.`;
     };
 
-    // ═══════════════════════════════════════════════════════════════
-    //  ESTADO GLOBAL
-    // ═══════════════════════════════════════════════════════════════
+    
+    
+    
     const readerState = {};
 
-    // ═══════════════════════════════════════════════════════════════
-    //  PARTÍCULAS
-    // ═══════════════════════════════════════════════════════════════
+    
+    
+    
     (function() {
         const c = document.getElementById('particles');
         for (let i = 0; i < 50; i++) {
@@ -734,12 +734,12 @@
         }
     })();
 
-    // ─── Carga del menú ───
+    
     document.addEventListener('DOMContentLoaded', function() {
-        // Usar una versión basada en el día actual (no Date.now()) para
-        // permitir que el CDN de Cloudflare cachee el archivo menu.html
-        // y solo lo revalidar una vez al día como máximo.
-        const menuVer = Math.floor(Date.now() / 86400000); // cambia una vez al día
+        
+        
+        
+        const menuVer = Math.floor(Date.now() / 86400000); 
         fetch('menu.html?v=' + menuVer)
             .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
             .then(data => {
@@ -766,9 +766,9 @@
         });
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    //  CACHÉ LOCAL  (localStorage con versión y TTL)
-    // ═══════════════════════════════════════════════════════════════
+    
+    
+    
 
     function getCachedPages(ch) {
         try {
@@ -776,12 +776,12 @@
             if (!raw) return null;
             const { version, pages, ts } = JSON.parse(raw);
             if (version !== CACHE_VERSION || !Array.isArray(pages) || pages.length === 0) return null;
-            // Aceptar datos aunque hayan caducado: se refrescan en bg, pero no bloquean la UI
+            
             return pages;
         } catch { return null; }
     }
 
-    // Devuelve true si la entrada está caducada (o no existe)
+    
     function isCacheStale(ch) {
         try {
             const raw = localStorage.getItem(CACHE_PREFIX + ch);
@@ -800,13 +800,13 @@
                 ts: Date.now()
             }));
         } catch(e) {
-            // localStorage lleno: limpiar entradas antiguas e intentar de nuevo
+            
             pruneOldCache();
             try { localStorage.setItem(CACHE_PREFIX + ch, JSON.stringify({ version: CACHE_VERSION, pages, ts: Date.now() })); } catch {}
         }
     }
 
-    // Elimina entradas de versiones anteriores o más antiguas que 2× el TTL
+    
     function pruneOldCache() {
         try {
             const now = Date.now();
@@ -823,15 +823,15 @@
         } catch {}
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    //  CACHE STORAGE PARA PÁGINAS VISTAS (on-demand)
-    //  - Guarda imágenes que el usuario ha cargado en `caches` bajo
-    //    la llave 'adashima-manga-pages'. Mantiene un índice simple en
-    //    localStorage para recortar tamaño (LRU aproximado).
-    // ═══════════════════════════════════════════════════════════════
+    
+    
+    
+    
+    
+    
     const PAGE_CACHE_NAME = 'adashima-manga-pages-v1';
     const PAGE_CACHE_INDEX = 'adashima_manga_cache_index';
-    const PAGE_CACHE_LIMIT = 300; // máximo de imágenes a almacenar
+    const PAGE_CACHE_LIMIT = 300; 
 
     async function getCachedImageObjectURL(url) {
         try {
@@ -846,49 +846,49 @@
     async function addImageToPageCache(url) {
         try {
             const cache = await caches.open(PAGE_CACHE_NAME);
-            // Evitar re-duplicar si ya existe
+            
             const existing = await cache.match(url);
             if (existing) { updateCacheIndex(url); return; }
             const resp = await fetch(url, { cache: 'no-store' });
             if (!resp || !resp.ok) return;
             await cache.put(url, resp.clone());
             updateCacheIndex(url);
-        } catch (e) { /* no bloquear UI */ }
+        } catch (e) {  }
     }
 
     function updateCacheIndex(url) {
         try {
             const raw = localStorage.getItem(PAGE_CACHE_INDEX);
             let idx = raw ? JSON.parse(raw) : [];
-            // mover a la cabeza
+            
             idx = idx.filter(u => u !== url);
             idx.unshift(url);
-            // recortar
+            
             while (idx.length > PAGE_CACHE_LIMIT) {
                 const removed = idx.pop();
-                // eliminar del cache
+                
                 caches.open(PAGE_CACHE_NAME).then(c => c.delete(removed));
             }
             localStorage.setItem(PAGE_CACHE_INDEX, JSON.stringify(idx));
         } catch (e) {}
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    //  DETECCIÓN DE PÁGINAS (sin peticiones HEAD)
-    //  Estrategia:
-    //   1) Intentar cargar un manifiesto estático `manga-manifest.json` que
-    //      contenga el número de páginas por capítulo (más eficiente).
-    //   2) Si no existe el manifiesto, realizar una detección secuencial
-    //      de páginas por capítulo con carga de imágenes en serie (baja
-    //      concurrencia) para evitar ráfagas de peticiones y HEADs.
-    // ═══════════════════════════════════════════════════════════════
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     let _mangaManifest = null;
     async function loadMangaManifest() {
         console.log('[Manga] loadMangaManifest() start');
         if (_mangaManifest !== null) { console.log('[Manga] manifest cached in memory', _mangaManifest); return _mangaManifest; }
         try {
-            const resp = await fetch('manga-manifest.json', { cache: 'default' });
+            const resp = await fetch('manga-manifest.json?v=' + CACHE_VERSION, { cache: 'no-cache' });
             console.log('[Manga] fetch manifest response', resp && resp.status);
             if (!resp.ok) { _mangaManifest = false; console.warn('[Manga] manifest fetch not ok'); return false; }
             _mangaManifest = await resp.json();
@@ -901,18 +901,18 @@
         }
     }
 
-    // Probar páginas de forma secuencial hasta detectar la primera página ausente.
-    // Esto evita muchas peticiones paralelas y elimina el uso de HEAD.
+    
+    
     async function probeChapterSequential(ch) {
         const pages = [];
         const max = MANGA_CONFIG.maxPagesPerChapter;
-        const MAX_CONSECUTIVE_MISS = 2; // parar tras X fallos consecutivos
+        const MAX_CONSECUTIVE_MISS = 2; 
 
         let consecutiveMiss = 0;
         for (let p = 1; p <= max; p++) {
             const url = MANGA_CONFIG.imagePath(ch, p);
-            // Intentar cargar la imagen de forma ligera (Image object);
-            // hacemos un GET real, pero en serie, y paramos tras unos fallos.
+            
+            
             const ok = await new Promise(resolve => {
                 const img = new Image();
                 let settled = false;
@@ -929,7 +929,7 @@
                 consecutiveMiss++;
                 if (consecutiveMiss >= MAX_CONSECUTIVE_MISS) break;
             }
-            // Pequeña pausa para evitar ráfagas a Cloudflare
+            
             await new Promise(r => setTimeout(r, 150));
         }
         return pages;
@@ -937,11 +937,11 @@
 
     async function detectChapterPages(ch) {
         console.log(`[Manga] detectChapterPages(${ch}) start`);
-        // 1) Usar caché local si existe
+        
         const cached = getCachedPages(ch);
         if (cached) { console.log(`[Manga] chapter ${ch} loaded from local cache (${cached.length})`); return cached; }
 
-        // 2) Intentar manifiesto estático (recomendado). Forma: { "1": 24, "2": 30, "Antologia": 12 }
+        
         const manifest = await loadMangaManifest();
         if (manifest && manifest[ch] && Number.isFinite(manifest[ch]) && manifest[ch] > 0) {
             console.log(`[Manga] manifest provides ${manifest[ch]} pages for chapter ${ch}`);
@@ -951,7 +951,7 @@
             return pages;
         }
 
-        // 3) Fallback: detección secuencial en serie (sin HEADs)
+        
         console.log(`[Manga] falling back to sequential probe for chapter ${ch}`);
         const pages = await probeChapterSequential(ch);
         console.log(`[Manga] probe result for ${ch}: ${pages.length} pages`);
@@ -961,16 +961,16 @@
 
     
 
-    // ═══════════════════════════════════════════════════════════════
-    //  CARGA GLOBAL ATÓMICA: detectar todo → renderizar todo de golpe
-    // ═══════════════════════════════════════════════════════════════
-    // ═══════════════════════════════════════════════════════════════
-    //  CARGA GLOBAL: detectar todo → renderizar de golpe
-    //  — Capítulos con caché válida: instantáneos (0 peticiones)
-    //  — Capítulos caducados (>7 días): usados igualmente; refrescados
-    //    en segundo plano sin bloquear la UI
-    //  — Capítulos nuevos: detectados en lotes pequeños
-    // ═══════════════════════════════════════════════════════════════
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     async function initAllChapters() {
         const container  = document.getElementById('chapters-container');
         const fillEl     = document.getElementById('global-progress-fill');
@@ -988,21 +988,21 @@
 
         const resultMap = new Map();
         let doneCount   = 0;
-        const staleChapters = [];  // capítulos con caché válida pero caducada (revalidar en bg)
+        const staleChapters = [];  
 
-        // ── Fase 1: usar caché local (sin peticiones de red)
+        
         for (const ch of allIds) {
             const cached = getCachedPages(ch);
             if (cached) {
                 resultMap.set(String(ch), cached);
                 doneCount++;
-                // Marcar para revalidación silenciosa si el caché caducó
+                
                 if (isCacheStale(ch)) staleChapters.push(ch);
             }
         }
         setProgress(doneCount);
 
-        // Si todos los capítulos están en caché, actualizar sub-mensaje para reflejar eso
+        
         const pending = allIds.filter(ch => !resultMap.has(String(ch)));
         if (pending.length === 0 && subtitleEl) {
             subtitleEl.textContent = '¡Todo listo! Los capítulos se cargaron desde el caché.';
@@ -1010,8 +1010,8 @@
             subtitleEl.innerHTML = `${doneCount} capítulo${doneCount!==1?'s':''} cargado${doneCount!==1?'s':''} desde caché. Descargando el resto…`;
         }
 
-        // ── Fase 2: detectar pendientes (sin caché) en lotes
-        const CAP_BATCH = 3;  // conservador: pocos capítulos en paralelo
+        
+        const CAP_BATCH = 3;  
         for (let i = 0; i < pending.length; i += CAP_BATCH) {
             const batch   = pending.slice(i, i + CAP_BATCH);
             const results = await Promise.all(
@@ -1024,11 +1024,14 @@
             setProgress(doneCount);
         }
 
-        // ── Fase 3: renderizar todo el HTML de una sola vez
+        
+        
+        
+        
         let html = '';
         for (const ch of allIds) {
             const pages = resultMap.get(String(ch)) || [];
-            if (pages.length > 0) html += buildChapterHTML(ch, pages.length);
+            html += buildChapterHTML(ch, pages.length);
         }
 
         if (!html) {
@@ -1040,28 +1043,28 @@
         container.innerHTML = html;
         attachAccordionListeners();
 
-        // ── Fase 4 (background): revalidar capítulos caducados silenciosamente
-        //    Se ejecuta tras un breve retraso para no competir con la UI.
+        
+        
         if (staleChapters.length > 0) {
             setTimeout(() => revalidateStaleChapters(staleChapters), 4000);
         }
     }
 
-    // Revalida capítulos caducados uno a uno en segundo plano (sin afectar la UI)
+    
     async function revalidateStaleChapters(chapters) {
         for (const ch of chapters) {
             try {
                 const pages = await detectChapterPages(ch);
                 if (pages.length > 0) setCachedPages(ch, pages);
             } catch {}
-            // Pequeña pausa entre capítulos para no saturar Cloudflare
+            
             await new Promise(r => setTimeout(r, 300));
         }
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    //  CONSTRUCCIÓN HTML DE CAPÍTULO
-    // ═══════════════════════════════════════════════════════════════
+    
+    
+    
     function buildChapterHTML(ch, pageCount) {
         const pagesArr = [];
         for (let p = 1; p <= pageCount; p++) pagesArr.push(MANGA_CONFIG.imagePath(ch, p));
@@ -1083,7 +1086,7 @@
             <div class="manga-content">
                 ${desc ? `<div class="manga-description"><p>${desc}</p></div>` : ''}
 
-                <!-- Overlay de verificación: visible hasta que el lector esté listo -->
+                
                 <div class="chapter-verify-overlay" id="verify-overlay-${ch}">
                     <div class="chapter-verify-spinner"></div>
                     <div class="chapter-verify-text">Preparando capítulo…</div>
@@ -1093,7 +1096,7 @@
                     <span class="chapter-verify-sublabel" id="verify-label-${ch}">Verificando imágenes</span>
                 </div>
 
-                <!-- Lector: oculto hasta verificación completa -->
+                
                 <div class="cascade-reader" id="cascade-reader-${ch}"
                      data-pages="${dataPagesAttr}" data-chapter="${ch}"
                      style="display:none;">
@@ -1160,9 +1163,9 @@
         </details>`;
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    //  ACORDEÓN
-    // ═══════════════════════════════════════════════════════════════
+    
+    
+    
     function attachAccordionListeners() {
         document.querySelectorAll('details.manga-item').forEach(d => attachSingleListener(d));
     }
@@ -1172,7 +1175,7 @@
         detail.dataset.listenerAttached = '1';
         detail.addEventListener('toggle', () => {
             if (!detail.open) return;
-            // Cerrar otros
+            
             document.querySelectorAll('details.manga-item').forEach(other => {
                 if (other !== detail && other.open) other.removeAttribute('open');
             });
@@ -1183,13 +1186,13 @@
         });
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    //  VERIFICACIÓN DE IMÁGENES ANTES DE ABRIR EL LECTOR
-    //  — Si todas las páginas ya están en headCache (pre-sembradas
-    //    desde el caché local), se abre el lector sin peticiones.
-    //  — Solo verifica las URLs realmente desconocidas.
-    // ═══════════════════════════════════════════════════════════════
-    const chVerifyState = {};   // ch → 'verifying' | 'ready'
+    
+    
+    
+    
+    
+    
+    const chVerifyState = {};   
 
     async function verifyAndOpenChapter(ch) {
         if (chVerifyState[ch] === 'ready')     { openReader(ch); return; }
@@ -1203,12 +1206,26 @@
         if (!reader) return;
 
         const raw   = reader.getAttribute('data-pages') || '';
-        const pages = raw.split('|').map(s => s.trim()).filter(Boolean);
-        const total = pages.length;
+        let pages = raw.split('|').map(s => s.trim()).filter(Boolean);
+        let total = pages.length;
 
-        if (total === 0) { chVerifyState[ch] = 'ready'; openReader(ch); return; }
+        
+        
+        
+        if (total === 0) {
+            try {
+                const detected = await detectChapterPages(ch);
+                if (detected && detected.length > 0) {
+                    pages = detected.slice();
+                    total = pages.length;
+                    
+                    reader.setAttribute('data-pages', pages.join('|'));
+                    setCachedPages(ch, pages);
+                }
+            } catch (e) {  }
+        }
 
-        // Abrir directamente si ya hay URLs conocidas (manifest o cache local)
+        
         if (pages.length > 0) {
             if (fillEl)  fillEl.style.width  = '100%';
             if (labelEl) labelEl.textContent  = `${total} / ${total} páginas listas`;
@@ -1218,7 +1235,7 @@
             return;
         }
 
-        // Si no hay páginas (total === 0) se abrió arriba; aquí no debería llegar
+        
         chVerifyState[ch] = 'ready';
         openReader(ch);
     }
@@ -1233,9 +1250,9 @@
 
     function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-    // ═══════════════════════════════════════════════════════════════
-    //  INICIALIZACIÓN DEL LECTOR
-    // ═══════════════════════════════════════════════════════════════
+    
+    
+    
     function initReader(ch) {
         const reader = document.getElementById('cascade-reader-' + ch);
         const area   = document.getElementById('cascade-area-' + ch);
@@ -1261,9 +1278,9 @@
         attachSwipe(ch);
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    //  CASCADA
-    // ═══════════════════════════════════════════════════════════════
+    
+    
+    
     function buildCascadeContent(ch) {
         const state   = readerState[ch];
         const area    = document.getElementById('cascade-area-' + ch);
@@ -1283,7 +1300,7 @@
                 const img = entry.target;
                 if (img.dataset.lazySrc && !img.dataset.lazyLoaded) {
                     img.dataset.lazyLoaded = '1';
-                    // Preferir Cache Storage si está disponible
+                    
                     const urlToLoad = img.dataset.lazySrc;
                     getCachedImageObjectURL(urlToLoad).then(blobUrl => {
                         img.src = blobUrl || urlToLoad;
@@ -1291,7 +1308,7 @@
                 }
                 lazyObs.unobserve(img);
             });
-        // rootMargin: precargar 2 pantallas por adelantado (ahorra tiempo sin descargar todo)
+        
         }, { root: area, rootMargin: '200% 0px', threshold: 0 });
 
         state.pages.forEach((url, index) => {
@@ -1313,7 +1330,7 @@
             label.className = 'cascade-page-number';
             label.textContent = `${pageNum} / ${totalPages}`;
 
-            // ── Reintento automático ante error de red (hasta 3 veces)
+            
             let retryCount = 0;
             img.onerror = function() {
                 if (retryCount < 3) {
@@ -1332,7 +1349,7 @@
                 skeleton.remove();
                 requestAnimationFrame(() => img.classList.add('loaded'));
                 loadedCount++;
-                // Guardar versión en Cache Storage en background
+                
                 try { addImageToPageCache(url); } catch(e) {}
                 if (loadedCount >= HIDE_AFTER && loading) loading.classList.remove('visible');
             };
@@ -1340,7 +1357,7 @@
             if (pageNum <= 5) {
                 img.fetchPriority = pageNum <= 2 ? 'high' : 'auto';
                 img.loading = 'eager';
-                // Preferir imagen desde Cache Storage si está disponible
+                
                 getCachedImageObjectURL(url).then(blobUrl => {
                     if (blobUrl) {
                         img.src = blobUrl;
@@ -1395,9 +1412,9 @@
         if (curEl) curEl.textContent = current;
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    //  MODO
-    // ═══════════════════════════════════════════════════════════════
+    
+    
+    
     function setMode(ch, mode) {
         const s = readerState[ch];
         if (!s) return;
@@ -1430,9 +1447,9 @@
         updateZoomDisplay(ch);
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    //  PAGINADO
-    // ═══════════════════════════════════════════════════════════════
+    
+    
+    
     function renderPagedPage(ch, pageNum, direction) {
         const s = readerState[ch];
         if (!s) return;
@@ -1483,16 +1500,16 @@
         };
 
 
-        // Cargar igual que en modo 'cascade': asignar URL directamente para evitar bloqueos.
-        // Seguimos aprovechando Cache Storage en background (preloadNeighbors) pero no esperamos por él.
+        
+        
         img.alt = `Cap. ${ch} — Pág. ${pageNum}`;
         img.loading = 'eager';
         img.decoding = 'async';
         img.src = targetUrl;
-        // Guardar en cache en background cuando cargue desde red
+        
         img.addEventListener('load', function onLoadOnce() { img.removeEventListener('load', onLoadOnce); try { addImageToPageCache(targetUrl); } catch(e){} });
 
-        // Preload (cache) vecinos de forma escalonada para evitar ráfagas
+        
         preloadNeighbors(ch, pageNum);
         updateThumbHighlight(ch, pageNum);
     }
@@ -1510,14 +1527,14 @@
             const n = pageNum + d;
             if (n < 1 || n > s.pages.length) return;
             const url = s.pages[n - 1];
-            // Escalonar prefetch para no generar ráfagas de peticiones
+            
             setTimeout(() => { try { addImageToPageCache(url); } catch(e){} }, 180 * (i + 1));
         });
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    //  MINIATURAS
-    // ═══════════════════════════════════════════════════════════════
+    
+    
+    
     function buildPagedThumbs(ch) {
         const s   = readerState[ch];
         const row = document.getElementById('thumbs-row-' + ch);
@@ -1555,9 +1572,9 @@
         });
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    //  ZOOM
-    // ═══════════════════════════════════════════════════════════════
+    
+    
+    
     function zoomIn(ch)    { applyZoomDelta(ch, +10); }
     function zoomOut(ch)   { applyZoomDelta(ch, -10); }
     function zoomReset(ch) {

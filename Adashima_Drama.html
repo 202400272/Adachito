@@ -67,7 +67,7 @@
             50% { box-shadow: 0 0 12px 3px rgba(200,180,255,0.8); }
         }
 
-        /* ─── Elementos flotantes decorativos ─── */
+        
         .floating-decor {
             position: absolute;
             pointer-events: none;
@@ -372,32 +372,32 @@
             aspect-ratio: 16/9;
             background: #000;
 
-            /* Pantalla ligeramente curvada como CRT real */
+            
             border-radius: 8px / 6px;
             overflow: hidden;
 
-            /* Sombra interior para dar sensación de hundimiento */
+            
             box-shadow:
                 inset 0 0 60px rgba(0,0,0,0.7),
                 inset 0 0 15px rgba(0,0,0,0.5),
-                /* Borde interior de la pantalla — profundidad */
+                
                 inset 0 2px 4px rgba(0,0,0,0.9),
                 inset 0 -2px 4px rgba(0,0,0,0.9),
-                /* Glow ambiental cuando está encendida */
+                
                 0 0 20px rgba(80,40,120,0.15);
 
-            /* Brillo controlado por JS */
+            
             filter: brightness(var(--brightness-level));
             transition: filter 0.15s ease;
         }
 
-        /* Curvatura tipo CRT — viñeteado perimetral */
+        
         .crt-screen::before {
             content: '';
             position: absolute;
             inset: -1px;
             background:
-                /* Oscurecimiento perimetral — curvatura CRT */
+                
                 radial-gradient(ellipse 95% 90% at 50% 50%,
                     transparent 52%,
                     rgba(0,0,0,0.35) 75%,
@@ -408,19 +408,19 @@
             border-radius: inherit;
         }
 
-        /* Reflejo/brillo de pantalla — más realista */
+        
         .crt-screen::after {
             content: '';
             position: absolute;
             inset: 0;
             background:
-                /* Reflejo principal diagonal — luz de sala */
+                
                 linear-gradient(135deg,
                     rgba(255,255,255,0.06) 0%,
                     rgba(255,255,255,0.025) 25%,
                     transparent 55%
                 ),
-                /* Resplandor suave en borde superior */
+                
                 linear-gradient(180deg,
                     rgba(255,255,255,0.03) 0%,
                     transparent 30%
@@ -430,7 +430,7 @@
             border-radius: inherit;
         }
 
-        /* El video dentro de la pantalla */
+        
         .crt-video {
             position: absolute;
             inset: 0;
@@ -444,7 +444,7 @@
             transition: opacity 0.3s;
         }
 
-        /* ── Scanlines ── */
+        
         .scanlines-overlay {
             position: absolute;
             inset: 0;
@@ -460,7 +460,7 @@
             );
         }
 
-        /* ── Ruido estático CRT ── */
+        
         .static-overlay {
             position: absolute;
             inset: 0;
@@ -483,7 +483,7 @@
             100% { background-position: 12px 5px; }
         }
 
-        /* ── Interferencia de cambio de canal ── */
+        
         .interference-overlay {
             position: absolute;
             inset: 0;
@@ -501,7 +501,7 @@
             transition: opacity 0.1s;
         }
 
-        /* ── Flash de encendido ── */
+        
         .power-flash {
             position: absolute;
             inset: 0;
@@ -512,7 +512,7 @@
             pointer-events: none;
         }
 
-        /* ── Pantalla apagada (sin señal) ── */
+        
         .no-signal-screen {
             position: absolute;
             inset: 0;
@@ -552,7 +552,7 @@
             100% { opacity: 1; transform: scaleX(1); }
         }
 
-        /* ── Indicador de canal OSD ── */
+        
         .channel-indicator {
             position: absolute;
             top: 14px;
@@ -607,7 +607,7 @@
             transition: opacity 0.3s ease;
             background: rgba(4, 2, 10, 0.78);
             border-radius: inherit;
-            /* Efecto scanlines sobre el menú */
+            
             backdrop-filter: contrast(1.05);
         }
 
@@ -628,7 +628,7 @@
                 0 0 0 1px rgba(200,160,220,0.1),
                 0 0 30px rgba(160,100,220,0.15),
                 inset 0 0 20px rgba(0,0,0,0.5);
-            /* Animación de entrada */
+            
             transform: translateY(6px) scale(0.97);
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
@@ -637,7 +637,7 @@
             transform: translateY(0) scale(1);
         }
 
-        /* Línea decorativa superior OSD */
+        
         .osd-box::before {
             content: '';
             position: absolute;
@@ -666,7 +666,7 @@
             letter-spacing: 0.2em;
         }
 
-        /* Lista de canales OSD */
+        
         .osd-channel-list {
             display: flex;
             flex-direction: column;
@@ -763,7 +763,7 @@
             100% { opacity: 1; box-shadow: 0 0 10px rgba(209,163,198,0.8); }
         }
 
-        /* Pie del menú OSD */
+        
         .osd-footer {
             margin-top: 14px;
             padding-top: 10px;
@@ -775,7 +775,7 @@
             text-align: center;
         }
 
-        /* Scanlines sobre el menú */
+        
         .osd-menu::after {
             content: '';
             position: absolute;
@@ -794,9 +794,7 @@
 
         .osd-box { z-index: 2; }
 
-        /* ────────────────────────────────────────
-            CONTROLES DEL TV
-        ──────────────────────────────────────── */
+        
 
         .tv-controls-row {
             display: flex;
@@ -806,12 +804,12 @@
             margin-top: 18px;
             padding: 12px 8px 4px;
             flex-wrap: wrap;
-            /* Línea de separación embebida — bisel entre pantalla y controles */
+            
             border-top: 1px solid rgba(0,0,0,0.4);
             position: relative;
         }
 
-        /* Luz rebotada encima de los controles */
+        
         .tv-controls-row::before {
             content: '';
             position: absolute;
@@ -827,21 +825,21 @@
             );
         }
 
-        /* Lado izquierdo */
+        
         .tv-controls-left {
             display: flex;
             align-items: center;
             gap: 14px;
         }
 
-        /* Grupo de botones físicos (power + menu + play) */
+        
         .btn-group-physical {
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        /* Botón de encendido */
+        
         .power-btn {
             width: 44px;
             height: 44px;
@@ -876,7 +874,7 @@
         .power-btn:hover { transform: scale(1.08); }
         .power-btn:active { transform: scale(0.96); }
 
-        /* Botón MENU */
+        
         .menu-btn {
             width: 44px;
             height: 44px;
@@ -907,7 +905,7 @@
             box-shadow: 0 3px 8px rgba(0,0,0,0.4), 0 0 10px rgba(209,163,198,0.25);
         }
 
-        /* Botón PLAY/PAUSE físico */
+        
         .playpause-btn {
             width: 44px;
             height: 44px;
@@ -940,7 +938,7 @@
             transform: none;
         }
 
-        /* Separador decorativo */
+        
         .ctrl-separator {
             width: 2px;
             height: 28px;
@@ -949,7 +947,7 @@
             flex-shrink: 0;
         }
 
-        /* Labels debajo de botones */
+        
         .btn-labeled {
             display: flex;
             flex-direction: column;
@@ -965,14 +963,14 @@
             text-transform: uppercase;
         }
 
-        /* Lado derecho */
+        
         .tv-controls-right {
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        /* ── Perillas funcionales VOL / BRT ── */
+        
         .tv-knob {
             display: flex;
             flex-direction: column;
@@ -988,7 +986,7 @@
             letter-spacing: 0.1em;
         }
 
-        /* Contenedor del arco + perilla */
+        
         .knob-ring-wrap {
             position: relative;
             width: 54px;
@@ -998,7 +996,7 @@
             justify-content: center;
         }
 
-        /* SVG de arco de fondo */
+        
         .knob-arc-svg {
             position: absolute;
             inset: 0;
@@ -1008,7 +1006,7 @@
             overflow: visible;
         }
 
-        /* Arco de fondo (gris apagado) */
+        
         .knob-arc-bg {
             fill: none;
             stroke: rgba(255,255,255,0.07);
@@ -1016,7 +1014,7 @@
             stroke-linecap: round;
         }
 
-        /* Arco de valor (coloreado dinámicamente) */
+        
         .knob-arc-fill {
             fill: none;
             stroke: rgba(209,163,198,0.55);
@@ -1025,7 +1023,7 @@
             transition: stroke-dashoffset 0.06s linear, stroke 0.15s;
         }
 
-        /* Marcas - y + en los extremos del arco */
+        
         .knob-mark {
             position: absolute;
             font-family: 'Special Elite', monospace;
@@ -1043,7 +1041,7 @@
             color: rgba(209,163,198,0.45);
         }
 
-        /* Flechas de dirección — aparecen al interactuar */
+        
         .knob-dir-hint {
             position: absolute;
             top: 50%;
@@ -1094,7 +1092,7 @@
             box-shadow: 0 3px 8px rgba(0,0,0,0.5), 0 0 8px rgba(209,163,198,0.18), inset 0 1px 3px rgba(255,255,255,0.1);
         }
 
-        /* Indicador de posición de la perilla */
+        
         .knob-indicator {
             position: absolute;
             top: 5px;
@@ -1104,13 +1102,13 @@
             background: rgba(255,255,255,0.55);
             border-radius: 2px;
             transform-origin: bottom center;
-            /* transform se aplica via JS */
+            
         }
 
-        /* OSD retro de valor — aparece durante interacción */
+        
         .knob-osd {
             position: absolute;
-            /* Encima del knob: lo ubicamos vía JS según si hay espacio */
+            
             bottom: calc(100% + 10px);
             left: 50%;
             transform: translateX(-50%);
@@ -1148,7 +1146,7 @@
             line-height: 1;
         }
 
-        /* Barra de nivel OSD */
+        
         .knob-osd-bar-wrap {
             width: 52px;
             height: 4px;
@@ -1164,7 +1162,7 @@
             transition: width 0.06s linear;
         }
 
-        /* Scanlines sobre el OSD */
+        
         .knob-osd::after {
             content: '';
             position: absolute;
@@ -1180,7 +1178,7 @@
             border-radius: inherit;
         }
 
-        /* Tooltip simple de valor (hover sin drag) */
+        
         .knob-value-tip {
             position: absolute;
             bottom: calc(100% + 6px);
@@ -1201,10 +1199,10 @@
             z-index: 100;
         }
 
-        /* Mostrar tooltip simple solo en hover SIN drag */
+        
         .tv-knob:hover:not(.dragging) .knob-value-tip { opacity: 1; }
 
-        /* Botón de pantalla completa */
+        
         .fullscreen-btn {
             width: 44px;
             height: 44px;
@@ -1227,11 +1225,9 @@
             box-shadow: 0 5px 14px rgba(0,0,0,0.4);
         }
 
-        /* ────────────────────────────────────────
-            MODO FULLSCREEN — reproductor nativo
-        ──────────────────────────────────────── */
+        
 
-        /* Cuando el crtScreen está en fullscreen, mostramos el video con controles normales */
+        
         #crtScreen:fullscreen,
         #crtScreen:-webkit-full-screen {
             background: #000;
@@ -1241,7 +1237,7 @@
             justify-content: center;
         }
 
-        /* En fullscreen: ocultar todo excepto el video */
+        
         #crtScreen:fullscreen .screen-glow,
         #crtScreen:fullscreen .no-signal-screen,
         #crtScreen:fullscreen .channel-indicator,
@@ -1263,7 +1259,7 @@
             display: none !important;
         }
 
-        /* En fullscreen: el video ocupa toda la pantalla con controles nativos */
+        
         #crtScreen:fullscreen .crt-video,
         #crtScreen:-webkit-full-screen .crt-video {
             position: static !important;
@@ -1275,7 +1271,7 @@
             filter: none !important;
         }
 
-        /* Eliminar curvatura CRT en fullscreen */
+        
         #crtScreen:fullscreen::before,
         #crtScreen:fullscreen::after,
         #crtScreen:-webkit-full-screen::before,
@@ -1283,7 +1279,7 @@
             display: none !important;
         }
 
-        /* Botón de descarga */
+        
         .download-btn-tv {
             display: inline-flex;
             align-items: center;
@@ -1307,7 +1303,7 @@
             box-shadow: 0 6px 18px rgba(92,58,107,0.45);
         }
 
-        /* ── Pie de la TV ── */
+        
         .tv-bottom-section {
             display: flex;
             justify-content: center;
@@ -1317,7 +1313,7 @@
             position: relative;
         }
 
-        /* Cuello del soporte */
+        
         .tv-stand-neck {
             position: absolute;
             top: 0;
@@ -1356,7 +1352,7 @@
             z-index: 0;
         }
 
-        /* Patas de la TV */
+        
         .tv-feet {
             position: absolute;
             bottom: -8px;
@@ -1375,9 +1371,7 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.5);
         }
 
-        /* ────────────────────────────────────────
-            INFO DEL CANAL ACTIVO
-        ──────────────────────────────────────── */
+        
 
         .channel-info-card {
             width: 100%;
@@ -1431,9 +1425,7 @@
             flex-shrink: 0;
         }
 
-        /* ────────────────────────────────────────
-            ANIMACIONES CRT ESPECIALES
-        ──────────────────────────────────────── */
+        
 
         @keyframes crtPowerOn {
             0%   { clip-path: inset(50% 0 50% 0); opacity: 0.3; filter: brightness(3); }
@@ -1471,7 +1463,7 @@
             animation: crtPowerOff 0.6s ease-in forwards;
         }
 
-        /* ── Estado de carga ── */
+        
         .loading-indicator {
             position: absolute;
             inset: 0;
@@ -1517,7 +1509,7 @@
             text-transform: uppercase;
         }
 
-        /* ── Footer ── */
+        
         .footer {
             margin-top: 30px;
             text-align: center;
@@ -1549,9 +1541,7 @@
             100% { transform: translateY(0px) rotate(0deg); }
         }
 
-        /* ────────────────────────────────────────
-            RESPONSIVE
-        ──────────────────────────────────────── */
+        
 
         @media (max-width: 768px) {
             .tv-brand {
@@ -1604,9 +1594,9 @@
             .floating-adashima { width: 100px; bottom: 10px; right: 10px; }
             .floating-decor { display: none; }
             .tv-knob { display: none; }
-            /* En móvil ocultamos perillas para no desperdiciar espacio */
+            
 
-            /* Menú OSD adaptado a móvil */
+            
             .osd-box {
                 min-width: 160px;
                 padding: 16px 18px 18px;
@@ -1632,11 +1622,11 @@
 
             .back-link-bottom { width: 90%; justify-content: center; margin: 20px auto; }
 
-            /* En móvil muy pequeño, el menú OSD no tape el video con overlay grande */
+            
             .osd-menu { background: rgba(4, 2, 10, 0.88); }
         }
 
-        /* ── Speaker grill ── */
+        
         .tv-speaker-grill {
             position: absolute;
             bottom: 56px;
@@ -1656,7 +1646,7 @@
             box-shadow: inset 0 1px 1px rgba(0,0,0,0.8), 0 1px 0 rgba(255,255,255,0.03);
         }
 
-        /* Reducir el ancho del slot para crear efecto de rejilla */
+        
         .tv-speaker-slot:nth-child(odd) { width: 90%; }
         .tv-speaker-slot:nth-child(even) { width: 75%; }
 
@@ -1910,9 +1900,7 @@
 
     </div>
     <script>
-    /* ══════════════════════════════════════════
-       CRT TV — SISTEMA COMPLETO
-    ══════════════════════════════════════════ */
+    
 
     const CHANNELS = [
         {
@@ -1946,18 +1934,18 @@ desc: 'El momento más incómodo de la historia. Escucha el tan icónico "Shimam
         }
     ];
 
-    /* ── Estado ── */
+    
     const state = {
         powered: false,
         currentChannel: -1,
         switching: false,
         menuOpen: false,
         playing: false,
-        volume: 1,       // 0–1
-        brightness: 1    // 0.3–1.5
+        volume: 1,       
+        brightness: 1    
     };
 
-    /* ── Referencias DOM ── */
+    
     const crtScreen       = document.getElementById('crtScreen');
     const crtVideo        = document.getElementById('crtVideo');
     const noSignal        = document.getElementById('noSignal');
@@ -1981,9 +1969,7 @@ desc: 'El momento más incómodo de la historia. Escucha el tan icónico "Shimam
     const osdChannelList  = document.getElementById('osdChannelList');
     const tvLed           = document.getElementById('tvLed');
 
-    /* ────────────────────────────
-       CONSTRUCCIÓN MENÚ OSD
-    ──────────────────────────── */
+    
     function buildOsdMenu() {
         osdChannelList.innerHTML = '';
         CHANNELS.forEach((ch, i) => {
@@ -2013,9 +1999,7 @@ desc: 'El momento más incómodo de la historia. Escucha el tan icónico "Shimam
         });
     }
 
-    /* ────────────────────────────
-       UTILIDADES
-    ──────────────────────────── */
+    
     function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 
     function showChannelIndicator(text) {
@@ -2043,9 +2027,7 @@ desc: 'El momento más incómodo de la historia. Escucha el tan icónico "Shimam
         interference.style.opacity = '0';
     }
 
-    /* ────────────────────────────
-       PLAY / PAUSE
-    ──────────────────────────── */
+    
     function updatePlayPauseBtn() {
         if (state.playing) {
             playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
@@ -2076,9 +2058,7 @@ desc: 'El momento más incómodo de la historia. Escucha el tan icónico "Shimam
         updatePlayPauseBtn();
     });
 
-    /* ────────────────────────────
-       MENÚ OSD
-    ──────────────────────────── */
+    
     function openMenu() {
         if (!state.powered) return;
         state.menuOpen = true;
@@ -2097,26 +2077,24 @@ desc: 'El momento más incómodo de la historia. Escucha el tan icónico "Shimam
         state.menuOpen ? closeMenu() : openMenu();
     }
 
-    // Cerrar menú con Escape
+    
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && state.menuOpen) closeMenu();
     });
 
-    /* ────────────────────────────
-       ENCENDER TV
-    ──────────────────────────── */
+    
     async function powerOn() {
         if (state.powered || state.switching) return;
         state.switching = true;
 
-        // Flash blanco de encendido
+        
         powerFlash.style.transition = 'opacity 0.05s';
         powerFlash.style.opacity = '1';
         await wait(60);
         powerFlash.style.transition = 'opacity 0.3s';
         powerFlash.style.opacity = '0';
 
-        // Ocultar pantalla apagada, mostrar "sin señal activa"
+        
         noSignal.style.transition = 'opacity 0.3s';
         noSignal.style.opacity = '0';
         await wait(300);
@@ -2124,11 +2102,11 @@ desc: 'El momento más incómodo de la historia. Escucha el tan icónico "Shimam
         noSignalText.textContent = 'SIN SEÑAL';
         noSignal.style.opacity = '0';
 
-        // Estática inicial de encendido
+        
         setStaticIntensity(0.6);
         await wait(400);
 
-        // Mostrar "sin señal" con estática
+        
         noSignal.style.display = 'flex';
         noSignal.style.transition = 'opacity 0.4s';
         noSignal.style.opacity = '1';
@@ -2142,31 +2120,29 @@ desc: 'El momento más incómodo de la historia. Escucha el tan icónico "Shimam
         state.powered = true;
         state.switching = false;
 
-        // Habilitar botones
+        
         menuBtn.disabled = false;
-        playPauseBtn.disabled = true; // se habilita al seleccionar canal
+        playPauseBtn.disabled = true; 
 
         await wait(800);
         crtScreen.classList.remove('powered-on');
 
-        // Reducir estática a mínimo continuo
+        
         setStaticIntensity(0.08);
     }
 
-    /* ────────────────────────────
-       APAGAR TV
-    ──────────────────────────── */
+    
     async function powerOff() {
         if (!state.powered || state.switching) return;
         state.switching = true;
 
-        // Cerrar menú si estaba abierto
+        
         closeMenu();
 
-        // Pausar video
+        
         crtVideo.pause();
 
-        // Interferencia de apagado
+        
         setStaticIntensity(1);
         await wait(150);
 
@@ -2179,7 +2155,7 @@ desc: 'El momento más incómodo de la historia. Escucha el tan icónico "Shimam
         crtVideo.style.opacity = '0';
         crtVideo.src = '';
 
-        // Mostrar pantalla apagada (oscura, sin "sin señal")
+        
         noSignal.classList.add('off-state');
         noSignalText.textContent = '';
         noSignal.style.display = 'flex';
@@ -2192,19 +2168,19 @@ desc: 'El momento más incómodo de la historia. Escucha el tan icónico "Shimam
         powerBtn.classList.remove('on');
         if (tvLed) tvLed.classList.remove('on');
 
-        // Limpiar estado de canal
+        
         state.currentChannel = -1;
         state.playing = false;
         state.powered = false;
         state.switching = false;
 
-        // Deshabilitar botones
+        
         menuBtn.disabled = true;
         menuBtn.classList.remove('active');
         playPauseBtn.disabled = true;
         updatePlayPauseBtn();
 
-        // Restablecer perillas a valores por defecto (natural, con pequeño delay)
+        
         setTimeout(() => {
             volKnobCtrl.reset();
             brtKnobCtrl.reset();
@@ -2217,9 +2193,7 @@ desc: 'El momento más incómodo de la historia. Escucha el tan icónico "Shimam
         updateInfoCard(null);
     }
 
-    /* ────────────────────────────
-       CAMBIAR CANAL
-    ──────────────────────────── */
+    
     async function switchChannel(index) {
         if (!state.powered || state.switching) return;
         if (index === state.currentChannel) return;
@@ -2227,17 +2201,17 @@ desc: 'El momento más incómodo de la historia. Escucha el tan icónico "Shimam
         const ch = CHANNELS[index];
         state.switching = true;
 
-        // Indicador de canal OSD
+        
         showChannelIndicator(ch.label);
 
-        // Efecto de cambio de canal
+        
         setStaticIntensity(1);
         await playInterference(450);
 
-        // Animación colapso + expansión
+        
         crtVideo.classList.add('channel-switching');
 
-        // Ocultar la pantalla "sin señal" si estaba visible
+        
         if (noSignal.style.display !== 'none') {
             noSignal.style.transition = 'opacity 0.2s';
             noSignal.style.opacity = '0';
@@ -2245,10 +2219,10 @@ desc: 'El momento más incómodo de la historia. Escucha el tan icónico "Shimam
             noSignal.style.display = 'none';
         }
 
-        // Mostrar loading
+        
         loadingInd.classList.add('show');
 
-        // Cambiar fuente sin reiniciar si es el mismo src
+        
         if (crtVideo.src !== new URL(ch.src, location.href).href) {
             crtVideo.pause();
             crtVideo.src = ch.src;
@@ -2257,7 +2231,7 @@ desc: 'El momento más incómodo de la historia. Escucha el tan icónico "Shimam
 
         crtVideo.style.opacity = '1';
 
-        // Esperar que pueda reproducirse
+        
         await new Promise((resolve) => {
             if (crtVideo.readyState >= 3) { resolve(); return; }
             const onCanPlay = () => {
@@ -2275,15 +2249,15 @@ desc: 'El momento más incómodo de la historia. Escucha el tan icónico "Shimam
             setTimeout(resolve, 5000);
         });
 
-        // Ocultar loading
+        
         loadingInd.classList.remove('show');
 
         await wait(100);
         crtVideo.classList.remove('channel-switching');
         setStaticIntensity(0.06);
 
-        // Actualizar descarga
-// Actualizar descarga directa (sin redirección a Cloudflare)
+        
+
 downloadBtn.onclick = (e) => {
     e.preventDefault();
     downloadLabel.textContent = 'Descargando...';
@@ -2303,23 +2277,21 @@ downloadBtn.onclick = (e) => {
     downloadLabel.textContent = 'Descargar';
 };
 
-        // Actualizar info card
+        
         updateInfoCard(ch);
         updateOsdActiveChannel();
 
         state.currentChannel = index;
         state.switching = false;
 
-        // Habilitar play/pause
+        
         playPauseBtn.disabled = false;
 
-        // Reproducir
+        
         crtVideo.play().catch(() => {});
     }
 
-    /* ────────────────────────────
-       INFO CARD
-    ──────────────────────────── */
+    
     function updateInfoCard(ch) {
         const icon = document.querySelector('.channel-info-icon i');
         if (!ch) {
@@ -2335,9 +2307,7 @@ downloadBtn.onclick = (e) => {
         icon.className = 'fas fa-headphones';
     }
 
-    /* ────────────────────────────
-       PANTALLA COMPLETA — modo reproductor nativo
-    ──────────────────────────── */
+    
     function toggleFullscreen() {
         if (!document.fullscreenElement && !document.webkitFullscreenElement) {
             enterFullscreen();
@@ -2347,9 +2317,9 @@ downloadBtn.onclick = (e) => {
     }
 
     function enterFullscreen() {
-        // Habilitar controles nativos del video
+        
         crtVideo.controls = true;
-        // Eliminar filtro CRT de brillo durante fullscreen
+        
         crtScreen.style.filter = 'none';
 
         const req = crtScreen.requestFullscreen || crtScreen.webkitRequestFullscreen;
@@ -2367,9 +2337,9 @@ downloadBtn.onclick = (e) => {
         if (isFs) {
             fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
         } else {
-            // Salida de fullscreen: restaurar modo CRT
+            
             crtVideo.controls = false;
-            // Restaurar filtro de brillo
+            
             crtScreen.style.filter = `brightness(${state.brightness})`;
             fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
         }
@@ -2378,31 +2348,25 @@ downloadBtn.onclick = (e) => {
     document.addEventListener('fullscreenchange', onFullscreenChange);
     document.addEventListener('webkitfullscreenchange', onFullscreenChange);
 
-    /* ════════════════════════════════════════
-       PERILLAS — VOL & BRT (con arco SVG + OSD retro)
-    ════════════════════════════════════════ */
+    
 
-    /**
-     * Geometría del arco SVG.
-     * El arco va de -225° a +45° (rango de 270°), sentido horario.
-     * Centro = (27, 27), radio = 24.
-     */
+    
     const ARC_CX = 27, ARC_CY = 27, ARC_R = 24;
-    const ARC_START_DEG = 225;   // ángulo de inicio (abajo-izquierda)
-    const ARC_TOTAL_DEG = 270;   // barrido total
+    const ARC_START_DEG = 225;   
+    const ARC_TOTAL_DEG = 270;   
 
     function degToRad(d) { return d * Math.PI / 180; }
 
-    /** Punto en el arco para un ángulo dado (desde arriba, sentido horario) */
+    
     function arcPoint(angleDeg) {
-        const rad = degToRad(angleDeg - 90); // -90 para que 0° sea arriba
+        const rad = degToRad(angleDeg - 90); 
         return {
             x: ARC_CX + ARC_R * Math.cos(rad),
             y: ARC_CY + ARC_R * Math.sin(rad)
         };
     }
 
-    /** SVG arc path para un barrido desde startDeg, longitud sweepDeg */
+    
     function buildArcPath(startDeg, sweepDeg) {
         if (Math.abs(sweepDeg) < 0.5) return '';
         const large = sweepDeg > 180 ? 1 : 0;
@@ -2411,17 +2375,10 @@ downloadBtn.onclick = (e) => {
         return `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} A ${ARC_R} ${ARC_R} 0 ${large} 1 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`;
     }
 
-    /** El arco INICIA en la posición de mínimo (abajo-izquierda, -225° desde arriba → 135° CW) */
-    const ARC_ZERO_DEG = -ARC_START_DEG + 90; // = -135 respecto a "12 en punto" → 135° desde arriba CW
+    
+    const ARC_ZERO_DEG = -ARC_START_DEG + 90; 
 
-    /**
-     * Crea una perilla giratoria con:
-     * - arco SVG de fondo + arco de valor dinámico
-     * - indicador de posición rotatorio
-     * - OSD retro que aparece al arrastrar
-     * - tooltip simple en hover
-     * - soporte mouse drag, touch drag y wheel
-     */
+    
     function createKnob({
         knobEl, indicatorEl, tipEl, knobWrapper,
         arcBgEl, arcFillEl,
@@ -2433,12 +2390,12 @@ downloadBtn.onclick = (e) => {
     }) {
         let value = initial;
 
-        /* Ángulos de la perilla: -135° (mín) a +135° (máx) */
+        
         const KNOB_ANGLE_MIN = -135;
         const KNOB_ANGLE_MAX =  135;
 
-        /* Arco SVG: inicio = ARC_START_DEG (=225°, abajo-izquierda) */
-        const SVG_START = ARC_START_DEG; // grados desde norte (12h), CW
+        
+        const SVG_START = ARC_START_DEG; 
 
         function valueToKnobAngle(v) {
             const t = (v - min) / (max - min);
@@ -2450,43 +2407,43 @@ downloadBtn.onclick = (e) => {
         function updateArc(v) {
             const t = (v - min) / (max - min);
             const sweepTotal = ARC_TOTAL_DEG;
-            // Fondo: arco completo
+            
             arcBgEl.setAttribute('d', buildArcPath(SVG_START, sweepTotal));
-            // Relleno: proporcional al valor
+            
             const sweepFill = t * sweepTotal;
             arcFillEl.setAttribute('d', sweepFill > 0.5
                 ? buildArcPath(SVG_START, sweepFill)
                 : '');
-            // Color del arco según nivel
-            const hue = 300 - t * 60; // lavanda→verde-sage
+            
+            const hue = 300 - t * 60; 
             arcFillEl.style.stroke = `hsla(${hue},50%,72%,0.65)`;
         }
 
         function applyValue(v, isDragging) {
             value = clamp(v);
             const angle = valueToKnobAngle(value);
-            // Rotar indicador — transform-origin es bottom center del indicador
-            // El indicador está en top:5px left:50%, transform-origin bottom center
-            // Necesitamos rotar el propio elemento alrededor del centro de la perilla
-            // => usamos rotate directamente desde el centro
-            const cx = 18; // mitad de 36px
+            
+            
+            
+            
+            const cx = 18; 
             const cy = 18;
             const rad = degToRad(angle);
-            const tx = cx + (cy - 5) * Math.sin(rad); // -5 = top offset
+            const tx = cx + (cy - 5) * Math.sin(rad); 
             const ty = cy - (cy - 5) * Math.cos(rad);
             indicatorEl.style.transformOrigin = `${cx - (cx - indicatorEl.offsetLeft)}px ${cy}px`;
-            // Más simple: rotamos el knob-circle con respecto al centro
+            
             indicatorEl.style.transform = `translateX(-50%) rotate(${angle}deg)`;
             indicatorEl.style.transformOrigin = 'bottom center';
 
-            // Arco SVG
+            
             updateArc(value);
 
-            // Tooltip
+            
             const txt = formatTip(value);
             tipEl.textContent = txt;
 
-            // OSD (solo actualizar contenido; visibilidad via CSS .dragging)
+            
             if (osdValueEl) osdValueEl.textContent = formatOsd ? formatOsd(value) : txt;
             if (osdBarEl) {
                 const pct = ((value - min) / (max - min)) * 100;
@@ -2496,10 +2453,10 @@ downloadBtn.onclick = (e) => {
             onChange(value, isDragging);
         }
 
-        // Inicializar
+        
         applyValue(initial, false);
 
-        /* ── Mouse drag ── */
+        
         let dragStartY = null, dragStartVal = null;
 
         knobEl.addEventListener('mousedown', (e) => {
@@ -2522,7 +2479,7 @@ downloadBtn.onclick = (e) => {
             }
         });
 
-        /* ── Touch drag ── */
+        
         let touchStartY = null, touchStartVal = null;
 
         knobEl.addEventListener('touchstart', (e) => {
@@ -2544,12 +2501,12 @@ downloadBtn.onclick = (e) => {
             knobWrapper.classList.remove('dragging');
         });
 
-        /* ── Scroll ── */
+        
         knobEl.addEventListener('wheel', (e) => {
             e.preventDefault();
             const dir = e.deltaY < 0 ? 1 : -1;
             applyValue(value + dir * step * 18, true);
-            // Mostrar OSD brevemente con scroll
+            
             knobWrapper.classList.add('dragging');
             clearTimeout(knobWrapper._scrollTimer);
             knobWrapper._scrollTimer = setTimeout(() => {
@@ -2557,13 +2514,13 @@ downloadBtn.onclick = (e) => {
             }, 900);
         }, { passive: false });
 
-        /* Exponer reset */
+        
         return {
             reset() { applyValue(initial, false); }
         };
     }
 
-    /* ── Instanciar perilla de Volumen ── */
+    
     const volKnobCtrl = createKnob({
         knobEl:      document.getElementById('volKnobCircle'),
         indicatorEl: document.getElementById('volIndicator'),
@@ -2586,7 +2543,7 @@ downloadBtn.onclick = (e) => {
         }
     });
 
-    /* ── Instanciar perilla de Brillo ── */
+    
     const brtKnobCtrl = createKnob({
         knobEl:      document.getElementById('brtKnobCircle'),
         indicatorEl: document.getElementById('brtIndicator'),
@@ -2605,16 +2562,14 @@ downloadBtn.onclick = (e) => {
         formatOsd: v => Math.round(((v - 0.3) / 1.3) * 100) + '%',
         onChange: (v) => {
             state.brightness = v;
-            // No aplicar en fullscreen (se gestiona en onFullscreenChange)
+            
             if (!document.fullscreenElement && !document.webkitFullscreenElement) {
                 crtScreen.style.filter = `brightness(${v})`;
             }
         }
     });
 
-    /* ════════════════════════════════════════
-       EVENT LISTENERS
-    ════════════════════════════════════════ */
+    
 
     powerBtn.addEventListener('click', () => {
         state.powered ? powerOff() : powerOn();
@@ -2626,13 +2581,11 @@ downloadBtn.onclick = (e) => {
 
     fullscreenBtn.addEventListener('click', toggleFullscreen);
 
-    // Estática al cargar / hacer buffering
+    
     crtVideo.addEventListener('waiting', () => { if(state.powered) setStaticIntensity(0.3); });
     crtVideo.addEventListener('playing', () => { if(state.powered) setStaticIntensity(0.06); });
 
-    /* ══════════════════════════════════════
-       PARTÍCULAS
-    ══════════════════════════════════════ */
+    
     const particlesContainer = document.getElementById('particles');
     for (let i = 0; i < 22; i++) {
         let star = document.createElement('div');
@@ -2643,9 +2596,7 @@ downloadBtn.onclick = (e) => {
         particlesContainer.appendChild(star);
     }
 
-    /* ══════════════════════════════════════
-       MENÚ DINÁMICO EXTERNO (sidebar)
-    ══════════════════════════════════════ */
+    
     document.addEventListener('DOMContentLoaded', function () {
         const menuVer = Math.floor(Date.now() / 86400000);
         fetch('menu.html?v=' + menuVer)

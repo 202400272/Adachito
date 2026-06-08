@@ -1,7 +1,5 @@
-// sw.js - Service Worker para Adashima
-const CACHE_NAME = 'adashima-cache-v1';
+const CACHE_NAME = 'adashima-cache-v2';
 
-// Construir la ruta base dinámicamente según donde esté desplegado el SW
 const SCRIPT_PATH = self.location.pathname;
 const BASE_PATH = SCRIPT_PATH.substring(0, SCRIPT_PATH.lastIndexOf('/'));
 
@@ -29,12 +27,11 @@ const CACHE_ASSETS = [
     BASE_PATH + '/PERFIL_SHIMAMURA.png'
 ];
 
-// Instalar el Service Worker y cachear assets
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then((cache) => {
-                // Cachear cada asset individualmente para evitar fallos
+                
                 return Promise.all(
                     CACHE_ASSETS.map((url) => {
                         return cache.add(url).catch((err) => {
@@ -49,7 +46,6 @@ self.addEventListener('install', (event) => {
     );
 });
 
-// Activar y limpiar caches antiguas
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then((names) => {
@@ -66,24 +62,20 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-// Estrategia: Intentar red primero, fallback a cache
 self.addEventListener('fetch', (event) => {
     const { request } = event;
     const url = new URL(request.url);
     const isSameOrigin = url.origin === self.location.origin;
     const EXCLUDED_HOST = 'pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev';
 
-    // Solo interceptar requests del mismo origen
     if (!isSameOrigin) {
         return;
     }
 
-    // Para navegación (páginas HTML)
     if (request.mode === 'navigate') {
         event.respondWith(
             fetch(request)
                 .then((response) => {
-                    // Guardar en cache para offline
                     const clone = response.clone();
                     caches.open(CACHE_NAME).then((cache) => {
                         cache.put(request, clone);
@@ -91,7 +83,7 @@ self.addEventListener('fetch', (event) => {
                     return response;
                 })
                 .catch((error) => {
-                    // Si falla la red, servir offline.html
+ 
                     return caches.match(BASE_PATH + '/offline.html')
                         .then((response) => {
                             return response || new Response('No disponible offline', { status: 503 });
@@ -99,9 +91,7 @@ self.addEventListener('fetch', (event) => {
                 })
         );
     }
-    // Para otros recursos
     else {
-        // Evitar cachear recursos que vienen desde Cloudflare R2 público
         if (url.host === EXCLUDED_HOST) {
             event.respondWith(fetch(request).catch(() => caches.match(request)));
             return;
@@ -115,7 +105,6 @@ self.addEventListener('fetch', (event) => {
                     }
                     return fetch(request)
                         .then((response) => {
-                            // Cachear solo respuestas pequeñas y de mismo origen
                             try {
                                 if (response && response.status === 200 && request.destination !== 'video' && request.destination !== 'audio' && request.destination !== 'document' && request.destination !== 'embed') {
                                     const clone = response.clone();

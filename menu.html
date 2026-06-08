@@ -1,14 +1,10 @@
 <style>
-    /* ================================================================
-        MENU COMPONENT — Compatible con adashima.html, Manga y Novelas
-       El sidebar se comporta como elemento flex sticky (no fixed),
-       para integrarse sin romper el layout body { display: flex }.
-    ================================================================ */
+    
 
-    /* Fuentes */
+    
     @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Pacifico&family=Yanone+Kaffeesatz:wght@400;600&family=Chewy&display=swap');
 
-    /* --- VARIABLES --- */
+    
     #menu-component-wrapper {
         --sakura-pink: #fce4ec;
         --sakura-dark: #f06292;
@@ -23,13 +19,11 @@
         font-family: 'Nunito', sans-serif;
         color: var(--text-main);
 
-        /* El wrapper ocupa la columna izquierda del flex del body */
-        display: contents; /* transparente al layout: sus hijos participan directamente en el flex del body */
+        
+        display: contents; 
     }
 
-    /* ----------------------------------------------------------------
-       BOTÓN HAMBURGUESA (solo en móvil)
-    ---------------------------------------------------------------- */
+    
     #menu-component-wrapper .mobile-toggle {
         position: fixed;
         top: 15px;
@@ -43,7 +37,7 @@
         height: 45px;
         border-radius: 50%;
         cursor: pointer;
-        display: none;               /* oculto en desktop */
+        display: none;               
         justify-content: center;
         align-items: center;
         font-size: 1.2rem;
@@ -56,11 +50,9 @@
         background: white;
     }
 
-    /* ----------------------------------------------------------------
-       SIDEBAR — sticky, integrado en el flex del body
-    ---------------------------------------------------------------- */
+    
     #menu-component-wrapper .sidebar {
-        /* Dimensiones y posición */
+        
         width: 300px;
         flex-shrink: 0;
         height: 100vh;
@@ -68,7 +60,7 @@
         top: 0;
         overflow-y: auto;
 
-        /* Visual glassmorphism */
+        
         background: linear-gradient(
             135deg,
             rgba(252, 228, 236, 0.72),
@@ -80,10 +72,10 @@
         box-shadow: 2px 0 20px rgba(135, 107, 145, 0.12);
         z-index: 11000;
 
-        /* Transición para móvil */
+        
         transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 
-        /* Brillos de fondo */
+        
         background-image:
             radial-gradient(circle at 15% 50%, rgba(255,255,255,0.4) 0%, transparent 50%),
             radial-gradient(circle at 85% 30%, rgba(255,255,255,0.5) 0%, transparent 50%);
@@ -103,17 +95,15 @@
         min-height: 100%;
     }
 
-    /* ----------------------------------------------------------------
-       IMAGEN DE PORTADA CON ETIQUETA LOGO (Estilo Flotante)
-    ---------------------------------------------------------------- */
+    
     #menu-component-wrapper .sidebar-box {
         position: relative;
         display: flex;
-        flex-direction: column; /* Apila imagen y texto */
+        flex-direction: column; 
         justify-content: center;
         align-items: center;
-        background: transparent; /* Sin fondo contenedor */
-        padding: 0; /* Sin padding para ajustarse al margen general */
+        background: transparent; 
+        padding: 0; 
         margin-bottom: 25px; 
         transition: transform 0.3s ease;
     }
@@ -124,8 +114,8 @@
     
     #menu-component-wrapper .sidebar-box img { 
         width: 100%; 
-        max-width: 220px; /* Evita que crezca desproporcionadamente */
-        /* Filtro de sombra para la imagen PNG flotante */
+        max-width: 220px; 
+        
         filter: drop-shadow(0 8px 15px rgba(240, 98, 146, 0.25));
         transition: transform 0.3s ease;
     }
@@ -134,24 +124,24 @@
         transform: scale(1.03);
     }
 
-    /* Estilos del texto imitando el logo oficial */
+    
     #menu-component-wrapper .logo-label {
         position: relative;
-        margin-top: -15px; /* Sube el texto para superponerse un poco a la imagen */
-        transform: rotate(-2deg); /* Ligera inclinación juguetona */
+        margin-top: -15px; 
+        transform: rotate(-2deg); 
         
         font-family: 'Chewy', cursive;
-        font-size: 1.8rem; /* Reducido para que no se desborde */
-        color: #e63971; /* El tono rosa fucsia vibrante del logo */
+        font-size: 1.8rem; 
+        color: #e63971; 
         text-align: center;
-        white-space: normal; /* Permite salto de línea */
+        white-space: normal; 
         letter-spacing: 1px;
         line-height: 1.1;
         z-index: 10;
         pointer-events: none;
-        width: 100%; /* Toma todo el ancho del sidebar para centrar bien */
+        width: 100%; 
         
-        /* Efecto de contorno blanco grueso y una sombra suave */
+        
         text-shadow: 
             -3px -3px 0 #fff,  
              3px -3px 0 #fff,
@@ -161,26 +151,24 @@
              3px  0px 0 #fff,
              0px -3px 0 #fff,
              0px  3px 0 #fff,
-             0px  8px 15px rgba(230, 57, 113, 0.4); /* Sombra rosa proyectada */
+             0px  8px 15px rgba(230, 57, 113, 0.4); 
     }
 
-    /* Hacemos que el "and/to" sea más pequeño, como en la portada */
+    
     #menu-component-wrapper .logo-label span.to-text {
         font-size: 1.1rem;
         vertical-align: middle;
         color: #e63971;
     }
 
-    /* Forzar "Latinoamérica" a la segunda línea y ajustar su tamaño */
+    
     #menu-component-wrapper .logo-label span.sub-text {
         display: block;
         font-size: 1.3rem;
         margin-top: -2px;
     }
 
-    /* ----------------------------------------------------------------
-       BOTONES GENÉRICOS
-    ---------------------------------------------------------------- */
+    
     #menu-component-wrapper .menu-btn {
         display: flex;
         align-items: center;
@@ -216,7 +204,7 @@
     }
     #menu-component-wrapper .menu-btn:hover i { color: var(--sakura-dark); }
 
-    /* Botón Facebook */
+    
     #menu-component-wrapper .fb-btn {
         display: flex;
         align-items: center;
@@ -244,9 +232,7 @@
     }
     #menu-component-wrapper .fb-btn:hover i { color: white; }
 
-    /* ----------------------------------------------------------------
-       TARJETAS DE INFO
-    ---------------------------------------------------------------- */
+    
     #menu-component-wrapper .info-card {
         background: rgba(255, 255, 255, 0.5);
         padding: 18px;
@@ -305,9 +291,7 @@
         transform: translateX(5px);
     }
 
-    /* ================================================================
-       RESPONSIVE
-    ================================================================ */
+    
     @media (max-width: 900px) {
         #menu-component-wrapper .mobile-toggle { display: flex !important; }
 
@@ -324,7 +308,7 @@
         #menu-component-wrapper .sidebar.active { transform: translateX(0); }
     }
 
-    /* Ajustes adicionales para móvil: agrandar UI táctil, fuentes y espaciados */
+    
     @media (max-width: 600px) {
         #menu-component-wrapper .mobile-toggle {
             width: 56px;
@@ -364,11 +348,11 @@
         #menu-component-wrapper .info-card { padding: 16px; }
         #menu-component-wrapper .info-card h4 { font-size: 1rem; }
 
-        /* Aumentar hit-area del grid de links */
+        
         #menu-component-wrapper .links-grid { gap: 12px; }
     }
 
-    /* Ajustes extra para pantallas muy pequeñas */
+    
     @media (max-width: 420px) {
         #menu-component-wrapper .mobile-toggle { width: 62px; height: 62px; font-size: 1.5rem; }
         #menu-component-wrapper .sidebar-inner { padding: 18px; gap: 14px; }
@@ -379,15 +363,15 @@
 </style>
 
 <div id="menu-component-wrapper">
-    <!-- Fuentes de Google -->
+    
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Pacifico&family=Yanone+Kaffeesatz:wght@400;600&display=swap" rel="stylesheet">
 
-    <!-- Botón hamburguesa (móvil) -->
+    
     <button class="mobile-toggle" id="menu-toggle-btn" onclick="menuToggle()">
         <i class="fas fa-bars"></i>
     </button>
 
-    <!-- SIDEBAR -->
+    
     <nav class="sidebar" id="sideMenu">
         <div class="sidebar-inner">
 
@@ -402,19 +386,19 @@
                 </div>
             </div>
 
-            <!-- Facebook -->
+            
             <a href="https://www.facebook.com/p/Adachi-to-Shimamura-Latinoamérica-61551058385796/"
                target="_blank" class="fb-btn">
                 <i class="fab fa-facebook-f"></i>Visítanos en Facebook
             </a>
 
-            <!-- Estado -->
+            
             <div class="info-card">
                 <h4><i class="fas fa-book-reader"></i> Estado de la Novela</h4>
                 <span class="status-badge">En Publicación</span>
             </div>
 
-            <!-- Apoya -->
+            
             <div class="info-card">
                 <h4><i class="fas fa-heart"></i> Apoya la Obra Original</h4>
                 <div class="links-grid">
@@ -430,7 +414,7 @@
                 </div>
             </div>
 
-            <!-- Botón centralizado: Volver al Inicio (integrado al menú) -->
+            
             <div style="margin-top:12px;">
                 <a href="index.html" class="menu-btn" id="menu-back-home" title="Volver al Inicio">
                     <i class="fas fa-home"></i> Volver al Inicio
@@ -439,11 +423,11 @@
 
         </div>
     </nav>
-</div><!-- /#menu-component-wrapper -->
+</div>
 
 <script>
 (function() {
-    // ── Hamburguesa ──────────────────────────────────────────────────
+    
     function menuToggle() {
         const sidebar = document.getElementById('sideMenu');
         const btn     = document.getElementById('menu-toggle-btn');
@@ -458,7 +442,7 @@
     window.menuToggle = menuToggle;
     window.toggleMenu = menuToggle;
 
-    // ── Cierra sidebar al hacer clic fuera (móvil) ───────────────────
+    
     document.addEventListener('click', function(e) {
         const sidebar = document.getElementById('sideMenu');
         const btn     = document.getElementById('menu-toggle-btn');

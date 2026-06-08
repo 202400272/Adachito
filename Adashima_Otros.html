@@ -113,9 +113,6 @@
             text-shadow: 2px 2px 10px rgba(255,255,255,0.8);
         }
 
-        /* ──────────────────────────────────────── 
-            SISTEMA DE TARJETAS
-        ──────────────────────────────────────── */
         .documents-wrapper {
             width: 100%;
             max-width: 880px;
@@ -202,9 +199,6 @@
             color: #5c3a6b;
         }
 
-        /* ──────────────────────────────────────── 
-            FOOTER Y ELEMENTOS FLOTANTES
-        ──────────────────────────────────────── */
         .footer {
             margin-top: 50px;
             text-align: center;
@@ -298,7 +292,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Carga del menú lateral de forma dinámica
             const menuVer = Math.floor(Date.now() / 86400000);
             fetch('menu.html?v=' + menuVer)
                 .then(response => {
@@ -310,7 +303,6 @@
                     if (!container) return;
                     container.innerHTML = data;
                     
-                    // Re-ejecutar los scripts dentro del menú cargado
                     const scripts = container.querySelectorAll('script');
                     scripts.forEach(oldScript => {
                         const newScript = document.createElement('script');
@@ -323,7 +315,6 @@
                     console.error('Error cargando menu.html:', error.message);
                 });
 
-            // Generación de partículas
             const particlesContainer = document.getElementById('particles');
             if (particlesContainer) {
                 for (let i = 0; i < 40; i++) {
@@ -337,7 +328,6 @@
             }
         });
 
-        // Registro del Service Worker para funcionamiento Offline
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js').catch(err => console.error('Error al registrar el Service Worker', err));

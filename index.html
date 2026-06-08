@@ -8,26 +8,22 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Quicksand:wght@400;500;600;700&display=swap');
 
-        /* =========================================================
-           RESET Y BASE
-        ========================================================= */
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Quicksand', 'Noto Serif JP', sans-serif;
             display: flex;
             min-height: 100vh;
-            /* Paleta inspirada en el atardecer/anochecer de la portada */
+            
             background: linear-gradient(165deg, #6c5287 0%, #9a6898 25%, #d187a2 55%, #f1b5a5 85%, #fde4b8 100%);
             background-attachment: fixed;
             color: #4a2f57;
             overflow-x: hidden;
         }
 
-        /* =========================================================
-           EFECTOS DE FONDO (CIELO, ESTRELLAS, NUBES Y BURBUJAS)
-        ========================================================= */
-        /* Estrellas estáticas sutiles en el fondo */
+        
+        
         .stars-bg {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -44,7 +40,7 @@
             opacity: 0.6;
         }
 
-        /* Contenedor del Sistema de Nubes (más como pinceladas) */
+        
         .clouds-container {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -54,12 +50,12 @@
         }
         .cloud {
             position: absolute;
-            border-radius: 50% 100% 50% 100% / 50% 100% 50% 100%; /* Formas horizontales y alargadas */
-            filter: blur(80px); /* Difumina mucho más para parecer pinceladas */
+            border-radius: 50% 100% 50% 100% / 50% 100% 50% 100%; 
+            filter: blur(80px); 
             animation: driftCloud 50s alternate infinite ease-in-out;
             opacity: 0.6;
         }
-        /* Nubes estratificadas y alargadas en tonos de atardecer */
+        
         .cloud-1 { width: 1200px; height: 150px; top: 10%; left: -20%; background: linear-gradient(90deg, rgba(220, 130, 170, 0.4), rgba(255,255,255,0.1)); animation-duration: 60s; }
         .cloud-2 { width: 1500px; height: 200px; top: 35%; right: -30%; background: linear-gradient(-90deg, rgba(253, 200, 160, 0.35), rgba(255,255,255,0.1)); animation-duration: 75s; animation-direction: alternate-reverse; }
         .cloud-3 { width: 900px; height: 100px; top: 60%; left: 10%; background: linear-gradient(90deg, rgba(160, 100, 150, 0.3), rgba(255,255,255,0.1)); animation-duration: 55s; }
@@ -71,11 +67,11 @@
             100% { transform: translate(150px, -20px) scale(1.05) rotate(1deg); }
         }
 
-        /* Burbujas flotantes estilo Adashima (Colores Intensos y Variados) */
+        
         .orb {
             position: absolute;
             border-radius: 50%;
-            /* Aumentamos la opacidad del color de fondo y reducimos el blur del backdrop */
+            
             backdrop-filter: blur(2px);
             -webkit-backdrop-filter: blur(2px);
             border: 1px solid rgba(255, 255, 255, 0.4);
@@ -84,9 +80,9 @@
             z-index: 2;
         }
         
-        /* Definimos orbes con colores intensos y saturados (una de cada color) */
         
-        /* Morada (Inspirada en el cielo superior) */
+        
+        
         .orb-purple { 
             width: 100px; height: 100px; top: 15%; left: 8%; 
             background: linear-gradient(135deg, rgba(160, 120, 180, 0.6), rgba(255,255,255,0.2)); 
@@ -94,7 +90,7 @@
             animation-delay: 0s; 
         }
         
-        /* Amarilla (Inspirada en el horizonte inferior) */
+        
         .orb-yellow { 
             width: 60px; height: 60px; top: 35%; right: 15%; 
             background: linear-gradient(135deg, rgba(253, 230, 160, 0.6), rgba(255,255,255,0.2)); 
@@ -102,7 +98,7 @@
             animation-delay: -3s; animation-duration: 8s;
         }
         
-        /* Azul (Inspirada en el cielo medio y el color de suerte) */
+        
         .orb-blue { 
             width: 80px; height: 80px; bottom: 25%; left: 15%; 
             background: linear-gradient(135deg, rgba(140, 220, 240, 0.6), rgba(255,255,255,0.2)); 
@@ -110,7 +106,7 @@
             animation-delay: -5s; animation-duration: 12s;
         }
         
-        /* Rosa (Inspirada en el cielo medio y el color de las flores) */
+        
         .orb-pink { 
             width: 45px; height: 45px; bottom: 15%; right: 25%; 
             background: linear-gradient(135deg, rgba(240, 150, 180, 0.6), rgba(255,255,255,0.2)); 
@@ -118,7 +114,7 @@
             animation-delay: -2s; 
         }
         
-        /* Verde (Inspirada en la naturaleza) */
+        
         .orb-green { 
             width: 55px; height: 55px; top: 55%; left: 12%; 
             background: linear-gradient(135deg, rgba(170, 230, 140, 0.6), rgba(255,255,255,0.2)); 
@@ -126,7 +122,7 @@
             animation-delay: -1s; animation-duration: 9s; 
         }
         
-        /* Naranja (Inspirada en el atardecer) */
+        
         .orb-orange { 
             width: 90px; height: 90px; top: 20%; right: 28%; 
             background: linear-gradient(135deg, rgba(255, 180, 120, 0.6), rgba(255,255,255,0.2)); 
@@ -134,7 +130,7 @@
             animation-delay: -7s; animation-duration: 14s; 
         }
         
-        /* Morada Pequeña */
+        
         .orb-purple-small { 
             width: 35px; height: 35px; bottom: 45%; right: 8%; 
             background: linear-gradient(135deg, rgba(160, 120, 180, 0.7), rgba(255,255,255,0.2)); 
@@ -142,7 +138,7 @@
             animation-delay: -6s; animation-duration: 7s; 
         }
         
-        /* Azul Grande */
+        
         .orb-blue-large { 
             width: 130px; height: 130px; top: 5%; right: 5%; 
             background: linear-gradient(135deg, rgba(140, 220, 240, 0.5), rgba(255,255,255,0.2)); 
@@ -150,7 +146,7 @@
             animation-delay: -4s; animation-duration: 15s; 
         }
         
-        /* Rosa Superior */
+        
         .orb-pink-top { 
             width: 70px; height: 70px; top: 8%; left: 35%; 
             background: linear-gradient(135deg, rgba(240, 150, 180, 0.6), rgba(255,255,255,0.2)); 
@@ -158,7 +154,7 @@
             animation-delay: -8s; animation-duration: 11s; 
         }
         
-        /* Amarilla Pequeña */
+        
         .orb-yellow-small { 
             width: 40px; height: 40px; bottom: 8%; left: 38%; 
             background: linear-gradient(135deg, rgba(253, 230, 160, 0.7), rgba(255,255,255,0.2)); 
@@ -172,9 +168,7 @@
             100% { transform: translateY(0px) translateX(0px) scale(1); }
         }
 
-        /* =========================================================
-           CONTENEDOR PRINCIPAL Y LAYOUT
-        ========================================================= */
+        
         .main-content {
             flex: 1;
             position: relative;
@@ -184,10 +178,10 @@
             align-items: center;
             min-height: 100vh;
             z-index: 3;
-            width: calc(100% - 300px); /* Resta el ancho del sidebar para PC */
+            width: calc(100% - 300px); 
         }
 
-        /* Título Principal Estético */
+        
         h1.update-title {
             font-family: 'Noto Serif JP', serif;
             font-size: 3.5rem;
@@ -200,9 +194,7 @@
             font-weight: 700;
         }
 
-        /* =========================================================
-           SECCIÓN HERO (IMAGEN BICICLETA + CAJA DE ENLACES)
-        ========================================================= */
+        
         .hero-section {
             display: flex;
             align-items: center;
@@ -214,7 +206,7 @@
             z-index: 4;
         }
 
-        /* Imagen de la Bicicleta */
+        
         .bike-container {
             flex: 1;
             display: flex;
@@ -225,10 +217,10 @@
         
         .floating-bike {
             width: 100%;
-            /* Aumentado para una presencia más marcada en desktop */
+            
             max-width: 800px;
             animation: floatBike 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-            /* Sombra más definida para mantener sensación de profundidad al aumentar tamaño */
+            
             filter: drop-shadow(0 34px 48px rgba(74, 47, 87, 0.38));
             z-index: 5;
             transition: transform 0.35s cubic-bezier(0.2,0.8,0.2,1);
@@ -241,7 +233,7 @@
             100% { transform: translateY(0px) rotate(0deg); }
         }
 
-        /* Caja Glassmorphism de Enlaces */
+        
         .glass-box {
             background: rgba(255, 255, 255, 0.25);
             backdrop-filter: blur(12px);
@@ -258,7 +250,7 @@
             padding: 25px 35px;
         }
 
-        /* Elementos de Enlace */
+        
         .update-item {
             border-bottom: 1px solid rgba(255, 255, 255, 0.3);
             padding: 16px 0;
@@ -279,7 +271,7 @@
             transition: all 0.3s ease;
         }
 
-        /* Efecto Hover Moderno en los enlaces */
+        
         .update-item:hover {
             background: rgba(255, 255, 255, 0.15);
             border-radius: 12px;
@@ -293,7 +285,7 @@
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
-        /* Tooltips mejorados */
+        
         [data-tooltip] { position: relative; }
         [data-tooltip]::after {
             content: attr(data-tooltip);
@@ -307,7 +299,7 @@
             border-radius: 16px;
             font-size: 0.9rem;
             font-style: italic;
-            /* Permitir salto de línea y limitar ancho para evitar overflow */
+            
             white-space: normal;
             max-width: calc(100vw - 80px);
             overflow-wrap: anywhere;
@@ -320,7 +312,7 @@
             z-index: 100;
             box-sizing: border-box;
         }
-        /* Flecha del tooltip */
+        
         [data-tooltip]::before {
             content: '';
             position: absolute;
@@ -336,9 +328,7 @@
         .update-item:hover [data-tooltip]::after { opacity: 1; transform: translateX(-50%) translateY(0); }
         .update-item:hover [data-tooltip]::before { opacity: 1; transform: translateX(-50%) translateY(10px); }
 
-        /* =========================================================
-           TARJETAS DE INFORMACIÓN (INFO GRID)
-        ========================================================= */
+        
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -376,9 +366,7 @@
         .char-details { font-size: 0.95rem; line-height: 1.7; }
         .char-details strong { color: #8a4e80; font-weight: 700; }
 
-        /* =========================================================
-           CHIBI FLOTANTE (MINI-JUEGO)
-        ========================================================= */
+        
         .floating-adashima {
             position: fixed;
             bottom: 30px;
@@ -400,9 +388,7 @@
             100% { transform: translateY(0px) rotate(0deg); }
         }
 
-        /* =========================================================
-           FOOTER
-        ========================================================= */
+        
         .footer {
             position: absolute;
             bottom: 20px;
@@ -414,15 +400,13 @@
             z-index: 4;
         }
 
-        /* =========================================================
-           DISEÑO RESPONSIVE AUTOMÁTICO
-        ========================================================= */
+        
         @media (max-width: 960px) {
             .hero-section {
                 flex-direction: column;
                 gap: 20px;
             }
-            /* En móviles u ordenadores pequeños, la bici va arriba y el menú abajo */
+            
             .bike-container { order: -1; margin-bottom: 10px; }
             .floating-bike { max-width: 80%; }
             h1.update-title { font-size: 2.5rem; margin-bottom: 30px; }
@@ -430,12 +414,12 @@
 
         @media (max-width: 768px) {
             .main-content {
-                width: 100%; /* Toma el 100% porque el menú móvil está oculto */
+                width: 100%; 
                 padding: 30px 20px 100px 20px;
             }
             .floating-adashima { width: 120px; bottom: 20px; right: 20px; }
             .update-box { padding: 20px; }
-            /* Ajuste del tooltip para pantallas pequeñas */
+            
             [data-tooltip]::after {
                 left: 0; transform: translateX(0) translateY(10px);
                 white-space: normal; width: 220px; text-align: center;
@@ -575,7 +559,7 @@
                 console.error('Error cargando menu.html:', error.message);
             });
 
-        // Service Worker
+        
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')

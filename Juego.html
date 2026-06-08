@@ -24,7 +24,7 @@
             overflow-x: hidden;
         }
 
-        /* --- Animaciones de Partículas --- */
+        
         .particles {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -55,7 +55,7 @@
             50% { box-shadow: 0 0 15px 4px rgba(255, 200, 255, 0.9); }
         }
 
-        /* --- ESTILOS DE SIDEBAR (cargado desde menu.html) --- */
+        
         .sidebar {
             width: 300px;
             background-color: rgba(209, 163, 198, 0.9);
@@ -69,7 +69,7 @@
             flex-shrink: 0;
         }
 
-        /* --- Contenido Principal --- */
+        
         .main-content {
             flex: 1;
             position: relative;
@@ -79,7 +79,7 @@
             align-items: center;
             z-index: 2;
             background: url('Imagenes/FondoCD.png') center/cover no-repeat fixed;
-            min-width: 0; /* Para evitar desbordamientos en flex */
+            min-width: 0; 
         }
 
         .main-content::before {
@@ -109,7 +109,7 @@
             text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
         }
 
-        /* --- Caja Principal (Glassmorphism) --- */
+        
         .update-box {
             background: rgba(255, 255, 255, 0.78);
             backdrop-filter: blur(12px);
@@ -126,7 +126,7 @@
             gap: 20px;
         }
 
-        /* --- Estilos del Juego --- */
+        
         #gameContainer {
             position: relative;
             box-shadow: 0 15px 40px rgba(0,0,0,0.3);
@@ -146,7 +146,7 @@
             max-width: 100%;
         }
 
-        /* --- Botón Toggle Música --- */
+        
         .music-toggle {
             position: absolute;
             top: 15px;
@@ -209,7 +209,7 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.06);
         }
 
-        /* --- Controles Móviles --- */
+        
         #mobileControls {
             display: none;
             width: 100%;
@@ -307,7 +307,7 @@
             100% { transform: translateY(0px) rotate(0deg); }
         }
 
-        /* --- Diseño Responsive --- */
+        
         @media (max-width: 768px) {
             body { flex-direction: column; }
             .sidebar { 
@@ -335,18 +335,18 @@
 </head>
 <body>
 
-    <!-- Audio de Fondo (Mantenemos la música) -->
+    
     <audio id="bgMusic" loop preload="none">
         <source src="Sound/ada8bit.mp3" type="audio/mp3">
     </audio>
 
-    <!-- Animaciones y decoraciones de fondo -->
+    
     <div class="particles" id="particles"></div>
     <div class="floating-decor decor-1"></div>
     <div class="floating-decor decor-2"></div>
     <div class="floating-decor decor-3"></div>
 
-    <!-- Contenedor del Menú Lateral -->
+    
     <div id="menu-container" style="display: contents;"></div>
 
     <div class="main-content">        
@@ -354,19 +354,19 @@
             <h1 class="update-title">Yashiro Game</h1>
         </div>
 
-        <!-- Contenedor Glassmorphism -->
+        
         <div class="update-box">
             
             <div id="gameContainer">
                 <canvas id="gameCanvas" width="800" height="300"></canvas>
                 
-                <!-- Botón de Música -->
+                
                 <button id="musicToggle" class="music-toggle" aria-label="Alternar Música">
                     <i class="fas fa-volume-mute"></i>
                 </button>
             </div>
 
-            <!-- Panel de mecánicas -->
+            
             <div class="mechanics-panel" id="mechanicsPanel">
                 <span class="mechanic-tip">Lluvia cada 50s · dura 15s</span>
                 <span class="mechanic-tip">Dona a partir de los 100s (cada 30s)</span>
@@ -374,7 +374,7 @@
                 <span class="mechanic-tip">ESPACIO saltar · ↓ boomerang</span>
             </div>
 
-            <!-- Botones táctiles para móvil -->
+            
             <div id="mobileControls">
                 <div class="mobile-controls-row">
                     <button class="btn-jump" id="btnJump" aria-label="Saltar">
@@ -387,7 +387,7 @@
                 <p class="mobile-hint">Toca SALTAR para reiniciar cuando pierdas</p>
             </div>
 
-            <!-- Instrucciones desktop -->
+            
             <div class="instructions" id="desktopInstructions">
                 <h2>Presiona ESPACIO o haz clic para saltar</h2>
             </div>
@@ -402,7 +402,7 @@
     </div>
 
     <script>
-        // --- Generador de Partículas Suaves ---
+        
         const particlesContainer = document.getElementById('particles');
         for (let i = 0; i < 25; i++) {
             let star = document.createElement('div');
@@ -413,7 +413,7 @@
             particlesContainer.appendChild(star);
         }
 
-        // --- Cargar dinámicamente menu.html ---
+        
         document.addEventListener("DOMContentLoaded", function() {
             fetch('menu.html?v=' + Math.floor(Date.now() / 86400000))
                 .then(response => {
@@ -436,9 +436,9 @@
                 .catch(error => console.error('Error cargando menu.html:', error.message));
         });
 
-        // ─────────────────────────────────────────────────────────────
-        // LÓGICA DE SÍNTESIS DE AUDIO (Efectos de 8 bits)
-        // ─────────────────────────────────────────────────────────────
+        
+        
+        
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         let audioCtx;
 
@@ -491,9 +491,9 @@
             osc.stop(now + 0.3);
         }
 
-        // ─────────────────────────────────────────────────────────────
-        // LÓGICA DE AUDIO DE FONDO
-        // ─────────────────────────────────────────────────────────────
+        
+        
+        
         const bgMusic = document.getElementById('bgMusic');
         const musicToggle = document.getElementById('musicToggle');
         const musicIcon = musicToggle.querySelector('i');
@@ -505,7 +505,7 @@
                 musicIcon.className = 'fas fa-volume-mute';
                 isMusicPlaying = false;
             } else {
-                initAudioContext(); // Asegurar que el contexto se active
+                initAudioContext(); 
                 bgMusic.play().then(() => {
                     musicIcon.className = 'fas fa-volume-up';
                     isMusicPlaying = true;
@@ -526,9 +526,9 @@
         }, { once: true });
 
 
-        // ─────────────────────────────────────────────────────────────
-        // LÓGICA DEL JUEGO
-        // ─────────────────────────────────────────────────────────────
+        
+        
+        
         const CANVAS_BASE_W = 800;
         const CANVAS_BASE_H = 300;
 
@@ -542,7 +542,7 @@
         let isTouchDevice = false;
         let canvasScale   = 1; 
 
-        // Escalar canvas al tamaño disponible
+        
         function resizeCanvas() {
             const wrapper = document.querySelector('.update-box');
             if(!wrapper) return;
@@ -583,7 +583,7 @@
         window.addEventListener('resize', resizeCanvas);
         setTimeout(resizeCanvas, 50);
 
-        // --- ESTADO DEL JUEGO ---
+        
         let frames = 0;
         let score = 0;
         let highScore = localStorage.getItem('adashima_hs') || 0;
@@ -604,7 +604,7 @@
         let lastStarRainTime = -100;
         let donutSpawnActive = false; 
 
-        // --- IMÁGENES ---
+        
         const imgYashiro = new Image(); imgYashiro.src = 'Imagenes/Yashiro_flotante_pixel-Photoroom.png';
         const imgmeteoro = new Image(); imgmeteoro.src = 'Imagenes/meteoro-Photoroom.png';
         const imgEstrella = new Image(); imgEstrella.src = 'Imagenes/Estrella-Photoroom.png';
@@ -613,7 +613,7 @@
         const imgBoomerang = new Image(); imgBoomerang.src = 'Imagenes/boomerang-Photoroom.png';
         const imgDona = new Image(); imgDona.src = 'Imagenes/dona_pixel-Photoroom.png';
 
-        // --- PERSONAJE ---
+        
         const yashiro = {
             x: 50, y: 200, width: 100, height: 100, dy: 0,
             jumpForce: 11, gravity: 0.65, grounded: false,
@@ -636,7 +636,7 @@
                 if (this.grounded) {
                     this.dy = -this.jumpForce;
                     this.grounded = false;
-                    playJumpSound(); // Genera el sonido de salto
+                    playJumpSound(); 
                 }
             },
             update() {
@@ -778,7 +778,7 @@
             });
         }
 
-        // --- BUCLE PRINCIPAL ---
+        
         function animate() {
             if (isGameOver) {
                 ctx.fillStyle = "rgba(0,0,0,0.7)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -813,7 +813,7 @@
                 if (invulnerabilityTime <= 0) isInvulnerable = false;
             }
 
-            // Boomerangs
+            
             for (let i = boomerangs.length - 1; i >= 0; i--) {
                 let boom = boomerangs[i];
                 boom.update();
@@ -839,7 +839,7 @@
             frames++;
             if (frames % 6 === 0) score++;
 
-            // --- ESCALADO DE DIFICULTAD MÁS SUAVE Y DONA (NUEVA LÓGICA) ---
+            
             const newTime = Math.floor(frames / 60);
             if (newTime !== gameTimeSeconds) {
                 gameTimeSeconds = newTime;
@@ -849,7 +849,7 @@
                     if (spawnRate > 50) spawnRate = Math.max(50, spawnRate - 2);
                 }
 
-                // Generar dona por primera vez a los 100 segundos
+                
                 if (gameTimeSeconds >= 100) {
                     if (!donutSpawnActive) {
                         donutSpawnActive = true;
@@ -857,7 +857,7 @@
                         spawnDona();
                     }
 
-                    // Después de los 100s iniciales, generar dona cada 30 segundos
+                    
                     if (donutSpawnActive && gameTimeSeconds - lastDonaSpawn >= 30) {
                         spawnDona();
                         lastDonaSpawn = gameTimeSeconds;
@@ -865,7 +865,7 @@
                 }
             }
 
-            // --- LLUVIA DE ESTRELLAS ---
+            
             if (gameTimeSeconds > 0 && gameTimeSeconds % 50 === 0 && gameTimeSeconds !== lastStarRainTime) {
                 starRainActive = true; 
                 lastStarRainTime = gameTimeSeconds;
@@ -907,7 +907,7 @@
 
                     if (!isInvulnerable) {
                         if (!isGameOver) {
-                            playDeathSound(); // Genera el sonido de Game Over
+                            playDeathSound(); 
                         }
                         isGameOver = true; combo = 0;
                         spawnParticlesFunc(yashiro.x + yashiro.width/2, yashiro.y + yashiro.height/2, '#d32f2f');
@@ -924,7 +924,7 @@
                 }
             }
 
-            // --- UI ---
+            
             ctx.fillStyle = "rgba(0,0,0,0.4)"; ctx.font = "20px Quicksand";
             ctx.textAlign = "left"; ctx.fillText(`Puntos: ${score}`, 22, 42);
             ctx.textAlign = "right"; ctx.fillText(`Récord: ${highScore}`, canvas.width - 18, 42);
@@ -958,7 +958,7 @@
             }
         }
 
-        // --- INPUT: Teclado ---
+        
         window.addEventListener('keydown', (e) => {
             if (e.code === 'Space') {
                 e.preventDefault();
@@ -969,7 +969,7 @@
             }
         });
 
-        // --- INPUT: Canvas táctil / Click ---
+        
         canvas.addEventListener('touchstart', (e) => {
             e.preventDefault();
             if (isTouchDevice) { if (isGameOver) { resetGame(); animate(); } } 
@@ -980,7 +980,7 @@
             if (!isTouchDevice) { if (isGameOver) { resetGame(); animate(); } else { yashiro.jump(); } }
         });
 
-        // --- INPUT: Botones Móviles ---
+        
         btnJump.addEventListener('touchstart', (e) => {
             e.preventDefault();
             if (isGameOver) { resetGame(); animate(); } else { yashiro.jump(); }
@@ -994,7 +994,7 @@
         }, { passive: false });
         btnShoot.addEventListener('click', () => { if (!isGameOver) fireBoomerang(); });
 
-        // --- START ---
+        
         animate();
 
     </script>

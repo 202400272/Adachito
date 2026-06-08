@@ -100,9 +100,7 @@
             50% { margin-left: var(--x-sway, 2.5vw); }
         }
 
-        /* =========================================================
-           LAYOUT PRINCIPAL
-        ========================================================= */
+        
         #sidebar-container { display: contents; }
 
         .main-content {
@@ -135,9 +133,7 @@
             box-shadow: 0 8px 30px rgba(255,255,255,0.3); transform: translateY(-3px); text-shadow: none;
         }
 
-        /* =========================================================
-           LÍNEA CENTRAL
-        ========================================================= */
+        
         .timeline-wrapper { width: 100%; max-width: 1050px; position: relative; z-index: 4; padding: 20px 0; }
         .timeline-wrapper::before {
             content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
@@ -162,9 +158,7 @@
             text-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
 
-        /* =========================================================
-           FILAS Y BURBUJAS
-        ========================================================= */
+        
         .event-row {
             display: grid;
             grid-template-columns: 1fr 40px 1fr;
@@ -188,7 +182,7 @@
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
 
-        /* Atenuación cuando el modal está abierto */
+        
         .timeline-wrapper.has-expanded .event-card {
             opacity: 0.3; filter: grayscale(20%) blur(2px); transform: scale(0.85);
             pointer-events: none;
@@ -232,7 +226,7 @@
             50% { transform: translateY(-10px); }
         }
 
-        /* Imagen de portada — cubre toda la burbuja */
+        
         .bubble-cover {
             position: absolute;
             inset: 0;
@@ -249,7 +243,7 @@
         }
         .event-card:hover .bubble-cover img { transform: scale(1.06); opacity: 0.85; }
 
-        /* Mini etiqueta visible en la burbuja cerrada */
+        
         .bubble-mini-label {
             position: absolute;
             bottom: 0; left: 0; right: 0;
@@ -266,12 +260,10 @@
             line-height: 1.3;
         }
 
-        /* Contenido oculto (se usa para poblar el modal) */
+        
         .bubble-content { display: none; }
 
-        /* =========================================================
-           PANEL MODAL — POSICIONAMIENTO INTELIGENTE
-        ========================================================= */
+        
         .bubble-overlay {
             display: none; position: fixed; inset: 0; z-index: 18;
         }
@@ -301,7 +293,7 @@
         .bubble-modal::-webkit-scrollbar-thumb { background: rgba(209,135,162,0.5); border-radius: 4px; }
         .bubble-modal.active { display: block; }
 
-        /* Botón cerrar */
+        
         .modal-close {
             position: absolute; top: 12px; right: 14px;
             background: rgba(209,135,162,0.2); border: 1px solid rgba(209,135,162,0.4);
@@ -312,7 +304,7 @@
         }
         .modal-close:hover { background: rgba(209,135,162,0.55); transform: scale(1.12); }
 
-        /* Imagen circular decorativa en el modal */
+        
         .modal-img-circle {
             width: 82px; height: 82px; border-radius: 50%; overflow: hidden;
             margin: 0 auto 16px auto;
@@ -322,9 +314,7 @@
         }
         .modal-img-circle img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 
-        /* =========================================================
-           TIPOGRAFÍA MODAL
-        ========================================================= */
+        
         .event-season {
             font-size: 0.78rem; font-weight: 700; letter-spacing: 1.8px;
             text-transform: uppercase; color: #7b3f75; margin-bottom: 5px;
@@ -360,9 +350,7 @@
             color: #6f3f70; margin-bottom: 9px;
         }
 
-        /* =========================================================
-           FOOTER
-        ========================================================= */
+        
         .footer {
             text-align: center; margin-top: 80px; padding-top: 20px;
             border-top: 1px solid rgba(255,255,255,0.2); width: 100%;
@@ -370,9 +358,7 @@
             z-index: 4; position: relative; line-height: 1.6;
         }
 
-        /* =========================================================
-           RESPONSIVE
-        ========================================================= */
+        
         @media (max-width: 960px) {
             .main-content { width: 100%; padding: 30px 16px 100px 16px; }
             .timeline-header h1 { font-size: 2.6rem; }
@@ -399,7 +385,7 @@
 </head>
 <body>
 
-    <!-- Modal global para burbujas -->
+    
     <div class="bubble-overlay" id="bubbleOverlay" onclick="closeBubbleModal()"></div>
     <div class="bubble-modal" id="bubbleModal">
         <div class="modal-close" onclick="closeBubbleModal()"><i class="fas fa-times"></i></div>
@@ -441,14 +427,12 @@
 
         <div class="timeline-wrapper" id="timeline">
 
-            <!-- ============================================================
-                 PRIMER AÑO ESCOLAR
-            ============================================================ -->
+            
             <div class="year-block" data-year="year1">
                 <div class="year-badge"><i class="fas fa-seedling" style="margin-right:8px;opacity:.8;"></i>Primer Año Escolar</div>
             </div>
 
-            <!-- Cumpleaños de Shimamura -->
+            
             <div class="event-row right" data-year="year1">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -462,7 +446,7 @@
                 </div>
             </div>
 
-            <!-- Se conocen en el segundo piso del gimnasio -->
+            
             <div class="event-row left" data-year="year1">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -477,7 +461,7 @@
                 </div>
             </div>
 
-            <!-- Primera Navidad -->
+            
             <div class="event-row right" data-year="year1">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -492,7 +476,7 @@
                 </div>
             </div>
 
-            <!-- Primer San Valentín e intercambio de chocolates -->
+            
             <div class="event-row left" data-year="year1">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -507,14 +491,12 @@
                 </div>
             </div>
 
-            <!-- ============================================================
-                 SEGUNDO AÑO ESCOLAR
-            ============================================================ -->
+            
             <div class="year-block" data-year="year2">
                 <div class="year-badge"><i class="fas fa-bicycle" style="margin-right:8px;opacity:.8;"></i>Segundo Año Escolar</div>
             </div>
 
-            <!-- Comienzo del segundo año escolar -->
+            
             <div class="event-row right" data-year="year2">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -529,7 +511,7 @@
                 </div>
             </div>
 
-            <!-- Propuesta de Adachi -->
+            
             <div class="event-row left" data-year="year2">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -545,7 +527,7 @@
                 </div>
             </div>
 
-            <!-- Pelea y reconciliación -->
+            
             <div class="event-row right" data-year="year2">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -560,7 +542,7 @@
                 </div>
             </div>
 
-            <!-- Viaje al campo · Obon -->
+            
             <div class="event-row left" data-year="year2">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -575,7 +557,7 @@
                 </div>
             </div>
 
-            <!-- Declaración de Adachi -->
+            
             <div class="event-row right" data-year="year2">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -591,7 +573,7 @@
                 </div>
             </div>
 
-            <!-- Primer día de clases como novias -->
+            
             <div class="event-row left" data-year="year2">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -608,7 +590,7 @@
                 </div>
             </div>
 
-            <!-- Viaje escolar a Kitakyushu -->
+            
             <div class="event-row right" data-year="year2">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -623,7 +605,7 @@
                 </div>
             </div>
 
-            <!-- Segunda Navidad -->
+            
             <div class="event-row left" data-year="year2">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -638,7 +620,7 @@
                 </div>
             </div>
 
-            <!-- Año Nuevo en casa de los abuelos -->
+            
             <div class="event-row right" data-year="year2">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -653,7 +635,7 @@
                 </div>
             </div>
 
-            <!-- Segundo San Valentín y despedida de Tarumi -->
+            
             <div class="event-row left" data-year="year2">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -668,14 +650,12 @@
                 </div>
             </div>
 
-            <!-- ============================================================
-                 TERCER Y ÚLTIMO AÑO ESCOLAR
-            ============================================================ -->
+            
             <div class="year-block" data-year="year3">
                 <div class="year-badge"><i class="fas fa-star" style="margin-right:8px;opacity:.8;"></i>Tercer y Último Año Escolar</div>
             </div>
 
-            <!-- Comienzo del tercer y último año -->
+            
             <div class="event-row right" data-year="year3">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -688,7 +668,7 @@
                 </div>
             </div>
 
-            <!-- Plan para las últimas vacaciones de verano -->
+            
             <div class="event-row left" data-year="year3">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -704,7 +684,7 @@
                 </div>
             </div>
 
-            <!-- Trabajo doméstico de Shimamura -->
+            
             <div class="event-row right" data-year="year3">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -718,7 +698,7 @@
                 </div>
             </div>
 
-            <!-- Estudio en casa de Shimamura -->
+            
             <div class="event-row left" data-year="year3">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -735,7 +715,7 @@
                 </div>
             </div>
 
-            <!-- Viaje a la playa -->
+            
             <div class="event-row right" data-year="year3">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -751,7 +731,7 @@
                 </div>
             </div>
 
-            <!-- Visita a los abuelos · Obon · Tercer año -->
+            
             <div class="event-row left" data-year="year3">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -766,7 +746,7 @@
                 </div>
             </div>
 
-            <!-- Festival cultural escolar -->
+            
             <div class="event-row right" data-year="year3">
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
@@ -793,9 +773,7 @@
     </div>
 
     <script>
-        /* =========================================================
-           SISTEMA MODAL — POSICIONAMIENTO ADAPTATIVO
-        ========================================================= */
+        
         let _lastCard = null;
 
         function openBubbleModal(card) {
@@ -807,7 +785,7 @@
             const modalContent = document.getElementById('modalContent');
             const modalCircle  = document.getElementById('modalImgCircle');
 
-            // Imagen circular
+            
             if (coverImg && coverImg.src) {
                 modalCircle.innerHTML = `<img src="${coverImg.src}" alt="preview">`;
                 modalCircle.style.display = 'block';
@@ -815,16 +793,16 @@
                 modalCircle.style.display = 'none';
             }
 
-            // Contenido
+            
             modalContent.innerHTML = contentEl ? contentEl.innerHTML : '';
 
-            // Mostrar (necesario para medir altura)
+            
             modal.style.visibility = 'hidden';
             modal.classList.add('active');
             overlay.classList.add('active');
             document.getElementById('timeline').classList.add('has-expanded');
 
-            // Posicionar tras render
+            
             requestAnimationFrame(() => {
                 _positionModal(modal, card);
                 modal.style.visibility = '';
@@ -841,11 +819,11 @@
             const rect   = trigger.getBoundingClientRect();
             const margin = 12;
 
-            // Horizontal: centrar sobre el trigger, dentro de la pantalla
+            
             let left = (rect.left + rect.right) / 2 - modalW / 2;
             left = Math.max(margin, Math.min(left, vw - modalW - margin));
 
-            // Vertical: preferir debajo, si no cabe arriba, si tampoco cabe centrar
+            
             let top = rect.bottom + margin;
             if (top + modalH > vh - margin) {
                 top = rect.top - modalH - margin;
@@ -871,9 +849,7 @@
             if (modal.classList.contains('active') && _lastCard) _positionModal(modal, _lastCard);
         });
 
-        /* =========================================================
-           GENERADOR DE PÉTALOS DE SAKURA
-        ========================================================= */
+        
         function initSakuraRain() {
             const env = document.getElementById('sakura-env');
             if (!env) return;
@@ -919,9 +895,7 @@
             window.__sakuraResize = setTimeout(initSakuraRain, 200);
         });
 
-        /* =========================================================
-           FILTRO POR AÑO Y SCROLL REVEAL
-        ========================================================= */
+        
         function filterYear(year, btn) {
             document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -957,7 +931,7 @@
         window.addEventListener('scroll', checkVisibility, { passive: true });
         window.addEventListener('load',   () => setTimeout(checkVisibility, 150));
 
-        /* CARGA DEL MENÚ Y SW */
+        
         const menuVer = Math.floor(Date.now() / 86400000);
         fetch('menu.html?v=' + menuVer)
             .then(response => {

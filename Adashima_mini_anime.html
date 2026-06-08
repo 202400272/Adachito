@@ -385,9 +385,7 @@
         .screen-glow.active { opacity: 1; animation: ambientPulse 4s ease-in-out infinite alternate; }
         @keyframes ambientPulse { 0% { opacity: 0.6; transform: scale(1); } 100% { opacity: 1; transform: scale(1.04); } }
 
-        /* ════════════════════════════════════════
-            OSD MENU — DESKTOP
-        ════════════════════════════════════════ */
+        
         .osd-menu {
             position: absolute; inset: 0; z-index: 30;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -439,13 +437,9 @@
         .osd-menu::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(to bottom, transparent, transparent 3px, rgba(0,0,0,0.08) 3px, rgba(0,0,0,0.08) 4px); pointer-events: none; border-radius: inherit; z-index: 1; }
         .osd-box { z-index: 2; }
 
-        /* ════════════════════════════════════════
-            OSD MENU — MÓVIL: drawer fixed desde abajo
-            JS mueve el nodo al body en móvil para
-            escapar del overflow:hidden del crt-screen.
-        ════════════════════════════════════════ */
+        
 
-        /* Estado del OSD cuando está portado al body en móvil */
+        
         .osd-menu.osd-portado {
             position: fixed;
             inset: 0;
@@ -477,7 +471,7 @@
             transform: translateY(0);
         }
 
-        /* Overrides normales de desktop siguen siendo los del .osd-box base */
+        
         .osd-menu.osd-portado .osd-box::before {
             content: '';
             position: absolute;
@@ -524,9 +518,7 @@
             .osd-menu.osd-portado .osd-ch-sub { font-size: 0.74rem; }
         }
 
-        /* ────────────────────────────────────────
-            CONTROLES DEL TV
-        ──────────────────────────── */
+        
         .tv-controls-row {
             display: flex; align-items: center; justify-content: space-between; gap: 16px;
             margin-top: 18px; padding: 12px 8px 4px; flex-wrap: wrap; border-top: 1px solid rgba(0,0,0,0.4); position: relative;
@@ -1447,12 +1439,8 @@
     downloadAllBtn.addEventListener('click', downloadAllEpisodes);
     fullscreenBtn.addEventListener('click', toggleFullscreen);
 
-    /* ══════════════════════════════════════
-       PORTAL MÓVIL: mueve el OSD al body
-       para escapar del overflow:hidden del
-       crt-screen, y lo devuelve en desktop.
-    ══════════════════════════════════════ */
-    const osdOriginalParent = crtScreen; // referencia al padre original
+    
+    const osdOriginalParent = crtScreen; 
 
     function isMobile() { return window.innerWidth <= 768; }
 

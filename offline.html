@@ -28,7 +28,7 @@
             touch-action: none;
         }
 
-        /* ── Badge offline ── */
+        
         .offline-badge {
             background: #d32f2f;
             color: white;
@@ -47,7 +47,7 @@
             50% { opacity: 0.7; transform: scale(1.05); }
         }
 
-        /* ── Canvas container ── */
+        
         #gameContainer {
             position: relative;
             box-shadow: 0 15px 40px rgba(0,0,0,0.3);
@@ -65,38 +65,9 @@
             image-rendering: crisp-edges;
         }
 
-        /* ── Botón Toggle Música ── */
-        .music-toggle {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 255, 255, 0.85);
-            border: 2px solid rgba(209, 163, 198, 0.8);
-            border-radius: 50%;
-            width: 38px;
-            height: 38px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 100;
-            color: #7b4f91;
-            font-size: 1rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            transition: transform 0.2s, background 0.2s;
-            outline: none;
-        }
+        
 
-        .music-toggle:hover {
-            transform: scale(1.1);
-            background: rgba(255, 255, 255, 1);
-        }
-
-        .music-toggle:active {
-            transform: scale(0.95);
-        }
-
-        /* ── Panel de mecánicas (ambas plataformas) ── */
+        
         .instructions {
             margin-top: 12px;
             text-align: center;
@@ -134,7 +105,7 @@
 
         .game-info strong { color: #7b4f91; }
 
-        /* ── Panel de mecánicas — fijo en la parte inferior ── */
+        
         .mechanics-panel {
             position: fixed;
             bottom: 0;
@@ -163,7 +134,7 @@
             box-shadow: 0 1px 4px rgba(0,0,0,0.06);
         }
 
-        /* En móvil, el panel de mecánicas va encima de los controles táctiles */
+        
         @media (max-width: 500px) {
             .mechanics-panel {
                 position: static;
@@ -189,11 +160,9 @@
             .offline-badge { margin: 6px 0 3px; }
         }
 
-        /* ════════════════════════════════════════
-           CONTROLES TÁCTILES MÓVIL
-           ════════════════════════════════════════ */
+        
         #mobileControls {
-            display: none; /* se activa por JS si es touch */
+            display: none; 
             width: 100%;
             padding: 10px 16px 14px;
             flex-shrink: 0;
@@ -206,7 +175,7 @@
             gap: 12px;
         }
 
-        /* Botón grande de SALTO (izquierda) */
+        
         .btn-jump {
             flex: 1;
             height: 70px;
@@ -240,7 +209,7 @@
 
         .btn-jump .btn-label { font-size: 0.85rem; opacity: 0.9; letter-spacing: 0.5px; }
 
-        /* Botón de DISPARO (derecha) */
+        
         .btn-shoot {
             flex: 1;
             height: 70px;
@@ -274,7 +243,7 @@
 
         .btn-shoot .btn-label { font-size: 0.85rem; opacity: 0.9; letter-spacing: 0.5px; }
 
-        /* Texto de ayuda entre botones */
+        
         .mobile-hint {
             text-align: center;
             font-size: 0.7rem;
@@ -295,23 +264,17 @@
 </head>
 <body>
 
-    <!-- Audio de Fondo -->
-    <audio id="bgMusic" loop preload="none">
-        <source src="Sound/ada8bit.mp3" type="audio/mp3">
-    </audio>
+    
 
     <div class="offline-badge">Sin conexión a internet</div>
 
     <div id="gameContainer">
         <canvas id="gameCanvas" width="800" height="300"></canvas>
 
-        <!-- Botón de Música -->
-        <button id="musicToggle" class="music-toggle" aria-label="Alternar Música">
-            🔇
-        </button>
+        
     </div>
 
-    <!-- Panel de mecánicas — visible en ambas plataformas -->
+    
     <div class="mechanics-panel" id="mechanicsPanel">
         <div class="mechanic-tip-container"><span class="mechanic-tip">Lluvia de estrellas cada 50s · dura 15s · estrellas azules aguantan 4 disparos</span></div>
         <div class="mechanic-tip-container"><span class="mechanic-tip">Dona a partir de los 100s · luego cada 30s</span></div>
@@ -319,7 +282,7 @@
         <div class="mechanic-tip-container"><span class="mechanic-tip">ESPACIO saltar · ↓ boomerang · combo al esquivar</span></div>
     </div>
 
-    <!-- Botones táctiles para móvil -->
+    
     <div id="mobileControls">
         <div class="mobile-controls-row">
             <button class="btn-jump" id="btnJump" aria-label="Saltar">
@@ -332,7 +295,7 @@
         <p class="mobile-hint">Toca SALTAR para reiniciar cuando pierdas</p>
     </div>
 
-    <!-- Instrucciones desktop -->
+    
     <div class="instructions" id="desktopInstructions">
         <h2>Presiona ESPACIO o toca la pantalla para saltar</h2>
         <div class="game-info">
@@ -342,9 +305,9 @@
     </div>
 
     <script>
-        // ─────────────────────────────────────────────────────────────
-        // SÍNTESIS DE AUDIO (Efectos de 8 bits)
-        // ─────────────────────────────────────────────────────────────
+        
+        
+        
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         let audioCtx;
 
@@ -397,43 +360,11 @@
             osc.stop(now + 0.3);
         }
 
-        // ─────────────────────────────────────────────────────────────
-        // AUDIO DE FONDO
-        // ─────────────────────────────────────────────────────────────
-        const bgMusic = document.getElementById('bgMusic');
-        const musicToggle = document.getElementById('musicToggle');
-        let isMusicPlaying = false;
+        
 
-        function toggleMusic() {
-            if (isMusicPlaying) {
-                bgMusic.pause();
-                musicToggle.textContent = '🔇';
-                isMusicPlaying = false;
-            } else {
-                initAudioContext();
-                bgMusic.play().then(() => {
-                    musicToggle.textContent = '🔊';
-                    isMusicPlaying = true;
-                }).catch(err => console.log("Autoplay bloqueado:", err));
-            }
-        }
-
-        musicToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleMusic();
-        });
-
-        // Iniciar música con la primera interacción del usuario
-        document.body.addEventListener('click', function initAudio() {
-            if (!isMusicPlaying) {
-                toggleMusic();
-            }
-            document.body.removeEventListener('click', initAudio);
-        }, { once: true });
-
-        // ─────────────────────────────────────────────────────────────
-        // RESPONSIVE: escalar canvas al tamaño disponible de pantalla
-        // ─────────────────────────────────────────────────────────────
+        
+        
+        
         const CANVAS_BASE_W = 800;
         const CANVAS_BASE_H = 300;
 
@@ -488,9 +419,9 @@
         window.addEventListener('resize', resizeCanvas);
         setTimeout(resizeCanvas, 50);
 
-        // ─────────────────────────────────────────────────────────────
-        // ESTADO DEL JUEGO
-        // ─────────────────────────────────────────────────────────────
+        
+        
+        
         let frames = 0;
         let score = 0;
         let highScore = localStorage.getItem('adashima_hs') || 0;
@@ -511,9 +442,9 @@
         let lastStarRainTime = -100;
         let donutSpawnActive = false;
 
-        // ─────────────────────────────────────────────────────────────
-        // IMÁGENES
-        // ─────────────────────────────────────────────────────────────
+        
+        
+        
         const imgYashiro = new Image();
         imgYashiro.src = 'Imagenes/Yashiro_flotante_pixel-Photoroom.png';
 
@@ -535,9 +466,9 @@
         const imgDona = new Image();
         imgDona.src = 'Imagenes/dona_pixel-Photoroom.png';
 
-        // ─────────────────────────────────────────────────────────────
-        // PERSONAJE
-        // ─────────────────────────────────────────────────────────────
+        
+        
+        
         const yashiro = {
             x: 50,
             y: 200,
@@ -589,9 +520,9 @@
             }
         };
 
-        // ─────────────────────────────────────────────────────────────
-        // RESET
-        // ─────────────────────────────────────────────────────────────
+        
+        
+        
         function resetGame() {
             obstacles = [];
             score = 0;
@@ -612,9 +543,9 @@
             donutSpawnActive = false;
         }
 
-        // ─────────────────────────────────────────────────────────────
-        // SPAWN OBSTÁCULOS
-        // ─────────────────────────────────────────────────────────────
+        
+        
+        
         function spawnObstacle() {
             let size = 35;
             let typeImg;
@@ -704,9 +635,9 @@
             });
         }
 
-        // ─────────────────────────────────────────────────────────────
-        // PARTÍCULAS
-        // ─────────────────────────────────────────────────────────────
+        
+        
+        
         function spawnParticles(x, y, color = '#a28cbd') {
             for (let i = 0; i < 8; i++) {
                 particles.push({
@@ -734,9 +665,9 @@
             }
         }
 
-        // ─────────────────────────────────────────────────────────────
-        // DONA
-        // ─────────────────────────────────────────────────────────────
+        
+        
+        
         function spawnDona() {
             let size = 30;
             obstacles.push({
@@ -776,9 +707,9 @@
             });
         }
 
-        // ─────────────────────────────────────────────────────────────
-        // BOOMERANG
-        // ─────────────────────────────────────────────────────────────
+        
+        
+        
         function fireBoomerang() {
             boomerangs.push({
                 x: yashiro.x + yashiro.width,
@@ -802,9 +733,9 @@
             });
         }
 
-        // ─────────────────────────────────────────────────────────────
-        // BUCLE PRINCIPAL
-        // ─────────────────────────────────────────────────────────────
+        
+        
+        
         function animate() {
             if (isGameOver) {
                 ctx.fillStyle = "rgba(0,0,0,0.7)";
@@ -864,7 +795,7 @@
                 if (invulnerabilityTime <= 0) isInvulnerable = false;
             }
 
-            // Boomerangs
+            
             for (let i = boomerangs.length - 1; i >= 0; i--) {
                 let boom = boomerangs[i];
                 boom.update();
@@ -900,18 +831,18 @@
                 score++;
             }
 
-            // ── Actualización de tiempo y dificultad (cada segundo) ──
+            
             const newTime = Math.floor(frames / 60);
             if (newTime !== gameTimeSeconds) {
                 gameTimeSeconds = newTime;
 
-                // Incremento suave cada 5 segundos (igual que Juego.html)
+                
                 if (gameTimeSeconds > 0 && gameTimeSeconds % 5 === 0) {
                     gameSpeed = Math.min(gameSpeed + 0.15, 9.5);
                     if (spawnRate > 50) spawnRate = Math.max(50, spawnRate - 2);
                 }
 
-                // Dona: primer spawn a los 100s, luego cada 30s (igual que Juego.html)
+                
                 if (gameTimeSeconds >= 100) {
                     if (!donutSpawnActive) {
                         donutSpawnActive = true;
@@ -925,7 +856,7 @@
                 }
             }
 
-            // ── Lluvia de estrellas ──
+            
             if (gameTimeSeconds > 0 && gameTimeSeconds % 50 === 0 && gameTimeSeconds !== lastStarRainTime) {
                 starRainActive = true;
                 lastStarRainTime = gameTimeSeconds;
@@ -1012,7 +943,7 @@
                 }
             }
 
-            // ── UI ──
+            
             ctx.fillStyle = "rgba(0,0,0,0.4)";
             ctx.font = "20px Quicksand";
             ctx.textAlign = "left";
@@ -1069,9 +1000,9 @@
             }
         }
 
-        // ─────────────────────────────────────────────────────────────
-        // INPUT: teclado
-        // ─────────────────────────────────────────────────────────────
+        
+        
+        
         function handleKeyDown(e) {
             if (e.code === 'Space') {
                 e.preventDefault();
@@ -1086,9 +1017,9 @@
 
         window.addEventListener('keydown', handleKeyDown);
 
-        // ─────────────────────────────────────────────────────────────
-        // INPUT: toque directo en canvas
-        // ─────────────────────────────────────────────────────────────
+        
+        
+        
         canvas.addEventListener('touchstart', (e) => {
             e.preventDefault();
             if (isTouchDevice) {
@@ -1106,9 +1037,9 @@
             }
         });
 
-        // ─────────────────────────────────────────────────────────────
-        // BOTONES MÓVILES
-        // ─────────────────────────────────────────────────────────────
+        
+        
+        
         btnJump.addEventListener('touchstart', (e) => {
             e.preventDefault();
             if (isGameOver) { resetGame(); animate(); }
@@ -1129,9 +1060,9 @@
             if (!isGameOver) fireBoomerang();
         });
 
-        // ─────────────────────────────────────────────────────────────
-        // INICIO
-        // ─────────────────────────────────────────────────────────────
+        
+        
+        
         animate();
 
         window.addEventListener('online', () => {
