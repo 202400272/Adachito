@@ -277,12 +277,8 @@
             text-decoration: none;
             cursor: pointer;
         }
-        .float-1 { top: 88px; left: 324px; width: 132px; animation: float-decor-1 12s ease-in-out infinite alternate; }
+
         .float-2 { bottom: 132px; right: 24px; width: 150px; animation: float-decor-2 15s ease-in-out infinite alternate-reverse; }
-        @keyframes float-decor-1 {
-            0%   { transform: translateY(0) rotate(-4deg) scale(1); }
-            100% { transform: translateY(-35px) rotate(6deg) scale(1.05); }
-        }
         @keyframes float-decor-2 {
             0%   { transform: translateY(0) rotate(5deg) scale(1); }
             100% { transform: translateY(-40px) rotate(-5deg) scale(0.95); }
@@ -585,7 +581,7 @@
             .main-content { background-position: top center; padding: 18px 10px 50px; }
             h1.update-title { font-size: 2rem; }
             .floating-adashima { width: 80px; bottom: 6px; right: 6px; }
-            .float-1 { width: 76px; top: 12px; left: 8px; right: auto; }
+            /* .float-1 removed (flotante 1 eliminado) */
             .float-2 { width: 86px; bottom: 78px; right: 8px; }
             .update-box { padding: 12px; border-radius: 14px; }
             .download-all-btn { width: 90%; font-size: 1rem; padding: 14px 20px; }
@@ -624,9 +620,6 @@
 <body>
     <div class="particles" id="particles"></div>
 
-    <a class="floating-decor float-1" href="Juego.html" title="Ir a Juego">
-        <img src="Imagenes/Flotante_manga-Photoroom.png" alt="Decoración Manga 1" loading="lazy" decoding="async" style="width:100%; height:auto;">
-    </a>
     <a class="floating-decor float-2" href="Juego.html" title="Ir a Juego">
         <img src="Imagenes/Flotantemanga2-Photoroom.png" alt="Decoración Manga 2" loading="lazy" decoding="async" style="width:100%; height:auto;">
     </a>
@@ -678,12 +671,14 @@
     const CACHE_TTL_MS   = 7 * 24 * 60 * 60 * 1000;
 
     const MANGA_CONFIG = {
+        // === NUM CAPS ===
         get chapters() {
             const special = [5.5, 12.5, 15.2, 16.2, 17.2, 19.2, 27.2, 27.3, 27.4, 29.1, 29.2, 29.3, 30.2, 30.5, 34.2, 36.2, 38.2, 54.5];
             const list = [];
-            for (let i = 1; i <= 57; i++) if (i !== 29) list.push(i);
+            for (let i = 1; i <= 56; i++) if (i !== 29) list.push(i);
             return [...list, ...special].sort((a, b) => a - b).concat(['Antologia']);
         },
+        // === FIN ===
         maxPagesPerChapter: 150,
         imagePath(chapter, page) {
             const pageStr = String(page).padStart(3, '0');
@@ -857,6 +852,11 @@
     }
 
     let _mangaManifest = null;
+    // El archivo `manga-manifest.json`, si existe, proporciona el número
+    // de páginas exacto por capítulo (ej.: { "1": 24, "2": 30, "Antologia": 8 }).
+    // Cuando detectChapterPages encuentra una entrada válida en el manifest,
+    // usa ese recuento en lugar de sondear imágenes una por una. Esto acelera la
+    // detección y asegura contajes exactos.
     async function loadMangaManifest() {
         if (_mangaManifest !== null) return _mangaManifest;
         try {
