@@ -66,7 +66,7 @@ self.addEventListener('fetch', (event) => {
     const { request } = event;
     const url = new URL(request.url);
     const isSameOrigin = url.origin === self.location.origin;
-    const EXCLUDED_HOST = 'pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev';
+    const EXCLUDED_HOST = 'media.adashimaverse.com';
 
     if (!isSameOrigin) {
         return;

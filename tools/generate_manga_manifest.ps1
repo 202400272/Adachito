@@ -1,12 +1,6 @@
-<#
-PowerShell script para generar `manga-manifest.json` automático.
-Uso:
-  powershell -ExecutionPolicy Bypass -File .\tools\generate_manga_manifest.ps1 -BaseUrl "https://pub-.../Manga/" -Out "manga-manifest.json"
 
-El script prueba secuencialmente páginas por capítulo y cuenta hasta que encuentra N fallos consecutivos.
-#>
 param(
-    [Parameter(Mandatory=$false)] [string]$BaseUrl = 'https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/Manga/',
+    [Parameter(Mandatory=$false)] [string]$BaseUrl = 'https://media.adashimaverse.com/Manga/',
     [Parameter(Mandatory=$false)] [string]$Out = 'manga-manifest.json',
     [Parameter(Mandatory=$false)] [int]$MaxChapter = 56,
     [Parameter(Mandatory=$false)] [int]$MaxPagesPerChapter = 150,
@@ -27,7 +21,6 @@ function Probe-Page {
 Write-Host "Generando manifiesto de manga usando base: $BaseUrl"
 $manifest = @{}
 
-# capítulos 1..56 excepto 29
 $chapters = (1..56 | Where-Object { $_ -ne 29 }) | ForEach-Object { $_.ToString() }
 $special = @('5.5','12.5','15.2','16.2','17.2','19.2','27.2','27.3','27.4','29.1','29.2','29.3','30.2','30.5','34.2','36.2','38.2','54.5')
 $chapters = $chapters + $special + 'Antologia'
@@ -38,18 +31,19 @@ foreach ($ch in $chapters) {
     $count = 0
     for ($p = 1; $p -le $MaxPagesPerChapter; $p++) {
         $pageStr = $p.ToString().PadLeft(3,'0')
-        # Construir folder name como en JS
         if ($ch -eq 'Antologia') {
-            $folder = 'Antologia'
+            $foldersToTry = @('Antologia')
         } else {
-            $num = [double]::Parse($ch)
-            $useAccent = ($num -ge 40 -and $num -le 55)
-            if ($useAccent) { $folder = "Capítulo $ch" } else { $folder = "Capitulo $ch" }
+            $foldersToTry = @("Capitulo $ch", "Capítulo $ch")
         }
-        $urlPart = [uri]::EscapeUriString($folder) + '/' + $pageStr + '.jpg'
-        $url = $BaseUrl.TrimEnd('/') + '/' + $urlPart
 
-        $ok = Probe-Page -url $url
+        $ok = $false
+        foreach ($folder in $foldersToTry) {
+            $urlPart = [uri]::EscapeUriString($folder) + '/' + $pageStr + '.jpg'
+            $url = $BaseUrl.TrimEnd('/') + '/' + $urlPart
+            $ok = Probe-Page -url $url
+            if ($ok) { break }
+        }
         if ($ok) {
             $count++
             $consecMiss = 0
@@ -67,7 +61,6 @@ foreach ($ch in $chapters) {
     }
 }
 
-# Guardar JSON
 $manifestJson = $manifest | ConvertTo-Json -Depth 5
 Set-Content -Path $Out -Value $manifestJson -Encoding UTF8
 Write-Host "Manifiesto generado en $Out"

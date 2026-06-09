@@ -461,7 +461,6 @@
         .btn-labeled { display: flex; flex-direction: column; align-items: center; gap: 3px; }
         .btn-label-text { font-family: 'Special Elite', monospace; font-size: 0.55rem; color: rgba(255,255,255,0.22); letter-spacing: 0.12em; text-transform: uppercase; }
 
-        /* PERILLAS */
         .tv-knob { display: flex; flex-direction: column; align-items: center; gap: 5px; position: relative; }
         .knob-label { font-family: 'Special Elite', monospace; font-size: 0.6rem; color: rgba(255,255,255,0.25); letter-spacing: 0.1em; }
         .knob-ring-wrap { position: relative; width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; }
@@ -574,7 +573,6 @@
         .floating-adashima img { width: 100%; border-radius: 0; display: block; object-fit: contain; background: transparent; }
         @keyframes float-astronaut { 0% { transform: translateY(0px) rotate(0deg); } 33% { transform: translateY(-15px) rotate(5deg); } 66% { transform: translateY(10px) rotate(-5deg); } 100% { transform: translateY(0px) rotate(0deg); } }
 
-        /* RESPONSIVE */
         @media (max-width: 992px) {
             .decor-1, .decor-2, .decor-3 { display: none; }
         }
@@ -624,7 +622,6 @@
             .osd-menu { background: rgba(4, 2, 10, 0.88); }
         }
 
-        /* Mejora del OSD para móviles: expandir el visor de capítulos */
         @media (max-width: 768px) {
             .osd-menu { align-items: center; justify-content: flex-start; padding-top: 28px; }
             .osd-box {
@@ -643,12 +640,6 @@
             .osd-ch-sub { font-size: 0.72rem; }
             .osd-footer { font-size: 0.68rem; }
         }
-
-        /* ════════════════════════════════════════
-            OSD MENU — MÓVIL: drawer fixed desde abajo
-            JS mueve el nodo al body en móvil para
-            escapar del overflow:hidden del crt-screen.
-        ════════════════════════════════════════ */
 
         .osd-menu.osd-portado {
             position: fixed;
@@ -1030,7 +1021,7 @@
         }
     }
 
-    const CDN_BASE_URL = 'https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev';
+    const CDN_BASE_URL = 'https://media.adashimaverse.com';
 
     const CHANNELS = [];
     for (let i = 1; i <= 12; i++) {

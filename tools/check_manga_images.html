@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Check Manga Images - Diagnóstico</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Arial;background:#faf8fb;color:#222;padding:18px}
+    .panel{max-width:980px;margin:10px auto;padding:18px;background:#fff;border-radius:8px;box-shadow:0 6px 24px rgba(30,20,40,0.06)}
+    label{display:block;margin-top:8px;font-weight:600}
+    input,button,select{margin-top:6px;padding:8px 10px;font-size:14px;border-radius:6px;border:1px solid #ddd}
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    th,td{padding:8px;border-bottom:1px solid #eee;font-size:13px}
+    .ok{color:green;font-weight:700}
+    .bad{color:#b33;font-weight:700}
+    a.url{color:#0a58ca}
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <h2>Diagnóstico de imágenes del Manga</h2>
+    <p>Introduce un capítulo y rango de páginas para probar. El script probará variantes de carpeta ("Capitulo X" y "Capítulo X" y "Antologia").</p>
+    <label>Capítulo (número o <code>Antologia</code>):</label>
+    <input id="chapter" value="1">
+
+    <label>Rango de páginas:</label>
+    <div style="display:flex;gap:8px;align-items:center">
+      <input id="from" style="width:100px" value="1"> — <input id="to" style="width:100px" value="6">
+      <select id="concurrency" style="width:110px">
+        <option>1</option>
+        <option selected>3</option>
+        <option>6</option>
+      </select>
+      <button id="run">Probar</button>
+      <button id="open-in-browser">Abrir capítulo en lector</button>
+    </div>
+
+    <div id="log"></div>
+
+    <table id="results" style="display:none">
+      <thead><tr><th>Página</th><th>URL probada</th><th>Resultado</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+
+    <p style="margin-top:12px;font-size:13px;color:#666">Sugerencia: si usas XAMPP abre <code>http://localhost/ADASHIMA/tools/check_manga_images.html</code> para evitar restricciones de archivo local.</p>
+  </div>
+
+<script>
+  const BASE = 'https://media.adashimaverse.com/Manga/';
+
+  function folderVariants(ch) {
+    if (String(ch).toLowerCase() === 'antologia') return ['Antologia', 'antologia'];
+    const base1 = `Capitulo ${ch}`;
+    const base2 = `Capítulo ${ch}`;
+    return [base1, base2, base1.toLowerCase(), base2.toLowerCase(), base1.toUpperCase(), base2.toUpperCase()];
+  }
+
+  function encodeFolder(folder){ return encodeURIComponent(folder); }
+
+  function pageVariants(page){
+    const p = String(page);
+    const p1 = p.padStart(3,'0');
+    const p2 = p.padStart(2,'0');
+    return [p1, p2, p];
+  }
+
+  function candidates(ch, page){
+    const names = pageVariants(page);
+    const folders = folderVariants(ch);
+    const urls = [];
+    for (const f of folders) for (const n of names) urls.push(`${BASE}${encodeURIComponent(f)}/${n}.jpg`);
+    return urls;
+  }
+
+  function testImage(url, timeout=7000){
+    const policies = ['no-referrer', 'origin', 'no-referrer-when-downgrade', 'origin-when-cross-origin', ''];
+    return new Promise(async resolve => {
+      for (const policy of policies) {
+        const res = await testImageWithPolicy(url, policy, timeout);
+        if (res.ok) { res.policy = policy || 'default'; return resolve(res); }
+      }
+      return resolve({url,ok:false,reason:'all-failed'});
+    });
+  }
+
+  function testImageWithPolicy(url, policy, timeout=7000){
+    return new Promise(resolve => {
+      const img = new Image();
+      let done = false;
+      const t = setTimeout(()=>{ if(!done){ done=true; resolve({url,ok:false,reason:'timeout',policy}); img.src=''; } }, timeout);
+      img.onload = ()=>{ if(!done){ done=true; clearTimeout(t); resolve({url,ok:true,policy}); } };
+      img.onerror = ()=>{ if(!done){ done=true; clearTimeout(t); resolve({url,ok:false,reason:'error',policy}); } };
+      try { if (policy) img.referrerPolicy = policy; } catch(e) {}
+      img.src = url + (url.includes('?')? '&':'?') + '_diag=' + Date.now();
+    });
+  }
+
+  async function probePage(ch, page){
+    const list = candidates(ch,page);
+    const tried = [];
+    for (const u of list){
+      tried.push(u);
+      const res = await testImage(u);
+      if (res.ok) return {...res, tested:u, tried};
+    }
+    return {ok:false, tested:list[0], tried};
+  }
+
+  function appendRow(page, url, ok, extra){
+    const tbl = document.querySelector('#results tbody');
+    const tr = document.createElement('tr');
+    const preview = ok ? `<button data-url="${url}" class="preview-btn">Ver</button>` : '';
+    tr.innerHTML = `<td>${page}</td><td><a class="url" href="${url}" target="_blank">${url}</a></td><td class="${ok?'ok':'bad'}">${ok? 'OK':'NO'}</td><td>${extra||''} ${preview}</td>`;
+    tbl.appendChild(tr);
+  }
+
+  document.addEventListener('click', (ev) => {
+    if (ev.target && ev.target.classList && ev.target.classList.contains('preview-btn')) {
+      const url = ev.target.dataset.url;
+      const win = window.open('', '_blank');
+      if (!win) return alert('Permite popups para previsualizar.');
+      win.document.title = 'Preview';
+      const img = win.document.createElement('img'); img.src = url; img.style.maxWidth='100%'; img.style.display='block'; img.style.margin='10px';
+      win.document.body.style.background='#111'; win.document.body.style.margin='0'; win.document.body.appendChild(img);
+    }
+  });
+
+  document.getElementById('run').addEventListener('click', async ()=>{
+    document.getElementById('results').style.display='table';
+    const ch = document.getElementById('chapter').value.trim();
+    const from = parseInt(document.getElementById('from').value,10)||1;
+    const to   = parseInt(document.getElementById('to').value,10)||from;
+    const conc = parseInt(document.getElementById('concurrency').value,10)||3;
+    document.querySelector('#results tbody').innerHTML='';
+    document.getElementById('log').textContent = `Probando capítulo ${ch} páginas ${from}..${to} (concurrency ${conc})...`;
+
+    const pages = [];
+    for (let p=from;p<=to;p++) pages.push(p);
+
+    let idx = 0;
+    async function worker(){
+      while(idx < pages.length){
+        const p = pages[idx++];
+        const r = await probePage(ch,p);
+        if (r.ok) appendRow(p, r.url || r.tested, true);
+        else appendRow(p, (r.tested || (r.tried && r.tried[0])) , false, r.reason||'not found');
+      }
+    }
+    const workers = Array.from({length:conc}, ()=>worker());
+    await Promise.all(workers);
+    document.getElementById('log').textContent = 'Prueba completada.';
+  });
+
+  document.getElementById('open-in-browser').addEventListener('click', ()=>{
+    const ch = document.getElementById('chapter').value.trim();
+    const url = `./Adashima_Manga.html#manga-${encodeURIComponent(ch)}`;
+    window.location.href = url;
+  });
+</script>
+</body>
+</html>

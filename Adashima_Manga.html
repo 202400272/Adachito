@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adashima - Manga</title>
     
-    <link rel="preconnect" href="https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev" crossorigin>
-    <link rel="dns-prefetch" href="https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev">
+    <link rel="preconnect" href="https://media.adashimaverse.com" crossorigin>
+    <link rel="dns-prefetch" href="https://media.adashimaverse.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Quicksand:wght@300;400;600&display=swap');
@@ -671,16 +671,10 @@
     <div class="zoom-toast" id="zoom-toast"></div>
 
     <script>
-    
-    
-    
-    const R2_BASE_URL = 'https://pub-552c8df9ee0f4e8da0690fb94530494c.r2.dev/Manga/';
+    const R2_BASE_URL = 'https://media.adashimaverse.com/Manga/';
 
-    
     const CACHE_PREFIX   = 'adashima_ch_';
-    const CACHE_VERSION  = 'v4';
-    
-    
+    const CACHE_VERSION  = 'v5';
     const CACHE_TTL_MS   = 7 * 24 * 60 * 60 * 1000;
 
     const MANGA_CONFIG = {
@@ -712,18 +706,11 @@
         const keys = Object.keys(localStorage).filter(k => k.startsWith(CACHE_PREFIX));
         keys.forEach(k => localStorage.removeItem(k));
         pruneOldCache();
-        console.log(`[Manga] Caché limpiada (${keys.length} capítulos). Recarga la página para re-detectar.`);
         return `Eliminadas ${keys.length} entradas de caché.`;
     };
 
-    
-    
-    
     const readerState = {};
 
-    
-    
-    
     (function() {
         const c = document.getElementById('particles');
         for (let i = 0; i < 50; i++) {
@@ -734,12 +721,8 @@
         }
     })();
 
-    
     document.addEventListener('DOMContentLoaded', function() {
-        
-        
-        
-        const menuVer = Math.floor(Date.now() / 86400000); 
+        const menuVer = Math.floor(Date.now() / 86400000);
         fetch('menu.html?v=' + menuVer)
             .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
             .then(data => {
@@ -766,22 +749,16 @@
         });
     }
 
-    
-    
-    
-
     function getCachedPages(ch) {
         try {
             const raw = localStorage.getItem(CACHE_PREFIX + ch);
             if (!raw) return null;
             const { version, pages, ts } = JSON.parse(raw);
             if (version !== CACHE_VERSION || !Array.isArray(pages) || pages.length === 0) return null;
-            
             return pages;
         } catch { return null; }
     }
 
-    
     function isCacheStale(ch) {
         try {
             const raw = localStorage.getItem(CACHE_PREFIX + ch);
@@ -800,13 +777,11 @@
                 ts: Date.now()
             }));
         } catch(e) {
-            
             pruneOldCache();
             try { localStorage.setItem(CACHE_PREFIX + ch, JSON.stringify({ version: CACHE_VERSION, pages, ts: Date.now() })); } catch {}
         }
     }
 
-    
     function pruneOldCache() {
         try {
             const now = Date.now();
@@ -823,105 +798,95 @@
         } catch {}
     }
 
-    
-    
-    
-    
-    
-    
-    const PAGE_CACHE_NAME = 'adashima-manga-pages-v1';
+    const PAGE_CACHE_NAME  = 'adashima-manga-pages-v5';
     const PAGE_CACHE_INDEX = 'adashima_manga_cache_index';
-    const PAGE_CACHE_LIMIT = 300; 
+    const PAGE_CACHE_LIMIT = 300;
 
     async function getCachedImageObjectURL(url) {
         try {
             const cache = await caches.open(PAGE_CACHE_NAME);
-            const res = await cache.match(url);
+            const res   = await cache.match(url);
             if (!res) return null;
             const blob = await res.blob();
             return URL.createObjectURL(blob);
-        } catch (e) { return null; }
+        } catch { return null; }
     }
 
     async function addImageToPageCache(url) {
         try {
-            const cache = await caches.open(PAGE_CACHE_NAME);
-            
+            const cache    = await caches.open(PAGE_CACHE_NAME);
             const existing = await cache.match(url);
-            if (existing) { updateCacheIndex(url); return; }
-            const resp = await fetch(url, { cache: 'no-store' });
+            if (existing) { _scheduleCacheIndexUpdate(url); return; }
+            const resp = await fetch(url);
             if (!resp || !resp.ok) return;
             await cache.put(url, resp.clone());
-            updateCacheIndex(url);
-        } catch (e) {  }
+            _scheduleCacheIndexUpdate(url);
+        } catch {}
     }
 
-    function updateCacheIndex(url) {
+    let _cacheIndexPending = [];
+    let _cacheIndexTimer   = null;
+    function _scheduleCacheIndexUpdate(url) {
+        _cacheIndexPending.push(url);
+        if (_cacheIndexTimer) return;
+        _cacheIndexTimer = setTimeout(() => {
+            _cacheIndexTimer = null;
+            const urls = _cacheIndexPending.splice(0);
+            try {
+                const raw = localStorage.getItem(PAGE_CACHE_INDEX);
+                let idx   = raw ? JSON.parse(raw) : [];
+                urls.forEach(u => { idx = idx.filter(x => x !== u); idx.unshift(u); });
+                while (idx.length > PAGE_CACHE_LIMIT) {
+                    const removed = idx.pop();
+                    caches.open(PAGE_CACHE_NAME).then(c => c.delete(removed));
+                }
+                localStorage.setItem(PAGE_CACHE_INDEX, JSON.stringify(idx));
+            } catch {}
+        }, 800);
+    }
+
+    function prefetchImageUrl(url) {
         try {
-            const raw = localStorage.getItem(PAGE_CACHE_INDEX);
-            let idx = raw ? JSON.parse(raw) : [];
-            
-            idx = idx.filter(u => u !== url);
-            idx.unshift(url);
-            
-            while (idx.length > PAGE_CACHE_LIMIT) {
-                const removed = idx.pop();
-                
-                caches.open(PAGE_CACHE_NAME).then(c => c.delete(removed));
-            }
-            localStorage.setItem(PAGE_CACHE_INDEX, JSON.stringify(idx));
-        } catch (e) {}
+            if (document.querySelector(`link[rel="prefetch"][href="${url}"]`)) return;
+            const link = document.createElement('link');
+            link.rel  = 'prefetch';
+            link.as   = 'image';
+            link.href = url;
+            document.head.appendChild(link);
+        } catch {}
     }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
     let _mangaManifest = null;
     async function loadMangaManifest() {
-        console.log('[Manga] loadMangaManifest() start');
-        if (_mangaManifest !== null) { console.log('[Manga] manifest cached in memory', _mangaManifest); return _mangaManifest; }
+        if (_mangaManifest !== null) return _mangaManifest;
         try {
-            const resp = await fetch('manga-manifest.json?v=' + CACHE_VERSION, { cache: 'no-cache' });
-            console.log('[Manga] fetch manifest response', resp && resp.status);
-            if (!resp.ok) { _mangaManifest = false; console.warn('[Manga] manifest fetch not ok'); return false; }
+            const resp = await fetch('manga-manifest.json?v=' + CACHE_VERSION);
+            if (!resp.ok) { _mangaManifest = false; return false; }
             _mangaManifest = await resp.json();
-            console.log('[Manga] manifest loaded', Object.keys(_mangaManifest).length);
             return _mangaManifest;
-        } catch (e) {
-            console.error('[Manga] manifest fetch error', e);
+        } catch {
             _mangaManifest = false;
             return false;
         }
     }
 
-    
-    
+    const _DAILY_BUST = Math.floor(Date.now() / 86400000);
+
     async function probeChapterSequential(ch) {
         const pages = [];
-        const max = MANGA_CONFIG.maxPagesPerChapter;
-        const MAX_CONSECUTIVE_MISS = 2; 
-
+        const max   = MANGA_CONFIG.maxPagesPerChapter;
+        const MAX_CONSECUTIVE_MISS = 2;
         let consecutiveMiss = 0;
         for (let p = 1; p <= max; p++) {
             const url = MANGA_CONFIG.imagePath(ch, p);
-            
-            
-            const ok = await new Promise(resolve => {
-                const img = new Image();
-                let settled = false;
-                const to = setTimeout(() => { if (!settled) { settled = true; resolve(false); } }, 7000);
-                img.onload = () => { if (!settled) { settled = true; clearTimeout(to); resolve(true); } };
+            const ok  = await new Promise(resolve => {
+                const img    = new Image();
+                let settled  = false;
+                const to     = setTimeout(() => { if (!settled) { settled = true; resolve(false); } }, 7000);
+                img.onload  = () => { if (!settled) { settled = true; clearTimeout(to); resolve(true); } };
                 img.onerror = () => { if (!settled) { settled = true; clearTimeout(to); resolve(false); } };
-                img.src = url + (url.includes('?') ? '&' : '?') + 'v=' + Math.floor(Date.now()/86400000);
+                img.src = url + (url.includes('?') ? '&' : '?') + 'vd=' + _DAILY_BUST;
             });
-
             if (ok) {
                 pages.push(MANGA_CONFIG.imagePath(ch, p));
                 consecutiveMiss = 0;
@@ -929,48 +894,28 @@
                 consecutiveMiss++;
                 if (consecutiveMiss >= MAX_CONSECUTIVE_MISS) break;
             }
-            
             await new Promise(r => setTimeout(r, 150));
         }
         return pages;
     }
 
     async function detectChapterPages(ch) {
-        console.log(`[Manga] detectChapterPages(${ch}) start`);
-        
         const cached = getCachedPages(ch);
-        if (cached) { console.log(`[Manga] chapter ${ch} loaded from local cache (${cached.length})`); return cached; }
+        if (cached) return cached;
 
-        
         const manifest = await loadMangaManifest();
         if (manifest && manifest[ch] && Number.isFinite(manifest[ch]) && manifest[ch] > 0) {
-            console.log(`[Manga] manifest provides ${manifest[ch]} pages for chapter ${ch}`);
             const pages = [];
             for (let i = 1; i <= manifest[ch]; i++) pages.push(MANGA_CONFIG.imagePath(ch, i));
             setCachedPages(ch, pages);
             return pages;
         }
 
-        
-        console.log(`[Manga] falling back to sequential probe for chapter ${ch}`);
         const pages = await probeChapterSequential(ch);
-        console.log(`[Manga] probe result for ${ch}: ${pages.length} pages`);
         if (pages.length > 0) setCachedPages(ch, pages);
         return pages;
     }
 
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     async function initAllChapters() {
         const container  = document.getElementById('chapters-container');
         const fillEl     = document.getElementById('global-progress-fill');
@@ -986,32 +931,28 @@
         }
         setProgress(0);
 
-        const resultMap = new Map();
-        let doneCount   = 0;
-        const staleChapters = [];  
+        const resultMap     = new Map();
+        let doneCount       = 0;
+        const staleChapters = [];
 
-        
         for (const ch of allIds) {
             const cached = getCachedPages(ch);
             if (cached) {
                 resultMap.set(String(ch), cached);
                 doneCount++;
-                
                 if (isCacheStale(ch)) staleChapters.push(ch);
             }
         }
         setProgress(doneCount);
 
-        
         const pending = allIds.filter(ch => !resultMap.has(String(ch)));
         if (pending.length === 0 && subtitleEl) {
             subtitleEl.textContent = '¡Todo listo! Los capítulos se cargaron desde el caché.';
         } else if (subtitleEl && doneCount > 0) {
-            subtitleEl.innerHTML = `${doneCount} capítulo${doneCount!==1?'s':''} cargado${doneCount!==1?'s':''} desde caché. Descargando el resto…`;
+            subtitleEl.innerHTML = `${doneCount} capítulo${doneCount!==1?'s':''} cargado${doneCount!==1?'s':''} desde caché. Descargando el resto\u2026`;
         }
 
-        
-        const CAP_BATCH = 3;  
+        const CAP_BATCH = 3;
         for (let i = 0; i < pending.length; i += CAP_BATCH) {
             const batch   = pending.slice(i, i + CAP_BATCH);
             const results = await Promise.all(
@@ -1024,10 +965,6 @@
             setProgress(doneCount);
         }
 
-        
-        
-        
-        
         let html = '';
         for (const ch of allIds) {
             const pages = resultMap.get(String(ch)) || [];
@@ -1035,42 +972,47 @@
         }
 
         if (!html) {
-            container.innerHTML = `<div style="padding:40px;text-align:center;color:rgba(92,58,107,0.5);">
-                No se encontraron capítulos disponibles.</div>`;
+            container.innerHTML = '<div style="padding:40px;text-align:center;color:rgba(92,58,107,0.5);">No se encontraron capítulos disponibles.</div>';
             return;
         }
 
         container.innerHTML = html;
         attachAccordionListeners();
 
-        
-        
         if (staleChapters.length > 0) {
             setTimeout(() => revalidateStaleChapters(staleChapters), 4000);
         }
     }
 
-    
     async function revalidateStaleChapters(chapters) {
+        const manifest = await loadMangaManifest();
         for (const ch of chapters) {
             try {
-                const pages = await detectChapterPages(ch);
-                if (pages.length > 0) setCachedPages(ch, pages);
+                if (manifest && manifest[ch] && Number.isFinite(manifest[ch]) && manifest[ch] > 0) {
+                    const cached = getCachedPages(ch);
+                    if (cached && cached.length === manifest[ch]) {
+                        setCachedPages(ch, cached);
+                        await new Promise(r => setTimeout(r, 50));
+                        continue;
+                    }
+                    const pages = [];
+                    for (let i = 1; i <= manifest[ch]; i++) pages.push(MANGA_CONFIG.imagePath(ch, i));
+                    setCachedPages(ch, pages);
+                } else {
+                    const pages = await probeChapterSequential(ch);
+                    if (pages.length > 0) setCachedPages(ch, pages);
+                }
             } catch {}
-            
             await new Promise(r => setTimeout(r, 300));
         }
     }
 
-    
-    
-    
     function buildChapterHTML(ch, pageCount) {
         const pagesArr = [];
         for (let p = 1; p <= pageCount; p++) pagesArr.push(MANGA_CONFIG.imagePath(ch, p));
-        const dataPagesAttr  = pagesArr.join('|');
-        const displayTitle   = ch === 'Antologia' ? 'Antología' : `Capítulo ${ch}`;
-        const desc           = MANGA_CONFIG.chapterDescriptions[ch] || '';
+        const dataPagesAttr = pagesArr.join('|');
+        const displayTitle  = ch === 'Antologia' ? 'Antolog\u00eda' : `Cap\u00edtulo ${ch}`;
+        const desc          = MANGA_CONFIG.chapterDescriptions[ch] || '';
 
         return `
         <details class="manga-item" id="manga-${ch}">
@@ -1078,7 +1020,7 @@
                 <span>
                     <i class="fas fa-book-open"></i> ${displayTitle}
                     <span class="chapter-load-status">
-                        <i class="fas fa-images" style="font-size:0.68rem;"></i> ${pageCount} pág.
+                        <i class="fas fa-images" style="font-size:0.68rem;"></i> ${pageCount} p\u00e1g.
                     </span>
                 </span>
                 <i class="fas fa-chevron-down"></i>
@@ -1086,17 +1028,15 @@
             <div class="manga-content">
                 ${desc ? `<div class="manga-description"><p>${desc}</p></div>` : ''}
 
-                
                 <div class="chapter-verify-overlay" id="verify-overlay-${ch}">
                     <div class="chapter-verify-spinner"></div>
-                    <div class="chapter-verify-text">Preparando capítulo…</div>
+                    <div class="chapter-verify-text">Preparando cap\u00edtulo\u2026</div>
                     <div class="chapter-verify-bar-track">
                         <div class="chapter-verify-bar-fill" id="verify-fill-${ch}"></div>
                     </div>
-                    <span class="chapter-verify-sublabel" id="verify-label-${ch}">Verificando imágenes</span>
+                    <span class="chapter-verify-sublabel" id="verify-label-${ch}">Verificando im\u00e1genes</span>
                 </div>
 
-                
                 <div class="cascade-reader" id="cascade-reader-${ch}"
                      data-pages="${dataPagesAttr}" data-chapter="${ch}"
                      style="display:none;">
@@ -1109,7 +1049,7 @@
                             </button>
                             <button class="mode-toggle-btn" id="btn-paged-${ch}"
                                     onclick="setMode('${ch}','paged')" title="Lectura paginada">
-                                <i class="fas fa-file-alt"></i> Página
+                                <i class="fas fa-file-alt"></i> P\u00e1gina
                             </button>
                         </div>
                         <div class="cascade-controls-group">
@@ -1120,7 +1060,7 @@
                         </div>
                         <div class="cascade-controls-group">
                             <span class="cascade-page-info">
-                                Pág.&nbsp;<span id="cur-page-${ch}">0</span>&nbsp;/&nbsp;<span id="tot-page-${ch}">0</span>
+                                P\u00e1g.&nbsp;<span id="cur-page-${ch}">0</span>&nbsp;/&nbsp;<span id="tot-page-${ch}">0</span>
                             </span>
                         </div>
                         <div class="cascade-controls-group">
@@ -1137,7 +1077,7 @@
 
                     <div class="cascade-loading-overlay" id="loading-${ch}">
                         <div class="cascade-spinner"></div>
-                        <span class="cascade-loading-text">Cargando páginas...</span>
+                        <span class="cascade-loading-text">Cargando p\u00e1ginas...</span>
                     </div>
 
                     <div class="cascade-scroll-area" id="cascade-area-${ch}"></div>
@@ -1154,8 +1094,8 @@
                         </div>
                         <div class="paged-thumbs-row" id="thumbs-row-${ch}" style="display:none;"></div>
                         <div class="paged-nav-bar-mobile">
-                            <button class="paged-nav-btn left"  id="btn-prev-${ch}" onclick="pagedNav('${ch}',-1)" title="Página anterior (←)"><i class="fas fa-chevron-left"></i></button>
-                            <button class="paged-nav-btn right" id="btn-next-${ch}" onclick="pagedNav('${ch}',+1)" title="Página siguiente (→)"><i class="fas fa-chevron-right"></i></button>
+                            <button class="paged-nav-btn left"  id="btn-prev-${ch}" onclick="pagedNav('${ch}',-1)" title="P\u00e1gina anterior (\u2190)"><i class="fas fa-chevron-left"></i></button>
+                            <button class="paged-nav-btn right" id="btn-next-${ch}" onclick="pagedNav('${ch}',+1)" title="P\u00e1gina siguiente (\u2192)"><i class="fas fa-chevron-right"></i></button>
                         </div>
                     </div>
                 </div>
@@ -1163,9 +1103,6 @@
         </details>`;
     }
 
-    
-    
-    
     function attachAccordionListeners() {
         document.querySelectorAll('details.manga-item').forEach(d => attachSingleListener(d));
     }
@@ -1175,7 +1112,6 @@
         detail.dataset.listenerAttached = '1';
         detail.addEventListener('toggle', () => {
             if (!detail.open) return;
-            
             document.querySelectorAll('details.manga-item').forEach(other => {
                 if (other !== detail && other.open) other.removeAttribute('open');
             });
@@ -1186,13 +1122,7 @@
         });
     }
 
-    
-    
-    
-    
-    
-    
-    const chVerifyState = {};   
+    const chVerifyState = {};
 
     async function verifyAndOpenChapter(ch) {
         if (chVerifyState[ch] === 'ready')     { openReader(ch); return; }
@@ -1200,42 +1130,35 @@
         chVerifyState[ch] = 'verifying';
 
         const reader  = document.getElementById('cascade-reader-' + ch);
-        const overlay = document.getElementById('verify-overlay-' + ch);
         const fillEl  = document.getElementById('verify-fill-' + ch);
         const labelEl = document.getElementById('verify-label-' + ch);
         if (!reader) return;
 
-        const raw   = reader.getAttribute('data-pages') || '';
-        let pages = raw.split('|').map(s => s.trim()).filter(Boolean);
-        let total = pages.length;
+        const raw  = reader.getAttribute('data-pages') || '';
+        let pages  = raw.split('|').map(s => s.trim()).filter(Boolean);
+        let total  = pages.length;
 
-        
-        
-        
         if (total === 0) {
             try {
                 const detected = await detectChapterPages(ch);
                 if (detected && detected.length > 0) {
                     pages = detected.slice();
                     total = pages.length;
-                    
                     reader.setAttribute('data-pages', pages.join('|'));
                     setCachedPages(ch, pages);
                 }
-            } catch (e) {  }
+            } catch {}
         }
 
-        
         if (pages.length > 0) {
             if (fillEl)  fillEl.style.width  = '100%';
-            if (labelEl) labelEl.textContent  = `${total} / ${total} páginas listas`;
+            if (labelEl) labelEl.textContent  = `${total} / ${total} p\u00e1ginas listas`;
             await sleep(80);
             chVerifyState[ch] = 'ready';
             openReader(ch);
             return;
         }
 
-        
         chVerifyState[ch] = 'ready';
         openReader(ch);
     }
@@ -1250,9 +1173,6 @@
 
     function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-    
-    
-    
     function initReader(ch) {
         const reader = document.getElementById('cascade-reader-' + ch);
         const area   = document.getElementById('cascade-area-' + ch);
@@ -1267,7 +1187,7 @@
         if (totEl) totEl.textContent = pages.length;
 
         if (pages.length === 0) {
-            area.innerHTML = `<div class="cascade-placeholder"><i class="fas fa-images"></i><p>Este capítulo no tiene páginas configuradas.</p></div>`;
+            area.innerHTML = '<div class="cascade-placeholder"><i class="fas fa-images"></i><p>Este cap\u00edtulo no tiene p\u00e1ginas configuradas.</p></div>';
             return;
         }
 
@@ -1278,9 +1198,6 @@
         attachSwipe(ch);
     }
 
-    
-    
-    
     function buildCascadeContent(ch) {
         const state   = readerState[ch];
         const area    = document.getElementById('cascade-area-' + ch);
@@ -1300,7 +1217,6 @@
                 const img = entry.target;
                 if (img.dataset.lazySrc && !img.dataset.lazyLoaded) {
                     img.dataset.lazyLoaded = '1';
-                    
                     const urlToLoad = img.dataset.lazySrc;
                     getCachedImageObjectURL(urlToLoad).then(blobUrl => {
                         img.src = blobUrl || urlToLoad;
@@ -1308,7 +1224,6 @@
                 }
                 lazyObs.unobserve(img);
             });
-        
         }, { root: area, rootMargin: '200% 0px', threshold: 0 });
 
         state.pages.forEach((url, index) => {
@@ -1322,7 +1237,7 @@
 
             const img = document.createElement('img');
             img.className = 'cascade-page-img';
-            img.alt = `Cap. ${ch} — Pág. ${pageNum}`;
+            img.alt = `Cap. ${ch} \u2014 P\u00e1g. ${pageNum}`;
             img.decoding = 'async';
             img.width = 800;
 
@@ -1330,17 +1245,16 @@
             label.className = 'cascade-page-number';
             label.textContent = `${pageNum} / ${totalPages}`;
 
-            
             let retryCount = 0;
             img.onerror = function() {
                 if (retryCount < 3) {
                     retryCount++;
                     const sep = url.includes('?') ? '&' : '?';
-                    setTimeout(() => { img.src = url + sep + '_r=' + retryCount + '_' + Date.now(); }, 600 * retryCount);
+                    setTimeout(() => { img.src = url + sep + '_r=' + retryCount; }, 600 * retryCount);
                 } else {
                     skeleton.remove();
                     img.classList.add('errored', 'loaded');
-                    img.alt = `⚠ Error pág. ${pageNum}`;
+                    img.alt = `\u26a0 Error p\u00e1g. ${pageNum}`;
                     loadedCount++;
                     if (loadedCount >= HIDE_AFTER && loading) loading.classList.remove('visible');
                 }
@@ -1349,21 +1263,15 @@
                 skeleton.remove();
                 requestAnimationFrame(() => img.classList.add('loaded'));
                 loadedCount++;
-                
-                try { addImageToPageCache(url); } catch(e) {}
+                try { addImageToPageCache(url); } catch {}
                 if (loadedCount >= HIDE_AFTER && loading) loading.classList.remove('visible');
             };
 
             if (pageNum <= 5) {
                 img.fetchPriority = pageNum <= 2 ? 'high' : 'auto';
                 img.loading = 'eager';
-                
                 getCachedImageObjectURL(url).then(blobUrl => {
-                    if (blobUrl) {
-                        img.src = blobUrl;
-                    } else {
-                        img.src = url;
-                    }
+                    img.src = blobUrl || url;
                 }).catch(() => { img.src = url; });
             } else {
                 img.loading = 'lazy';
@@ -1380,7 +1288,7 @@
 
         const endBanner = document.createElement('div');
         endBanner.className = 'cascade-end-banner';
-        endBanner.innerHTML = `<i class="fas fa-star end-icon"></i><p>Fin del Capítulo ${ch}</p><p style="font-size:0.75rem;opacity:0.45;">¡Gracias por leer!</p>`;
+        endBanner.innerHTML = `<i class="fas fa-star end-icon"></i><p>Fin del Cap\u00edtulo ${ch}</p><p style="font-size:0.75rem;opacity:0.45;">\u00a1Gracias por leer!</p>`;
         area.appendChild(endBanner);
 
         let scrollRaf = null;
@@ -1412,9 +1320,6 @@
         if (curEl) curEl.textContent = current;
     }
 
-    
-    
-    
     function setMode(ch, mode) {
         const s = readerState[ch];
         if (!s) return;
@@ -1447,9 +1352,6 @@
         updateZoomDisplay(ch);
     }
 
-    
-    
-    
     function renderPagedPage(ch, pageNum, direction) {
         const s = readerState[ch];
         if (!s) return;
@@ -1491,25 +1393,32 @@
             if (retryCount < 3) {
                 retryCount++;
                 const sep = targetUrl.includes('?') ? '&' : '?';
-                setTimeout(() => { img.src = targetUrl + sep + '_r=' + retryCount + '_' + Date.now(); }, 600 * retryCount);
+                setTimeout(() => { img.src = targetUrl + sep + '_r=' + retryCount; }, 600 * retryCount);
             } else {
                 if (skeleton) skeleton.style.display = 'none';
                 img.style.display = 'block';
-                img.alt = `⚠ Error — Pág. ${pageNum}`;
+                img.alt = `\u26a0 Error \u2014 P\u00e1g. ${pageNum}`;
             }
         };
 
-
-        
-        
-        img.alt = `Cap. ${ch} — Pág. ${pageNum}`;
+        img.alt = `Cap. ${ch} \u2014 P\u00e1g. ${pageNum}`;
         img.loading = 'eager';
         img.decoding = 'async';
-        img.src = targetUrl;
-        
-        img.addEventListener('load', function onLoadOnce() { img.removeEventListener('load', onLoadOnce); try { addImageToPageCache(targetUrl); } catch(e){} });
 
-        
+        getCachedImageObjectURL(targetUrl).then(blobUrl => {
+            img.src = blobUrl || targetUrl;
+            if (!blobUrl) img.addEventListener('load', function onLoadOnce() {
+                img.removeEventListener('load', onLoadOnce);
+                try { addImageToPageCache(targetUrl); } catch {}
+            });
+        }).catch(() => {
+            img.src = targetUrl;
+            img.addEventListener('load', function onLoadOnce() {
+                img.removeEventListener('load', onLoadOnce);
+                try { addImageToPageCache(targetUrl); } catch {}
+            });
+        });
+
         preloadNeighbors(ch, pageNum);
         updateThumbHighlight(ch, pageNum);
     }
@@ -1527,14 +1436,16 @@
             const n = pageNum + d;
             if (n < 1 || n > s.pages.length) return;
             const url = s.pages[n - 1];
-            
-            setTimeout(() => { try { addImageToPageCache(url); } catch(e){} }, 180 * (i + 1));
+            setTimeout(async () => {
+                try {
+                    const cache    = await caches.open(PAGE_CACHE_NAME);
+                    const existing = await cache.match(url);
+                    if (!existing) prefetchImageUrl(url);
+                } catch { prefetchImageUrl(url); }
+            }, 180 * (i + 1));
         });
     }
 
-    
-    
-    
     function buildPagedThumbs(ch) {
         const s   = readerState[ch];
         const row = document.getElementById('thumbs-row-' + ch);
@@ -1543,10 +1454,10 @@
         s.pages.forEach((url, idx) => {
             const pageNum = idx + 1;
             const div = document.createElement('div');
-            div.className = 'paged-thumb'; div.dataset.page = pageNum; div.title = `Página ${pageNum}`;
+            div.className = 'paged-thumb'; div.dataset.page = pageNum; div.title = `P\u00e1gina ${pageNum}`;
             div.onclick = () => renderPagedPage(ch, pageNum, pageNum > s.currentPage ? 1 : -1);
             const img = document.createElement('img');
-            img.loading = 'lazy'; img.src = url; img.alt = `Pág. ${pageNum}`;
+            img.loading = 'lazy'; img.src = url; img.alt = `P\u00e1g. ${pageNum}`;
             div.appendChild(img); row.appendChild(div);
         });
     }
@@ -1572,9 +1483,6 @@
         });
     }
 
-    
-    
-    
     function zoomIn(ch)    { applyZoomDelta(ch, +10); }
     function zoomOut(ch)   { applyZoomDelta(ch, -10); }
     function zoomReset(ch) {
@@ -1598,7 +1506,7 @@
     }
 
     function applyCascadeZoom(ch) {
-        const s = readerState[ch];
+        const s    = readerState[ch];
         const area = document.getElementById('cascade-area-' + ch);
         if (!area || !s) return;
         const newMax = Math.round(800 * s.zoom / 100);
@@ -1611,7 +1519,7 @@
     }
 
     function applyPagedZoom(ch) {
-        const s   = readerState[ch];
+        const s    = readerState[ch];
         const img  = document.getElementById('paged-img-' + ch);
         const area = document.getElementById('paged-img-area-' + ch);
         if (!img || !s) return;
@@ -1644,7 +1552,7 @@
     let zoomToastTimer = null;
     function showZoomToast(label) {
         const t = document.getElementById('zoom-toast'); if (!t) return;
-        t.textContent = '🔍 ' + label;
+        t.textContent = '\ud83d\udd0d ' + label;
         t.classList.add('visible');
         clearTimeout(zoomToastTimer);
         zoomToastTimer = setTimeout(() => t.classList.remove('visible'), 900);
@@ -1667,7 +1575,7 @@
         reader.addEventListener('touchstart', e => { if (e.touches.length === 2) lastDist = getTouchDist(e.touches); }, { passive: true });
         reader.addEventListener('touchmove', e => {
             if (e.touches.length !== 2 || lastDist === null) return;
-            const dist = getTouchDist(e.touches);
+            const dist  = getTouchDist(e.touches);
             const ratio = dist / lastDist;
             if (Math.abs(ratio - 1) < 0.015) { lastDist = dist; return; }
             const s = readerState[ch]; if (!s) return;
@@ -1722,7 +1630,7 @@
     document.addEventListener('webkitfullscreenchange', handleFSChange);
     function handleFSChange() {
         document.querySelectorAll('[id^="fs-icon-"]').forEach(icon => {
-            const ch   = icon.id.replace('fs-icon-', '');
+            const ch     = icon.id.replace('fs-icon-', '');
             const reader = document.getElementById('cascade-reader-' + ch);
             const inFS   = reader && (document.fullscreenElement === reader || document.webkitFullscreenElement === reader);
             icon.className = inFS ? 'fas fa-compress' : 'fas fa-expand';
