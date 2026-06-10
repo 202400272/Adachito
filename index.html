@@ -472,7 +472,7 @@
         }
 
         .about-body {
-            overflow: hidden;
+            overflow: auto;
             max-height: 0;
             transition: max-height 0.55s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s ease;
             opacity: 0;
@@ -484,15 +484,16 @@
             border-radius: 0 0 20px 20px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
             cursor: pointer;
+            -webkit-overflow-scrolling: touch;
         }
 
         .about-body.open {
-            max-height: 600px;
+            max-height: calc(100vh - 120px);
             opacity: 1;
         }
 
         .about-body-inner {
-            padding: 28px 32px 30px 32px;
+            padding: 28px 32px 40px 32px;
             display: flex;
             flex-direction: column;
             gap: 16px;
@@ -509,6 +510,7 @@
             line-height: 1.8;
             color: #4a2f57;
             font-weight: 500;
+            overflow-wrap: anywhere;
         }
 
         .about-tags {
@@ -578,9 +580,9 @@
 
             .about-toggle { padding: 15px 20px; }
             .about-toggle-sub { display: none; }
-            .about-body-inner { padding: 20px 20px 24px 20px; }
+            .about-body-inner { padding: 20px 20px 56px 20px; }
             .about-paragraphs p { font-size: 0.93rem; }
-            .about-body.open { max-height: 900px; }
+            .about-body.open { max-height: calc(100vh - 120px); }
 
             .release-card { padding: 16px 20px; }
             .release-divider { display: none; }

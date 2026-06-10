@@ -100,7 +100,6 @@
             50% { margin-left: var(--x-sway, 2.5vw); }
         }
 
-        
         #sidebar-container { display: contents; }
 
         .main-content {
@@ -129,62 +128,98 @@
             backdrop-filter: blur(10px); text-shadow: 0 1px 4px rgba(0,0,0,0.15);
         }
         .year-btn:hover, .year-btn.active {
-            background: rgba(255,255,255,0.85); color: #4a2f57; border-color: #fff;
-            box-shadow: 0 8px 30px rgba(255,255,255,0.3); transform: translateY(-3px); text-shadow: none;
+            background: rgba(255,255,255,0.95); color: #4a2f57; border-color: #fff;
+            box-shadow: 0 8px 30px rgba(255,255,255,0.4); transform: translateY(-3px); text-shadow: none;
         }
 
-        
         .timeline-wrapper { width: 100%; max-width: 1050px; position: relative; z-index: 4; padding: 20px 0; }
-        .timeline-wrapper::before {
-            content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 12%, rgba(255,255,255,0.8) 88%, rgba(255,255,255,0) 100%);
+        
+        .timeline-base-line {
+            position: absolute; left: 50%; top: 0; bottom: 0;
+            width: 4px;
+            background: rgba(255,255,255,0.2);
             transform: translateX(-50%); border-radius: 10px;
-            box-shadow: 0 0 8px rgba(255,255,255,0.5); z-index: 1;
-            animation: pulseLineMinimal 4s infinite ease-in-out;
+            z-index: 1;
         }
-        @keyframes pulseLineMinimal {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; box-shadow: 0 0 12px rgba(255,255,255,0.8); }
+
+        .timeline-progress {
+            position: absolute; left: 50%; top: 0; bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #f3a6b8, #e08b9e);
+            transform: translateX(-50%) scaleY(0);
+            transform-origin: top;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(243, 166, 184, 0.9);
+            z-index: 2;
+            transition: transform 0.15s ease-out;
+            will-change: transform;
         }
 
         .year-block { display: flex; align-items: center; justify-content: center; margin: 60px 0 40px 0; position: relative; z-index: 5; }
         .year-badge {
-            background: linear-gradient(135deg, rgba(80,50,110,0.75), rgba(180,100,130,0.75));
-            backdrop-filter: blur(12px); border: 2px solid rgba(255,255,255,0.7);
+            background: linear-gradient(135deg, rgba(80,50,110,0.85), rgba(180,100,130,0.85));
+            backdrop-filter: blur(12px); border: 2px solid rgba(255,255,255,0.9);
             border-radius: 50px; padding: 12px 38px; font-family: 'Playfair Display', serif;
             font-size: 1.35rem; font-weight: 700; color: #fff; letter-spacing: 2px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15), 0 0 15px rgba(255,255,255,0.4);
-            text-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 0 20px rgba(255,255,255,0.5);
+            text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
+        .year-block:hover .year-badge { transform: scale(1.05); }
 
-        
         .event-row {
             display: grid;
             grid-template-columns: 1fr 40px 1fr;
             column-gap: var(--line-gap);
             align-items: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             position: relative;
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(60px) scale(0.95);
             transition: opacity 0.8s cubic-bezier(0.215,0.610,0.355,1), transform 0.8s cubic-bezier(0.215,0.610,0.355,1);
             z-index: 3;
         }
-        .event-row.visible { opacity: 1; transform: translateY(0); }
+        .event-row.visible { opacity: 1; transform: translateY(0) scale(1); }
         .event-row.left  .event-card { grid-column: 1; justify-self: end; }
         .event-row.right .event-card { grid-column: 3; justify-self: start; }
 
+        .event-connector {
+            position: absolute;
+            top: 50%;
+            width: calc(var(--line-gap) + 15px);
+            height: 3px;
+            background: linear-gradient(90deg, #f3a6b8, rgba(255,255,255,0.2));
+            z-index: 1;
+            transform: translateY(-50%) scaleX(0);
+            transition: transform 0.6s cubic-bezier(0.215,0.610,0.355,1) 0.3s;
+        }
+        .event-row.left .event-connector {
+            right: calc(50% + 10px);
+            transform-origin: right;
+            background: linear-gradient(270deg, #f3a6b8, rgba(255,255,255,0.1));
+        }
+        .event-row.right .event-connector {
+            left: calc(50% + 10px);
+            transform-origin: left;
+            background: linear-gradient(90deg, #f3a6b8, rgba(255,255,255,0.1));
+        }
+        .event-row.visible .event-connector { transform: translateY(-50%) scaleX(1); }
+
         .event-dot { position: relative; left: auto; transform: none; grid-column: 2; justify-self: center; z-index: 6; }
         .dot-circle {
-            width: 20px; height: 20px; border-radius: 50%; background: #fff;
-            border: 3px solid #f3a6b8; box-shadow: 0 0 10px rgba(255,255,255,0.8);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            width: 24px; height: 24px; border-radius: 50%; background: #fff;
+            border: 4px solid rgba(255,255,255,0.5); box-shadow: 0 0 0 rgba(243,166,184,0);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: scale(0.6);
+        }
+        .event-row.visible .dot-circle {
+            border-color: #f3a6b8;
+            box-shadow: 0 0 15px rgba(243,166,184,0.9), inset 0 0 5px rgba(243,166,184,0.5);
+            transform: scale(1);
         }
 
-        
         .timeline-wrapper.has-expanded .event-card {
-            opacity: 0.3; filter: grayscale(20%) blur(2px); transform: scale(0.85);
+            opacity: 0.4; filter: grayscale(30%) blur(3px); transform: scale(0.9);
             pointer-events: none;
         }
 
@@ -199,39 +234,41 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 40%, rgba(245,210,255,0.15) 70%, rgba(190,230,255,0.2) 100%);
-            backdrop-filter: blur(6px);
-            border: 1px solid rgba(255,255,255,0.5);
+            background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.1) 40%, rgba(245,210,255,0.2) 70%, rgba(190,230,255,0.25) 100%);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.6);
             box-shadow:
-                inset 0 15px 25px rgba(255,255,255,0.6),
-                inset 10px 0 15px rgba(255,210,230,0.3),
-                inset -10px 0 15px rgba(170,220,255,0.3),
-                0 10px 30px rgba(0,0,0,0.1),
-                0 0 15px rgba(255,255,255,0.2);
-            transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
-            animation: floatBubble 5s infinite ease-in-out;
-            overflow: hidden;
+                inset 0 15px 25px rgba(255,255,255,0.7),
+                inset 10px 0 15px rgba(255,210,230,0.4),
+                inset -10px 0 15px rgba(170,220,255,0.4),
+                0 10px 30px rgba(0,0,0,0.15),
+                0 0 20px rgba(255,255,255,0.3);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: floatBubble 6s infinite ease-in-out;
         }
         .event-card:hover {
-            transform: scale(1.06) translateY(-5px);
+            transform: scale(1.08) translateY(-8px);
             box-shadow:
-                inset 0 20px 30px rgba(255,255,255,0.8),
-                inset 15px 0 20px rgba(255,210,230,0.5),
-                inset -15px 0 20px rgba(170,220,255,0.5),
-                0 15px 35px rgba(0,0,0,0.15),
-                0 0 25px rgba(255,255,255,0.4);
+                inset 0 20px 30px rgba(255,255,255,0.9),
+                inset 15px 0 20px rgba(255,210,230,0.6),
+                inset -15px 0 20px rgba(170,220,255,0.6),
+                0 20px 45px rgba(0,0,0,0.25),
+                0 0 35px rgba(255,255,255,0.6);
+            border-color: #fff;
+            z-index: 10;
         }
         @keyframes floatBubble {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-12px); }
         }
 
-        
         .bubble-cover {
             position: absolute;
             inset: 0;
             border-radius: 50%;
             overflow: hidden;
+            mask-image: radial-gradient(white, black);
+            -webkit-mask-image: -webkit-radial-gradient(white, black);
         }
         .bubble-cover img {
             width: 100%;
@@ -239,153 +276,143 @@
             object-fit: cover;
             object-position: center;
             opacity: 0.72;
-            transition: transform 0.4s ease, opacity 0.4s ease;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            transform: translateZ(0) scale(1.01);
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
         }
-        .event-card:hover .bubble-cover img { transform: scale(1.06); opacity: 0.85; }
+        .event-card:hover .bubble-cover img { transform: translateZ(0) scale(1.12); opacity: 0.95; }
 
-        
-        .bubble-mini-label {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            padding: 26px 10px 14px 10px;
-            background: linear-gradient(to top, rgba(50,20,70,0.75) 0%, transparent 100%);
-            border-radius: 0 0 50% 50% / 0 0 40px 40px;
-            font-size: 0.68rem; font-weight: 700;
-            color: rgba(255,255,255,0.96);
-            text-shadow: 0 1px 5px rgba(0,0,0,0.6);
-            text-align: center;
-            pointer-events: none;
-            z-index: 2;
-            letter-spacing: 0.3px;
-            line-height: 1.3;
-        }
-
-        
         .bubble-content { display: none; }
 
-        
         .bubble-overlay {
             display: none; position: fixed; inset: 0; z-index: 18;
+            background: rgba(45, 20, 50, 0.4); backdrop-filter: blur(4px);
+            opacity: 0; transition: opacity 0.4s ease;
         }
-        .bubble-overlay.active { display: block; }
+        .bubble-overlay.active { display: block; opacity: 1; }
 
         .bubble-modal {
             display: none;
             position: fixed;
             z-index: 25;
-            background: radial-gradient(circle at top left, rgba(255,255,255,0.97), rgba(255,240,250,0.93) 80%);
-            backdrop-filter: blur(18px);
-            border: 2px solid rgba(255,255,255,0.9);
+            background: radial-gradient(circle at top left, rgba(255,255,255,0.98), rgba(255,245,252,0.95) 80%);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255,255,255,0.95);
             box-shadow:
-                0 20px 60px rgba(0,0,0,0.25),
-                0 0 50px rgba(255,255,255,0.4),
-                inset 0 0 40px rgba(255,255,255,0.3);
-            border-radius: 22px;
-            padding: 30px 26px 24px 26px;
-            max-width: min(480px, calc(100vw - 32px));
-            width: min(480px, calc(100vw - 32px));
-            max-height: min(80vh, 640px);
+                0 25px 70px rgba(0,0,0,0.3),
+                0 0 60px rgba(255,255,255,0.5),
+                inset 0 0 40px rgba(255,255,255,0.4);
+            border-radius: 24px;
+            padding: 35px 30px 28px 30px;
+            max-width: min(500px, calc(100vw - 32px));
+            width: min(500px, calc(100vw - 32px));
+            max-height: min(85vh, 680px);
             overflow-y: auto;
             scrollbar-width: thin;
-            scrollbar-color: rgba(209,135,162,0.4) transparent;
+            scrollbar-color: rgba(209,135,162,0.6) transparent;
+            transform: scale(0.9) translateY(20px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .bubble-modal::-webkit-scrollbar { width: 5px; }
-        .bubble-modal::-webkit-scrollbar-thumb { background: rgba(209,135,162,0.5); border-radius: 4px; }
-        .bubble-modal.active { display: block; }
+        .bubble-modal::-webkit-scrollbar { width: 6px; }
+        .bubble-modal::-webkit-scrollbar-thumb { background: rgba(209,135,162,0.6); border-radius: 6px; }
+        .bubble-modal.active { display: block; transform: scale(1) translateY(0); opacity: 1; }
 
-        
         .modal-close {
-            position: absolute; top: 12px; right: 14px;
-            background: rgba(209,135,162,0.2); border: 1px solid rgba(209,135,162,0.4);
-            border-radius: 50%; width: 32px; height: 32px;
+            position: absolute; top: 16px; right: 18px;
+            background: rgba(209,135,162,0.15); border: 1px solid rgba(209,135,162,0.5);
+            border-radius: 50%; width: 36px; height: 36px;
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer; font-size: 0.9rem; color: #6c4070;
-            transition: all 0.2s ease; z-index: 2;
+            cursor: pointer; font-size: 1rem; color: #6c4070;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 2;
         }
-        .modal-close:hover { background: rgba(209,135,162,0.55); transform: scale(1.12); }
+        .modal-close:hover { background: rgba(209,135,162,0.8); color: #fff; transform: scale(1.15) rotate(90deg); }
 
-        
         .modal-img-circle {
-            width: 82px; height: 82px; border-radius: 50%; overflow: hidden;
-            margin: 0 auto 16px auto;
-            border: 2px solid rgba(209,135,162,0.5);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            width: 90px; height: 90px; border-radius: 50%; overflow: hidden;
+            margin: 0 auto 20px auto;
+            border: 3px solid #f3a6b8;
+            box-shadow: 0 6px 20px rgba(243,166,184,0.4);
             flex-shrink: 0;
         }
         .modal-img-circle img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 
-        
         .event-season {
-            font-size: 0.78rem; font-weight: 700; letter-spacing: 1.8px;
-            text-transform: uppercase; color: #7b3f75; margin-bottom: 5px;
-            display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap;
+            font-size: 0.82rem; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; color: #7b3f75; margin-bottom: 8px;
+            display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;
             text-align: center;
         }
         .event-date {
-            font-family: 'Playfair Display', serif; font-size: 1rem;
-            font-weight: 700; color: #3a2149; margin-bottom: 6px; text-align: center;
+            font-family: 'Playfair Display', serif; font-size: 1.1rem;
+            font-weight: 700; color: #3a2149; margin-bottom: 8px; text-align: center;
         }
         .event-title {
-            font-size: 1.15rem; font-weight: 700; color: #2f1c3d;
-            margin-bottom: 10px; line-height: 1.3; text-align: center;
+            font-size: 1.25rem; font-weight: 700; color: #2f1c3d;
+            margin-bottom: 14px; line-height: 1.35; text-align: center;
         }
         .event-desc {
-            font-size: 0.88rem; color: #4a2a57; line-height: 1.55;
-            margin-bottom: 9px; text-align: left; width: 100%;
+            font-size: 0.92rem; color: #4a2a57; line-height: 1.6;
+            margin-bottom: 12px; text-align: left; width: 100%;
         }
         .event-quote {
-            background: rgba(209,135,162,0.11);
-            border-left: 3px solid var(--color-blush);
+            background: linear-gradient(90deg, rgba(209,135,162,0.15), transparent);
+            border-left: 4px solid var(--color-blush);
             border-radius: 0 8px 8px 0;
-            padding: 7px 13px;
-            font-size: 0.83rem; font-style: italic; color: #5a335a;
-            line-height: 1.5; margin-bottom: 9px;
+            padding: 10px 16px;
+            font-size: 0.88rem; font-style: italic; color: #5a335a;
+            line-height: 1.6; margin-bottom: 12px;
             width: 100%; box-sizing: border-box; text-align: left;
         }
         .vol-badge {
             display: inline-block;
-            background: linear-gradient(135deg, rgba(154,104,152,0.18), rgba(209,135,162,0.18));
-            border: 1px solid rgba(209,135,162,0.35); border-radius: 30px;
-            padding: 4px 14px; font-size: 0.75rem; font-weight: 600;
-            color: #6f3f70; margin-bottom: 9px;
+            background: linear-gradient(135deg, rgba(154,104,152,0.25), rgba(209,135,162,0.25));
+            border: 1px solid rgba(209,135,162,0.45); border-radius: 30px;
+            padding: 5px 16px; font-size: 0.78rem; font-weight: 700;
+            color: #6f3f70; margin-bottom: 12px;
         }
 
-        
         .footer {
-            text-align: center; margin-top: 80px; padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.2); width: 100%;
-            max-width: 600px; font-size: 0.85rem; color: rgba(255,255,255,0.85);
-            z-index: 4; position: relative; line-height: 1.6;
+            text-align: center; margin-top: 80px; padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.3); width: 100%;
+            max-width: 600px; font-size: 0.9rem; color: rgba(255,255,255,0.9);
+            z-index: 4; position: relative; line-height: 1.8;
+            font-weight: 500; text-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
 
-        
         @media (max-width: 960px) {
-            .main-content { width: 100%; padding: 30px 16px 100px 16px; }
-            .timeline-header h1 { font-size: 2.6rem; }
+            .main-content { width: 100%; padding: 30px 20px 100px 20px; }
+            .timeline-header h1 { font-size: 2.8rem; }
         }
 
         @media (max-width: 700px) {
-            .timeline-wrapper::before { left: 30px; transform: none; }
-            .event-dot { position: absolute; left: 30px; transform: translateX(-50%); }
+            .timeline-base-line, .timeline-progress { left: 40px; transform: none; width: 3px; }
+            .event-dot { position: absolute; left: 40px; transform: translateX(-50%); }
             .event-row {
                 display: flex !important; flex-direction: row !important;
-                padding-left: 70px !important; padding-right: 0 !important;
-                gap: 20px; justify-content: flex-start !important;
+                padding-left: 80px !important; padding-right: 0 !important;
+                gap: 24px; justify-content: flex-start !important;
             }
-            .event-card { width: 150px; height: 150px; }
-            .bubble-mini-label { font-size: 0.6rem; }
-            .bubble-modal { padding: 24px 16px 18px 16px; }
-            .event-title { font-size: 1.05rem; }
-            .event-desc { font-size: 0.82rem; }
-            .event-quote { font-size: 0.78rem; padding: 5px 9px; }
-            .year-badge { font-size: 1.1rem; padding: 10px 26px; }
-            .vol-badge { font-size: 0.65rem; padding: 2px 10px; }
+            .event-connector {
+                width: 30px; left: 40px !important; right: auto !important;
+                transform-origin: left !important;
+                background: linear-gradient(90deg, #f3a6b8, rgba(255,255,255,0.1)) !important;
+            }
+            .event-card { width: 160px; height: 160px; }
+            .bubble-modal { padding: 28px 20px 20px 20px; }
+            .event-title { font-size: 1.1rem; }
+            .event-desc { font-size: 0.85rem; }
+            .event-quote { font-size: 0.8rem; padding: 8px 12px; }
+            .year-badge { font-size: 1.15rem; padding: 10px 28px; }
+            .vol-badge { font-size: 0.7rem; padding: 4px 12px; }
         }
     </style>
 </head>
 <body>
 
-    
     <div class="bubble-overlay" id="bubbleOverlay" onclick="closeBubbleModal()"></div>
     <div class="bubble-modal" id="bubbleModal">
         <div class="modal-close" onclick="closeBubbleModal()"><i class="fas fa-times"></i></div>
@@ -426,14 +453,16 @@
         </div>
 
         <div class="timeline-wrapper" id="timeline">
-
             
+            <div class="timeline-base-line"></div>
+            <div class="timeline-progress" id="timelineProgress"></div>
+
             <div class="year-block" data-year="year1">
                 <div class="year-badge"><i class="fas fa-seedling" style="margin-right:8px;opacity:.8;"></i>Primer Año Escolar</div>
             </div>
 
-            
             <div class="event-row right" data-year="year1">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja1.png" alt="Cumpleaños de Shimamura"></div>
@@ -446,8 +475,8 @@
                 </div>
             </div>
 
-            
             <div class="event-row left" data-year="year1">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja2.webp" alt="Se conocen"></div>
@@ -461,8 +490,8 @@
                 </div>
             </div>
 
-            
             <div class="event-row right" data-year="year1">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja3.png" alt="Primera Navidad"></div>
@@ -476,8 +505,8 @@
                 </div>
             </div>
 
-            
             <div class="event-row left" data-year="year1">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja4.png" alt="Primer San Valentín"></div>
@@ -491,13 +520,12 @@
                 </div>
             </div>
 
-            
             <div class="year-block" data-year="year2">
                 <div class="year-badge"><i class="fas fa-bicycle" style="margin-right:8px;opacity:.8;"></i>Segundo Año Escolar</div>
             </div>
 
-            
             <div class="event-row right" data-year="year2">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja5.webp" alt="Segundo año"></div>
@@ -511,8 +539,8 @@
                 </div>
             </div>
 
-            
             <div class="event-row left" data-year="year2">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja6.webp" alt="Propuesta de Adachi"></div>
@@ -527,8 +555,8 @@
                 </div>
             </div>
 
-            
             <div class="event-row right" data-year="year2">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja7.png" alt="Pelea y reconciliación"></div>
@@ -542,8 +570,8 @@
                 </div>
             </div>
 
-            
             <div class="event-row left" data-year="year2">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja8.webp" alt="Obon"></div>
@@ -557,24 +585,32 @@
                 </div>
             </div>
 
-            
             <div class="event-row right" data-year="year2">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja9.png" alt="Declaración de Adachi"></div>
-                    <div class="bubble-mini-label"></div>
                     <div class="bubble-content">
                         <div class="vol-badge">Volumen 6</div>
                         <div class="event-season"><i class="fas fa-fire"></i> Festival de Verano</div>
                         <div class="event-title">Declaración de Adachi</div>
                         <div class="event-desc">Adachi finalmente se declara a Shimamura y le dice que la ama. Tras huir abrumada por la intensidad del momento, ambas terminan hablando a solas junto a un hotel.</div>
+                        <div class="event-quote">"Te amo." (Volumen 6)</div>
+                        <div class="event-quote">
+                        "Quiero que estés conmigo."<br>
+                        "Estoy aquí."<br>
+                        "Quiero que pienses en mí."<br>
+                        "Estoy pensando en ti."<br>
+                        "Quiero que me mires solo a mí."<br>
+                        <span class="quote-source">(Volumen 6)</span>
+                    </div>
                         <div class="event-quote">"El yo de hoy quedó libre para tomar la siguiente decisión: 'Seguro, por qué no.'" (Volumen 6)</div>
                     </div>
                 </div>
             </div>
 
-            
             <div class="event-row left" data-year="year2">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja10.webp" alt="Primer día como novias"></div>
@@ -590,8 +626,8 @@
                 </div>
             </div>
 
-            
             <div class="event-row right" data-year="year2">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja11.jpg" alt="Viaje escolar a Kitakyushu"></div>
@@ -605,8 +641,8 @@
                 </div>
             </div>
 
-            
             <div class="event-row left" data-year="year2">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja12.1.jpg" alt="Segunda Navidad"></div>
@@ -616,12 +652,13 @@
                         <div class="event-title">Segunda Navidad</div>
                         <div class="event-desc">Adachi y Shimamura se citan bajo el gran árbol de Navidad del centro comercial, con Adachi luciendo de nuevo su llamativo vestido chino.</div>
                         <div class="event-quote">"Tan pronto como esas palabras salieron de mi boca, los recuerdos de nuestra Navidad anterior se apresuraron a llenar mi mente. Lo que recordé en particular fue el color azul." (Volumen 9)</div>
+                        <div class="event-quote">"Es por eso que necesito hacer todo lo posible para no perderte, para reprimir la parte de mí que... Sí, encuentra todo molesto." (Volumen 9)</div>
                     </div>
                 </div>
             </div>
 
-            
             <div class="event-row right" data-year="year2">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja13.webp" alt="Año Nuevo"></div>
@@ -635,8 +672,8 @@
                 </div>
             </div>
 
-            
             <div class="event-row left" data-year="year2">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja14.webp" alt="Segundo San Valentín"></div>
@@ -650,13 +687,12 @@
                 </div>
             </div>
 
-            
             <div class="year-block" data-year="year3">
                 <div class="year-badge"><i class="fas fa-star" style="margin-right:8px;opacity:.8;"></i>Tercer y Último Año Escolar</div>
             </div>
 
-            
             <div class="event-row right" data-year="year3">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja16.jpg" alt="Tercer año"></div>
@@ -668,8 +704,8 @@
                 </div>
             </div>
 
-            
             <div class="event-row left" data-year="year3">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja16.jpg" alt="Plan para la playa"></div>
@@ -684,8 +720,8 @@
                 </div>
             </div>
 
-            
             <div class="event-row right" data-year="year3">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja16.jpg" alt="Ama de casa"></div>
@@ -694,12 +730,13 @@
                         <div class="event-season"><i class="fas fa-home"></i> Verano · Inicio de las Vacaciones</div>
                         <div class="event-title">Trabajo doméstico de Shimamura</div>
                         <div class="event-quote">"Soy Shimamura Hougetsu. Seré tu ama de casa durante el verano." (Volumen 12)</div>
+                        <div class="event-quote">"Mira, Hermana está haciendo algo." (Volumen 12)</div>
                     </div>
                 </div>
             </div>
 
-            
             <div class="event-row left" data-year="year3">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja17.webp" alt="Estudiar"></div>
@@ -715,8 +752,8 @@
                 </div>
             </div>
 
-            
             <div class="event-row right" data-year="year3">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja18.webp" alt="Playa"></div>
@@ -731,8 +768,8 @@
                 </div>
             </div>
 
-            
             <div class="event-row left" data-year="year3">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja19.png" alt="Visita abuelos"></div>
@@ -742,12 +779,13 @@
                         <div class="event-title">Visita a los abuelos · Últimas vacaciones</div>
                         <div class="event-desc">Shimamura viaja con su familia a casa de sus abuelos durante el Obon, como hace cada año. Esta vez también va Yashiro, disfrazada de tanuki. Son las últimas vacaciones de verano de su vida como estudiante de preparatoria.</div>
                         <div class="event-quote">"A inicios de agosto, durante las últimas vacaciones de verano de mi vida como estudiante de preparatoria. Era la época en que la gente regresaba al campo." (Volumen 13)</div>
+                        <div class="event-quote">"Este año también voy al campo, así que mañana no vengas a buscarme, ¿sí?" (Volumen 13)</div>
                     </div>
                 </div>
             </div>
 
-            
             <div class="event-row right" data-year="year3">
+                <div class="event-connector"></div>
                 <div class="event-dot"><div class="dot-circle"></div></div>
                 <div class="event-card" onclick="openBubbleModal(this)">
                     <div class="bubble-cover"><img src="Imagenes/burbuja20.webp" alt="Festival cultural"></div>
@@ -773,19 +811,16 @@
     </div>
 
     <script>
-        
         let _lastCard = null;
 
         function openBubbleModal(card) {
             const contentEl = card.querySelector('.bubble-content');
             const coverImg  = card.querySelector('.bubble-cover img');
-
             const modal        = document.getElementById('bubbleModal');
             const overlay      = document.getElementById('bubbleOverlay');
             const modalContent = document.getElementById('modalContent');
             const modalCircle  = document.getElementById('modalImgCircle');
 
-            
             if (coverImg && coverImg.src) {
                 modalCircle.innerHTML = `<img src="${coverImg.src}" alt="preview">`;
                 modalCircle.style.display = 'block';
@@ -793,16 +828,13 @@
                 modalCircle.style.display = 'none';
             }
 
-            
             modalContent.innerHTML = contentEl ? contentEl.innerHTML : '';
 
-            
             modal.style.visibility = 'hidden';
             modal.classList.add('active');
             overlay.classList.add('active');
             document.getElementById('timeline').classList.add('has-expanded');
 
-            
             requestAnimationFrame(() => {
                 _positionModal(modal, card);
                 modal.style.visibility = '';
@@ -814,16 +846,14 @@
         function _positionModal(modal, trigger) {
             const vw = window.innerWidth;
             const vh = window.innerHeight;
-            const modalW = modal.offsetWidth  || Math.min(480, vw * 0.9);
-            const modalH = modal.offsetHeight || Math.min(500, vh * 0.8);
+            const modalW = modal.offsetWidth  || Math.min(500, vw * 0.9);
+            const modalH = modal.offsetHeight || Math.min(680, vh * 0.85);
             const rect   = trigger.getBoundingClientRect();
-            const margin = 12;
+            const margin = 16;
 
-            
             let left = (rect.left + rect.right) / 2 - modalW / 2;
             left = Math.max(margin, Math.min(left, vw - modalW - margin));
 
-            
             let top = rect.bottom + margin;
             if (top + modalH > vh - margin) {
                 top = rect.top - modalH - margin;
@@ -849,18 +879,17 @@
             if (modal.classList.contains('active') && _lastCard) _positionModal(modal, _lastCard);
         });
 
-        
         function initSakuraRain() {
             const env = document.getElementById('sakura-env');
             if (!env) return;
             env.innerHTML = '';
 
             const isMobile = window.matchMedia('(max-width: 700px)').matches;
-            const total    = isMobile ? 140 : 220;
+            const total    = isMobile ? 120 : 180;
             const frag     = document.createDocumentFragment();
 
             const layers = [
-                { cls: 'petal--far',  size:[10,16], dur:[18,30], op:[0.55,0.75], drift:[-8,8],   blur:[0.2,0.6], sway:[1,2.2] },
+                { cls: 'petal--far',  size:[10,16], dur:[18,30], op:[0.55,0.75], drift:[-8,8],    blur:[0.2,0.6], sway:[1,2.2] },
                 { cls: 'petal--mid',  size:[16,26], dur:[14,24], op:[0.7,0.9],   drift:[-12,12], blur:[0.4,1],   sway:[1.8,3.2] },
                 { cls: 'petal--near', size:[22,34], dur:[10,18], op:[0.85,1],    drift:[-16,16], blur:[0.6,1.4], sway:[2.5,4.5] }
             ];
@@ -895,7 +924,6 @@
             window.__sakuraResize = setTimeout(initSakuraRain, 200);
         });
 
-        
         function filterYear(year, btn) {
             document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -916,22 +944,51 @@
                     if (r.style.display !== 'none') r.classList.remove('visible');
                 });
                 checkVisibility();
+                updateTimelineProgress();
             }, 10);
         }
 
         function checkVisibility() {
             document.querySelectorAll('.event-row').forEach((row, i) => {
                 if (row.style.display === 'none') return;
-                if (row.getBoundingClientRect().top < window.innerHeight - 60) {
-                    setTimeout(() => row.classList.add('visible'), i * 30);
+                if (row.getBoundingClientRect().top < window.innerHeight - 80) {
+                    setTimeout(() => row.classList.add('visible'), i * 20);
                 }
             });
         }
 
-        window.addEventListener('scroll', checkVisibility, { passive: true });
-        window.addEventListener('load',   () => setTimeout(checkVisibility, 150));
+        function updateTimelineProgress() {
+            const timeline = document.getElementById('timeline');
+            if (!timeline) return;
+            const rect = timeline.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            let progress = 0;
 
+            if (rect.top > windowHeight / 2) {
+                progress = 0;
+            } else if (rect.bottom < windowHeight / 2) {
+                progress = 1;
+            } else {
+                const totalScroll = rect.height;
+                const currentScroll = (windowHeight / 2) - rect.top;
+                progress = currentScroll / totalScroll;
+            }
+            
+            document.getElementById('timelineProgress').style.transform = `translateX(-50%) scaleY(${Math.max(0, Math.min(1, progress))})`;
+        }
+
+        window.addEventListener('scroll', () => {
+            checkVisibility();
+            updateTimelineProgress();
+        }, { passive: true });
         
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                checkVisibility();
+                updateTimelineProgress();
+            }, 150);
+        });
+
         const menuVer = Math.floor(Date.now() / 86400000);
         fetch('menu.html?v=' + menuVer)
             .then(response => {
