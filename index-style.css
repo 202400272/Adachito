@@ -17,7 +17,6 @@ body {
     background-attachment: fixed;
 }
 
-/* Fondo Dinámico con Partículas */
 #bg-canvas {
     position: fixed;
     top: 0;
@@ -28,7 +27,6 @@ body {
     pointer-events: none;
 }
 
-/* Contenedor Principal */
 .main-content {
     flex: 1;
     padding: 40px;
@@ -40,7 +38,6 @@ body {
     margin: 0 auto;
 }
 
-/* Imagen Flotante Ada_bici */
 .bici-wrapper {
     position: absolute;
     top: 50px;
@@ -83,7 +80,6 @@ body {
     opacity: 0.8;
 }
 
-/* Grid de Recursos */
 .resources-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -93,7 +89,6 @@ body {
     perspective: 1000px;
 }
 
-/* Tarjetas Estilo Glassmorphism */
 .resource-card {
     background: var(--glass-bg);
     backdrop-filter: blur(12px);
@@ -160,13 +155,11 @@ body {
     background: #e91e63;
 }
 
-/* Animaciones */
 @keyframes fadeInDown {
     from { opacity: 0; transform: translateY(-30px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Mobile Responsive */
 @media (max-width: 1024px) {
     .bici-float {
         width: 240px;

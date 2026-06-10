@@ -80,16 +80,12 @@
             z-index: 2;
         }
         
-        
-        
-        
         .orb-purple { 
             width: 100px; height: 100px; top: 15%; left: 8%; 
             background: linear-gradient(135deg, rgba(160, 120, 180, 0.6), rgba(255,255,255,0.2)); 
             border-color: #d8bff2; 
             animation-delay: 0s; 
         }
-        
         
         .orb-yellow { 
             width: 60px; height: 60px; top: 35%; right: 15%; 
@@ -98,14 +94,12 @@
             animation-delay: -3s; animation-duration: 8s;
         }
         
-        
         .orb-blue { 
             width: 80px; height: 80px; bottom: 25%; left: 15%; 
             background: linear-gradient(135deg, rgba(140, 220, 240, 0.6), rgba(255,255,255,0.2)); 
             border-color: #b8edf8; 
             animation-delay: -5s; animation-duration: 12s;
         }
-        
         
         .orb-pink { 
             width: 45px; height: 45px; bottom: 15%; right: 25%; 
@@ -114,14 +108,12 @@
             animation-delay: -2s; 
         }
         
-        
         .orb-green { 
             width: 55px; height: 55px; top: 55%; left: 12%; 
             background: linear-gradient(135deg, rgba(170, 230, 140, 0.6), rgba(255,255,255,0.2)); 
             border-color: #c8f8b8; 
             animation-delay: -1s; animation-duration: 9s; 
         }
-        
         
         .orb-orange { 
             width: 90px; height: 90px; top: 20%; right: 28%; 
@@ -130,14 +122,12 @@
             animation-delay: -7s; animation-duration: 14s; 
         }
         
-        
         .orb-purple-small { 
             width: 35px; height: 35px; bottom: 45%; right: 8%; 
             background: linear-gradient(135deg, rgba(160, 120, 180, 0.7), rgba(255,255,255,0.2)); 
             border-color: #d8bff2; 
             animation-delay: -6s; animation-duration: 7s; 
         }
-        
         
         .orb-blue-large { 
             width: 130px; height: 130px; top: 5%; right: 5%; 
@@ -146,14 +136,12 @@
             animation-delay: -4s; animation-duration: 15s; 
         }
         
-        
         .orb-pink-top { 
             width: 70px; height: 70px; top: 8%; left: 35%; 
             background: linear-gradient(135deg, rgba(240, 150, 180, 0.6), rgba(255,255,255,0.2)); 
             border-color: #f8b8cc; 
             animation-delay: -8s; animation-duration: 11s; 
         }
-        
         
         .orb-yellow-small { 
             width: 40px; height: 40px; bottom: 8%; left: 38%; 
@@ -217,10 +205,8 @@
         
         .floating-bike {
             width: 100%;
-            
             max-width: 800px;
             animation: floatBike 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-            
             filter: drop-shadow(0 34px 48px rgba(74, 47, 87, 0.38));
             z-index: 5;
             transition: transform 0.35s cubic-bezier(0.2,0.8,0.2,1);
@@ -299,7 +285,6 @@
             border-radius: 16px;
             font-size: 0.9rem;
             font-style: italic;
-            
             white-space: normal;
             max-width: calc(100vw - 80px);
             overflow-wrap: anywhere;
@@ -329,42 +314,67 @@
         .update-item:hover [data-tooltip]::before { opacity: 1; transform: translateX(-50%) translateY(10px); }
 
         
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+        .release-card {
             width: 100%;
             max-width: 1100px;
             z-index: 4;
             margin-bottom: 60px;
-        }
-
-        .info-card {
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            color: #4a2f57;
-            background: rgba(255, 255, 255, 0.45);
+            padding: 18px 32px;
+            background: rgba(255, 255, 255, 0.3);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .info-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+
+        .release-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.13), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
         }
 
-        .info-card h2 {
-            font-size: 1.25rem;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.6);
-            padding-bottom: 10px;
-            margin-bottom: 5px;
+        .release-inner {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .release-label {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #633a60;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .release-divider {
+            width: 1px;
+            height: 22px;
+            background: rgba(255,255,255,0.6);
+            flex-shrink: 0;
+        }
+
+        .release-details {
             display: flex;
             align-items: center;
             gap: 10px;
-            color: #633a60;
+            flex-wrap: wrap;
+            font-size: 0.97rem;
+            color: #4a2f57;
+            font-weight: 500;
+            line-height: 1.5;
         }
-        .char-details { font-size: 0.95rem; line-height: 1.7; }
-        .char-details strong { color: #8a4e80; font-weight: 700; }
+
+        .release-details strong {
+            color: #7b4c73;
+            font-weight: 700;
+        }
+
+        .release-sep {
+            color: rgba(74, 47, 87, 0.4);
+            font-weight: 400;
+        }
 
         
         .floating-adashima {
@@ -389,6 +399,144 @@
         }
 
         
+        .about-section {
+            width: 100%;
+            max-width: 1100px;
+            z-index: 4;
+            margin-bottom: 40px;
+        }
+
+        .about-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+            padding: 18px 28px;
+            cursor: pointer;
+            transition: background 0.3s ease, box-shadow 0.3s ease, border-radius 0.4s ease;
+            user-select: none;
+        }
+
+        .about-toggle:hover {
+            background: rgba(255, 255, 255, 0.32);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+        }
+
+        .about-toggle.open {
+            border-radius: 20px 20px 0 0;
+            border-bottom-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .about-toggle-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .about-toggle-left i {
+            font-size: 1.1rem;
+            color: #fff;
+            opacity: 0.9;
+        }
+
+        .about-toggle-title {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            letter-spacing: 0.5px;
+        }
+
+        .about-toggle-sub {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.75);
+            font-weight: 500;
+            margin-left: 4px;
+        }
+
+        .about-chevron {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .about-toggle.open .about-chevron {
+            transform: rotate(180deg);
+        }
+
+        .about-body {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.55s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s ease;
+            opacity: 0;
+            background: rgba(255, 255, 255, 0.28);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            border-top: none;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+        }
+
+        .about-body.open {
+            max-height: 600px;
+            opacity: 1;
+        }
+
+        .about-body-inner {
+            padding: 28px 32px 30px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .about-paragraphs {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .about-paragraphs p {
+            font-size: 0.97rem;
+            line-height: 1.8;
+            color: #4a2f57;
+            font-weight: 500;
+        }
+
+        .about-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding-top: 4px;
+        }
+
+        .about-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255,255,255,0.7);
+            border-radius: 50px;
+            padding: 5px 14px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #7b4c73;
+            white-space: nowrap;
+        }
+
+        .about-tag i {
+            font-size: 0.78rem;
+            opacity: 0.8;
+        }
+
         .footer {
             position: absolute;
             bottom: 20px;
@@ -427,6 +575,19 @@
             [data-tooltip]::before { left: 20px; transform: translateX(0) translateY(20px); }
             .update-item:hover [data-tooltip]::after { transform: translateX(0) translateY(0); }
             .update-item:hover [data-tooltip]::before { transform: translateX(0) translateY(10px); }
+
+            .about-toggle { padding: 15px 20px; }
+            .about-toggle-sub { display: none; }
+            .about-body-inner { padding: 20px 20px 24px 20px; }
+            .about-paragraphs p { font-size: 0.93rem; }
+            .about-body.open { max-height: 900px; }
+
+            .release-card { padding: 16px 20px; }
+            .release-divider { display: none; }
+            .release-inner { gap: 8px; flex-direction: column; align-items: flex-start; }
+            .release-details { gap: 6px; }
+            .release-sep { display: none; }
+            .release-details { flex-direction: column; align-items: flex-start; gap: 2px; }
         }
     </style>
 </head>
@@ -496,29 +657,48 @@
                 </div>
                 <div class="update-item">
                     <a href="Adashima_Otros.html" data-tooltip="Documentos y recursos adicionales.">
-                        Documentos Extra <i class="fas fa-file-alt"></i>
+                        Otros <i class="fas fa-file-alt"></i>
                     </a>
                 </div>
             </div>
         </div>
 
-        <div class="info-grid">
-            <div class="glass-box info-card">
-                <h2><i class="fas fa-box-open"></i> Último Lanzamiento</h2>
-                <div class="char-details">
-                    <strong>Título:</strong> Adachi to Shimamura Vol. 13<br>
-                    <strong>Tipo:</strong> Novela Ligera<br>
-                    <strong>Fecha:</strong> 8 de Noviembre, 2025<br>
+        <div class="about-section">
+            <div class="about-toggle" id="aboutToggle" onclick="toggleAbout()">
+                <div class="about-toggle-left">
+                    <i class="fas fa-book"></i>
+                    <span class="about-toggle-title">¿Qué es Adachi to Shimamura?</span>
+                    <span class="about-toggle-sub">— Para quienes llegan por primera vez</span>
+                </div>
+                <i class="fas fa-chevron-down about-chevron"></i>
+            </div>
+            <div class="about-body" id="aboutBody" onclick="toggleAbout()">
+                <div class="about-body-inner">
+                    <div class="about-tags">
+                        <span class="about-tag"><i class="fas fa-pen-nib"></i> Hitoma Iruma</span>
+                        <span class="about-tag"><i class="fas fa-heart"></i> Yuri · Slice of Life</span>
+                        <span class="about-tag"><i class="fas fa-calendar-alt"></i> Desde 2013</span>
+                        <span class="about-tag"><i class="fas fa-building"></i> Dengeki Bunko</span>
+                    </div>
+                    <div class="about-paragraphs">
+                        <p>Adachi y Shimamura es una serie de novelas ligeras yuri escrita por Hitoma Iruma. Comenzó su publicación en marzo de 2013 bajo el sello Dengeki Bunko. Originalmente fue ilustrada por Non y actualmente cuenta con ilustraciones de Raemz.</p>
+                        <p>La historia sigue a Sakura Adachi y Hougetsu Shimamura, dos estudiantes de preparatoria que se encuentran por primera vez en el gimnasio de su escuela mientras faltan a clase. A medida que pasan más tiempo juntas, desarrollan una peculiar amistad que poco a poco evoluciona hacia algo más.</p>
+                        <p>La obra ha recibido dos adaptaciones al manga. La primera, ilustrada por Mani, se publicó entre 2016 y 2017. La segunda, ilustrada por Moke Yuzuhara, comenzó su serialización en 2019 en la revista Dengeki Daioh y continúa adaptando la historia de las novelas. En 2020, la serie recibió una adaptación al anime producida por Tezuka Productions, compuesta por doce episodios emitidos entre octubre y diciembre de ese mismo año. Tanto las novelas ligeras como la segunda adaptación al manga han sido licenciadas para su publicación en Norteamérica.</p>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="glass-box info-card">
-                <h2><i class="fas fa-info-circle"></i> Ficha Técnica</h2>
-                <div class="char-details">
-                    <strong>Autor Original:</strong> Hitoma Iruma<br>
-                    <strong>Ilustrador:</strong> Raemz<br>
-                    <strong>Género:</strong> Yuri, Slice of Life, Romance<br>
-                    <strong>Editorial:</strong> Dengeki Bunko
+        <div class="release-card glass-box">
+            <div class="release-inner">
+                <div class="release-label"><i class="fas fa-box-open"></i> Último Lanzamiento</div>
+                <div class="release-divider"></div>
+                <div class="release-details">
+                    <span><strong>Adachi to Shimamura Vol. 13</strong></span>
+                    <span class="release-sep">·</span>
+                    <span>Novela Ligera</span>
+                    <span class="release-sep">·</span>
+                    <span>8 de Noviembre, 2025</span>
                 </div>
             </div>
         </div>
@@ -531,6 +711,13 @@
     </div>
 
     <script>
+        function toggleAbout() {
+            const toggle = document.getElementById('aboutToggle');
+            const body = document.getElementById('aboutBody');
+            toggle.classList.toggle('open');
+            body.classList.toggle('open');
+        }
+
         fetch('menu.html?v=' + Math.floor(Date.now() / 86400000))
             .then(response => {
                 if (!response.ok) {

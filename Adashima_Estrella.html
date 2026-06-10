@@ -2780,11 +2780,33 @@ async function downloadStoryPDF() {
     await forceDownload(reward.pdf, reward.pdf.split('/').pop());
 }
 
+const MINI_HISTORIAS_DEPLOY_ID = '20250608-0001';
+
 async function downloadAllMiniStories() {
-    await forceDownload(
-        'https://media.adashimaverse.com/Mini%20historias/Mini%20historias%20completas.pdf',
-        'Mini historias completas.pdf'
-    );
+    const bustUrl = 'https://media.adashimaverse.com/Mini%20historias/Mini%20historias%20completas.pdf?v=' + MINI_HISTORIAS_DEPLOY_ID;
+    try {
+        const response = await fetch(bustUrl, { cache: 'no-store' });
+        if (!response.ok) throw new Error('Network response was not ok');
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.style.display = 'none';
+        link.href = blobUrl;
+        link.download = 'Mini historias completas.pdf';
+        document.body.appendChild(link);
+        link.click();
+        window.URL.revokeObjectURL(blobUrl);
+        document.body.removeChild(link);
+    } catch (error) {
+        console.error('Error forzando la descarga:', error);
+        const backupLink = document.createElement('a');
+        backupLink.href = bustUrl;
+        backupLink.download = 'Mini historias completas.pdf';
+        backupLink.target = '_blank';
+        document.body.appendChild(backupLink);
+        backupLink.click();
+        document.body.removeChild(backupLink);
+    }
 }
 
 function initBgAudio() {
