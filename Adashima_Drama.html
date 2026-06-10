@@ -2258,23 +2258,33 @@ desc: 'El momento más incómodo de la historia. Escucha el tan icónico "Shimam
 
         
 
-downloadBtn.onclick = (e) => {
+downloadBtn.onclick = async (e) => {
     e.preventDefault();
     downloadLabel.textContent = 'Descargando...';
     try {
+        const resp = await fetch(ch.src, { mode: 'cors', cache: 'no-store' });
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const blob = await resp.blob();
+        const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = ch.src;
-        a.target = '_blank';
-        a.rel = 'noopener';
+        a.href = url;
         a.download = ch.download || '';
         document.body.appendChild(a);
         a.click();
         a.remove();
+        URL.revokeObjectURL(url);
     } catch (err) {
         console.error('Error al iniciar descarga directa:', err);
-        window.open(ch.src, '_blank');
+        const a = document.createElement('a');
+        a.href = ch.src;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    } finally {
+        downloadLabel.textContent = 'Descargar';
     }
-    downloadLabel.textContent = 'Descargar';
 };
 
         

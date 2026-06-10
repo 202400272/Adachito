@@ -226,6 +226,57 @@
             background: transparent;
         }
 
+        .download-overlay {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(6,4,12,0.6);
+            z-index: 400;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.18s ease, visibility 0.18s;
+        }
+
+        .download-overlay.show { visibility: visible; opacity: 1; }
+
+        .download-box {
+            background: rgba(255,255,255,0.06);
+            padding: 18px 22px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+            color: #fff;
+            max-width: 92%;
+        }
+
+        .download-spinner {
+            width: 48px; height: 48px; border-radius: 50%;
+            border: 4px solid rgba(255,255,255,0.12);
+            border-top-color: rgba(209,163,198,0.95);
+            animation: spin 1s linear infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .download-text { font-family: 'Quicksand', sans-serif; font-weight:700; }
+
+        .floating-adashima { position: fixed; bottom: 30px; right: 30px; width: 200px; animation: float-astronaut 8s ease-in-out infinite; z-index: 100; filter: drop-shadow(0px 5px 10px rgba(0,0,0,0.2)); }
+        .floating-adashima img { width: 100%; border-radius: 0; display: block; }
+
+        @media (max-width: 768px) {
+            .floating-otros { left: 10px; right: auto; bottom: 10px; width: 70px; }
+            .download-box { padding: 12px 14px; }
+            .download-spinner { width: 40px; height: 40px; }
+        }
+
         @keyframes float-astronaut {
             0% { transform: translateY(0px) rotate(0deg); }
             33% { transform: translateY(-15px) rotate(5deg); }
@@ -285,8 +336,15 @@
             Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma.
         </div>
 
-        <div class="floating-adashima">
-            <img src="Imagenes/A_1.png" alt="Adashima Chibi" onerror="this.style.display='none'">
+        <a href="Juego.html" class="floating-adashima" title="¡Clickea para ir al mini-juego!">
+            <img src="Imagenes/flotanteotros-Photoroom.png" alt="Flotante Otros" onerror="this.style.display='none'">
+        </a>
+
+        <div id="downloadOverlay" class="download-overlay" aria-hidden="true">
+            <div class="download-box">
+                <div class="download-spinner" role="status" aria-hidden="true"></div>
+                <div class="download-text">Descargando...</div>
+            </div>
         </div>
     </div>
 
@@ -326,6 +384,42 @@
                     particlesContainer.appendChild(star);
                 }
             }
+
+            const downloadOverlay = document.getElementById('downloadOverlay');
+            document.querySelectorAll('a.document-card').forEach(el => {
+                const href = el.href || el.getAttribute('href');
+                if (!href) return;
+                if (href.indexOf('media.adashimaverse.com') === -1) return;
+                el.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    if (downloadOverlay) {
+                        downloadOverlay.classList.add('show');
+                        downloadOverlay.setAttribute('aria-hidden', 'false');
+                    }
+                    try {
+                        const resp = await fetch(href, { mode: 'cors', cache: 'no-store' });
+                        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                        const blob = await resp.blob();
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        const parts = href.split('/');
+                        a.download = decodeURIComponent(parts[parts.length - 1].split('?')[0]);
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                        URL.revokeObjectURL(url);
+                    } catch (err) {
+                        const win = window.open(href, '_blank');
+                        if (!win) location.href = href;
+                    } finally {
+                        if (downloadOverlay) {
+                            downloadOverlay.classList.remove('show');
+                            downloadOverlay.setAttribute('aria-hidden', 'true');
+                        }
+                    }
+                });
+            });
         });
 
         if ('serviceWorker' in navigator) {

@@ -408,7 +408,11 @@
             .event-quote { font-size: 0.8rem; padding: 8px 12px; }
             .year-badge { font-size: 1.15rem; padding: 10px 28px; }
             .vol-badge { font-size: 0.7rem; padding: 4px 12px; }
+            .floating-adashima { display: none !important; }
         }
+        .floating-adashima { position: fixed; bottom: 30px; right: 30px; width: 260px; animation: float-astronaut 8s ease-in-out infinite; z-index: 100; filter: drop-shadow(0px 5px 10px rgba(0,0,0,0.2)); }
+        .floating-adashima img { width: 100%; border-radius: 50%; }
+        @keyframes float-astronaut { 0% { transform: translateY(0px) rotate(0deg); } 33% { transform: translateY(-15px) rotate(5deg); } 66% { transform: translateY(10px) rotate(-5deg); } 100% { transform: translateY(0px) rotate(0deg); } }
     </style>
 </head>
 <body>
@@ -807,6 +811,10 @@
             Creado por fans, sin fines de lucro.<br>
             Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma.
         </div>
+
+        <a href="Juego.html" class="floating-adashima" title="¡Clickea para ir al mini-juego!">
+            <img src="Imagenes/flotantelinea-Photoroom.png" alt="Flotante Línea" onerror="this.style.display='none'">
+        </a>
 
     </div>
 
