@@ -1271,7 +1271,7 @@ function handleToggle(e) {
 async function loadMenu() {
   const menuVer = Math.floor(Date.now() / 86400000);
   try {
-    const response = await fetch(`../components/menu.html?v=${menuVer}`, {
+    const response = await fetch(`/src/components/menu.html?v=${menuVer}`, {
       cache: "no-store",
       headers: {
         "Cache-Control": "no-cache, no-store, must-revalidate",

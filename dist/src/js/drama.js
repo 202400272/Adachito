@@ -766,7 +766,7 @@ for (let i = 0; i < 22; i++) {
 async function loadMenu() {
   const menuVer = Math.floor(Date.now() / 86400000);
   try {
-    const response = await fetch(`../components/menu.html?v=${menuVer}`);
+    const response = await fetch(`/src/components/menu.html?v=${menuVer}`);
     if (!response.ok) throw new Error("HTTP " + response.status);
     let data = await response.text();
     data = data

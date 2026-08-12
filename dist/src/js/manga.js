@@ -1645,7 +1645,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   applyUITranslations();
 
   const menuVer = Date.now();
-  fetch("../components/menu.html?v=" + menuVer, {
+  fetch("/src/components/menu.html?v=" + menuVer, {
     cache: "no-store",
     headers: {
       "Cache-Control": "no-cache, no-store, must-revalidate",

@@ -963,7 +963,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   loadNewsContent();
 
   const menuVer = Math.floor(Date.now() / 86400000);
-  fetch("./src/components/menu.html?v=" + menuVer)
+  fetch("/src/components/menu.html?v=" + menuVer)
     .then((r) => {
       if (!r.ok) throw new Error("HTTP " + r.status);
       return r.text();

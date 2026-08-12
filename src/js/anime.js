@@ -2271,7 +2271,7 @@ document.addEventListener("keydown", (e) => {
 
 // ===== LOAD MENU WITH TRANSLATION SUPPORT =====
 const menuVer = Math.floor(Date.now() / 86400000);
-fetch("../components/menu.html?v=" + menuVer)
+fetch("/src/components/menu.html?v=" + menuVer)
   .then((response) => {
     if (!response.ok)
       throw new Error("HTTP error " + response.status + " loading menu");

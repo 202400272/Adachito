@@ -665,7 +665,7 @@ async function loadSidebar() {
   if (!container) return;
   try {
     const menuVer = Math.floor(Date.now() / 86400000);
-    const res = await fetch("../../components/menu.html?v=" + menuVer);
+    const res = await fetch(`/src/components/menu.html?v=` + menuVer);
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     let html = await res.text();
     html = html.replace(/src="\.\/(assets\/)/g, 'src="../../../$1');

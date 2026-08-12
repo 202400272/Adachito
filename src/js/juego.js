@@ -9,7 +9,7 @@ for (let i = 0; i < 25; i++) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("../components/menu.html?v=" + Math.floor(Date.now() / 86400000))
+  fetch("/src/components/menu.html?v=" + Math.floor(Date.now() / 86400000))
     .then((response) => {
       if (!response.ok) throw new Error("Error HTTP al cargar el menú");
       return response.text();

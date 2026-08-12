@@ -719,7 +719,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   window.changelogInstance = changelog;
 
   const menuVer = Math.floor(Date.now() / 86400000);
-  fetch("../components/menu.html?v=" + menuVer)
+  fetch("/src/components/menu.html?v=" + menuVer)
     .then((response) => {
       if (!response.ok)
         throw new Error("Error HTTP " + response.status + " al cargar el menú");

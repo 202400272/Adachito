@@ -1841,7 +1841,7 @@ function flashToast(text, dur = 1800) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("../components/menu.html?v=" + APP_VERSION)
+  fetch("/src/components/menu.html?v=" + APP_VERSION)
     .then((response) => {
       if (!response.ok)
         throw new Error("Error HTTP " + response.status + " al cargar el menú");
