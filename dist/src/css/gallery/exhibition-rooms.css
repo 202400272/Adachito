@@ -1,0 +1,275 @@
+.exhibition-rooms {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-top: 24px;
+}
+.exhibition-room {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+.room-introduction {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4px;
+  padding-bottom: 8px;
+  flex-direction: column;
+  gap: 8px;
+}
+.room-intro-content {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+.room-intro-icon {
+  font-size: 1.2rem;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+}
+.room-intro-text {
+  flex: 1;
+  min-width: 0;
+}
+.room-intro-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: -0.5px;
+  word-break: break-word;
+}
+.room-intro-description {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+.room-intro-explore {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  transition: all 0.2s ease;
+  color: rgba(255, 255, 255, 0.3);
+  font-family: inherit;
+  white-space: nowrap;
+}
+.room-intro-explore:hover {
+  gap: 10px;
+  color: rgba(212, 160, 192, 0.6);
+}
+
+/* Layouts: Featured - Dark Swiss */
+.room-layout-featured {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+.room-featured {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  aspect-ratio: 2/3;
+  background: rgba(255, 255, 255, 0.02);
+}
+.room-featured:hover {
+  transform: scale(1.005);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+.room-featured img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.room-featured img[style*="opacity: 1"] {
+  opacity: 1;
+}
+.room-featured-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 14px 12px 12px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+}
+.room-featured-title {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+}
+.room-featured-artist {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+.room-supporting {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+.room-supporting-item {
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  aspect-ratio: 2/3;
+  background: rgba(255, 255, 255, 0.02);
+}
+.room-supporting-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+}
+.room-supporting-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.room-supporting-item img[style*="opacity: 1"] {
+  opacity: 1;
+}
+
+/* Layouts: Editorial - Dark Swiss */
+.room-layout-editorial {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+.room-editorial-featured {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  aspect-ratio: 2/3;
+  background: rgba(255, 255, 255, 0.02);
+}
+.room-editorial-featured:hover {
+  transform: scale(1.005);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+.room-editorial-featured img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.room-editorial-featured img[style*="opacity: 1"] {
+  opacity: 1;
+}
+.room-editorial-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 14px 12px 12px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+}
+.room-editorial-title {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+}
+.room-editorial-artist {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+.room-editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+.room-editorial-item {
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  aspect-ratio: 2/3;
+  background: rgba(255, 255, 255, 0.02);
+}
+.room-editorial-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+}
+.room-editorial-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.room-editorial-item img[style*="opacity: 1"] {
+  opacity: 1;
+}
+
+/* Layouts: Grid - Dark Swiss */
+.room-layout-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+.room-grid-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  aspect-ratio: 2/3;
+  background: rgba(255, 255, 255, 0.02);
+}
+.room-grid-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+}
+.room-grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.room-grid-item img[style*="opacity: 1"] {
+  opacity: 1;
+}
+.room-grid-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 10px 8px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+}
+.room-grid-title {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+}
+.room-grid-artist {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.5);
+}

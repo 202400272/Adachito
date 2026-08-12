@@ -1,0 +1,30 @@
+.toast-message {
+  display: none;
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(30, 20, 44, 0.94);
+  backdrop-filter: blur(16px);
+  color: rgba(209, 163, 198, 0.95);
+  padding: 11px 24px;
+  border-radius: 24px;
+  z-index: 1000;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+  font-weight: 600;
+  font-size: 0.88rem;
+  border: 1px solid rgba(209, 163, 198, 0.2);
+  animation: fade-in-up 0.3s ease;
+  white-space: nowrap;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 16px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}

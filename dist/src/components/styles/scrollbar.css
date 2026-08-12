@@ -1,0 +1,325 @@
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(209, 135, 162, 0.6) rgba(255, 255, 255, 0.05);
+}
+
+/* ===== WEBKIT SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Track with subtle gradient and glow */
+::-webkit-scrollbar-track {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(209, 135, 162, 0.08) 50%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 30px rgba(209, 135, 162, 0.05);
+  margin: 4px 0;
+}
+
+/* Thumb with magical gradient and sparkle effect */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(209, 135, 162, 0.7) 0%,
+    rgba(180, 110, 180, 0.6) 30%,
+    rgba(156, 104, 152, 0.7) 60%,
+    rgba(130, 80, 160, 0.8) 100%
+  );
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  background-clip: padding-box;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  box-shadow: 
+    0 0 15px rgba(209, 135, 162, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Sparkle overlay on thumb */
+::-webkit-scrollbar-thumb::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 20%;
+  width: 30%;
+  height: 20%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.4) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+::-webkit-scrollbar-thumb::after {
+  content: '✦';
+  position: absolute;
+  top: 15%;
+  right: 15%;
+  font-size: 6px;
+  color: rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* Hover state - magical glow */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(209, 135, 162, 0.9) 0%,
+    rgba(180, 110, 180, 0.8) 30%,
+    rgba(156, 104, 152, 0.9) 60%,
+    rgba(130, 80, 160, 1) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    0 0 25px rgba(209, 135, 162, 0.4),
+    0 0 50px rgba(209, 135, 162, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: scaleX(1.05);
+}
+
+::-webkit-scrollbar-thumb:hover::after {
+  opacity: 1;
+}
+
+/* Active state */
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(
+    180deg,
+    rgba(180, 110, 140, 0.95) 0%,
+    rgba(140, 80, 140, 0.95) 100%
+  );
+  box-shadow: 
+    0 0 30px rgba(180, 110, 140, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Corner */
+::-webkit-scrollbar-corner {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+}
+
+/* ===== STARS IN THE TRACK ===== */
+/* Creates a subtle starry effect in the scrollbar track */
+::-webkit-scrollbar-track-piece {
+  background-image: 
+    radial-gradient(1px 1px at 20% 10%, rgba(255,255,255,0.15), transparent),
+    radial-gradient(1px 1px at 60% 30%, rgba(255,255,255,0.1), transparent),
+    radial-gradient(1.5px 1.5px at 80% 60%, rgba(255,255,255,0.12), transparent),
+    radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.08), transparent),
+    radial-gradient(1px 1px at 90% 90%, rgba(255,255,255,0.1), transparent);
+  background-repeat: repeat-y;
+  background-size: 100% 60px;
+  opacity: 0.5;
+  animation: scrollStars 8s linear infinite;
+}
+
+@keyframes scrollStars {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 60px;
+  }
+}
+
+/* ===== STYLIZED SCROLLBAR FOR SPECIFIC ELEMENTS ===== */
+
+/* Main content */
+.main-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.main-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(209, 135, 162, 0.5) 0%,
+    rgba(156, 104, 152, 0.6) 100%
+  );
+  border-radius: 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.main-content::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(209, 135, 162, 0.7) 0%,
+    rgba(156, 104, 152, 0.8) 100%
+  );
+  box-shadow: 0 0 20px rgba(209, 135, 162, 0.3);
+}
+
+/* News dialog - more delicate */
+.news-dialog-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.news-dialog-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  border: none;
+}
+
+.news-dialog-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(209, 135, 162, 0.3) 100%
+  );
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.news-dialog-container::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(209, 135, 162, 0.5) 100%
+  );
+  box-shadow: 0 0 15px rgba(209, 135, 162, 0.2);
+}
+
+/* Info panel */
+.info-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.info-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+}
+
+.info-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  border: none;
+}
+
+.info-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 12px rgba(209, 135, 162, 0.15);
+}
+
+/* ===== SCROLLBAR WITH GLOW ON HOVER ===== */
+/* Creates a magical aura when hovering over the scrollbar area */
+::-webkit-scrollbar-track:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(209, 135, 162, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 40px rgba(209, 135, 162, 0.08);
+}
+
+/* ===== SCROLLBAR WITH SPARKLE ANIMATION ===== */
+/* Adds a subtle shimmer to the thumb */
+@keyframes thumbShimmer {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 200%;
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  background-size: 100% 200%;
+  animation: thumbShimmer 6s linear infinite;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  animation-duration: 3s;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    border-width: 1.5px;
+  }
+  
+  .main-content::-webkit-scrollbar {
+    width: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    border-radius: 6px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    border-width: 1px;
+  }
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  ::-webkit-scrollbar-thumb {
+    animation: none;
+  }
+  
+  ::-webkit-scrollbar-track-piece {
+    animation: none;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    transition: none;
+  }
+}
+
+/* ===== DARK MODE ADAPTATION ===== */
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.15);
+    border-color: rgba(255, 255, 255, 0.03);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      rgba(180, 120, 160, 0.5) 0%,
+      rgba(130, 80, 130, 0.6) 100%
+    );
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+      180deg,
+      rgba(180, 120, 160, 0.7) 0%,
+      rgba(130, 80, 130, 0.8) 100%
+    );
+    box-shadow: 0 0 30px rgba(180, 120, 160, 0.3);
+  }
+}

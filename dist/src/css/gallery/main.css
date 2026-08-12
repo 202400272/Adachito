@@ -1,0 +1,55 @@
+/* Base & Reset */
+@import url("reset.css");
+
+/* Effects & Animations */
+@import url("particles.css");
+
+/* Layout */
+@import url("layout.css");
+@import url("footer.css");
+
+/* Components */
+@import url("language-controls.css");
+@import url("controls.css");
+@import url("filter-toggle.css");
+
+/* Gallery Display */
+@import url("entrance.css");
+@import url("exhibition-rooms.css");
+@import url("collection-view.css");
+
+/* States */
+@import url("empty-state.css");
+
+/* Modals & Overlays */
+@import url("viewer-modal.css");
+
+/* Notifications */
+@import url("toast.css");
+
+/* Responsive */
+@import url("responsive.css");
+
+/* ===== MOBILE INTERACTION ===== */
+
+/* Remove the blue tap highlight on mobile browsers */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove default focus outline from mouse/touch interaction */
+button:focus,
+a:focus,
+[role="button"]:focus {
+  outline: none;
+}
+
+/* Preserve a visible focus indicator for keyboard navigation */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid rgba(140, 90, 150, 0.5);
+  outline-offset: 2px;
+}
+
+

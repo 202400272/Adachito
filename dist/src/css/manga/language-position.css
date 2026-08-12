@@ -1,0 +1,38 @@
+/* ---------- desktop language selector position ---------- */
+@media (min-width: 769px) {
+    .lang-controls {
+        position: absolute !important;
+        top: 24px !important;
+        right: 32px !important;
+        left: auto !important;
+        justify-content: flex-end !important;
+        width: auto !important;
+        z-index: 10050 !important;
+    }
+}
+
+.lang-controls {
+    position: relative;
+    z-index: 10050 !important;
+}
+
+.lang-wrapper {
+    position: relative;
+    z-index: 10050 !important;
+}
+
+.lang-dropdown {
+    position: relative;
+    z-index: 10050 !important;
+}
+
+.lang-dropdown-menu {
+    z-index: 10051 !important;
+}
+
+@media (max-width: 768px) {
+    .lang-controls {
+        position: relative;
+        z-index: 10050 !important;
+    }
+}

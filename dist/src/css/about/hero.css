@@ -1,0 +1,80 @@
+/* ---------- hero section ---------- */
+.about-hero {
+  text-align: center;
+  padding: 1rem 0 2rem;
+  position: relative;
+}
+
+.about-hero-content {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 2.8rem;
+  padding: 2rem 2rem;
+  border: 1px solid rgba(209, 163, 198, 0.2);
+  box-shadow: 0 20px 60px rgba(92, 58, 107, 0.08);
+}
+
+.about-hero-title {
+  font-family: "Noto Serif JP", serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: var(--plum);
+  letter-spacing: 0.5px;
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.about-hero-title .iconify {
+  font-size: 2.2rem;
+  color: var(--dusty-rose);
+}
+
+.about-hero-subtitle {
+  font-family: "Quicksand", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #5a4a63;
+  max-width: 720px;
+  margin: 0.8rem auto 0;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+.about-hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.hero-badge {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(4px);
+  padding: 0.4rem 1.2rem;
+  border-radius: 60px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--plum);
+  border: 1px solid rgba(209, 163, 198, 0.15);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.hero-badge .iconify {
+  font-size: 0.9rem;
+  color: var(--dusty-rose);
+}
+
+.hero-badge:hover {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: var(--dusty-rose);
+  transform: translateY(-2px);
+}

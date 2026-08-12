@@ -1,0 +1,239 @@
+/* ============================================================
+   THEME SUPPORT
+   ============================================================ */
+
+.theme-light .reader-controls-sticky {
+  background: rgba(248, 246, 242, 0.92);
+  border-bottom-color: #e8e4de;
+}
+
+.theme-light .reader-modal,
+.theme-light .reader-settings-panel {
+  background: #f8f6f2;
+}
+
+.theme-light .reader-title,
+.theme-light .reader-text,
+.theme-light .settings-title {
+  color: #2b2b2b;
+}
+
+.theme-light .reader-meta,
+.theme-light .reader-language,
+.theme-light .reader-store,
+.theme-light .reader-tag {
+  color: #9a9a9a;
+}
+
+.theme-light .reader-close,
+.theme-light .reader-nav-btn,
+.theme-light .reader-settings-btn,
+.theme-light .settings-close,
+.theme-light .reader-mark-read {
+  color: #6b6b6b;
+}
+
+.theme-light .reader-close:hover,
+.theme-light .reader-nav-btn:hover:not(:disabled),
+.theme-light .reader-settings-btn:hover,
+.theme-light .settings-close:hover,
+.theme-light .reader-mark-read:hover {
+  color: #2b2b2b;
+}
+
+.theme-light .reader-progress-wrap {
+  background: #e8e4de;
+}
+
+.theme-light .reader-progress-fill {
+  background: #2b2b2b;
+}
+
+.theme-light .reader-translator-note {
+  background: rgba(43, 43, 43, 0.02);
+  border-left-color: #d0d0d0;
+}
+
+.theme-light .settings-select {
+  border-color: #e8e4de;
+  color: #2b2b2b;
+}
+
+.theme-light .settings-theme-btn,
+.theme-light .settings-size-btn,
+.theme-light .settings-lh-btn,
+.theme-light .settings-width-btn {
+  border-color: #e8e4de;
+  color: #6b6b6b;
+}
+
+.theme-light .settings-theme-btn.active,
+.theme-light .settings-lh-btn.active,
+.theme-light .settings-width-btn.active {
+  border-color: #2b2b2b;
+  background: rgba(43, 43, 43, 0.04);
+  color: #2b2b2b;
+}
+
+.theme-sepia .reader-controls-sticky {
+  background: rgba(242, 233, 216, 0.92);
+  border-bottom-color: #dcd0bc;
+}
+
+.theme-sepia .reader-modal,
+.theme-sepia .reader-settings-panel {
+  background: #f2e9d8;
+}
+
+.theme-sepia .reader-title,
+.theme-sepia .reader-text,
+.theme-sepia .settings-title {
+  color: #3c3024;
+}
+
+.theme-sepia .reader-meta,
+.theme-sepia .reader-language,
+.theme-sepia .reader-store,
+.theme-sepia .reader-tag {
+  color: #8a7a6a;
+}
+
+.theme-sepia .reader-close,
+.theme-sepia .reader-nav-btn,
+.theme-sepia .reader-settings-btn,
+.theme-sepia .settings-close,
+.theme-sepia .reader-mark-read {
+  color: #6a5a4a;
+}
+
+.theme-sepia .reader-close:hover,
+.theme-sepia .reader-nav-btn:hover:not(:disabled),
+.theme-sepia .reader-settings-btn:hover,
+.theme-sepia .settings-close:hover,
+.theme-sepia .reader-mark-read:hover {
+  color: #3c3024;
+}
+
+.theme-sepia .reader-progress-wrap {
+  background: #dcd0bc;
+}
+
+.theme-sepia .reader-progress-fill {
+  background: #3c3024;
+}
+
+.theme-sepia .reader-translator-note {
+  background: rgba(60, 48, 36, 0.04);
+  border-left-color: #c4b8a4;
+}
+
+.theme-sepia .settings-select {
+  border-color: #dcd0bc;
+  color: #3c3024;
+}
+
+.theme-sepia .settings-theme-btn,
+.theme-sepia .settings-size-btn,
+.theme-sepia .settings-lh-btn,
+.theme-sepia .settings-width-btn {
+  border-color: #dcd0bc;
+  color: #6a5a4a;
+}
+
+.theme-sepia .settings-theme-btn.active,
+.theme-sepia .settings-lh-btn.active,
+.theme-sepia .settings-width-btn.active {
+  border-color: #3c3024;
+  background: rgba(60, 48, 36, 0.06);
+  color: #3c3024;
+}
+
+.theme-dark .reader-controls-sticky {
+  background: rgba(27, 27, 27, 0.92);
+  border-bottom-color: #2a2a2a;
+}
+
+.theme-dark .reader-modal,
+.theme-dark .reader-settings-panel {
+  background: #1b1b1b;
+}
+
+.theme-dark .reader-title,
+.theme-dark .reader-text,
+.theme-dark .settings-title {
+  color: #e8e4dd;
+}
+
+.theme-dark .reader-meta,
+.theme-dark .reader-language,
+.theme-dark .reader-store,
+.theme-dark .reader-tag {
+  color: #7a7a7a;
+}
+
+.theme-dark .reader-close,
+.theme-dark .reader-nav-btn,
+.theme-dark .reader-settings-btn,
+.theme-dark .settings-close,
+.theme-dark .reader-mark-read {
+  color: #8a8a8a;
+}
+
+.theme-dark .reader-close:hover,
+.theme-dark .reader-nav-btn:hover:not(:disabled),
+.theme-dark .reader-settings-btn:hover,
+.theme-dark .settings-close:hover,
+.theme-dark .reader-mark-read:hover {
+  color: #e8e4dd;
+}
+
+.theme-dark .reader-progress-wrap {
+  background: #2a2a2a;
+}
+
+.theme-dark .reader-progress-fill {
+  background: #e8e4dd;
+}
+
+.theme-dark .reader-translator-note {
+  background: rgba(232, 228, 221, 0.04);
+  border-left-color: #3a3a3a;
+}
+
+.theme-dark .settings-select {
+  border-color: #2a2a2a;
+  color: #e8e4dd;
+  background: #222;
+}
+
+.theme-dark .settings-select option {
+  background: #1b1b1b;
+}
+
+.theme-dark .settings-theme-btn,
+.theme-dark .settings-size-btn,
+.theme-dark .settings-lh-btn,
+.theme-dark .settings-width-btn {
+  border-color: #2a2a2a;
+  color: #8a8a8a;
+}
+
+.theme-dark .settings-theme-btn:hover,
+.theme-dark .settings-size-btn:hover,
+.theme-dark .settings-lh-btn:hover,
+.theme-dark .settings-width-btn:hover {
+  background: rgba(232, 228, 221, 0.04);
+}
+
+.theme-dark .settings-theme-btn.active,
+.theme-dark .settings-lh-btn.active,
+.theme-dark .settings-width-btn.active {
+  border-color: #e8e4dd;
+  background: rgba(232, 228, 221, 0.06);
+  color: #e8e4dd;
+}
+
+.theme-dark .reader-settings-panel {
+  border-top-color: #2a2a2a;
+  border-left-color: #2a2a2a;
+}

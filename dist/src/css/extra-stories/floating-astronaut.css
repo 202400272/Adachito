@@ -1,0 +1,32 @@
+.floating-adashima {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 120px;
+  animation: float-astronaut 8s ease-in-out infinite;
+  z-index: 100;
+  filter: drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.15));
+}
+
+.floating-adashima img {
+  width: 100%;
+  border-radius: 0;
+  display: block;
+  object-fit: contain;
+  background: transparent;
+}
+
+@keyframes float-astronaut {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-15px) rotate(5deg);
+  }
+  66% {
+    transform: translateY(10px) rotate(-5deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}

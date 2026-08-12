@@ -1,0 +1,103 @@
+/* ---------- empty state ---------- */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    text-align: center;
+    gap: 0.5rem;
+}
+
+.empty-state-icon {
+    font-size: 3rem;
+    color: rgba(209, 163, 198, 0.3);
+    margin-bottom: 0.3rem;
+}
+
+.empty-state-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #4a3b52;
+}
+
+.empty-state-desc {
+    font-size: 0.85rem;
+    color: rgba(92, 58, 107, 0.5);
+    max-width: 360px;
+    line-height: 1.6;
+}
+
+.empty-state-suggestion {
+    font-size: 0.75rem;
+    color: rgba(92, 58, 107, 0.35);
+    margin-top: 0.1rem;
+}
+
+/* ---------- coming soon state ---------- */
+.coming-soon-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: var(--radius-lg);
+    border: 2px dashed rgba(209, 163, 198, 0.3);
+    gap: 1rem;
+    min-height: 400px;
+}
+
+.coming-soon-icon {
+    font-size: 4rem;
+    color: rgba(209, 163, 198, 0.4);
+    animation: pulse-icon 2.2s ease-in-out infinite;
+}
+
+.coming-soon-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #4a3b52;
+}
+
+.coming-soon-desc {
+    font-size: 0.95rem;
+    color: rgba(92, 58, 107, 0.6);
+    max-width: 440px;
+    line-height: 1.6;
+}
+
+.coming-soon-suggestion {
+    font-size: 0.8rem;
+    color: rgba(92, 58, 107, 0.4);
+}
+
+.coming-soon-btn {
+    margin-top: 0.5rem;
+    padding: 0.7rem 2rem;
+    background: linear-gradient(135deg, var(--rose), var(--rose-dark));
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-family: var(--font-primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.coming-soon-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(209, 163, 198, 0.3);
+}
+
+@keyframes pulse-icon {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.14); opacity: 0.7; }
+}

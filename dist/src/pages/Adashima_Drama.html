@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adashima - CD Dramas</title>
+    <meta
+      name="description"
+      content="Discover the CD drama collection for Adachi and Shimamura, including audio releases, track lists, and episode notes."
+    />
+    <link
+      rel="canonical"
+      href="https://adashimaverse.com/Adashima_Drama"
+    />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AdashimaVerse" />
+    <meta property="og:title" content="Adashima - CD Dramas" />
+    <meta
+      property="og:description"
+      content="Discover the CD drama collection for Adachi and Shimamura, including audio releases, track lists, and episode notes."
+    />
+    <meta
+      property="og:url"
+      content="https://adashimaverse.com/Adashima_Drama"
+    />
+    <meta
+      property="og:image"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="AdashimaVerse - Adashima - CD Dramas"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Adashima - CD Dramas" />
+    <meta
+      name="twitter:description"
+      content="Discover the CD drama collection for Adachi and Shimamura, including audio releases, track lists, and episode notes."
+    />
+    <meta
+      name="twitter:image"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="AdashimaVerse - Adashima - CD Dramas"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/src/css/drama.css" />
+    <link rel="stylesheet" href="/src/css/lang-switch.css" />
+    <link rel="stylesheet" href="/src/components/styles/menu.css" />
+
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/assets/Imagenes/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/Imagenes/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/Imagenes/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/Imagenes/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/assets/Imagenes/icon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="/assets/Imagenes/icon-512x512.png"
+    />
+  </head>
+  <body>
+    <div class="particles" id="particles"></div>
+
+    <div class="floating-decor decor-1"></div>
+    <div class="floating-decor decor-2"></div>
+    <div class="floating-decor decor-3"></div>
+
+    <div id="menu-container" style="display: contents"></div>
+
+    <div class="main-content">
+      <div class="header-container">
+        <div class="header-top-controls">
+          
+        </div>
+        <h1 class="update-title" id="page-title">CD Dramas</h1>
+      </div>
+
+      <div class="crt-tv-wrapper">
+        <div class="crt-tv-body">
+          <div class="tv-screw tv-screw-tl"></div>
+          <div class="tv-screw tv-screw-tr"></div>
+          <div class="tv-screw tv-screw-bl"></div>
+          <div class="tv-screw tv-screw-br"></div>
+
+          <div class="tv-vent-panel">
+            <div class="tv-vent-slot"></div>
+            <div class="tv-vent-slot"></div>
+            <div class="tv-vent-slot"></div>
+            <div class="tv-vent-slot"></div>
+            <div class="tv-vent-slot"></div>
+          </div>
+
+          <div class="tv-speaker-grill">
+            <div class="tv-speaker-slot"></div>
+            <div class="tv-speaker-slot"></div>
+            <div class="tv-speaker-slot"></div>
+            <div class="tv-speaker-slot"></div>
+            <div class="tv-speaker-slot"></div>
+            <div class="tv-speaker-slot"></div>
+            <div class="tv-speaker-slot"></div>
+          </div>
+
+          <div class="tv-led" id="tvLed"></div>
+
+          <div class="tv-brand">YASHONY</div>
+
+          <div class="crt-screen-frame">
+            <div class="crt-screen" id="crtScreen">
+              <div class="screen-glow" id="screenGlow"></div>
+
+              <div class="no-signal-screen off-state" id="noSignal">
+                <div class="no-signal-bar"></div>
+                <span id="noSignalText">SIN SEÑAL</span>
+                <div class="no-signal-bar" style="animation-delay: 0.4s"></div>
+              </div>
+
+              <video
+                class="crt-video"
+                id="crtVideo"
+                preload="metadata"
+                playsinline
+                poster="Imagenes/FondoCD.png"
+                style="opacity: 0"
+              ></video>
+
+              <div class="channel-indicator" id="channelIndicator">CH 1</div>
+
+              <div class="scanlines-overlay"></div>
+
+              <div class="static-overlay" id="staticOverlay"></div>
+
+              <div class="interference-overlay" id="interferenceOverlay"></div>
+
+              <div class="power-flash" id="powerFlash"></div>
+
+              <div class="loading-indicator" id="loadingIndicator">
+                <div class="loading-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="loading-text" id="loadingText">
+                  Sintonizando canal...
+                </div>
+              </div>
+
+              <div
+                class="osd-menu"
+                id="osdMenu"
+                role="dialog"
+                aria-label="Selección de canal"
+              >
+                <div class="osd-box">
+                  <div class="osd-title" id="osdTitle">
+                    YASHONY CHANNELS
+                    <span id="osdSubtitle">SELECCIONAR CANAL</span>
+                  </div>
+                  <div class="osd-channel-list" id="osdChannelList"></div>
+                  <div class="osd-footer" id="osdFooter">
+                    [ MENU ] PARA CERRAR
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tv-controls-row">
+            <div class="tv-controls-left">
+              <div class="btn-labeled">
+                <button
+                  class="power-btn"
+                  id="powerBtn"
+                  title="Encender / Apagar"
+                >
+                  <i class="fas fa-power-off"></i>
+                </button>
+                <span class="btn-label-text">PWR</span>
+              </div>
+
+              <div class="ctrl-separator"></div>
+
+              <div class="btn-labeled">
+                <button
+                  class="menu-btn"
+                  id="menuBtn"
+                  title="Menú de canales"
+                  disabled
+                >
+                  MENU
+                </button>
+                <span class="btn-label-text">CH</span>
+              </div>
+
+              <div class="btn-labeled">
+                <button
+                  class="playpause-btn"
+                  id="playPauseBtn"
+                  title="Reproducir / Pausar"
+                  disabled
+                >
+                  <i class="fas fa-play"></i>
+                </button>
+                <span class="btn-label-text">PLAY</span>
+              </div>
+            </div>
+
+            <div class="tv-controls-right">
+              <div
+                class="tv-knob"
+                id="volKnob"
+                title="Volumen — arrastra arriba/abajo"
+              >
+                <div class="knob-label">VOL</div>
+                <div class="knob-ring-wrap">
+                  <svg class="knob-arc-svg" viewBox="0 0 54 54">
+                    <path class="knob-arc-bg" id="volArcBg" d="" />
+                    <path class="knob-arc-fill" id="volArcFill" d="" />
+                  </svg>
+                  <div class="knob-dir-hint knob-dir-hint-left">
+                    <span>▲ +</span>
+                    <span>▼ −</span>
+                  </div>
+                  <div class="knob-circle" id="volKnobCircle">
+                    <div class="knob-indicator" id="volIndicator"></div>
+                  </div>
+                  <span class="knob-mark knob-mark-min">−</span>
+                  <span class="knob-mark knob-mark-max">+</span>
+                  <div class="knob-osd" id="volOsd">
+                    <div class="knob-osd-label">VOL</div>
+                    <div class="knob-osd-value" id="volOsdValue">100%</div>
+                    <div class="knob-osd-bar-wrap">
+                      <div
+                        class="knob-osd-bar-fill"
+                        id="volOsdBar"
+                        style="width: 100%"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="knob-value-tip" id="volTip">100%</div>
+              </div>
+
+              <div
+                class="tv-knob"
+                id="brtKnob"
+                title="Brillo — arrastra arriba/abajo"
+              >
+                <div class="knob-label">BRT</div>
+                <div class="knob-ring-wrap">
+                  <svg class="knob-arc-svg" viewBox="0 0 54 54">
+                    <path class="knob-arc-bg" id="brtArcBg" d="" />
+                    <path class="knob-arc-fill" id="brtArcFill" d="" />
+                  </svg>
+                  <div class="knob-dir-hint knob-dir-hint-left">
+                    <span>▲ +</span>
+                    <span>▼ −</span>
+                  </div>
+                  <div class="knob-circle" id="brtKnobCircle">
+                    <div class="knob-indicator" id="brtIndicator"></div>
+                  </div>
+                  <span class="knob-mark knob-mark-min">−</span>
+                  <span class="knob-mark knob-mark-max">+</span>
+                  <div class="knob-osd" id="brtOsd">
+                    <div class="knob-osd-label">BRT</div>
+                    <div class="knob-osd-value" id="brtOsdValue">100%</div>
+                    <div class="knob-osd-bar-wrap">
+                      <div
+                        class="knob-osd-bar-fill"
+                        id="brtOsdBar"
+                        style="width: 100%"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="knob-value-tip" id="brtTip">100%</div>
+              </div>
+
+              <a
+                class="download-btn-tv"
+                id="downloadBtn"
+                href="#"
+                title="Descargar episodio actual"
+              >
+                <i class="fas fa-download"></i>
+                <span id="downloadLabel">Descargar</span>
+              </a>
+
+              <button
+                class="fullscreen-btn"
+                id="fullscreenBtn"
+                title="Pantalla completa"
+              >
+                <i class="fas fa-expand"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="tv-bottom-section">
+          <div class="tv-stand-neck"></div>
+          <div class="tv-stand">
+            <div class="tv-feet">
+              <div class="tv-foot"></div>
+              <div class="tv-foot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="channel-info-card" id="channelInfoCard">
+        <div class="channel-info-icon">
+          <i class="fas fa-tv"></i>
+        </div>
+        <div class="channel-info-text">
+          <h3 id="channelTitle">Selecciona un canal</h3>
+          <p id="channelDesc">
+            Enciende la televisión y elige un canal para comenzar a disfrutar
+            los CD Dramas.
+          </p>
+        </div>
+        <div class="channel-badge" id="channelBadge">— / —</div>
+      </div>
+
+      <a
+        href="/Juego"
+        class="floating-adashima"
+        title="¡Clickea para ir al mini-juego!"
+        id="floating-link"
+      >
+        <img
+          src="/assets/Imagenes/Flotante_manga-Photoroom.png"
+          alt="Adashima Chibi Floating"
+        />
+      </a>
+
+      <div class="footer" id="footer-content">
+        Fan site no oficial de Adachi to Shimamura.<br />
+        Creado por fans, sin fines de lucro.<br />
+        Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma.
+      </div>
+    </div>
+
+    <!-- Import JS -->
+    <script src="/src/js/language-switch.js"></script>
+    <script src="/src/js/drama.js"></script>
+  </body>
+</html>

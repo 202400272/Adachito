@@ -1,0 +1,24 @@
+/* ---------- zoom toast ---------- */
+.zoom-toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(20,10,30,0.88);
+    color: var(--text-light);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    border: 1px solid var(--border);
+    backdrop-filter: blur(6px);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+}
+
+.zoom-toast.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}

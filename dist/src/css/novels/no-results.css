@@ -1,0 +1,72 @@
+.no-results-message {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 300px;
+  text-align: center;
+  order: -1;
+  animation: result-fade-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.no-results-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.no-results-icon {
+  font-size: 56px;
+  color: rgba(92, 58, 107, 0.25);
+  animation: icon-bounce 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+@keyframes icon-bounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(-20px);
+  }
+  60% {
+    opacity: 1;
+  }
+  80% {
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.no-results-text {
+  font-size: 1.1rem;
+  color: rgba(92, 58, 107, 0.6);
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  animation: text-slide-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: 0.15s;
+  margin: 0;
+  opacity: 1;
+}
+
+@keyframes result-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes text-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

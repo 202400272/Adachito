@@ -1,0 +1,947 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+    />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <title>Adashima · Anime</title>
+    <meta
+      name="description"
+      content="Explore the anime section of AdashimaVerse with episode guides, character details, and multimedia highlights."
+    />
+    <link
+      rel="canonical"
+      href="https://adashimaverse.com/Adashima_Anime"
+    />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AdashimaVerse" />
+    <meta property="og:title" content="Adashima · Anime" />
+    <meta
+      property="og:description"
+      content="Explore the anime section of AdashimaVerse with episode guides, character details, and multimedia highlights."
+    />
+    <meta
+      property="og:url"
+      content="https://adashimaverse.com/Adashima_Anime"
+    />
+    <meta
+      property="og:image"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="AdashimaVerse - Adashima · Anime" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Adashima · Anime" />
+    <meta
+      name="twitter:description"
+      content="Explore the anime section of AdashimaVerse with episode guides, character details, and multimedia highlights."
+    />
+    <meta
+      name="twitter:image"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta name="twitter:image:alt" content="AdashimaVerse - Adashima · Anime" />
+
+    <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="/src/css/anime.css" />
+    <link rel="stylesheet" href="/src/css/lang-switch.css" />
+    <link rel="stylesheet" href="/src/components/styles/scrollbar.css" />
+    <link rel="stylesheet" href="/src/components/styles/menu.css" />
+    <style>
+      @media (min-width: 901px) {
+        #menu-component-wrapper .sidebar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 100vh;
+        }
+        .main-content {
+          margin-left: 300px;
+          width: calc(100% - 300px);
+        }
+      }
+      @media (max-width: 900px) {
+        #menu-component-wrapper .mobile-toggle {
+          left: 15px !important;
+          right: auto !important;
+        }
+        #menu-component-wrapper .sidebar {
+          left: 0 !important;
+          right: auto !important;
+          transform: translateX(-110%) !important;
+          border-radius: 0 30px 30px 0 !important;
+          border-right: none !important;
+        }
+        #menu-component-wrapper .sidebar.active {
+          transform: translateX(0) !important;
+        }
+      }
+    </style>
+
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/assets/Imagenes/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/Imagenes/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/Imagenes/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/Imagenes/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/assets/Imagenes/icon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="/assets/Imagenes/icon-512x512.png"
+    />
+  </head>
+  <body>
+    <div id="sidebar-container" style="display: contents"></div>
+
+    <!-- PARTICLES -->
+    <div class="particles" id="particles"></div>
+
+    <!-- FLOATING DECORATIONS -->
+    <div class="floating-decor decor-1"></div>
+    <div class="floating-decor decor-2"></div>
+    <div class="floating-decor decor-3"></div>
+
+    <!-- KEYBOARD SHORTCUTS HELP BUTTON -->
+    <button
+      class="keyboard-help-btn"
+      id="keyboardHelpBtn"
+      title="Keyboard shortcuts"
+      aria-label="Toggle keyboard shortcuts"
+    >
+      <span class="iconify" data-icon="mdi:keyboard" data-inline="false"></span>
+    </button>
+
+    <!-- KEYBOARD SHORTCUTS PANEL -->
+    <div
+      class="keyboard-help-overlay"
+      id="keyboardHelpOverlay"
+      role="dialog"
+      aria-label="Keyboard shortcuts"
+    >
+      <div class="keyboard-help-panel">
+        <div class="kh-header">
+          <div class="kh-title">
+            <span
+              class="iconify"
+              data-icon="mdi:keyboard"
+              data-inline="false"
+            ></span>
+            KEYBOARD SHORTCUTS
+          </div>
+          <button class="kh-close" id="khClose" aria-label="Close shortcuts">
+            <span
+              class="iconify"
+              data-icon="mdi:close"
+              data-inline="false"
+            ></span>
+          </button>
+        </div>
+        <div class="kh-divider"></div>
+        <div class="kh-grid">
+          <div class="kh-row">
+            <span class="kh-key"><kbd>Space</kbd></span>
+            <span class="kh-action">Play / Pause</span>
+          </div>
+          <div class="kh-row">
+            <span class="kh-key"><kbd>←</kbd> / <kbd>→</kbd></span>
+            <span class="kh-action">Seek ±10 seconds</span>
+          </div>
+          <div class="kh-row">
+            <span class="kh-key"><kbd>↑</kbd> / <kbd>↓</kbd></span>
+            <span class="kh-action">Volume up / down</span>
+          </div>
+          <div class="kh-row">
+            <span class="kh-key"><kbd>M</kbd></span>
+            <span class="kh-action">Mute / Unmute</span>
+          </div>
+          <div class="kh-row">
+            <span class="kh-key"><kbd>F</kbd></span>
+            <span class="kh-action">Toggle Fullscreen</span>
+          </div>
+          <div class="kh-row">
+            <span class="kh-key"><kbd>C</kbd></span>
+            <span class="kh-action">Channel Menu</span>
+          </div>
+          <div class="kh-row">
+            <span class="kh-key"><kbd>X</kbd></span>
+            <span class="kh-action">Cinema Mode</span>
+          </div>
+          <div class="kh-row">
+            <span class="kh-key"><kbd>Esc</kbd></span>
+            <span class="kh-action">Close overlays / menus</span>
+          </div>
+          <div class="kh-row">
+            <span class="kh-key"><kbd>?</kbd></span>
+            <span class="kh-action">Toggle this guide</span>
+          </div>
+        </div>
+        <div class="kh-footer">
+          <span class="kh-hint"
+            >Press <kbd>?</kbd> or <kbd>Esc</kbd> to close</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- ===== CINEMATIC HERO ===== -->
+      <section class="hero-section" id="heroSection">
+        <div class="hero-background">
+          <img
+            class="hero-artwork-img"
+            id="heroArtworkImg"
+            src="https://media.adashimaverse.com/assets/hero/adachi_shimamura_keyart.jpg"
+            alt="Adachi to Shimamura"
+            loading="eager"
+            decoding="async"
+            onerror="this.style.display = 'none'"
+          />
+          <div class="hero-overlay-left"></div>
+        </div>
+        <div class="hero-content">
+          <div class="hero-badge">BROADCAST ARCHIVE</div>
+          <h1 class="hero-title">
+            Adachi to Shimamura
+            <span class="jp">安達としまむら</span>
+          </h1>
+          <div class="hero-tags">
+            <span>Romance</span>
+            <span>Slice of Life</span>
+            <span>2020</span>
+            <span>12 Episodes</span>
+            <span>TV Series</span>
+          </div>
+          <p class="hero-synopsis" id="heroSynopsis">
+            High school students Adachi and Shimamura share a bond that goes
+            beyond friendship. A tender story of connection, growth, and the
+            quiet moments that define a relationship.
+          </p>
+        </div>
+      </section>
+
+      <!-- ===== NOW WATCHING / CRT VIEWING STAGE ===== -->
+      <section class="now-watching-section" id="nowWatchingSection">
+        <div class="now-watching-header">
+          <div class="now-watching-left">
+            <span class="now-label">NOW WATCHING</span>
+            <span class="now-episode" id="nowPlayingSub">—</span>
+          </div>
+          <div class="now-watching-right">
+            <span class="now-episode-badge" id="nowEpisodeBadge">— / —</span>
+          </div>
+        </div>
+
+        <div class="crt-stage">
+          <div class="crt-stage-glow" id="crtStageGlow"></div>
+
+          <!-- ===== CRT TV WRAPPER ===== -->
+          <div class="crt-tv-wrapper" id="crtWrapper">
+            <div class="crt-tv-body" id="crtBody">
+              <div class="tv-screw tv-screw-tl"></div>
+              <div class="tv-screw tv-screw-tr"></div>
+              <div class="tv-screw tv-screw-bl"></div>
+              <div class="tv-screw tv-screw-br"></div>
+
+              <div class="tv-led" id="tvLed"></div>
+              <div class="tv-brand">YASHONY</div>
+              <div class="tv-model-label">MODEL AD-1203</div>
+
+              <div class="crt-screen-frame">
+                <div class="crt-screen" id="crtScreen">
+                  <div class="screen-glow" id="screenGlow"></div>
+                  <div class="crt-glass-reflection"></div>
+                  <div class="crt-vignette"></div>
+
+                  <div class="no-signal-screen off-state" id="noSignal">
+                    <div class="no-signal-bar"></div>
+                    <span id="noSignalText">SIN SEÑAL</span>
+                    <div
+                      class="no-signal-bar"
+                      style="animation-delay: 0.4s"
+                    ></div>
+                    <div class="power-prompt" id="powerPrompt">
+                      PRESS PWR TO START
+                    </div>
+                  </div>
+
+                  <video
+                    class="crt-video"
+                    id="crtVideo"
+                    preload="metadata"
+                    crossorigin="anonymous"
+                    playsinline
+                    poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' fill='%23000000'/%3E%3C/svg%3E"
+                    style="opacity: 0"
+                  ></video>
+
+                  <!-- CRT Overlay Controls -->
+                  <div class="crt-overlay" id="crtOverlay">
+                    <div class="crt-title-bar">
+                      <span class="channel-badge" id="overlayChannel"
+                        >CH 04</span
+                      >
+                      <div class="episode-title" id="overlayTitle">
+                        Episode Title
+                      </div>
+                      <div class="crt-progress">
+                        <div class="progress-track">
+                          <div
+                            class="progress-fill"
+                            id="overlayProgressFill"
+                            style="width: 0%"
+                          ></div>
+                        </div>
+                        <span class="progress-time" id="overlayProgressTime"
+                          >00:00 / 00:00</span
+                        >
+                      </div>
+                    </div>
+                    <div class="crt-controls">
+                      <button
+                        class="ctrl-btn"
+                        id="overlaySeekBack"
+                        title="Rewind 10s"
+                      >
+                        <span
+                          class="iconify"
+                          data-icon="mdi:rewind-10"
+                          data-inline="false"
+                        ></span>
+                      </button>
+                      <button
+                        class="ctrl-btn play-btn"
+                        id="overlayPlayPause"
+                        title="Play / Pause"
+                      >
+                        <span
+                          class="iconify"
+                          data-icon="mdi:play"
+                          data-inline="false"
+                        ></span>
+                      </button>
+                      <button
+                        class="ctrl-btn"
+                        id="overlaySeekFwd"
+                        title="Forward 10s"
+                      >
+                        <span
+                          class="iconify"
+                          data-icon="mdi:fast-forward-10"
+                          data-inline="false"
+                        ></span>
+                      </button>
+                      <button
+                        class="ctrl-btn"
+                        id="overlayPrev"
+                        title="Previous Episode"
+                      >
+                        <span
+                          class="iconify"
+                          data-icon="mdi:skip-previous"
+                          data-inline="false"
+                        ></span>
+                      </button>
+                      <button
+                        class="ctrl-btn"
+                        id="overlayNext"
+                        title="Next Episode"
+                      >
+                        <span
+                          class="iconify"
+                          data-icon="mdi:skip-next"
+                          data-inline="false"
+                        ></span>
+                      </button>
+                      <button
+                        class="ctrl-btn"
+                        id="overlayFullscreen"
+                        title="Fullscreen"
+                      >
+                        <span
+                          class="iconify"
+                          data-icon="mdi:fullscreen"
+                          data-inline="false"
+                        ></span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="scanlines-overlay"></div>
+                  <div class="phosphor-texture"></div>
+
+                  <div class="crt-osd-notification" id="osdNotification">
+                    <div class="osd-main" id="osdNotifMain">PLAY</div>
+                    <div class="osd-sub" id="osdNotifSub"></div>
+                  </div>
+
+                  <div class="crt-power-effect" id="powerEffect"></div>
+                  <div class="channel-indicator" id="channelIndicator">
+                    CH 1
+                  </div>
+                  <div class="static-overlay" id="staticOverlay"></div>
+                  <div
+                    class="interference-overlay"
+                    id="interferenceOverlay"
+                  ></div>
+                  <div class="power-flash" id="powerFlash"></div>
+
+                  <div class="loading-indicator" id="loadingIndicator">
+                    <div class="loading-dots">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <div class="loading-text" id="loadingText">
+                      TUNING CHANNEL...
+                    </div>
+                  </div>
+
+                  <div
+                    class="osd-menu"
+                    id="osdMenu"
+                    role="dialog"
+                    aria-label="Selección de canal"
+                  >
+                    <div class="osd-box">
+                      <div class="osd-title" id="osdTitle">
+                        YASHONY CHANNELS
+                        <span id="osdSubtitle">SELECCIONAR EPISODIO</span>
+                      </div>
+                      <div class="osd-channel-list" id="osdChannelList"></div>
+                      <div class="osd-footer" id="osdFooter">
+                        [ MENU ] PARA CERRAR
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="end-episode-overlay" id="endEpisodeOverlay">
+                    <div class="eol-label" id="eolLabel">
+                      TRANSMISSION COMPLETE
+                    </div>
+                    <div class="eol-title" id="eolTitle">Episode Title</div>
+                    <div class="eol-sub" id="eolSub">CH 04</div>
+                    <div class="eol-actions">
+                      <button class="eol-btn" id="eolReplayBtn">
+                        <span
+                          class="iconify"
+                          data-icon="mdi:refresh"
+                          data-inline="false"
+                        ></span>
+                        <span id="eolReplayLabel">REPLAY</span>
+                      </button>
+                      <button class="eol-btn primary" id="eolNextBtn">
+                        <span
+                          class="iconify"
+                          data-icon="mdi:skip-next"
+                          data-inline="false"
+                        ></span>
+                        <span id="eolNextLabel">NEXT CHANNEL</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="up-next-overlay" id="upNextOverlay">
+                    <div class="un-label">UP NEXT</div>
+                    <div class="un-title" id="upNextTitle">Episode Title</div>
+                    <div class="un-ch" id="upNextCh">CH 05</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ===== TV CONTROLS ROW ===== -->
+              <div class="tv-controls-row">
+                <div class="tv-controls-left">
+                  <div class="btn-labeled">
+                    <button
+                      class="power-btn physical-btn"
+                      id="powerBtn"
+                      title="Encender / Apagar"
+                      aria-label="Encender / Apagar"
+                    >
+                      <span
+                        class="iconify"
+                        data-icon="mdi:power"
+                        data-inline="false"
+                      ></span>
+                    </button>
+                    <span class="btn-label-text">POWER</span>
+                  </div>
+
+                  <div class="ctrl-separator"></div>
+
+                  <div class="btn-labeled">
+                    <button
+                      class="tv-menu-btn physical-btn"
+                      id="menuBtn"
+                      title="Menú de canales"
+                      disabled
+                      aria-label="Menú de canales"
+                    >
+                      <span
+                        class="iconify"
+                        data-icon="mdi:view-list"
+                        data-inline="false"
+                      ></span>
+                    </button>
+                    <span class="btn-label-text">CHANNEL</span>
+                  </div>
+
+                  <div class="ctrl-separator"></div>
+
+                  <div class="btn-labeled">
+                    <button
+                      class="seek-btn physical-btn"
+                      id="seekBackBtn"
+                      title="Retroceder 10 segundos"
+                      aria-label="Retroceder 10 segundos"
+                      disabled
+                    >
+                      <span
+                        class="iconify"
+                        data-icon="mdi:rewind-10"
+                        data-inline="false"
+                      ></span>
+                    </button>
+                    <span class="btn-label-text">REW</span>
+                  </div>
+
+                  <div class="btn-labeled">
+                    <button
+                      class="playpause-btn physical-btn"
+                      id="playPauseBtn"
+                      title="Reproducir / Pausar"
+                      disabled
+                      aria-label="Reproducir / Pausar"
+                    >
+                      <span
+                        class="iconify"
+                        data-icon="mdi:play"
+                        data-inline="false"
+                      ></span>
+                    </button>
+                    <span class="btn-label-text">PLAY</span>
+                  </div>
+
+                  <div class="btn-labeled">
+                    <button
+                      class="seek-btn physical-btn"
+                      id="seekFwdBtn"
+                      title="Avanzar 10 segundos"
+                      aria-label="Avanzar 10 segundos"
+                      disabled
+                    >
+                      <span
+                        class="iconify"
+                        data-icon="mdi:fast-forward-10"
+                        data-inline="false"
+                      ></span>
+                    </button>
+                    <span class="btn-label-text">FF</span>
+                  </div>
+                </div>
+
+                <div class="tv-controls-right">
+                  <div class="btn-labeled">
+                    <button
+                      class="nav-btn physical-btn"
+                      id="prevEpBtn"
+                      title="Episodio anterior"
+                      aria-label="Episodio anterior"
+                      disabled
+                    >
+                      <span
+                        class="iconify"
+                        data-icon="mdi:skip-previous"
+                        data-inline="false"
+                      ></span>
+                    </button>
+                    <span class="btn-label-text">PREV</span>
+                  </div>
+
+                  <div class="btn-labeled">
+                    <button
+                      class="nav-btn physical-btn"
+                      id="nextEpBtn"
+                      title="Siguiente episodio"
+                      aria-label="Siguiente episodio"
+                      disabled
+                    >
+                      <span
+                        class="iconify"
+                        data-icon="mdi:skip-next"
+                        data-inline="false"
+                      ></span>
+                    </button>
+                    <span class="btn-label-text">NEXT</span>
+                  </div>
+
+                  <div class="ctrl-separator"></div>
+
+                  <div
+                    class="tv-knob"
+                    id="volKnob"
+                    title="Volumen — arrastra arriba/abajo"
+                    aria-label="Volume control"
+                  >
+                    <div class="knob-label">VOL</div>
+                    <div class="knob-ring-wrap">
+                      <svg
+                        class="knob-arc-svg"
+                        viewBox="0 0 54 54"
+                        aria-hidden="true"
+                      >
+                        <path class="knob-arc-bg" id="volArcBg" d="" />
+                        <path class="knob-arc-fill" id="volArcFill" d="" />
+                      </svg>
+                      <div
+                        class="knob-circle"
+                        id="volKnobCircle"
+                        role="slider"
+                        aria-label="Volume"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        aria-valuenow="100"
+                        tabindex="0"
+                      >
+                        <div class="knob-indicator" id="volIndicator"></div>
+                      </div>
+                      <span class="knob-mark knob-mark-min">−</span>
+                      <span class="knob-mark knob-mark-max">+</span>
+                      <div class="knob-osd" id="volOsd">
+                        <div class="knob-osd-label">VOL</div>
+                        <div class="knob-osd-value" id="volOsdValue">100%</div>
+                        <div class="knob-osd-bar-wrap">
+                          <div
+                            class="knob-osd-bar-fill"
+                            id="volOsdBar"
+                            style="width: 100%"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="knob-value-tip" id="volTip">100%</div>
+                  </div>
+
+                  <div
+                    class="tv-knob"
+                    id="brtKnob"
+                    title="Brillo — arrastra arriba/abajo"
+                    aria-label="Brightness control"
+                  >
+                    <div class="knob-label">BRT</div>
+                    <div class="knob-ring-wrap">
+                      <svg
+                        class="knob-arc-svg"
+                        viewBox="0 0 54 54"
+                        aria-hidden="true"
+                      >
+                        <path class="knob-arc-bg" id="brtArcBg" d="" />
+                        <path class="knob-arc-fill" id="brtArcFill" d="" />
+                      </svg>
+                      <div
+                        class="knob-circle"
+                        id="brtKnobCircle"
+                        role="slider"
+                        aria-label="Brightness"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        aria-valuenow="100"
+                        tabindex="0"
+                      >
+                        <div class="knob-indicator" id="brtIndicator"></div>
+                      </div>
+                      <span class="knob-mark knob-mark-min">−</span>
+                      <span class="knob-mark knob-mark-max">+</span>
+                      <div class="knob-osd" id="brtOsd">
+                        <div class="knob-osd-label">BRT</div>
+                        <div class="knob-osd-value" id="brtOsdValue">100%</div>
+                        <div class="knob-osd-bar-wrap">
+                          <div
+                            class="knob-osd-bar-fill"
+                            id="brtOsdBar"
+                            style="width: 100%"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="knob-value-tip" id="brtTip">100%</div>
+                  </div>
+
+                  <div class="ctrl-separator"></div>
+
+                  <div class="btn-labeled">
+                    <button
+                      class="fullscreen-btn physical-btn"
+                      id="fullscreenBtn"
+                      title="Pantalla completa"
+                      aria-label="Pantalla completa"
+                    >
+                      <span
+                        class="iconify"
+                        data-icon="mdi:fullscreen"
+                        data-inline="false"
+                      ></span>
+                    </button>
+                    <span class="btn-label-text">FULL</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tv-status-display">
+                <span class="status-led" id="statusLed"></span>
+                <span class="status-text" id="statusText">STANDBY</span>
+              </div>
+
+              <div class="tv-manufacturing-details">
+                <span>COLOR TELEVISION</span>
+                <span>AC 100V · 50/60Hz</span>
+                <span>MADE IN JAPAN</span>
+              </div>
+            </div>
+
+            <div class="tv-bottom-section">
+              <div class="tv-stand-neck"></div>
+              <div class="tv-stand">
+                <div class="tv-feet">
+                  <div class="tv-foot"></div>
+                  <div class="tv-foot"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== EPISODE INFO PANEL ===== -->
+      <div class="episode-info-panel" id="episodeInfoPanel">
+        <div class="info-inner">
+          <div class="info-left">
+            <span class="episode-number" id="episodeNumber">—</span>
+            <div class="episode-title" id="episodeTitle">
+              <span id="channelTitle">Select a channel</span>
+              <span class="jp" id="jpTitle"></span>
+            </div>
+            <p class="episode-desc" id="channelDesc">
+              Turn on the TV and choose a channel to start watching.
+            </p>
+            <div class="episode-meta" id="episodeMeta">
+              <span
+                ><span class="meta-icon">⏱</span>
+                <span id="metaDuration">—</span></span
+              >
+              <span
+                ><span class="meta-icon">📅</span>
+                <span id="metaRelease">—</span></span
+              >
+              <span
+                ><span class="meta-icon">🔊</span>
+                <span id="metaAudio">JAPANESE</span></span
+              >
+            </div>
+            <div class="progress-area">
+              <div class="progress-track">
+                <div
+                  class="progress-fill"
+                  id="progressFill"
+                  style="width: 0%"
+                ></div>
+              </div>
+              <span class="progress-time" id="progressTime">00:00 / 00:00</span>
+              <span class="progress-state" id="progressState">—</span>
+            </div>
+          </div>
+          <div class="info-right">
+            <span class="episode-badge" id="episodeBadge">— / —</span>
+            <div class="download-actions">
+              <button class="download-btn" id="downloadBtn">
+                <span
+                  class="iconify"
+                  data-icon="mdi:download"
+                  data-inline="false"
+                ></span>
+                <span id="downloadLabel">Download</span>
+              </button>
+              <button class="download-btn" id="downloadAllBtn">
+                <span
+                  class="iconify"
+                  data-icon="mdi:download-multiple"
+                  data-inline="false"
+                ></span>
+                <span id="downloadAllLabel">Download All</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== EPISODES SECTION ===== -->
+      <section class="episodes-section" id="episodesSection">
+        <div class="guide-header">
+          <div class="guide-header-left">
+            <h2 id="guideTitle">Episodes</h2>
+            <span class="guide-sub" id="guideSub"
+              >CHANNEL GUIDE · 12 EPISODES</span
+            >
+          </div>
+          <div class="guide-header-right">
+            <span class="guide-progress-text" id="guideProgressText"
+              >0 / 0 WATCHED</span
+            >
+            <div class="guide-progress-track">
+              <div
+                class="guide-progress-fill"
+                id="guideProgressFill"
+                style="width: 0%"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="guide-toolbar">
+          <div class="guide-search-wrap">
+            <span
+              class="guide-search-icon iconify"
+              data-icon="mdi:search"
+              data-inline="false"
+            ></span>
+            <input
+              type="text"
+              class="guide-search-input"
+              id="guideSearchInput"
+              placeholder="Search episodes..."
+              aria-label="Buscar en la guía"
+            />
+            <button
+              class="guide-search-clear"
+              id="guideSearchClear"
+              aria-label="Limpiar búsqueda"
+            >
+              ✕
+            </button>
+          </div>
+          <div class="guide-collapse-controls">
+            <div class="view-toggle" id="viewToggle">
+              <button class="active" data-view="list">List</button>
+              <button data-view="grid">Grid</button>
+            </div>
+            <button
+              class="guide-collapse-btn"
+              id="guideExpandAll"
+              aria-label="Expandir todos"
+            >
+              Expand
+            </button>
+            <button
+              class="guide-collapse-btn"
+              id="guideCollapseAll"
+              aria-label="Colapsar todos"
+            >
+              Collapse
+            </button>
+          </div>
+        </div>
+
+        <div class="guide-folders" id="guideFolders"></div>
+      </section>
+
+      <div class="secondary-actions" style="margin-top: 6px">
+        <span class="action-hint" id="actionHint"
+          >Download your favorite episodes</span
+        >
+      </div>
+
+      <div class="download-modal" id="downloadModal" aria-hidden="true">
+        <div
+          class="download-modal-card"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="downloadModalTitle"
+        >
+          <div class="download-modal-title" id="downloadModalTitle">
+            <span class="download-modal-badge">
+              <span
+                class="iconify"
+                data-icon="mdi:download"
+                data-inline="false"
+              ></span>
+            </span>
+            <span id="downloadModalTitleText">Download all episodes</span>
+          </div>
+          <div class="download-modal-text" id="downloadModalText">
+            All 12 episodes will be downloaded. Continue?
+          </div>
+          <div class="download-modal-actions">
+            <button
+              class="download-modal-btn download-modal-cancel"
+              id="downloadModalCancel"
+              type="button"
+            >
+              <span id="cancelLabel">Cancel</span>
+            </button>
+            <button
+              class="download-modal-btn download-modal-confirm"
+              id="downloadModalConfirm"
+              type="button"
+            >
+              <span id="continueLabel">Continue</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer" id="footer-content">
+        Fan site no oficial de Adachi to Shimamura.<br />
+        Creado por fans, sin fines de lucro.<br />
+        Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma.
+      </div>
+    </div>
+
+    <!-- Import JS -->
+    <script src="/src/js/language-switch.js"></script>
+    <script src="/src/js/anime.js"></script>
+  </body>
+</html>

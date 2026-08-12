@@ -1,0 +1,19 @@
+.footer {
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 24px;
+  text-align: center;
+  font-size: 0.7rem;
+  color: rgba(92, 58, 107, 0.5);
+  z-index: 5;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  transition: opacity 0.8s ease;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}

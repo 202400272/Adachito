@@ -1,0 +1,112 @@
+{
+  "id": 2,
+  "title": "DIARY FROM JUNE 2021",
+  "publication": "Author's Blog",
+  "date": "2021-06-07",
+  "type": "commentary",
+  "language": "en",
+  "translator": "Fan Translation",
+  "sections": [
+    {
+      "heading": "SHIMAMURA HŌGETSU",
+      "content": "<p>First up, the protagonist.</p><p>I liked the softer impression created by writing \"Shimamura\" in hiragana, so that's where the name came from.</p><p>As for her given name, it's naturally borrowed from that well-known person.[ref:shimamura-hogetsu]</p><p><em>\"...Does that really explain anything?\"</em></p><p>I simply thought the kanji looked exceptionally beautiful. They had a nice feel to them, so I went with it.</p><p>Incidentally, her given name wasn't decided until quite a bit later.</p>"
+    },
+    {
+      "heading": "ADACHI SAKURA",
+      "content": "<p>The second main character.</p><p>Her surname came from the fact that I was reading <em>H2</em> while I was writing the story.[ref:h2] If I'd happened to be reading <em>Dragon Ball</em> instead, she might have ended up as Toriyama Sakura.[ref:dragon-ball]</p><p>Her given name comes from <em>Final Fantasy: Unlimited</em>.[ref:final-fantasy-unlimited]</p><p><em>\"Wait... how?\"</em></p><p>That aside, she also started out with only a surname.</p><p>I'm terrible at coming up with names.</p>"
+    },
+    {
+      "heading": "HINO AKIRA",
+      "content": "<p>Supporting character number one.</p><p>Her surname was simply the first thing that came to mind, so I kept it.</p><p>Her given name comes from the protagonist of <em>Live A Live</em>.[ref:live-a-live-hino]</p><p>The whole idea started because I wanted to use the kanji for \"sun\" (日) somewhere in her name. From there, I settled on these particular characters.</p>"
+    },
+    {
+      "heading": "NAGAFUJI TAEKO",
+      "content": "<p>Supporting character number two.</p><p>I chose her surname because I liked how it sounded.</p><p>Her given name also comes from <em>Live A Live</em>.[ref:live-a-live-nagafuji]</p><p>Incidentally, I once wrote the novelization for the game's sci-fi chapter. Even now, I still think, \"Wow, that was actually pretty amazing.\"</p><p>That said, if I were to read it today, I'd probably think it was terrible.</p><p>I'd love the chance to write it again.</p><p>I'm convinced I've improved at least five hundredfold since then.</p>"
+    },
+    {
+      "heading": "SHIMAMURA YOSHIKA",
+      "content": "<p>Shimamura's mother, who appears here and there.</p><p>Her name wasn't based on anything in particular—I just combined kanji that felt like they carried positive meanings.</p>"
+    },
+    {
+      "heading": "ADACHI AKKA",
+      "content": "<p>Adachi's mother, who doesn't get much screen time.</p><p>Her given name comes from <em>The Wings of Rean</em>.[ref:wing-of-rean-akka]</p><p>It's pronounced Akka.</p>"
+    },
+    {
+      "heading": "SHIMAMURA'S LITTLE SISTER",
+      "content": "<p>She still doesn't have a name.</p><p>At this point, she probably never will.</p>"
+    },
+    {
+      "heading": "TARUMI",
+      "content": "<p>Railways.[ref:tarumi]</p>"
+    },
+    {
+      "heading": "YASHIRO",
+      "content": "<p>If you know, you know.</p><p>Every now and then, I get the urge to take off running with the same speed and dramatic angle as the ending sequence of <em>Gungrave</em>.[ref:gungrave]</p>"
+    }
+  ],
+  "references": [
+    {
+      "id": "shimamura-hogetsu",
+      "title": "Shimamura Hōgetsu",
+      "source": "Japanese Literary Critic",
+      "date": "1871-1918",
+      "note": "Shimamura Hōgetsu (1871–1918) was a Japanese literary critic, playwright, and theater reformer active during the Meiji and Taishō periods. Iruma chose the name primarily because he found the kanji aesthetically beautiful. The given name wasn't decided until quite a bit later in the writing process."
+    },
+    {
+      "id": "h2",
+      "title": "H2 (1992–1999)",
+      "source": "Manga by Mitsuru Adachi",
+      "date": "1992",
+      "note": "A baseball manga written and illustrated by Mitsuru Adachi. It follows Hiro Kunimi, a former baseball prodigy, as he returns to the sport while navigating friendships and romance. Iruma states that Adachi Sakura's surname was chosen simply because he happened to be reading H2 while writing the original story. Consequently, 'Adachi' is derived from the surname of the manga's creator, Mitsuru Adachi."
+    },
+    {
+      "id": "dragon-ball",
+      "title": "Dragon Ball (1984–present)",
+      "source": "Manga by Akira Toriyama",
+      "date": "1984",
+      "note": "A long-running manga and anime franchise created by Akira Toriyama, centered on Son Goku and his adventures. Iruma jokingly remarks that had he been reading Dragon Ball instead of H2, Adachi's surname might have become 'Toriyama.'"
+    },
+    {
+      "id": "final-fantasy-unlimited",
+      "title": "Final Fantasy: Unlimited (2001–2002)",
+      "source": "Anime Series",
+      "date": "2001",
+      "note": "A 25-episode anime set in the Final Fantasy universe. The series follows twins Ai and Yu Hayakawa as they travel to the mysterious Wonderland in search of their missing parents. Iruma notes that Adachi's given name, 'Sakura,' originates from Final Fantasy: Unlimited, though he does not specify the exact connection beyond acknowledging the source."
+    },
+    {
+      "id": "live-a-live-hino",
+      "title": "Live A Live (1994) – Akira Tadokoro",
+      "source": "Video Game by Square",
+      "date": "1994",
+      "note": "A role-playing game developed by Square for the Super Famicom, later remade in 2022. The game consists of several self-contained scenarios set across different time periods, each featuring a distinct protagonist. Hino Akira's given name is taken from Akira Tadokoro, the protagonist of the Near Future chapter."
+    },
+    {
+      "id": "live-a-live-nagafuji",
+      "title": "Live A Live (1994) – Taeko Hikari",
+      "source": "Video Game by Square",
+      "date": "1994",
+      "note": "Nagafuji Taeko's given name is derived from Taeko Hikari, a major character from Live A Live's Sci-Fi chapter. Iruma additionally mentions that he wrote the official novelization of the Sci-Fi chapter, published in 1994."
+    },
+    {
+      "id": "wing-of-rean-akka",
+      "title": "The Wings of Rean (2005–2006) – Akka",
+      "source": "OVA by Yoshiyuki Tomino",
+      "date": "2005",
+      "note": "A six-episode OVA directed by Yoshiyuki Tomino and adapted from his 1983 novel. The story follows Asap Suzuki, a young man transported to the fantasy world of Byston Well, where he becomes embroiled in a war involving aura-powered machines. Adachi's mother, Akka, derives her name from a character in The Wings of Rean. Iruma provides only the pronunciation ('Akka') and does not elaborate further."
+    },
+    {
+      "id": "tarumi",
+      "title": "Tarumi (垂水)",
+      "source": "Railway Stations",
+      "date": "",
+      "note": "Iruma's sole comment, 'Railways' (鉄道), likely refers to the prevalence of the name 'Tarumi' among Japanese railway stations and railway lines. Examples include Tarumi Station in Hyōgo Prefecture and the Tarumi Railway in Gifu Prefecture. No specific railway or station is identified, so the precise origin remains unclear."
+    },
+    {
+      "id": "gungrave",
+      "title": "Gungrave (2003–2004)",
+      "source": "Anime Series",
+      "date": "2003",
+      "note": "A 26-episode anime adaptation of the video game of the same name. It chronicles the rise and tragic friendship of Brandon Heat and Harry MacDowell within a criminal organization. Iruma's comment regarding 'running with the same speed and dramatic angle as the ending sequence of Gungrave' refers to the memorable visual style of the anime's ending animation. The reference appears under Yashiro's section, although he does not explicitly explain the connection."
+    }
+  ]
+}

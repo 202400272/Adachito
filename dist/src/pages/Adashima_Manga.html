@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Adashima - Manga</title>
+    <meta
+      name="description"
+      content="Explore the manga archive of Adachi and Shimamura with volumes, chapter guides, and visual references."
+    />
+    <link
+      rel="canonical"
+      href="https://adashimaverse.com/Adashima_Manga"
+    />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AdashimaVerse" />
+    <meta property="og:title" content="Adashima - Manga" />
+    <meta
+      property="og:description"
+      content="Explore the manga archive of Adachi and Shimamura with volumes, chapter guides, and visual references."
+    />
+    <meta
+      property="og:url"
+      content="https://adashimaverse.com/Adashima_Manga"
+    />
+    <meta
+      property="og:image"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="AdashimaVerse - Adashima - Manga" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Adashima - Manga" />
+    <meta
+      name="twitter:description"
+      content="Explore the manga archive of Adachi and Shimamura with volumes, chapter guides, and visual references."
+    />
+    <meta
+      name="twitter:image"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta name="twitter:image:alt" content="AdashimaVerse - Adashima - Manga" />
+
+    <link rel="preconnect" href="https://media.adashimaverse.com" crossorigin />
+    <link rel="dns-prefetch" href="https://media.adashimaverse.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/src/components/styles/menu.css" />
+    <link rel="stylesheet" href="/src/css/lang-switch.css" />
+    <link rel="stylesheet" href="/src/components/styles/scrollbar.css" />
+    <link rel="stylesheet" href="/src/components/styles/pdf-reader.css" />
+
+    <link rel="stylesheet" href="/src/css/manga/main.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/assets/Imagenes/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/Imagenes/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/Imagenes/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/Imagenes/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/assets/Imagenes/icon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="/assets/Imagenes/icon-512x512.png"
+    />
+  </head>
+  <body>
+    <div class="particles" id="particles"></div>
+
+    <a class="floating-decor float-2" href="/Juego" title="Go to Game">
+      <img
+        src="/assets/Imagenes/Flotantemanga2-Photoroom.png"
+        alt="Manga Decoration 2"
+        loading="lazy"
+        decoding="async"
+        style="width: 100%; height: auto"
+      />
+    </a>
+
+    <div id="menu-container" style="display: contents"></div>
+
+    <main class="main-content">
+      
+
+      <h1 class="update-title">Manga</h1>
+
+      <div class="library-controls-sticky" id="libraryControlsSticky">
+        <div class="library-controls" id="libraryControls">
+          <div class="search-wrapper">
+            <i class="fas fa-search"></i>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search by chapter, volume..."
+              aria-label="Search chapters"
+            />
+            <button
+              class="search-clear-btn"
+              id="searchClearBtn"
+              aria-label="Clear search"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="controls-right">
+            <!-- Version Toggle -->
+            <div
+              class="version-toggle-group"
+              role="group"
+              aria-label="Manga version"
+            >
+              <button
+                class="version-toggle-btn active"
+                data-version="moke"
+                id="versionMokeBtn"
+              >
+                <span id="versionMokeLabel">Moke</span>
+              </button>
+              <button
+                class="version-toggle-btn"
+                data-version="mani"
+                id="versionManiBtn"
+              >
+                <span id="versionManiLabel">Mani</span>
+              </button>
+              <button
+                class="version-toggle-btn"
+                data-version="anthology"
+                id="versionAnthologyBtn"
+              >
+                <span id="versionAnthologyLabel">Anthology</span>
+              </button>
+              <div class="version-toggle-slider" id="versionToggleSlider"></div>
+            </div>
+
+            <!-- View Toggle - FIXED: Grid is now active by default -->
+            <div class="view-toggle-group" role="group" aria-label="View mode">
+              <button class="view-toggle-btn" data-view="list" id="viewListBtn">
+                <i class="fas fa-list-ul"></i>
+                <span class="view-label">List</span>
+              </button>
+              <button
+                class="view-toggle-btn active"
+                data-view="grid"
+                id="viewGridBtn"
+              >
+                <i class="fas fa-th"></i> <span class="view-label">Grid</span>
+              </button>
+              <div class="view-toggle-slider" id="viewToggleSlider"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="update-box view-grid" id="chapters-container"></div>
+
+      <a
+        href="#"
+        target="_blank"
+        class="download-all-btn"
+        style="display: none"
+      >
+        <i class="fas fa-file-archive"></i>
+        <span id="downloadBtnText">Download All Chapters</span>
+      </a>
+
+      <div class="footer">
+        Unofficial Adachi to Shimamura fan site.<br />
+        Created by fans, non-profit.<br />
+        Adachi to Shimamura and all rights belong to Hitoma Iruma.
+      </div>
+    </main>
+
+    <div class="floating-adashima">
+      <img
+        src="/assets/Imagenes/astronauta.png"
+        alt="Adashima Astronaut"
+        loading="lazy"
+        decoding="async"
+        onerror="this.style.display = 'none'"
+      />
+    </div>
+
+    <!-- PDF Modal -->
+    <div
+      class="pdf-modal"
+      id="pdfModal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="PDF Viewer"
+    >
+      <div class="pdf-modal-backdrop" id="pdfModalBackdrop"></div>
+      <div class="pdf-modal-content">
+        <div class="pdf-modal-header">
+          <h2 class="pdf-modal-title" id="pdfModalTitle">
+            Reading: <span id="pdfVolumeTitle">Chapter</span>
+          </h2>
+          <button
+            class="pdf-modal-close"
+            id="pdfModalClose"
+            aria-label="Close reader"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="pdf-modal-body">
+          <div class="custom-pdf-viewer" id="pdfViewerModal">
+            <div class="pdf-loading-overlay" id="pdfLoadingModal">
+              <div class="pdf-spinner"></div>
+              <span class="pdf-loading-text" id="pdfLoadingTextModal"
+                >Loading document...</span
+              >
+            </div>
+
+            <div class="pdf-toolbar">
+              <div class="pdf-controls-group pdf-toolbar-left">
+                <div class="pdf-reading-mode-toggle" id="pdfReadingModeToggle">
+                  <button
+                    class="pdf-btn pdf-btn-mode active"
+                    id="pdfModeSingle"
+                    title="Page mode"
+                  >
+                    <i class="fas fa-file"></i>
+                  </button>
+                  <button
+                    class="pdf-btn pdf-btn-mode"
+                    id="pdfModeCascade"
+                    title="Cascade reading"
+                  >
+                    <i class="fas fa-stream"></i>
+                  </button>
+                </div>
+                <span class="pdf-toolbar-divider"></span>
+                <button
+                  class="pdf-btn pdf-btn-thumbnails"
+                  id="pdfThumbnailToggle"
+                  title="Thumbnails"
+                >
+                  <i class="fas fa-th"></i>
+                </button>
+                <span class="pdf-toolbar-divider"></span>
+                <button
+                  class="pdf-btn"
+                  id="pdfPrevModal"
+                  title="Previous page (←)"
+                >
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="pdf-btn" id="pdfNextModal" title="Next page (→)">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+                <span class="pdf-page-info" id="pdfPageInfo"
+                  ><span id="pdfPageLabel">Pg.</span>
+                  <span id="pageNumModal">-</span> /
+                  <span id="pageCountModal">-</span></span
+                >
+                <input
+                  type="number"
+                  id="pageInputModal"
+                  class="pdf-page-input"
+                  min="1"
+                  placeholder="Go to page"
+                />
+              </div>
+
+              <div class="pdf-controls-group pdf-toolbar-right">
+                <button
+                  class="pdf-btn"
+                  id="pdfZoomOutModal"
+                  title="Zoom out (-)"
+                >
+                  <i class="fas fa-search-minus"></i>
+                </button>
+                <span class="pdf-zoom-display" id="zoomDisplayModal">100%</span>
+                <button class="pdf-btn" id="pdfZoomInModal" title="Zoom in (+)">
+                  <i class="fas fa-search-plus"></i>
+                </button>
+                <button
+                  class="pdf-btn pdf-btn-reset"
+                  id="pdfZoomResetModal"
+                  title="Reset zoom (0)"
+                >
+                  <i class="fas fa-sync-alt"></i>
+                </button>
+                <span class="pdf-toolbar-divider"></span>
+                <button
+                  class="pdf-btn"
+                  id="pdfFullscreenModal"
+                  title="Fullscreen (F)"
+                >
+                  <i class="fas fa-expand" id="fsIconModal"></i>
+                </button>
+                <button
+                  class="pdf-btn"
+                  id="pdfDownloadModal"
+                  title="Download PDF"
+                >
+                  <i class="fas fa-download"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="pdf-progress-wrap">
+              <div
+                class="pdf-progress-fill"
+                id="pdfProgressModal"
+                style="width: 0%"
+              ></div>
+            </div>
+
+            <div class="pdf-body-wrapper">
+              <div class="pdf-thumbnails-sidebar" id="pdfThumbnailsSidebar">
+                <div class="pdf-thumbnails-header">
+                  <span id="pdfThumbnailsTitle">Thumbnails</span>
+                  <button
+                    class="pdf-btn pdf-thumbnails-close"
+                    id="pdfThumbnailsClose"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+                <div class="pdf-thumbnails-list" id="pdfThumbnailsList"></div>
+              </div>
+
+              <div class="pdf-body">
+                <div class="pdf-canvas-container" id="canvasContainerModal">
+                  <div class="pdf-canvas-wrapper" id="canvasWrapperModal">
+                    <canvas id="pdfRenderModal"></canvas>
+                  </div>
+                  <div id="pdfCascadeContainer" style="display: none"></div>
+                  <div
+                    class="pdf-page-indicator-mobile"
+                    id="mobileIndicatorModal"
+                    style="display: none"
+                  >
+                    <span id="mobilePageNumModal">-</span>
+                    <span>/</span>
+                    <span id="mobilePageCountModal">-</span>
+                  </div>
+                  <div class="pdf-error-state" id="pdfErrorModal">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p id="pdfErrorMsgModal">Document not available.</p>
+                    <button
+                      class="btn"
+                      id="pdfRetryModal"
+                      style="margin-top: 8px"
+                    >
+                      <i class="fas fa-redo"></i>
+                      <span id="pdfRetryText">Retry</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="zoom-toast" id="zoom-toast"></div>
+    <div id="toast-message" class="toast-message"></div>
+
+    <!-- Import JS -->
+    <script src="/src/js/language-switch.js"></script>
+    <script src="/src/js/manga.js?v=20260801"></script>
+  </body>
+</html>

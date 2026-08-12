@@ -1,0 +1,68 @@
+/* ========================================
+   NOVELS PAGE - MAIN CSS
+   ======================================== */
+
+/* ----- 1. CORE / BASE ----- */
+@import url("variables.css");
+@import url("reset-base.css");
+@import url("fonts.css");
+
+/* ----- 2. LAYOUT ----- */
+@import url("sidebar.css");
+@import url("main-content.css");
+
+/* ----- 3. HEADER & CONTROLS ----- */
+@import url("title.css");
+@import url("language-controls.css");
+@import url("library-controls.css");
+
+/* ----- 4. NOVEL DISPLAY ----- */
+@import url("novels-grid.css");
+@import url("novel-item.css");
+@import url("novel-card.css");
+@import url("view-list.css");
+
+/* ----- 5. COMPONENTS ----- */
+@import url("downloads.css");
+@import url("update-box.css");
+@import url("buttons.css");
+@import url("floating-astronaut.css");
+@import url("toast.css");
+@import url("pdf-modal.css");
+
+/* ----- 6. STATES ----- */
+@import url("no-results.css");
+
+/* ----- 7. EFFECTS ----- */
+@import url("particles.css");
+
+/* ----- 8. RESPONSIVE ----- */
+@import url("responsive.css");
+@import url("motion-reduce.css");
+
+/* ----- 9. FOOTER ----- */
+@import url("footer.css");
+
+/* ===== MOBILE INTERACTION ===== */
+
+/* Remove the blue tap highlight on mobile browsers */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove default focus outline from mouse/touch interaction */
+button:focus,
+a:focus,
+[role="button"]:focus {
+  outline: none;
+}
+
+/* Preserve a visible focus indicator for keyboard navigation */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid rgba(140, 90, 150, 0.5);
+  outline-offset: 2px;
+}
+
+

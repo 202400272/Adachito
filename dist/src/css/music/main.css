@@ -1,0 +1,30 @@
+/* Base */
+@import url("variables.css");
+@import url("reset.css");
+@import url("typography.css");
+@import url("animations.css");
+
+/* Layout */
+@import url("layout.css");
+
+/* Effects */
+@import url("particles.css");
+@import url("glass-effects.css");
+
+/* Components */
+@import url("header.css");
+@import url("album-grid.css");
+@import url("favorites.css");
+@import url("album-details.css");
+@import url("tracklist.css");
+@import url("compact-view.css");
+@import url("buttons.css");
+@import url("player-bar.css");
+@import url("queue.css");
+@import url("expanded-player.css");
+
+/* Utilities */
+@import url("scrollbar.css");
+@import url("helpers.css");
+@import url("footer.css");
+@import url("responsive.css");

@@ -1,0 +1,354 @@
+.album-detail-view {
+  display: none;
+}
+
+/* ================================
+   BACK TO LIBRARY
+================================ */
+
+.back-to-library-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(140, 90, 150, 0.16);
+  font-family: "Inter", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-plum);
+  cursor: pointer;
+  padding: 0.7rem 1.1rem;
+  border-radius: 999px;
+  transition: all 0.25s ease;
+  margin: 0 0 1.4rem 0;
+  box-shadow: 0 6px 20px rgba(92, 58, 107, 0.08);
+}
+
+.back-to-library-btn:hover {
+  color: var(--text-plum);
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(92, 58, 107, 0.14);
+}
+
+.back-to-library-btn .iconify {
+  font-size: 1rem;
+}
+
+
+/* ================================
+   ALBUM HERO
+================================ */
+
+.album-hero {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  padding: 2rem 2.5rem;
+  margin-bottom: 2rem;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  border: 1px solid rgba(200, 180, 210, 0.06);
+  box-shadow: var(--shadow-sm);
+}
+
+
+/* ================================
+   ALBUM ARTWORK
+================================ */
+
+.album-hero-artwork {
+  position: relative;
+
+  /* Larger desktop artwork */
+  flex: 0 0 300px;
+  width: 300px;
+  height: 300px;
+
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  background: #f0dced;
+}
+
+.album-artwork-glow {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(140, 90, 150, 0.15) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.album-hero-artwork img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+}
+
+.album-detail-cover-fallback {
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    #ecd9e8,
+    #f6e0ee
+  );
+  position: relative;
+  z-index: 1;
+}
+
+.album-detail-cover-fallback .fallback-emoji {
+  font-size: 0;
+}
+
+.album-detail-cover-fallback .fallback-emoji::before {
+  content: "\f001";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 3.4rem;
+  color: rgba(140, 90, 150, 0.45);
+}
+
+
+/* ================================
+   ALBUM INFORMATION
+================================ */
+
+.album-hero-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.album-hero-badge {
+  font-family: "Inter", sans-serif;
+  letter-spacing: 0.15em;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #8c5a96;
+  opacity: 0.6;
+  text-transform: uppercase;
+  margin-bottom: 0.45rem;
+}
+
+.album-hero-title {
+  font-family: "Playfair Display", "Noto Serif JP", serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--text-plum);
+  line-height: 1.1;
+}
+
+.album-hero-title-jp {
+  font-family: "Noto Serif JP", serif;
+  font-size: 0.95rem;
+  color: rgba(92, 58, 107, 0.4);
+  margin-top: 0.16rem;
+}
+
+.album-hero-meta {
+  font-size: 0.95rem;
+  color: #5c3a6b;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.8rem;
+  margin: 0.75rem 0 1.35rem;
+}
+
+.album-hero-meta .meta-dot {
+  color: rgba(92, 58, 107, 0.2);
+}
+
+.album-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+
+/* ================================
+   TABLET
+================================ */
+
+@media (max-width: 900px) {
+  .album-hero {
+    gap: 1.75rem;
+    padding: 1.75rem;
+  }
+
+  .album-hero-artwork {
+    flex: 0 0 260px;
+    width: 260px;
+    height: 260px;
+  }
+
+  .album-hero-title {
+    font-size: 2.35rem;
+  }
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 768px) {
+  .back-to-library-btn {
+    font-size: 0.85rem;
+    padding: 0.6rem 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .album-hero {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 1.5rem;
+    padding: 1.25rem;
+    border-radius: 18px;
+  }
+
+  /* FIX: Keep album artwork perfectly square */
+  .album-hero-artwork {
+    position: relative;
+    flex: 0 0 auto;
+
+    width: min(100%, 300px);
+    height: 300px;
+    min-width: 0;
+    min-height: 300px;
+
+    margin: 0 auto;
+
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .album-hero-artwork img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    object-fit: cover;
+  }
+
+  .album-detail-cover-fallback {
+    width: 100%;
+    height: 100%;
+  }
+
+  .album-hero-info {
+    width: 100%;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .album-hero-title {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+    line-height: 1.12;
+  }
+
+  .album-hero-title-jp {
+    font-size: 0.88rem;
+  }
+
+  .album-hero-meta {
+    justify-content: center;
+    font-size: 0.88rem;
+    margin: 0.65rem 0 1.1rem;
+  }
+
+  .album-hero-actions {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+
+/* ================================
+   SMALL PHONES
+================================ */
+
+@media (max-width: 480px) {
+  .album-hero {
+    padding: 1rem;
+    gap: 1.25rem;
+    border-radius: 16px;
+  }
+
+  .album-hero-artwork {
+    width: min(100%, 280px);
+    height: 280px;
+    min-height: 280px;
+    border-radius: 12px;
+  }
+
+  .album-hero-title {
+    font-size: 1.9rem;
+  }
+
+  .album-hero-title-jp {
+    font-size: 0.82rem;
+  }
+
+  .album-hero-meta {
+    font-size: 0.82rem;
+    gap: 0.25rem 0.6rem;
+  }
+
+  .album-hero-actions {
+    gap: 0.5rem;
+  }
+}
+
+/* ================================
+   SMALL PHONES
+================================ */
+
+@media (max-width: 480px) {
+  .album-hero {
+    padding: 1rem;
+    gap: 1.25rem;
+    border-radius: 16px;
+  }
+
+  .album-hero-artwork {
+    width: min(100%, 280px);
+    border-radius: 12px;
+  }
+
+  .album-hero-title {
+    font-size: 1.9rem;
+  }
+
+  .album-hero-title-jp {
+    font-size: 0.82rem;
+  }
+
+  .album-hero-meta {
+    font-size: 0.82rem;
+    gap: 0.25rem 0.6rem;
+  }
+
+  .album-hero-actions {
+    gap: 0.5rem;
+  }
+}

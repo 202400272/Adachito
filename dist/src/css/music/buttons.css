@@ -1,0 +1,77 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.4rem;
+  border-radius: 60px;
+  border: 1px solid rgba(140, 90, 150, 0.12);
+  background: white;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: #3d234d;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: var(--shadow-sm);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-primary {
+  background: #8c5a96;
+  border-color: #8c5a96;
+  color: white;
+  box-shadow: 0 4px 16px rgba(140, 90, 150, 0.25);
+}
+
+.btn-primary:hover {
+  background: #6c5287;
+  box-shadow: 0 6px 24px rgba(140, 90, 150, 0.35);
+}
+
+.btn-hero-play {
+  padding: 0.7rem 2rem;
+  font-size: 0.9rem;
+}
+
+.btn-hero-play .iconify {
+  font-size: 1.1rem;
+}
+
+.btn-hero-action {
+  padding: 0.7rem 0.9rem;
+  border-radius: 60px;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid rgba(140, 90, 150, 0.15);
+}
+
+.btn-outline:hover {
+  background: rgba(140, 90, 150, 0.05);
+  border-color: rgba(140, 90, 150, 0.25);
+}
+
+.btn .iconify {
+  font-size: 0.9rem;
+}
+
+.btn-primary .iconify {
+  color: white;
+}

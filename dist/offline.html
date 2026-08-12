@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Yashiro Runner</title>
+    <meta
+      name="description"
+      content="Play Yashiro Runner offline, a fast-paced fan game inspired by Adachi and Shimamura with collectible stars and arcade action."
+    />
+    <link rel="canonical" href="https://adashimaverse.com/offline.html" />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AdashimaVerse" />
+    <meta property="og:title" content="Yashiro Runner" />
+    <meta
+      property="og:description"
+      content="Play Yashiro Runner offline, a fast-paced fan game inspired by Adachi and Shimamura with collectible stars and arcade action."
+    />
+    <meta property="og:url" content="https://adashimaverse.com/offline.html" />
+    <meta
+      property="og:image"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="AdashimaVerse - Yashiro Runner" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Yashiro Runner" />
+    <meta
+      name="twitter:description"
+      content="Play Yashiro Runner offline, a fast-paced fan game inspired by Adachi and Shimamura with collectible stars and arcade action."
+    />
+    <meta
+      name="twitter:image"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta name="twitter:image:alt" content="AdashimaVerse - Yashiro Runner" />
+
+    <link rel="stylesheet" href=".src//css/yashiro_runner.css" />
+
+    <link rel="icon" type="image/x-icon" href="assets/Imagenes/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/Imagenes/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/Imagenes/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/Imagenes/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="assets/Imagenes/icon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="assets/Imagenes/icon-512x512.png"
+    />
+  </head>
+  <body>
+    <!-- Offline Badge -->
+    <div class="offline-badge">Sin conexión a internet</div>
+
+    <!-- Game Container -->
+    <div id="gameContainer">
+      <canvas id="gameCanvas" width="800" height="300"></canvas>
+    </div>
+
+    <!-- Mechanics Panel -->
+    <div class="mechanics-panel" id="mechanicsPanel">
+      <div class="mechanic-tip-container">
+        <span class="mechanic-tip"
+          >Lluvia de estrellas cada 50s · dura 15s · estrellas azules aguantan 4
+          disparos</span
+        >
+      </div>
+      <div class="mechanic-tip-container">
+        <span class="mechanic-tip"
+          >Dona a partir de los 100s · luego cada 30s</span
+        >
+      </div>
+      <div class="mechanic-tip-container">
+        <span class="mechanic-tip">Velocidad sube cada 5s naturalmente</span>
+      </div>
+      <div class="mechanic-tip-container">
+        <span class="mechanic-tip"
+          >ESPACIO saltar · ↓ boomerang · combo al esquivar</span
+        >
+      </div>
+    </div>
+
+    <!-- Mobile Controls -->
+    <div id="mobileControls">
+      <div class="mobile-controls-row">
+        <button class="btn-jump" id="btnJump" aria-label="Saltar">
+          <span class="btn-label">SALTAR</span>
+        </button>
+        <button class="btn-shoot" id="btnShoot" aria-label="Disparar boomerang">
+          <span class="btn-label">BOOMERANG</span>
+        </button>
+      </div>
+      <p class="mobile-hint">Toca SALTAR para reiniciar cuando pierdas</p>
+    </div>
+
+    <!-- Desktop Instructions -->
+    <div class="instructions" id="desktopInstructions">
+      <h2>Presiona ESPACIO o toca la pantalla para saltar</h2>
+      <div class="game-info">
+        <p>
+          <strong>🌧️ Lluvia de Estrellas (cada 50 seg):</strong> Evento de 15
+          segundos con estrellas azules (requieren 4 disparos).
+        </p>
+        <p>
+          <strong
+            >🍩 Dona de Poder (primer spawn a los 100s, luego cada 30s):</strong
+          >
+          ¡Recógela para obtener invulnerabilidad temporal!
+        </p>
+      </div>
+    </div>
+
+    <script src="./src/pages/game.js"></script>
+  </body>
+</html>

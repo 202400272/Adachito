@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adashima · Exhibition Gallery</title>
+    <meta
+      name="description"
+      content="Browse the gallery of artwork and illustrations inspired by Adachi and Shimamura."
+    />
+    <link
+      rel="canonical"
+      href="https://adashimaverse.com/Adashima_Gallery"
+    />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AdashimaVerse" />
+    <meta property="og:title" content="Adashima · Exhibition Gallery" />
+    <meta
+      property="og:description"
+      content="Browse the gallery of artwork and illustrations inspired by Adachi and Shimamura."
+    />
+    <meta
+      property="og:url"
+      content="https://adashimaverse.com/Adashima_Gallery"
+    />
+    <meta
+      property="og:image"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="AdashimaVerse - Adashima · Exhibition Gallery"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Adashima · Exhibition Gallery" />
+    <meta
+      name="twitter:description"
+      content="Browse the gallery of artwork and illustrations inspired by Adachi and Shimamura."
+    />
+    <meta
+      name="twitter:image"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="AdashimaVerse - Adashima · Exhibition Gallery"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/assets/Imagenes/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/Imagenes/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/Imagenes/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/Imagenes/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/assets/Imagenes/icon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="/assets/Imagenes/icon-512x512.png"
+    />
+    <link rel="stylesheet" href="/src/css/gallery/main.css" />
+    <!-- Minimal viewer CSS -->
+    <link rel="stylesheet" href="/src/css/gallery/viewer-modal.css" />
+  </head>
+  <body>
+    <div class="particles" id="particles"></div>
+
+    <main class="main-content">
+      <!-- Language Controls -->
+      
+
+      <!-- ============================================================
+      EXHIBITION ENTRANCE - MUSEUM QUALITY HERO
+      ============================================================ -->
+      <section class="exhibition-entrance" id="exhibitionEntrance">
+        <!-- LEFT: TEXT CONTENT -->
+        <div class="entrance-content">
+          <span
+            class="entrance-label"
+            data-i18n-es="Adachi to Shimamura"
+            data-i18n-en="Adachi to Shimamura"
+          >
+            Adachi to Shimamura
+          </span>
+
+          <h1 class="entrance-title">
+            <span
+              data-i18n-es="La Colección de"
+              data-i18n-en="The Illustration"
+            >
+              La Colección de
+            </span>
+            <span
+              class="highlight"
+              data-i18n-es="Ilustraciones"
+              data-i18n-en="Collection"
+            >
+              Ilustraciones
+            </span>
+          </h1>
+
+          <p
+            class="entrance-subtitle"
+            data-i18n-es="Una exhibición de arte oficial que abarca toda la historia visual de la serie."
+            data-i18n-en="A exhibition of official artwork spanning the complete visual history of the series."
+          >
+            Una exhibición de arte oficial que abarca toda la historia visual de
+            la serie.
+          </p>
+
+          <!-- Editorial Statistics -->
+          <div class="entrance-stats">
+            <div class="entrance-stat-group">
+              <span class="entrance-stat" id="totalArtworks">0</span>
+              <span
+                class="entrance-stat-label"
+                data-i18n-es="Obras"
+                data-i18n-en="Artworks"
+              >
+                Obras
+              </span>
+            </div>
+
+            <div class="entrance-stat-group">
+              <span class="entrance-stat" id="artistCount">0</span>
+              <span
+                class="entrance-stat-label"
+                data-i18n-es="Artistas"
+                data-i18n-en="Artists"
+              >
+                Artistas
+              </span>
+            </div>
+
+            <div class="entrance-stat-group">
+              <span class="entrance-stat" id="collectionCount">0</span>
+              <span
+                class="entrance-stat-label"
+                data-i18n-es="Colecciones"
+                data-i18n-en="Collections"
+              >
+                Colecciones
+              </span>
+            </div>
+          </div>
+
+          <!-- Subtle scroll indicator -->
+          <div class="scroll-indicator">
+            <span class="scroll-line"></span>
+            <span
+              class="scroll-label"
+              data-i18n-es="Explorar"
+              data-i18n-en="Explore"
+            >
+              Explorar
+            </span>
+          </div>
+        </div>
+
+        <!-- RIGHT: ARTWORK WITH MUSEUM FRAME -->
+        <div class="entrance-artwork">
+          <!-- Dual frames -->
+          <span class="frame-inner"></span>
+
+          <!-- Artwork shadow -->
+          <div class="artwork-shadow"></div>
+
+          <img
+            id="heroImage"
+            src=""
+            alt="Obra destacada"
+            data-i18n-alt-es="Obra destacada"
+            data-i18n-alt-en="Featured Artwork"
+            loading="lazy"
+          />
+
+          <!-- Artwork counter -->
+          <span class="artwork-counter" id="artworkCounter">01 / 24</span>
+
+          <!-- Slideshow Indicators -->
+          <div class="slideshow-indicators" id="slideshowIndicators"></div>
+
+          <!-- Museum Plaque - Premium -->
+          <div class="entrance-artwork-credit">
+            <div class="plaque-inner">
+              <!-- Title -->
+              <span
+                class="entrance-artwork-title"
+                id="heroTitle"
+                data-i18n-es="Destacado"
+                data-i18n-en="Featured"
+              >
+                Destacado
+              </span>
+
+              <!-- Artist -->
+              <span
+                class="entrance-artwork-artist"
+                id="heroArtist"
+                data-i18n-es="Artista"
+                data-i18n-en="Artist"
+              >
+                Artista
+              </span>
+
+              <!-- Divider -->
+              <span class="plaque-divider"></span>
+
+              <!-- Collection -->
+              <span
+                class="entrance-artwork-collection"
+                id="heroCollection"
+                data-i18n-es="Colección"
+                data-i18n-en="Collection"
+              >
+                Colección
+              </span>
+
+              <!-- Year (optional - will be populated by JS) -->
+              <span class="entrance-artwork-year" id="heroYear"></span>
+
+              <!-- Plaque number -->
+              <span class="plaque-number">—</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+      CONTROLS
+      ============================================================ -->
+      <div class="controls-section" id="exhibitionSections">
+        <div class="controls-inner">
+          <div class="search-wrapper">
+            <i class="fas fa-search search-icon"></i>
+            <input
+              type="text"
+              id="gallerySearch"
+              placeholder="Buscar en la colección..."
+              data-i18n-placeholder-es="Buscar en la colección..."
+              data-i18n-placeholder-en="Search the collection..."
+              aria-label="Buscar en la galería"
+              data-i18n-aria-es="Buscar en la galería"
+              data-i18n-aria-en="Search gallery"
+            />
+            <button class="search-clear-btn" id="searchClearBtn">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+
+          <div class="controls-actions">
+            <a
+              class="back-to-menu-btn"
+              href="/"
+              data-i18n-es="Volver al menú"
+              data-i18n-en="Back to Menu"
+            >
+              <i class="fas fa-arrow-left"></i>
+              <span>Volver al menú</span>
+            </a>
+
+            <!-- Filter Toggle Button (visible on mobile) -->
+            <button class="filter-toggle" id="filterToggle" aria-expanded="false">
+              <i class="fas fa-sliders-h"></i>
+              <span data-i18n-es="Filtros" data-i18n-en="Filters">Filtros</span>
+              <i class="fas fa-chevron-down toggle-icon"></i>
+            </button>
+          </div>
+
+          <div class="filter-wrapper">
+            <div class="filter-content" id="filterContent">
+              <div class="filter-pills" id="filterPills">
+                <button
+                  class="filter-pill active"
+                  data-filter="all"
+                  data-i18n-es="Todo"
+                  data-i18n-en="All"
+                >
+                  Todo
+                </button>
+                <button
+                  class="filter-pill"
+                  data-filter="cover"
+                  data-i18n-es="Portadas"
+                  data-i18n-en="Covers"
+                >
+                  Portadas
+                </button>
+                <button
+                  class="filter-pill"
+                  data-filter="illustration"
+                  data-i18n-es="Ilustraciones"
+                  data-i18n-en="Illustrations"
+                >
+                  Ilustraciones
+                </button>
+                <button
+                  class="filter-pill"
+                  data-filter="magazine"
+                  data-i18n-es="Revista"
+                  data-i18n-en="Magazine"
+                >
+                  Revista
+                </button>
+                <button
+                  class="filter-pill"
+                  data-filter="anime"
+                  data-i18n-es="Anime"
+                  data-i18n-en="Anime"
+                >
+                  Anime
+                </button>
+                <button
+                  class="filter-pill"
+                  data-filter="manga"
+                  data-i18n-es="Manga"
+                  data-i18n-en="Manga"
+                >
+                  Manga
+                </button>
+                <button
+                  class="filter-pill"
+                  data-filter="collaboration"
+                  data-i18n-es="Colaboración"
+                  data-i18n-en="Collaboration"
+                >
+                  Colaboración
+                </button>
+                <button
+                  class="filter-pill"
+                  data-filter="merchandise"
+                  data-i18n-es="Mercancía"
+                  data-i18n-en="Merchandise"
+                >
+                  Mercancía
+                </button>
+                <button
+                  class="filter-pill"
+                  data-filter="seasonal"
+                  data-i18n-es="Temporada"
+                  data-i18n-en="Seasonal"
+                >
+                  Temporada
+                </button>
+                <button
+                  class="filter-pill"
+                  data-filter="official"
+                  data-i18n-es="Arte Oficial"
+                  data-i18n-en="Official Art"
+                >
+                  Arte Oficial
+                </button>
+              </div>
+              <div class="filter-selects">
+                <select class="filter-select" id="artistFilter">
+                  <option
+                    value="all"
+                    data-i18n-es="Todos los Artistas"
+                    data-i18n-en="All Artists"
+                  >
+                    Todos los Artistas
+                  </option>
+                </select>
+                <select class="filter-select" id="collectionFilter">
+                  <option
+                    value="all"
+                    data-i18n-es="Todas las Colecciones"
+                    data-i18n-en="All Collections"
+                  >
+                    Todas las Colecciones
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div
+            class="filter-breadcrumb"
+            id="filterBreadcrumb"
+            style="display: none"
+          >
+            <span
+              class="breadcrumb-label"
+              data-i18n-es="Viendo"
+              data-i18n-en="Viewing"
+              >Viendo</span
+            >
+            <span class="breadcrumb-value" id="breadcrumbValue">All</span>
+            <button
+              class="breadcrumb-clear"
+              onclick="clearFilters()"
+              data-i18n-es="Limpiar"
+              data-i18n-en="Clear"
+            >
+              Limpiar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+      EXHIBITION CONTAINER
+      ============================================================ -->
+      <div class="exhibition-rooms" id="exhibitionSectionsContainer"></div>
+
+      <!-- ============================================================
+      FOOTER
+      ============================================================ -->
+      <div class="footer">
+        <span
+          data-i18n-es="Sitio de fans no oficial de Adachi to Shimamura."
+          data-i18n-en="Unofficial Adachi to Shimamura fan site."
+          >Sitio de fans no oficial de Adachi to Shimamura.</span
+        ><br />
+        <span
+          data-i18n-es="Creado por fans, sin fines de lucro."
+          data-i18n-en="Created by fans, non-profit."
+          >Creado por fans, sin fines de lucro.</span
+        ><br />
+        <span
+          data-i18n-es="Adachi to Shimamura y todos los derechos pertenecen a Hitoma Iruma."
+          data-i18n-en="Adachi to Shimamura and all rights belong to Hitoma Iruma."
+          >Adachi to Shimamura y todos los derechos pertenecen a Hitoma
+          Iruma.</span
+        >
+      </div>
+    </main>
+
+    <!-- ============================================================
+    GALLERY VIEWER MODAL
+    ============================================================ -->
+    <div
+      class="viewer"
+      id="artworkViewer"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Artwork viewer"
+    >
+      <!-- Close button -->
+      <button
+        class="viewer-close"
+        id="viewerClose"
+        aria-label="Cerrar visualizador"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+
+      <!-- Main content -->
+      <div class="viewer-content">
+        <!-- Image wrapper with loader -->
+        <div class="viewer-image-wrap" id="imageWrap">
+          <div class="viewer-loader" id="viewerImageLoader">
+            <div class="ring"></div>
+          </div>
+          <img
+            id="viewerImage"
+            src=""
+            alt="Vista previa de la obra"
+            data-i18n-alt-es="Vista previa de la obra"
+            data-i18n-alt-en="Artwork preview"
+          />
+        </div>
+
+        <!-- Caption: title + artist directly below image -->
+        <div class="viewer-caption">
+          <div class="title" id="plaqueTitle"></div>
+          <div class="artist" id="plaqueArtist"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast-message" class="toast-message"></div>
+
+    <!--  JAVASCRIPT -->
+    <script src="/src/js/language-switch.js"></script>
+    <script src="/src/js/gallery.js"></script>
+  </body>
+</html>
