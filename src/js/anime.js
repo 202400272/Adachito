@@ -297,7 +297,10 @@ function buildChannels(data, miniData) {
 async function loadContent(lang) {
   try {
     console.log(`🔄 Loading ${lang}.json...`);
-    const response = await fetch(`/src/data/anime/${lang}.json?v=${Date.now()}`);
+    const response = await fetch(
+      `/src/data/anime/${lang}.json?v=${Date.now()}`,
+      { cache: "no-store" },
+    );
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     const data = await response.json();
 
@@ -315,6 +318,7 @@ async function loadContent(lang) {
         console.warn("🔄 Falling back to English for Spanish");
         const fallbackResponse = await fetch(
           `/src/data/anime/en.json?v=${Date.now()}`,
+          { cache: "no-store" },
         );
         if (!fallbackResponse.ok) throw new Error("Fallback failed");
         const fallbackData = await fallbackResponse.json();
@@ -346,6 +350,7 @@ async function loadMiniAnime(lang) {
     console.log(`🔄 Loading mini_anime/${lang}.json...`);
     const response = await fetch(
       `/src/data/mini_anime/${lang}.json?v=${Date.now()}`,
+      { cache: "no-store" },
     );
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     const data = await response.json();
@@ -2270,8 +2275,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 // ===== LOAD MENU WITH TRANSLATION SUPPORT =====
-const menuVer = Math.floor(Date.now() / 86400000);
-fetch("/src/components/menu.html?v=" + menuVer)
+fetch("/src/components/menu.html?v=" + Date.now(), { cache: "no-store" })
   .then((response) => {
     if (!response.ok)
       throw new Error("HTTP error " + response.status + " loading menu");
@@ -2310,6 +2314,63 @@ document.addEventListener("menuLoaded", function () {
     window.translateMenu(currentLang);
   }
 });
+
+// ===== FORCE MENU LAYOUT (bypasses any stylesheet load-order / cache issue) =====
+// menu.html loads its own copy of menu.css asynchronously, which can win the
+// CSS cascade over this page's rules regardless of load order or the phone's
+// HTTP cache. Setting these properties directly via JS with "important"
+// priority always wins over any stylesheet, so the layout is deterministic.
+function enforceMenuLayout() {
+  const wrapper = document.getElementById("menu-component-wrapper");
+  const sidebar = document.getElementById("sideMenu");
+  const toggle = document.getElementById("menu-toggle-btn");
+  if (!wrapper || !sidebar) return;
+
+  const isDesktop = window.innerWidth >= 901;
+  const isActive = sidebar.classList.contains("active");
+
+  const set = (el, prop, val) => {
+    if (el) el.style.setProperty(prop, val, "important");
+  };
+
+  if (isDesktop) {
+    set(sidebar, "position", "fixed");
+    set(sidebar, "top", "0");
+    set(sidebar, "left", "0");
+    set(sidebar, "right", "auto");
+    set(sidebar, "height", "100vh");
+    set(sidebar, "overflow-y", "auto");
+    set(sidebar, "transform", "none");
+    set(toggle, "display", "none");
+  } else {
+    set(sidebar, "position", "fixed");
+    set(sidebar, "top", "0");
+    set(sidebar, "left", "0");
+    set(sidebar, "right", "auto");
+    set(sidebar, "height", "100vh");
+    set(sidebar, "overflow-y", "auto");
+    set(sidebar, "transform", isActive ? "translateX(0)" : "translateX(-110%)");
+    set(toggle, "display", "flex");
+    set(toggle, "left", "15px");
+    set(toggle, "right", "auto");
+  }
+}
+
+document.addEventListener("menuLoaded", enforceMenuLayout);
+window.addEventListener("resize", enforceMenuLayout);
+window.addEventListener("orientationchange", enforceMenuLayout);
+
+// Re-apply whenever the sidebar's "active" class changes (e.g. tapping the
+// mobile toggle button), since that also affects the transform we set above.
+document.addEventListener(
+  "click",
+  function (e) {
+    if (e.target.closest && e.target.closest("#menu-toggle-btn")) {
+      setTimeout(enforceMenuLayout, 0);
+    }
+  },
+  true,
+);
 
 // ===== PARTICLES =====
 const particlesContainer = document.getElementById("particles");
