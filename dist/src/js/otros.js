@@ -114,8 +114,10 @@ function buildDocumentCards() {
 
   wrapper.innerHTML = docs
     .map((doc) => {
-      const normalizedUrl =
-        doc.url === "otros/Author_Archive.html" ? "/Author_Archive" : doc.url;
+      const normalizedUrl = doc.url.replace(
+        /^(?:\.\/)?(?:otros\/)?Author_Archive(?:\.html)?$/i,
+        "/Author_Archive",
+      );
       const isInternal =
         !!doc.isInternal || /^\/?Author_Archive(?:\.html)?$/i.test(normalizedUrl);
       const linkAttrs = isInternal

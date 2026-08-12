@@ -24,7 +24,11 @@ const scrollObserver = new IntersectionObserver(
 );
 
 function getBasePath() {
-  return `../../data/author_archive/${currentLanguage}/`;
+  const path = window.location.pathname || "/";
+  if (path.includes("/src/pages/")) {
+    return `../../data/author_archive/${currentLanguage}/`;
+  }
+  return `/src/data/author_archive/${currentLanguage}/`;
 }
 
 const I18N = {

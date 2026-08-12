@@ -134,11 +134,7 @@ async function loadRewards(lang) {
   } catch (e) {
     if (lang !== "es") {
       try {
-        const folderUrl =
-          window.LanguageSwitch &&
-          typeof window.LanguageSwitch.getDataFolderUrl === "function"
-            ? window.LanguageSwitch.getDataFolderUrl("estrella")
-            : "/src/data/estrella/";
+        const folderUrl = getEstrellaDataFolderUrl("estrella", lang);
         const fallback = await fetch(
           `${folderUrl}rewards-es.json?v=${APP_VERSION}`,
           { cache: "no-store" },
@@ -163,11 +159,7 @@ async function loadConstellations(lang) {
   } catch (e) {
     if (lang !== "es") {
       try {
-        const folderUrl =
-          window.LanguageSwitch &&
-          typeof window.LanguageSwitch.getDataFolderUrl === "function"
-            ? window.LanguageSwitch.getDataFolderUrl("estrella")
-            : "/src/data/estrella/";
+        const folderUrl = getEstrellaDataFolderUrl("estrella", lang);
         const fallback = await fetch(
           `${folderUrl}constellations-es.json?v=${APP_VERSION}`,
           { cache: "no-store" },
