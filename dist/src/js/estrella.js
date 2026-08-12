@@ -45,12 +45,34 @@ let mouseX = 0,
   mouseY = 0;
 let audioCtx = null;
 
+function getEstrellaDataFolderUrl(folder, lang) {
+  if (
+    window.LanguageSwitch &&
+    typeof window.LanguageSwitch.getDataFolderUrl === "function"
+  ) {
+    return window.LanguageSwitch.getDataFolderUrl(folder);
+  }
+
+  if (
+    window.LanguageSwitch &&
+    typeof window.LanguageSwitch.getDataUrl === "function"
+  ) {
+    const url = new URL(window.LanguageSwitch.getDataUrl(folder, lang), window.location.href);
+    url.search = "";
+    url.hash = "";
+    url.pathname = url.pathname.replace(/[^/]*$/, "");
+    return url.href.endsWith("/") ? url.href : url.href + "/";
+  }
+
+  return `/src/data/${folder}/`;
+}
+
 async function loadContent(lang) {
   try {
     const url =
       window.LanguageSwitch && typeof window.LanguageSwitch.getDataUrl === "function"
-        ? window.LanguageSwitch.getDataUrl("estrella", lang) + "?v=" + APP_VERSION
-        : `../data/estrella/${lang}.json?v=${APP_VERSION}`;
+        ? window.LanguageSwitch.getDataUrl("estrella", lang)
+        : `/src/data/estrella/${lang}.json?v=${APP_VERSION}`;
     const response = await fetch(url, { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
@@ -61,13 +83,17 @@ async function loadContent(lang) {
   } catch (e) {
     if (lang !== "es") {
       try {
-        const folderUrl = window.LanguageSwitch && typeof window.LanguageSwitch.getDataFolderUrl === "function"
-          ? window.LanguageSwitch.getDataFolderUrl("estrella")
-          : "../data/estrella/";
-        const fallback = await fetch(folderUrl + "es.json?v" + APP_VERSION, { cache: "no-store" });
+        const folderUrl = getEstrellaDataFolderUrl("estrella", lang);
+        const fallback = await fetch(folderUrl + "es.json?v=" + APP_VERSION, {
+          cache: "no-store",
+        });
         if (fallback.ok) {
           const fallbackData = await fallback.json();
-          if (fallbackData && typeof fallbackData === "object" && Object.keys(fallbackData).length > 0) {
+          if (
+            fallbackData &&
+            typeof fallbackData === "object" &&
+            Object.keys(fallbackData).length > 0
+          ) {
             return fallbackData;
           }
         }
@@ -75,13 +101,17 @@ async function loadContent(lang) {
     }
     if (lang === "es") {
       try {
-        const folderUrl = window.LanguageSwitch && typeof window.LanguageSwitch.getDataFolderUrl === "function"
-          ? window.LanguageSwitch.getDataFolderUrl("estrella")
-          : "../data/estrella/";
-        const fallback = await fetch(folderUrl + "en.json?v" + APP_VERSION, { cache: "no-store" });
+        const folderUrl = getEstrellaDataFolderUrl("estrella", lang);
+        const fallback = await fetch(folderUrl + "en.json?v=" + APP_VERSION, {
+          cache: "no-store",
+        });
         if (fallback.ok) {
           const fallbackData = await fallback.json();
-          if (fallbackData && typeof fallbackData === "object" && Object.keys(fallbackData).length > 0) {
+          if (
+            fallbackData &&
+            typeof fallbackData === "object" &&
+            Object.keys(fallbackData).length > 0
+          ) {
             return fallbackData;
           }
         }
@@ -94,8 +124,9 @@ async function loadContent(lang) {
 
 async function loadRewards(lang) {
   try {
+    const folderUrl = getEstrellaDataFolderUrl("estrella", lang);
     const response = await fetch(
-      `../data/estrella/rewards-${lang}.json?v=${APP_VERSION}`,
+      `${folderUrl}rewards-${lang}.json?v=${APP_VERSION}`,
       { cache: "no-store" },
     );
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -103,8 +134,13 @@ async function loadRewards(lang) {
   } catch (e) {
     if (lang !== "es") {
       try {
+        const folderUrl =
+          window.LanguageSwitch &&
+          typeof window.LanguageSwitch.getDataFolderUrl === "function"
+            ? window.LanguageSwitch.getDataFolderUrl("estrella")
+            : "/src/data/estrella/";
         const fallback = await fetch(
-          "../data/estrella/rewards-es.json?v=" + APP_VERSION,
+          `${folderUrl}rewards-es.json?v=${APP_VERSION}`,
           { cache: "no-store" },
         );
         if (fallback.ok) return await fallback.json();
@@ -117,8 +153,9 @@ async function loadRewards(lang) {
 
 async function loadConstellations(lang) {
   try {
+    const folderUrl = getEstrellaDataFolderUrl("estrella", lang);
     const response = await fetch(
-      `../data/estrella/constellations-${lang}.json?v=${APP_VERSION}`,
+      `${folderUrl}constellations-${lang}.json?v=${APP_VERSION}`,
       { cache: "no-store" },
     );
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -126,8 +163,13 @@ async function loadConstellations(lang) {
   } catch (e) {
     if (lang !== "es") {
       try {
+        const folderUrl =
+          window.LanguageSwitch &&
+          typeof window.LanguageSwitch.getDataFolderUrl === "function"
+            ? window.LanguageSwitch.getDataFolderUrl("estrella")
+            : "/src/data/estrella/";
         const fallback = await fetch(
-          "../data/estrella/constellations-es.json?v=" + APP_VERSION,
+          `${folderUrl}constellations-es.json?v=${APP_VERSION}`,
           { cache: "no-store" },
         );
         if (fallback.ok) return await fallback.json();

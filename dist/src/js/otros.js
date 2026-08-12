@@ -114,12 +114,15 @@ function buildDocumentCards() {
 
   wrapper.innerHTML = docs
     .map((doc) => {
-      const isAuthorArchive = doc.url.indexOf("Author_Archive.html") !== -1;
-      const linkAttrs = isAuthorArchive
+      const normalizedUrl =
+        doc.url === "otros/Author_Archive.html" ? "/Author_Archive" : doc.url;
+      const isInternal =
+        !!doc.isInternal || /^\/?Author_Archive(?:\.html)?$/i.test(normalizedUrl);
+      const linkAttrs = isInternal
         ? ""
         : 'target="_blank" rel="noopener noreferrer"';
       return `
-            <a href="${doc.url}" ${linkAttrs} class="document-card" data-doc-id="${doc.id}">
+            <a href="${normalizedUrl}" ${linkAttrs} class="document-card" data-doc-id="${doc.id}">
                 <div class="document-icon"><i class="fas ${doc.icon}"></i></div>
                 <div class="document-info">
                     <h3>${doc.title}</h3>

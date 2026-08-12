@@ -69,8 +69,8 @@
       return "../";
     }
 
-    // Root level
-    return "./";
+    // Root level and clean routed pages should resolve from the site root
+    return "/";
   }
 
   function getDataUrl(folder, lang) {

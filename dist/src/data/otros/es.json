@@ -26,7 +26,7 @@
       "icon": "fa-archive",
       "title": "Artículos",
       "description": "Una colección seleccionada de entrevistas, comentarios, epílogos y publicaciones en revistas de Hitoma Iruma.",
-      "url": "otros/Author_Archive.html",
+      "url": "/Author_Archive",
       "isDriveLink": false,
       "isInternal": true
     }
