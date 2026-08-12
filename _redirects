@@ -10,8 +10,8 @@
 /Adashima_Novelas        /src/pages/Adashima_Novelas.html         200
 /Adashima_Otros          /src/pages/Adashima_Otros.html           200
 /Adashima_Stats          /src/pages/Adashima_Stats.html           200
-/Juego                   /src/pages/Juego.html                    200
-/Author_Archive          /src/pages/otros/Author_Archive.html     200
+/Juego                   /src/pages/Juego                         200
+/Author_Archive          /src/pages/otros/Author_Archive         200
 
 # Optional SPA catch-all (uncomment if you want unknown routes to serve index.html)
 # /*  /index.html  200
