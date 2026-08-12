@@ -13,21 +13,5 @@
 /Juego                   /src/pages/Juego.html                    200
 /Author_Archive          /src/pages/otros/Author_Archive.html     200
 
-# Reverse redirects: internal paths -> clean URLs (301)
-/src/pages/Adashima_About.html /Adashima_About 301
-/src/pages/Adashima_Anime.html /Adashima_Anime 301
-/src/pages/Adashima_Drama.html /Adashima_Drama 301
-/src/pages/Adashima_Estrella.html /Adashima_Estrella 301
-/src/pages/Adashima_Extra_Stories.html /Adashima_Extra_Stories 301
-/src/pages/Adashima_Gallery.html /Adashima_Gallery 301
-/src/pages/Adashima_Linea.html /Adashima_Linea 301
-/src/pages/Adashima_Manga.html /Adashima_Manga 301
-/src/pages/Adashima_Music.html /Adashima_Music 301
-/src/pages/Adashima_Novelas.html /Adashima_Novelas 301
-/src/pages/Adashima_Otros.html /Adashima_Otros 301
-/src/pages/Adashima_Stats.html /Adashima_Stats 301
-/src/pages/Juego.html /Juego 301
-/src/pages/otros/Author_Archive.html /Author_Archive 301
-
 # Optional SPA catch-all (uncomment if you want unknown routes to serve index.html)
 # /*  /index.html  200
