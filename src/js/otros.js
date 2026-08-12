@@ -1,25 +1,23 @@
 let currentLang = (() => {
   const storedLang =
+    window.LanguageSwitch?.getCurrentLanguage?.() ||
     localStorage.getItem("lang") ||
     localStorage.getItem("preferredLanguage") ||
     localStorage.getItem("language") ||
     localStorage.getItem("adashima_manga_lang") ||
-    "en";
-  
-  // Normalize the language code - support 'tg' and fallback to 'en' if invalid
-  const normalized = storedLang.toLowerCase().trim();
+    "es";
+
+  const normalized = String(storedLang).toLowerCase().trim();
   const supported = ["es", "en", "tg"];
-  
+
   if (supported.includes(normalized)) return normalized;
-  
-  // Handle partial matches (e.g., 'en-US' -> 'en')
   for (const lang of supported) {
     if (normalized.startsWith(lang + "-") || normalized === lang) {
       return lang;
     }
   }
-  
-  return "en"; 
+
+  return "es";
 })();
 
 let isSwitching = false;
@@ -215,6 +213,8 @@ function loadMenu() {
       if (window.translateMenu) {
         window.translateMenu(currentLang);
       }
+
+      document.dispatchEvent(new CustomEvent("menuLoaded"));
     })
     .catch((error) => {
       console.error("Error cargando menu.html:", error.message);
@@ -241,6 +241,32 @@ document.addEventListener("DOMContentLoaded", async function () {
   renderApp();
   initParticles();
   loadMenu();
+});
+
+document.addEventListener("menuLoaded", function () {
+  if (window.currentLanguage !== undefined) {
+    currentLang = window.currentLanguage;
+  }
+  loadTranslations(currentLang).then(() => renderApp());
+});
+
+document.addEventListener("languageChanged", async function (event) {
+  const nextLang =
+    event?.detail?.lang ||
+    window.LanguageSwitch?.getCurrentLanguage?.() ||
+    localStorage.getItem("lang") ||
+    currentLang;
+
+  const normalizedLang = nextLang === "en" ? "en" : nextLang === "tg" ? "tg" : "es";
+  if (normalizedLang === currentLang) return;
+
+  currentLang = normalizedLang;
+  window.currentLanguage = normalizedLang;
+  window.currentLang = normalizedLang;
+
+  await loadTranslations(currentLang);
+  renderApp();
+  if (window.translateMenu) window.translateMenu(currentLang);
 });
 
 if ("serviceWorker" in navigator) {

@@ -128,6 +128,13 @@
         option.classList.toggle("active", isActive);
 
         option.setAttribute("aria-pressed", isActive ? "true" : "false");
+
+        if (isActive && option.closest(".language-selector")) {
+          const parent = option.closest(".language-selector");
+          if (parent) {
+            parent.dataset.currentLang = selectedLang;
+          }
+        }
       });
 
     const dropdowns = root.querySelectorAll(".lang-dropdown");
@@ -306,16 +313,8 @@
 
     dispatchLanguageChanged(normalized);
 
-    /*
-     * Reload the page so all page-level JSON files
-     * are loaded using the newly selected language.
-     *
-     * For example:
-     *
-     * English  -> src/data/menu/en.json
-     * Spanish  -> src/data/menu/es.json
-     * Tagalog  -> src/data/menu/tg.json
-     */
+    await new Promise(resolve => setTimeout(resolve, 50));
+    
     window.location.reload();
   }
 
@@ -349,6 +348,10 @@
     initialized = true;
 
     currentLanguage = loadStoredLanguage();
+    
+    if (typeof window.currentLang !== "undefined") {
+      window.currentLang = currentLanguage;
+    }
 
     updateDocumentLanguage(currentLanguage);
 
@@ -373,6 +376,12 @@
     window.addEventListener("storage", handleStorageEvent);
 
     document.addEventListener("menuLoaded", () => {
+      currentLanguage = loadStoredLanguage();
+      
+      if (typeof window.currentLang !== "undefined") {
+        window.currentLang = currentLanguage;
+      }
+      
       attachLanguageControls();
 
       updateLanguageUI();

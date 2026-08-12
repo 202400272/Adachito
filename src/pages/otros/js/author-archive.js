@@ -4,6 +4,8 @@ const storedLanguage =
   localStorage.getItem("language") ||
   "es";
 let currentLanguage = storedLanguage === "es" ? "es" : "en";
+window.currentLanguage = currentLanguage;
+window.currentLang = currentLanguage;
 let archiveData = [];
 let articleContentCache = {};
 let currentFilter = "all";
@@ -263,6 +265,8 @@ function switchLanguage(lang) {
   if (currentLanguage === lang) return;
   const normalizedLang = lang === "en" ? "en" : "es";
   currentLanguage = normalizedLang;
+  window.currentLanguage = normalizedLang;
+  window.currentLang = normalizedLang;
   localStorage.setItem("lang", normalizedLang);
   localStorage.setItem("preferredLanguage", normalizedLang);
   localStorage.setItem("language", normalizedLang);
@@ -687,6 +691,7 @@ async function loadSidebar() {
       if (typeof window.translateMenu === "function") {
         window.translateMenu(currentLanguage);
       }
+      document.dispatchEvent(new CustomEvent("menuLoaded"));
     }, 100);
   } catch (error) {}
 }
@@ -695,6 +700,38 @@ document.addEventListener("DOMContentLoaded", function () {
   loadSidebar();
   applyUITranslations(currentLanguage);
   loadArchiveData();
+
+  document.addEventListener("menuLoaded", function () {
+    const storedLang =
+      window.LanguageSwitch?.getCurrentLanguage?.() ||
+      localStorage.getItem("lang") ||
+      localStorage.getItem("preferredLanguage") ||
+      localStorage.getItem("language") ||
+      currentLanguage;
+
+    const normalizedLang = storedLang === "en" ? "en" : "es";
+    if (currentLanguage !== normalizedLang) {
+      currentLanguage = normalizedLang;
+      window.currentLanguage = normalizedLang;
+      window.currentLang = normalizedLang;
+    }
+
+    applyUITranslations(currentLanguage);
+    loadArchiveData();
+  });
+
+  document.addEventListener("languageChanged", function (event) {
+    const nextLang = event?.detail?.lang || localStorage.getItem("lang") || currentLanguage;
+    const normalizedLang = nextLang === "en" ? "en" : "es";
+
+    if (normalizedLang === currentLanguage) return;
+
+    currentLanguage = normalizedLang;
+    window.currentLanguage = normalizedLang;
+    window.currentLang = normalizedLang;
+    applyUITranslations(currentLanguage);
+    loadArchiveData();
+  });
 
   const langToggle = document.getElementById("langToggle");
   const langDropdown = document.getElementById("langDropdown");

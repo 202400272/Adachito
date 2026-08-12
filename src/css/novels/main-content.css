@@ -7,7 +7,7 @@
   align-items: center;
   z-index: 2;
   min-height: 100vh;
-  background-image: url("../../../assets/Imagenes/Fondo_seccion_novela.png");
+  background-image: url("../../../assets/Imagenes/Fondo_seccion_novela.webp");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -29,7 +29,7 @@
 
 @media (max-width: 768px) {
   .main-content {
-    background-image: url("../../../assets/Imagenes/fondonovela_movil2.jpg");
+    background-image: url("../../../assets/Imagenes/fondonovela_movil2.webp");
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;

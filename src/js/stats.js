@@ -1589,12 +1589,24 @@ window.scrollToSection = scrollToSection;
 
 let currentLang = (() => {
   const storedLang =
+    window.LanguageSwitch?.getCurrentLanguage?.() ||
     localStorage.getItem("lang") ||
     localStorage.getItem("preferredLanguage") ||
     localStorage.getItem("language") ||
     localStorage.getItem("adashima_manga_lang") ||
     "es";
-  return storedLang === "en" ? "en" : "es";
+
+  const normalized = String(storedLang).toLowerCase().trim();
+  const supported = ["es", "en", "tg"];
+
+  if (supported.includes(normalized)) return normalized;
+  for (const lang of supported) {
+    if (normalized.startsWith(lang + "-") || normalized === lang) {
+      return lang;
+    }
+  }
+
+  return "es";
 })();
 
 const menuVer = Math.floor(Date.now() / 86400000);

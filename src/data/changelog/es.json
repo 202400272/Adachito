@@ -1,4 +1,28 @@
 [
+  {
+  "version": "2.2.7",
+  "build": "20260812",
+  "date": "12 de agosto de 2026",
+  "subtitle": "Optimización de Imágenes, Mejoras de Información y Correcciones de Localización",
+  "changes": {
+    "new": [],
+    "improvements": [
+      "Se convirtió el formato de todas las imágenes del sitio a WebP para optimizar su tamaño y mejorar los tiempos de carga.",
+      "Se ajustó la sección Acerca de para mostrar correctamente la información disponible.",
+      "Se mejoró la presentación de la información de la serie en la página de inicio para dispositivos de escritorio."
+    ],
+    "fixes": [
+      "Se corrigió un problema de persistencia del idioma que provocaba que la selección no se aplicara correctamente en determinadas pantallas.",
+      "Se corrigieron inconsistencias en el cambio de idioma entre diferentes secciones y páginas del sitio."
+    ],
+    "notes": [
+      "Esta actualización se centra en optimizar los recursos visuales del sitio, mejorar la presentación de la información y reforzar la persistencia del idioma.",
+      "Todas las imágenes del sitio fueron convertidas al formato WebP con el objetivo de reducir el peso de los recursos y mejorar el rendimiento de carga.",
+      "La sección Acerca de fue ajustada para mostrar correctamente su información, mientras que la página de inicio recibió correcciones en la presentación de la información de la serie en PC.",
+      "También se corrigieron problemas de persistencia del idioma que impedían que algunas pantallas reflejaran correctamente la selección realizada por el usuario."
+    ]
+  }
+},
 {
 "version": "2.2.6",
 "build": "20260811",

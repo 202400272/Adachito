@@ -6,9 +6,9 @@ const R2_CONFIG = {
 // ===== SUPPORTED LANGUAGES =====
 const SUPPORTED_LANGUAGES = ["es", "en", "tg"];
 
-// ===== LANGUAGE NORMALIZATION WITH FALLBACK TO 'en' =====
+// ===== LANGUAGE NORMALIZATION WITH FALLBACK TO 'es' =====
 function normalizeLanguage(lang, fallback) {
-  fallback = fallback || "en";
+  fallback = fallback || "es";
   if (!lang) return fallback;
   const normalized = lang.toLowerCase().trim();
   if (SUPPORTED_LANGUAGES.includes(normalized)) return normalized;
@@ -28,14 +28,14 @@ window.SUPPORTED_LANGUAGES = SUPPORTED_LANGUAGES;
 // ===== LANGUAGE DETECTION =====
 let currentLang = (() => {
   const storedLang =
+    window.LanguageSwitch?.getCurrentLanguage?.() ||
     localStorage.getItem("lang") ||
     localStorage.getItem("preferredLanguage") ||
     localStorage.getItem("language") ||
     localStorage.getItem("adashima_manga_lang") ||
-    "en";
-  
-  // Normalize the language code - support 'tg' and fallback to 'en' if invalid
-  return normalizeLanguage(storedLang, "en");
+    "es";
+
+  return normalizeLanguage(storedLang, "es");
 })();
 
 function getTrackUrl(albumFolder, filename) {
@@ -901,7 +901,7 @@ updateFooterText();
       const div = document.createElement("div");
       const title = it.track.title_jp || it.track.title || it.track.title_es || "Untitled";
       const albumTitle = it.album.title || "Album";
-      const artwork = it.album.coverImage || "../../assets/Imagenes/Adashima ost1.jpg";
+      const artwork = it.album.coverImage || "../../assets/Imagenes/Adashima ost1.webp";
       const meta = it.track.artist || it.album.artist || "";
       div.className = "favorite-card";
       div.dataset.id = it.track.id;
@@ -1188,7 +1188,7 @@ updateFooterText();
       expandedArtist.textContent = track.artist;
       expandedAlbum.textContent = currentAlbum?.title || "";
       expandedArtwork.src =
-        currentAlbum?.coverImage || "../../assets/Imagenes/Adashima ost2.jpg";
+        currentAlbum?.coverImage || "../../assets/Imagenes/Adashima ost2.webp";
 
       if (currentAlbum?.coverImage) {
         expandedPlayerBg.style.background = `
@@ -1216,7 +1216,7 @@ updateFooterText();
       const thumbImg = playerThumb.querySelector("img");
       if (thumbImg && currentAlbum) {
         thumbImg.src =
-          currentAlbum.coverImage || "../../assets/Imagenes/Adashima ost1.jpg";
+          currentAlbum.coverImage || "../../assets/Imagenes/Adashima ost1.webp";
         thumbImg.onerror = function () {
           this.style.display = "none";
           this.parentElement.textContent = "🌸";
@@ -1229,7 +1229,7 @@ updateFooterText();
       if (thumbImg) {
         thumbImg.style.display = "block";
         thumbImg.src =
-          currentAlbum?.coverImage || "../../assets/Imagenes/Adashima ost1.jpg";
+          currentAlbum?.coverImage || "../../assets/Imagenes/Adashima ost1.webp";
       }
     }
     const icon = isPlaying ? "mdi:pause" : "mdi:play";

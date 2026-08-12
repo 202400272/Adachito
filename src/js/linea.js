@@ -1,25 +1,23 @@
 let currentLang = (() => {
   const storedLang =
+    window.LanguageSwitch?.getCurrentLanguage?.() ||
     localStorage.getItem("lang") ||
     localStorage.getItem("preferredLanguage") ||
     localStorage.getItem("language") ||
     localStorage.getItem("adashima_manga_lang") ||
-    "en";
-  
-  // Normalize the language code - support 'tg' and fallback to 'en' if invalid
-  const normalized = storedLang.toLowerCase().trim();
+    "es";
+
+  const normalized = String(storedLang).toLowerCase().trim();
   const supported = ["es", "en", "tg"];
-  
+
   if (supported.includes(normalized)) return normalized;
-  
-  // Handle partial matches (e.g., 'en-US' -> 'en')
   for (const lang of supported) {
     if (normalized.startsWith(lang + "-") || normalized === lang) {
       return lang;
     }
   }
-  
-  return "en"; 
+
+  return "es";
 })();
 
 let _lastCard = null;

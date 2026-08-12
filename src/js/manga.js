@@ -944,17 +944,36 @@ function initPdfEvents() {
 const R2_BASE_URL = "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/";
 
 let currentVersion = "moke";
-// FIXED: Use LanguageSwitch for current language with 'en' fallback
-let currentLang = "en";
+let currentLang = (() => {
+  const storedLang =
+    window.LanguageSwitch?.getCurrentLanguage?.() ||
+    localStorage.getItem("lang") ||
+    localStorage.getItem("preferredLanguage") ||
+    localStorage.getItem("language") ||
+    localStorage.getItem("adashima_manga_lang") ||
+    "es";
+
+  const normalized = String(storedLang).toLowerCase().trim();
+  const supported = ["es", "en", "tg"];
+
+  if (supported.includes(normalized)) return normalized;
+  for (const lang of supported) {
+    if (normalized.startsWith(lang + "-") || normalized === lang) {
+      return lang;
+    }
+  }
+
+  return "es";
+})();
 let isSwitching = false;
 let translations = null;
 
 // ===== SUPPORTED LANGUAGES =====
 const SUPPORTED_LANGUAGES = ["es", "en", "tg"];
 
-// ===== LANGUAGE NORMALIZATION WITH FALLBACK TO 'en' =====
+// ===== LANGUAGE NORMALIZATION WITH FALLBACK TO 'es' =====
 function normalizeLanguage(lang, fallback) {
-  fallback = fallback || "en";
+  fallback = fallback || "es";
   if (!lang) return fallback;
   const normalized = lang.toLowerCase().trim();
   if (SUPPORTED_LANGUAGES.includes(normalized)) return normalized;

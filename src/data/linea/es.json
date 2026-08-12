@@ -25,7 +25,7 @@
       "date": "10 de Abril",
       "title": "Cumpleaños de Shimamura",
       "desc": "Shimamura cumple 16 años. Adachi tiene 15. Comienzan juntas el primer año de preparatoria, aunque aún no se conocen.",
-      "img": "../../assets/Imagenes/burbuja1.png",
+      "img": "../../assets/Imagenes/burbuja1.webp",
       "vol": "",
       "quotes": []
     },
@@ -49,7 +49,7 @@
       "date": "",
       "title": "Primera Navidad",
       "desc": "Adachi, que nunca ha salido con alguien en fechas especiales, pasa la Navidad junto a Shimamura por primera vez. Durante la cita recorren el centro comercial, juegan air hockey, intercambian regalos y Shimamura le regala a Adachi un boomerang.",
-      "img": "../../assets/Imagenes/burbuja3.png",
+      "img": "../../assets/Imagenes/burbuja3.webp",
       "vol": "Volumen 2",
       "quotes": [
         "\"Pensé que era una percha rota. De cualquier manera, acepté el objeto azul en forma de V. Lo acepté...\" (Volumen 2)"
@@ -62,7 +62,7 @@
       "date": "",
       "title": "Primer San Valentín e intercambio de chocolates",
       "desc": "Adachi, muy nerviosa por la cercanía de San Valentín, invita a Shimamura a comprar chocolates. Durante la salida, tras leer el mensaje que Shimamura le había dejado: ¡Sigamos adelante, ahora y en el futuro!, Adachi incapaz de contener su emoción le da un abrazo.",
-      "img": "../../assets/Imagenes/burbuja4.png",
+      "img": "../../assets/Imagenes/burbuja4.webp",
       "vol": "Volumen 3",
       "quotes": [
         "\"Lo que quiero decir es que estaba pensando en ti cuando lo envié. Es por eso que terminó así.\" (Volumen 3)"
@@ -102,7 +102,7 @@
       "date": "",
       "title": "Pelea y reconciliación",
       "desc": "Durante las vacaciones de verano, Adachi trabaja en un puesto durante un festival y ve que Shimamura está allí con una chica desconocida. La imagen la consume durante días, hasta que todo estalla en una llamada con Shimamura. Más tarde reúne el valor para volver a llamarla y acuerdan verse al día siguiente. La reconciliación llega con flores y un \"volvemos a ser amigas\", dejando a Adachi satisfecha e insatisfecha a la vez. Después, cumplen juntas la lista que Adachi había escrito.",
-      "img": "../../assets/Imagenes/burbuja7.png",
+      "img": "../../assets/Imagenes/burbuja7.webp",
       "vol": "Volumen 5",
       "quotes": [
         "\"Creo que esta podría ser la primera vez que recibo flores.\" (Volumen 5)"
@@ -128,7 +128,7 @@
       "date": "",
       "title": "Declaración de Adachi",
       "desc": "Adachi finalmente se declara a Shimamura y le dice que la ama. Tras huir abrumada por la intensidad del momento, ambas terminan hablando a solas junto a un hotel.",
-      "img": "../../assets/Imagenes/burbuja9.png",
+      "img": "../../assets/Imagenes/burbuja9.webp",
       "vol": "Volumen 6",
       "quotes": [
         "\"Te amo.\" (Volumen 6)",
@@ -158,7 +158,7 @@
       "date": "",
       "title": "Viaje escolar a Kitakyushu",
       "desc": "El viaje escolar de segundo año de preparatoria tiene como destino la ciudad de Kitakyushu. Al anunciarse los grupos de cinco personas, Adachi salta de su asiento y corre hasta el escritorio de Shimamura.",
-      "img": "../../assets/Imagenes/burbuja11.jpg",
+      "img": "../../assets/Imagenes/burbuja11.webp",
       "vol": "Volumen 8",
       "quotes": [
         "\"Aparentemente, octubre era la temporada alta de viajes escolares para los estudiantes de segundo año de preparatoria.\" (Volumen 8)"
@@ -171,7 +171,7 @@
       "date": "",
       "title": "Segunda Navidad",
       "desc": "Adachi y Shimamura se citan bajo el gran árbol de Navidad del centro comercial, con Adachi luciendo de nuevo su llamativo vestido chino.",
-      "img": "../../assets/Imagenes/burbuja12.1.jpg",
+      "img": "../../assets/Imagenes/burbuja12.1.webp",
       "vol": "Volumen 9",
       "quotes": [
         "\"Tan pronto como esas palabras salieron de mi boca, los recuerdos de nuestra Navidad anterior se apresuraron a llenar mi mente. Lo que recordé en particular fue el color azul.\" (Volumen 9)",
@@ -211,7 +211,7 @@
       "date": "",
       "title": "Comienzo del tercer y último año",
       "desc": "Adachi tiene 17 años y Shimamura 18. Es el último año juntas en el instituto.",
-      "img": "../../assets/Imagenes/burbuja16.jpg",
+      "img": "../../assets/Imagenes/burbuja16.webp",
       "vol": "",
       "quotes": []
     },
@@ -222,7 +222,7 @@
       "date": "",
       "title": "Plan para las últimas vacaciones de verano",
       "desc": "Con las últimas vacaciones del instituto acercándose, Adachi propone ir juntas a la playa. Para costear el viaje, Shimamura acuerda con sus padres realizar las tareas del hogar a cambio de dinero.",
-      "img": "../../assets/Imagenes/burbuja16.jpg",
+      "img": "../../assets/Imagenes/burbuja16.webp",
       "vol": "Volumen 12",
       "quotes": [
         "\"Se acercaban las vacaciones de verano. Nuestras últimas vacaciones de verano del instituto.\" (Volumen 12)",
@@ -236,7 +236,7 @@
       "date": "",
       "title": "Trabajo doméstico de Shimamura",
       "desc": "",
-      "img": "../../assets/Imagenes/burbuja16.jpg",
+      "img": "../../assets/Imagenes/burbuja16.webp",
       "vol": "Volumen 12",
       "quotes": [
         "\"Soy Shimamura Hougetsu. Seré tu ama de casa durante el verano.\" (Volumen 12)",
@@ -279,7 +279,7 @@
       "date": "",
       "title": "Visita a los abuelos · Últimas vacaciones",
       "desc": "Shimamura viaja con su familia a casa de sus abuelos durante el Obon, como hace cada año. Esta vez también va Yashiro, disfrazada de tanuki. Son las últimas vacaciones de verano de su vida como estudiante de preparatoria.",
-      "img": "../../assets/Imagenes/burbuja19.png",
+      "img": "../../assets/Imagenes/burbuja19.webp",
       "vol": "Volumen 13",
       "quotes": [
         "\"A inicios de agosto, durante las últimas vacaciones de verano de mi vida como estudiante de preparatoria. Era la época en que la gente regresaba al campo.\" (Volumen 13)",

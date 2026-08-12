@@ -25,7 +25,7 @@
       "date": "Abril 10",
       "title": "Kaarawan ni Shimamura",
       "desc": "Labing-anim na taong gulang na si Shimamura. Labinlima naman si Adachi. Nagsisimula sila ng kanilang unang taon sa high school, kahit hindi pa nila nakikilala ang isa't isa.",
-      "img": "../../assets/Imagenes/burbuja1.png",
+      "img": "../../assets/Imagenes/burbuja1.webp",
       "vol": "",
       "quotes": []
     },
@@ -49,7 +49,7 @@
       "date": "",
       "title": "Unang Pasko",
       "desc": "Si Adachi, na hindi pa kailanman nakipag-date sa isang espesyal na okasyon, ay unang pagkakataong nagpalipas ng Pasko kasama si Shimamura. Sa kanilang date, naglibot sila sa shopping mall, naglaro ng air hockey, nagpalitan ng mga regalo, at binigyan ni Shimamura si Adachi ng boomerang.",
-      "img": "../../assets/Imagenes/burbuja3.png",
+      "img": "../../assets/Imagenes/burbuja3.webp",
       "vol": "Volume 2",
       "quotes": [
         "\"Akala ko isa itong sirang hanger. Anuman iyon, tinanggap ko ang asul at hugis-V na bagay. Tinanggap ko iyon...\" (Volume 2)"
@@ -62,7 +62,7 @@
       "date": "",
       "title": "Unang Valentine's Day at Palitan ng Tsokolate",
       "desc": "Kinakabahan para sa Valentine's Day, niyaya ni Adachi si Shimamura na sabay silang bumili ng mga tsokolate. Habang magkasama sila, nabasa ni Adachi ang mensahe ni Shimamura: \"Ipagpatuloy natin ito, ngayon at sa hinaharap!\" Hindi na niya napigilan ang kanyang damdamin at niyakap si Shimamura.",
-      "img": "../../assets/Imagenes/burbuja4.png",
+      "img": "../../assets/Imagenes/burbuja4.webp",
       "vol": "Volume 3",
       "quotes": [
         "\"Ang ibig kong sabihin, ikaw ang iniisip ko nang ipadala ko iyon. Kaya ganoon ang naging resulta.\" (Volume 3)"
@@ -102,7 +102,7 @@
       "date": "",
       "title": "Pag-aaway at Pagkakasundo",
       "desc": "Habang summer vacation, nagtatrabaho si Adachi sa isang booth sa festival nang makita niya roon si Shimamura kasama ang isang babaeng hindi niya kilala. Ilang araw siyang hindi mapakali sa imaheng iyon, hanggang sa tuluyan itong sumabog sa isang tawag nila ni Shimamura. Kalaunan, nag-ipon siya ng lakas ng loob para muling tumawag, at nagkasundo silang magkita kinabukasan. Sa kanilang pagkakasundo, may mga bulaklak at isang \"maging magkaibigan ulit tayo,\" na nag-iwan kay Adachi ng magkahalong saya at pagkadismaya. Pagkatapos nito, magkasama nilang tinapos ang listahang ginawa ni Adachi.",
-      "img": "../../assets/Imagenes/burbuja7.png",
+      "img": "../../assets/Imagenes/burbuja7.webp",
       "vol": "Volume 5",
       "quotes": [
         "\"Sa tingin ko, ito ang unang pagkakataon na nakatanggap ako ng mga bulaklak.\" (Volume 5)"
@@ -128,7 +128,7 @@
       "date": "",
       "title": "Pag-amin ni Adachi",
       "desc": "Sa wakas ay umamin si Adachi kay Shimamura at sinabi niyang mahal niya ito. Matapos tumakas si Adachi, hindi makayanan ang tindi ng sandaling iyon, nauwi sila sa isang pag-uusap nang silang dalawa lamang sa tabi ng isang hotel.",
-      "img": "../../assets/Imagenes/burbuja9.png",
+      "img": "../../assets/Imagenes/burbuja9.webp",
       "vol": "Volume 6",
       "quotes": [
         "\"Mahal kita.\" (Volume 6)",
@@ -158,7 +158,7 @@
       "date": "",
       "title": "School Trip sa Kitakyushu",
       "desc": "Ang school trip ng mga second-year high school student ay sa Kitakyushu. Nang ipahayag na tig-lilimang tao ang bawat grupo, agad na tumayo si Adachi at tumakbo papunta sa desk ni Shimamura.",
-      "img": "../../assets/Imagenes/burbuja11.jpg",
+      "img": "../../assets/Imagenes/burbuja11.webp",
       "vol": "Volume 8",
       "quotes": [
         "\"Tila Oktubre ang panahon ng mga school trip para sa mga second-year high school student.\" (Volume 8)"
@@ -171,7 +171,7 @@
       "date": "",
       "title": "Ikalawang Pasko",
       "desc": "Nagkita sina Adachi at Shimamura sa ilalim ng malaking Christmas tree sa shopping mall, at muli na namang suot ni Adachi ang kanyang kapansin-pansing Chinese dress.",
-      "img": "../../assets/Imagenes/burbuja12.1.jpg",
+      "img": "../../assets/Imagenes/burbuja12.1.webp",
       "vol": "Volume 9",
       "quotes": [
         "\"Pagkasabi ko pa lamang ng mga salitang iyon, biglang bumalik sa isip ko ang mga alaala ng nakaraang Pasko. Ang pinakatumatak sa akin ay ang kulay na asul.\" (Volume 9)",
@@ -211,7 +211,7 @@
       "date": "",
       "title": "Simula ng Ikatlo at Huling Taon",
       "desc": "Labimpitong taong gulang na si Adachi at labingwalo naman si Shimamura. Ito na ang huli nilang taon na magkasama sa high school.",
-      "img": "../../assets/Imagenes/burbuja16.jpg",
+      "img": "../../assets/Imagenes/burbuja16.webp",
       "vol": "",
       "quotes": []
     },
@@ -222,7 +222,7 @@
       "date": "",
       "title": "Plano para sa Huling Summer Vacation",
       "desc": "Habang papalapit ang huli nilang summer vacation sa high school, iminungkahi ni Adachi na pumunta silang dalawa sa beach. Para may pambayad sa biyahe, nakipagkasundo si Shimamura sa kanyang mga magulang na gumawa ng mga gawaing-bahay kapalit ng pera.",
-      "img": "../../assets/Imagenes/burbuja16.jpg",
+      "img": "../../assets/Imagenes/burbuja16.webp",
       "vol": "Volume 12",
       "quotes": [
         "\"Papalapit na ang summer break. Ang huli nating summer break sa high school.\" (Volume 12)",
@@ -236,7 +236,7 @@
       "date": "",
       "title": "Paggawa ng Gawaing-Bahay ni Shimamura",
       "desc": "",
-      "img": "../../assets/Imagenes/burbuja16.jpg",
+      "img": "../../assets/Imagenes/burbuja16.webp",
       "vol": "Volume 12",
       "quotes": [
         "\"Ako si Shimamura Hougetsu. Ako ang magiging tagapangalaga ng bahay ninyo ngayong summer.\" (Volume 12)",
@@ -279,7 +279,7 @@
       "date": "",
       "title": "Pagbisita sa mga Lolo't Lola \u00b7 Huling Bakasyon",
       "desc": "Pumunta si Shimamura kasama ang kanyang pamilya sa bahay ng kanyang mga lolo't lola para sa Obon, gaya ng ginagawa nila bawat taon. Sa pagkakataong ito, sumama rin si Yashiro na nagbalatkayo bilang tanuki. Ito na ang mga huling araw ng kanyang summer vacation bilang high school student.",
-      "img": "../../assets/Imagenes/burbuja19.png",
+      "img": "../../assets/Imagenes/burbuja19.webp",
       "vol": "Volume 13",
       "quotes": [
         "\"Unang linggo na ng Agosto\u2014panahong nasa kalagitnaan na ng sobrang hinog na tag-init, pati na rin ng huli naming summer break sa high school. Ito rin ang panahon kung kailan kami bumibisita sa mga lolo't lola ko sa probinsya.\" (Volume 13)",

@@ -429,19 +429,19 @@ let lastFrameTime = 0;
 const TARGET_FRAME_MS = 1000 / 60;
 
 const imgYashiro = new Image();
-imgYashiro.src = "../../assets/Imagenes/Yashiro_flotante_pixel-Photoroom.png";
+imgYashiro.src = "../../assets/Imagenes/Yashiro_flotante_pixel-Photoroom.webp";
 const imgmeteoro = new Image();
-imgmeteoro.src = "../../assets/Imagenes/meteoro-Photoroom.png";
+imgmeteoro.src = "../../assets/Imagenes/meteoro-Photoroom.webp";
 const imgEstrella = new Image();
-imgEstrella.src = "../../assets/Imagenes/Estrella-Photoroom.png";
+imgEstrella.src = "../../assets/Imagenes/Estrella-Photoroom.webp";
 const imgEstrellaAzul = new Image();
-imgEstrellaAzul.src = "../../assets/Imagenes/Estrella_Azul-Photoroom.png";
+imgEstrellaAzul.src = "../../assets/Imagenes/Estrella_Azul-Photoroom.webp";
 const imgFondo = new Image();
-imgFondo.src = "../../assets/Imagenes/Fondo_pixel.png";
+imgFondo.src = "../../assets/Imagenes/Fondo_pixel.webp";
 const imgBoomerang = new Image();
-imgBoomerang.src = "../../assets/Imagenes/boomerang-Photoroom.png";
+imgBoomerang.src = "../../assets/Imagenes/boomerang-Photoroom.webp";
 const imgDona = new Image();
-imgDona.src = "../../assets/Imagenes/dona_pixel-Photoroom.png";
+imgDona.src = "../../assets/Imagenes/dona_pixel-Photoroom.webp";
 
 const yashiro = {
   x: 50,

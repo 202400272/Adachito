@@ -683,7 +683,12 @@ function toggleInfo() {
   const content = document.getElementById("infoContent");
   const chevron = document.getElementById("infoChevron");
   const panel = document.getElementById("infoPanel");
-  if (content) content.classList.toggle("open");
+
+  if (content) {
+    const isOpen = content.classList.toggle("open");
+    content.style.maxHeight = isOpen ? `${content.scrollHeight}px` : "0px";
+  }
+
   if (chevron) chevron.classList.toggle("rotated");
   if (panel) panel.classList.toggle("expanded");
 }
@@ -1021,12 +1026,17 @@ if ("serviceWorker" in navigator) {
 (function () {
   const APPEARANCE_STORAGE_KEY = "adashima_time_based_appearance";
   const MANUAL_THEME_STORAGE_KEY = "adashima_manual_appearance";
+  const VALID_THEMES = ["morning", "afternoon", "night"];
 
   function getTimePeriod() {
     const hour = new Date().getHours();
     if (hour >= 5 && hour < 12) return "morning";
     if (hour >= 12 && hour < 19) return "afternoon";
     return "night";
+  }
+
+  function normalizeTheme(theme) {
+    return VALID_THEMES.includes(theme) ? theme : getTimePeriod();
   }
 
   function getTimeBasedPreference() {
@@ -1039,44 +1049,93 @@ if ("serviceWorker" in navigator) {
     }
   }
 
+  function setTimeBasedPreference(value) {
+    try {
+      localStorage.setItem(APPEARANCE_STORAGE_KEY, String(value));
+    } catch (e) {
+      // Ignore storage issues.
+    }
+  }
+
   function getStoredManualTheme() {
     try {
-      return localStorage.getItem(MANUAL_THEME_STORAGE_KEY) || null;
+      const value = localStorage.getItem(MANUAL_THEME_STORAGE_KEY);
+      return normalizeTheme(value);
     } catch (e) {
-      return null;
+      return getTimePeriod();
     }
+  }
+
+  function setStoredManualTheme(theme) {
+    try {
+      localStorage.setItem(MANUAL_THEME_STORAGE_KEY, normalizeTheme(theme));
+    } catch (e) {
+      // Ignore storage issues.
+    }
+  }
+
+  function applyTheme(theme) {
+    const period = normalizeTheme(theme);
+    const body = document.body;
+    body.classList.remove("time-morning", "time-afternoon", "time-night");
+    body.classList.add("time-" + period);
+    body.dataset.theme = period;
+    window.__currentTheme = period;
   }
 
   function getActiveTheme() {
     if (getTimeBasedPreference()) {
       return getTimePeriod();
     }
-    return getStoredManualTheme() || getTimePeriod();
+    return getStoredManualTheme();
+  }
+
+  function setAppearanceTheme(theme, useAutoMode = false) {
+    const nextTheme = normalizeTheme(theme);
+
+    if (useAutoMode) {
+      setTimeBasedPreference(true);
+      applyTheme(getTimePeriod());
+      return;
+    }
+
+    setTimeBasedPreference(false);
+    setStoredManualTheme(nextTheme);
+    applyTheme(nextTheme);
   }
 
   function updateTimeTheme() {
     const period = getActiveTheme();
-    const body = document.body;
-    const newClass = "time-" + period;
+    applyTheme(period);
 
-    if (!body.classList.contains(newClass)) {
-      body.classList.remove("time-morning", "time-afternoon", "time-night");
-      body.classList.add(newClass);
-    }
+    document.dispatchEvent(
+      new CustomEvent("appearanceThemeChanged", {
+        detail: {
+          theme: period,
+          auto: getTimeBasedPreference(),
+        },
+      }),
+    );
   }
 
   window.updateTimeTheme = updateTimeTheme;
+  window.setAppearanceTheme = setAppearanceTheme;
+  window.getActiveTheme = getActiveTheme;
+  window.getTimePeriod = getTimePeriod;
 
-  // Run immediately
   updateTimeTheme();
 
-  // Check every minute
   setInterval(updateTimeTheme, 60000);
 
-  // Also update when visibility changes (user returns to tab)
   document.addEventListener("visibilitychange", function () {
     if (!document.hidden) {
       updateTimeTheme();
     }
   });
-})();
+
+  window.addEventListener("storage", function (event) {
+    if (event.key === APPEARANCE_STORAGE_KEY || event.key === MANUAL_THEME_STORAGE_KEY) {
+      updateTimeTheme();
+    }
+  });
+});

@@ -110,7 +110,7 @@ body {
   flex-direction: column;
   align-items: center;
   z-index: 2;
-  background: url("../../assets/Imagenes/yashirogame.jpg") center/cover
+  background: url("../../assets/Imagenes/yashirogame.webp") center/cover
     no-repeat fixed;
   min-width: 0;
 }

@@ -284,9 +284,9 @@
   },
   "versionTitle": "Información de la Versión",
   "versionItems": [
-    { "label": "Versión del Sitio Web", "value": "v2.2.6" },
-    { "label": "Número de Compilación", "value": "#20260811" },
-    { "label": "Última Actualización", "value": "Agosto 11, 2026" },
+    { "label": "Versión del Sitio Web", "value": "v2.2.7" },
+    { "label": "Número de Compilación", "value": "#20260812" },
+    { "label": "Última Actualización", "value": "Agosto 12, 2026" },
     { "label": "Progreso de Traducción", "value": "92%" }
   ],
   "changelogBtn": "Ver Registro de Cambios",

@@ -1,25 +1,23 @@
 let currentLang = (() => {
   const storedLang =
+    window.LanguageSwitch?.getCurrentLanguage?.() ||
     localStorage.getItem("lang") ||
     localStorage.getItem("preferredLanguage") ||
     localStorage.getItem("language") ||
     localStorage.getItem("adashima_manga_lang") ||
-    "en";
-  
-  // Normalize the language code - support 'tg' and fallback to 'en' if invalid
-  const normalized = storedLang.toLowerCase().trim();
+    "es";
+
+  const normalized = String(storedLang).toLowerCase().trim();
   const supported = ["es", "en", "tg"];
-  
+
   if (supported.includes(normalized)) return normalized;
-  
-  // Handle partial matches (e.g., 'en-US' -> 'en')
   for (const lang of supported) {
     if (normalized.startsWith(lang + "-") || normalized === lang) {
       return lang;
     }
   }
-  
-  return "en"; 
+
+  return "es";
 })();
 
 let isSwitching = false;
@@ -1668,21 +1666,21 @@ function downloadProfile(modalId) {
   const profileDownloads = {
     adachiModal: {
       es: {
-        imageUrl: "../../assets/Imagenes/Adachi_perfil.jpg",
+        imageUrl: "../../assets/Imagenes/Adachi_perfil.webp",
         fileName: "Adachi_perfil.jpg",
       },
       en: {
-        imageUrl: "../../assets/Imagenes/Adachi profile.jpg",
+        imageUrl: "../../assets/Imagenes/Adachi profile.webp",
         fileName: "Adachi profile.jpg",
       },
     },
     shimamuraModal: {
       es: {
-        imageUrl: "../../assets/Imagenes/Shimamura_Perfil.jpg",
+        imageUrl: "../../assets/Imagenes/Shimamura_Perfil.webp",
         fileName: "Shimamura_Perfil.jpg",
       },
       en: {
-        imageUrl: "../../assets/Imagenes/Shimamura profile.jpg",
+        imageUrl: "../../assets/Imagenes/Shimamura profile.webp",
         fileName: "Shimamura profile.jpg",
       },
     },
