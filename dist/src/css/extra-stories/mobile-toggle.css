@@ -1,9 +1,0 @@
-body #menu-component-wrapper .mobile-toggle {
-  left: auto !important;
-  right: 15px !important;
-  position: fixed !important;
-}
-
-body.reader-active #menu-component-wrapper .mobile-toggle {
-  display: none !important;
-}

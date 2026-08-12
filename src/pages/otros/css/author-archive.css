@@ -876,7 +876,7 @@ body {
 .article-modal {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: 100000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -884,6 +884,12 @@ body {
   visibility: hidden;
   transition: all 0.4s ease;
   padding: 0;
+}
+
+@media (min-width: 901px) {
+  .article-modal {
+    padding-left: 300px;
+  }
 }
 
 .article-modal.open {
@@ -953,6 +959,8 @@ body {
   justify-content: center;
   flex-shrink: 0;
   touch-action: manipulation;
+  position: relative;
+  z-index: 10;
 }
 
 .modal-close:hover {
@@ -1116,6 +1124,9 @@ body {
 @media (max-width: 768px) {
   .reference-panel {
     display: none !important;
+  }
+  .modal-close {
+    order: -1;
   }
 }
 
