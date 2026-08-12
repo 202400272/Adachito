@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Pacifico&family=Yanone+Kaffeesatz:wght@400;600&family=Chewy&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Chewy&display=swap");
 
 /* ============================================================
-   REDUCED MOTION PREFERENCE (Añadido del nuevo)
+   REDUCED MOTION
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   #menu-component-wrapper *,
@@ -13,112 +13,75 @@
 }
 
 /* ============================================================
-   ROOT VARIABLES (scoped to wrapper)
+   ROOT VARIABLES (scoped)
    ============================================================ */
 #menu-component-wrapper {
-  /* --- Core color palette --- */
-  --sakura-pink: #fce4ec !important;
-  --sakura-dark: #f06292 !important;
-  --hougetsu-blue: #e3f2fd !important;
-  --hougetsu-dark: #64b5f6 !important;
-  --cream-white: #fffbf0 !important;
-
-  /* --- Text colors --- */
-  --text-main: #5c4b51 !important;
-  --text-secondary: #5c4b51 !important;
-  --text-muted: #7a6a72 !important;
-
-  /* --- Glassmorphism effects --- */
-  --glass-bg: rgba(255, 255, 255, 0.45) !important;
-  --glass-border: rgba(255, 255, 255, 0.6) !important;
-  --glass-shadow: 0 8px 32px 0 rgba(135, 107, 145, 0.15) !important;
-
-  /* --- Navigation panel --- */
-  --nav-bg: linear-gradient(
-    135deg,
-    rgba(252, 228, 236, 0.72),
-    rgba(227, 242, 253, 0.72)
-  ) !important;
-  --nav-border: rgba(255, 255, 255, 0.6) !important;
-  --nav-text: #5c4b51 !important;
-  --nav-shadow: 0 8px 32px 0 rgba(135, 107, 145, 0.15) !important;
-
-  /* --- Surface cards --- */
-  --surface-bg: rgba(255, 255, 255, 0.85) !important;
-  --surface-border: rgba(240, 98, 146, 0.25) !important;
-  --surface-glass: rgba(255, 255, 255, 0.3) !important;
-
-  /* --- Accent colors for interactive elements --- */
-  --accent-primary: #f06292 !important;
-  --accent-soft: rgba(240, 98, 146, 0.12) !important;
-
-  /* --- Typography --- */
-  font-family: "Nunito", sans-serif !important;
-  color: var(--text-main) !important;
+  --sakura-pink: #fce4ec;
+  --sakura-dark: #f06292;
+  --hougetsu-blue: #e3f2fd;
+  --hougetsu-dark: #64b5f6;
+  --cream-white: #fffbf0;
+  --text-main: #5c4b51;
+  --text-secondary: #5c4b51;
+  --text-muted: #7a6a72;
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-shadow: 0 8px 32px 0 rgba(135, 107, 145, 0.15);
+  --nav-bg: linear-gradient(135deg, rgba(252, 228, 236, 0.72), rgba(227, 242, 253, 0.72));
+  --nav-border: rgba(255, 255, 255, 0.6);
+  --nav-text: #5c4b51;
+  --nav-shadow: 0 8px 32px 0 rgba(135, 107, 145, 0.15);
+  --surface-bg: rgba(255, 255, 255, 0.85);
+  --surface-border: rgba(240, 98, 146, 0.25);
+  --surface-glass: rgba(255, 255, 255, 0.3);
+  --accent-primary: #f06292;
+  --accent-soft: rgba(240, 98, 146, 0.12);
+  font-family: "Nunito", sans-serif;
+  color: var(--text-main);
   display: contents;
-  
-  /* Transición general para el texto del wrapper (Añadido del nuevo) */
-  transition-property: color;
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: color 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* ============================================================
    TIME-OF-DAY THEME OVERRIDES
    ============================================================ */
-
-/* --- MORNING THEME: Soft, cool blues and purples --- */
 body.time-morning #menu-component-wrapper {
-  --nav-bg: linear-gradient(
-    135deg,
-    rgba(230, 240, 252, 0.8),
-    rgba(245, 232, 248, 0.7)
-  ) !important;
-  --nav-border: rgba(200, 215, 235, 0.7) !important;
-  --nav-text: #837896 !important;
-  --nav-shadow: 0 8px 32px 0 rgba(130, 150, 180, 0.12) !important;
-  --text-main: #5c5470 !important;
-  --text-secondary: #5c5470 !important;
-  --surface-bg: #eef4fa !important;
-  --surface-border: rgba(168, 200, 232, 0.4) !important;
-  --accent-primary: #4a7fa8 !important;
-  --accent-soft: rgba(74, 127, 168, 0.12) !important;
+  --nav-bg: linear-gradient(135deg, rgba(230, 240, 252, 0.8), rgba(245, 232, 248, 0.7));
+  --nav-border: rgba(200, 215, 235, 0.7);
+  --nav-text: #837896;
+  --nav-shadow: 0 8px 32px 0 rgba(130, 150, 180, 0.12);
+  --text-main: #5c5470;
+  --text-secondary: #5c5470;
+  --surface-bg: #eef4fa;
+  --surface-border: rgba(168, 200, 232, 0.4);
+  --accent-primary: #4a7fa8;
+  --accent-soft: rgba(74, 127, 168, 0.12);
 }
 
-/* --- AFTERNOON THEME: Warm, pinkish tones --- */
 body.time-afternoon #menu-component-wrapper {
-  --nav-bg: linear-gradient(
-    135deg,
-    rgba(252, 228, 236, 0.72),
-    rgba(227, 242, 253, 0.72)
-  ) !important;
-  --nav-border: rgba(255, 255, 255, 0.6) !important;
-  --nav-text: #5c4b51 !important;
-  --nav-shadow: 0 8px 32px 0 rgba(135, 107, 145, 0.15) !important;
-  --text-main: #5c4b51 !important;
-  --text-secondary: #5c4b51 !important;
-  --surface-bg: #fef5f7 !important;
-  --surface-border: rgba(240, 98, 146, 0.25) !important;
-  --accent-primary: #f06292 !important;
-  --accent-soft: rgba(240, 98, 146, 0.12) !important;
+  --nav-bg: linear-gradient(135deg, rgba(252, 228, 236, 0.72), rgba(227, 242, 253, 0.72));
+  --nav-border: rgba(255, 255, 255, 0.6);
+  --nav-text: #5c4b51;
+  --nav-shadow: 0 8px 32px 0 rgba(135, 107, 145, 0.15);
+  --text-main: #5c4b51;
+  --text-secondary: #5c4b51;
+  --surface-bg: #fef5f7;
+  --surface-border: rgba(240, 98, 146, 0.25);
+  --accent-primary: #f06292;
+  --accent-soft: rgba(240, 98, 146, 0.12);
 }
 
-/* --- NIGHT THEME: Dark, purple tones --- */
 body.time-night #menu-component-wrapper {
-  --nav-bg: linear-gradient(
-    135deg,
-    rgba(34, 22, 48, 0.92),
-    rgba(54, 32, 68, 0.9)
-  ) !important;
-  --nav-border: rgba(180, 140, 170, 0.22) !important;
-  --nav-text: #d8c8e0 !important;
-  --nav-shadow: 0 8px 32px 0 rgba(15, 8, 30, 0.55) !important;
-  --text-main: #d8c8e0 !important;
-  --text-secondary: #b8a0c0 !important;
-  --surface-bg: rgba(60, 40, 75, 0.5) !important;
-  --surface-border: rgba(180, 140, 170, 0.25) !important;
-  --accent-primary: #c98aa8 !important;
-  --accent-soft: rgba(180, 120, 150, 0.18) !important;
+  --nav-bg: linear-gradient(135deg, rgba(34, 22, 48, 0.92), rgba(54, 32, 68, 0.9));
+  --nav-border: rgba(180, 140, 170, 0.22);
+  --nav-text: #d8c8e0;
+  --nav-shadow: 0 8px 32px 0 rgba(15, 8, 30, 0.55);
+  --text-main: #d8c8e0;
+  --text-secondary: #b8a0c0;
+  --surface-bg: rgba(60, 40, 75, 0.5);
+  --surface-border: rgba(180, 140, 170, 0.25);
+  --accent-primary: #c98aa8;
+  --accent-soft: rgba(180, 120, 150, 0.18);
 }
 
 /* ============================================================
@@ -127,7 +90,6 @@ body.time-night #menu-component-wrapper {
 #menu-component-wrapper .mobile-toggle {
   position: fixed;
   top: 15px;
-  left: auto;
   right: 15px;
   z-index: 13000;
   background: var(--glass-bg);
@@ -137,27 +99,20 @@ body.time-night #menu-component-wrapper {
   color: var(--sakura-dark);
   min-width: 56px;
   min-height: 56px;
-  width: auto;
-  height: auto;
   border-radius: 50%;
   cursor: pointer;
-  display: none; 
+  display: none;
   justify-content: center;
   align-items: center;
   font-size: 1.2rem;
-  line-height: 1;
   box-shadow: var(--glass-shadow);
   padding: 0.8rem;
   touch-action: manipulation;
-  pointer-events: auto;
-  /* Animación optimizada del nuevo */
-  transition-property: background-color, border-color, box-shadow, color, transform;
-  transition-duration: 250ms;
-  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-#menu-component-wrapper .mobile-toggle i {
-  pointer-events: none;
+  transition: background-color 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
+              border-color 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
+              color 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 #menu-component-wrapper .mobile-toggle:hover {
@@ -179,24 +134,15 @@ body.time-night #menu-component-wrapper {
   position: sticky;
   top: 0;
   overflow-y: auto;
-  background: var(--nav-bg) !important;
+  background: var(--nav-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-right: 1px solid var(--nav-border) !important;
-  box-shadow: var(--nav-shadow) !important;
+  border-right: 1px solid var(--nav-border);
+  box-shadow: var(--nav-shadow);
   z-index: 11000;
   transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-  background-image:
-    radial-gradient(
-      circle at 15% 50%,
-      rgba(255, 255, 255, 0.4) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 85% 30%,
-      rgba(255, 255, 255, 0.5) 0%,
-      transparent 50%
-    );
+  background-image: radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+                    radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.5) 0%, transparent 50%);
 }
 
 #menu-component-wrapper .sidebar::-webkit-scrollbar {
@@ -212,115 +158,87 @@ body.time-night #menu-component-wrapper {
   padding: 30px 25px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
   min-height: 100%;
-  /* Optimización del nuevo */
   transition: background-color 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* ============================================================
-   LOGO SECTION
+   BRANDING (non-interactive, strongest visual)
    ============================================================ */
-#menu-component-wrapper .sidebar-box {
-  position: relative;
+#menu-component-wrapper .branding-area {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  padding: 8px 0 12px 0;
+  margin-bottom: 4px;
   background: transparent;
-  padding: 0;
-  margin-bottom: 25px;
-  /* Optimizado con cubic-bezier del nuevo */
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: default;
+  pointer-events: none;
 }
 
-#menu-component-wrapper .sidebar-box:hover {
-  transform: translateY(-5px);
-}
-
-#menu-component-wrapper .sidebar-box img {
+#menu-component-wrapper .branding-area img {
   width: auto;
   max-width: 100%;
   height: auto;
   max-height: 160px;
   object-fit: contain;
   filter: drop-shadow(0 8px 15px rgba(240, 98, 146, 0.25));
-  /* Optimizado con cubic-bezier del nuevo */
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
 }
 
-#menu-component-wrapper .sidebar-box:hover img {
-  transform: scale(1.03);
-}
-
-#menu-component-wrapper .logo-label {
-  position: relative;
+#menu-component-wrapper .branding-area .logo-label {
   margin-top: -15px;
   transform: rotate(-2deg);
   font-family: "Chewy", cursive;
   font-size: 1.8rem;
-  color: var(--text-main) !important;
+  color: var(--text-main);
   text-align: center;
   white-space: normal;
   letter-spacing: 1px;
   line-height: 1.1;
   z-index: 10;
-  pointer-events: none;
   width: 100%;
-  text-shadow:
-    -4px -4px 0 #fff,
-    4px -4px 0 #fff,
-    -4px 4px 0 #fff,
-    4px 4px 0 #fff,
-    -4px 0px 0 #fff,
-    4px 0px 0 #fff,
-    0px -4px 0 #fff,
-    0px 4px 0 #fff;
-  /* Mantenemos tu timing de 2.5s viejo pero más eficiente */
-  transition-property: color, text-shadow;
-  transition-duration: 2.5s;
-  transition-timing-function: ease;
+  text-shadow: -4px -4px 0 #fff, 4px -4px 0 #fff, -4px 4px 0 #fff, 4px 4px 0 #fff,
+               -4px 0px 0 #fff, 4px 0px 0 #fff, 0px -4px 0 #fff, 0px 4px 0 #fff;
+  transition: color 2.5s ease, text-shadow 2.5s ease;
 }
 
-body.time-night #menu-component-wrapper .logo-label {
-  color: #d8c8e0 !important;
-  text-shadow:
-    -4px -4px 0 rgba(20, 12, 32, 0.5),
-    4px -4px 0 rgba(20, 12, 32, 0.5),
-    -4px 4px 0 rgba(20, 12, 32, 0.5),
-    4px 4px 0 rgba(20, 12, 32, 0.5);
+body.time-night #menu-component-wrapper .branding-area .logo-label {
+  color: #d8c8e0;
+  text-shadow: -4px -4px 0 rgba(20, 12, 32, 0.5), 4px -4px 0 rgba(20, 12, 32, 0.5),
+               -4px 4px 0 rgba(20, 12, 32, 0.5), 4px 4px 0 rgba(20, 12, 32, 0.5);
 }
 
-body.time-morning #menu-component-wrapper .logo-label {
-  color: #3a6ea5 !important;
+body.time-morning #menu-component-wrapper .branding-area .logo-label {
+  color: #3a6ea5;
 }
 
-body.time-afternoon #menu-component-wrapper .logo-label {
-  color: #e91e78 !important;
+body.time-afternoon #menu-component-wrapper .branding-area .logo-label {
+  color: #e91e78;
 }
 
 /* ============================================================
-   MENU BUTTONS (General)
+   BACK TO HOME (primary action)
    ============================================================ */
-#menu-component-wrapper .menu-btn {
+#menu-component-wrapper .home-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
-  background: var(--glass-bg) !important;
-  color: var(--text-main) !important;
+  background: var(--glass-bg);
+  color: var(--text-main);
   text-decoration: none;
   padding: 12px 20px;
   border-radius: 20px;
   font-weight: 700;
   font-size: 0.95rem;
-  border: 1px solid var(--glass-border) !important;
+  border: 1px solid var(--glass-border);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
   box-sizing: border-box;
   cursor: pointer;
   font-family: "Nunito", sans-serif;
-  /* Transición optimizada del nuevo */
   transition: background-color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
               border-color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
               box-shadow 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
@@ -328,44 +246,53 @@ body.time-afternoon #menu-component-wrapper .logo-label {
               transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-#menu-component-wrapper .menu-btn:hover {
+#menu-component-wrapper .home-btn:hover {
   background: white;
-  transform: translateY(-3px);
+  transform: translateX(6px);
   box-shadow: 0 8px 15px rgba(240, 98, 146, 0.15);
   color: var(--sakura-dark);
 }
 
-#menu-component-wrapper .menu-btn i {
+#menu-component-wrapper .home-btn i {
   font-size: 1.1rem;
   color: var(--hougetsu-dark);
   transition: color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-#menu-component-wrapper .menu-btn:hover i {
+#menu-component-wrapper .home-btn:hover i {
   color: var(--sakura-dark);
 }
 
 /* ============================================================
-   FACEBOOK BUTTON
+   DIVIDER
+   ============================================================ */
+#menu-component-wrapper .sidebar-divider {
+  height: 1px;
+  background: var(--surface-border);
+  margin: 4px 0 8px 0;
+  transition: background-color 2.5s ease;
+}
+
+/* ============================================================
+   FACEBOOK (secondary)
    ============================================================ */
 #menu-component-wrapper .fb-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
-  background: rgba(24, 119, 242, 0.1) !important;
-  color: #1877f2 !important;
-  border: 1px solid rgba(24, 119, 242, 0.2) !important;
+  background: rgba(24, 119, 242, 0.08);
+  color: #1877f2;
+  border: 1px solid rgba(24, 119, 242, 0.15);
   text-decoration: none;
-  padding: 12px 20px;
+  padding: 10px 16px;
   border-radius: 20px;
-  font-weight: 700;
-  font-size: 0.95rem;
+  font-weight: 600;
+  font-size: 0.9rem;
   box-sizing: border-box;
   cursor: pointer;
   font-family: "Nunito", sans-serif;
-  /* Transición optimizada del nuevo */
   transition: background-color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
               border-color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
               box-shadow 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
@@ -381,7 +308,7 @@ body.time-afternoon #menu-component-wrapper .logo-label {
 #menu-component-wrapper .fb-btn:hover {
   background: #1877f2;
   color: white;
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 
 #menu-component-wrapper .fb-btn:hover i {
@@ -389,30 +316,27 @@ body.time-afternoon #menu-component-wrapper .logo-label {
 }
 
 body.time-night #menu-component-wrapper .fb-btn {
-  background: rgba(24, 119, 242, 0.25) !important;
-  border-color: rgba(24, 119, 242, 0.3) !important;
+  background: rgba(24, 119, 242, 0.2);
+  border-color: rgba(24, 119, 242, 0.3);
 }
 
 /* ============================================================
-   INFO CARDS
+   INFO CARDS (Novel Status, Support)
    ============================================================ */
 #menu-component-wrapper .info-card {
-  background: var(--surface-bg) !important;
-  padding: 18px;
+  background: var(--surface-bg);
+  padding: 16px 18px;
   border-radius: 20px;
   text-align: center;
-  border: 1px solid var(--surface-border) !important;
+  border: 1px solid var(--surface-border);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  /* Mantiene tu diseño viejo (2.5s) con las propiedades optimizadas */
-  transition-property: background-color, border-color, box-shadow;
-  transition-duration: 2.5s;
-  transition-timing-function: ease;
+  transition: background-color 2.5s ease, border-color 2.5s ease, box-shadow 2.5s ease;
 }
 
 #menu-component-wrapper .info-card h4 {
-  margin: 0 0 10px 0;
-  font-size: 0.9rem;
-  color: var(--accent-primary) !important;
+  margin: 0 0 6px 0;
+  font-size: 0.85rem;
+  color: var(--accent-primary);
   text-transform: uppercase;
   letter-spacing: 1px;
   font-family: "Nunito", sans-serif;
@@ -421,39 +345,36 @@ body.time-night #menu-component-wrapper .fb-btn {
 
 #menu-component-wrapper .status-badge {
   display: inline-block;
-  background: var(--accent-soft) !important;
-  padding: 6px 15px;
+  background: var(--accent-soft);
+  padding: 4px 14px;
   border-radius: 20px;
   font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--accent-primary) !important;
+  font-size: 0.8rem;
+  color: var(--accent-primary);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  transition-property: background-color, color, border-color;
-  transition-duration: 2.5s;
-  transition-timing-function: ease;
+  transition: background-color 2.5s ease, color 2.5s ease;
 }
 
 #menu-component-wrapper .links-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 10px;
-  margin-top: 15px;
+  gap: 8px;
+  margin-top: 12px;
 }
 
 #menu-component-wrapper .link-tag {
-  background: var(--surface-bg) !important;
+  background: var(--surface-bg);
   padding: 8px 12px;
   border-radius: 12px;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   text-decoration: none;
-  color: var(--text-main) !important;
+  color: var(--text-main);
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border: 1px solid transparent;
   font-family: "Nunito", sans-serif;
-  /* Transición optimizada del nuevo */
   transition: background-color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
               border-color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
               color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
@@ -467,70 +388,54 @@ body.time-night #menu-component-wrapper .fb-btn {
   transform: translateX(5px);
 }
 
-body.time-night #menu-component-wrapper .status-badge {
-  background: rgba(150, 100, 130, 0.45) !important;
-  color: #e0d0dc !important;
-  box-shadow: 0 2px 8px rgba(15, 8, 30, 0.3) !important;
-}
-
 body.time-night #menu-component-wrapper .link-tag {
-  color: #b8a0c0 !important;
+  color: #b8a0c0;
 }
 
 body.time-night #menu-component-wrapper .link-tag:hover {
-  color: #c98aa8 !important;
+  color: #c98aa8;
 }
 
 /* ============================================================
-   REDESIGNED SETTINGS PANEL
+   SETTINGS (compact, collapsible)
    ============================================================ */
-
 #menu-component-wrapper .settings-card {
   background: var(--surface-bg);
   border: 1px solid var(--surface-border);
   border-radius: 20px;
-  padding: 22px 20px 24px;
+  padding: 18px 18px 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  /* Mantiene tu diseño viejo (2.5s) optimizado */
   transition: background-color 2.5s ease, border-color 2.5s ease, box-shadow 2.5s ease;
 }
 
-/* ----- SETTINGS HEADER ----- */
 #menu-component-wrapper .settings-header {
   display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  margin-bottom: 22px;
-  padding-bottom: 16px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--surface-border);
   transition: border-color 2.5s ease;
+  cursor: pointer;
 }
 
 #menu-component-wrapper .settings-header-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   border-radius: 10px;
   background: var(--accent-soft);
   color: var(--accent-primary);
-  font-size: 1rem;
+  font-size: 0.95rem;
   flex-shrink: 0;
   transition: background-color 2.5s ease, color 2.5s ease;
 }
 
-#menu-component-wrapper .settings-header-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  flex: 1;
-  min-width: 0;
-}
-
 #menu-component-wrapper .settings-header-content h3 {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.3px;
   color: var(--text-main);
@@ -540,7 +445,7 @@ body.time-night #menu-component-wrapper .link-tag:hover {
 
 #menu-component-wrapper .settings-header-content p {
   margin: 0;
-  font-size: 0.76rem;
+  font-size: 0.72rem;
   font-weight: 400;
   color: var(--text-secondary);
   opacity: 0.65;
@@ -548,15 +453,30 @@ body.time-night #menu-component-wrapper .link-tag:hover {
   transition: color 2.5s ease;
 }
 
-/* ----- SETTINGS SECTIONS ----- */
-#menu-component-wrapper .settings-section {
-  margin-bottom: 18px;
+#menu-component-wrapper .settings-body {
+  display: none;
+  margin-top: 6px;
+  animation: appearanceFadeIn 0.25s ease;
 }
 
-#menu-component-wrapper .settings-section:last-child {
-  margin-bottom: 0;
+#menu-component-wrapper .settings-body.open {
+  display: block;
 }
 
+@keyframes appearanceFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   SETTINGS SECTION LABELS
+   ============================================================ */
 #menu-component-wrapper .settings-section-label {
   display: block;
   font-size: 0.58rem;
@@ -565,7 +485,7 @@ body.time-night #menu-component-wrapper .link-tag:hover {
   letter-spacing: 0.1em;
   color: var(--text-secondary);
   opacity: 0.45;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   transition: color 2.5s ease;
 }
 
@@ -574,200 +494,47 @@ body.time-night #menu-component-wrapper .link-tag:hover {
   font-size: 0.82rem;
   font-weight: 600;
   color: var(--text-main);
-  margin-bottom: 8px;
+  margin-bottom: 2px;
   transition: color 2.5s ease;
 }
 
 #menu-component-wrapper .settings-subsection-desc {
   display: block;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--text-secondary);
   opacity: 0.55;
-  margin-bottom: 10px;
-  transition: color 2.5s ease;
-}
-
-/* ----- SETTING GROUP ----- */
-#menu-component-wrapper .setting-group {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 8px 0;
-}
-
-#menu-component-wrapper .setting-group:first-of-type {
-  padding-top: 0;
-}
-
-#menu-component-wrapper .setting-group:last-of-type {
-  padding-bottom: 0;
-}
-
-#menu-component-wrapper .setting-label {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  flex: 1;
-  min-width: 0;
-}
-
-#menu-component-wrapper .setting-label > span:first-child {
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--text-main);
-  line-height: 1.3;
+  margin-bottom: 6px;
   transition: color 2.5s ease;
 }
 
 #menu-component-wrapper .setting-description {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: var(--text-secondary);
   opacity: 0.5;
   line-height: 1.4;
   transition: color 2.5s ease;
 }
 
-/* ----- DIVIDER ----- */
-#menu-component-wrapper .settings-divider {
-  height: 1px;
-  background: var(--surface-border);
-  margin: 16px 0 18px;
-  transition: background-color 2.5s ease;
+#menu-component-wrapper .setting-label > span:first-child {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.3;
+  transition: color 2.5s ease;
+}
+
+#menu-component-wrapper .setting-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0;
 }
 
 /* ============================================================
    LANGUAGE SELECTOR
    ============================================================ */
-#menu-component-wrapper .language-selector {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  background: var(--surface-bg);
-  border-radius: 12px;
-  border: 1px solid var(--surface-border);
-  overflow: hidden;
-  /* Optimizado con tu 2.5s */
-  transition: border-color 2.5s ease, background-color 2.5s ease;
-}
-
-#menu-component-wrapper .lang-option {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  padding: 10px 14px;
-  border: none;
-  background: transparent;
-  color: var(--text-main);
-  font-size: 0.88rem;
-  font-weight: 500;
-  text-align: left;
-  cursor: pointer;
-  font-family: "Nunito", sans-serif;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-  position: relative;
-  /* Velocidad interactiva rápida del nuevo */
-  transition: background-color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-              color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-#menu-component-wrapper .lang-option:last-child {
-  border-bottom: none;
-}
-
-body.time-night #menu-component-wrapper .lang-option {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-#menu-component-wrapper .lang-option .lang-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  flex-shrink: 0;
-  font-size: 1.1rem;
-  line-height: 1;
-  opacity: 0.6;
-  transition: opacity 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-#menu-component-wrapper .lang-option .lang-name {
-  flex: 1;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--text-main);
-  transition: color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-#menu-component-wrapper .lang-option .lang-check {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-muted);
-  font-size: 0.7rem;
-  opacity: 0;
-  transform: scale(0.6);
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  transition: opacity 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-              transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-              color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-#menu-component-wrapper .lang-option .lang-check i {
-  display: block;
-}
-
-#menu-component-wrapper .lang-option:hover {
-  background: var(--accent-soft);
-}
-
-#menu-component-wrapper .lang-option:hover .lang-icon {
-  opacity: 0.9;
-}
-
-#menu-component-wrapper .lang-option:focus-visible {
-  outline: 2px solid var(--accent-primary);
-  outline-offset: -2px;
-  position: relative;
-  z-index: 1;
-}
-
-#menu-component-wrapper .lang-option.active {
-  background: var(--accent-soft);
-}
-
-#menu-component-wrapper .lang-option.active .lang-name {
-  color: var(--accent-primary);
-}
-
-#menu-component-wrapper .lang-option.active .lang-icon {
-  opacity: 1;
-}
-
-#menu-component-wrapper .lang-option.active .lang-check {
-  opacity: 1;
-  transform: scale(1);
-  color: var(--accent-primary);
-}
-
-/* ============================================================
-   APPEARANCE SELECTOR
-   ============================================================ */
-
-#menu-component-wrapper .appearance-selector-wrapper {
-  margin-top: 12px;
-  animation: appearanceFadeIn 0.25s ease;
-}
-
-@keyframes appearanceFadeIn {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
+#menu-component-wrapper .language-selector,
 #menu-component-wrapper .appearance-selector {
   display: flex;
   flex-direction: column;
@@ -777,110 +544,93 @@ body.time-night #menu-component-wrapper .lang-option {
   border: 1px solid var(--surface-border);
   overflow: hidden;
   transition: border-color 2.5s ease, background-color 2.5s ease;
+  margin-top: 8px;
 }
 
+#menu-component-wrapper .lang-option,
 #menu-component-wrapper .appearance-option {
   display: flex;
   align-items: center;
   gap: 12px;
   width: 100%;
-  padding: 10px 14px;
+  padding: 8px 12px;
   border: none;
   background: transparent;
   color: var(--text-main);
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 500;
   text-align: left;
   cursor: pointer;
   font-family: "Nunito", sans-serif;
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-  position: relative;
   transition: background-color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
               color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+#menu-component-wrapper .lang-option:last-child,
 #menu-component-wrapper .appearance-option:last-child {
   border-bottom: none;
 }
 
+body.time-night #menu-component-wrapper .lang-option,
 body.time-night #menu-component-wrapper .appearance-option {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+#menu-component-wrapper .lang-option .lang-icon,
 #menu-component-wrapper .appearance-option .appearance-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
   opacity: 0.6;
   transition: opacity 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-#menu-component-wrapper .appearance-option .appearance-icon svg {
-  width: 20px;
-  height: 20px;
-  stroke: currentColor;
-  fill: none;
-  transition: stroke 0.2s ease;
-}
-
+#menu-component-wrapper .lang-option .lang-name,
 #menu-component-wrapper .appearance-option .appearance-name {
   flex: 1;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-main);
   transition: color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+#menu-component-wrapper .lang-option .lang-check,
 #menu-component-wrapper .appearance-option .appearance-check {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: var(--text-muted);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   opacity: 0;
   transform: scale(0.6);
   flex-shrink: 0;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   transition: opacity 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
               transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
               color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-#menu-component-wrapper .appearance-option .appearance-check i {
-  display: block;
-}
-
+#menu-component-wrapper .lang-option:hover,
 #menu-component-wrapper .appearance-option:hover {
   background: var(--accent-soft);
 }
 
-#menu-component-wrapper .appearance-option:hover .appearance-icon {
-  opacity: 0.9;
-}
-
-#menu-component-wrapper .appearance-option:focus-visible {
-  outline: 2px solid var(--accent-primary);
-  outline-offset: -2px;
-  position: relative;
-  z-index: 1;
-}
-
+#menu-component-wrapper .lang-option.active,
 #menu-component-wrapper .appearance-option.active {
   background: var(--accent-soft);
 }
 
+#menu-component-wrapper .lang-option.active .lang-name,
 #menu-component-wrapper .appearance-option.active .appearance-name {
   color: var(--accent-primary);
 }
 
-#menu-component-wrapper .appearance-option.active .appearance-icon {
-  opacity: 1;
-}
-
+#menu-component-wrapper .lang-option.active .lang-check,
 #menu-component-wrapper .appearance-option.active .appearance-check {
   opacity: 1;
   transform: scale(1);
@@ -892,8 +642,8 @@ body.time-night #menu-component-wrapper .appearance-option {
    ============================================================ */
 #menu-component-wrapper .toggle-switch {
   position: relative;
-  width: 44px;
-  height: 26px;
+  width: 40px;
+  height: 24px;
   flex-shrink: 0;
   cursor: pointer;
 }
@@ -920,17 +670,15 @@ body.time-night #menu-component-wrapper .appearance-option {
   background: var(--surface-border);
   border-radius: 26px;
   border: 1px solid rgba(0, 0, 0, 0.06);
-  /* Física de switch del nuevo */
   transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-              border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+              border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #menu-component-wrapper .toggle-slider::before {
   content: "";
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   left: 2px;
   bottom: 2px;
   background: #fff;
@@ -945,12 +693,7 @@ body.time-night #menu-component-wrapper .appearance-option {
 }
 
 #menu-component-wrapper .toggle-switch input:checked + .toggle-slider::before {
-  transform: translateX(18px);
-}
-
-#menu-component-wrapper .toggle-switch input:focus-visible + .toggle-slider {
-  outline: 2px solid var(--accent-primary);
-  outline-offset: 2px;
+  transform: translateX(16px);
 }
 
 body.time-night #menu-component-wrapper .toggle-slider {
@@ -967,52 +710,19 @@ body.time-night #menu-component-wrapper .toggle-slider::before {
   background: #d8c8e0;
 }
 
-body.time-morning #menu-component-wrapper .toggle-switch input:checked + .toggle-slider {
-  background: #7a9fc7;
-  border-color: #7a9fc7;
-}
-
 /* ============================================================
-   HOMEPAGE NOTICE
+   HOMEPAGE NOTICE (hidden by default)
    ============================================================ */
 #menu-component-wrapper .homepage-notice {
-  font-size: 0.72rem;
-  opacity: 0.8;
-  font-family: "Nunito", sans-serif;
-  color: var(--text-secondary);
-  margin-top: 8px;
-  padding: 6px 12px;
-  background: var(--accent-soft);
-  border-radius: 10px;
-  border: 1px solid var(--surface-border);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: background-color 2.5s ease, border-color 2.5s ease, color 2.5s ease;
-}
-
-#menu-component-wrapper .homepage-notice i {
-  color: var(--accent-primary);
-  font-size: 0.75rem;
-  transition: color 2.5s ease;
-}
-
-body.time-night #menu-component-wrapper .homepage-notice {
-  background: rgba(180, 120, 150, 0.1) !important;
-  border-color: rgba(180, 120, 150, 0.18) !important;
-  color: #b8a0c0 !important;
+  display: none !important;
 }
 
 /* ============================================================
    RESPONSIVE BREAKPOINTS
    ============================================================ */
-
-/* ----- Mobile (≤ 900px) ----- */
 @media (max-width: 900px) {
   #menu-component-wrapper .mobile-toggle {
     display: flex !important;
-    left: auto !important;
-    right: 15px !important;
   }
 
   #menu-component-wrapper .sidebar {
@@ -1034,31 +744,20 @@ body.time-night #menu-component-wrapper .homepage-notice {
   #menu-component-wrapper .sidebar.active {
     transform: translateX(0);
   }
-
-  #menu-component-wrapper .mobile-only-section {
-    display: block !important;
-  }
 }
 
-/* ----- Desktop (≥ 901px) ----- */
 @media (min-width: 901px) {
   #menu-component-wrapper .mobile-only-section {
     display: none !important;
   }
-
-  #menu-component-wrapper .homepage-notice {
-    display: none !important;
-  }
 }
 
-/* ----- Small mobile (≤ 600px) ----- */
 @media (max-width: 600px) {
   #menu-component-wrapper .mobile-toggle {
     width: 56px;
     height: 56px;
     font-size: 1.4rem;
     right: 12px;
-    left: auto;
     top: 12px;
   }
 
@@ -1067,357 +766,18 @@ body.time-night #menu-component-wrapper .homepage-notice {
     max-width: none;
     border-radius: 0;
     transform: translateX(100%);
-    padding: 0;
   }
 
   #menu-component-wrapper .sidebar-inner {
     padding: 22px;
-    gap: 18px;
-  }
-
-  #menu-component-wrapper .sidebar-box img {
-    max-width: 100%;
-    max-height: 200px;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-  }
-
-  #menu-component-wrapper .logo-label {
-    font-size: 2.2rem;
-  }
-
-  #menu-component-wrapper .logo-label span.sub-text {
-    font-size: 1.4rem;
-  }
-
-  #menu-component-wrapper .menu-btn {
-    padding: 14px 18px;
-    font-size: 1.08rem;
-    border-radius: 14px;
-    min-height: 52px;
-  }
-
-  #menu-component-wrapper .fb-btn {
-    padding: 14px 18px;
-    font-size: 1.02rem;
-  }
-
-  #menu-component-wrapper .link-tag {
-    font-size: 1rem;
-    padding: 12px 14px;
-    border-radius: 14px;
-  }
-
-  #menu-component-wrapper .info-card {
-    padding: 16px;
-  }
-
-  #menu-component-wrapper .info-card h4 {
-    font-size: 1rem;
-  }
-
-  #menu-component-wrapper .links-grid {
-    gap: 12px;
-  }
-
-  #menu-component-wrapper .settings-card {
-    padding: 18px 16px 20px;
-    border-radius: 16px;
-  }
-
-  #menu-component-wrapper .settings-header {
-    gap: 12px;
-    margin-bottom: 18px;
-    padding-bottom: 14px;
-  }
-
-  #menu-component-wrapper .settings-header-icon {
-    width: 32px;
-    height: 32px;
-    font-size: 0.9rem;
-    border-radius: 8px;
-  }
-
-  #menu-component-wrapper .settings-header-content h3 {
-    font-size: 0.98rem;
-  }
-
-  #menu-component-wrapper .settings-header-content p {
-    font-size: 0.72rem;
-  }
-
-  #menu-component-wrapper .settings-section {
-    margin-bottom: 16px;
-  }
-
-  #menu-component-wrapper .settings-section-label {
-    font-size: 0.55rem;
-    margin-bottom: 10px;
-  }
-
-  #menu-component-wrapper .settings-subsection-label {
-    font-size: 0.8rem;
-  }
-
-  #menu-component-wrapper .settings-subsection-desc {
-    font-size: 0.7rem;
-    margin-bottom: 8px;
-  }
-
-  #menu-component-wrapper .setting-group {
-    padding: 6px 0;
-    gap: 12px;
-  }
-
-  #menu-component-wrapper .setting-label > span:first-child {
-    font-size: 0.85rem;
-  }
-
-  #menu-component-wrapper .setting-description {
-    font-size: 0.68rem;
-  }
-
-  #menu-component-wrapper .settings-divider {
-    margin: 14px 0 16px;
-  }
-
-  #menu-component-wrapper .lang-option {
-    padding: 9px 12px;
-    gap: 10px;
-    font-size: 0.84rem;
-  }
-
-  #menu-component-wrapper .lang-option .lang-icon {
-    width: 24px;
-    height: 24px;
-    font-size: 0.95rem;
-  }
-
-  #menu-component-wrapper .lang-option .lang-name {
-    font-size: 0.84rem;
-  }
-
-  #menu-component-wrapper .lang-option .lang-check {
-    font-size: 0.65rem;
-    width: 18px;
-    height: 18px;
-  }
-
-  #menu-component-wrapper .language-selector {
-    border-radius: 10px;
-  }
-
-  #menu-component-wrapper .appearance-selector-wrapper {
-    margin-top: 10px;
-  }
-
-  #menu-component-wrapper .appearance-option {
-    padding: 9px 12px;
-    gap: 10px;
-    font-size: 0.84rem;
-  }
-
-  #menu-component-wrapper .appearance-option .appearance-icon {
-    width: 24px;
-    height: 24px;
-  }
-
-  #menu-component-wrapper .appearance-option .appearance-icon svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  #menu-component-wrapper .appearance-option .appearance-name {
-    font-size: 0.84rem;
-  }
-
-  #menu-component-wrapper .appearance-option .appearance-check {
-    font-size: 0.65rem;
-    width: 18px;
-    height: 18px;
-  }
-
-  #menu-component-wrapper .appearance-selector {
-    border-radius: 10px;
-  }
-
-  #menu-component-wrapper .toggle-switch {
-    width: 40px;
-    height: 24px;
-  }
-
-  #menu-component-wrapper .toggle-slider::before {
-    width: 18px;
-    height: 18px;
-    left: 2px;
-    bottom: 2px;
-  }
-
-  #menu-component-wrapper .toggle-switch input:checked + .toggle-slider::before {
-    transform: translateX(16px);
-  }
-}
-
-/* ----- Extra small mobile (≤ 420px) ----- */
-@media (max-width: 420px) {
-  #menu-component-wrapper .mobile-toggle {
-    width: 62px;
-    height: 62px;
-    font-size: 1.5rem;
-    right: 12px;
-    left: auto;
-  }
-
-  #menu-component-wrapper .sidebar-inner {
-    padding: 18px;
     gap: 14px;
   }
 
-  #menu-component-wrapper .sidebar-box img {
-    max-height: 150px;
+  #menu-component-wrapper .branding-area img {
+    max-height: 140px;
   }
 
-  #menu-component-wrapper .logo-label {
-    font-size: 1.9rem;
-  }
-
-  #menu-component-wrapper .menu-btn {
-    font-size: 1.02rem;
-    padding: 12px 16px;
-  }
-
-  #menu-component-wrapper .link-tag {
-    font-size: 0.98rem;
-    padding: 12px;
-  }
-
-  #menu-component-wrapper .settings-card {
-    padding: 14px 12px 16px;
-    border-radius: 14px;
-  }
-
-  #menu-component-wrapper .settings-header {
-    gap: 10px;
-    margin-bottom: 14px;
-    padding-bottom: 12px;
-  }
-
-  #menu-component-wrapper .settings-header-icon {
-    width: 28px;
-    height: 28px;
-    font-size: 0.8rem;
-    border-radius: 6px;
-  }
-
-  #menu-component-wrapper .settings-header-content h3 {
-    font-size: 0.92rem;
-  }
-
-  #menu-component-wrapper .settings-header-content p {
-    font-size: 0.68rem;
-  }
-
-  #menu-component-wrapper .settings-section-label {
-    font-size: 0.5rem;
-    margin-bottom: 8px;
-  }
-
-  #menu-component-wrapper .settings-subsection-label {
-    font-size: 0.76rem;
-  }
-
-  #menu-component-wrapper .settings-subsection-desc {
-    font-size: 0.66rem;
-    margin-bottom: 6px;
-  }
-
-  #menu-component-wrapper .setting-group {
-    padding: 5px 0;
-    gap: 10px;
-  }
-
-  #menu-component-wrapper .setting-label > span:first-child {
-    font-size: 0.82rem;
-  }
-
-  #menu-component-wrapper .setting-description {
-    font-size: 0.64rem;
-  }
-
-  #menu-component-wrapper .settings-divider {
-    margin: 12px 0 14px;
-  }
-
-  #menu-component-wrapper .lang-option {
-    padding: 8px 10px;
-    gap: 8px;
-    font-size: 0.8rem;
-  }
-
-  #menu-component-wrapper .lang-option .lang-icon {
-    width: 22px;
-    height: 22px;
-    font-size: 0.85rem;
-  }
-
-  #menu-component-wrapper .lang-option .lang-name {
-    font-size: 0.8rem;
-  }
-
-  #menu-component-wrapper .lang-option .lang-check {
-    font-size: 0.6rem;
-    width: 16px;
-    height: 16px;
-  }
-
-  #menu-component-wrapper .language-selector {
-    border-radius: 8px;
-  }
-
-  #menu-component-wrapper .appearance-option {
-    padding: 8px 10px;
-    gap: 8px;
-    font-size: 0.8rem;
-  }
-
-  #menu-component-wrapper .appearance-option .appearance-icon {
-    width: 22px;
-    height: 22px;
-  }
-
-  #menu-component-wrapper .appearance-option .appearance-icon svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  #menu-component-wrapper .appearance-option .appearance-name {
-    font-size: 0.8rem;
-  }
-
-  #menu-component-wrapper .appearance-option .appearance-check {
-    font-size: 0.6rem;
-    width: 16px;
-    height: 16px;
-  }
-
-  #menu-component-wrapper .appearance-selector {
-    border-radius: 8px;
-  }
-
-  #menu-component-wrapper .toggle-switch {
-    width: 36px;
-    height: 22px;
-  }
-
-  #menu-component-wrapper .toggle-slider::before {
-    width: 16px;
-    height: 16px;
-    left: 2px;
-    bottom: 2px;
-  }
-
-  #menu-component-wrapper .toggle-switch input:checked + .toggle-slider::before {
-    transform: translateX(14px);
+  #menu-component-wrapper .branding-area .logo-label {
+    font-size: 1.6rem;
   }
 }
