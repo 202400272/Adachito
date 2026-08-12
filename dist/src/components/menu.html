@@ -1089,9 +1089,7 @@
             e.preventDefault();
             const route = this.getAttribute("data-route");
             const homeRoute =
-              route && route !== "#"
-                ? route
-                : `${getSiteRootPath()}/index.html`;
+              route && route !== "#" ? route : "/index.html";
             window.location.href = homeRoute;
           });
 
