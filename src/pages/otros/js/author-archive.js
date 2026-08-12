@@ -766,24 +766,33 @@ document.addEventListener("DOMContentLoaded", function () {
     filterAndRender();
   });
 
-  document.getElementById("modalClose").addEventListener("click", closeArticle);
-  document
-    .getElementById("modalBackdrop")
-    .addEventListener("click", closeArticle);
+  document.addEventListener("click", function (e) {
+    const modal = document.getElementById("articleModal");
+    if (!modal.classList.contains("open")) return;
 
-  document
-    .querySelector(".modal-content")
-    .addEventListener("click", function (e) {
-      if (
-        !e.target.closest("a") &&
-        !e.target.closest("button") &&
-        !e.target.closest(".reference-marker") &&
-        !e.target.closest(".reference-note") &&
-        !e.target.closest(".reference-panel")
-      ) {
-        closeArticle();
-      }
-    });
+    if (e.target.closest("#modalClose")) {
+      e.preventDefault();
+      closeArticle();
+      return;
+    }
+
+    if (e.target.closest("#modalBackdrop")) {
+      closeArticle();
+      return;
+    }
+
+    const clickedInsideContent = e.target.closest(".modal-content");
+    if (
+      clickedInsideContent &&
+      !e.target.closest("a") &&
+      !e.target.closest("button") &&
+      !e.target.closest(".reference-marker") &&
+      !e.target.closest(".reference-note") &&
+      !e.target.closest(".reference-panel")
+    ) {
+      closeArticle();
+    }
+  });
 
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") closeArticle();
