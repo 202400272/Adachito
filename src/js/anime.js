@@ -297,7 +297,7 @@ function buildChannels(data, miniData) {
 async function loadContent(lang) {
   try {
     console.log(`🔄 Loading ${lang}.json...`);
-    const response = await fetch(`../data/anime/${lang}.json?v=${Date.now()}`);
+    const response = await fetch(`/src/data/anime/${lang}.json?v=${Date.now()}`);
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     const data = await response.json();
 
@@ -314,7 +314,7 @@ async function loadContent(lang) {
       try {
         console.warn("🔄 Falling back to English for Spanish");
         const fallbackResponse = await fetch(
-          `../data/anime/en.json?v=${Date.now()}`,
+          `/src/data/anime/en.json?v=${Date.now()}`,
         );
         if (!fallbackResponse.ok) throw new Error("Fallback failed");
         const fallbackData = await fallbackResponse.json();
@@ -345,7 +345,7 @@ async function loadMiniAnime(lang) {
   try {
     console.log(`🔄 Loading mini_anime/${lang}.json...`);
     const response = await fetch(
-      `../data/mini_anime/${lang}.json?v=${Date.now()}`,
+      `/src/data/mini_anime/${lang}.json?v=${Date.now()}`,
     );
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     const data = await response.json();

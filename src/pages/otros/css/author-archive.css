@@ -876,7 +876,7 @@ body {
 .article-modal {
   position: fixed;
   inset: 0;
-  z-index: 100000;
+  z-index: 2147483647 !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -884,6 +884,11 @@ body {
   visibility: hidden;
   transition: all 0.4s ease;
   padding: 0;
+  pointer-events: none;
+}
+
+.article-modal.open {
+  pointer-events: auto;
 }
 
 @media (min-width: 901px) {
@@ -960,7 +965,8 @@ body {
   flex-shrink: 0;
   touch-action: manipulation;
   position: relative;
-  z-index: 10;
+  z-index: 2147483647 !important;
+  pointer-events: auto !important;
 }
 
 .modal-close:hover {

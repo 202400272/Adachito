@@ -48,7 +48,7 @@ function initializeJuegoPage() {
     document.getElementById("langSelectedLabel") ||
     ({ textContent: "" });
   canvas = document.getElementById("gameCanvas");
-  ctx = canvas ? canvas.getContext("2d") : null;
+  ctx = canvas ? canvas.getContext("2d", { alpha: false, desynchronized: true }) : null;
   container = document.getElementById("gameContainer");
   mobileControls = document.getElementById("mobileControls");
   btnJump = document.getElementById("btnJump");
@@ -88,6 +88,7 @@ function initializeJuegoPage() {
           localStorage.getItem("preferredLanguage") ||
           "es";
         setTimeout(() => {
+          hookMenuLanguageSync();
           if (window.translateMenu) {
             window.translateMenu(preferredLang);
           }
@@ -216,7 +217,15 @@ function initializeJuegoPage() {
   }
 
   detectTouch();
-  window.addEventListener("resize", resizeCanvas);
+  let resizePending = false;
+  window.addEventListener("resize", () => {
+    if (resizePending) return;
+    resizePending = true;
+    requestAnimationFrame(() => {
+      resizeCanvas();
+      resizePending = false;
+    });
+  });
   setTimeout(resizeCanvas, 50);
   resizeCanvas();
   applyLanguage(currentLang);
@@ -306,7 +315,7 @@ function updateMusicButton(isPlaying) {
   }
 }
 
-function applyLanguage(lang) {
+function syncGameLanguage(lang) {
   const selectedLang = lang === "es" ? "es" : "en";
   currentLang = selectedLang;
   localStorage.setItem("lang", selectedLang);
@@ -324,15 +333,33 @@ function applyLanguage(lang) {
     option.classList.toggle("selected", isSelected);
   });
   updateMusicButton(isMusicPlaying);
+}
+
+function applyLanguage(lang) {
+  syncGameLanguage(lang);
   if (window.translateMenu) {
-    window.translateMenu(selectedLang);
+    window.translateMenu(lang);
   } else {
     setTimeout(() => {
       if (window.translateMenu) {
-        window.translateMenu(selectedLang);
+        window.translateMenu(lang);
       }
     }, 150);
   }
+}
+
+function hookMenuLanguageSync() {
+  if (typeof window.translateMenu !== "function" || window.translateMenu.__juegoSynced) {
+    return;
+  }
+  const originalTranslateMenu = window.translateMenu;
+  const syncedTranslateMenu = async function (lang) {
+    const result = await originalTranslateMenu(lang);
+    syncGameLanguage(lang);
+    return result;
+  };
+  syncedTranslateMenu.__juegoSynced = true;
+  window.translateMenu = syncedTranslateMenu;
 }
 
 
@@ -366,7 +393,7 @@ function resizeCanvas() {
   container.style.height = displayH + "px";
 
   ctx.imageSmoothingEnabled = true;
-  ctx.imageSmoothingQuality = "high";
+  ctx.imageSmoothingQuality = "low";
 }
 
 function detectTouch() {
@@ -397,6 +424,9 @@ let gameTimeSeconds = 0;
 let starRainActive = false;
 let lastStarRainTime = -100;
 let donutSpawnActive = false;
+
+let lastFrameTime = 0;
+const TARGET_FRAME_MS = 1000 / 60;
 
 const imgYashiro = new Image();
 imgYashiro.src = "../../assets/Imagenes/Yashiro_flotante_pixel-Photoroom.png";
@@ -469,6 +499,7 @@ const yashiro = {
 };
 
 function resetGame() {
+  lastFrameTime = 0;
   obstacles = [];
   score = 0;
   frames = 0;
@@ -727,7 +758,7 @@ function getGameText(key) {
   return langTexts[key] || key;
 }
 
-function animate() {
+function animate(timestamp) {
   if (isGameOver) {
     ctx.fillStyle = "rgba(0,0,0,0.7)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -769,6 +800,12 @@ function animate() {
   }
 
   requestAnimationFrame(animate);
+
+  if (!lastFrameTime) lastFrameTime = timestamp;
+  const elapsed = timestamp - lastFrameTime;
+  if (elapsed < TARGET_FRAME_MS) return;
+  lastFrameTime = timestamp;
+
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(imgFondo, 0, 0, canvas.width, canvas.height);
 
@@ -1042,77 +1079,3 @@ window.addEventListener("keydown", (e) => {
     fireBoomerang();
   }
 });
-
-if (canvas) {
-  canvas.addEventListener(
-    "touchstart",
-    (e) => {
-      e.preventDefault();
-      if (isTouchDevice) {
-        if (isGameOver) {
-          resetGame();
-          animate();
-        }
-      } else {
-        if (isGameOver) {
-          resetGame();
-          animate();
-        } else {
-          yashiro.jump();
-        }
-      }
-    },
-    { passive: false },
-  );
-
-  canvas.addEventListener("click", () => {
-    if (!isTouchDevice) {
-      if (isGameOver) {
-        resetGame();
-        animate();
-      } else {
-        yashiro.jump();
-      }
-    }
-  });
-}
-
-if (btnJump) {
-  btnJump.addEventListener(
-    "touchstart",
-    (e) => {
-      e.preventDefault();
-      if (isGameOver) {
-        resetGame();
-        animate();
-      } else {
-        yashiro.jump();
-      }
-    },
-    { passive: false },
-  );
-
-  btnJump.addEventListener("click", () => {
-    if (isGameOver) {
-      resetGame();
-      animate();
-    } else {
-      yashiro.jump();
-    }
-  });
-}
-
-if (btnShoot) {
-  btnShoot.addEventListener(
-    "touchstart",
-    (e) => {
-      e.preventDefault();
-      if (!isGameOver) fireBoomerang();
-    },
-    { passive: false },
-  );
-
-  btnShoot.addEventListener("click", () => {
-    if (!isGameOver) fireBoomerang();
-  });
-}

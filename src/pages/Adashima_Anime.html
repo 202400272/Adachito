@@ -70,12 +70,29 @@
     <link rel="stylesheet" href="/src/components/styles/scrollbar.css" />
     <link rel="stylesheet" href="/src/components/styles/menu.css" />
     <style>
+      /* ------------------------------------------------------------
+         The menu component (menu.html) is fetched and injected into
+         #sidebar-container AFTER this page loads, and it brings its
+         own stylesheet (menu.css) which defines .sidebar as sticky.
+         Because that stylesheet is attached later in the document,
+         it wins ties in specificity against the rules below. We use
+         !important + an extra html/body prefix here (this file only,
+         menu.css/menu.html are not touched) so the fixed column
+         layout always wins regardless of load order.
+         ------------------------------------------------------------ */
       @media (min-width: 901px) {
-        #menu-component-wrapper .sidebar {
-          position: fixed;
-          top: 0;
-          left: 0;
-          height: 100vh;
+        html body #sidebar-container #menu-component-wrapper .sidebar {
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: auto !important;
+          height: 100vh !important;
+          overflow-y: auto !important;
+          transform: none !important;
+          z-index: 10;
+        }
+        html body #menu-component-wrapper .mobile-toggle {
+          display: none !important;
         }
         .main-content {
           margin-left: 300px;

@@ -185,6 +185,7 @@ updateFooterText();
   let favorites = new Set();
   let isQueueOpen = false;
   let viewMode = "library";
+  let currentView = "standard";
 
   function normalizeFavoriteEntry(entry) {
     if (typeof entry === "string") {
@@ -329,6 +330,8 @@ updateFooterText();
   );
   const favoritesResultCount = document.getElementById("favoritesResultCount");
 
+  let playerVisible = false;
+
   function showPlayer() {
     if (!playerVisible) {
       playerVisible = true;
@@ -347,18 +350,15 @@ updateFooterText();
 
   async function loadMusicData() {
     try {
-      const jsonPath =
-        window.LanguageSwitch && typeof window.LanguageSwitch.getDataUrl === "function"
-          ? window.LanguageSwitch.getDataUrl("music", currentLang)
-          : (() => {
-              const path = window.location.pathname;
-              if (path.includes("/src/pages/")) {
-                return `../../data/music/${currentLang}.json?v=${Date.now()}`;
-              } else if (path.includes("/src/")) {
-                return `../data/music/${currentLang}.json?v=${Date.now()}`;
-              }
-              return `./src/data/music/${currentLang}.json?v=${Date.now()}`;
-            })();
+      const jsonPath = (() => {
+        const path = window.location.pathname;
+        if (path.includes("/src/pages/")) {
+          return `../../data/music/${currentLang}.json?v=${Date.now()}`;
+        } else if (path.includes("/src/")) {
+          return `../data/music/${currentLang}.json?v=${Date.now()}`;
+        }
+        return `/src/data/music/${currentLang}.json?v=${Date.now()}`;
+      })();
 
       const response = await fetch(jsonPath);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -1163,6 +1163,8 @@ updateFooterText();
     isQueueOpen = false;
     updateQueueUI();
   }
+
+  let isExpandedPlayerOpen = false;
 
   function toggleExpandedPlayer() {
     isExpandedPlayerOpen = !isExpandedPlayerOpen;

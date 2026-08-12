@@ -71,7 +71,7 @@ const floatingLink = document.getElementById("floating-link");
 // ----- load content from JSON -----
 async function loadContent(lang) {
   try {
-    const response = await fetch(`../data/drama/${lang}.json?v=${Date.now()}`);
+    const response = await fetch(`/src/data/drama/${lang}.json?v=${Date.now()}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -82,7 +82,7 @@ async function loadContent(lang) {
     try {
       const fallbackLang = lang === "es" ? "en" : "es";
       const response = await fetch(
-        `../data/drama/${fallbackLang}.json?v=${Date.now()}`,
+        `/src/data/drama/${fallbackLang}.json?v=${Date.now()}`,
       );
       if (!response.ok) throw new Error("Fallback failed");
       return await response.json();
