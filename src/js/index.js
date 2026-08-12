@@ -402,19 +402,19 @@ let NEWS_CONTENT = {
 };
 
 const navHrefs = {
-  timeline: "src/pages/Adashima_Linea.html",
-  novels: "src/pages/Adashima_Novelas.html",
-  manga: "src/pages/Adashima_Manga.html",
-  extraStories: "src/pages/Adashima_Extra_Stories.html",
-  drama: "src/pages/Adashima_Drama.html",
-  music: "src/pages/Adashima_Music.html",
-  miniAnime: "src/pages/Adashima_Mini_Anime.html",
-  constellation: "src/pages/Adashima_Estrella.html",
-  anime: "src/pages/Adashima_Anime.html",
-  others: "src/pages/Adashima_Otros.html",
-  stats: "src/pages/Adashima_Stats.html",
-  about: "src/pages/Adashima_About.html",
-  gallery: "src/pages/Adashima_Gallery.html",
+  timeline: "/Adashima_Linea",
+  novels: "/Adashima_Novelas",
+  manga: "/Adashima_Manga",
+  extraStories: "/Adashima_Extra_Stories",
+  drama: "/Adashima_Drama",
+  music: "/Adashima_Music",
+  miniAnime: "/Adashima_Mini_Anime",
+  constellation: "/Adashima_Estrella",
+  anime: "/Adashima_Anime",
+  others: "/Adashima_Otros",
+  stats: "/Adashima_Stats",
+  about: "/Adashima_About",
+  gallery: "/Adashima_Gallery",
 };
 
 async function loadContent(lang) {
