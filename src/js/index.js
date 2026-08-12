@@ -604,7 +604,7 @@ function renderApp(data) {
   if (bikeImage) {
     bikeImage.style.cursor = "pointer";
     bikeImage.addEventListener("click", () => {
-      window.location.href = "/src/pages/Juego.html";
+      window.location.href = "/Juego";
     });
   }
 
