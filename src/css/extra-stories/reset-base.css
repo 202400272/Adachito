@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Quicksand", sans-serif;
+  background: linear-gradient(135deg, #fbe9e7 0%, #f3e5f5 50%, #e8eaf6 100%);
+  color: #4a3b52;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  display: flex;
+}
+
+#sidebar-container {
+  display: contents;
+}

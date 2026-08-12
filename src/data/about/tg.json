@@ -1,0 +1,544 @@
+{
+  "backLabel": "Bumalik",
+  "heroTitle": "Tungkol sa Archive",
+  "heroSubtitle": "Isang fan-made archive na nakatuon sa pagpreserba, pagdodokumento, at pagdiriwang ng seryeng Adachi to Shimamura.",
+  "badgeVolumes": "13+ Volume",
+  "badgeSince": "Mula 2026",
+  "badgeCommunity": "Pinapatakbo ng Komunidad",
+  "projectTitle": "Tungkol sa Project",
+  "projectSubtitle": "Lahat ng kailangan mo para tuklasin ang mundo ng Adachi to Shimamura.",
+  "projectFeatures": [
+    {
+      "icon": "mdi:information-outline",
+      "title": "Tungkol sa Project",
+      "desc": "Ang AdashimaVerse ay isang non-commercial, fan-made archive na nakatuon sa pagdodokumento, pagpreserba, at pagdiriwang ng seryeng Adachi to Shimamura. Ginawa ng mga fans para sa kapwa fans, pinagsasama-sama ng project ang impormasyon, media, timelines, kasaysayan ng mga translation, at iba pang resources sa iisang organisadong archive para sa mga bagong mambabasa at matagal nang tagahanga."
+    },
+    {
+      "icon": "mdi:account-group-outline",
+      "title": "Komunidad",
+      "desc": "Nabuo ang project na ito dahil sa pagmamahal at dedikasyon ng mga fans, translators, scanlation groups, at contributors na tumulong upang maging mas accessible ang serye sa mga mambabasa sa iba't ibang panig ng mundo."
+    },
+    {
+      "icon": "mdi:heart-outline",
+      "title": "Aming Misyon",
+      "desc": "Preserbahin ang kasaysayan ng seryeng Adachi to Shimamura habang nagbibigay ng organisado, kasiya-siya, at madaling ma-access na resource para sa mga fans, bago man o matagal nang tagasubaybay."
+    }
+  ],
+  "translatorTitle": "Mga Translator",
+  "translatorSubtitle": "Mga translator na tumulong upang maging accessible ang serye",
+  "translators": [
+    {
+      "name": "Sneikkimies",
+      "link": "https://sneikkimies.github.io/",
+      "works": [
+        "Vol.1",
+        "Vol.2",
+        "Vol.3",
+        "Vol.4",
+        "Vol.5",
+        "Vol.6",
+        "Vol.7",
+        "Vol.8",
+        "Vol.9",
+        "Vol.10",
+        "Vol.11",
+        "Vol.12",
+        "Vol.13",
+        "SS",
+        "SS2",
+        "BD1",
+        "BD2",
+        "BD3",
+        "BD4",
+        "Vol.99",
+        "Official Anthology Comic (Manga)",
+        "Mani Version (Manga)",
+        "Adachi and Shimamura Shorts"
+      ],
+      "description": "Isinalin ang lahat ng kasalukuyang nailabas na Adachi to Shimamura light novel, side story, bonus content, manga adaptation, at shorts, na nagbigay-daan para maging available ang kumpletong English reading experience.",
+      "badge": "Pangunahing Translator",
+      "role": "Light Novel at Manga Translator"
+    },
+    {
+      "name": "Cuetie Scans",
+      "link": "https://discord.gg/xCRUwzhqyJ",
+      "works": [
+        "Vol.1: Ch.1-5.5",
+        "Vol.2: Ch.6-12.5",
+        "Vol.3: Ch.13-18.5",
+        "Vol.4: Ch.19-25.5",
+        "Vol.5: Ch.26-33.5",
+        "Vol.6: Ch.34-38.5",
+        "Vol.7: Ch.39-46.5",
+        "Vol.8: Ch.47-54.1",
+        "Vol.9: Ch.55-58"
+      ],
+      "description": "Sila ang nagsagawa ng English translation ng Adachi to Shimamura manga (Moke adaptation) mula Volume 1 hanggang Volume 9, kabilang ang lahat ng chapters at extras.",
+      "icon": "mdi:image-outline",
+      "badge": "Translation Group",
+      "role": "Manga Translator",
+      "materials": [
+        {
+          "title": "Volume 1",
+          "chapters": [
+            "Chapter 1: Adachi and Shimamura",
+            "Chapter 2: Adachi Question",
+            "Chapter 3: Adachi Question 2",
+            "Chapter 4: Isosceles Triangle",
+            "Chapter 5: Isosceles Triangle 2",
+            "Chapter 5.5: Isosceles Triangle 2 (Second half)"
+          ],
+          "status": "Kumpleto"
+        },
+        {
+          "title": "Volume 2",
+          "chapters": [
+            "Chapter 6: Less Than Friends",
+            "Chapter 7: Shimamura at the Gym",
+            "Chapter 8: Shimamura at the Gym 2",
+            "Chapter 9: Adachi's Q",
+            "Chapter 10: Strange☆Adachi",
+            "Chapter 11: Christmas Ongoing; Adachi's Thoughts",
+            "Chapter 12: White Album",
+            "Chapter 12.5: White Album (Part 2)"
+          ],
+          "status": "Kumpleto"
+        },
+        {
+          "title": "Volume 3",
+          "chapters": [
+            "Chapter 13: Full-Marks Thighs",
+            "Chapter 14: Pick a Chocolate Fitting of Me",
+            "Chapter 15: Radiance That Reaches For the Sun: Heliotrope",
+            "Chapter 15.5: Radiance That Reaches For the Sun: Heliotrope - Part 2",
+            "Chapter 16: Thorns That Weave the Past: Old Rose",
+            "Chapter 16.5: Thorns That Weave the Past: Old Rose 2",
+            "Chapter 17: Love That Embraces The Holy Mother — Marigold",
+            "Chapter 18: Sakura — When The Prayers Shine",
+            "Chapter 18.5: Volume 3 Extras"
+          ],
+          "status": "Kumpleto"
+        },
+        {
+          "title": "Volume 4",
+          "chapters": [
+            "Chapter 19: Spring and Moon",
+            "Chapter 19.5: Spring and Moon 2",
+            "Chapter 20: Moon and Will",
+            "Chapter 21: Will and Friends",
+            "Chapter 22: Friends and Love",
+            "Chapter 23: Friends and Love 2",
+            "Chapter 24: Friends and Love 3",
+            "Chapter 25: Love & Sakura & ...",
+            "Chapter 25.5: Volume 4 Extras"
+          ],
+          "status": "Kumpleto"
+        },
+        {
+          "title": "Volume 5",
+          "chapters": [
+            "Chapter 26: Even If I Wasn't Asked, I'll Come Meet You",
+            "Chapter 27.1: Leaving Azure",
+            "Chapter 27.2: Leaving Azure (Cont.)",
+            "Chapter 28: Leaving Azure 2",
+            "Chapter 29: Leaving Azure 3",
+            "Chapter 30: Shimamura's Sword",
+            "Chapter 31.1: Are Souls Shared?",
+            "Chapter 31.2: Are Souls Shared? (Cont.)",
+            "Chapter 32: Are Souls Shared? 2",
+            "Chapter 33.1: Adachi Revival",
+            "Chapter 33.2: Adachi Revival (Cont.)",
+            "Chapter 33.5: Volume 5 Extras"
+          ],
+          "status": "Kumpleto"
+        },
+        {
+          "title": "Volume 6",
+          "chapters": [
+            "Chapter 34: Bittersweet Memories",
+            "Chapter 35.1: Beyond the Calendar",
+            "Chapter 35.2: Beyond the Calendar 2",
+            "Chapter 36.1: Hometown Dog",
+            "Chapter 36.2: Hometown Dog 2",
+            "Chapter 36.3: Hometown Dog 3",
+            "Chapter 37.1: Complications of Love 1 Part 1",
+            "Chapter 37.2: Complications of Love 1 Part 2",
+            "Chapter 37.3: Complications of Love 2",
+            "Chapter 38.1: Flight",
+            "Chapter 38.2: Flight 2",
+            "Chapter 38.5: Volume 6 Extras"
+          ],
+          "status": "Kumpleto"
+        },
+        {
+          "title": "Volume 7",
+          "chapters": [
+            "Chapter 39: The Warmth of Your Smile",
+            "Chapter 40: A Moment of Peace Is All I Need",
+            "Chapter 41: A Moment of Peace Is All I Need 2",
+            "Chapter 42: A Moment of Peace Is All I Need 3",
+            "Chapter 43: Words So Mundane",
+            "Chapter 44: Words So Mundane 2",
+            "Chapter 45: Words So Mundane 3",
+            "Chapter 46: If They Hadn't Met on the Gym's Second Floor",
+            "Chapter 46.1: Today's Adachi",
+            "Chapter 46.5: Volume 7 Extras"
+          ],
+          "status": "Kumpleto"
+        },
+        {
+          "title": "Volume 8",
+          "chapters": [
+            "Chapter 47: A Little Prayer",
+            "Chapter 48: Our First Journey 1",
+            "Chapter 49: Our First Journey 2",
+            "Chapter 50: Our First Journey 3",
+            "Chapter 51: Our First Journey 4",
+            "Chapter 52: Our First Journey 5",
+            "Chapter 53: Our First Journey 6",
+            "Chapter 54: Our First Journey 7",
+            "Chapter 54.1: Extra"
+          ],
+          "status": "Kumpleto"
+        },
+        {
+          "title": "Volume 9",
+          "chapters": [
+            "Chapter 55: Sakura Christmas Scrolls 1",
+            "Chapter 56: Sakura Christmas Scrolls 2",
+            "Chapter 57: Sakura's Ark",
+            "Chapter 58: Sakura's Ark 2"
+          ],
+          "status": "Isinasagawa"
+        }
+      ]
+    },
+    {
+      "name": "BlackSheep",
+      "link": "",
+      "works": ["Extra Stories Collection"],
+      "description": "Isinalin sa English ang Extra Stories Collection.",
+      "icon": "mdi:book-open-page-variant",
+      "badge": "Translator",
+      "role": "Extra Stories Translator"
+    },
+    {
+      "name": "Sicnif",
+      "link": "",
+      "works": ["Vol.13", "SS2"],
+      "description": "Isinalin sa English ang Spanish versions ng Adachi to Shimamura light novel Volume 13 at SS2.",
+      "icon": "mdi:translate",
+      "badge": "Spanish Translator",
+      "role": "Light Novel Translator (Spanish)"
+    },
+    {
+      "name": "Kattxena",
+      "link": "https://www.wattpad.com/story/375135389-adachi-to-shimamura-todos-los-vol%C3%BAmenes",
+      "works": [
+        "Vol.2",
+        "Vol.3",
+        "Vol.4",
+        "Vol.5",
+        "Vol.6",
+        "Vol.7",
+        "Vol.8",
+        "Vol.9",
+        "Vol.10",
+        "Vol.11",
+        "Vol.12",
+        "SS",
+        "99.9"
+      ],
+      "description": "Isinalin sa English ang Spanish versions ng Adachi to Shimamura light novel Volumes 2–12, kabilang ang SS at 99.9.",
+      "icon": "mdi:translate",
+      "badge": "Spanish Translator",
+      "role": "Light Novel Translator (Spanish)"
+    },
+    {
+      "name": "Ragnarok Semita Translation",
+      "link": "https://ragnaroksemitascanblog.wordpress.com/",
+      "works": ["Vol.1"],
+      "description": "Nagbigay ng unang Spanish translation para sa Volume 1 ng Adachi to Shimamura light novel.",
+      "icon": "mdi:book-open-variant",
+      "badge": "Spanish Translator",
+      "role": "Light Novel Translator (Spanish)"
+    }
+  ],
+  "stats": {
+    "contributors": 6,
+    "volumes": 13,
+    "chapters": "180+",
+    "languages": "English / Spanish"
+  },
+  "materialsModal": {
+    "titlePrefix": "Mga Isinaling Materyal",
+    "viewButton": "Tingnan ang mga Isinaling Materyal",
+    "empty": "Wala pang ibinahaging materyal ang translator na ito.",
+    "complete": "Kumpleto",
+    "types": {
+      "novel": "Light Novel",
+      "manga": "Manga",
+      "extras": "Extras",
+      "general": "General"
+    }
+  },
+  "versionTitle": "Impormasyon ng Bersyon",
+  "versionItems": [
+    { "label": "Bersyon ng Website", "value": "v2.2.6" },
+    { "label": "Build Number", "value": "#20260811" },
+    { "label": "Huling Na-update", "value": "Agosto 11, 2026" },
+    { "label": "Progress ng Translation", "value": "92%" }
+  ],
+  "changelogBtn": "Tingnan ang Changelog",
+  "supportTitle": "Suportahan ang Orihinal na Gawa",
+  "supportSubtitle": "Suportahan ang mga creator sa pamamagitan ng pagbili ng mga official release.",
+  "supportItems": [
+    {
+      "id": "light-novel",
+      "icon": "mdi:book-open-variant",
+      "title": "Light Novel",
+      "regions": [
+        {
+          "label": "🇯🇵 Japanese Sources",
+          "buttons": [
+            {
+              "label": "Dengeki Bunko",
+              "url": "https://dengekibunko.jp/product/adashima/",
+              "icon": "mdi:book-open-variant"
+            },
+            {
+              "label": "Amazon Japan",
+              "url": "https://www.amazon.co.jp/-/en/dp/B075LFSD5L?binding=kindle_edition",
+              "icon": "mdi:amazon"
+            },
+            {
+              "label": "BookWalker JP",
+              "url": "https://bookwalker.jp/series/17875/list/",
+              "icon": "mdi:book"
+            },
+            {
+              "label": "Rakuten Books",
+              "url": "https://books.rakuten.co.jp/series/BW0018AQO0/",
+              "icon": "mdi:cart"
+            }
+          ]
+        },
+        {
+          "label": "🌎 English Sources",
+          "buttons": [
+            {
+              "label": "Seven Seas",
+              "url": "https://sevenseasentertainment.com/series/adachi-and-shimamura-light-novel/",
+              "icon": "mdi:book-open-variant"
+            },
+            {
+              "label": "Amazon",
+              "url": "https://www.amazon.com/dp/B08BWY8VMH",
+              "icon": "mdi:amazon"
+            },
+            {
+              "label": "BookWalker Global",
+              "url": "https://bookwalker.com/series/182107KDXMK0/adachi-and-shimamura",
+              "icon": "mdi:book"
+            },
+            {
+              "label": "Kobo",
+              "url": "https://www.kobo.com/us/en/series/adachi-and-shimamura-light-novel",
+              "icon": "mdi:book-open-page-variant"
+            },
+            {
+              "label": "Barnes & Noble",
+              "url": "https://www.barnesandnoble.com/search?attributes.mfield_bnb__seriesTitle=Adachi%20and%20Shimamura%20(Light%20Novel)%20Series",
+              "icon": "mdi:book-open"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "manga",
+      "icon": "mdi:book-open-page-variant",
+      "title": "Manga",
+      "regions": [
+        {
+          "label": "🇯🇵 Japanese Sources",
+          "buttons": [
+            {
+              "label": "Comic Walker (Raw)",
+              "url": "https://comic-walker.com/detail/KC_004197_S?episodeType=first",
+              "icon": "mdi:book-open-variant"
+            },
+            {
+              "label": "BookWalker JP",
+              "url": "https://bookwalker.jp/series/227797/list/",
+              "icon": "mdi:book"
+            },
+            {
+              "label": "Amazon Japan",
+              "url": "https://www.amazon.co.jp/dp/B08KDDJHNL",
+              "icon": "mdi:amazon"
+            }
+          ]
+        },
+        {
+          "label": "🌎 English Sources",
+          "buttons": [
+            {
+              "label": "Yen Press",
+              "url": "https://yenpress.com/series/adachi-and-shimamura-manga",
+              "icon": "mdi:book-open-variant"
+            },
+            {
+              "label": "Amazon",
+              "url": "https://www.amazon.com/dp/B08G46L3NR",
+              "icon": "mdi:amazon"
+            },
+            {
+              "label": "BookWalker Global",
+              "url": "https://bookwalker.com/series/0XAMHXQPB6VG/adachi-and-shimamura",
+              "icon": "mdi:book"
+            },
+            {
+              "label": "Kobo",
+              "url": "https://www.kobo.com/us/en/series/adachi-and-shimamura-manga",
+              "icon": "mdi:book-open-page-variant"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "author-blog",
+      "icon": "mdi:blog",
+      "title": "Blog ng Author",
+      "description": "Sundan ang official blog ni Hitoma Iruma sa Kakuyomu para sa mga update, insights, at karagdagang content tungkol sa serye.",
+      "buttons": [
+        {
+          "label": "Blog ng Author (Kakuyomu)",
+          "url": "https://kakuyomu.jp/works/1177354054897444952",
+          "icon": "mdi:blog"
+        }
+      ]
+    }
+  ],
+  "trackTitle": "Subaybayan ang Serye",
+  "trackSubtitle": "Subaybayan ang Adachi to Shimamura sa paborito mong tracking platforms.",
+  "trackItems": [
+    {
+      "category": "Light Novel",
+      "buttons": [
+        {
+          "label": "AniList",
+          "url": "https://anilist.co/manga/92550/Adachi-to-Shimamura/",
+          "icon": "mdi:star"
+        },
+        {
+          "label": "MyAnimeList",
+          "url": "https://myanimelist.net/manga/77597/Adachi_to_Shimamura",
+          "icon": "mdi:heart"
+        },
+        {
+          "label": "MangaUpdates",
+          "url": "https://www.mangaupdates.com/series/sintmu7/adachi-to-shimamura-novel",
+          "icon": "mdi:book-open"
+        },
+        {
+          "label": "Anime-Planet",
+          "url": "https://www.anime-planet.com/manga/adachi-and-shimamura-light-novel",
+          "icon": "mdi:earth"
+        },
+        {
+          "label": "NovelUpdates",
+          "url": "https://www.novelupdates.com/series/adachi-to-shimamura/",
+          "icon": "mdi:book-open-page-variant"
+        },
+        {
+          "label": "Kitsu",
+          "url": "https://kitsu.app/manga/adachi-to-shimamura",
+          "icon": "mdi:paw"
+        }
+      ]
+    },
+    {
+      "category": "Anime",
+      "buttons": [
+        {
+          "label": "AniList",
+          "url": "https://anilist.co/anime/109287/Adachi-to-Shimamura",
+          "icon": "mdi:star"
+        },
+        {
+          "label": "MyAnimeList",
+          "url": "https://myanimelist.net/anime/39790/Adachi_to_Shimamura",
+          "icon": "mdi:heart"
+        },
+        {
+          "label": "Anime-Planet",
+          "url": "https://www.anime-planet.com/anime/adachi-and-shimamura",
+          "icon": "mdi:earth"
+        },
+        {
+          "label": "Kitsu",
+          "url": "https://kitsu.app/anime/adachi-to-shimamura",
+          "icon": "mdi:paw"
+        }
+      ]
+    },
+    {
+      "category": "Manga (Moke)",
+      "buttons": [
+        {
+          "label": "AniList",
+          "url": "https://anilist.co/manga/109302/Adachi-to-Shimamura/",
+          "icon": "mdi:star"
+        },
+        {
+          "label": "MyAnimeList",
+          "url": "https://myanimelist.net/manga/120071/Adachi_to_Shimamura",
+          "icon": "mdi:heart"
+        },
+        {
+          "label": "MangaUpdates",
+          "url": "https://www.mangaupdates.com/series/u4avteh/adachi-to-shimamura-yuzuhara-moke",
+          "icon": "mdi:book-open"
+        },
+        {
+          "label": "Anime-Planet",
+          "url": "https://www.anime-planet.com/manga/adachi-and-shimamura",
+          "icon": "mdi:earth"
+        },
+        {
+          "label": "Kitsu",
+          "url": "https://kitsu.app/manga/adachi-to-shimamura-2019",
+          "icon": "mdi:paw"
+        }
+      ]
+    }
+  ],
+  "legalTitle": "Copyright at Legal na Paunawa",
+  "legalNotice": "Isa itong unofficial fan project.",
+  "legalDesc": "Ang website na ito ay isang non-commercial fan archive na ginawa para sa mga layuning pang-edukasyon at pagpreserba. Hindi namin inaangkin ang pagmamay-ari ng anumang copyrighted material na ipinapakita sa site na ito.",
+  "legalItems": [
+    "Ang lahat ng karapatan ay pagmamay-ari ng kani-kanilang may-ari",
+    "Walang layuning lumabag sa copyright",
+    "Ginawa para sa mga layuning pang-edukasyon at pagpreserba",
+    "Ang mga translation ay pagmamay-ari ng kani-kanilang translators",
+    "Ang orihinal na intellectual property ay pagmamay-ari ng kani-kanilang may-ari"
+  ],
+  "disclaimerTitle": "Disclaimer",
+  "disclaimerText": "Ang website na ito ay hindi affiliated, endorsed, o konektado sa:",
+  "disclaimerItems": [
+    "Hitoma Iruma",
+    "ASCII Media Works",
+    "Seven Seas",
+    "Anumang official publisher o rights holder"
+  ],
+  "disclaimerNote": "Ang lahat ng orihinal na content, karakter, at elemento ng kuwento ay pagmamay-ari ng kani-kanilang may-ari. Ang fan project na ito ay ginawa bilang pagpapahalaga sa serye at sa komunidad nito.",
+  "footer": "Unofficial Adachi to Shimamura fan site.",
+  "footerSub": "Ginawa ng mga fans, non-profit.",
+  "footerSub2": "Ang Adachi to Shimamura at lahat ng karapatan nito ay pagmamay-ari ni Hitoma Iruma.",
+  "modal": {
+    "changelogTitle": "Changelog"
+  },
+  "navVersionsLabel": "Mga Bersyon"
+}

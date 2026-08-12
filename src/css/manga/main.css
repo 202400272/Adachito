@@ -1,0 +1,78 @@
+/* ===== BASE ===== */
+@import url("fonts.css");
+@import url("variables.css");
+@import url("reset-base.css");
+
+/* ===== EFFECTS & DECORATIONS ===== */
+@import url("particles.css");
+@import url("floating-decorations.css");
+
+
+/* ===== LAYOUT ===== */
+@import url("main-content.css");
+@import url("sticky-controls.css");
+@import url("footer.css");
+
+
+/* ===== LIBRARY CONTROLS ===== */
+@import url("library-controls.css");
+@import url("search.css");
+@import url("toggle-controls.css");
+@import url("view-toggle-states.css");
+@import url("update-box.css");
+@import url("download-all.css");
+@import url("empty-states.css");
+
+
+/* ===== VOLUMES & MANGA ITEMS ===== */
+@import url("volumes-grid.css");
+@import url("volume-card.css");
+@import url("volume-chapters.css");
+@import url("manga-item.css");
+
+
+/* ===== READER VIEWS ===== */
+@import url("cascade-reader.css");
+@import url("paged-reader.css");
+@import url("paged-navigation.css");
+
+
+/* ===== PDF STYLES ===== */
+@import url("pdf-styles.css");
+
+
+/* ===== FULLSCREEN & MODALS ===== */
+@import url("fullscreen.css");
+@import url("zoom-toast.css");
+
+
+/* ===== UTILITIES ===== */
+@import url("language-position.css");
+
+
+/* ===== RESPONSIVE ===== */
+@import url("responsive.css");
+
+/* ===== MOBILE INTERACTION ===== */
+
+/* Remove the blue tap highlight on mobile browsers */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove default focus outline from mouse/touch interaction */
+button:focus,
+a:focus,
+[role="button"]:focus {
+  outline: none;
+}
+
+/* Preserve a visible focus indicator for keyboard navigation */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid rgba(140, 90, 150, 0.5);
+  outline-offset: 2px;
+}
+
+

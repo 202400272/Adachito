@@ -1,0 +1,43 @@
+/* ---------- VERSION CARD (IMPROVED) ---------- */
+.version-card {
+  border-color: rgba(99, 102, 241, 0.08);
+}
+
+.version-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.version-item {
+  display: flex;
+  flex-direction: column;
+  padding: 0.9rem 1.2rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 1.2rem;
+  border: 1px solid rgba(209, 163, 198, 0.06);
+  transition: all 0.3s ease;
+}
+
+.version-item:hover {
+  background: rgba(255, 255, 255, 0.35);
+  border-color: rgba(209, 163, 198, 0.15);
+  transform: translateY(-2px);
+}
+
+.version-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #5f4b6b;
+  opacity: 0.5;
+  font-weight: 600;
+}
+
+.version-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--plum);
+  margin-top: 0.15rem;
+}

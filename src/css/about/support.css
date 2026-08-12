@@ -1,0 +1,190 @@
+/* ============================================================
+   SUPPORT THE ORIGINAL WORK
+   ============================================================ */
+
+.support-card {
+  border-color: rgba(209, 163, 198, 0.15);
+}
+
+.support-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.support-item {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 1.2rem;
+  padding: 1.2rem 1.5rem 1.5rem;
+  border: 1px solid rgba(209, 163, 198, 0.08);
+  transition: all 0.3s ease;
+}
+
+.support-item:hover {
+  background: rgba(255, 255, 255, 0.4);
+  border-color: rgba(209, 163, 198, 0.2);
+  transform: translateY(-2px);
+}
+
+.support-item-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+  font-family: "Noto Serif JP", serif;
+  font-size: 1.1rem;
+  color: var(--plum);
+  font-weight: 700;
+}
+
+.support-item-header .iconify {
+  font-size: 1.4rem;
+  color: var(--dusty-rose);
+  flex-shrink: 0;
+}
+
+.support-item-subtitle {
+  font-size: 0.8rem;
+  color: #5f4b6b;
+  opacity: 0.6;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.8rem;
+}
+
+.support-item-description {
+  font-size: 0.85rem;
+  color: #5f4b6b;
+  line-height: 1.6;
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+.support-button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.support-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(209, 163, 198, 0.12);
+  border-radius: 8px;
+  color: var(--plum);
+  font-family: "Quicksand", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.support-btn:hover {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: var(--dusty-rose);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(92, 58, 107, 0.08);
+}
+
+.support-btn .iconify {
+  font-size: 1rem;
+  color: var(--dusty-rose);
+  flex-shrink: 0;
+}
+
+.support-btn .support-btn-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.support-btn .support-btn-icon img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.support-region-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--dusty-rose);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0.8rem 0 0.4rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(209, 163, 198, 0.06);
+}
+
+.support-region-label:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+/* Author section specific */
+.support-author {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+}
+
+.support-author-portrait {
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  border-radius: 50%;
+  background: rgba(209, 163, 198, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 2px solid rgba(209, 163, 198, 0.15);
+}
+
+.support-author-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.support-author-portrait .iconify {
+  font-size: 2.5rem;
+  color: var(--dusty-rose);
+  opacity: 0.5;
+}
+
+.support-author-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.support-author-name {
+  font-family: "Noto Serif JP", serif;
+  font-size: 1.2rem;
+  color: var(--plum);
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+
+.support-author-bio {
+  font-size: 0.85rem;
+  color: #5f4b6b;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+/* Support item with no buttons */
+.support-item.no-buttons .support-button-group {
+  display: none;
+}

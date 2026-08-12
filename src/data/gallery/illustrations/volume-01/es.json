@@ -1,0 +1,145 @@
+{
+  "artworks": [
+    {
+      "id": 1,
+      "title": "Uniform Ping Pong",
+      "artist": "Non",
+      "artistCaption": "Ilustración de Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume1/Image%201%20Volume%201%20Light%20Novel.jpg",
+      "publication": "Novela ligera de Adachi to Shimamura Volumen 1",
+      "date": "2013-03-10",
+      "collection": "VOLUMEN 01",
+      "type": "ilustración",
+      "tags": [
+        "ilustración",
+        "volumen-01"
+      ],
+      "featured": true
+    },
+    {
+      "id": 2,
+      "title": "Uniform Ping Pong 2",
+      "artist": "Non",
+      "artistCaption": "Ilustración de Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume1/Image%202%20Volume%201%20Light%20Novel.jpg",
+      "publication": "Novela ligera de Adachi to Shimamura Volumen 1",
+      "date": "2013-03-10",
+      "collection": "VOLUMEN 01",
+      "type": "ilustración",
+      "tags": [
+        "ilustración",
+        "volumen-01"
+      ],
+      "featured": false
+    },
+    {
+      "id": 3,
+      "title": "Future Fishing",
+      "artist": "Non",
+      "artistCaption": "Ilustración de Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume1/Image%203%20Volume%201%20Light%20Novel.jpg",
+      "publication": "Novela ligera de Adachi to Shimamura Volumen 1",
+      "date": "2013-03-10",
+      "collection": "VOLUMEN 01",
+      "type": "ilustración",
+      "tags": [
+        "ilustración",
+        "volumen-01"
+      ],
+      "featured": false
+    },
+    {
+      "id": 4,
+      "title": "Future Fishing 2",
+      "artist": "Non",
+      "artistCaption": "Ilustración de Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume1/Image%204%20Volume%201%20Light%20Novel.jpg",
+      "publication": "Novela ligera de Adachi to Shimamura Volumen 1",
+      "date": "2013-03-10",
+      "collection": "VOLUMEN 01",
+      "type": "ilustración",
+      "tags": [
+        "ilustración",
+        "volumen-01"
+      ],
+      "featured": false
+    },
+    {
+      "id": 5,
+      "title": "Adachi Question",
+      "artist": "Non",
+      "artistCaption": "Ilustración de Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume1/Image%205%20Volume%201%20Light%20Novel.jpg",
+      "publication": "Novela ligera de Adachi to Shimamura Volumen 1",
+      "date": "2013-03-10",
+      "collection": "VOLUMEN 01",
+      "type": "ilustración",
+      "tags": [
+        "ilustración",
+        "volumen-01"
+      ],
+      "featured": false
+    },
+    {
+      "id": 6,
+      "title": "Isosceles Triangle",
+      "artist": "Non",
+      "artistCaption": "Ilustración de Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume1/Image%206%20Volume%201%20Light%20Novel.jpg",
+      "publication": "Novela ligera de Adachi to Shimamura Volumen 1",
+      "date": "2013-03-10",
+      "collection": "VOLUMEN 01",
+      "type": "ilustración",
+      "tags": [
+        "ilustración",
+        "volumen-01"
+      ],
+      "featured": false
+    },
+    {
+      "id": 7,
+      "title": "Isosceles Triangle 2",
+      "artist": "Non",
+      "artistCaption": "Ilustración de Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume1/Image%207%20Volume%201%20Light%20Novel.jpg",
+      "publication": "Novela ligera de Adachi to Shimamura Volumen 1",
+      "date": "2013-03-10",
+      "collection": "VOLUMEN 01",
+      "type": "ilustración",
+      "tags": [
+        "ilustración",
+        "volumen-01"
+      ],
+      "featured": false
+    },
+    {
+      "id": 8,
+      "title": "High School Girl Holiday",
+      "artist": "Non",
+      "artistCaption": "Ilustración de Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume1/Image%208%20Volume%201%20Light%20Novel.jpg",
+      "publication": "Novela ligera de Adachi to Shimamura Volumen 1",
+      "date": "2013-03-10",
+      "collection": "VOLUMEN 01",
+      "type": "ilustración",
+      "tags": [
+        "ilustración",
+        "volumen-01"
+      ],
+      "featured": false
+    }
+  ],
+  "uiText": {
+    "searchPlaceholder": "Buscar ilustraciones del Volumen 1...",
+    "publicationLabel": "Publicación",
+    "dateLabel": "Fecha",
+    "collectionLabel": "Colección",
+    "tagsLabel": "Etiquetas",
+    "curatorNote": "Nota del curador"
+  },
+  "artists": {
+    "Non": {
+      "bio": "Non (のん) es quien ilustra la serie de novelas ligeras Adachi to Shimamura, destacando por su estilo delicado y atmosférico."
+    }
+  }
+}

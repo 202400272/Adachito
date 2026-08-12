@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About</title>
+    <meta
+      name="description"
+      content="Learn about AdashimaVerse, the fan archive of Adachi and Shimamura, including history, lore, and curated series content."
+    />
+    <link
+      rel="canonical"
+      href="https://adashimaverse.com/Adashima_About"
+    />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AdashimaVerse" />
+    <meta property="og:title" content="About" />
+    <meta
+      property="og:description"
+      content="Learn about AdashimaVerse, the fan archive of Adachi and Shimamura, including history, lore, and curated series content."
+    />
+    <meta
+      property="og:url"
+      content="https://adashimaverse.com/Adashima_About"
+    />
+    <meta
+      property="og:image"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="AdashimaVerse - About" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="About" />
+    <meta
+      name="twitter:description"
+      content="Learn about AdashimaVerse, the fan archive of Adachi and Shimamura, including history, lore, and curated series content."
+    />
+    <meta
+      name="twitter:image"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta name="twitter:image:alt" content="AdashimaVerse - About" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Quicksand:wght@300;400;500;600;700&family=Special+Elite&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <link rel="stylesheet" href="/src/components/styles/menu.css" />
+    <link rel="stylesheet" href="/src/css/about/main.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/assets/Imagenes/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/Imagenes/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/Imagenes/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/Imagenes/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/assets/Imagenes/icon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="/assets/Imagenes/icon-512x512.png"
+    />
+  </head>
+  <body>
+    <div class="about-shell">
+      <div id="sidebar-container"></div>
+      <main class="about-main">
+        <!-- Header with Language Controls -->
+        <div class="about-header">
+          <div class="header-top-controls">
+          </div>
+        </div>
+
+        <!-- Hero -->
+        <section class="about-hero">
+          <div class="about-hero-content">
+            <h1 class="about-hero-title">
+              <span class="iconify" data-icon="mdi:heart-outline"></span>
+              <span id="heroTitle">About</span>
+              <span class="iconify" data-icon="mdi:heart-outline"></span>
+            </h1>
+            <p class="about-hero-subtitle" id="heroSubtitle">
+              A fan-made archive dedicated to preserving, documenting, and
+              celebrating the Adachi to Shimamura series.
+            </p>
+            <div class="about-hero-badges">
+              <span class="hero-badge"
+                ><span class="iconify" data-icon="mdi:clock-outline"></span>
+                <span id="badgeSince">Since 2026</span></span
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- Project -->
+        <section class="about-section">
+          <div class="about-card glass-card">
+            <h2 class="about-section-title">
+              <span class="iconify" data-icon="mdi:compass-outline"></span>
+              <span id="projectTitle">About the Project</span>
+            </h2>
+            <p class="about-section-subtitle" id="projectSubtitle">
+              Everything you need to explore the world of Adachi to Shimamura.
+            </p>
+            <div class="about-features-grid" id="projectFeatures"></div>
+          </div>
+        </section>
+
+        <!-- Translation Credits -->
+        <section class="about-section">
+          <div class="about-card glass-card translator-section">
+            <h2 class="about-section-title">
+              <span class="iconify" data-icon="mdi:pen"></span>
+              <span id="translationTitle">Translation Credits</span>
+            </h2>
+            <p class="about-section-subtitle" id="translationSubtitle">
+              Translators who made this series accessible
+            </p>
+            <div class="translator-cards" id="translatorCards"></div>
+            <!-- Statistics row -->
+            <div class="translator-stats" id="translatorStats">
+              <div class="stat-item">
+                <span
+                  class="iconify"
+                  data-icon="mdi:account-group-outline"
+                ></span>
+                <span id="statContributors">0</span>
+                <span class="stat-label">Contributors</span>
+              </div>
+              <div class="stat-item">
+                <span class="iconify" data-icon="mdi:earth"></span>
+                <span id="statLanguages">English / Spanish</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Support the Original Work -->
+        <section class="about-section">
+          <div class="about-card glass-card support-card">
+            <h2 class="about-section-title">
+              <span class="iconify" data-icon="mdi:heart-handshake"></span>
+              <span id="supportTitle">Support the Original Work</span>
+            </h2>
+            <p class="about-section-subtitle" id="supportSubtitle">
+              Support the creators by purchasing official releases.
+            </p>
+            <div class="support-grid" id="supportGrid">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Track Section -->
+        <section class="about-section">
+          <div class="about-card glass-card track-card">
+            <h2 class="about-section-title">
+              <span
+                class="iconify"
+                data-icon="mdi:chart-timeline-variant"
+              ></span>
+              <span id="trackTitle">Track the Series</span>
+            </h2>
+            <p class="about-section-subtitle" id="trackSubtitle">
+              Follow Adachi to Shimamura on your favorite tracking platforms.
+            </p>
+            <div class="track-grid" id="trackGrid">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Legal -->
+        <section class="about-section">
+          <div class="about-card glass-card legal-card">
+            <h2 class="about-section-title">
+              <span class="iconify" data-icon="mdi:scale-balance"></span>
+              <span id="legalTitle">Copyright &amp; Legal Notice</span>
+            </h2>
+            <div class="legal-content" id="legalContent"></div>
+          </div>
+        </section>
+
+        <!-- Disclaimer -->
+        <section class="about-section">
+          <div class="about-card glass-card disclaimer-card">
+            <h2 class="about-section-title">
+              <span class="iconify" data-icon="mdi:alert-outline"></span>
+              <span id="disclaimerTitle">Disclaimer</span>
+            </h2>
+            <div class="disclaimer-content" id="disclaimerContent"></div>
+          </div>
+        </section>
+
+        <!-- Version Information -->
+        <section class="about-section">
+          <div class="about-card glass-card version-card">
+            <h2 class="about-section-title">
+              <span class="iconify" data-icon="mdi:source-branch"></span>
+              <span id="versionTitle">Version Information</span>
+            </h2>
+            <div class="version-grid" id="versionGrid"></div>
+            <!-- Changelog button -->
+            <div class="changelog-button-wrap">
+              <button class="changelog-btn" id="openChangelogBtn">
+                <span class="iconify" data-icon="mdi:scroll-outline"></span>
+                <span id="changelogBtnLabel">View Changelog</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="about-footer" id="aboutFooter"></footer>
+      </main>
+    </div>
+
+    <div class="page-bg"></div>
+
+    <!-- ===== CHANGELOG MODAL ===== -->
+    <div class="changelog-overlay" id="changelogOverlay">
+      <div class="changelog-modal">
+        <div class="changelog-modal-header">
+          <div class="changelog-modal-title">
+            <span class="iconify" data-icon="mdi:scroll-outline"></span>
+            <span id="modalChangelogTitle">Changelog</span>
+          </div>
+          <button class="changelog-modal-close" id="closeChangelogBtn">
+            <span class="iconify" data-icon="mdi:close"></span>
+          </button>
+        </div>
+        <div class="changelog-modal-body">
+          <div class="changelog-nav" id="changelogNav">
+            <div class="changelog-nav-header">
+              <span class="iconify" data-icon="mdi:tag-outline"></span>
+              <span id="navVersionsLabel">Versions</span>
+            </div>
+            <div class="changelog-nav-list" id="changelogNavList"></div>
+          </div>
+          <div class="changelog-details" id="changelogDetails">
+            <div
+              class="changelog-details-content"
+              id="changelogDetailsContent"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TRANSLATOR MATERIALS MODAL ===== -->
+    <div class="translator-materials-overlay" id="translatorMaterialsOverlay">
+      <div class="translator-materials-modal">
+        <div class="translator-materials-header">
+          <div class="translator-materials-title">
+            <span class="iconify" data-icon="mdi:bookshelf"></span>
+            <span id="materialsModalTitle">Translated Materials</span>
+          </div>
+          <button class="translator-materials-close" id="closeMaterialsBtn">
+            <span class="iconify" data-icon="mdi:close"></span>
+          </button>
+        </div>
+        <div class="translator-materials-body" id="translatorMaterialsBody">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+
+    <div id="toast-message" class="toast-message"></div>
+
+    <!-- Import JS -->
+    <script src="/src/js/language-switch.js"></script>
+    <script src="/src/js/about.js"></script>
+  </body>
+</html>

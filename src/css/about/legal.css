@@ -1,0 +1,66 @@
+/* ---------- legal card ---------- */
+.legal-card {
+  border-color: rgba(209, 163, 198, 0.2);
+}
+
+.legal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.legal-notice {
+  display: flex;
+  gap: 1rem;
+  padding: 1.2rem;
+  background: rgba(209, 163, 198, 0.08);
+  border-radius: 1.2rem;
+  border-left: 4px solid var(--dusty-rose);
+}
+
+.legal-notice .iconify {
+  font-size: 1.5rem;
+  color: var(--dusty-rose);
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.legal-notice strong {
+  display: block;
+  color: var(--plum);
+  margin-bottom: 0.2rem;
+}
+
+.legal-notice p {
+  color: #5f4b6b;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  opacity: 0.8;
+}
+
+.legal-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.6rem;
+}
+
+.legal-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: #5f4b6b;
+  padding: 0.3rem 0.5rem;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.legal-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.legal-item .iconify {
+  color: var(--dusty-rose);
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}

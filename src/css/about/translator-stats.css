@@ -1,0 +1,45 @@
+/* ---------- TRANSLATOR STATISTICS ---------- */
+.translator-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  padding: 1.2rem 0 0.5rem;
+  border-top: 1px solid rgba(209, 163, 198, 0.12);
+  margin-top: 0.5rem;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.8rem;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.stat-item .iconify {
+  font-size: 1.1rem;
+  color: var(--dusty-rose);
+  width: 1.6rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.stat-item span {
+  font-weight: 600;
+  color: var(--plum);
+  font-size: 0.95rem;
+}
+
+.stat-item .stat-label {
+  font-weight: 400;
+  color: #5f4b6b;
+  opacity: 0.6;
+  font-size: 0.75rem;
+  margin-left: 0.1rem;
+}

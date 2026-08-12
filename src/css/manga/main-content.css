@@ -1,0 +1,54 @@
+/* ---------- main content ---------- */
+.main-content {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    padding: 40px 32px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+    min-height: 100vh;
+    background-color: #1e1628;
+    background-image: url('../../../assets/Imagenes/Fondo_manga_apartado.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.main-content::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 300px;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(243,229,245,0.8) 50%, rgba(255,255,255,0.92) 100%);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+h1.update-title {
+    font-family: var(--font-japanese);
+    font-size: 3.2rem;
+    color: var(--dark-purple);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 28px;
+    text-shadow: 2px 2px 10px rgba(255,255,255,0.8);
+    letter-spacing: 2px;
+    position: relative;
+}
+
+h1.update-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--rose), var(--purple));
+    margin: 12px auto 0;
+    border-radius: 4px;
+}

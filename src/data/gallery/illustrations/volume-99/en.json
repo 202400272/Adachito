@@ -1,0 +1,107 @@
+{
+  "artworks": [
+    {
+      "id": 1,
+      "title": "Chito 1",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume99/Image%201%20Volume%2099.9%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume 99.9",
+      "date": "2024-01-01",
+      "collection": "VOLUME 99",
+      "type": "illustration",
+      "tags": ["illustration", "volume-99", "special"],
+      "featured": true
+    },
+    {
+      "id": 2,
+      "title": "Chito 2",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume99/Image%202%20Volume%2099.9%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume 99.9",
+      "date": "2024-01-01",
+      "collection": "VOLUME 99",
+      "type": "illustration",
+      "tags": ["illustration", "volume-99", "special"],
+      "featured": false
+    },
+    {
+      "id": 3,
+      "title": "Chito 3",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume99/Image%203%20Volume%2099.9%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume 99.9",
+      "date": "2024-01-01",
+      "collection": "VOLUME 99",
+      "type": "illustration",
+      "tags": ["illustration", "volume-99", "special"],
+      "featured": false
+    },
+    {
+      "id": 4,
+      "title": "Chito 4",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume99/Image%204%20Volume%2099.9%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume 99.9",
+      "date": "2024-01-01",
+      "collection": "VOLUME 99",
+      "type": "illustration",
+      "tags": ["illustration", "volume-99", "special"],
+      "featured": false
+    },
+    {
+      "id": 5,
+      "title": "Shima",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume99/Image%205%20Volume%2099.9%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume 99.9",
+      "date": "2024-01-01",
+      "collection": "VOLUME 99",
+      "type": "illustration",
+      "tags": ["illustration", "volume-99", "special"],
+      "featured": false
+    },
+    {
+      "id": 6,
+      "title": "Mura",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume99/Image%206%20Volume%2099.9%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume 99.9",
+      "date": "2024-01-01",
+      "collection": "VOLUME 99",
+      "type": "illustration",
+      "tags": ["illustration", "volume-99", "special"],
+      "featured": false
+    },
+    {
+      "id": 7,
+      "title": "_______ and ___________",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume99/Image%207%20Volume%2099.9%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume 99.9",
+      "date": "2024-01-01",
+      "collection": "VOLUME 99",
+      "type": "illustration",
+      "tags": ["illustration", "volume-99", "special"],
+      "featured": false
+    }
+  ],
+  "uiText": {
+    "searchPlaceholder": "Search Volume 99.9 illustrations...",
+    "publicationLabel": "Publication",
+    "dateLabel": "Date",
+    "collectionLabel": "Collection",
+    "tagsLabel": "Tags"
+  },
+  "artists": {
+    "Raemz": {
+      "bio": "Raemz is the illustrator for the Adachi to Shimamura light novel series from Volume 10 onwards, bringing a fresh and vibrant style to the series."
+    }
+  }
+}

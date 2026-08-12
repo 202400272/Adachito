@@ -1,0 +1,50 @@
+/* ---------- features grid ---------- */
+.about-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.about-feature {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 0.8rem;
+  border-radius: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.about-feature:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.about-feature-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 60px;
+  background: rgba(209, 163, 198, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.about-feature-icon .iconify {
+  font-size: 1.4rem;
+  color: var(--dusty-rose);
+}
+
+.about-feature-content h4 {
+  font-family: "Noto Serif JP", serif;
+  font-size: 1.1rem;
+  color: var(--plum);
+  margin-bottom: 0.2rem;
+}
+
+.about-feature-content p {
+  font-size: 0.9rem;
+  color: #5f4b6b;
+  line-height: 1.5;
+  opacity: 0.8;
+}

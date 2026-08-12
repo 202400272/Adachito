@@ -1,0 +1,29 @@
+/* ---------- particles ---------- */
+.particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.star {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    opacity: 0;
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+    animation: float-up 10s linear infinite, twinkle 3s ease-in-out infinite;
+}
+
+@keyframes float-up {
+    0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+    20% { opacity: 0.8; }
+    80% { opacity: 0.8; }
+    100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+}
+
+@keyframes twinkle {
+    0%, 100% { box-shadow: 0 0 5px 1px rgba(255,255,255,0.5); }
+    50% { box-shadow: 0 0 15px 4px rgba(255,200,255,0.9); }
+}

@@ -1,0 +1,129 @@
+.compact-view-container {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  border: 1px solid rgba(200, 180, 210, 0.06);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.compact-table-header {
+  display: grid;
+  grid-template-columns: 40px 1.8fr 1.2fr 0.8fr 60px 40px;
+  padding: 0.35rem 1rem;
+  border-bottom: 1px solid rgba(200, 175, 210, 0.06);
+  font-family: "Inter", sans-serif;
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(92, 58, 107, 0.35);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.ch-number { text-align: center; }
+.ch-title { padding-left: 0.25rem; }
+.ch-artist { padding-left: 0.25rem; }
+.ch-album { padding-left: 0.25rem; }
+.ch-time { text-align: right; display: flex; align-items: center; justify-content: flex-end; gap: 0.25rem; }
+.ch-dl { text-align: center; }
+.ch-time .iconify { font-size: 0.6rem; }
+
+.compact-track-table {
+  display: flex;
+  flex-direction: column;
+}
+
+.compact-track-row {
+  display: grid;
+  grid-template-columns: 40px 1.8fr 1.2fr 0.8fr 60px 40px;
+  align-items: center;
+  padding: 0.25rem 1rem;
+  border-bottom: 1px solid rgba(200, 175, 210, 0.03);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  min-height: 30px;
+  font-size: 0.7rem;
+}
+
+.compact-track-row:last-child { border-bottom: none; }
+.compact-track-row:hover { background: rgba(215, 190, 225, 0.06); }
+.compact-track-row.active {
+  background: rgba(200, 170, 220, 0.08);
+  border-left: 2px solid #8c5a96;
+}
+
+.cr-number {
+  font-family: "Inter", sans-serif;
+  font-size: 0.6rem;
+  color: #9a6898;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.cr-title {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.25rem;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.cr-title-jp {
+  font-family: "Noto Serif JP", serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #3d234d;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.compact-track-row.active .cr-title-jp { color: #8c5a96; }
+
+.cr-title-en {
+  font-family: "Inter", sans-serif;
+  font-size: 0.5rem;
+  color: var(--text-light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cr-artist {
+  font-family: "Inter", sans-serif;
+  font-size: 0.6rem;
+  color: #5c3a6b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 0.25rem;
+}
+
+.cr-album {
+  font-family: "Inter", sans-serif;
+  font-size: 0.55rem;
+  color: var(--text-light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 0.25rem;
+}
+
+.cr-duration {
+  font-family: "Inter", sans-serif;
+  font-size: 0.55rem;
+  color: #5c3a6b;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.cr-dl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.compact-dl-btn {
+  padding: 4px;
+}

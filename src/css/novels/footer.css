@@ -1,0 +1,23 @@
+.footer {
+  margin-top: 32px;
+  padding: 20px 24px;
+  text-align: center;
+  font-size: 0.78rem;
+  color: rgba(92, 58, 107, 0.5);
+  border-top: 1px solid rgba(209, 163, 198, 0.15);
+  width: 100%;
+  max-width: 920px;
+  z-index: 5;
+  line-height: 1.7;
+}
+
+.footer a {
+  color: rgba(140, 90, 150, 0.8);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer a:hover {
+  color: #8c5a96;
+  text-decoration: underline;
+}

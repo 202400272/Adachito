@@ -1,0 +1,37 @@
+{
+  "pageTitle": "CD Dramas",
+  "selectChannel": "Select a channel",
+  "selectChannelDesc": "Turn on the TV and choose a channel to start enjoying the CD Dramas.",
+  "noSignal": "NO SIGNAL",
+  "loadingText": "Tuning channel...",
+  "osdTitle": "YASHONY CHANNELS",
+  "osdSubtitle": "SELECT CHANNEL",
+  "osdFooter": "[ MENU ] TO CLOSE",
+  "downloadLabel": "Download",
+  "downloadingLabel": "Downloading...",
+  "powerBtnTitle": "Power on / off",
+  "menuBtnTitle": "Channel menu",
+  "playBtnTitle": "Play",
+  "pauseBtnTitle": "Pause",
+  "downloadBtnTitle": "Download current episode",
+  "fullscreenBtnTitle": "Fullscreen",
+  "volKnobTitle": "Volume — drag up/down",
+  "brtKnobTitle": "Brightness — drag up/down",
+  "footerText": "Unofficial Adachi to Shimamura fan site.<br>Created by fans, non-profit.<br>Adachi to Shimamura and all rights belong to Hitoma Iruma.",
+  "floatingLinkTitle": "Click to go to mini-game!",
+  "enjoys": "Enjoy",
+  "del": "of the anime.",
+  "channel": "Channel",
+  "channels": [
+    {
+      "id": 0,
+      "label": "CH 1",
+      "title": "CD DRAMA — VOLUME 13",
+      "desc": "Exclusive audio content accompanying Volume 13 of the light novels in English. An unmissable moment in the story of Adachi and Shimamura.",
+      "badge": "Channel 1 · Vol. 13",
+      "sub": "VOLUME 13",
+      "src": "https://media.adashimaverse.com/CD%20DRAMAS/ingles/Adachi%20and%20Shimamura%2013%20DRAMA%20CD.mp4",
+      "download": "Adachi and Shimamura 13 DRAMA CD.mp4"
+    }
+  ]
+}

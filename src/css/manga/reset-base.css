@@ -1,0 +1,39 @@
+/* ---------- reset & base ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    display: flex;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fbe9e7 0%, #f3e5f5 50%, #e8eaf6 100%);
+    color: #4a3b52;
+    overflow-x: hidden;
+}
+
+/* ---------- scrollbar styling ---------- */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--rose), var(--purple));
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--rose-dark), var(--dark-purple));
+}

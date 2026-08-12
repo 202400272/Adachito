@@ -1,0 +1,622 @@
+[
+{
+"version": "2.2.6",
+"build": "20260811",
+"date": "11 de agosto de 2026",
+"subtitle": "Localización de la interfaz en tagalo y optimización del tema para móviles",
+"changes": {
+"new": [
+"Se añadió el tagalo como nuevo idioma de la interfaz.",
+"Se añadió una localización inicial de la interfaz en tagalo como prototipo para el futuro soporte multilingüe."
+],
+"improvements": [
+"Se optimizó el sistema de cambio de tema para Chrome en dispositivos móviles.",
+"Se mejoraron las transiciones y los cambios de apariencia en Chrome para móviles.",
+"Se perfeccionó el comportamiento del cambio de tema en dispositivos móviles para ofrecer una experiencia más fluida y consistente."
+],
+"fixes": [
+"Se corrigieron pequeñas inconsistencias en el cambio de tema que afectaban a Chrome en dispositivos móviles."
+],
+"notes": [
+"El tagalo ya está disponible como idioma de la interfaz, pero la localización se considera actualmente un prototipo.",
+"La implementación del tagalo está destinada principalmente a probar y validar la capacidad del sitio para admitir idiomas adicionales en el futuro.",
+"La localización en tagalo se aplica actualmente solo a la interfaz de usuario; el contenido del sitio no se ha modificado.",
+"Esta versión establece la base inicial para ampliar el soporte de idiomas del sitio en futuras actualizaciones."
+]
+}
+},
+  {
+    "version": "2.2.5",
+    "build": "20260810",
+    "date": "10 de agosto de 2026",
+    "subtitle": "Refactorización del Sistema de Idiomas, Controles de Apariencia, Experiencia de Carga y Expansión de la Galería de Manga",
+    "changes": {
+      "new": [
+        "Se añadió una pantalla de carga dedicada que aparece mientras el sitio se está inicializando.",
+        "Se añadió una opción de apariencia basada en la hora que adapta automáticamente el tema del sitio según la hora local del usuario.",
+        "Se añadió un modo de apariencia manual que permite elegir entre los temas Mañana, Tarde y Noche cuando la apariencia basada en la hora está desactivada.",
+        "Se añadió a la Galería la portada japonesa del Volumen 8 de la adaptación al manga de Moke."
+      ],
+      "improvements": [
+        "Se modificó y centralizó la lógica de cambio de idioma del sitio para ofrecer una gestión más consistente de los idiomas entre páginas y componentes.",
+        "Se mejoró la persistencia del idioma para que la selección del usuario se conserve de forma consistente al navegar entre páginas y recargar el sitio.",
+        "Se mejoraron los controles de idioma para mantener sincronizado el idioma activo entre los diferentes menús e interfaces de las páginas.",
+        "Se refinó la sección de Configuración con una agrupación, espaciado y jerarquía visual más claros.",
+        "Se mejoró el selector de idioma con una interfaz más limpia y cohesiva para Español e Inglés.",
+        "Se actualizó la interfaz de Configuración para adaptarse automáticamente a los temas de Mañana, Tarde y Noche del sitio.",
+        "Se mejoró el sistema de apariencia para que los temas seleccionados automáticamente y manualmente utilicen la misma arquitectura de temas.",
+        "Se mejoró la experiencia de carga inicial mediante una transición más fluida desde la pantalla de carga hasta el sitio principal.",
+        "Se mejoró el diseño responsive de la sección de Configuración para dispositivos móviles.",
+        "Se amplió la Galería con contenido adicional de portadas de manga."
+      ],
+      "fixes": [
+        "Se corrigieron inconsistencias por las que las preferencias de idioma no siempre se aplicaban correctamente en diferentes páginas.",
+        "Se corrigieron casos en los que los controles de idioma no estaban sincronizados con el idioma seleccionado actualmente.",
+        "Se corrigieron inconsistencias visuales en los controles de Configuración entre los diferentes temas según la hora del día.",
+        "Se corrigieron casos en los que las selecciones manuales de apariencia eran sobrescritas por las actualizaciones automáticas del tema según la hora.",
+        "Se corrigieron pequeños problemas de alineación y espaciado en la interfaz de Configuración en pantallas pequeñas."
+      ],
+      "notes": [
+        "Esta versión se centra en reestructurar el sistema de idiomas del sitio, mejorar la Configuración, ampliar las opciones de apariencia, perfeccionar la experiencia de carga inicial y expandir la Galería.",
+        "El sistema de idiomas ha sido reorganizado para que la selección y persistencia del idioma se gestionen de forma más consistente en las diferentes páginas y componentes del sitio.",
+        "Ahora los usuarios pueden desactivar la apariencia automática basada en la hora y seleccionar manualmente entre Mañana, Tarde o Noche. Tanto el modo automático como el manual utilizan la arquitectura de temas existente del sitio.",
+        "La interfaz de Configuración ha sido rediseñada para integrarse mejor con los temas dinámicos del sitio, manteniendo una experiencia limpia tanto en escritorio como en dispositivos móviles.",
+        "La Galería también se ha ampliado con la portada japonesa del Volumen 8 de la adaptación al manga de Moke."
+      ]
+    }
+  },
+  {
+    "version": "2.2.4",
+    "build": "20260809",
+    "date": "9 de agosto de 2026",
+    "subtitle": "Temas de cielo dinámicos, expansión de la galería, ajustes móviles y optimización del lector PDF",
+    "changes": {
+      "new": [
+        "Se añadió una pantalla de carga dinámica que aparece mientras el sitio se inicializa.",
+        "Se añadieron temas de cielo dinámicos basados en la hora que se adaptan automáticamente a la hora local del usuario.",
+        "Se añadieron tres temas atmosféricos: Mañana, Tarde y Noche.",
+        "Se añadieron 36 nuevas ilustraciones a la Galería.",
+        "Se añadió un ajuste móvil que permite a los usuarios ocultar manualmente el menú de hamburguesa fijo.",
+        "Se añadió la carga diferida de miniaturas en el lector PDF, de modo que las miniaturas solo se generan cuando se abre el panel de miniaturas.",
+        "Se añadió almacenamiento en caché de documentos PDF para reducir descargas repetidas al volver a abrir documentos previamente visualizados.",
+        "Se añadió una preparación ligera de la página siguiente para mejorar la capacidad de respuesta durante la navegación."
+      ],
+      "improvements": [
+        "Se actualizó la navegación y la interfaz de las páginas para adaptarse visualmente al tema de cielo activo según la hora.",
+        "Se refinaron los temas de Mañana, Tarde y Noche para mantener la identidad visual existente del sitio y, al mismo tiempo, ofrecer distintas variaciones atmosféricas.",
+        "Se mejoró la experiencia de carga inicial mediante una pantalla de carga dedicada que realiza una transición suave hacia el sitio principal.",
+        "Se mejoró la experiencia móvil al permitir que los usuarios desactiven el menú de hamburguesa persistente cuando resulte obstructivo.",
+        "Se optimizó el renderizado del lienzo PDF en pantallas de alta densidad limitando los valores excesivos de relación de píxeles del dispositivo.",
+        "Se redujo el uso innecesario de CPU, GPU y memoria durante la carga de PDF al evitar el renderizado automático de miniaturas.",
+        "Se mejoró la capacidad de respuesta del lector PDF al volver a abrir documentos mediante el almacenamiento en caché durante la sesión.",
+        "Se redujo la presión sobre la memoria durante la generación de miniaturas mediante un renderizado progresivo más controlado.",
+        "Se mejoró el rendimiento del lector PDF en dispositivos móviles, especialmente al abrir documentos grandes y navegar entre páginas."
+      ],
+      "fixes": [
+        "Se corrigió el renderizado innecesario de miniaturas que ocurría inmediatamente al abrir un documento PDF.",
+        "Se resolvieron las descargas repetidas de PDF al volver a abrir el mismo documento durante la sesión actual.",
+        "Se redujo la resolución excesiva del lienzo en dispositivos móviles con pantallas de alta densidad.",
+        "Se mejoró la cancelación del renderizado al cambiar rápidamente de página o cerrar el lector PDF.",
+        "Se redujo la posibilidad de que se produjera procesamiento innecesario en segundo plano al trabajar con conjuntos grandes de miniaturas PDF."
+      ],
+      "notes": [
+        "Esta versión se centra en ampliar la atmósfera visual del sitio, el contenido de la galería, la personalización móvil, la experiencia de carga inicial y el rendimiento del lector. El sitio ahora adapta dinámicamente su apariencia basada en el cielo según la hora local del usuario, con temas específicos para Mañana, Tarde y Noche. La Galería también se ha ampliado con 36 nuevas ilustraciones.",
+        "Se añadió una pantalla de carga dedicada para proporcionar una transición más fluida mientras el sitio se inicializa, evitando que se muestre contenido parcialmente renderizado durante la carga inicial.",
+        "Los usuarios móviles ahora pueden ocultar manualmente el menú de hamburguesa fijo desde los ajustes del sitio, mientras que la página de inicio mantiene el menú disponible. El lector PDF también recibió mejoras de rendimiento, incluyendo la carga diferida de miniaturas, almacenamiento en caché de PDF durante la sesión, optimización de la resolución del lienzo y preparación ligera de la página siguiente. Estos cambios están destinados a reducir el uso innecesario de recursos y mejorar la capacidad de respuesta durante la carga y la navegación sin modificar la interfaz ni la funcionalidad existente del lector."
+      ]
+    }
+  },
+  {
+    "version": "2.2.3",
+    "build": "20260807",
+    "date": "7 de agosto de 2026",
+    "subtitle": "Mejora del Modal de Comentarios, Correcciones de Desplazamiento y Portadas Japonesas",
+    "changes": {
+      "new": [
+        "Mejora del modal de comentarios con mejor apilamiento de z-index para asegurar que aparezca sobre todos los elementos de la página.",
+        "Posicionamiento fijo añadido al fondo del modal para una cobertura completa de la ventana gráfica en escritorio y móvil.",
+        "Implementación de unidades de altura de ventana dinámica (dvh) para una mejor compatibilidad con navegadores móviles.",
+        "Adición de las portadas de la edición japonesa para todos los volúmenes actualmente publicados."
+      ],
+      "improvements": [
+        "Actualización de la estrategia de posicionamiento del modal para evitar la interferencia del contexto de apilamiento del elemento padre.",
+        "Mejora del fondo del modal para cubrir toda la ventana gráfica independientemente de la posición de desplazamiento.",
+        "Refinamiento del manejo de desbordamiento del contenedor del modal para evitar el desplazamiento horizontal.",
+        "Control de eventos de puntero añadido para evitar la interacción con el contenido del fondo mientras el modal está abierto.",
+        "Optimización del estilo de los campos del formulario para prevenir desbordamientos y mantener un comportamiento responsivo.",
+        "Mejora del soporte móvil con mejor manejo de unidades de ventana gráfica."
+      ],
+      "fixes": [
+        "Corrección de la barra de desplazamiento horizontal que aparecía en páginas con el modal de comentarios.",
+        "Resolución del problema donde el modal podía ser ocultado por otros elementos de la página con contextos de apilamiento más altos.",
+        "Corrección del fondo del modal que no cubría toda la ventana gráfica en dispositivos móviles.",
+        "Corrección de problemas de desbordamiento en el contenedor del modal que causaban que el contenido se extendiera más allá del ancho de la ventana gráfica.",
+        "Corrección de la interacción con elementos del fondo mientras el modal estaba abierto.",
+        "Resolución de problemas de posicionamiento del modal en páginas con elementos padre transformados."
+      ],
+      "notes": [
+        "Esta versión se centra en mejorar la confiabilidad y visibilidad del modal de comentarios en todos los dispositivos. El modal ahora aparece consistentemente sobre todos los demás elementos de la página, y los problemas de barra de desplazamiento horizontal se han resuelto por completo. Además, se han añadido las portadas de la edición japonesa para todos los volúmenes actuales. No se realizó un rediseño visual de la página ni del estilo del modal—solo se implementaron mejoras funcionales y correcciones de errores."
+      ]
+    }
+  },
+  {
+    "version": "2.2.2",
+    "build": "20260806",
+    "date": "6 de agosto de 2026",
+    "subtitle": "Rediseño del Hero, Presentación y Galería",
+    "changes": {
+      "new": [
+        "Se rediseñó la sección principal con una presentación de obras destacadas en un diseño de doble marco.",
+        "Se añadió una presentación automática de las obras destacadas con transiciones suaves cada 5 segundos.",
+        "Se incorporó un sistema de paletas de color para las tarjetas de la galería, mejorando su diferenciación visual.",
+        "Se añadieron tarjetas con biografías de los artistas integradas en la galería.",
+        "Se incorporó una placa informativa con un diseño inspirado en museos y una jerarquía tipográfica mejorada.",
+        "Se añadieron un contador de obras y nuevos indicadores para la presentación automática."
+      ],
+      "improvements": [
+        "Se refinó la tipografía de la galería con estilos diferenciados para títulos, contenido y elementos de la interfaz.",
+        "Se rediseñó la distribución de la galería utilizando columnas CSS para mejorar el flujo y el espaciado.",
+        "Se mejoró el contraste del texto en las tarjetas para facilitar la lectura.",
+        "Se añadió la opción «Mezclar galería» para reorganizar aleatoriamente las obras mostradas.",
+        "Se optimizó el diseño adaptable, el espaciado y la tipografía para todos los tamaños de pantalla.",
+        "Se mejoró la sección principal con nuevos marcos, sombras y efectos al pasar el cursor.",
+        "Se refinó la interfaz de filtros con una mejor experiencia en dispositivos móviles y una respuesta visual más clara.",
+        "Se actualizaron las animaciones al pasar el cursor sobre las obras para ofrecer una interacción más consistente.",
+        "Se rediseñó la presentación de las estadísticas de la galería con una mejor jerarquía visual.",
+        "Se migraron las miniaturas de las portadas de los volúmenes a R2 CDN para acelerar la carga de imágenes."
+      ],
+      "fixes": [
+        "Se corrigió un problema que impedía mostrar las biografías de los artistas en la galería.",
+        "Se resolvieron problemas de contraste del texto en determinadas tarjetas.",
+        "Se corrigieron inconsistencias de espaciado en la distribución de la galería.",
+        "Se solucionó un problema que impedía abrir algunas obras en el visor.",
+        "Se eliminó un botón sin uso de la sección de obras destacadas.",
+        "Se corrigieron las miniaturas con rutas incorrectas y se actualizaron para utilizar recursos alojados en la CDN.",
+        "Se corrigieron los errores de ruta de las miniaturas de los Especiales (E1–E4)."
+      ],
+      "notes": [
+        "Esta versión se centra en un rediseño completo de la galería sin modificar su funcionalidad. Incluye una nueva sección principal, una presentación visual mejorada, optimizaciones de diseño adaptable y diversas correcciones en la distribución y el visor de imágenes."
+      ]
+    }
+  },
+  {
+    "version": "2.2.1",
+    "build": "20260805",
+    "date": "5 de agosto de 2026",
+    "subtitle": "Mejoras en la Persistencia de Constelaciones, Navegación de la Galería y Actualizaciones de Comentarios",
+    "changes": {
+      "new": [
+        "Se añadió un acceso directo a la Galería en la página de inicio para facilitar el acceso al archivo.",
+        "Los filtros de la Galería ahora cargan automáticamente todas las colecciones al filtrar por artista, colección o búsqueda, mostrando todas las obras coincidentes independientemente de las colecciones cargadas inicialmente.",
+        "Se añadió una carga más inteligente para los filtros de la Galería: las colecciones ahora se cargan en segundo plano según sea necesario en lugar de hacerlo todas a la vez."
+      ],
+      "improvements": [
+        "Se mejoró el sistema de persistencia de Constelaciones para que los archivos descargables actualizados se entreguen correctamente sin depender de versiones almacenadas en caché.",
+        "Se mejoró la sincronización del progreso de Constelaciones para mantener un estado de desbloqueo consistente tras futuras actualizaciones de contenido.",
+        "Se optimizó el rendimiento de los filtros de la Galería mediante la carga asíncrona de colecciones solo cuando los filtros de artista, colección o búsqueda lo requieren.",
+        "Se mejoró el sistema de caché de los filtros de la Galería para reducir recargas innecesarias y ofrecer una navegación más fluida entre filtros.",
+        "Se revisó el mensaje de la página de comentarios para ofrecer instrucciones más claras al informar errores, sugerir mejoras o contribuir con materiales para el archivo.",
+        "La búsqueda en la Galería ahora indexa correctamente las colecciones recién cargadas sin necesidad de actualizar la página."
+      ],
+      "fixes": [
+        "Se corrigió un problema que hacía que los archivos descargables actualizados en la sección de Constelaciones siguieran mostrando versiones antiguas almacenadas en caché.",
+        "Se corrigió el comportamiento visual de las Constelaciones completadas, haciendo que las estrellas desaparezcan una vez desbloqueadas todas las historias asociadas para evitar interferencias al abrirlas.",
+        "Se corrigió un problema en el filtro por artista de la Galería que solo mostraba obras de las colecciones cargadas inicialmente en lugar de todas las colecciones que contienen obras del artista seleccionado.",
+        "Se corrigió la aparición de obras duplicadas en la Galería al cargar la misma colección varias veces.",
+        "Se corrigió que la Galería mostrara '0 obras encontradas' al seleccionar una colección que todavía se estaba cargando en segundo plano.",
+        "Se corrigió que la búsqueda en la Galería no encontrara obras de colecciones cargadas después de la carga inicial de la página."
+      ],
+      "notes": [
+        "Esta actualización se centra en mejorar la fiabilidad a largo plazo de los sistemas de Constelaciones y Galería. El contenido descargable ahora se actualiza correctamente, el progreso permanece sincronizado tras futuras versiones y la exploración de la Galería es más completa y fluida.",
+        "La primera vez que se utilice el filtro por artista o búsqueda puede tardar un poco más, ya que la aplicación carga todas las colecciones en segundo plano para garantizar resultados completos. Una vez cargadas, la navegación entre filtros es mucho más fluida.",
+        "Las imágenes duplicadas en la Galería ya no deberían aparecer al hacer clic varias veces en la misma colección; las colecciones ahora reemplazan correctamente el contenido antiguo en lugar de añadirse encima."
+      ]
+    }
+  },
+  {
+    "version": "2.2.0",
+    "build": "20260804",
+    "date": "4 de agosto de 2026",
+    "subtitle": "Corrección de Fechas de Publicación y Actualizaciones de Localización",
+    "changes": {
+      "new": [
+        "Añadidas traducciones al español para las galerías de ilustraciones de los Volúmenes 1-6, haciendo la serie más accesible para los fans hispanohablantes."
+      ],
+      "improvements": [
+        "Actualizadas las fechas de publicación de todas las obras de portada de Novela Ligera (Volúmenes 1-13, 99.9, SS y SS2) para reflejar las fechas de lanzamiento originales japonesas en lugar de las fechas de la edición en inglés, proporcionando un contexto histórico más preciso de la serie.",
+        "Corregidos los metadatos de fecha para las galerías de ilustraciones de los Volúmenes 1-6 para que coincidan con las fechas de publicación originales japonesas."
+      ],
+      "fixes": [
+        "Corregidas las fechas de publicación incorrectas en las obras de portada de Novela Ligera que anteriormente mostraban las fechas de la edición en inglés en lugar de las fechas de publicación originales japonesas.",
+        "Corregidas las inconsistencias de fecha en los archivos JSON de ilustraciones de los Volúmenes 1-6, donde las notas del curador y las fechas provisionales fueron reemplazadas con información de lanzamiento precisa.",
+        "Eliminadas las notas del curador de las galerías de ilustraciones de los Volúmenes 1-6 según lo solicitado, limpiando los metadatos para una presentación más optimizada."
+      ],
+      "notes": [
+        "Esta actualización corrige todas las fechas de publicación en la galería para utilizar las fechas de lanzamiento originales japonesas de la serie de novelas ligeras Adachi to Shimamura. Las fechas ahora reflejan con precisión la historia de publicación de la serie: Volumen 1 (10 de marzo de 2013), Volumen 2 (10 de septiembre de 2013), Volumen 3 (9 de agosto de 2014), Volumen 4 (9 de mayo de 2015), Volumen 5 (10 de noviembre de 2015), Volumen 6 (10 de mayo de 2016), Volumen 7 (10 de noviembre de 2016), Volumen 8 (10 de mayo de 2019), Volumen 9 (10 de octubre de 2020), Volumen 10 (10 de septiembre de 2021), Volumen 11 (9 de diciembre de 2022), Volumen 12 (8 de noviembre de 2024), Volumen 13 (8 de noviembre de 2025), SS (10 de noviembre de 2023), 99.9 (10 de noviembre de 2023) y SS2 (8 de noviembre de 2024). El campo de año también ha sido actualizado para coincidir con los años de lanzamiento originales."
+      ]
+    }
+  },
+  {
+    "version": "2.1.9",
+    "build": "20260803",
+    "date": "3 de agosto de 2026",
+    "subtitle": "Optimización de Galería Móvil, Refactorización de CSS y Correcciones del Reproductor de Música",
+    "changes": {
+      "new": [],
+      "improvements": [
+        "Optimizado el Visor de Arte en la página de Galería para dispositivos móviles, mejorando el rendimiento de carga de imágenes y las interacciones táctiles para una experiencia de navegación más fluida.",
+        "Refactorizada la arquitectura CSS creando componentes modulares para las páginas de Manga, Novelas, Acerca de, Galería, Música e Historias Extra, reemplazando la hoja de estilo monolítica de más de 2000 líneas con estilos mantenibles y específicos por página.",
+        "Mejorado el Reproductor de Música con un sistema de identificación de pistas único entre álbumes, corrigiendo el problema donde al hacer clic en una pista de un álbum se mostraba incorrectamente el título de la primera pista de otro álbum.",
+        "Mejorada la vista compacta de favoritos del Reproductor de Música con un diseño más inspirado en Spotify, mejorando la consistencia visual y la respuesta en dispositivos móviles."
+      ],
+      "fixes": [
+        "Corregida la visualización incorrecta del título de las pistas en el Reproductor de Música al cambiar entre álbumes con identificadores de pista duplicados.",
+        "Corregido el Reproductor de Música que no limpiaba la visualización de la pista actual al salir de los detalles del álbum sin una pista reproduciéndose.",
+        "Resuelto el problema de actualización de la interfaz del Reproductor de Música al navegar de vuelta a la vista de biblioteca."
+      ],
+      "notes": [
+        "Esta actualización se centra en mejorar la experiencia de galería móvil, simplificar el código base mediante la modularización de CSS y corregir problemas críticos del Reproductor de Música con la identificación de pistas y la gestión del estado de la interfaz. El sistema de identificación de pistas ahora utiliza identificadores únicos (ej. 'ost-1', 'opening-1') para evitar confusiones de títulos entre álbumes."
+      ]
+    }
+  },
+  {
+    "version": "2.1.8",
+    "build": "20260733",
+    "date": "2 de agosto de 2026",
+    "subtitle": "Correcciones en Stories, Ajustes Móviles y Mejoras en Música",
+    "changes": {
+      "new": [],
+      "improvements": [
+        "Se modificó la ubicación de la sección Favoritos en la página de Música, integrándola como una tarjeta independiente junto a los álbumes para mejorar la organización visual.",
+        "Se realizaron ajustes de interfaz en la sección Música para mejorar la distribución de elementos y la experiencia de navegación."
+      ],
+      "fixes": [
+        "Se corrigió un error en Stories que impedía visualizar correctamente la ventana de configuración al abrir una historia en dispositivos móviles.",
+        "Se ajustó el comportamiento de la interfaz móvil en Stories para mejorar la visualización y evitar conflictos con otros elementos de navegación."
+      ],
+      "notes": [
+        "Esta actualización se centra en corregir problemas de compatibilidad móvil en Stories y mejorar la organización visual de la sección Música mediante una nueva distribución de Favoritos."
+      ]
+    }
+  },
+  {
+    "version": "2.1.7",
+    "build": "20260732",
+    "date": "31 de julio de 2026",
+    "subtitle": "Correcciones de Compatibilidad Móvil, Mejoras de Interfaz y Sistema de Favoritos",
+    "changes": {
+      "new": [
+        "Se añadió la sección de favoritos en la página de Música, integrando la funcionalidad existente para gestionar y visualizar las canciones marcadas como favoritas."
+      ],
+      "improvements": [
+        "Se ajustó la posición del selector de idioma en la versión móvil de la línea del tiempo, mejorando su adaptación en pantallas pequeñas.",
+        "Se corrigió el funcionamiento de los selectores específicos de años en dispositivos móviles, permitiendo una interacción correcta y consistente.",
+        "Se unificaron los footers de las diferentes secciones del sitio para mantener una estructura visual y diseño coherentes en toda la interfaz.",
+        "Se modificó el texto mostrado en el menú principal, unificando el nombre del sitio para reforzar la identidad visual en todas las secciones."
+      ],
+      "fixes": [
+        "Se solucionó un problema en el lector de manga donde, al mantener activa la vista en cascada, cambiar de capítulo y posteriormente cambiar a vista paginada, el PDF dejaba de cargarse correctamente.",
+        "Se corrigieron errores en la función de 'Me encanta', evitando que una canción marcada como favorita afecte automáticamente a otras canciones ubicadas en la misma posición dentro de diferentes álbumes.",
+        "Se eliminó el botón adicional de cierre en la ventana de ayuda de la sección Constelaciones, manteniendo únicamente el botón funcional correspondiente para evitar duplicidad."
+      ],
+      "notes": [
+        "Esta actualización se centra en mejorar la estabilidad general del sitio, corregir problemas específicos en dispositivos móviles, optimizar la experiencia del lector de manga y fortalecer la consistencia visual entre secciones. Además, incorpora la nueva sección de favoritos en Música para mejorar la gestión personalizada del contenido."
+      ]
+    }
+  },
+  {
+    "version": "2.1.6",
+    "build": "20260731",
+    "date": "31 de julio de 2026",
+    "subtitle": "Ampliación de la Galería, Optimización para Móviles y Reestructuración del Código",
+    "changes": {
+      "new": [
+        "Se añadieron las ilustraciones oficiales de los Volúmenes 1–13, SS1, SS2 y el Volumen 99 a la Galería.",
+        "Se completó la compatibilidad de la Galería con dispositivos móviles, ofreciendo una experiencia totalmente adaptable en todas las pantallas."
+      ],
+      "improvements": [
+        "Se reestructuró la arquitectura de datos de la Galería en un formato modular, facilitando la organización, el mantenimiento y la futura incorporación de nuevas ilustraciones.",
+        "Se optimizó el diseño y la interacción de la Galería para dispositivos móviles, mejorando el espaciado, el escalado de imágenes y la capacidad de respuesta.",
+        "Se reorganizó por completo la base de código para mejorar su estructura, consistencia y legibilidad, facilitando el mantenimiento y el desarrollo futuro sin afectar las funciones existentes."
+      ],
+      "fixes": [
+        "Se corrigió un nombre incorrecto en la localización de música en español (`es.json`)."
+      ],
+      "notes": [
+        "Esta actualización se centra en mejorar la escalabilidad y el mantenimiento del proyecto, al mismo tiempo que amplía considerablemente la Galería. La nueva estructura de datos simplifica la incorporación de futuras ilustraciones, la experiencia en dispositivos móviles ha sido refinada y la reorganización del código facilita el desarrollo de próximas actualizaciones."
+      ]
+    }
+  },
+  {
+    "version": "2.1.5",
+    "build": "20260730",
+    "date": "29 de Julio de 2026",
+    "subtitle": "Arreglos Menores y Ajustes de Interfaz",
+    "changes": {
+      "new": [],
+      "improvements": [
+        "Se realizaron ajustes menores para mejorar la estabilidad y consistencia de algunas secciones del sitio."
+      ],
+      "fixes": [
+        "Corregido un error en el JavaScript de la sección Manga que impedía generar correctamente las rutas de los capítulos en español.",
+        "Corregido el selector de idiomas que se desplegaba detrás de otros elementos de la interfaz, ajustando su posicionamiento para mostrarse correctamente.",
+        "Corregidos errores en los archivos JSON de la sección Acerca de en ambos idiomas."
+      ],
+      "notes": [
+        "Esta actualización se enfoca en corregir errores menores y mejorar detalles de interfaz, asegurando un funcionamiento más consistente en las secciones Manga y Acerca de."
+      ]
+    }
+  },
+  {
+    "version": "2.1.4",
+    "build": "20260729",
+    "date": "29 de Julio de 2026",
+    "subtitle": "Refinamiento del Selector de Vista en Manga e Introducción del Prototipo de Galería",
+    "changes": {
+      "new": [
+        "Introducido un prototipo funcional para la página de Galería, actualmente optimizado solo para visualización en PC.",
+        "Implementada funcionalidad de vista dual en la sección de Manga, permitiendo a los usuarios alternar entre diseños de Cuadrícula y Lista.",
+        "Añadidas transiciones animadas suaves para los controles deslizantes de vista y versión."
+      ],
+      "improvements": [
+        "Rediseñada la página de Manga con una jerarquía visual mejorada, espaciado optimizado y una estética más pulida.",
+        "Mejorados los botones de alternancia integrando iconos de Font Awesome para una experiencia de usuario más intuitiva y atractiva.",
+        "Reforzado el diseño responsive en toda la sección de Manga, garantizando mejor adaptabilidad en dispositivos móviles.",
+        "Introducida una animación escalonada de aparición de tarjetas, añadiendo un toque dinámico y pulido al cargar los volúmenes.",
+        "Refinada la funcionalidad de búsqueda con un botón de limpieza integrado y estilos mejorados para mayor usabilidad.",
+        "Elevado el lenguaje de diseño general con acentos degradados, sombras refinadas y toques visuales modernos.",
+        "Aplicado un estilo de barra de desplazamiento personalizado y consistente en toda la sección para una mejor coherencia visual.",
+        "Mejorada la legibilidad de la lista de capítulos con mejor espaciado, efectos hover y retroalimentación de interacción refinada."
+      ],
+      "fixes": [
+        "Corregido el problema del selector de vista Cuadrícula/Lista donde los botones mostraban texto sin formato en lugar de iconos adecuados.",
+        "Ajustado el estado de vista predeterminado de Lista a Cuadrícula, asegurando una experiencia de usuario más lógica desde el primer momento.",
+        "Solucionadas las inconsistencias de posicionamiento del control deslizante que causaban desalineaciones en los controles.",
+        "Arreglado el contenedor update-box que no aplicaba correctamente el estado de vista inicial al cargar la página.",
+        "Rectificada la inicialización de JavaScript para establecer y mantener correctamente el estado de vista activo.",
+        "Resuelto el manejo del redimensionamiento de ventana para los controles deslizantes, asegurando un posicionamiento preciso en todos los tamaños de pantalla."
+      ],
+      "notes": [
+        "Esta actualización representa un avance significativo en la experiencia de usuario de la sección de Manga, con selectores de vista completamente funcionales, visuales refinados e interacciones más fluidas. La adición del prototipo de Galería (solo para PC) sienta las bases para futuras expansiones. Todos los cambios son compatibles con versiones anteriores y mantienen una integración perfecta con las funcionalidades existentes."
+      ]
+    }
+  },
+  {
+    "version": "2.1.3",
+    "build": "20260728",
+    "date": "28 de julio de 2026",
+    "subtitle": "Ajustes de Localización y Mejoras Visuales",
+    "changes": {
+      "new": [
+        "Se añadió la versión en español de la sección Artículos dentro de la página Otros.",
+        "Se añadió el acceso a contenido de artículos en español desde la sección Otros.",
+        "Se añadió la versión Antología del manga en español dentro del selector de idioma."
+      ],
+      "improvements": [
+        "Se ajustó la posición del selector de idioma para mantener la misma ubicación visual en todas las pantallas.",
+        "Se unificó la ubicación y estilo del selector de idioma en la sección OST y otras páginas del sitio.",
+        "Se mejoraron los estilos visuales de la sección Archivo del Autor, incluyendo iconos, legibilidad y efectos de difuminado.",
+        "Se optimizó la estructura de la sección Archivo del Autor separando su JavaScript en un archivo independiente para mejorar la organización y mantenimiento.",
+        "Se realizaron ajustes generales de interfaz para mejorar la consistencia visual entre diferentes secciones."
+      ],
+      "fixes": [
+        "Se corrigió un problema de ruta en la sección Constelación que impedía la correcta carga del archivo JavaScript.",
+        "Se corrigió el selector de idioma en la sección Manga, donde únicamente se mostraba la opción en inglés.",
+        "Se corrigieron inconsistencias de estilos relacionadas con la ubicación de elementos de navegación."
+      ],
+      "notes": [
+        "Esta actualización se centra en mejorar la consistencia de navegación, ampliar la disponibilidad de contenido en español y optimizar la estructura interna de algunas secciones mediante una mejor separación de archivos."
+      ]
+    }
+  },
+  {
+    "version": "2.1.2",
+    "build": "20260727",
+    "date": "27 de julio de 2026",
+    "subtitle": "Expansión de Manga y Funciones de Archivo",
+    "changes": {
+      "new": [
+        "Se añadió la página Archivo del Autor con una colección curada de entrevistas, comentarios, epílogos y artículos de revista de Hitoma Iruma.",
+        "Se añadió la sección Artículos en la página Otros, proporcionando acceso fácil al Archivo del Autor.",
+        "Se añadió el Capítulo 58 a la versión Moke del manga, completando el Volumen 9.",
+        "Se añadieron todos los capítulos para la versión Mani del manga (Capítulos 1-18 en 3 volúmenes).",
+        "Se añadieron todos los capítulos para la versión Antología del manga (10 capítulos de varios artistas).",
+        "Se añadió funcionalidad de marcadores en la página de Historias Extra para guardar historias favoritas.",
+        "Se añadió seguimiento de progreso de lectura que guarda automáticamente la posición de desplazamiento en cada historia.",
+        "Se añadieron controles de filtro en la página de Historias Extra para ver Todas, Marcadas, Leídas y No leídas.",
+        "Se añadió un botón 'Marcar como Leída/No leída' directamente en el lector de historias.",
+        "Se añadieron insignias de progreso en las tarjetas de historias que muestran el porcentaje leído o el estado 'Leída'.",
+        "Se añadieron controles de lectura fijos que permanecen visibles al desplazarse por las historias.",
+        "Se añadió el botón 'Ver Materiales Traducidos' en las tarjetas de traductores en la página Acerca de, permitiendo a los usuarios ver todos los materiales traducidos por cada colaborador.",
+        "Se añadió un modal dedicado en la página Acerca de para mostrar las obras y contribuciones detalladas de los traductores."
+      ],
+      "improvements": [
+        "Se refactorizó el código separando JavaScript de HTML en archivos externos dedicados para mejor mantenibilidad y rendimiento.",
+        "Se optimizó la página de Historias Extra para móviles con píldoras de filtro responsivas, estadísticas compactas y controles táctiles.",
+        "Se hizo el botón 'Ver Materiales Traducidos' más sutil y menos llamativo en la página Acerca de.",
+        "Se optimizó el diseño y estilo de la página Acerca de para una mejor respuesta en móviles.",
+        "Se mejoró la sección de tarjetas de traductores con una jerarquía visual y espaciado mejorados.",
+        "Se mejoró el lector de historias con controles fijos que permanecen visibles al desplazarse.",
+        "Se añadió guardado con debounce para el progreso de lectura, reduciendo las escrituras en localStorage."
+      ],
+      "fixes": [
+        "Se corrigió el progreso de lectura que no alcanzaba el 100% a pesar de llegar al final de la historia.",
+        "Se corrigieron los datos de materiales faltantes para los traductores en la página Acerca de."
+      ],
+      "notes": [
+        "Esta actualización introduce la nueva página Archivo del Autor y expande significativamente la biblioteca de manga con el Capítulo 58 para Moke, todos los capítulos para Mani (1-18) y todos los capítulos para Antología (1-10). La página de Historias Extra también recibe importantes mejoras con marcadores, seguimiento de progreso de lectura y capacidades de filtrado. El código base ha sido refactorizado para mejorar su mantenibilidad."
+      ]
+    }
+  },
+  {
+    "version": "2.1.1",
+    "build": "20260727",
+    "date": "22 de julio de 2026",
+    "subtitle": "Ajustes Generales y Expansión de Contenido",
+    "changes": {
+      "new": [
+        "Se añadió la función de descarga en la sección de Manga en español.",
+        "Se añadió la sección de CD Drama en inglés con contenido disponible.",
+        "Se añadió nuevo contenido en inglés dentro de la sección Constelación.",
+        "Se integró el menú de navegación en la sección Anime y otras páginas para ofrecer una experiencia más consistente."
+      ],
+      "improvements": [
+        "Se realizaron ajustes generales en todo el sitio, incluyendo menús, estilos y funciones de descarga.",
+        "Se mejoró el funcionamiento de las descargas en múltiples secciones para ofrecer una experiencia más confiable.",
+        "Se ajustaron los estilos de la sección Anime para reducir la apariencia oscura y lograr un diseño más equilibrado y luminoso.",
+        "Se mejoró la consistencia de navegación al ampliar el sistema de menú compartido en más secciones.",
+        "Se optimizaron diversos elementos visuales y detalles de interfaz en todo el sitio."
+      ],
+      "fixes": [
+        "Se corrigió la sección OST agregando botones de descarga funcionales para los lanzamientos musicales disponibles.",
+        "Se solucionaron diversos problemas relacionados con descargas y acceso a recursos.",
+        "Se corrigieron inconsistencias de diseño y usabilidad en varias páginas."
+      ],
+      "notes": [
+        "Esta actualización se centra en mejoras generales, correcciones de funciones de descarga, mayor consistencia en la navegación, ajustes visuales y expansión del contenido disponible en múltiples secciones."
+      ]
+    }
+  },
+  {
+    "version": "2.1.0",
+    "build": "20260717",
+    "date": "17 de julio de 2026",
+    "subtitle": "Expansión de Anime y Música",
+    "changes": {
+      "new": [
+        "Se añadió una página dedicada a Música con lanzamientos oficiales de bandas sonoras y contenido musical relacionado.",
+        "Se añadieron los tres primeros álbumes oficiales de OST de Adachi to Shimamura al archivo musical.",
+        "Se amplió la sección de Manga en inglés añadiendo los volúmenes del 1 al 9.",
+        "Se unificaron las secciones Mini Anime y Anime en una sola página completa de Anime."
+      ],
+      "improvements": [
+        "Se rediseñó completamente la página de Anime con una estructura más limpia, mejor navegación y una organización de contenido optimizada.",
+        "Se reorganizó internamente la sección de Anime para facilitar su mantenimiento y futuras actualizaciones de contenido.",
+        "Se mejoró la experiencia UI/UX general de la página de Anime con mejores espacios, tipografía y jerarquía visual.",
+        "Se mejoró el lector PDF integrado con una experiencia de lectura más fluida y mayor facilidad de uso."
+      ],
+      "fixes": [
+        "Se corrigieron elementos de interfaz que permanecían sin traducir en la sección de Manga en inglés.",
+        "Se resolvieron diversas inconsistencias de localización en las páginas relacionadas con manga."
+      ],
+      "notes": [
+        "Esta actualización amplía el archivo con contenido musical dedicado, mejora significativamente la sección de Anime mediante un rediseño completo y consolidación, y continúa expandiendo la colección de manga en inglés."
+      ]
+    }
+  },
+  {
+    "version": "2.0.0",
+    "build": "20260712",
+    "date": "12 de julio de 2026",
+    "subtitle": "Rediseño del Lector y Página Principal",
+    "changes": {
+      "new": [
+        "Se añadió una experiencia de lectura completamente personalizable inspirada en lectores modernos de libros electrónicos.",
+        "Se añadieron temas de lectura Claro, Sepia y Oscuro.",
+        "Se añadió la posibilidad de ajustar el tamaño de fuente, familia tipográfica, interlineado y ancho de lectura.",
+        "Se añadieron preferencias persistentes del lector mediante almacenamiento local.",
+        "Se añadió un nuevo panel de configuración del lector rediseñado y accesible directamente desde la vista de lectura.",
+        "Se añadió un nuevo panel expandible '¿Qué es Adachi to Shimamura?' para nuevos visitantes.",
+        "Se añadieron etiquetas informativas de la serie incluyendo autor, género, año de publicación y editorial.",
+        "Se añadió una página dedicada a Historias Extra con historias adicionales, capítulos especiales y contenido complementario.",
+        "Se añadieron 41 Historias Extra completamente traducidas al inglés.",
+        "Se añadió soporte para el envío de comentarios de usuarios."
+      ],
+      "improvements": [
+        "Se rediseñó la página principal conservando la estética original soñadora.",
+        "Se mejoró la jerarquía visual general con mejores espacios y equilibrio entre secciones.",
+        "Se refinó el diseño glassmorphism del sitio con bordes, sombras y transparencias más suaves.",
+        "Se rediseñaron las tarjetas de navegación con mejor tipografía, espaciado e interacciones al pasar el cursor.",
+        "Se mejoró la tipografía general del sitio dando mayor importancia a la legibilidad.",
+        "Se refinó la sección principal para destacar mejor la ilustración de la bicicleta.",
+        "Se mejoraron las tarjetas de lanzamientos con diseños optimizados y una jerarquía de información más clara.",
+        "Se reemplazó la sección anterior 'Sobre este sitio' por una introducción dedicada a la serie.",
+        "Se mejoró el selector de idioma con interacciones más limpias y mejor acabado visual.",
+        "Se mejoraron los efectos de fondo incluyendo nubes, estrellas, elementos flotantes y animaciones.",
+        "Se mejoraron los estados hover de botones y microinteracciones en toda la interfaz.",
+        "Se aumentó la consistencia y el espaciado en las secciones principales.",
+        "Se estandarizaron radios de borde, sombras, transiciones y espacios entre componentes para un diseño más cohesivo.",
+        "Se optimizó la experiencia de lectura para dispositivos de escritorio, tabletas y móviles.",
+        "Se mejoró la organización y descubrimiento del contenido adicional mediante el nuevo archivo de Historias Extra."
+      ],
+      "fixes": [
+        "Se corrigieron inconsistencias de espaciado en múltiples componentes de la página principal.",
+        "Se corrigieron problemas de alineación en tarjetas y elementos interactivos.",
+        "Se corrigieron inconsistencias tipográficas en todo el sitio.",
+        "Se corrigieron diferencias visuales entre distintos paneles de vidrio.",
+        "Se mejoró la adaptación del sitio a diferentes tamaños de pantalla."
+      ],
+      "notes": [
+        "Esta actualización ofrece la mayor renovación visual desde el lanzamiento, incorporando una experiencia de lectura significativamente mejorada, una página principal rediseñada y un archivo dedicado de Historias Extra con 41 historias adicionales traducidas al inglés."
+      ]
+    }
+  },
+  {
+    "version": "1.4.0",
+    "build": "20260710",
+    "date": "10 de julio de 2026",
+    "subtitle": "Actualización de Estadísticas e Información",
+    "changes": {
+      "new": [
+        "Se añadió la página Stats for Nerds con gráficos interactivos y visualizaciones.",
+        "Se añadió una página dedicada de Información con detalles del proyecto, créditos de traducción, avisos legales, historial de versiones y recursos de soporte.",
+        "Se añadió una sección 'Apoya el Trabajo Original' con enlaces oficiales de la novela ligera, manga, autora y recursos relacionados.",
+        "Se añadió una sección de Seguimiento con enlaces a plataformas populares como MyAnimeList, AniList, MangaUpdates, Anime-Planet y Kitsu."
+      ],
+      "improvements": [
+        "Se amplió el sitio con recursos adicionales de referencia.",
+        "Se mejoró la navegación general y la presentación del contenido en todo el sitio.",
+        "Se reorganizó la página Información colocando la sección 'Apoya el Trabajo Original' antes del Aviso Legal.",
+        "Se mejoró la consistencia de las secciones de Soporte y Seguimiento mediante estilos de botones y diseños unificados."
+      ],
+      "fixes": [
+        "Se corrigieron iconos que no se mostraban correctamente en la sección 'Apoya el Trabajo Original'.",
+        "Se corrigieron los iconos de marca en los botones de Soporte y Seguimiento para una mayor consistencia visual."
+      ],
+      "notes": [
+        "Esta actualización se centra en ampliar el archivo con páginas informativas y mejorar la experiencia general del usuario."
+      ]
+    }
+  },
+  {
+    "version": "1.3.0",
+    "build": "20260709",
+    "date": "9 de julio de 2026",
+    "subtitle": "Renovación de UI/UX y Localización",
+    "changes": {
+      "new": [
+        "Se añadieron opciones de vista en lista y cuadrícula para las páginas de Novelas Ligeras y Manga.",
+        "Se añadió una barra de búsqueda para encontrar contenido más rápidamente.",
+        "Se introdujo una interfaz de lectura mejorada."
+      ],
+      "improvements": [
+        "Se reorganizó aún más la estructura del proyecto para mejorar su mantenimiento.",
+        "Se separaron los datos de las páginas en archivos JSON para facilitar su gestión.",
+        "Se mejoró el cambio de idioma inglés ↔ español y la lógica de localización.",
+        "Se mejoró la UI/UX de las secciones de Novelas Ligeras y Manga."
+      ],
+      "fixes": [],
+      "notes": [
+        "Esta versión establece las bases para futuras actualizaciones de contenido y una mejor gestión de traducciones."
+      ]
+    }
+  },
+  {
+    "version": "1.2.0",
+    "build": "20260708",
+    "date": "8 de julio de 2026",
+    "subtitle": "Refactorización de la Estructura del Proyecto",
+    "changes": {
+      "new": [],
+      "improvements": [
+        "Se reorganizó la estructura de archivos del proyecto siguiendo una mejor separación de responsabilidades.",
+        "Se trasladó el CSS integrado a archivos de estilos independientes.",
+        "Se mejoró la organización y facilidad de mantenimiento del proyecto."
+      ],
+      "fixes": [],
+      "notes": [
+        "Refactorización interna sin cambios importantes visibles para los usuarios."
+      ]
+    }
+  }
+]

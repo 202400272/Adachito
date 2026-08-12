@@ -1,0 +1,12 @@
+/* ---------- background layers ---------- */
+.page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url("../../assets/Imagenes/about.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  opacity: 0.12;
+  pointer-events: none;
+}

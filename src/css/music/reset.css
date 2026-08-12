@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", "Quicksand", sans-serif;
+  display: flex;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: linear-gradient(
+    165deg,
+    #f3e6ee 0%,
+    #ecd9e2 25%,
+    #e8cdd4 55%,
+    #efd9c8 85%,
+    #f6e8d3 100%
+  );
+  color: #3a2a42;
+  overflow-x: hidden;
+  margin: 0;
+  transition: background 0.8s ease;
+  -webkit-tap-highlight-color: transparent;
+}

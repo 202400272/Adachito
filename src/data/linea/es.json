@@ -1,0 +1,304 @@
+{
+  "header": {
+    "title": "Línea del Tiempo",
+    "subtitle": "Adachi to Shimamura — Historia de su tiempo en la preparatoria"
+  },
+  "filters": {
+    "all": "Toda la historia",
+    "year1": "1.er Año Escolar",
+    "year2": "2.do Año Escolar",
+    "year3": "3.er Año Escolar"
+  },
+  "yearBadges": {
+    "year1": "Primer Año Escolar",
+    "year2": "Segundo Año Escolar",
+    "year3": "Tercer y Último Año Escolar"
+  },
+  "footer": "Fan site no oficial de Adachi to Shimamura.<br>Creado por fans, sin fines de lucro.<br>Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma.",
+  "floatingTitle": "¡Clickea para ir al mini-juego!",
+  "langLabel": "Español",
+  "events": [
+    {
+      "year": "year1",
+      "side": "right",
+      "season": "<i class=\"fas fa-cloud-sun-rainbow\"></i> Primavera · Abril",
+      "date": "10 de Abril",
+      "title": "Cumpleaños de Shimamura",
+      "desc": "Shimamura cumple 16 años. Adachi tiene 15. Comienzan juntas el primer año de preparatoria, aunque aún no se conocen.",
+      "img": "../../assets/Imagenes/burbuja1.png",
+      "vol": "",
+      "quotes": []
+    },
+    {
+      "year": "year1",
+      "side": "left",
+      "season": "<i class=\"fas fa-leaf\"></i> Inicio de Septiembre",
+      "date": "",
+      "title": "Se conocen en el segundo piso del gimnasio",
+      "desc": "Shimamura sube al segundo piso del gimnasio por primera vez y encuentra a Adachi, que ya está allí sentada sin zapatos, moviendo los pies. Adachi se sobresalta creyendo que es una profesora.",
+      "img": "../../assets/Imagenes/burbuja2.webp",
+      "vol": "Volumen 1",
+      "quotes": [
+        "\"Aunque no lo sabía entonces, ese había sido el primer día que Shimamura se había saltado la clase.\" (Volumen 1)"
+      ]
+    },
+    {
+      "year": "year1",
+      "side": "right",
+      "season": "<i class=\"fas fa-snowflake\"></i> Invierno · Diciembre",
+      "date": "",
+      "title": "Primera Navidad",
+      "desc": "Adachi, que nunca ha salido con alguien en fechas especiales, pasa la Navidad junto a Shimamura por primera vez. Durante la cita recorren el centro comercial, juegan air hockey, intercambian regalos y Shimamura le regala a Adachi un boomerang.",
+      "img": "../../assets/Imagenes/burbuja3.png",
+      "vol": "Volumen 2",
+      "quotes": [
+        "\"Pensé que era una percha rota. De cualquier manera, acepté el objeto azul en forma de V. Lo acepté...\" (Volumen 2)"
+      ]
+    },
+    {
+      "year": "year1",
+      "side": "left",
+      "season": "<i class=\"fas fa-heart\"></i> Invierno · Febrero",
+      "date": "",
+      "title": "Primer San Valentín e intercambio de chocolates",
+      "desc": "Adachi, muy nerviosa por la cercanía de San Valentín, invita a Shimamura a comprar chocolates. Durante la salida, tras leer el mensaje que Shimamura le había dejado: ¡Sigamos adelante, ahora y en el futuro!, Adachi incapaz de contener su emoción le da un abrazo.",
+      "img": "../../assets/Imagenes/burbuja4.png",
+      "vol": "Volumen 3",
+      "quotes": [
+        "\"Lo que quiero decir es que estaba pensando en ti cuando lo envié. Es por eso que terminó así.\" (Volumen 3)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "right",
+      "season": "<i class=\"fas fa-wind\"></i> Primavera · Inicio de Abril",
+      "date": "",
+      "title": "Comienzo del segundo año escolar",
+      "desc": "Adachi tiene 16 años y Shimamura 17. Comienza un nuevo año escolar con cambio de clases. Adachi teme que el nuevo año las separe o altere su relación.",
+      "img": "../../assets/Imagenes/burbuja5.webp",
+      "vol": "Volumen 4",
+      "quotes": [
+        "\"Ahora que lo pienso, esta es la primera vez que vamos a la escuela juntas, ¿no?\" (Volumen 4)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "left",
+      "season": "<i class=\"fas fa-sun\"></i> Inicio del Verano",
+      "date": "",
+      "title": "Propuesta de Adachi",
+      "desc": "En el último día del período escolar, Adachi le expresa a Shimamura su deseo de aprovechar las vacaciones de verano para acercarse aún más a ella, marcando el inicio del verano más importante de sus vidas.",
+      "img": "../../assets/Imagenes/burbuja6.webp",
+      "vol": "Volumen 5",
+      "quotes": [
+        "\"Estaba pensando, sería bueno si pudiéramos usar las vacaciones de verano para estar aún más cerca. Sí.\" (Volumen 5)",
+        "\"Fue allí, con esa sonrisa, que el verano comenzó ese año.\" (Volumen 5)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "right",
+      "season": "<i class=\"fas fa-cloud-rain\"></i> Verano · Vacaciones de Verano",
+      "date": "",
+      "title": "Pelea y reconciliación",
+      "desc": "Durante las vacaciones de verano, Adachi trabaja en un puesto durante un festival y ve que Shimamura está allí con una chica desconocida. La imagen la consume durante días, hasta que todo estalla en una llamada con Shimamura. Más tarde reúne el valor para volver a llamarla y acuerdan verse al día siguiente. La reconciliación llega con flores y un \"volvemos a ser amigas\", dejando a Adachi satisfecha e insatisfecha a la vez. Después, cumplen juntas la lista que Adachi había escrito.",
+      "img": "../../assets/Imagenes/burbuja7.png",
+      "vol": "Volumen 5",
+      "quotes": [
+        "\"Creo que esta podría ser la primera vez que recibo flores.\" (Volumen 5)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "left",
+      "season": "<i class=\"fas fa-torii-gate\"></i> Verano · Obon",
+      "date": "",
+      "title": "Viaje al campo",
+      "desc": "Justo cuando Adachi por fin ha recuperado el ritmo con Shimamura y quiere quedar con ella, Shimamura le dice que no puede, ese día su familia parte a casa de sus abuelos por el Obon.",
+      "img": "../../assets/Imagenes/burbuja8.webp",
+      "vol": "Volumen 6",
+      "quotes": [
+        "\"Oh, no, es porque vamos a la casa de mis abuelos. Ya sabes, el festival de Obon.\" (Volumen 6)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "right",
+      "season": "<i class=\"fas fa-fire\"></i> Festival de Verano",
+      "date": "",
+      "title": "Declaración de Adachi",
+      "desc": "Adachi finalmente se declara a Shimamura y le dice que la ama. Tras huir abrumada por la intensidad del momento, ambas terminan hablando a solas junto a un hotel.",
+      "img": "../../assets/Imagenes/burbuja9.png",
+      "vol": "Volumen 6",
+      "quotes": [
+        "\"Te amo.\" (Volumen 6)",
+        "\"Quiero que estés conmigo.\"<br>\"Estoy aquí.\"<br>\"Quiero que pienses en mí.\"<br>\"Estoy pensando en ti.\"<br>\"Quiero que me mires solo a mí.\" (Volumen 6)",
+        "\"El yo de hoy quedó libre para tomar la siguiente decisión: 'Seguro, por qué no.'\" (Volumen 6)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "left",
+      "season": "<i class=\"fas fa-leaf\"></i> Otoño · Septiembre",
+      "date": "",
+      "title": "Primer día de clases como novias",
+      "desc": "Adachi aparece a primera hora de la mañana en casa de Shimamura, en uniforme escolar, para ir juntas a la escuela. Es el primer día del nuevo período.",
+      "img": "../../assets/Imagenes/burbuja10.webp",
+      "vol": "Volumen 7",
+      "quotes": [
+        "\"Ahora era primero de septiembre. La escuela comenzaría hoy.\" (Volumen 7)",
+        "\"Me amas y yo te amo. ¿Verdad? Simple, ¿eh?\" (Volumen 7)",
+        "\"¿Por qué? Porque hacerlo fue lo que me llevó a conocer a Shimamura. Simplemente la idea de eso causó que el sol brillara sobre mi mundo. Para mí, septiembre fue equivalente al comienzo de un nuevo año.\" (Volumen 7)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "right",
+      "season": "<i class=\"fas fa-bus\"></i> Otoño · Octubre",
+      "date": "",
+      "title": "Viaje escolar a Kitakyushu",
+      "desc": "El viaje escolar de segundo año de preparatoria tiene como destino la ciudad de Kitakyushu. Al anunciarse los grupos de cinco personas, Adachi salta de su asiento y corre hasta el escritorio de Shimamura.",
+      "img": "../../assets/Imagenes/burbuja11.jpg",
+      "vol": "Volumen 8",
+      "quotes": [
+        "\"Aparentemente, octubre era la temporada alta de viajes escolares para los estudiantes de segundo año de preparatoria.\" (Volumen 8)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "left",
+      "season": "<i class=\"fas fa-holly-berry\"></i> Invierno · Diciembre",
+      "date": "",
+      "title": "Segunda Navidad",
+      "desc": "Adachi y Shimamura se citan bajo el gran árbol de Navidad del centro comercial, con Adachi luciendo de nuevo su llamativo vestido chino.",
+      "img": "../../assets/Imagenes/burbuja12.1.jpg",
+      "vol": "Volumen 9",
+      "quotes": [
+        "\"Tan pronto como esas palabras salieron de mi boca, los recuerdos de nuestra Navidad anterior se apresuraron a llenar mi mente. Lo que recordé en particular fue el color azul.\" (Volumen 9)",
+        "\"Es por eso que necesito hacer todo lo posible para no perderte, para reprimir la parte de mí que... Sí, encuentra todo molesto.\" (Volumen 9)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "right",
+      "season": "<i class=\"fas fa-calendar-alt\"></i> Invierno · Diciembre – Enero",
+      "date": "",
+      "title": "Año Nuevo en casa de los abuelos",
+      "desc": "Shimamura viaja con su familia a casa de sus abuelos para pasar el Año Nuevo, como es tradición. En el jardín nocturno, planeaba llamar a Adachi para desearle feliz año.",
+      "img": "../../assets/Imagenes/burbuja13.webp",
+      "vol": "Volumen 10",
+      "quotes": [
+        "\"Estábamos visitando a mis abuelos para pasar el Año Nuevo, como era nuestra tradición anual. Para mí, esta era mi decimoséptima visita.\" (Volumen 10)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "left",
+      "season": "<i class=\"fas fa-envelope-open-text\"></i> Invierno · Febrero",
+      "date": "",
+      "title": "Segundo San Valentín y despedida de Tarumi",
+      "desc": "Shimamura se reúne con Tarumi antes de San Valentín y le confiesa que tiene novia, poniendo fin a cualquier posibilidad romántica entre ellas. Poco después, Shimamura va con Adachi a Nagoya para comprar chocolates de San Valentín.",
+      "img": "../../assets/Imagenes/burbuja14.webp",
+      "vol": "Volumen 10",
+      "quotes": [
+        "\"Habíamos decidido encontrarnos en la estación. Era la segunda vez que me encontraba con alguien aquí en febrero. Esa vez, también había sido con una chica. La única diferencia era... sí. Dejémoslo así.\" (Volumen 10)"
+      ]
+    },
+    {
+      "year": "year3",
+      "side": "right",
+      "season": "<i class=\"fas fa-graduation-cap\"></i> Primavera · Inicio de Abril",
+      "date": "",
+      "title": "Comienzo del tercer y último año",
+      "desc": "Adachi tiene 17 años y Shimamura 18. Es el último año juntas en el instituto.",
+      "img": "../../assets/Imagenes/burbuja16.jpg",
+      "vol": "",
+      "quotes": []
+    },
+    {
+      "year": "year3",
+      "side": "left",
+      "season": "<i class=\"fas fa-umbrella-beach\"></i> Primavera · Finales del Curso",
+      "date": "",
+      "title": "Plan para las últimas vacaciones de verano",
+      "desc": "Con las últimas vacaciones del instituto acercándose, Adachi propone ir juntas a la playa. Para costear el viaje, Shimamura acuerda con sus padres realizar las tareas del hogar a cambio de dinero.",
+      "img": "../../assets/Imagenes/burbuja16.jpg",
+      "vol": "Volumen 12",
+      "quotes": [
+        "\"Se acercaban las vacaciones de verano. Nuestras últimas vacaciones de verano del instituto.\" (Volumen 12)",
+        "\"Bien. Bueno, si aceptas hacer tareas domésticas en tus vacaciones de verano, puedo pagarte por adelantado.\" (Volumen 12)"
+      ]
+    },
+    {
+      "year": "year3",
+      "side": "right",
+      "season": "<i class=\"fas fa-home\"></i> Verano · Inicio de las Vacaciones",
+      "date": "",
+      "title": "Trabajo doméstico de Shimamura",
+      "desc": "",
+      "img": "../../assets/Imagenes/burbuja16.jpg",
+      "vol": "Volumen 12",
+      "quotes": [
+        "\"Soy Shimamura Hougetsu. Seré tu ama de casa durante el verano.\" (Volumen 12)",
+        "\"Mira, Hermana está haciendo algo.\" (Volumen 12)"
+      ]
+    },
+    {
+      "year": "year3",
+      "side": "left",
+      "season": "<i class=\"fas fa-book-reader\"></i> Verano · Julio – Agosto",
+      "date": "",
+      "title": "Estudio en casa de Shimamura",
+      "desc": "Con el pretexto de estudiar juntas para los exámenes, Adachi va a casa de Shimamura. Shimamura sabe perfectamente que no van a estudiar demasiado.",
+      "img": "../../assets/Imagenes/burbuja17.webp",
+      "vol": "Volumen 11",
+      "quotes": [
+        "\"Eran las vacaciones de verano de nuestro tercer año de instituto. Casi podías contar los días hasta la graduación con los dedos.\" (Volumen 11)",
+        "\"Observé cómo el dedo de Adachi dibujaba círculos en el aire. Mientras se acercaba lentamente a mí, decidiendo dónde aterrizar, cerré los ojos.\" (Volumen 11)",
+        "\"Cuando acaben las vacaciones de verano, habrá un festival cultural, ¿verdad?\" (Volumen 11)"
+      ]
+    },
+    {
+      "year": "year3",
+      "side": "right",
+      "season": "<i class=\"fas fa-water\"></i> Verano · Agosto (antes de Obon)",
+      "date": "",
+      "title": "Viaje a la playa",
+      "desc": "Shimamura y Adachi van juntas a la playa, cumpliendo la promesa de verano.",
+      "img": "../../assets/Imagenes/burbuja18.webp",
+      "vol": "Volumen 12",
+      "quotes": [
+        "\"Hoy has estado muy ocupada. ¿Vas a algún sitio mañana?\"",
+        "\"¡Se va de viaje a la playa con una mujer!\" (Volumen 12)"
+      ]
+    },
+    {
+      "year": "year3",
+      "side": "left",
+      "season": "<i class=\"fas fa-torii-gate\"></i> Verano · Inicio de Agosto · Obon",
+      "date": "",
+      "title": "Visita a los abuelos · Últimas vacaciones",
+      "desc": "Shimamura viaja con su familia a casa de sus abuelos durante el Obon, como hace cada año. Esta vez también va Yashiro, disfrazada de tanuki. Son las últimas vacaciones de verano de su vida como estudiante de preparatoria.",
+      "img": "../../assets/Imagenes/burbuja19.png",
+      "vol": "Volumen 13",
+      "quotes": [
+        "\"A inicios de agosto, durante las últimas vacaciones de verano de mi vida como estudiante de preparatoria. Era la época en que la gente regresaba al campo.\" (Volumen 13)",
+        "\"Este año también voy al campo, así que mañana no vengas a buscarme, ¿sí?\" (Volumen 13)"
+      ]
+    },
+    {
+      "year": "year3",
+      "side": "right",
+      "season": "<i class=\"fas fa-theater-masks\"></i> Otoño · Inicio de Septiembre",
+      "date": "",
+      "title": "Festival cultural escolar",
+      "desc": "Regresa el período escolar, junto con la noticia de que hay un festival cultural escolar.",
+      "img": "../../assets/Imagenes/burbuja20.webp",
+      "vol": "Volumen 13",
+      "quotes": [
+        "\"Ya es septiembre, y aunque la voz de las cigarras ya casi no se oye, aún se escucha.\" (Volumen 13)",
+        "\"Un nuevo período escolar comienza, dejando el verano atrás. Hace dos años, desde este mismo punto, empecé a desviarme hacia el segundo piso del gimnasio y hasta me teñí el cabello de rubio. Pero gracias a aquellos desvíos inesperados, tuve un encuentro inesperado que me llevó a donde estoy ahora. Quizá ese encuentro sea uno de esos que cambian la vida para siempre.\" (Volumen 13)"
+      ]
+    }
+  ]
+}

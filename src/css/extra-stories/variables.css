@@ -1,0 +1,17 @@
+:root {
+  --lavender: #c9b8e8;
+  --blush: #f0c8d8;
+  --sage: #b8d4c8;
+  --cream: #faf4ee;
+  --plum: #5c3a6b;
+  --dusty-rose: #d1a3c6;
+  --warm-white: #fff8f4;
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(209, 163, 198, 0.3);
+  --shadow-soft: rgba(92, 58, 107, 0.1);
+  --shadow-glow: rgba(209, 163, 198, 0.25);
+  --reader-bg: #f8f6f2;
+  --reader-text: #2b2b2b;
+  --reader-muted: #6b6b6b;
+  --reader-border: #e8e4de;
+}

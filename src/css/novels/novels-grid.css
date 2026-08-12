@@ -1,0 +1,9 @@
+.novels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0.5rem 0;
+}

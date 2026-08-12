@@ -1,0 +1,951 @@
+/* ============================================================
+   HERO - MUSEUM EXHIBITION DESIGN
+   Dark mode only, premium featured artwork
+   ============================================================ */
+
+.exhibition-entrance {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  min-height: 90vh;
+  padding: 0;
+  position: relative;
+  background: transparent;
+  align-items: stretch;
+}
+
+/* ---- LEFT: TEXT CONTENT ---- */
+.entrance-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 48px 60px 60px;
+  position: relative;
+  z-index: 2;
+  background: transparent;
+}
+
+.entrance-label {
+  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: rgba(212, 160, 192, 0.6);
+  margin-bottom: 28px;
+  display: block;
+}
+
+.entrance-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  margin: 0 0 16px 0;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: -0.03em;
+  max-width: 10em;
+}
+
+.entrance-title .highlight {
+  color: rgba(212, 160, 192, 0.8);
+  display: block;
+}
+
+.entrance-subtitle {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.4);
+  max-width: 420px;
+  line-height: 1.7;
+  margin: 0 0 36px 0;
+  letter-spacing: 0.01em;
+}
+
+/* ---- STATISTICS - EDITORIAL STYLE ---- */
+.entrance-stats {
+  display: flex;
+  gap: 32px;
+  align-items: baseline;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.entrance-stat-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.entrance-stat {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.entrance-stat-label {
+  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.entrance-divider {
+  display: none;
+}
+
+/* ---- SCROLL INDICATOR ---- */
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 8px;
+  opacity: 0.3;
+  transition: opacity 0.4s ease;
+}
+
+.scroll-indicator:hover {
+  opacity: 0.6;
+}
+
+.scroll-line {
+  display: block;
+  width: 1px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(212, 160, 192, 0.4);
+  animation: scrollDown 2s ease-in-out infinite;
+}
+
+@keyframes scrollDown {
+  0% {
+    transform: translateY(-100%);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.scroll-label {
+  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: 0.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.15);
+}
+
+/* ============================================================
+   RIGHT: FEATURED ARTWORK - PREMIUM MUSEUM PRESENTATION
+   ============================================================ */
+
+.entrance-artwork {
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  min-height: 400px;
+}
+
+/* ---- Premium Museum Frame ---- */
+.entrance-artwork::before {
+  content: '';
+  position: absolute;
+  inset: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+  z-index: 2;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.entrance-artwork:hover::before {
+  border-color: rgba(212, 160, 192, 0.12);
+  inset: 12px;
+}
+
+/* ---- Secondary Frame (Inner) ---- */
+.entrance-artwork .frame-inner {
+  position: absolute;
+  inset: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  pointer-events: none;
+  z-index: 2;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.entrance-artwork:hover .frame-inner {
+  border-color: rgba(212, 160, 192, 0.06);
+  inset: 24px;
+}
+
+/* ---- Premium Glow Effect ---- */
+.entrance-artwork::after {
+  content: '';
+  position: absolute;
+  inset: 60px;
+  background: radial-gradient(ellipse at center, rgba(212, 160, 192, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.entrance-artwork:hover::after {
+  opacity: 1;
+}
+
+/* ---- Artwork Image - Premium Presentation ---- */
+.entrance-artwork img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  position: relative;
+  z-index: 1;
+  filter: saturate(1.05) contrast(1.02) brightness(1.02);
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              filter 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 0.8s ease;
+  transform: scale(0.98);
+  opacity: 0.92;
+}
+
+.entrance-artwork img.loaded {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.entrance-artwork:hover img {
+  transform: scale(1.02) rotate(0.3deg);
+  filter: saturate(1.08) contrast(1.04) brightness(1.04);
+  opacity: 1;
+}
+
+/* ---- Premium Shadow beneath artwork ---- */
+.entrance-artwork .artwork-shadow {
+  position: absolute;
+  inset: 40px 60px 20px 60px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  filter: blur(20px);
+}
+
+.entrance-artwork:hover .artwork-shadow {
+  opacity: 1;
+}
+
+/* ============================================================
+   MUSEUM PLAQUE - PREMIUM REDESIGN
+   ============================================================ */
+
+.entrance-artwork-credit {
+  position: absolute;
+  bottom: 44px;
+  right: 44px;
+  padding: 0;
+  z-index: 3;
+  max-width: 280px;
+  text-align: right;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateY(0);
+}
+
+/* ---- Plaque Container ---- */
+.entrance-artwork-credit .plaque-inner {
+  padding: 20px 28px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  position: relative;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.entrance-artwork:hover .entrance-artwork-credit .plaque-inner {
+  background: rgba(0, 0, 0, 0.7);
+  border-color: rgba(212, 160, 192, 0.08);
+}
+
+/* ---- Plaque Decorative Line (Top) ---- */
+.entrance-artwork-credit .plaque-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px;
+  height: 2px;
+  background: rgba(212, 160, 192, 0.25);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.entrance-artwork:hover .entrance-artwork-credit .plaque-inner::before {
+  width: 80px;
+  background: rgba(212, 160, 192, 0.5);
+}
+
+/* ---- Plaque Decorative Line (Bottom) ---- */
+.entrance-artwork-credit .plaque-inner::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.04);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.entrance-artwork:hover .entrance-artwork-credit .plaque-inner::after {
+  width: 50px;
+  background: rgba(212, 160, 192, 0.15);
+}
+
+/* ---- Plaque Title ---- */
+.entrance-artwork-title {
+  display: block;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(0.95rem, 1.2vw, 1.2rem);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+
+/* ---- Plaque Artist ---- */
+.entrance-artwork-artist {
+  display: block;
+  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: rgba(212, 160, 192, 0.6);
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+  transition: color 0.4s ease;
+}
+
+.entrance-artwork:hover .entrance-artwork-artist {
+  color: rgba(212, 160, 192, 0.8);
+}
+
+/* ---- Plaque Divider ---- */
+.entrance-artwork-credit .plaque-divider {
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  margin: 6px 0 6px auto;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.entrance-artwork:hover .entrance-artwork-credit .plaque-divider {
+  width: 32px;
+  background: rgba(212, 160, 192, 0.2);
+}
+
+/* ---- Plaque Collection ---- */
+.entrance-artwork-collection {
+  display: block;
+  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: 0.5rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 4px;
+  transition: color 0.4s ease;
+}
+
+.entrance-artwork:hover .entrance-artwork-collection {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* ---- Plaque Year ---- */
+.entrance-artwork-year {
+  display: block;
+  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: 0.5rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.12);
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+  transition: color 0.4s ease;
+}
+
+.entrance-artwork:hover .entrance-artwork-year {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* ---- Plaque Hover Lift ---- */
+.entrance-artwork:hover .entrance-artwork-credit {
+  transform: translateY(-6px);
+}
+
+/* ---- Optional: Plaque Number (bottom-right) ---- */
+.entrance-artwork-credit .plaque-number {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: 0.4rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.04);
+  letter-spacing: 0.1em;
+  transition: color 0.4s ease;
+}
+
+.entrance-artwork:hover .entrance-artwork-credit .plaque-number {
+  color: rgba(255, 255, 255, 0.08);
+}
+
+/* ---- Artwork Number Indicator ---- */
+.artwork-counter {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  z-index: 3;
+  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.1);
+  letter-spacing: 0.1em;
+  transition: all 0.4s ease;
+}
+
+.entrance-artwork:hover .artwork-counter {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* ---- Slideshow Indicators - Premium ---- */
+.slideshow-indicators {
+  position: absolute;
+  bottom: 44px;
+  left: 44px;
+  display: flex;
+  gap: 12px;
+  z-index: 3;
+}
+
+.slideshow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  position: relative;
+}
+
+.slideshow-dot::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  transition: all 0.6s ease;
+}
+
+.slideshow-dot.active {
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(1.4);
+}
+
+.slideshow-dot.active::before {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.slideshow-dot:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.2);
+}
+
+.slideshow-dot.active:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   ============================================================ */
+
+/* ---- TABLETS ---- */
+@media (max-width: 1024px) {
+  .exhibition-entrance {
+    grid-template-columns: 1fr 1fr;
+    min-height: 70vh;
+    gap: 0;
+  }
+
+  .entrance-content {
+    padding: 40px 32px 40px 40px;
+  }
+
+  .entrance-title {
+    font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+  }
+
+  .entrance-artwork {
+    padding: 16px;
+    min-height: 350px;
+  }
+
+  .entrance-artwork::before {
+    inset: 12px;
+  }
+
+  .entrance-artwork .frame-inner {
+    inset: 20px;
+  }
+
+  .entrance-artwork-credit {
+    bottom: 28px;
+    right: 28px;
+    max-width: 240px;
+  }
+
+  .entrance-artwork-credit .plaque-inner {
+    padding: 16px 20px;
+  }
+
+  .slideshow-indicators {
+    bottom: 28px;
+    left: 28px;
+    gap: 10px;
+  }
+
+  .artwork-counter {
+    top: 28px;
+    right: 28px;
+  }
+}
+
+/* ---- PLAQUE - MOBILE ADAPTATIONS ---- */
+@media (max-width: 768px) {
+  .exhibition-entrance {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    min-height: 100vh;
+    gap: 0;
+    padding: 0;
+  }
+
+  .entrance-artwork {
+    order: -1;
+    min-height: 45vh;
+    padding: 12px;
+    aspect-ratio: 4/3;
+  }
+
+  .entrance-artwork::before {
+    inset: 10px;
+  }
+
+  .entrance-artwork .frame-inner {
+    inset: 16px;
+  }
+
+  .entrance-artwork:hover::before {
+    inset: 8px;
+  }
+
+  .entrance-artwork:hover .frame-inner {
+    inset: 12px;
+  }
+
+  .entrance-artwork img {
+    object-fit: cover;
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .entrance-artwork:hover img {
+    transform: scale(1.01);
+  }
+
+  .entrance-artwork .artwork-shadow {
+    inset: 20px 30px 10px 30px;
+  }
+
+  .entrance-artwork::after {
+    inset: 30px;
+  }
+
+  .entrance-content {
+    padding: 28px 20px 36px;
+    justify-content: flex-start;
+    gap: 0;
+  }
+
+  .entrance-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 16px;
+  }
+
+  .entrance-title {
+    font-size: clamp(2rem, 8vw, 2.8rem);
+    margin-bottom: 10px;
+    max-width: 100%;
+  }
+
+  .entrance-subtitle {
+    font-size: 0.9rem;
+    max-width: 100%;
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .entrance-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .entrance-stat-group {
+    align-items: center;
+    text-align: center;
+  }
+
+  .entrance-stat {
+    font-size: clamp(1.4rem, 5vw, 1.8rem);
+  }
+
+  .entrance-stat-label {
+    font-size: 0.5rem;
+    letter-spacing: 0.08em;
+  }
+
+  .scroll-indicator {
+    display: none;
+  }
+
+  /* ---- Plaque Mobile ---- */
+  .entrance-artwork-credit {
+    bottom: 14px;
+    right: 14px;
+    left: 14px;
+    max-width: none;
+    text-align: center;
+  }
+
+  .entrance-artwork-credit .plaque-inner {
+    padding: 14px 18px;
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .entrance-artwork:hover .entrance-artwork-credit {
+    transform: translateY(0);
+  }
+
+  .entrance-artwork-credit .plaque-inner::before {
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  .entrance-artwork:hover .entrance-artwork-credit .plaque-inner::before {
+    width: 60px;
+  }
+
+  .entrance-artwork-credit .plaque-inner::after {
+    display: none;
+  }
+
+  .entrance-artwork-title {
+    font-size: 0.9rem;
+  }
+
+  .entrance-artwork-artist {
+    font-size: 0.6rem;
+  }
+
+  .entrance-artwork-credit .plaque-divider {
+    margin: 4px auto;
+  }
+
+  .entrance-artwork-collection {
+    font-size: 0.45rem;
+  }
+
+  .entrance-artwork-year {
+    font-size: 0.45rem;
+  }
+
+  .entrance-artwork-credit .plaque-number {
+    display: none;
+  }
+
+  .slideshow-indicators {
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 10px;
+  }
+
+  .slideshow-dot {
+    width: 5px;
+    height: 5px;
+  }
+
+  .artwork-counter {
+    display: none;
+  }
+}
+
+/* ---- SMALL MOBILE PHONES ---- */
+@media (max-width: 480px) {
+  .entrance-artwork {
+    min-height: 35vh;
+    padding: 10px;
+  }
+
+  .entrance-artwork::before {
+    inset: 8px;
+  }
+
+  .entrance-artwork .frame-inner {
+    inset: 12px;
+  }
+
+  .entrance-content {
+    padding: 20px 16px 28px;
+  }
+
+  .entrance-title {
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
+  }
+
+  .entrance-subtitle {
+    font-size: 0.8rem;
+    margin-bottom: 16px;
+  }
+
+  .entrance-stats {
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .entrance-stat {
+    font-size: clamp(1.2rem, 4.5vw, 1.5rem);
+  }
+
+  .entrance-stat-label {
+    font-size: 0.45rem;
+  }
+
+  .entrance-artwork-credit {
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
+  }
+
+  .entrance-artwork-credit .plaque-inner {
+    padding: 10px 14px;
+  }
+
+  .entrance-artwork-title {
+    font-size: 0.8rem;
+  }
+
+  .entrance-artwork-artist {
+    font-size: 0.55rem;
+  }
+
+  .entrance-artwork-collection {
+    font-size: 0.4rem;
+  }
+
+  .entrance-artwork-year {
+    font-size: 0.4rem;
+  }
+
+  .slideshow-indicators {
+    bottom: 72px;
+    gap: 8px;
+  }
+
+  .slideshow-dot {
+    width: 4px;
+    height: 4px;
+  }
+}
+
+/* ---- VERY SMALL PHONES ---- */
+@media (max-width: 360px) {
+  .entrance-artwork {
+    min-height: 30vh;
+    padding: 8px;
+  }
+
+  .entrance-artwork::before {
+    inset: 6px;
+  }
+
+  .entrance-artwork .frame-inner {
+    inset: 10px;
+  }
+
+  .entrance-content {
+    padding: 16px 12px 24px;
+  }
+
+  .entrance-title {
+    font-size: clamp(1.4rem, 6vw, 1.8rem);
+  }
+
+  .entrance-stats {
+    gap: 6px;
+  }
+
+  .entrance-stat {
+    font-size: clamp(1rem, 4vw, 1.2rem);
+  }
+
+  .entrance-stat-label {
+    font-size: 0.4rem;
+    letter-spacing: 0.06em;
+  }
+
+  .slideshow-indicators {
+    bottom: 68px;
+    gap: 6px;
+  }
+}
+
+/* ============================================================
+   TOUCH-FRIENDLY IMPROVEMENTS
+   ============================================================ */
+
+@media (hover: none) {
+  .entrance-artwork:hover::before {
+    inset: 10px;
+    border-color: rgba(255, 255, 255, 0.04);
+  }
+
+  .entrance-artwork:hover .frame-inner {
+    inset: 16px;
+    border-color: rgba(255, 255, 255, 0.02);
+  }
+
+  .entrance-artwork:hover img {
+    transform: scale(1);
+    filter: saturate(1.05) contrast(1.02) brightness(1.02);
+  }
+
+  .entrance-artwork:hover::after {
+    opacity: 0;
+  }
+
+  .entrance-artwork .artwork-shadow {
+    opacity: 0;
+  }
+
+  .entrance-artwork:hover .entrance-artwork-credit {
+    transform: translateY(0);
+  }
+
+  .entrance-artwork:hover .entrance-artwork-credit .plaque-inner {
+    background: rgba(0, 0, 0, 0.55);
+    border-color: rgba(255, 255, 255, 0.04);
+  }
+
+  .entrance-artwork-credit .plaque-inner::before {
+    width: 50px;
+  }
+
+  .entrance-artwork-credit .plaque-inner::after {
+    width: 30px;
+  }
+
+  .scroll-indicator {
+    opacity: 0.2;
+  }
+
+  .slideshow-dot:active {
+    transform: scale(0.8);
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-line::after {
+    animation: none;
+  }
+
+  .entrance-artwork img {
+    transition: none;
+  }
+
+  .entrance-artwork::before {
+    transition: none;
+  }
+
+  .entrance-artwork .frame-inner {
+    transition: none;
+  }
+
+  .entrance-artwork::after {
+    transition: none;
+  }
+
+  .entrance-artwork .artwork-shadow {
+    transition: none;
+  }
+
+  .entrance-artwork-credit {
+    transition: none;
+  }
+
+  .entrance-artwork-credit .plaque-inner {
+    transition: none;
+  }
+
+  .entrance-artwork-credit .plaque-inner::before {
+    transition: none;
+  }
+
+  .entrance-artwork-credit .plaque-inner::after {
+    transition: none;
+  }
+
+  .entrance-artwork-credit .plaque-divider {
+    transition: none;
+  }
+
+  .slideshow-dot {
+    transition: none;
+  }
+
+  .artwork-counter {
+    transition: none;
+  }
+}

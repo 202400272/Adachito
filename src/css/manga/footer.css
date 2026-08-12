@@ -1,0 +1,9 @@
+/* ---------- footer ---------- */
+.footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: rgba(209,163,198,0.7);
+    line-height: 1.6;
+    z-index: 5;
+}
