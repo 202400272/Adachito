@@ -887,7 +887,7 @@ body.time-night #menu-component-wrapper .toggle-slider::before {
     display: flex;
   }
   #menu-component-wrapper .drawer-close-btn {
-    display: flex;
+    display: none !important;
   }
   #menu-component-wrapper .sidebar {
     position: fixed;

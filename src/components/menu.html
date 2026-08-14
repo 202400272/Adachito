@@ -829,7 +829,13 @@
       <!-- ==========================================================
            MOBILE TOGGLE BUTTON
            ========================================================== -->
-      <button class="mobile-toggle" id="menu-toggle-btn" onclick="menuToggle()" aria-label="Open menu" aria-expanded="false" aria-controls="sideMenu">
+      <button
+        class="mobile-toggle"
+        id="menu-toggle-btn"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="sideMenu"
+      >
         <i class="fas fa-bars" aria-hidden="true"></i>
       </button>
 
@@ -837,7 +843,12 @@
            SIDEBAR / NAVIGATION PANEL
            ========================================================== -->
       <nav class="sidebar" id="sideMenu" aria-label="Sidebar">
-        <button type="button" class="drawer-close-btn" id="menu-close-btn" onclick="closeMenu()" aria-label="Close menu">
+        <button
+          type="button"
+          class="drawer-close-btn"
+          id="menu-close-btn"
+          aria-label="Close menu"
+        >
           <i class="fas fa-xmark" aria-hidden="true"></i>
         </button>
         <div class="sidebar-inner">
@@ -870,11 +881,6 @@
               <a href="/Adashima_Anime" data-page="anime" class="nav-item">
                 <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-clapperboard"></i></span>
                 <span class="nav-item-label" id="menu-nav-anime">Anime</span>
-                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
-              </a>
-              <a href="/Adashima_Mini_Anime" data-page="miniAnime" class="nav-item">
-                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-tv"></i></span>
-                <span class="nav-item-label" id="menu-nav-mini-anime">Mini Anime</span>
                 <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
               </a>
               <a href="/Adashima_Manga" data-page="manga" class="nav-item">
@@ -917,7 +923,7 @@
                 <span class="nav-item-label" id="menu-nav-constellation">Constellation</span>
                 <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
               </a>
-              <a href="/Adashima_Stats" data-page="stats" class="nav-item">
+              <a href="/Adashima_Stats" data-page="stats" class="nav-item" id="menu-stats-item">
                 <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-chart-column"></i></span>
                 <span class="nav-item-label" id="menu-nav-stats">Stats</span>
                 <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
@@ -1237,55 +1243,80 @@
       // ============================================================
       // MENU TOGGLE (open/close)
       // ============================================================
-      function setSidebarState(isOpen) {
-        const sidebar = document.getElementById("sideMenu");
-        const btn = document.getElementById("menu-toggle-btn");
-        if (!sidebar) return;
-        sidebar.classList.toggle("active", isOpen);
-        if (btn) {
-          btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
-          btn.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
-          const icon = btn.querySelector("i");
-          if (icon) {
-            icon.classList.toggle("fa-bars", !isOpen);
-            icon.classList.toggle("fa-times", isOpen);
+      (function() {
+        function setSidebarState(isOpen) {
+          const sidebar = document.getElementById("sideMenu");
+          const btn = document.getElementById("menu-toggle-btn");
+          if (!sidebar) return;
+          sidebar.classList.toggle("active", isOpen);
+          if (btn) {
+            btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+            btn.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+          }
+
+          if (window.innerWidth <= 900) {
+            sidebar.style.transform = isOpen ? "translateX(0)" : "translateX(110%)";
           }
         }
-      }
-      window.setSidebarState = setSidebarState;
+        window.setSidebarState = setSidebarState;
 
-      function menuToggle() {
-        const sidebar = document.getElementById("sideMenu");
-        if (!sidebar) return;
-        setSidebarState(!sidebar.classList.contains("active"));
-      }
-      window.menuToggle = menuToggle;
-
-      function closeMenu() {
-        setSidebarState(false);
-      }
-      window.closeMenu = closeMenu;
-
-      // close on outside click
-      document.addEventListener("click", function(e) {
-        const sidebar = document.getElementById("sideMenu");
-        const btn = document.getElementById("menu-toggle-btn");
-        if (!sidebar || !sidebar.classList.contains("active")) return;
-        if (!sidebar.contains(e.target) && !(btn && btn.contains(e.target))) {
-          closeMenu();
+        function adashimaMenuToggle() {
+          const sidebar = document.getElementById("sideMenu");
+          if (!sidebar) return;
+          setSidebarState(!sidebar.classList.contains("active"));
         }
-      });
+        window.adashimaMenuToggle = adashimaMenuToggle;
 
-      // close on Escape
-      document.addEventListener("keydown", function(e) {
-        if (e.key !== "Escape") return;
-        const sidebar = document.getElementById("sideMenu");
-        if (!sidebar || !sidebar.classList.contains("active")) return;
-        closeMenu();
-      });
+        function adashimaCloseMenu() {
+          setSidebarState(false);
+        }
+        window.adashimaCloseMenu = adashimaCloseMenu;
 
-      // ============================================================
-      // SETTINGS COLLAPSE
+        const mobileToggleBtn = document.getElementById("menu-toggle-btn");
+        if (mobileToggleBtn) {
+          mobileToggleBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            adashimaMenuToggle();
+          });
+        }
+
+        const drawerCloseBtn = document.getElementById("menu-close-btn");
+        if (drawerCloseBtn) {
+          drawerCloseBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            adashimaCloseMenu();
+          });
+        }
+
+        function syncLanguageSpecificMenuItems() {
+          const lang = (localStorage.getItem("lang") || "es").toLowerCase();
+          const statsItem = document.getElementById("menu-stats-item");
+          if (!statsItem) return;
+          const shouldHide = lang === "es";
+          statsItem.style.display = shouldHide ? "none" : "";
+          statsItem.setAttribute("aria-hidden", shouldHide ? "true" : "false");
+        }
+        window.syncLanguageSpecificMenuItems = syncLanguageSpecificMenuItems;
+
+        document.addEventListener("click", function(e) {
+          const sidebar = document.getElementById("sideMenu");
+          const btn = document.getElementById("menu-toggle-btn");
+          if (!sidebar || !sidebar.classList.contains("active")) return;
+          if (!sidebar.contains(e.target) && !(btn && btn.contains(e.target))) {
+            adashimaCloseMenu();
+          }
+        });
+
+        document.addEventListener("keydown", function(e) {
+          if (e.key !== "Escape") return;
+          const sidebar = document.getElementById("sideMenu");
+          if (!sidebar || !sidebar.classList.contains("active")) return;
+          adashimaCloseMenu();
+        });
+      })();
+
       // ============================================================
       (function() {
         const card = document.getElementById("settingsCard");
@@ -1480,10 +1511,12 @@
             document.documentElement.lang = lang;
             window.currentLanguage = lang;
             window.currentLang = lang;
+            syncLanguageSpecificMenuItems();
             if (window.translateMenu) window.translateMenu(lang);
             document.dispatchEvent(new CustomEvent("languageChanged", { detail: { lang } }));
           });
         });
+        syncLanguageSpecificMenuItems();
       })();
 
       // ============================================================
@@ -1548,7 +1581,6 @@
             communityLabel: "COMUNIDAD",
             statusLabel: "ESTADO",
             navAnime: "Anime",
-            navMiniAnime: "Mini Anime",
             navManga: "Manga",
             navNovels: "Novelas",
             navExtra: "Historias Extra",
@@ -1590,7 +1622,6 @@
             communityLabel: "COMMUNITY",
             statusLabel: "STATUS",
             navAnime: "Anime",
-            navMiniAnime: "Mini Anime",
             navManga: "Manga",
             navNovels: "Novels",
             navExtra: "Extra Stories",
@@ -1632,7 +1663,6 @@
             communityLabel: "KOMUNIDAD",
             statusLabel: "KATAYUAN",
             navAnime: "Anime",
-            navMiniAnime: "Mini Anime",
             navManga: "Manga",
             navNovels: "Mga Nobela",
             navExtra: "Extra Stories",

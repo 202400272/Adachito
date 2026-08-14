@@ -2358,18 +2358,6 @@ document.addEventListener("menuLoaded", enforceMenuLayout);
 window.addEventListener("resize", enforceMenuLayout);
 window.addEventListener("orientationchange", enforceMenuLayout);
 
-// Re-apply whenever the sidebar's "active" class changes (e.g. tapping the
-// mobile toggle button), since that also affects the transform we set above.
-document.addEventListener(
-  "click",
-  function (e) {
-    if (e.target.closest && e.target.closest("#menu-toggle-btn")) {
-      setTimeout(enforceMenuLayout, 0);
-    }
-  },
-  true,
-);
-
 // ===== PARTICLES =====
 const particlesContainer = document.getElementById("particles");
 for (let i = 0; i < 18; i++) {
