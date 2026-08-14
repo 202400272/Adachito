@@ -63,6 +63,7 @@
     <link rel="stylesheet" href="/src/components/styles/menu.css" />
     <link rel="stylesheet" href="/src/css/lang-switch.css" />
     <link rel="stylesheet" href="/src/components/styles/pdf-reader.css" />
+    <link rel="stylesheet" href="/src/components/styles/pdf-reader-enhancements.css" />
 
     <link rel="stylesheet" href="/src/css/novels/main.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
@@ -111,7 +112,10 @@
         <div class="header-top-controls">
           
         </div>
-        <h1 class="update-title" id="page-title">Novelas Ligeras</h1>
+        <h1 class="update-title" id="page-title" 
+            data-i18n-es="Novelas Ligeras"
+            data-i18n-en="Light Novels"
+            data-i18n-tg="Mga Light Novel">Novelas Ligeras</h1>
       </div>
 
       <div class="library-controls" id="libraryControls">
@@ -122,6 +126,9 @@
             id="searchInput"
             placeholder="Buscar por título, descripción, volumen..."
             aria-label="Buscar novelas"
+            data-i18n-es="Buscar por título, descripción, volumen..."
+            data-i18n-en="Search by title, description, volume..."
+            data-i18n-tg="Maghanap ayon sa pamagat, paglalarawan, volume..."
           />
         </div>
         <div
@@ -134,10 +141,12 @@
             data-view="list"
             id="viewListBtn"
           >
-            <i class="fas fa-list-ul"></i> Lista
+            <i class="fas fa-list-ul"></i> 
+            <span data-i18n-es="Lista" data-i18n-en="List" data-i18n-tg="Listahan">Lista</span>
           </button>
           <button class="view-toggle-btn" data-view="grid" id="viewGridBtn">
-            <i class="fas fa-th"></i> Cuadrícula
+            <i class="fas fa-th"></i> 
+            <span data-i18n-es="Cuadrícula" data-i18n-en="Grid" data-i18n-tg="Grid">Cuadrícula</span>
           </button>
         </div>
       </div>
@@ -151,6 +160,9 @@
         class="floating-adashima"
         title="Ir al mini-juego"
         id="floating-link"
+        data-i18n-title-es="Ir al mini-juego"
+        data-i18n-title-en="Go to mini-game"
+        data-i18n-title-tg="Pumunta sa mini-laro"
       >
         <img
           src="/assets/Imagenes/Adashima_flotante2-Photoroom.webp"
@@ -159,14 +171,17 @@
         />
       </a>
 
-      <div class="footer" id="footer-content">
+      <div class="footer" id="footer-content"
+           data-i18n-es="Fan site no oficial de Adachi to Shimamura.<br />Creado por fans, sin fines de lucro.<br />Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma."
+           data-i18n-en="Unofficial Adachi to Shimamura fan site.<br />Created by fans, non-profit.<br />Adachi to Shimamura and all rights belong to Hitoma Iruma."
+           data-i18n-tg="Hindi opisyal na fan site ng Adachi to Shimamura.<br />Ginawa ng mga tagahanga, walang kita.<br />Ang Adachi to Shimamura at lahat ng karapatan ay pagmamay-ari ni Hitoma Iruma.">
         Fan site no oficial de Adachi to Shimamura.<br />
         Creado por fans, sin fines de lucro.<br />
         Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma.
       </div>
     </div>
 
-    <!-- PDF Modal (shared, rendered once) -->
+    <!-- PDF Modal (shared, rendered once) - Updated with language-aware elements -->
     <div
       class="pdf-modal"
       id="pdfModal"
@@ -178,12 +193,16 @@
       <div class="pdf-modal-content">
         <div class="pdf-modal-header">
           <h2 class="pdf-modal-title" id="pdfModalTitle">
-            Leyendo: <span id="pdfVolumeTitle">Volumen</span>
+            <span data-i18n-es="Leyendo:" data-i18n-en="Reading:" data-i18n-tg="Binabasa:">Leyendo:</span> 
+            <span id="pdfVolumeTitle">Volumen</span>
           </h2>
           <button
             class="pdf-modal-close"
             id="pdfModalClose"
             aria-label="Cerrar lector"
+            data-i18n-aria-es="Cerrar lector"
+            data-i18n-aria-en="Close reader"
+            data-i18n-aria-tg="Isara ang mambabasa"
           >
             <i class="fas fa-times"></i>
           </button>
@@ -195,87 +214,171 @@
             <div class="pdf-loading-overlay" id="pdfLoadingModal">
               <div class="pdf-spinner"></div>
               <span class="pdf-loading-text" id="pdfLoadingTextModal"
-                >Cargando documento...</span
-              >
+                data-i18n-es="Cargando documento..."
+                data-i18n-en="Loading document..."
+                data-i18n-tg="Naglo-load ng dokumento...">Cargando documento...</span>
             </div>
 
-            <!-- Toolbar -->
+            <!-- Toolbar: primary controls stay visible, secondary controls
+                 collapse behind "more" on narrow screens (see CSS) -->
             <div class="pdf-toolbar">
-              <div class="pdf-controls-group pdf-toolbar-left">
-                <!-- Thumbnail Toggle -->
-                <button
-                  class="pdf-btn pdf-btn-thumbnails"
-                  id="pdfThumbnailToggle"
-                  title="Miniaturas"
-                >
-                  <i class="fas fa-th"></i>
-                </button>
-                <span class="pdf-toolbar-divider"></span>
+              <div class="pdf-toolbar-primary">
                 <button
                   class="pdf-btn"
                   id="pdfPrevModal"
                   title="Página anterior (←)"
+                  data-i18n-title-es="Página anterior (←)"
+                  data-i18n-title-en="Previous page (←)"
+                  data-i18n-title-tg="Nakaraang pahina (←)"
                 >
                   <i class="fas fa-chevron-left"></i>
                 </button>
+                <span class="pdf-page-info" id="pdfPageInfo"
+                  ><span id="pdfPageLabel"
+                    data-i18n-es="Pág."
+                    data-i18n-en="Pg."
+                    data-i18n-tg="Pah.">Pág.</span>
+                  <span id="pageNumModal">-</span> / <span id="pageCountModal">-</span></span
+                >
                 <button
                   class="pdf-btn"
                   id="pdfNextModal"
                   title="Página siguiente (→)"
+                  data-i18n-title-es="Página siguiente (→)"
+                  data-i18n-title-en="Next page (→)"
+                  data-i18n-title-tg="Susunod na pahina (→)"
                 >
                   <i class="fas fa-chevron-right"></i>
                 </button>
-                <span class="pdf-page-info" id="pdfPageInfo"
-                  ><span id="pdfPageLabel">Pág.</span>
-                  <span id="pageNumModal">-</span> /
-                  <span id="pageCountModal">-</span></span
-                >
                 <input
                   type="number"
                   id="pageInputModal"
                   class="pdf-page-input"
                   min="1"
                   placeholder="Ir a"
+                  data-i18n-placeholder-es="Ir a"
+                  data-i18n-placeholder-en="Go to page"
+                  data-i18n-placeholder-tg="Pumunta sa pahina"
                 />
-              </div>
 
-              <div class="pdf-controls-group pdf-toolbar-right">
-                <button class="pdf-btn" id="pdfZoomOutModal" title="Alejar (-)">
+                <span class="pdf-toolbar-divider"></span>
+
+                <button class="pdf-btn" id="pdfZoomOutModal" 
+                  title="Alejar (-)"
+                  data-i18n-title-es="Alejar (-)"
+                  data-i18n-title-en="Zoom out (-)"
+                  data-i18n-title-tg="Mag-zoom out (-)">
                   <i class="fas fa-search-minus"></i>
                 </button>
                 <span class="pdf-zoom-display" id="zoomDisplayModal">100%</span>
-                <button class="pdf-btn" id="pdfZoomInModal" title="Acercar (+)">
+                <button class="pdf-btn" id="pdfZoomInModal" 
+                  title="Acercar (+)"
+                  data-i18n-title-es="Acercar (+)"
+                  data-i18n-title-en="Zoom in (+)"
+                  data-i18n-title-tg="Mag-zoom in (+)">
                   <i class="fas fa-search-plus"></i>
+                </button>
+
+                <button
+                  class="pdf-btn pdf-btn-more"
+                  id="pdfMoreToggle"
+                  title="Más opciones"
+                  aria-expanded="false"
+                  aria-controls="pdfToolbarSecondary"
+                  data-i18n-title-es="Más opciones"
+                  data-i18n-title-en="More options"
+                  data-i18n-title-tg="Higit pang mga opsyon"
+                >
+                  <i class="fas fa-ellipsis-h"></i>
+                </button>
+              </div>
+
+              <div class="pdf-toolbar-secondary" id="pdfToolbarSecondary">
+                <button
+                  class="pdf-btn pdf-btn-cascade"
+                  id="pdfCascadeToggle"
+                  title="Modo cascada (scroll continuo)"
+                  aria-pressed="false"
+                  data-i18n-title-es="Modo cascada (scroll continuo)"
+                  data-i18n-title-en="Cascade mode (continuous scroll)"
+                  data-i18n-title-tg="Cascade mode (tuloy-tuloy na scroll)"
+                >
+                  <i class="fas fa-grip-lines"></i>
+                  <span class="pdf-btn-label" 
+                    data-i18n-es="Cascada"
+                    data-i18n-en="Cascade"
+                    data-i18n-tg="Cascade">Cascada</span>
+                </button>
+                <button
+                  class="pdf-btn pdf-btn-thumbnails"
+                  id="pdfThumbnailToggle"
+                  title="Miniaturas"
+                  data-i18n-title-es="Miniaturas"
+                  data-i18n-title-en="Thumbnails"
+                  data-i18n-title-tg="Mga thumbnail"
+                >
+                  <i class="fas fa-th"></i>
+                  <span class="pdf-btn-label" 
+                    data-i18n-es="Miniaturas"
+                    data-i18n-en="Thumbnails"
+                    data-i18n-tg="Thumbnail">Miniaturas</span>
                 </button>
                 <button
                   class="pdf-btn pdf-btn-reset"
                   id="pdfZoomResetModal"
                   title="Restablecer zoom (0)"
+                  data-i18n-title-es="Restablecer zoom (0)"
+                  data-i18n-title-en="Reset zoom (0)"
+                  data-i18n-title-tg="I-reset ang zoom (0)"
                 >
                   <i class="fas fa-sync-alt"></i>
+                  <span class="pdf-btn-label" 
+                    data-i18n-es="Ajustar"
+                    data-i18n-en="Adjust"
+                    data-i18n-tg="Ayusin">Ajustar</span>
                 </button>
-                <span class="pdf-toolbar-divider"></span>
                 <button
                   class="pdf-btn"
                   id="pdfFullscreenModal"
                   title="Pantalla completa (F)"
+                  data-i18n-title-es="Pantalla completa (F)"
+                  data-i18n-title-en="Fullscreen (F)"
+                  data-i18n-title-tg="Buong screen (F)"
                 >
                   <i class="fas fa-expand" id="fsIconModal"></i>
+                  <span class="pdf-btn-label" 
+                    data-i18n-es="Pantalla completa"
+                    data-i18n-en="Fullscreen"
+                    data-i18n-tg="Buong screen">Pantalla completa</span>
                 </button>
                 <button
                   class="pdf-btn"
                   id="pdfDownloadModal"
                   title="Descargar PDF"
+                  data-i18n-title-es="Descargar PDF"
+                  data-i18n-title-en="Download PDF"
+                  data-i18n-title-tg="I-download ang PDF"
                 >
                   <i class="fas fa-download"></i>
+                  <span class="pdf-btn-label" 
+                    data-i18n-es="Descargar"
+                    data-i18n-en="Download"
+                    data-i18n-tg="I-download">Descargar</span>
                 </button>
                 <button
                   class="pdf-btn"
                   id="epubDownloadModal"
                   title="Descargar EPUB"
                   style="display: none"
+                  data-i18n-title-es="Descargar EPUB"
+                  data-i18n-title-en="Download EPUB"
+                  data-i18n-title-tg="I-download ang EPUB"
                 >
                   <i class="fas fa-book"></i>
+                  <span class="pdf-btn-label" 
+                    data-i18n-es="EPUB"
+                    data-i18n-en="EPUB"
+                    data-i18n-tg="EPUB">EPUB</span>
                 </button>
               </div>
             </div>
@@ -293,7 +396,10 @@
               <!-- Thumbnails Sidebar -->
               <div class="pdf-thumbnails-sidebar" id="pdfThumbnailsSidebar">
                 <div class="pdf-thumbnails-header">
-                  <span id="pdfThumbnailsTitle">Miniaturas</span>
+                  <span id="pdfThumbnailsTitle"
+                    data-i18n-es="Miniaturas"
+                    data-i18n-en="Thumbnails"
+                    data-i18n-tg="Mga thumbnail">Miniaturas</span>
                   <button
                     class="pdf-btn pdf-thumbnails-close"
                     id="pdfThumbnailsClose"
@@ -312,29 +418,60 @@
                   <div class="pdf-canvas-wrapper" id="canvasWrapperModal">
                     <canvas id="pdfRenderModal"></canvas>
                   </div>
-                  <div
-                    class="pdf-page-indicator-mobile"
-                    id="mobileIndicatorModal"
-                    style="display: none"
-                  >
-                    <span id="mobilePageNumModal">-</span>
-                    <span>/</span>
-                    <span id="mobilePageCountModal">-</span>
-                  </div>
                   <div class="pdf-error-state" id="pdfErrorModal">
                     <i class="fas fa-exclamation-triangle"></i>
-                    <p id="pdfErrorMsgModal">Documento no disponible.</p>
+                    <p id="pdfErrorMsgModal"
+                      data-i18n-es="Documento no disponible."
+                      data-i18n-en="Document not available."
+                      data-i18n-tg="Hindi available ang dokumento.">Documento no disponible.</p>
                     <button
                       class="btn"
                       id="pdfRetryModal"
                       style="margin-top: 8px"
                     >
                       <i class="fas fa-redo"></i>
-                      <span id="pdfRetryText">Reintentar</span>
+                      <span id="pdfRetryText"
+                        data-i18n-es="Reintentar"
+                        data-i18n-en="Retry"
+                        data-i18n-tg="Subukan muli">Reintentar</span>
                     </button>
                   </div>
                 </div>
+
+                <!-- Cascade (continuous scroll) mode: pages stack vertically -->
+                <div
+                  class="pdf-cascade-container"
+                  id="pdfCascadeContainer"
+                  style="display: none"
+                ></div>
+
+                <!-- Shared between single-page and cascade modes -->
+                <div
+                  class="pdf-page-indicator-mobile"
+                  id="mobileIndicatorModal"
+                  style="display: none"
+                >
+                  <span id="mobilePageNumModal">-</span>
+                  <span>/</span>
+                  <span id="mobilePageCountModal">-</span>
+                </div>
               </div>
+
+              <!-- Slim always-visible tab to bring back hidden controls -->
+              <button
+                class="pdf-chrome-reveal"
+                id="pdfChromeReveal"
+                aria-label="Mostrar controles"
+                title="Mostrar controles"
+                data-i18n-aria-es="Mostrar controles"
+                data-i18n-aria-en="Show controls"
+                data-i18n-aria-tg="Ipakita ang mga kontrol"
+                data-i18n-title-es="Mostrar controles"
+                data-i18n-title-en="Show controls"
+                data-i18n-title-tg="Ipakita ang mga kontrol"
+              >
+                <i class="fas fa-chevron-down"></i>
+              </button>
             </div>
           </div>
         </div>

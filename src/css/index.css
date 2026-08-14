@@ -898,6 +898,24 @@ body.time-night .orb {
   }
 }
 
+/* ---------- menu container ----------
+   Reserves the sidebar's footprint before the menu markup is
+   fetched and injected, so .main-content never has to resize
+   when it lands (prevents a large layout shift). Breakpoint
+   matches the sidebar's own off-canvas breakpoint in menu.css. */
+#menu-container {
+  flex-shrink: 0;
+  width: 300px;
+  min-height: 100vh;
+}
+
+@media (max-width: 900px) {
+  #menu-container {
+    width: 0;
+    min-height: 0;
+  }
+}
+
 /* ---------- main content ---------- */
 .main-content {
   flex: 1;

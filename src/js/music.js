@@ -186,6 +186,10 @@ updateFooterText();
   let isQueueOpen = false;
   let viewMode = "library";
   let currentView = "standard";
+  let trackIndex = new Map();
+  let lastFilteredTracks = [];
+  let renderedAlbumId = null;
+  let searchDebounceTimer = null;
 
   function normalizeFavoriteEntry(entry) {
     if (typeof entry === "string") {
@@ -370,6 +374,8 @@ updateFooterText();
       if (albums.length === 0) {
         throw new Error("No albums found in data");
       }
+
+      buildTrackIndex();
 
       musicPageSubtitle.textContent =
         data.page?.subtitle || "Original Soundtracks";
@@ -649,11 +655,138 @@ updateFooterText();
     applyViewMode();
   }
 
+  function buildTrackRow(t, index) {
+    const row = document.createElement("div");
+    const isActive = currentTrackId === t.id;
+    const favoriteKey = getFavoriteKey(currentAlbum?.id || currentAlbumId, t.id);
+    const isFav = favorites.has(favoriteKey);
+    const isPaused = isActive && !isPlaying;
+
+    row.className = `track-row${isActive ? " active" : ""}`;
+    row.dataset.id = t.id;
+    row.dataset.index = String(index + 1);
+    row.setAttribute("role", "row");
+
+    let stateContent = "";
+    if (isActive && isPlaying) {
+      stateContent = `<span class="equalizer"><span></span><span></span><span></span><span></span></span>`;
+    } else if (isActive && isPaused) {
+      stateContent = `<span class="col-state-paused">
+            <span class="iconify" data-icon="mdi:pause" data-inline="false"></span>
+          </span>`;
+    } else {
+      stateContent = `<span class="col-number">${index + 1}</span>`;
+    }
+
+    const primaryTitle = t.title_jp || t.title || t.title_es || "Untitled";
+    const secondaryTitle = t.title || t.title_es || "";
+
+    row.innerHTML = `
+          <div class="col-state-col">
+            ${stateContent}
+            <button class="col-play-btn" aria-label="Play track ${primaryTitle}">
+              <span class="iconify" data-icon="mdi:play" data-inline="false"></span>
+            </button>
+          </div>
+          <div class="col-info-col">
+            <div class="track-title-jp">${primaryTitle}</div>
+            ${secondaryTitle ? `<div class="track-title-en">${secondaryTitle}</div>` : ""}
+          </div>
+          <div class="col-duration-col">
+            <span class="track-duration">${t.duration}</span>
+          </div>
+          <div class="col-dl-col">
+            <button class="track-dl-btn" data-filename="${t.filename}" aria-label="Download ${primaryTitle}">
+              <span class="iconify" data-icon="mdi:download" data-inline="false"></span>
+            </button>
+          </div>
+          <div class="col-fav-col">
+            <button class="track-fav-btn ${isFav ? "faved" : ""}" data-id="${t.id}" data-album-id="${currentAlbum?.id || currentAlbumId || ""}" aria-label="${isFav ? "Remove from favorites" : "Add to favorites"}">
+              <span class="iconify" data-icon="${isFav ? "mdi:heart" : "mdi:heart-outline"}" data-inline="false"></span>
+            </button>
+          </div>
+        `;
+
+    row.addEventListener("click", (e) => {
+      if (e.target.closest(".col-play-btn")) return;
+      if (e.target.closest(".track-fav-btn")) return;
+      if (e.target.closest(".track-dl-btn")) return;
+      playTrack(t.id);
+    });
+
+    row.querySelector(".col-play-btn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      playTrack(t.id);
+    });
+
+    row.querySelector(".track-dl-btn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      const albumFolder = currentAlbum?.folder || currentAlbum?.id;
+      const trackUrl = getTrackUrl(albumFolder, t.filename);
+      downloadSingleTrack(trackUrl, t.filename, e.currentTarget);
+    });
+
+    row.querySelector(".track-fav-btn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite(t.id, currentAlbum?.id || currentAlbumId);
+    });
+
+    return row;
+  }
+
+  function buildCompactRow(t, index) {
+    const row = document.createElement("div");
+    const isActive = currentTrackId === t.id;
+
+    row.className = `compact-track-row${isActive ? " active" : ""}`;
+    row.dataset.id = t.id;
+    row.dataset.index = String(index + 1);
+    row.setAttribute("role", "row");
+
+    const primaryTitle = t.title_jp || t.title || t.title_es || "Untitled";
+    const secondaryTitle = t.title || t.title_es || "";
+
+    row.innerHTML = `
+          <span class="cr-number">${index + 1}</span>
+          <span class="cr-title">
+            <span class="cr-title-jp">${primaryTitle}</span>
+            ${secondaryTitle ? `<span class="cr-title-en">${secondaryTitle}</span>` : ""}
+          </span>
+          <span class="cr-artist">${t.artist}</span>
+          <span class="cr-album">${currentAlbum.title}</span>
+          <span class="cr-duration">${t.duration}</span>
+          <span class="cr-dl">
+            <button class="track-dl-btn compact-dl-btn" data-filename="${t.filename}" aria-label="Download ${primaryTitle}">
+              <span class="iconify" data-icon="mdi:download" data-inline="false"></span>
+            </button>
+          </span>
+        `;
+
+    row.addEventListener("click", (e) => {
+      if (e.target.closest(".track-dl-btn")) return;
+      playTrack(t.id);
+    });
+
+    row.querySelector(".track-dl-btn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      const albumFolder = currentAlbum?.folder || currentAlbum?.id;
+      const trackUrl = getTrackUrl(albumFolder, t.filename);
+      downloadSingleTrack(trackUrl, t.filename, e.currentTarget);
+    });
+
+    return row;
+  }
+
+  // Full rebuild: used when the album opens, the search query changes, or
+  // the view toggles. Only builds the table that's actually visible, and
+  // batches all rows into a DocumentFragment before touching the live DOM.
   function renderAlbumTracks(query = "") {
     if (!currentAlbum || !currentAlbum.tracks) {
       albumTrackTable.innerHTML = "";
       compactTrackTable.innerHTML = "";
       albumResultCount.textContent = "0 tracks";
+      lastFilteredTracks = [];
+      renderedAlbumId = null;
       return;
     }
 
@@ -670,6 +803,9 @@ updateFooterText();
       });
     }
 
+    lastFilteredTracks = filtered;
+    renderedAlbumId = currentAlbum?.id || currentAlbumId;
+
     albumResultCount.textContent = `${filtered.length} ${filtered.length === 1 ? musicData?.trackList?.track || "track" : musicData?.trackList?.tracks || "tracks"}`;
 
     if (filtered.length === 0) {
@@ -681,133 +817,58 @@ updateFooterText();
 
     albumEmptyState.style.display = "none";
 
-    albumTrackTable.innerHTML = "";
-    filtered.forEach((t, index) => {
-      const row = document.createElement("div");
-      const isActive = currentTrackId === t.id;
-      const favoriteKey = getFavoriteKey(currentAlbum?.id || currentAlbumId, t.id);
-      const isFav = favorites.has(favoriteKey);
-      const isPaused = isActive && !isPlaying;
-
-      row.className = `track-row${isActive ? " active" : ""}`;
-      row.dataset.id = t.id;
-      row.setAttribute("role", "row");
-
-      let stateContent = "";
-      if (isActive && isPlaying) {
-        stateContent = `<span class="equalizer"><span></span><span></span><span></span><span></span></span>`;
-      } else if (isActive && isPaused) {
-        stateContent = `<span class="col-state-paused">
-              <span class="iconify" data-icon="mdi:pause" data-inline="false"></span>
-            </span>`;
-      } else {
-        stateContent = `<span class="col-number">${index + 1}</span>`;
-      }
-
-      const primaryTitle = t.title_jp || t.title || t.title_es || "Untitled";
-      const secondaryTitle = t.title || t.title_es || "";
-
-      row.innerHTML = `
-            <div class="col-state-col">
-              ${stateContent}
-              <button class="col-play-btn" aria-label="Play track ${primaryTitle}">
-                <span class="iconify" data-icon="mdi:play" data-inline="false"></span>
-              </button>
-            </div>
-            <div class="col-info-col">
-              <div class="track-title-jp">${primaryTitle}</div>
-              ${secondaryTitle ? `<div class="track-title-en">${secondaryTitle}</div>` : ""}
-            </div>
-            <div class="col-duration-col">
-              <span class="track-duration">${t.duration}</span>
-            </div>
-            <div class="col-dl-col">
-              <button class="track-dl-btn" data-filename="${t.filename}" aria-label="Download ${primaryTitle}">
-                <span class="iconify" data-icon="mdi:download" data-inline="false"></span>
-              </button>
-            </div>
-            <div class="col-fav-col">
-              <button class="track-fav-btn ${isFav ? "faved" : ""}" data-id="${t.id}" data-album-id="${currentAlbum?.id || currentAlbumId || ""}" aria-label="${isFav ? "Remove from favorites" : "Add to favorites"}">
-                <span class="iconify" data-icon="${isFav ? "mdi:heart" : "mdi:heart-outline"}" data-inline="false"></span>
-              </button>
-            </div>
-          `;
-
-      row.addEventListener("click", (e) => {
-        if (e.target.closest(".col-play-btn")) return;
-        if (e.target.closest(".track-fav-btn")) return;
-        if (e.target.closest(".track-dl-btn")) return;
-        playTrack(t.id);
-      });
-
-      row.querySelector(".col-play-btn").addEventListener("click", (e) => {
-        e.stopPropagation();
-        playTrack(t.id);
-      });
-
-      row.querySelector(".track-dl-btn").addEventListener("click", (e) => {
-        e.stopPropagation();
-        const albumFolder = currentAlbum?.folder || currentAlbum?.id;
-        const trackUrl = getTrackUrl(albumFolder, t.filename);
-        downloadSingleTrack(trackUrl, t.filename, e.currentTarget);
-      });
-
-      row.querySelector(".track-fav-btn").addEventListener("click", (e) => {
-        e.stopPropagation();
-        toggleFavorite(t.id, currentAlbum?.id || currentAlbumId);
-        renderAlbumTracks(albumSearchInput.value);
-      });
-
-      albumTrackTable.appendChild(row);
-    });
-
-    compactTrackTable.innerHTML = "";
-    filtered.forEach((t, index) => {
-      const row = document.createElement("div");
-      const isActive = currentTrackId === t.id;
-
-      row.className = `compact-track-row${isActive ? " active" : ""}`;
-      row.dataset.id = t.id;
-      row.setAttribute("role", "row");
-
-      const primaryTitle = t.title_jp || t.title || t.title_es || "Untitled";
-      const secondaryTitle = t.title || t.title_es || "";
-
-      row.innerHTML = `
-            <span class="cr-number">${index + 1}</span>
-            <span class="cr-title">
-              <span class="cr-title-jp">${primaryTitle}</span>
-              ${secondaryTitle ? `<span class="cr-title-en">${secondaryTitle}</span>` : ""}
-            </span>
-            <span class="cr-artist">${t.artist}</span>
-            <span class="cr-album">${currentAlbum.title}</span>
-            <span class="cr-duration">${t.duration}</span>
-            <span class="cr-dl">
-              <button class="track-dl-btn compact-dl-btn" data-filename="${t.filename}" aria-label="Download ${primaryTitle}">
-                <span class="iconify" data-icon="mdi:download" data-inline="false"></span>
-              </button>
-            </span>
-          `;
-
-      row.addEventListener("click", (e) => {
-        if (e.target.closest(".track-dl-btn")) return;
-        playTrack(t.id);
-      });
-
-      row.querySelector(".track-dl-btn").addEventListener("click", (e) => {
-        e.stopPropagation();
-        const albumFolder = currentAlbum?.folder || currentAlbum?.id;
-        const trackUrl = getTrackUrl(albumFolder, t.filename);
-        downloadSingleTrack(trackUrl, t.filename, e.currentTarget);
-      });
-
-      compactTrackTable.appendChild(row);
-    });
-
-    if (typeof Iconify !== "undefined") {
-      Iconify.scan(albumTrackTable);
-      Iconify.scan(compactTrackTable);
+    if (currentView === "compact") {
+      const frag = document.createDocumentFragment();
+      filtered.forEach((t, index) => frag.appendChild(buildCompactRow(t, index)));
+      compactTrackTable.innerHTML = "";
+      compactTrackTable.appendChild(frag);
+      albumTrackTable.innerHTML = "";
+      if (typeof Iconify !== "undefined") Iconify.scan(compactTrackTable);
+    } else {
+      const frag = document.createDocumentFragment();
+      filtered.forEach((t, index) => frag.appendChild(buildTrackRow(t, index)));
+      albumTrackTable.innerHTML = "";
+      albumTrackTable.appendChild(frag);
+      compactTrackTable.innerHTML = "";
+      if (typeof Iconify !== "undefined") Iconify.scan(albumTrackTable);
     }
+  }
+
+  // Targeted update: rebuilds a single row in place (e.g. after a play/pause
+  // or favorite toggle) instead of tearing down and re-creating the whole
+  // list. Falls back to a full render if the table shown doesn't match the
+  // currently playing album (e.g. it hasn't been rendered yet).
+  function updateTrackRow(trackId) {
+    if (viewMode !== "album") return;
+    if (renderedAlbumId !== (currentAlbum?.id || currentAlbumId)) return;
+    const index = lastFilteredTracks.findIndex((t) => t.id === trackId);
+    if (index === -1) return;
+    const track = lastFilteredTracks[index];
+
+    if (currentView === "compact") {
+      const oldRow = compactTrackTable.querySelector(`[data-id="${CSS.escape(String(trackId))}"]`);
+      if (!oldRow) return;
+      oldRow.replaceWith(buildCompactRow(track, index));
+    } else {
+      const oldRow = albumTrackTable.querySelector(`[data-id="${CSS.escape(String(trackId))}"]`);
+      if (!oldRow) return;
+      const newRow = buildTrackRow(track, index);
+      oldRow.replaceWith(newRow);
+      if (typeof Iconify !== "undefined") Iconify.scan(newRow);
+    }
+  }
+
+  // Swaps just the previous/current active rows instead of the whole list;
+  // falls back to a full render when the underlying album has changed.
+  function refreshActiveTrackRows(previousTrackId, albumChanged) {
+    if (albumChanged) {
+      renderAlbumTracks(albumSearchInput.value);
+      return;
+    }
+    if (previousTrackId && previousTrackId !== currentTrackId) {
+      updateTrackRow(previousTrackId);
+    }
+    updateTrackRow(currentTrackId);
   }
 
   function formatTime(sec) {
@@ -817,23 +878,30 @@ updateFooterText();
     return `${m}:${s.toString().padStart(2, "0")}`;
   }
 
+  function buildTrackIndex() {
+    trackIndex.clear();
+    albums.forEach((album) => {
+      (album.tracks || []).forEach((track) => {
+        trackIndex.set(String(track.id), { album, track });
+      });
+    });
+  }
+
   function getTrack(id) {
-    if (!id) return null;
-    for (const album of albums) {
-      const track = (album.tracks || []).find((item) => matchesTrackId(item.id, id));
-      if (track) return track;
-    }
-    return null;
+    if (id === null || id === undefined) return null;
+    const entry = trackIndex.get(String(id));
+    return entry ? entry.track : null;
   }
 
   function getTrackContext(trackId, albumId = currentAlbum?.id || currentAlbumId) {
-    const album =
-      albumId && albums.find((candidate) => candidate.id === albumId)
-        ? albums.find((candidate) => candidate.id === albumId)
-        : albums.find((candidate) => (candidate.tracks || []).some((item) => item.id === trackId)) || null;
-    if (!album) return null;
-    const track = (album.tracks || []).find((item) => matchesTrackId(item.id, trackId));
-    return track ? { album, track } : null;
+    if (albumId) {
+      const album = albums.find((candidate) => candidate.id === albumId);
+      if (album) {
+        const track = (album.tracks || []).find((item) => matchesTrackId(item.id, trackId));
+        if (track) return { album, track };
+      }
+    }
+    return trackIndex.get(String(trackId)) || null;
   }
 
   function saveFavorites() {
@@ -965,6 +1033,8 @@ updateFooterText();
     if (!context) return;
 
     const { album, track } = context;
+    const previousTrackId = currentTrackId;
+    const albumChanged = (currentAlbum?.id || currentAlbumId) !== album.id;
     currentAlbum = album;
     currentAlbumId = album.id;
 
@@ -984,7 +1054,7 @@ updateFooterText();
       .then(() => {
         isPlaying = true;
         updateUI();
-        renderAlbumTracks(albumSearchInput.value);
+        refreshActiveTrackRows(previousTrackId, albumChanged);
         updateExpandedQueue();
       })
       .catch(() => {
@@ -994,6 +1064,7 @@ updateFooterText();
       });
     updateUI();
     updateQueue(id);
+    refreshActiveTrackRows(previousTrackId, albumChanged);
   }
 
   function togglePlay() {
@@ -1012,7 +1083,7 @@ updateFooterText();
         .then(() => {
           isPlaying = true;
           updateUI();
-          renderAlbumTracks(albumSearchInput.value);
+          updateTrackRow(currentTrackId);
         })
         .catch(() => {
           isPlaying = false;
@@ -1020,7 +1091,7 @@ updateFooterText();
         });
     }
     updateUI();
-    renderAlbumTracks(albumSearchInput.value);
+    updateTrackRow(currentTrackId);
   }
 
   function prevTrack() {
@@ -1054,7 +1125,7 @@ updateFooterText();
     saveFavorites();
     updateFavUI();
     if (currentAlbum && currentAlbum.id === albumId) {
-      renderAlbumTracks(albumSearchInput.value);
+      updateTrackRow(trackId);
     }
     if (favoritesView && favoritesView.style.display === "block") {
       renderFavoritesView();
@@ -1117,15 +1188,10 @@ updateFooterText();
       expandedQueueCount.textContent = `${queue.length} ${queue.length === 1 ? musicData?.trackList?.track || "song" : musicData?.trackList?.tracks || "songs"}`;
     }
 
-    if (currentIndex >= 0) {
-      const items = expandedQueueList.querySelectorAll(".expanded-queue-item");
-      if (items[currentIndex]) {
-        items[currentIndex].scrollIntoView({
-          block: "center",
-          behavior: "smooth",
-        });
-      }
-    }
+    // Always (re)open the queue scrolled to the top so the first
+    // upcoming track is the first thing visible, instead of centering
+    // on the current track (which could land mid-list).
+    expandedQueueList.scrollTop = 0;
   }
 
   function updateQueueCurrent() {
@@ -1462,7 +1528,10 @@ updateFooterText();
   });
 
   albumSearchInput.addEventListener("input", () => {
-    renderAlbumTracks(albumSearchInput.value);
+    clearTimeout(searchDebounceTimer);
+    searchDebounceTimer = setTimeout(() => {
+      renderAlbumTracks(albumSearchInput.value);
+    }, 150);
   });
 
   viewToggleBtns.forEach((btn) => {

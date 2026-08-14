@@ -92,6 +92,39 @@
       }
 
       /* ============================================================
+         MOBILE DRAWER CLOSE BUTTON (X) — only inside the mobile drawer
+         ============================================================ */
+      #menu-component-wrapper .drawer-close-btn {
+        display: none;
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        z-index: 5;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 1px solid var(--surface-border) !important;
+        background: var(--surface-bg) !important;
+        color: var(--text-main) !important;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: background-color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                    color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      #menu-component-wrapper .drawer-close-btn:hover {
+        background: var(--accent-soft) !important;
+        color: var(--accent-primary) !important;
+        transform: rotate(90deg);
+      }
+      #menu-component-wrapper .drawer-close-btn:focus-visible {
+        outline: 2px solid var(--accent-primary) !important;
+        outline-offset: 2px;
+      }
+
+      /* ============================================================
          MOBILE TOGGLE BUTTON
          ============================================================ */
       #menu-component-wrapper .mobile-toggle {
@@ -210,44 +243,187 @@
       body.time-afternoon #menu-component-wrapper .branding-area .logo-label { color: #e91e78 !important; }
 
       /* ============================================================
-         BACK TO HOME (primary action)
+         SIDEBAR SECTION LABELS (BRAND / NAVIGATION / COMMUNITY / etc.)
          ============================================================ */
-      #menu-component-wrapper .home-btn {
+      #menu-component-wrapper .nav-section { display: flex; flex-direction: column; gap: 2px; }
+      #menu-component-wrapper .nav-section-label {
+        display: block;
+        font-size: 0.62rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--text-secondary) !important;
+        opacity: 0.45;
+        transition: color 2.5s ease;
+      }
+
+      /* Collapsible section header (used for NAVIGATION) */
+      #menu-component-wrapper .nav-section-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        width: 100%;
+        min-height: 30px;
+        padding: 4px 6px;
+        margin: 0 -6px 4px;
+        border: none;
+        border-radius: 8px;
+        background: transparent;
+        cursor: pointer;
+        font-family: "Nunito", sans-serif;
+        transition: background-color 0.2s ease;
+      }
+      #menu-component-wrapper .nav-section-toggle:hover,
+      #menu-component-wrapper .nav-section-toggle:focus-visible {
+        background: var(--accent-soft) !important;
+      }
+      #menu-component-wrapper .nav-section-toggle:focus-visible {
+        outline: 2px solid var(--accent-primary) !important;
+        outline-offset: 2px;
+      }
+      #menu-component-wrapper .nav-section-chevron {
+        font-size: 0.68rem;
+        color: var(--text-muted) !important;
+        opacity: 0.6;
+        transition: transform 0.3s ease, color 2.5s ease;
+      }
+      #menu-component-wrapper .nav-section-toggle[aria-expanded="true"] .nav-section-chevron {
+        transform: rotate(180deg);
+      }
+
+      /* ============================================================
+         PRIMARY NAVIGATION (unified list — strongest interaction styling)
+         ============================================================ */
+      #menu-component-wrapper .nav-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      #menu-component-wrapper .nav-list.collapsible { display: none; }
+      #menu-component-wrapper .nav-list.collapsible.open {
+        display: flex;
+        animation: appearanceFadeIn 0.25s ease;
+      }
+      #menu-component-wrapper .nav-item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        min-height: 46px;
+        padding: 10px 14px 10px 16px;
+        border-radius: 14px;
+        background: transparent;
+        border: 1px solid transparent;
+        color: var(--nav-text, var(--text-main)) !important;
+        text-decoration: none;
+        font-family: "Nunito", sans-serif;
+        font-weight: 600;
+        font-size: 0.9rem;
+        box-sizing: border-box;
+        cursor: pointer;
+        text-align: left;
+        transition: background-color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                    color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      #menu-component-wrapper .nav-item::before {
+        content: "";
+        position: absolute;
+        left: -1px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 0;
+        border-radius: 3px;
+        background: var(--accent-primary) !important;
+        transition: height 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      #menu-component-wrapper .nav-item .nav-item-icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
-        width: 100%;
-        background: var(--glass-bg) !important;
-        color: var(--text-main) !important;
-        text-decoration: none;
-        padding: 12px 20px;
-        border-radius: 20px;
-        font-weight: 700;
-        font-size: 0.95rem;
-        border: 1px solid var(--glass-border) !important;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
-        box-sizing: border-box;
-        cursor: pointer;
-        font-family: "Nunito", sans-serif;
-        transition: background-color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    border-color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    box-shadow 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      #menu-component-wrapper .home-btn:hover {
-        background: white;
-        transform: translateX(6px);
-        box-shadow: 0 8px 15px rgba(240, 98, 146, 0.15);
-        color: var(--sakura-dark) !important;
-      }
-      #menu-component-wrapper .home-btn i {
-        font-size: 1.1rem;
+        width: 22px;
+        flex-shrink: 0;
+        font-size: 1.02rem;
         color: var(--hougetsu-dark) !important;
-        transition: color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transition: color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
-      #menu-component-wrapper .home-btn:hover i { color: var(--sakura-dark) !important; }
+      #menu-component-wrapper .nav-item .nav-item-label { flex: 1; line-height: 1.25; }
+      #menu-component-wrapper .nav-item .nav-item-arrow {
+        font-size: 0.75rem;
+        opacity: 0;
+        transform: translateX(-3px);
+        color: var(--accent-primary) !important;
+        transition: opacity 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      #menu-component-wrapper .nav-item:hover,
+      #menu-component-wrapper .nav-item:focus-visible {
+        background: var(--accent-soft) !important;
+      }
+      #menu-component-wrapper .nav-item:hover .nav-item-arrow,
+      #menu-component-wrapper .nav-item:focus-visible .nav-item-arrow,
+      #menu-component-wrapper .nav-item.active .nav-item-arrow {
+        opacity: 0.7;
+        transform: translateX(0);
+      }
+      #menu-component-wrapper .nav-item:hover .nav-item-icon,
+      #menu-component-wrapper .nav-item:focus-visible .nav-item-icon { color: var(--sakura-dark) !important; }
+      #menu-component-wrapper .nav-item:focus-visible {
+        outline: 2px solid var(--accent-primary) !important;
+        outline-offset: 2px;
+      }
+      #menu-component-wrapper .nav-item.active {
+        background: var(--accent-soft) !important;
+        font-weight: 700;
+        color: var(--accent-primary) !important;
+      }
+      #menu-component-wrapper .nav-item.active::before { height: 60%; }
+      #menu-component-wrapper .nav-item.active .nav-item-icon { color: var(--accent-primary) !important; }
+
+      /* ============================================================
+         SECONDARY NAVIGATION (external links: Community / Original Work)
+         Visually lighter than primary nav — no card, no accent bar
+         ============================================================ */
+      #menu-component-wrapper .nav-item.secondary {
+        min-height: 40px;
+        padding: 8px 14px 8px 16px;
+        font-weight: 500;
+        font-size: 0.84rem;
+        color: var(--text-secondary) !important;
+        opacity: 0.85;
+      }
+      #menu-component-wrapper .nav-item.secondary::before { display: none; }
+      #menu-component-wrapper .nav-item.secondary .nav-item-icon {
+        font-size: 0.85rem;
+        width: 18px;
+        color: var(--text-muted) !important;
+      }
+      #menu-component-wrapper .nav-item.secondary .nav-item-arrow {
+        font-size: 0.62rem;
+        opacity: 0.4;
+        transform: none;
+      }
+      #menu-component-wrapper .nav-item.secondary:hover,
+      #menu-component-wrapper .nav-item.secondary:focus-visible {
+        opacity: 1;
+        background: var(--accent-soft) !important;
+        color: var(--accent-primary) !important;
+      }
+      #menu-component-wrapper .nav-item.secondary:hover .nav-item-icon,
+      #menu-component-wrapper .nav-item.secondary:focus-visible .nav-item-icon { color: var(--accent-primary) !important; }
+      #menu-component-wrapper .nav-item.secondary:hover .nav-item-arrow,
+      #menu-component-wrapper .nav-item.secondary:focus-visible .nav-item-arrow { opacity: 0.8; }
+      /* Facebook keeps its brand color on hover as a small, intentional exception */
+      #menu-component-wrapper .nav-item.secondary.fb-item:hover,
+      #menu-component-wrapper .nav-item.secondary.fb-item:focus-visible {
+        background: rgba(24, 119, 242, 0.1) !important;
+        color: #1877f2 !important;
+      }
+      #menu-component-wrapper .nav-item.secondary.fb-item:hover .nav-item-icon,
+      #menu-component-wrapper .nav-item.secondary.fb-item:focus-visible .nav-item-icon { color: #1877f2 !important; }
 
       /* ============================================================
          DIVIDER
@@ -260,163 +436,114 @@
       }
 
       /* ============================================================
-         FACEBOOK (secondary)
-         ============================================================ */
-      #menu-component-wrapper .fb-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        width: 100%;
-        background: rgba(24, 119, 242, 0.08);
-        color: #1877f2;
-        border: 1px solid rgba(24, 119, 242, 0.15);
-        text-decoration: none;
-        padding: 10px 16px;
-        border-radius: 20px;
-        font-weight: 600;
-        font-size: 0.9rem;
-        box-sizing: border-box;
-        cursor: pointer;
-        font-family: "Nunito", sans-serif;
-        transition: background-color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    border-color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    box-shadow 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      #menu-component-wrapper .fb-btn i {
-        color: #1877f2;
-        transition: color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      #menu-component-wrapper .fb-btn:hover {
-        background: #1877f2;
-        color: white;
-        transform: translateY(-2px);
-      }
-      #menu-component-wrapper .fb-btn:hover i { color: white; }
-      body.time-night #menu-component-wrapper .fb-btn {
-        background: rgba(24, 119, 242, 0.2) !important;
-        border-color: rgba(24, 119, 242, 0.3) !important;
-      }
-
-      /* ============================================================
-         INFO CARDS (Novel Status, Support)
+         STATUS (informational styling — quiet, not interactive)
          ============================================================ */
       #menu-component-wrapper .info-card {
-        background: var(--surface-bg) !important;
-        padding: 16px 18px;
-        border-radius: 20px;
-        text-align: center;
-        border: 1px solid var(--surface-border) !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        transition: background-color 2.5s ease, border-color 2.5s ease, box-shadow 2.5s ease;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        background: transparent;
+        padding: 10px 16px;
+        border-radius: 12px;
+        border: 1px dashed var(--surface-border) !important;
+        transition: border-color 2.5s ease;
       }
       #menu-component-wrapper .info-card h4 {
-        margin: 0 0 6px 0;
-        font-size: 0.85rem;
-        color: var(--accent-primary) !important;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        margin: 0;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--text-secondary) !important;
+        opacity: 0.75;
+        display: flex;
+        align-items: center;
+        gap: 6px;
         font-family: "Nunito", sans-serif;
         transition: color 2.5s ease;
       }
       #menu-component-wrapper .status-badge {
         display: inline-block;
         background: var(--accent-soft) !important;
-        padding: 4px 14px;
+        padding: 3px 12px;
         border-radius: 20px;
         font-weight: 700;
-        font-size: 0.8rem;
+        font-size: 0.72rem;
         color: var(--accent-primary) !important;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         transition: background-color 2.5s ease, color 2.5s ease;
       }
-      #menu-component-wrapper .links-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 8px;
-        margin-top: 12px;
-      }
-      #menu-component-wrapper .link-tag {
-        background: var(--surface-bg) !important;
-        padding: 8px 12px;
-        border-radius: 12px;
-        font-size: 0.82rem;
-        text-decoration: none;
-        color: var(--text-main) !important;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border: 1px solid transparent;
-        font-family: "Nunito", sans-serif;
-        transition: background-color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    border-color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    color 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      #menu-component-wrapper .link-tag:hover {
-        border-color: var(--accent-soft) !important;
-        background: var(--accent-soft) !important;
-        color: var(--accent-primary) !important;
-        transform: translateX(5px);
-      }
-      body.time-night #menu-component-wrapper .link-tag { color: #b8a0c0 !important; }
-      body.time-night #menu-component-wrapper .link-tag:hover { color: #c98aa8 !important; }
 
       /* ============================================================
          SETTINGS (compact, collapsible)
          ============================================================ */
       #menu-component-wrapper .settings-card {
-        background: var(--surface-bg) !important;
+        background: transparent;
         border: 1px solid var(--surface-border) !important;
-        border-radius: 20px;
-        padding: 18px 18px 20px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        transition: background-color 2.5s ease, border-color 2.5s ease, box-shadow 2.5s ease;
+        border-radius: 16px;
+        padding: 14px 16px 16px;
+        transition: background-color 2.5s ease, border-color 2.5s ease;
+      }
+      #menu-component-wrapper .settings-body-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
       }
       #menu-component-wrapper .settings-header {
         display: flex;
         align-items: center;
-        gap: 12px;
-        margin-bottom: 14px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid var(--surface-border) !important;
-        transition: border-color 2.5s ease;
+        gap: 10px;
+        margin: -2px -4px 0;
+        padding: 6px 4px;
+        border-radius: 10px;
+        border-bottom: none;
+        min-height: 44px;
+        transition: background-color 0.2s ease;
         cursor: pointer;
+      }
+      #menu-component-wrapper .settings-header:hover,
+      #menu-component-wrapper .settings-header:focus-visible {
+        background: var(--accent-soft) !important;
+      }
+      #menu-component-wrapper .settings-header:focus-visible {
+        outline: 2px solid var(--accent-primary) !important;
+        outline-offset: 2px;
+      }
+      #menu-component-wrapper .settings-card.open .settings-header {
+        margin-bottom: 8px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid var(--surface-border) !important;
+        border-radius: 10px 10px 0 0;
+        transition: background-color 0.2s ease, border-color 2.5s ease;
       }
       #menu-component-wrapper .settings-header-icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 32px;
-        height: 32px;
-        border-radius: 10px;
-        background: var(--accent-soft) !important;
-        color: var(--accent-primary) !important;
-        font-size: 0.95rem;
+        width: 24px;
+        height: 24px;
         flex-shrink: 0;
-        transition: background-color 2.5s ease, color 2.5s ease;
+        color: var(--accent-primary) !important;
+        font-size: 0.9rem;
+        transition: color 2.5s ease;
       }
       #menu-component-wrapper .settings-header-content h3 {
         margin: 0;
-        font-size: 1rem;
+        font-size: 0.88rem;
         font-weight: 700;
-        letter-spacing: 0.3px;
+        letter-spacing: 0.2px;
         color: var(--text-main) !important;
         line-height: 1.3;
         transition: color 2.5s ease;
       }
       #menu-component-wrapper .settings-header-content p {
         margin: 0;
-        font-size: 0.72rem;
+        font-size: 0.68rem;
         font-weight: 400;
         color: var(--text-secondary) !important;
-        opacity: 0.65;
+        opacity: 0.6;
         letter-spacing: 0.02em;
         transition: color 2.5s ease;
       }
+      #menu-component-wrapper .settings-body { padding: 0 4px; }
       #menu-component-wrapper .settings-body {
         display: none;
         margin-top: 6px;
@@ -632,15 +759,27 @@
       body.time-night #menu-component-wrapper .toggle-slider::before { background: #d8c8e0 !important; }
 
       /* ============================================================
-         HOMEPAGE NOTICE (hidden by default)
+         HOMEPAGE NOTICE (contextual hint under the mobile burger setting)
          ============================================================ */
-      #menu-component-wrapper .homepage-notice { display: none !important; }
+      #menu-component-wrapper .homepage-notice {
+        display: flex;
+        align-items: flex-start;
+        gap: 6px;
+        margin-top: 6px;
+        font-size: 0.68rem;
+        line-height: 1.4;
+        color: var(--text-secondary) !important;
+        opacity: 0.6;
+        transition: color 2.5s ease;
+      }
+      #menu-component-wrapper .homepage-notice i { margin-top: 1px; flex-shrink: 0; }
 
       /* ============================================================
          RESPONSIVE BREAKPOINTS
          ============================================================ */
       @media (max-width: 900px) {
         #menu-component-wrapper .mobile-toggle { display: flex !important; }
+        #menu-component-wrapper .drawer-close-btn { display: flex; }
         #menu-component-wrapper .sidebar {
           position: fixed;
           top: 0;
@@ -690,14 +829,17 @@
       <!-- ==========================================================
            MOBILE TOGGLE BUTTON
            ========================================================== -->
-      <button class="mobile-toggle" id="menu-toggle-btn" onclick="menuToggle()">
-        <i class="fas fa-bars"></i>
+      <button class="mobile-toggle" id="menu-toggle-btn" onclick="menuToggle()" aria-label="Open menu" aria-expanded="false" aria-controls="sideMenu">
+        <i class="fas fa-bars" aria-hidden="true"></i>
       </button>
 
       <!-- ==========================================================
            SIDEBAR / NAVIGATION PANEL
            ========================================================== -->
       <nav class="sidebar" id="sideMenu" aria-label="Sidebar">
+        <button type="button" class="drawer-close-btn" id="menu-close-btn" onclick="closeMenu()" aria-label="Close menu">
+          <i class="fas fa-xmark" aria-hidden="true"></i>
+        </button>
         <div class="sidebar-inner">
 
           <!-- 1. BRANDING (strongest visual) -->
@@ -709,43 +851,134 @@
             </div>
           </div>
 
-          <!-- 2. BACK TO HOME (primary action) -->
-          <a href="#" onclick="return false;" data-route="" class="home-btn" id="menu-back-home">
-            <i class="fas fa-arrow-left"></i>
-            <span id="menu-back-text">Volver al Inicio</span>
-          </a>
+          <!-- 2. NAVIGATION (primary internal pages — strongest interaction styling) -->
+          <!-- Routes mirror navHrefs in index.js. Labels/icons are authored here since
+               index.js pulls per-language titles from src/data/index/<lang>.json at
+               runtime for the homepage's own nav grid — extend translateMenu() below
+               if you want the sidebar to pull from that same source instead. -->
+          <div class="nav-section">
+            <button type="button" class="nav-section-toggle" id="navSectionToggle" aria-expanded="true" aria-controls="navList">
+              <span class="nav-section-label" id="menu-nav-label">NAVIGATION</span>
+              <i class="fas fa-chevron-down nav-section-chevron" id="navSectionChevron" aria-hidden="true"></i>
+            </button>
+            <div class="nav-list collapsible open" id="navList" role="navigation" aria-label="Main">
+              <a href="#" onclick="return false;" data-route="" data-page="home" class="nav-item" id="menu-back-home">
+                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-house"></i></span>
+                <span class="nav-item-label" id="menu-back-text">Inicio</span>
+                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+              </a>
+              <a href="/Adashima_Anime" data-page="anime" class="nav-item">
+                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-clapperboard"></i></span>
+                <span class="nav-item-label" id="menu-nav-anime">Anime</span>
+                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+              </a>
+              <a href="/Adashima_Mini_Anime" data-page="miniAnime" class="nav-item">
+                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-tv"></i></span>
+                <span class="nav-item-label" id="menu-nav-mini-anime">Mini Anime</span>
+                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+              </a>
+              <a href="/Adashima_Manga" data-page="manga" class="nav-item">
+                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-book-open"></i></span>
+                <span class="nav-item-label" id="menu-nav-manga">Manga</span>
+                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+              </a>
+              <a href="/Adashima_Novelas" data-page="novels" class="nav-item">
+                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-book"></i></span>
+                <span class="nav-item-label" id="menu-nav-novels">Novels</span>
+                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+              </a>
+              <a href="/Adashima_Extra_Stories" data-page="extraStories" class="nav-item">
+                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-scroll"></i></span>
+                <span class="nav-item-label" id="menu-nav-extra">Extra Stories</span>
+                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+              </a>
+              <a href="/Adashima_Drama" data-page="drama" class="nav-item">
+                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-masks-theater"></i></span>
+                <span class="nav-item-label" id="menu-nav-drama">Drama CD</span>
+                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+              </a>
+              <a href="/Adashima_Music" data-page="music" class="nav-item">
+                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-music"></i></span>
+                <span class="nav-item-label" id="menu-nav-music">Music</span>
+                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+              </a>
+              <a href="/Adashima_Gallery" data-page="gallery" class="nav-item">
+                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-images"></i></span>
+                <span class="nav-item-label" id="menu-nav-gallery">Gallery</span>
+                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+              </a>
+              <a href="/Adashima_Linea" data-page="timeline" class="nav-item">
+                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-clock-rotate-left"></i></span>
+                <span class="nav-item-label" id="menu-nav-timeline">Timeline</span>
+                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+              </a>
+              <a href="/Adashima_Estrella" data-page="constellation" class="nav-item">
+                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-star"></i></span>
+                <span class="nav-item-label" id="menu-nav-constellation">Constellation</span>
+                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+              </a>
+              <a href="/Adashima_Stats" data-page="stats" class="nav-item">
+                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-chart-column"></i></span>
+                <span class="nav-item-label" id="menu-nav-stats">Stats</span>
+                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+              </a>
+              <a href="/Adashima_Otros" data-page="others" class="nav-item">
+                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-shapes"></i></span>
+                <span class="nav-item-label" id="menu-nav-others">Others</span>
+                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+              </a>
+              <a href="/Adashima_About" data-page="about" class="nav-item">
+                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-circle-info"></i></span>
+                <span class="nav-item-label" id="menu-nav-about">About</span>
+                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+              </a>
+            </div>
+          </div>
 
           <div class="sidebar-divider"></div>
 
-          <!-- 3. INFORMATION / EXTERNAL LINKS -->
-          <!-- Facebook (secondary) -->
-          <a href="https://www.facebook.com/p/Adachi-to-Shimamura-Latinoam%C3%A9rica-61551058385796/" target="_blank" class="fb-btn" id="menu-fb-btn">
-            <i class="fab fa-facebook-f"></i>
-            <span id="menu-fb-text">Visítanos en Facebook</span>
-          </a>
-
-          <!-- Novel Status -->
-          <div class="info-card">
-            <h4 id="menu-status-title"><i class="fas fa-book-reader"></i> Estado de la Novela</h4>
-            <span class="status-badge" id="menu-status-badge">En Publicación</span>
+          <!-- 3. COMMUNITY (external — secondary styling) -->
+          <div class="nav-section">
+            <span class="nav-section-label" id="menu-community-label">COMMUNITY</span>
+            <div class="nav-list">
+              <a href="https://www.facebook.com/p/Adachi-to-Shimamura-Latinoam%C3%A9rica-61551058385796/" target="_blank" rel="noopener" class="nav-item secondary fb-item" id="menu-fb-btn">
+                <span class="nav-item-icon" aria-hidden="true"><i class="fab fa-facebook-f"></i></span>
+                <span class="nav-item-label" id="menu-fb-text">Visítanos en Facebook</span>
+                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-external-link-alt"></i></span>
+              </a>
+            </div>
           </div>
 
-          <!-- Support the Original Work -->
-          <div class="info-card">
-            <h4 id="menu-support-title"><i class="fas fa-heart"></i> Apoya la Obra Original</h4>
-            <div class="links-grid">
-              <a href="https://dengekibunko.jp/product/adashima/" target="_blank" class="link-tag">
-                <span id="menu-link-novel">Novela Ligera</span>
-                <i class="fas fa-external-link-alt"></i>
+          <!-- 4. ORIGINAL WORK (external — secondary styling) -->
+          <div class="nav-section">
+            <span class="nav-section-label" id="menu-support-title">Apoya la Obra Original</span>
+            <div class="nav-list">
+              <a href="https://dengekibunko.jp/product/adashima/" target="_blank" rel="noopener" class="nav-item secondary">
+                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-book"></i></span>
+                <span class="nav-item-label" id="menu-link-novel">Novela Ligera</span>
+                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-external-link-alt"></i></span>
               </a>
-              <a href="https://comic-walker.com/detail/KC_004197_S?episodeType=first" target="_blank" class="link-tag">
-                <span id="menu-link-manga">Manga</span>
-                <i class="fas fa-external-link-alt"></i>
+              <a href="https://comic-walker.com/detail/KC_004197_S?episodeType=first" target="_blank" rel="noopener" class="nav-item secondary">
+                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-images"></i></span>
+                <span class="nav-item-label" id="menu-link-manga">Manga</span>
+                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-external-link-alt"></i></span>
               </a>
-              <a href="https://kakuyomu.jp/works/1177354054897444952" target="_blank" class="link-tag">
-                <span id="menu-link-blog">Blog del Autor</span>
-                <i class="fas fa-external-link-alt"></i>
+              <a href="https://kakuyomu.jp/works/1177354054897444952" target="_blank" rel="noopener" class="nav-item secondary">
+                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-pen-nib"></i></span>
+                <span class="nav-item-label" id="menu-link-blog">Blog del Autor</span>
+                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-external-link-alt"></i></span>
               </a>
+            </div>
+          </div>
+
+          <div class="sidebar-divider"></div>
+
+          <!-- 5. STATUS (informational styling) -->
+          <div class="nav-section">
+            <span class="nav-section-label" id="menu-status-label">STATUS</span>
+            <div class="info-card">
+              <h4 id="menu-status-title"><i class="fas fa-book-reader" aria-hidden="true"></i> Estado de la Novela</h4>
+              <span class="status-badge" id="menu-status-badge">En Publicación</span>
             </div>
           </div>
 
@@ -756,8 +989,8 @@
             <div class="settings-header" id="settingsToggle" role="button" tabindex="0" aria-expanded="false">
               <div class="settings-header-icon"><i class="fas fa-sliders-h"></i></div>
               <div class="settings-header-content">
-                <h3 id="menu-settings-title">Settings</h3>
-                <p id="menu-settings-subtitle">Customize your experience</p>
+                <h3 id="menu-settings-title">Configuración</h3>
+                <p id="menu-settings-subtitle">Personaliza tu experiencia</p>
               </div>
               <i class="fas fa-chevron-down" style="margin-left:auto; color:var(--text-muted); transition:transform 0.3s ease;" id="settingsChevron"></i>
             </div>
@@ -766,8 +999,8 @@
               <div class="settings-section">
                 <div class="settings-section-label" id="menu-preferences-label">PREFERENCIAS</div>
                 <div class="setting-label">
-                  <span class="settings-subsection-label" id="menu-language-label">LANGUAGE</span>
-                  <span class="settings-subsection-desc" id="menu-language-desc">Choose your preferred language</span>
+                  <span class="settings-subsection-label" id="menu-language-label">IDIOMA</span>
+                  <span class="settings-subsection-desc" id="menu-language-desc">Elige tu idioma preferido</span>
                 </div>
                 <div class="language-selector" role="group" aria-label="Language options">
                   <button type="button" class="lang-option" data-lang="es" data-label="Español" aria-pressed="false">
@@ -792,11 +1025,11 @@
 
               <!-- APPEARANCE -->
               <div class="settings-section">
-                <div class="settings-section-label" id="menu-appearance-label">APPEARANCE</div>
+                <div class="settings-section-label" id="menu-appearance-label">APARIENCIA</div>
                 <div class="setting-group">
                   <div class="setting-label">
-                    <span id="menu-appearance-toggle-text">Time-based appearance</span>
-                    <span class="setting-description" id="menu-appearance-toggle-sub">Automatically adapt to time of day.</span>
+                    <span id="menu-appearance-toggle-text">Apariencia basada en la hora</span>
+                    <span class="setting-description" id="menu-appearance-toggle-sub">Adapta automáticamente la apariencia según la hora del día.</span>
                   </div>
                   <label class="toggle-switch">
                     <input type="checkbox" id="appearance-toggle-checkbox" checked />
@@ -804,9 +1037,9 @@
                   </label>
                 </div>
                 <div class="appearance-selector-wrapper" id="appearanceSelectorWrapper" style="display:none; margin-top:6px;">
-                  <div class="settings-subsection-label" id="menu-appearance-selector-label">Appearance</div>
-                  <div class="appearance-selector" role="group" aria-label="Appearance options">
-                    <button type="button" class="appearance-option" data-theme="morning" data-label="Morning" aria-pressed="false">
+                  <div class="settings-subsection-label" id="menu-appearance-selector-label">Apariencia</div>
+                  <div class="appearance-selector" role="group" aria-label="Opciones de apariencia">
+                    <button type="button" class="appearance-option" data-theme="morning" data-label="Mañana" aria-pressed="false">
                       <span class="appearance-icon" aria-hidden="true">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                           <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
@@ -815,38 +1048,53 @@
                           <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
                         </svg>
                       </span>
-                      <span class="appearance-name">Morning</span>
+                      <span class="appearance-name">Mañana</span>
                       <span class="appearance-check"><i class="fas fa-check"></i></span>
                     </button>
-                    <button type="button" class="appearance-option" data-theme="afternoon" data-label="Afternoon" aria-pressed="false">
+                    <button type="button" class="appearance-option" data-theme="afternoon" data-label="Tarde" aria-pressed="false">
                       <span class="appearance-icon" aria-hidden="true">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                           <path d="M12 2v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="M20 12h2"/><path d="m19.07 4.93-1.41 1.41"/>
                           <path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"/><path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"/>
                         </svg>
                       </span>
-                      <span class="appearance-name">Afternoon</span>
+                      <span class="appearance-name">Tarde</span>
                       <span class="appearance-check"><i class="fas fa-check"></i></span>
                     </button>
-                    <button type="button" class="appearance-option" data-theme="night" data-label="Night" aria-pressed="false">
+                    <button type="button" class="appearance-option" data-theme="night" data-label="Noche" aria-pressed="false">
                       <span class="appearance-icon" aria-hidden="true">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
                         </svg>
                       </span>
-                      <span class="appearance-name">Night</span>
+                      <span class="appearance-name">Noche</span>
                       <span class="appearance-check"><i class="fas fa-check"></i></span>
                     </button>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <!-- homepage notice (hidden) -->
-          <div class="homepage-notice" id="homepage-notice" style="display:none;">
-            <i class="fas fa-info-circle"></i>
-            <span id="menu-homepage-notice-text">El botón siempre está visible en la página de inicio</span>
+              <!-- MOBILE-ONLY: Burger menu visibility -->
+              <div class="sidebar-divider mobile-only-section" style="margin:12px 0;"></div>
+              <div class="settings-section mobile-only-section">
+                <div class="settings-section-label" id="menu-nav-settings-label">NAVEGACIÓN</div>
+                <div class="setting-group">
+                  <div class="setting-label">
+                    <span id="menu-hide-burger-text">Ocultar menú en otras páginas</span>
+                    <span class="setting-description" id="menu-hide-burger-desc">Oculta el botón del menú en páginas distintas a la de inicio.</span>
+                  </div>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="hide-burger-toggle-checkbox" />
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <!-- shown only on the homepage, explaining the exception -->
+                <div class="homepage-notice" id="homepage-notice">
+                  <i class="fas fa-info-circle" aria-hidden="true"></i>
+                  <span id="menu-homepage-notice-text">El botón siempre está visible en la página de inicio</span>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -989,43 +1237,65 @@
       // ============================================================
       // MENU TOGGLE (open/close)
       // ============================================================
-      function menuToggle() {
+      function setSidebarState(isOpen) {
         const sidebar = document.getElementById("sideMenu");
         const btn = document.getElementById("menu-toggle-btn");
-        if (!sidebar || !btn) return;
-        sidebar.classList.toggle("active");
-        const icon = btn.querySelector("i");
-        if (icon) {
-          icon.classList.toggle("fa-bars", !sidebar.classList.contains("active"));
-          icon.classList.toggle("fa-times", sidebar.classList.contains("active"));
+        if (!sidebar) return;
+        sidebar.classList.toggle("active", isOpen);
+        if (btn) {
+          btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+          btn.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+          const icon = btn.querySelector("i");
+          if (icon) {
+            icon.classList.toggle("fa-bars", !isOpen);
+            icon.classList.toggle("fa-times", isOpen);
+          }
         }
       }
+      window.setSidebarState = setSidebarState;
+
+      function menuToggle() {
+        const sidebar = document.getElementById("sideMenu");
+        if (!sidebar) return;
+        setSidebarState(!sidebar.classList.contains("active"));
+      }
       window.menuToggle = menuToggle;
+
+      function closeMenu() {
+        setSidebarState(false);
+      }
+      window.closeMenu = closeMenu;
 
       // close on outside click
       document.addEventListener("click", function(e) {
         const sidebar = document.getElementById("sideMenu");
         const btn = document.getElementById("menu-toggle-btn");
         if (!sidebar || !sidebar.classList.contains("active")) return;
-        if (!sidebar.contains(e.target) && !btn.contains(e.target)) {
-          sidebar.classList.remove("active");
-          const icon = btn && btn.querySelector("i");
-          if (icon) {
-            icon.classList.replace("fa-times", "fa-bars");
-          }
+        if (!sidebar.contains(e.target) && !(btn && btn.contains(e.target))) {
+          closeMenu();
         }
+      });
+
+      // close on Escape
+      document.addEventListener("keydown", function(e) {
+        if (e.key !== "Escape") return;
+        const sidebar = document.getElementById("sideMenu");
+        if (!sidebar || !sidebar.classList.contains("active")) return;
+        closeMenu();
       });
 
       // ============================================================
       // SETTINGS COLLAPSE
       // ============================================================
       (function() {
+        const card = document.getElementById("settingsCard");
         const toggle = document.getElementById("settingsToggle");
         const body = document.getElementById("settingsBody");
         const chevron = document.getElementById("settingsChevron");
         if (toggle && body) {
           toggle.addEventListener("click", function() {
             const isOpen = body.classList.toggle("open");
+            if (card) card.classList.toggle("open", isOpen);
             toggle.setAttribute("aria-expanded", isOpen);
             if (chevron) {
               chevron.style.transform = isOpen ? "rotate(180deg)" : "rotate(0deg)";
@@ -1038,6 +1308,148 @@
             }
           });
         }
+      })();
+
+      // ============================================================
+      // NAVIGATION COLLAPSE (collapsible primary nav list)
+      // ============================================================
+      (function() {
+        const STORAGE_KEY = "adashima_nav_expanded";
+        const toggle = document.getElementById("navSectionToggle");
+        const list = document.getElementById("navList");
+        if (!toggle || !list) return;
+
+        function getStoredState() {
+          try {
+            const value = localStorage.getItem(STORAGE_KEY);
+            return value === null ? true : value === "true"; // expanded by default
+          } catch (e) {
+            return true;
+          }
+        }
+
+        function saveState(isOpen) {
+          try {
+            localStorage.setItem(STORAGE_KEY, String(isOpen));
+          } catch (e) {
+            // ignore storage issues
+          }
+        }
+
+        function setOpen(isOpen) {
+          list.classList.toggle("open", isOpen);
+          toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        }
+
+        toggle.addEventListener("click", function() {
+          const isOpen = !list.classList.contains("open");
+          setOpen(isOpen);
+          saveState(isOpen);
+        });
+        toggle.addEventListener("keydown", function(e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            toggle.click();
+          }
+        });
+
+        setOpen(getStoredState());
+      })();
+
+      // ============================================================
+      // CURRENT PAGE / HOME DETECTION
+      // ============================================================
+      function getCurrentPage() {
+        // Prefer an explicit override set by the host page, e.g.
+        // <body data-page="anime"> or window.ADASHIMA_CURRENT_PAGE = "anime";
+        const explicit = document.body.getAttribute("data-page") || window.ADASHIMA_CURRENT_PAGE;
+        if (explicit) return explicit;
+
+        const path = window.location.pathname.replace(/\/+$/, "");
+        if (path === "" || /\/index(\.html?)?$/i.test(path)) return "home";
+        return null; // unknown — matched against nav-item hrefs instead
+      }
+      window.getCurrentPage = getCurrentPage;
+
+      function isHomePage() {
+        return getCurrentPage() === "home";
+      }
+      window.isHomePage = isHomePage;
+
+      function syncActiveNavItem() {
+        const current = getCurrentPage();
+        const path = window.location.pathname.replace(/\/+$/, "");
+        document.querySelectorAll("#menu-component-wrapper .nav-list .nav-item[data-page]").forEach((item) => {
+          const page = item.getAttribute("data-page");
+          let active = false;
+          if (current) {
+            active = page === current;
+          } else {
+            const href = item.getAttribute("href");
+            active = !!href && href !== "#" && path.endsWith(href.replace(/\/+$/, ""));
+          }
+          item.classList.toggle("active", active);
+          if (active) {
+            item.setAttribute("aria-current", "page");
+          } else {
+            item.removeAttribute("aria-current");
+          }
+        });
+      }
+      window.syncActiveNavItem = syncActiveNavItem;
+      syncActiveNavItem();
+
+      // ============================================================
+      // HIDE BURGER MENU IN OTHER PAGES (mobile-only setting)
+      // ============================================================
+      (function() {
+        const STORAGE_KEY = "adashima_hide_burger_other_pages";
+        const wrapper = document.getElementById("menu-component-wrapper");
+        const checkbox = document.getElementById("hide-burger-toggle-checkbox");
+        const notice = document.getElementById("homepage-notice");
+
+        function getSetting() {
+          try {
+            return localStorage.getItem(STORAGE_KEY) === "true";
+          } catch (e) {
+            return false;
+          }
+        }
+
+        function saveSetting(value) {
+          try {
+            localStorage.setItem(STORAGE_KEY, String(value));
+          } catch (e) {
+            // ignore storage issues
+          }
+        }
+
+        function applyBurgerVisibility() {
+          const hideOnOtherPages = getSetting();
+          const onHome = isHomePage();
+          // The homepage is always the exception: never hide the burger there.
+          const shouldHide = hideOnOtherPages && !onHome;
+          if (wrapper) wrapper.classList.toggle("mobile-toggle-hidden", shouldHide);
+          if (notice) notice.style.display = onHome ? "flex" : "none";
+        }
+        window.applyBurgerVisibility = applyBurgerVisibility;
+
+        if (checkbox) {
+          checkbox.checked = getSetting();
+          checkbox.addEventListener("change", function() {
+            saveSetting(this.checked);
+            applyBurgerVisibility();
+          });
+        }
+
+        window.addEventListener("storage", function(event) {
+          if (event.key === STORAGE_KEY) {
+            if (checkbox) checkbox.checked = getSetting();
+            applyBurgerVisibility();
+          }
+        });
+
+        applyBurgerVisibility();
       })();
 
       // ============================================================
@@ -1075,94 +1487,15 @@
       })();
 
       // ============================================================
-      // APPEARANCE CONTROLS
+      // APPEARANCE CONTROLS (instant — no reload)
       // ============================================================
       (function() {
         const checkbox = document.getElementById("appearance-toggle-checkbox");
-        const wrapper = document.getElementById("appearanceSelectorWrapper");
         const themeOptions = document.querySelectorAll(".appearance-option");
-
-        function normalizeTheme(theme) {
-          if (theme === "morning" || theme === "afternoon" || theme === "night") {
-            return theme;
-          }
-          return window.getTimePeriod ? window.getTimePeriod() : "morning";
-        }
-
-        function getTimeBased() {
-          try {
-            const val = localStorage.getItem("adashima_time_based_appearance");
-            return val === null ? true : val === "true";
-          } catch {
-            return true;
-          }
-        }
-
-        function saveTimeBased(val) {
-          try {
-            localStorage.setItem("adashima_time_based_appearance", String(val));
-          } catch {}
-        }
-
-        function getManualTheme() {
-          try {
-            const value = localStorage.getItem("adashima_manual_appearance");
-            return normalizeTheme(value);
-          } catch {
-            return window.getTimePeriod ? window.getTimePeriod() : "morning";
-          }
-        }
-
-        function saveManualTheme(theme) {
-          try {
-            localStorage.setItem("adashima_manual_appearance", normalizeTheme(theme));
-          } catch {}
-        }
-
-        function applyTheme(theme) {
-          const period = normalizeTheme(theme);
-          const body = document.body;
-          body.classList.remove("time-morning", "time-afternoon", "time-night");
-          body.classList.add("time-" + period);
-          body.dataset.theme = period;
-          window.__currentTheme = period;
-        }
-
-        function updateManualUI(active) {
-          themeOptions.forEach((btn) => {
-            const isActive = btn.dataset.theme === active;
-            btn.classList.toggle("active", isActive);
-            btn.setAttribute("aria-pressed", isActive ? "true" : "false");
-          });
-        }
-
-        function updateAppearance() {
-          const timeBased = getTimeBased();
-          const theme = timeBased ? (window.getTimePeriod ? window.getTimePeriod() : "morning") : getManualTheme();
-          applyTheme(theme);
-          updateManualUI(theme);
-          if (wrapper) wrapper.style.display = timeBased ? "none" : "block";
-          if (checkbox) checkbox.checked = timeBased;
-          return theme;
-        }
 
         if (checkbox) {
           checkbox.addEventListener("change", function() {
-            const val = this.checked;
-            saveTimeBased(val);
-
-            if (val) {
-              const theme = window.getTimePeriod ? window.getTimePeriod() : "morning";
-              applyTheme(theme);
-              updateManualUI(theme);
-              if (wrapper) wrapper.style.display = "none";
-            } else {
-              const manual = getManualTheme() || (window.getTimePeriod ? window.getTimePeriod() : "morning");
-              saveManualTheme(manual);
-              applyTheme(manual);
-              updateManualUI(manual);
-              if (wrapper) wrapper.style.display = "block";
-            }
+            window.setAppearanceTheme(null, this.checked);
           });
         }
 
@@ -1170,25 +1503,9 @@
           btn.addEventListener("click", function() {
             const theme = this.dataset.theme;
             if (!theme) return;
-            saveTimeBased(false);
-            saveManualTheme(theme);
-            applyTheme(theme);
-            updateManualUI(theme);
-            if (checkbox) checkbox.checked = false;
-            if (wrapper) wrapper.style.display = "block";
+            window.setAppearanceTheme(theme, false);
           });
         });
-
-        window.updateAppearance = updateAppearance;
-
-        document.addEventListener("appearanceThemeChanged", function(event) {
-          const theme = event.detail && event.detail.theme ? event.detail.theme : getManualTheme();
-          updateManualUI(theme);
-          if (wrapper) wrapper.style.display = getTimeBased() ? "none" : "block";
-          if (checkbox) checkbox.checked = getTimeBased();
-        });
-
-        updateAppearance();
       })();
 
       // ============================================================
@@ -1206,7 +1523,7 @@
       (function() {
         const fallbacks = {
           es: {
-            backText: "Volver al Inicio",
+            backText: "Inicio",
             fbText: "Visítanos en Facebook",
             statusTitle: "Estado de la Novela",
             statusBadge: "En Publicación",
@@ -1214,22 +1531,41 @@
             linkNovel: "Novela Ligera",
             linkManga: "Manga",
             linkBlog: "Blog del Autor",
-            settingsTitle: "Settings",
-            settingsSubtitle: "Customize your experience",
+            settingsTitle: "Configuración",
+            settingsSubtitle: "Personaliza tu experiencia",
             preferencesLabel: "PREFERENCIAS",
-            languageLabel: "LANGUAGE",
-            languageDesc: "Choose your preferred language",
-            appearanceLabel: "APPEARANCE",
-            appearanceToggleText: "Time-based appearance",
-            appearanceToggleSub: "Automatically adapt to time of day.",
-            appearanceSelectorLabel: "Appearance",
-            appearanceMorning: "Morning",
-            appearanceAfternoon: "Afternoon",
-            appearanceNight: "Night",
+            languageLabel: "IDIOMA",
+            languageDesc: "Elige tu idioma preferido",
+            appearanceLabel: "APARIENCIA",
+            appearanceToggleText: "Apariencia basada en la hora",
+            appearanceToggleSub: "Adapta automáticamente la apariencia según la hora del día.",
+            appearanceSelectorLabel: "Apariencia",
+            appearanceMorning: "Mañana",
+            appearanceAfternoon: "Tarde",
+            appearanceNight: "Noche",
             homepageNoticeText: "El botón siempre está visible en la página de inicio",
+            navLabel: "NAVEGACIÓN",
+            communityLabel: "COMUNIDAD",
+            statusLabel: "ESTADO",
+            navAnime: "Anime",
+            navMiniAnime: "Mini Anime",
+            navManga: "Manga",
+            navNovels: "Novelas",
+            navExtra: "Historias Extra",
+            navDrama: "Drama CD",
+            navMusic: "Música",
+            navGallery: "Galería",
+            navTimeline: "Línea del Tiempo",
+            navConstellation: "Constelación",
+            navStats: "Estadísticas",
+            navOthers: "Otros",
+            navAbout: "Acerca de",
+            mobileSettingsLabel: "MÓVIL",
+            hideBurgerText: "Ocultar menú en otras páginas",
+            hideBurgerDesc: "Oculta el botón del menú en páginas distintas a la de inicio.",
           },
           en: {
-            backText: "Back to Home",
+            backText: "Home",
             fbText: "Visit us on Facebook",
             statusTitle: "Novel Status",
             statusBadge: "Ongoing",
@@ -1250,29 +1586,67 @@
             appearanceAfternoon: "Afternoon",
             appearanceNight: "Night",
             homepageNoticeText: "The button is always visible on the homepage",
+            navLabel: "NAVIGATION",
+            communityLabel: "COMMUNITY",
+            statusLabel: "STATUS",
+            navAnime: "Anime",
+            navMiniAnime: "Mini Anime",
+            navManga: "Manga",
+            navNovels: "Novels",
+            navExtra: "Extra Stories",
+            navDrama: "Drama CD",
+            navMusic: "Music",
+            navGallery: "Gallery",
+            navTimeline: "Timeline",
+            navConstellation: "Constellation",
+            navStats: "Stats",
+            navOthers: "Others",
+            navAbout: "About",
+            mobileSettingsLabel: "MOBILE",
+            hideBurgerText: "Hide Burger Menu in Other Pages",
+            hideBurgerDesc: "Hide the menu button on pages other than the homepage.",
           },
           tg: {
             backText: "Bumalik sa Home",
             fbText: "Bisitahin kami sa Facebook",
             statusTitle: "Estado ng Nobela",
             statusBadge: "Patuloy",
-            supportTitle: "Suportahan ang Orihinal na Akda",
+            supportTitle: "Suportahan ang Orihinal na Gawa",
             linkNovel: "Light Novel",
             linkManga: "Manga",
             linkBlog: "Blog ng May-akda",
-            settingsTitle: "Settings",
-            settingsSubtitle: "I-customize ang iyong karanasan",
-            preferencesLabel: "PREFERENSYA",
+            settingsTitle: "Mga Setting",
+            settingsSubtitle: "I-personalize ang iyong karanasan",
+            preferencesLabel: "PREFERENSIYA",
             languageLabel: "WIKA",
-            languageDesc: "Piliin ang iyong ginustong wika",
-            appearanceLabel: "HITSURA",
-            appearanceToggleText: "Hitsura batay sa oras",
-            appearanceToggleSub: "Awtomatikong i-adapt ang hitsura ayon sa oras.",
-            appearanceSelectorLabel: "Hitsura",
+            languageDesc: "Piliin ang iyong gustong wika",
+            appearanceLabel: "PITSURA",
+            appearanceToggleText: "Pitsura batay sa oras",
+            appearanceToggleSub: "Awtomatikong iangkop ang hitsura ayon sa oras ng araw.",
+            appearanceSelectorLabel: "Pitsura",
             appearanceMorning: "Umaga",
             appearanceAfternoon: "Hapon",
             appearanceNight: "Gabi",
-            homepageNoticeText: "Ang button ay palaging nakikita sa homepage",
+            homepageNoticeText: "Palaging nakikita ang button sa homepage",
+            navLabel: "NABIGASYON",
+            communityLabel: "KOMUNIDAD",
+            statusLabel: "KATAYUAN",
+            navAnime: "Anime",
+            navMiniAnime: "Mini Anime",
+            navManga: "Manga",
+            navNovels: "Mga Nobela",
+            navExtra: "Extra Stories",
+            navDrama: "Drama CD",
+            navMusic: "Musika",
+            navGallery: "Gallery",
+            navTimeline: "Timeline",
+            navConstellation: "Konstelasyon",
+            navStats: "Stats",
+            navOthers: "Iba pa",
+            navAbout: "Tungkol",
+            mobileSettingsLabel: "MOBILE",
+            hideBurgerText: "Itago ang burger menu sa ibang pahina",
+            hideBurgerDesc: "Itago ang button ng menu sa mga pahinang hindi homepage.",
           }
         };
 
@@ -1297,6 +1671,25 @@
             "menu-appearance-toggle-sub": t.appearanceToggleSub,
             "menu-appearance-selector-label": t.appearanceSelectorLabel,
             "menu-homepage-notice-text": t.homepageNoticeText,
+            "menu-nav-label": t.navLabel,
+            "menu-community-label": t.communityLabel,
+            "menu-status-label": t.statusLabel,
+            "menu-nav-anime": t.navAnime,
+            "menu-nav-mini-anime": t.navMiniAnime,
+            "menu-nav-manga": t.navManga,
+            "menu-nav-novels": t.navNovels,
+            "menu-nav-extra": t.navExtra,
+            "menu-nav-drama": t.navDrama,
+            "menu-nav-music": t.navMusic,
+            "menu-nav-gallery": t.navGallery,
+            "menu-nav-timeline": t.navTimeline,
+            "menu-nav-constellation": t.navConstellation,
+            "menu-nav-stats": t.navStats,
+            "menu-nav-others": t.navOthers,
+            "menu-nav-about": t.navAbout,
+            "menu-nav-settings-label": t.mobileSettingsLabel,
+            "menu-hide-burger-text": t.hideBurgerText,
+            "menu-hide-burger-desc": t.hideBurgerDesc,
           };
           Object.keys(map).forEach(id => {
             const el = document.getElementById(id);

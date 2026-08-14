@@ -1,28 +1,61 @@
 [
   {
-  "version": "2.2.7",
-  "build": "20260812",
-  "date": "August 12, 2026",
-  "subtitle": "Image Optimization, Information Updates & Localization Fixes",
-  "changes": {
-    "new": [],
-    "improvements": [
-      "Converted all website images to WebP format to reduce file size and improve loading performance.",
-      "Updated the About section to properly display its available information.",
-      "Improved the series information section on the homepage for desktop displays."
-    ],
-    "fixes": [
-      "Fixed a language persistence issue that caused the selected language to not be applied correctly on certain pages.",
-      "Resolved localization inconsistencies where some screens did not properly update after changing the selected language."
-    ],
-    "notes": [
-      "This release focuses on optimizing visual assets, improving information presentation, and strengthening language persistence across the website.",
-      "All website images were converted to WebP to reduce resource size and improve overall loading performance.",
-      "The About section was adjusted to properly display its information, while the homepage received fixes to the series information section on desktop.",
-      "Language persistence was also corrected to ensure the selected language is consistently maintained and applied across different pages and screens."
-    ]
-  }
-},
+    "version": "2.2.8",
+    "build": "20260814",
+    "date": "August 14, 2026",
+    "subtitle": "Navigation Overhaul & Reader/Player Optimizations",
+    "changes": {
+      "new": [
+        "Redesigned the sidebar navigation with a clearer structure separating primary navigation, community links, original work links, status, and settings.",
+        "Added a collapsible Navigation section so the page list can be expanded or collapsed as needed.",
+        "Added a dedicated close button to the mobile navigation drawer.",
+        "Added a 'Hide Burger Menu in Other Pages' setting (mobile only) that hides the menu button on pages other than the homepage, which always keeps it visible."
+      ],
+      "improvements": [
+        "Updated the sidebar's internal navigation links to reflect the site's actual pages (Anime, Mini Anime, Manga, Novels, Extra Stories, Drama CD, Music, Gallery, Timeline, Constellation, Stats, Others, About).",
+        "Made Home a standard navigation item that reflects the current page instead of a separate back button.",
+        "Visually separated external links (Facebook, Light Novel, Manga, Author's Blog) from internal navigation to make it clear they leave the site.",
+        "Optimized the PDF reader on the Novels page for smoother page loading and navigation.",
+        "Optimized the expanded player view on the Music page for better performance and responsiveness."
+      ],
+      "fixes": [
+        "Fixed an issue on mobile where there was no way to close the navigation drawer once opened."
+      ],
+      "notes": [
+        "This release focuses on reworking the site's navigation for clearer hierarchy and better mobile usability, alongside performance optimizations to the Novels PDF reader and the Music page's expanded player.",
+        "The sidebar was restructured into distinct sections, internal navigation links now point to the site's real pages, and external links are visually distinguished from internal ones.",
+        "Mobile navigation was improved with a dedicated close button and a new setting to hide the menu button on non-homepage pages, with the homepage always kept as an exception.",
+        "The Novels page PDF reader and the Music page's expanded player were both optimized for smoother, more efficient performance."
+      ]
+    }
+  },
+  {
+    "version": "2.2.7",
+    "build": "20260812",
+    "date": "August 12, 2026",
+    "subtitle": "Image Optimization, Information Updates & Localization Fixes",
+    "changes": {
+      "new": [],
+      "improvements": [
+        "Converted all website images to WebP format to reduce file size and improve loading performance.",
+        "Updated the About section to properly display its available information.",
+        "Improved the series information section on the homepage for desktop displays.",
+        "Reduced unnecessary re-rendering on the Music page when searching, switching tracks, or favoriting a song, lowering CPU usage and device heat during extended use."
+      ],
+      "fixes": [
+        "Fixed a language persistence issue that caused the selected language to not be applied correctly on certain pages.",
+        "Resolved localization inconsistencies where some screens did not properly update after changing the selected language.",
+        "Fixed an issue in the Novels reader where the page would appear to zoom in a little more each time the reader advanced to the next page."
+      ],
+      "notes": [
+        "This release focuses on optimizing visual assets, improving information presentation, and strengthening language persistence across the website.",
+        "All website images were converted to WebP to reduce resource size and improve overall loading performance.",
+        "The About section was adjusted to properly display its information, while the homepage received fixes to the series information section on desktop.",
+        "Language persistence was also corrected to ensure the selected language is consistently maintained and applied across different pages and screens.",
+        "This release also reduces unnecessary background work on the Music page for smoother, cooler extended use, and corrects the Novels reader so page size stays consistent while turning pages."
+      ]
+    }
+  },
   {
     "version": "2.2.6",
     "build": "20260811",

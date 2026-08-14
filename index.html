@@ -61,6 +61,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
       rel="stylesheet"
@@ -70,15 +71,35 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
     <link rel="stylesheet" href="/src/css/index.css?v=1.5.2" />
-    <link rel="stylesheet" href="/src/components/styles/menu.css?v=1.5.2" />
+    <link
+      rel="stylesheet"
+      href="/src/components/styles/menu.css?v=1.5.2"
+      media="print"
+      onload="this.media='all'"
+    />
     <link
       rel="stylesheet"
       href="/src/components/styles/scrollbar.css?v=1.5.2"
+      media="print"
+      onload="this.media='all'"
     />
     <link
       rel="stylesheet"
       href="/src/components/styles/feedback.css?v=1.5.2"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link rel="stylesheet" href="/src/components/styles/menu.css?v=1.5.2" />
+      <link
+        rel="stylesheet"
+        href="/src/components/styles/scrollbar.css?v=1.5.2"
+      />
+      <link
+        rel="stylesheet"
+        href="/src/components/styles/feedback.css?v=1.5.2"
+      />
+    </noscript>
 
     <link rel="icon" type="image/x-icon" href="/assets/Imagenes/favicon.ico" />
     <link
@@ -167,7 +188,7 @@
     <div class="orb orb-pink-top"></div>
     <div class="orb orb-yellow-small"></div>
 
-    <div id="menu-container" style="display: contents"></div>
+    <div id="menu-container"></div>
 
     <div class="main-content">
       <section class="hero-section">
@@ -187,6 +208,8 @@
             loading="eager"
             fetchpriority="high"
             decoding="async"
+            width="1920"
+            height="1494"
           />
         </div>
       </section>
@@ -294,8 +317,11 @@
             alt="Yashiro"
             class="yashiro-image"
             id="yashiroImage"
-            loading="lazy"
+            loading="eager"
+            fetchpriority="high"
             decoding="async"
+            width="2000"
+            height="2631"
             onerror="this.src = './assets/Imagenes/Yashiro-Photoroom.webp'"
           />
           <div class="yashiro-tooltip" id="yashiroTooltip">¡Noticias!</div>
@@ -314,6 +340,8 @@
                 id="newsYashiroImg"
                 loading="lazy"
                 decoding="async"
+                width="1196"
+                height="1644"
                 onerror="this.src = './assets/Imagenes/yashiro-chibi.png'"
               />
             </div>

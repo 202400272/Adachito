@@ -40,6 +40,8 @@ let modalRendering = false;
 let modalPendingPage = null;
 let modalScale = 1.0;
 let modalFitScale = 1.0;
+let lastRenderedScale = 1.0;
+let zoomRenderTimer = null;
 let modalCurrentVolume = null;
 let modalAbortController = new AbortController();
 let modalRenderTask = null;
@@ -49,6 +51,51 @@ let modalThumbnailsRendered = false;
 let modalThumbnailRenderVersion = 0;
 let modalThumbnailAbortController = null;
 let modalPreloadPage = null;
+
+// ---- view mode + chrome visibility ----
+let modalViewMode = "single"; // "single" | "cascade"
+let modalToolbarHidden = false;
+let toolbarAutoHideTimer = null;
+
+// ---- cascade (continuous scroll) mode state ----
+let cascadeContainerEl = null;
+let cascadePageEntries = []; // [{ pageNum, wrapper, canvas, aspectRatio, rendered }]
+let cascadeIO = null;
+let cascadeRenderedOrder = []; // LRU of rendered page numbers, for eviction
+const CASCADE_KEEP_RENDERED = 6; // how many rendered pages to keep at once
+let cascadeRenderQueue = Promise.resolve();
+let cascadeCurrentPage = 1;
+let cascadeZoomTimer = null;
+let cascadeBuildToken = 0;
+let cascadeLastRenderedScale = 1.0;
+let cascadeActiveRenders = 0;
+const CASCADE_MAX_CONCURRENT = 2;
+let cascadePendingQueue = [];
+let cascadeScrollRaf = null;
+
+// Cached fit-box for the PDF canvas. renderModalPage() must NOT measure
+// canvasWrapperModal directly on every call: that wrapper shrink-wraps to
+// the canvas we just resized, so re-measuring it after every page turn
+// feeds each render's own output back in as the next render's target size —
+// a runaway feedback loop that looks like the page "zooming in" a little
+// more on every next-page click. Measuring once and reusing that value
+// (re-measuring only on an actual window resize or fresh modal open)
+// breaks the loop.
+let modalContainerWidth = null;
+let modalContainerHeight = null;
+
+function getModalContainerSize(container) {
+  if (modalContainerWidth === null || modalContainerHeight === null) {
+    modalContainerWidth = container.clientWidth;
+    modalContainerHeight = container.clientHeight;
+  }
+  return { width: modalContainerWidth, height: modalContainerHeight };
+}
+
+function invalidateModalContainerSize() {
+  modalContainerWidth = null;
+  modalContainerHeight = null;
+}
 
 const FALLBACK_TRANSLATIONS = {
   es: {
@@ -378,6 +425,7 @@ function openPdfModal(volumeId) {
   updateUITranslations();
 
   loadPdfInModal(vol);
+  scheduleToolbarAutoHide();
 }
 
 function closePdfModal() {
@@ -399,11 +447,14 @@ function closePdfModal() {
   modalAbortController = new AbortController();
 
   modalPreloadPage = null;
+  invalidateModalContainerSize();
 
   const canvas = document.getElementById("pdfRenderModal");
   const ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   canvas.style.display = "none";
+  canvas.style.width = "";
+  canvas.style.height = "";
   document.getElementById("pageNumModal").textContent = "-";
   document.getElementById("pageCountModal").textContent = "-";
   document.getElementById("pdfProgressModal").style.width = "0%";
@@ -417,13 +468,32 @@ function closePdfModal() {
   modalThumbnailsRendered = false;
   document.getElementById("pdfThumbnailsSidebar").classList.remove("open");
   modalThumbnailsVisible = false;
+
+  clearTimeout(toolbarAutoHideTimer);
+  modalToolbarHidden = false;
+  document.getElementById("pdfViewerModal")?.classList.remove("pdf-chrome-hidden");
+
+  resetCascadeUI();
+
+  document.getElementById("pdfToolbarSecondary")?.classList.remove("open");
+  document.getElementById("pdfMoreToggle")?.setAttribute("aria-expanded", "false");
 }
 
 function resetModalViewer() {
+  if (modalViewMode === "cascade") {
+    resetCascadeUI();
+  }
   const canvas = document.getElementById("pdfRenderModal");
   const ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   canvas.style.display = "none";
+  canvas.style.transform = "none";
+  canvas.style.width = "";
+  canvas.style.height = "";
+  invalidateModalContainerSize();
+  clearTimeout(zoomRenderTimer);
+  zoomRenderTimer = null;
+  lastRenderedScale = 1.0;
   document.getElementById("pageNumModal").textContent = "-";
   document.getElementById("pageCountModal").textContent = "-";
   document.getElementById("pdfProgressModal").style.width = "0%";
@@ -532,10 +602,15 @@ async function preloadNextPage() {
     const scaledViewport = page.getViewport({ scale });
 
     const offscreenCanvas = document.createElement("canvas");
-    offscreenCanvas.width = scaledViewport.width * dpr;
-    offscreenCanvas.height = scaledViewport.height * dpr;
+    const clampedDpr = getClampedDpr(
+      scaledViewport.width,
+      scaledViewport.height,
+      dpr,
+    );
+    offscreenCanvas.width = scaledViewport.width * clampedDpr;
+    offscreenCanvas.height = scaledViewport.height * clampedDpr;
     const ctx = offscreenCanvas.getContext("2d");
-    ctx.scale(dpr, dpr);
+    ctx.scale(clampedDpr, clampedDpr);
 
     await page.render({
       canvasContext: ctx,
@@ -682,14 +757,41 @@ async function renderSingleThumbnail(pdfDoc, pageNum, renderVersion, signal) {
   }
 }
 
-function updateThumbnailSelection() {
+function updateThumbnailSelection(pageNum = modalPageNum) {
   const wrappers = document.querySelectorAll(".pdf-thumbnail-wrapper");
   wrappers.forEach((w) => {
-    w.classList.toggle("active", parseInt(w.dataset.page) === modalPageNum);
+    w.classList.toggle("active", parseInt(w.dataset.page) === pageNum);
     if (w.classList.contains("active")) {
       w.scrollIntoView({ block: "nearest", behavior: "smooth" });
     }
   });
+}
+
+function toggleToolbarVisibility(forceShow) {
+  const viewer = document.getElementById("pdfViewerModal");
+  if (!viewer) return;
+  modalToolbarHidden = forceShow ? false : !modalToolbarHidden;
+  viewer.classList.toggle("pdf-chrome-hidden", modalToolbarHidden);
+  clearTimeout(toolbarAutoHideTimer);
+  if (!modalToolbarHidden) {
+    scheduleToolbarAutoHide();
+  }
+}
+
+// Controls fade out on their own after a few seconds of inactivity —
+// mirrors most fullscreen video/reader UIs — but any interaction
+// (button press, zoom, page turn, mouse move) pushes the timer back out.
+function scheduleToolbarAutoHide(delay = 4000) {
+  clearTimeout(toolbarAutoHideTimer);
+  if (modalToolbarHidden) return;
+  toolbarAutoHideTimer = setTimeout(() => {
+    const modal = document.getElementById("pdfModal");
+    if (!modal || !modal.classList.contains("open")) return;
+    modalToolbarHidden = true;
+    document
+      .getElementById("pdfViewerModal")
+      ?.classList.add("pdf-chrome-hidden");
+  }, delay);
 }
 
 function toggleThumbnails() {
@@ -704,6 +806,10 @@ function toggleThumbnails() {
 
 function goToPage(pageNum) {
   if (!modalPdfDoc || pageNum < 1 || pageNum > modalPdfDoc.numPages) return;
+  if (modalViewMode === "cascade") {
+    scrollCascadeToPage(pageNum);
+    return;
+  }
   modalPageNum = pageNum;
   updateThumbnailSelection();
   queueModalRender();
@@ -713,6 +819,88 @@ let modalRenderQueue = Promise.resolve();
 
 async function queueModalRender() {
   modalRenderQueue = modalRenderQueue.then(() => renderModalPage());
+}
+
+// Caps the actual pixels PDF.js has to rasterize/decode into. Without
+// this, fit-width * zoom * devicePixelRatio can demand several million
+// pixels on a big phone screen — the cost scales with page content
+// (image-heavy/colored pages are far more expensive per pixel than
+// text), so this is what keeps those pages from bogging down.
+const MAX_RENDER_PIXELS = 2_400_000; // ~1550x1550
+function getClampedDpr(cssWidth, cssHeight, dpr) {
+  const rawPixels = cssWidth * cssHeight * dpr * dpr;
+  if (rawPixels <= MAX_RENDER_PIXELS) return dpr;
+  const clamped = Math.sqrt(MAX_RENDER_PIXELS / (cssWidth * cssHeight));
+  return Math.max(1, clamped);
+}
+
+// Shows the zoom change instantly via a cheap CSS transform on the
+// already-rendered canvas, instead of re-rasterizing the PDF. This is
+// what keeps pinch/scroll zooming smooth and cool on mobile. Passing the
+// pinch midpoint anchors the scale to the fingers instead of the page
+// jumping to re-center — mirrors how native photo viewers pinch-zoom.
+function applyZoomPreview(anchorClientPoint) {
+  const canvas = document.getElementById("pdfRenderModal");
+  if (!canvas) return;
+  const ratio = modalScale / lastRenderedScale;
+  canvas.style.transform = `scale(${ratio})`;
+  if (anchorClientPoint) {
+    const rect = canvas.getBoundingClientRect();
+    const originX = ((anchorClientPoint.clientX - rect.left) / rect.width) * 100;
+    const originY = ((anchorClientPoint.clientY - rect.top) / rect.height) * 100;
+    canvas.style.transformOrigin = `${originX}% ${originY}%`;
+  } else {
+    canvas.style.transformOrigin = "center center";
+  }
+}
+
+// Actually re-renders the PDF page at the new scale. Expensive, so
+// callers should debounce this (scheduleZoomCommit) rather than call
+// it on every zoom-change event. When an anchor point is given (pinch),
+// the scroll container is repositioned after the re-render so whatever
+// was under the fingers stays under the fingers, instead of the view
+// recentering on zoom.
+function commitZoomRender(anchorClientPoint) {
+  clearTimeout(zoomRenderTimer);
+  zoomRenderTimer = null;
+  const canvas = document.getElementById("pdfRenderModal");
+  if (canvas) {
+    canvas.style.transform = "none";
+    canvas.style.transformOrigin = "center center";
+  }
+  lastRenderedScale = modalScale;
+
+  let anchorFrac = null;
+  const container = document.getElementById("canvasContainerModal");
+  if (anchorClientPoint && container) {
+    const rect = container.getBoundingClientRect();
+    const localX = anchorClientPoint.clientX - rect.left;
+    const localY = anchorClientPoint.clientY - rect.top;
+    const scrollWidth = container.scrollWidth || 1;
+    const scrollHeight = container.scrollHeight || 1;
+    anchorFrac = {
+      fracX: (container.scrollLeft + localX) / scrollWidth,
+      fracY: (container.scrollTop + localY) / scrollHeight,
+      localX,
+      localY,
+    };
+  }
+
+  queueModalRender();
+
+  if (anchorFrac) {
+    modalRenderQueue.then(() => {
+      const c = document.getElementById("canvasContainerModal");
+      if (!c) return;
+      c.scrollLeft = anchorFrac.fracX * c.scrollWidth - anchorFrac.localX;
+      c.scrollTop = anchorFrac.fracY * c.scrollHeight - anchorFrac.localY;
+    });
+  }
+}
+
+function scheduleZoomCommit(delay = 180, anchorClientPoint) {
+  clearTimeout(zoomRenderTimer);
+  zoomRenderTimer = setTimeout(() => commitZoomRender(anchorClientPoint), delay);
 }
 
 async function renderModalPage() {
@@ -726,13 +914,17 @@ async function renderModalPage() {
 
   setNavButtonsDisabled(true);
 
+  const canvasEl = document.getElementById("pdfRenderModal");
+  if (canvasEl) canvasEl.style.transform = "none";
+  lastRenderedScale = modalScale;
+
   try {
     const canvas = document.getElementById("pdfRenderModal");
     const container = document.getElementById("canvasWrapperModal");
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const containerWidth = container.clientWidth;
-    const containerHeight = container.clientHeight;
+    const { width: containerWidth, height: containerHeight } =
+      getModalContainerSize(container);
 
     let page = null;
 
@@ -741,27 +933,39 @@ async function renderModalPage() {
       const viewport = await modalPdfDoc
         .getPage(modalPageNum)
         .then((p) => p.getViewport({ scale: 1 }));
-      let scale = containerWidth / viewport.width;
-      if (viewport.height * scale > containerHeight) {
-        scale = containerHeight / viewport.height;
+
+      // Frame size is anchored to the container, not this page's own
+      // dimensions — otherwise pages with a different native size
+      // (e.g. scanned color plates vs typeset text) visibly resize
+      // the canvas on every turn, which looks like an unwanted zoom.
+      const frameWidth = containerWidth * modalScale;
+      const frameHeight = containerHeight * modalScale;
+
+      let contentScale = containerWidth / viewport.width;
+      if (viewport.height * contentScale > containerHeight) {
+        contentScale = containerHeight / viewport.height;
       }
-      scale = scale * modalScale;
+      contentScale = contentScale * modalScale;
+      const scaledViewport = viewport.clone({ scale: contentScale });
 
-      const scaledViewport = viewport.clone({ scale });
+      const clampedDpr = getClampedDpr(frameWidth, frameHeight, dpr);
 
-      canvas.width = scaledViewport.width * dpr;
-      canvas.height = scaledViewport.height * dpr;
-      canvas.style.width = scaledViewport.width + "px";
-      canvas.style.height = scaledViewport.height + "px";
+      canvas.width = frameWidth * clampedDpr;
+      canvas.height = frameHeight * clampedDpr;
+      canvas.style.width = frameWidth + "px";
+      canvas.style.height = frameHeight + "px";
 
       const ctx = canvas.getContext("2d");
-      ctx.scale(dpr, dpr);
+      ctx.scale(clampedDpr, clampedDpr);
       ctx.imageSmoothingEnabled = true;
+
+      const offsetX = Math.max(0, (frameWidth - scaledViewport.width) / 2);
+      const offsetY = Math.max(0, (frameHeight - scaledViewport.height) / 2);
 
       ctx.drawImage(
         preloaded.canvas,
-        0,
-        0,
+        offsetX,
+        offsetY,
         scaledViewport.width,
         scaledViewport.height,
       );
@@ -774,21 +978,31 @@ async function renderModalPage() {
       page = await modalPdfDoc.getPage(modalPageNum);
 
       const viewport = page.getViewport({ scale: 1 });
-      let scale = containerWidth / viewport.width;
-      if (viewport.height * scale > containerHeight) {
-        scale = containerHeight / viewport.height;
-      }
-      scale = scale * modalScale;
 
-      const scaledViewport = page.getViewport({ scale });
-      canvas.width = scaledViewport.width * dpr;
-      canvas.height = scaledViewport.height * dpr;
-      canvas.style.width = scaledViewport.width + "px";
-      canvas.style.height = scaledViewport.height + "px";
+      const frameWidth = containerWidth * modalScale;
+      const frameHeight = containerHeight * modalScale;
+
+      let contentScale = containerWidth / viewport.width;
+      if (viewport.height * contentScale > containerHeight) {
+        contentScale = containerHeight / viewport.height;
+      }
+      contentScale = contentScale * modalScale;
+
+      const scaledViewport = page.getViewport({ scale: contentScale });
+      const clampedDpr = getClampedDpr(frameWidth, frameHeight, dpr);
+
+      canvas.width = frameWidth * clampedDpr;
+      canvas.height = frameHeight * clampedDpr;
+      canvas.style.width = frameWidth + "px";
+      canvas.style.height = frameHeight + "px";
 
       const ctx = canvas.getContext("2d");
-      ctx.scale(dpr, dpr);
+      ctx.scale(clampedDpr, clampedDpr);
       ctx.imageSmoothingEnabled = true;
+
+      const offsetX = Math.max(0, (frameWidth - scaledViewport.width) / 2);
+      const offsetY = Math.max(0, (frameHeight - scaledViewport.height) / 2);
+      ctx.translate(offsetX, offsetY);
 
       canvas.style.opacity = "0.5";
 
@@ -841,6 +1055,372 @@ function setNavButtonsDisabled(disabled) {
   });
 }
 
+// ============================================================
+// CASCADE (continuous scroll) MODE
+//
+// Renders every page into its own <canvas> stacked vertically inside
+// #pdfCascadeContainer. Pages are built as lightweight placeholder
+// boxes up front (so the scrollbar/scroll position is stable and
+// correctly sized immediately), then an IntersectionObserver lazily
+// rasterizes each page's canvas as it nears the viewport and evicts
+// far-away ones to keep memory bounded on long volumes. This reuses
+// the same PDF.js document (modalPdfDoc), the same DPR clamp
+// (getClampedDpr) and the same zoom state (modalScale) as single-page
+// mode — it's a second renderer for the same data, not a parallel
+// system.
+// ============================================================
+
+function resetCascadeUI() {
+  teardownCascadeMode();
+  modalViewMode = "single";
+  const toggle = document.getElementById("pdfCascadeToggle");
+  toggle?.classList.remove("active");
+  toggle?.setAttribute("aria-pressed", "false");
+  const singleContainer = document.getElementById("canvasContainerModal");
+  if (singleContainer) singleContainer.style.display = "";
+  const cascadeEl = document.getElementById("pdfCascadeContainer");
+  if (cascadeEl) cascadeEl.style.display = "none";
+}
+
+async function enterCascadeMode() {
+  if (!modalPdfDoc || modalViewMode === "cascade") return;
+
+  modalViewMode = "cascade";
+  const toggle = document.getElementById("pdfCascadeToggle");
+  toggle?.classList.add("active");
+  toggle?.setAttribute("aria-pressed", "true");
+
+  const singleContainer = document.getElementById("canvasContainerModal");
+  const cascadeContainer = document.getElementById("pdfCascadeContainer");
+  if (singleContainer) singleContainer.style.display = "none";
+  if (cascadeContainer) cascadeContainer.style.display = "";
+
+  cascadeCurrentPage = modalPageNum;
+  cascadeLastRenderedScale = modalScale;
+  await buildCascadePages();
+  scrollCascadeToPage(cascadeCurrentPage, "auto");
+  scheduleToolbarAutoHide();
+}
+
+function exitCascadeMode() {
+  if (modalViewMode !== "cascade") return;
+  // Carry the reading position back into single-page mode.
+  modalPageNum = cascadeCurrentPage;
+  resetCascadeUI();
+  queueModalRender();
+}
+
+function toggleCascadeMode() {
+  if (modalViewMode === "cascade") exitCascadeMode();
+  else enterCascadeMode();
+}
+
+// Tears down observers/DOM/state without touching modalViewMode or the
+// visible containers — resetCascadeUI()/exitCascadeMode() layer that on
+// top. Safe to call even if cascade mode was never entered.
+function teardownCascadeMode() {
+  cascadeBuildToken++; // invalidates any in-flight build/render work
+
+  if (cascadeIO) {
+    cascadeIO.disconnect();
+    cascadeIO = null;
+  }
+
+  const cascadeContainer = document.getElementById("pdfCascadeContainer");
+  if (cascadeContainer) {
+    cascadeContainer.innerHTML = "";
+    cascadeContainer.style.transform = "none";
+  }
+
+  cascadePageEntries = [];
+  cascadeRenderedOrder = [];
+  cascadeActiveRenders = 0;
+  cascadePendingQueue = [];
+  clearTimeout(cascadeZoomTimer);
+  cascadeZoomTimer = null;
+  if (cascadeScrollRaf) {
+    cancelAnimationFrame(cascadeScrollRaf);
+    cascadeScrollRaf = null;
+  }
+  cascadeContainerEl = null;
+}
+
+async function buildCascadePages() {
+  const container = document.getElementById("pdfCascadeContainer");
+  if (!container || !modalPdfDoc) return;
+
+  const token = ++cascadeBuildToken;
+  container.innerHTML = "";
+  cascadePageEntries = [];
+  cascadeRenderedOrder = [];
+  cascadeContainerEl = container;
+
+  const totalPages = modalPdfDoc.numPages;
+
+  // Placeholder aspect ratio for pages not yet measured, so the total
+  // scroll height is right from the start (most volumes have a uniform
+  // trim size, so page 1's ratio is a good stand-in until each page
+  // renders and corrects its own box).
+  let fallbackAspect = 1.414; // A4-ish portrait
+  try {
+    const firstPage = await modalPdfDoc.getPage(1);
+    const vp = firstPage.getViewport({ scale: 1 });
+    fallbackAspect = vp.height / vp.width;
+    firstPage.cleanup();
+  } catch (e) {}
+
+  if (token !== cascadeBuildToken) return;
+
+  const frag = document.createDocumentFragment();
+  for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "pdf-cascade-page";
+    wrapper.dataset.page = pageNum;
+    wrapper.style.aspectRatio = `1 / ${fallbackAspect}`;
+
+    const canvas = document.createElement("canvas");
+    canvas.className = "pdf-cascade-canvas";
+    wrapper.appendChild(canvas);
+
+    const spinner = document.createElement("div");
+    spinner.className = "pdf-cascade-spinner";
+    wrapper.appendChild(spinner);
+
+    frag.appendChild(wrapper);
+    cascadePageEntries.push({
+      pageNum,
+      wrapper,
+      canvas,
+      aspectRatio: fallbackAspect,
+      rendered: false,
+      rendering: false,
+    });
+  }
+  container.appendChild(frag);
+
+  setupCascadeObserver();
+}
+
+function setupCascadeObserver() {
+  if (cascadeIO) cascadeIO.disconnect();
+  const container = document.getElementById("pdfCascadeContainer");
+  if (!container) return;
+
+  cascadeIO = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const pageNum = parseInt(entry.target.dataset.page, 10);
+        if (!entry.isIntersecting) return;
+        queueCascadeRender(pageNum);
+        if (entry.intersectionRatio >= 0.5) {
+          cascadeCurrentPage = pageNum;
+          updateCascadeProgress();
+        }
+      });
+    },
+    {
+      root: container,
+      // Pre-render roughly 1.5 screens ahead/behind so pages are ready
+      // just before they're scrolled to, without rasterizing the whole book.
+      rootMargin: "150% 0px 150% 0px",
+      threshold: [0, 0.5],
+    },
+  );
+
+  cascadePageEntries.forEach((entry) => cascadeIO.observe(entry.wrapper));
+}
+
+function updateCascadeProgress() {
+  if (!modalPdfDoc) return;
+  document.getElementById("pageNumModal").textContent = cascadeCurrentPage;
+  document.getElementById("mobilePageNumModal").textContent = cascadeCurrentPage;
+  const progress = (cascadeCurrentPage / modalPdfDoc.numPages) * 100;
+  document.getElementById("pdfProgressModal").style.width = progress + "%";
+  updateThumbnailSelection(cascadeCurrentPage);
+}
+
+function scrollCascadeToPage(pageNum, behavior = "smooth") {
+  const entry = cascadePageEntries.find((e) => e.pageNum === pageNum);
+  if (!entry) return;
+  entry.wrapper.scrollIntoView({ behavior, block: "start" });
+  cascadeCurrentPage = pageNum;
+  updateCascadeProgress();
+}
+
+function queueCascadeRender(pageNum) {
+  const entry = cascadePageEntries.find((e) => e.pageNum === pageNum);
+  if (!entry || entry.rendered || entry.rendering) return;
+  if (cascadePendingQueue.includes(pageNum)) return;
+  cascadePendingQueue.push(pageNum);
+  drainCascadeRenderQueue();
+}
+
+function drainCascadeRenderQueue() {
+  while (
+    cascadeActiveRenders < CASCADE_MAX_CONCURRENT &&
+    cascadePendingQueue.length > 0
+  ) {
+    const pageNum = cascadePendingQueue.shift();
+    cascadeActiveRenders++;
+    renderCascadePage(pageNum).finally(() => {
+      cascadeActiveRenders--;
+      drainCascadeRenderQueue();
+    });
+  }
+}
+
+async function renderCascadePage(pageNum) {
+  const token = cascadeBuildToken;
+  const entry = cascadePageEntries.find((e) => e.pageNum === pageNum);
+  if (!entry || entry.rendered) return;
+  entry.rendering = true;
+
+  try {
+    const page = await modalPdfDoc.getPage(pageNum);
+    if (token !== cascadeBuildToken) {
+      page.cleanup();
+      return;
+    }
+
+    const viewport = page.getViewport({ scale: 1 });
+    entry.aspectRatio = viewport.height / viewport.width;
+    entry.wrapper.style.aspectRatio = `1 / ${entry.aspectRatio}`;
+
+    const containerWidth =
+      entry.wrapper.clientWidth || cascadeContainerEl?.clientWidth || 800;
+    const contentScale = (containerWidth / viewport.width) * modalScale;
+    const scaledViewport = page.getViewport({ scale: contentScale });
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const clampedDpr = getClampedDpr(
+      scaledViewport.width,
+      scaledViewport.height,
+      dpr,
+    );
+
+    const canvas = entry.canvas;
+    canvas.width = scaledViewport.width * clampedDpr;
+    canvas.height = scaledViewport.height * clampedDpr;
+    canvas.style.width = scaledViewport.width + "px";
+    canvas.style.height = scaledViewport.height + "px";
+
+    const ctx = canvas.getContext("2d");
+    ctx.setTransform(clampedDpr, 0, 0, clampedDpr, 0, 0);
+    ctx.imageSmoothingEnabled = true;
+
+    if (token !== cascadeBuildToken) {
+      page.cleanup();
+      return;
+    }
+
+    await page.render({
+      canvasContext: ctx,
+      viewport: scaledViewport,
+      signal: modalAbortController.signal,
+    }).promise;
+
+    if (token !== cascadeBuildToken) {
+      page.cleanup();
+      return;
+    }
+
+    entry.rendered = true;
+    entry.wrapper.classList.add("rendered");
+    cascadeRenderedOrder = cascadeRenderedOrder.filter((p) => p !== pageNum);
+    cascadeRenderedOrder.push(pageNum);
+    page.cleanup();
+
+    evictFarCascadePages();
+  } catch (error) {
+    if (
+      error.name !== "AbortError" &&
+      error.name !== "RenderingCancelledException"
+    ) {
+      console.warn("Cascade render failed for page", pageNum, error);
+    }
+  } finally {
+    entry.rendering = false;
+  }
+}
+
+// Keeps memory bounded on long volumes: once more rendered pages exist
+// than CASCADE_KEEP_RENDERED, clear the pixel data of whichever rendered
+// pages are farthest from the current reading position, leaving their
+// placeholder box (aspect-ratio) in place so scroll position doesn't jump.
+function evictFarCascadePages() {
+  if (cascadeRenderedOrder.length <= CASCADE_KEEP_RENDERED) return;
+  const excess = cascadeRenderedOrder.length - CASCADE_KEEP_RENDERED;
+  const current = cascadeCurrentPage;
+  const candidates = [...cascadeRenderedOrder].sort(
+    (a, b) => Math.abs(b - current) - Math.abs(a - current),
+  );
+  for (let i = 0; i < excess; i++) {
+    const pageNum = candidates[i];
+    if (Math.abs(pageNum - current) <= 1) continue; // never evict the page(s) in view
+    const entry = cascadePageEntries.find((e) => e.pageNum === pageNum);
+    if (!entry) continue;
+    entry.canvas.width = 0;
+    entry.canvas.height = 0;
+    entry.rendered = false;
+    entry.wrapper.classList.remove("rendered");
+    cascadeRenderedOrder = cascadeRenderedOrder.filter((p) => p !== pageNum);
+  }
+}
+
+// Called after resize/orientation/fullscreen changes: existing canvases
+// are stale at the old container width, so drop their pixels (keeping the
+// placeholder box) and re-render whatever is currently near the viewport.
+function relayoutCascadePages() {
+  if (modalViewMode !== "cascade" || !cascadePageEntries.length) return;
+
+  cascadePageEntries.forEach((entry) => {
+    if (entry.rendered) {
+      entry.canvas.width = 0;
+      entry.canvas.height = 0;
+      entry.rendered = false;
+      entry.wrapper.classList.remove("rendered");
+    }
+  });
+  cascadeRenderedOrder = [];
+
+  const containerRect = cascadeContainerEl?.getBoundingClientRect();
+  if (!containerRect) return;
+  cascadePageEntries.forEach((entry) => {
+    const rect = entry.wrapper.getBoundingClientRect();
+    if (
+      rect.bottom > containerRect.top - 400 &&
+      rect.top < containerRect.bottom + 400
+    ) {
+      queueCascadeRender(entry.pageNum);
+    }
+  });
+}
+
+// Cheap instant zoom preview via CSS transform (mirrors applyZoomPreview
+// for single-page mode) so pinch-zoom feels immediate; the real re-render
+// at the new scale is debounced through scheduleCascadeZoomCommit.
+function applyCascadeZoomPreview() {
+  const container = document.getElementById("pdfCascadeContainer");
+  if (!container) return;
+  const ratio = modalScale / cascadeLastRenderedScale;
+  container.style.transform = `scale(${ratio})`;
+  container.style.transformOrigin = "50% 0%";
+}
+
+function scheduleCascadeZoomCommit(delay = 180) {
+  clearTimeout(cascadeZoomTimer);
+  cascadeZoomTimer = setTimeout(commitCascadeZoomRender, delay);
+}
+
+function commitCascadeZoomRender() {
+  clearTimeout(cascadeZoomTimer);
+  cascadeZoomTimer = null;
+  const container = document.getElementById("pdfCascadeContainer");
+  if (container) container.style.transform = "none";
+  cascadeLastRenderedScale = modalScale;
+  relayoutCascadePages();
+}
+
 function initModalEvents() {
   document
     .getElementById("pdfModalClose")
@@ -878,19 +1458,22 @@ function initModalEvents() {
   document.getElementById("pdfZoomInModal").addEventListener("click", () => {
     modalScale = Math.min(modalScale * 1.1, 3.0);
     updateZoomDisplay();
-    queueModalRender();
+    applyZoomPreview();
+    scheduleZoomCommit();
   });
 
   document.getElementById("pdfZoomOutModal").addEventListener("click", () => {
     modalScale = Math.max(modalScale * 0.9, 0.3);
     updateZoomDisplay();
-    queueModalRender();
+    applyZoomPreview();
+    scheduleZoomCommit();
   });
 
   document.getElementById("pdfZoomResetModal").addEventListener("click", () => {
     modalScale = 1.0;
     updateZoomDisplay();
-    queueModalRender();
+    applyZoomPreview();
+    scheduleZoomCommit();
   });
 
   function updateZoomDisplay() {
@@ -960,6 +1543,25 @@ function initModalEvents() {
       modalThumbnailsVisible = false;
     });
 
+  document
+    .getElementById("pdfCascadeToggle")
+    .addEventListener("click", () => {
+      toggleCascadeMode();
+      // Closing the "more" panel after picking a mode keeps mobile tidy.
+      document.getElementById("pdfToolbarSecondary")?.classList.remove("open");
+      document
+        .getElementById("pdfMoreToggle")
+        ?.setAttribute("aria-expanded", "false");
+    });
+
+  document.getElementById("pdfMoreToggle").addEventListener("click", () => {
+    const panel = document.getElementById("pdfToolbarSecondary");
+    const btn = document.getElementById("pdfMoreToggle");
+    const isOpen = panel.classList.toggle("open");
+    btn.setAttribute("aria-expanded", String(isOpen));
+    toggleToolbarVisibility(true);
+  });
+
   document.addEventListener("keydown", (e) => {
     const modal = document.getElementById("pdfModal");
     if (!modal.classList.contains("open")) return;
@@ -998,19 +1600,22 @@ function initModalEvents() {
         e.preventDefault();
         modalScale = Math.min(modalScale * 1.1, 3.0);
         updateZoomDisplay();
-        queueModalRender();
+        applyZoomPreview();
+        scheduleZoomCommit();
         break;
       case "-":
         e.preventDefault();
         modalScale = Math.max(modalScale * 0.9, 0.3);
         updateZoomDisplay();
-        queueModalRender();
+        applyZoomPreview();
+        scheduleZoomCommit();
         break;
       case "0":
         e.preventDefault();
         modalScale = 1.0;
         updateZoomDisplay();
-        queueModalRender();
+        applyZoomPreview();
+        scheduleZoomCommit();
         break;
       case "f":
       case "F":
@@ -1030,120 +1635,249 @@ function initModalEvents() {
   let touchStartTime = 0;
   let pinchStartDistance = 0;
   let pinchStartScale = 1;
+  let pinchAnchor = null; // last known {clientX, clientY} midpoint of the two fingers
   let isPinching = false;
+  // True once a single-finger touch has moved past a small jitter
+  // threshold — distinguishes a genuine pan/drag from a tap so a slow
+  // pan while zoomed can never fall through to page-turn/chrome-toggle
+  // taps (which only key off distance-at-touchend, a coarser check).
+  let singleTouchMoved = false;
+  // Set the instant a pinch ends, and consumed by the very next touchend.
+  // Without this, lifting the last finger off a pinch is itself a
+  // touchend — with near-zero dx/dy/dt versus wherever the *first*
+  // finger originally landed — so it was being read as a tap and
+  // flipping the page right after the user zoomed. This flag makes the
+  // "pinch is over" touchend a no-op instead of falling through to the
+  // tap/page-turn logic.
+  let suppressNextTap = false;
   const canvasContainer = document.getElementById("canvasContainerModal");
+  const cascadeScrollEl = document.getElementById("pdfCascadeContainer");
 
   const getTouchDistance = (firstTouch, secondTouch) =>
     Math.hypot(
       firstTouch.clientX - secondTouch.clientX,
       firstTouch.clientY - secondTouch.clientY,
     );
+  const getTouchMidpoint = (firstTouch, secondTouch) => ({
+    clientX: (firstTouch.clientX + secondTouch.clientX) / 2,
+    clientY: (firstTouch.clientY + secondTouch.clientY) / 2,
+  });
 
-  canvasContainer.addEventListener(
-    "touchstart",
-    (e) => {
-      if (e.touches.length === 2) {
-        pinchStartDistance = getTouchDistance(e.touches[0], e.touches[1]);
+  function handleTouchStart(e) {
+    if (e.touches.length === 2) {
+      // A second finger landing always wins, immediately — whatever the
+      // first finger was doing (a nascent pan/tap) is abandoned right
+      // here rather than left to resolve later, so a pinch can never be
+      // misread as a swipe mid-gesture.
+      pinchStartDistance = getTouchDistance(e.touches[0], e.touches[1]);
+      pinchStartScale = modalScale;
+      pinchAnchor = getTouchMidpoint(e.touches[0], e.touches[1]);
+      isPinching = true;
+      singleTouchMoved = false;
+      return;
+    }
+    if (isPinching || e.touches.length !== 1) return;
+    const touch = e.touches[0];
+    if (!touch) return;
+    if (
+      e.target.closest(".pdf-toolbar") ||
+      e.target.closest("button") ||
+      e.target.closest("input")
+    )
+      return;
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+    touchStartTime = Date.now();
+    singleTouchMoved = false;
+  }
+
+  function handleTouchMove(e) {
+    if (!isPinching || e.touches.length !== 2) {
+      // Single-finger movement: let the browser's native scroll/pan
+      // handle it (no preventDefault) — we only need to know a real
+      // drag happened, so touchend can tell it apart from a tap.
+      if (!isPinching && e.touches.length === 1) {
+        const touch = e.touches[0];
+        if (touch) {
+          const dx = Math.abs(touch.clientX - touchStartX);
+          const dy = Math.abs(touch.clientY - touchStartY);
+          if (dx > 8 || dy > 8) singleTouchMoved = true;
+        }
+      }
+      return;
+    }
+    if (!pinchStartDistance) return;
+    e.preventDefault();
+    pinchAnchor = getTouchMidpoint(e.touches[0], e.touches[1]);
+    const nextScale = Math.max(
+      0.3,
+      Math.min(
+        3.0,
+        pinchStartScale *
+          (getTouchDistance(e.touches[0], e.touches[1]) / pinchStartDistance),
+      ),
+    );
+    if (Math.abs(nextScale - modalScale) < 0.01) return;
+    modalScale = nextScale;
+    updateZoomDisplay();
+    if (modalViewMode === "cascade") {
+      applyCascadeZoomPreview();
+      scheduleCascadeZoomCommit(220);
+    } else {
+      applyZoomPreview(pinchAnchor);
+      scheduleZoomCommit(220, pinchAnchor);
+    }
+  }
+
+  function handleTouchEnd(e) {
+    if (isPinching) {
+      if (e.touches.length < 2) {
+        isPinching = false;
+        pinchStartDistance = 0;
         pinchStartScale = modalScale;
-        isPinching = true;
-        return;
-      }
-      if (isPinching || e.touches.length !== 1) return;
-      const touch = e.touches[0];
-      if (!touch) return;
-      if (
-        e.target.closest(".pdf-toolbar") ||
-        e.target.closest("button") ||
-        e.target.closest("input")
-      )
-        return;
-      touchStartX = touch.clientX;
-      touchStartY = touch.clientY;
-      touchStartTime = Date.now();
-    },
-    { passive: true },
-  );
-
-  canvasContainer.addEventListener(
-    "touchmove",
-    (e) => {
-      if (!isPinching || e.touches.length !== 2) return;
-      if (!pinchStartDistance) return;
-      e.preventDefault();
-      const nextScale = Math.max(
-        0.3,
-        Math.min(
-          3.0,
-          pinchStartScale *
-            (getTouchDistance(e.touches[0], e.touches[1]) / pinchStartDistance),
-        ),
-      );
-      if (Math.abs(nextScale - modalScale) < 0.01) return;
-      modalScale = nextScale;
-      updateZoomDisplay();
-      queueModalRender();
-    },
-    { passive: false },
-  );
-
-  canvasContainer.addEventListener(
-    "touchend",
-    (e) => {
-      if (isPinching) {
-        if (e.touches.length < 2) {
-          isPinching = false;
-          pinchStartDistance = 0;
-          pinchStartScale = modalScale;
+        suppressNextTap = true;
+        setTimeout(() => {
+          suppressNextTap = false;
+        }, 300);
+        if (modalViewMode === "cascade") {
+          commitCascadeZoomRender();
+        } else {
+          commitZoomRender(pinchAnchor);
         }
-        return;
+        pinchAnchor = null;
       }
-      const touch = e.changedTouches?.[0];
-      if (!touch) return;
-      const dx = Math.abs(touch.clientX - touchStartX);
-      const dy = Math.abs(touch.clientY - touchStartY);
-      const dt = Date.now() - touchStartTime;
-      if (dt > 350 || dx > 40 || dy > 40) return;
-      if (
-        e.target.closest(".pdf-toolbar") ||
-        e.target.closest("button") ||
-        e.target.closest("input")
-      )
-        return;
-      const rect = canvasContainer.getBoundingClientRect();
-      const relX = (touch.clientX - rect.left) / rect.width;
-      if (relX <= 0.45) {
-        if (modalPageNum > 1) {
-          modalPageNum--;
-          queueModalRender();
-        }
-      } else if (relX >= 0.55) {
-        if (modalPdfDoc && modalPageNum < modalPdfDoc.numPages) {
-          modalPageNum++;
-          queueModalRender();
-        }
-      }
-    },
-    { passive: true },
-  );
+      return;
+    }
+    if (suppressNextTap) return;
+    const touch = e.changedTouches?.[0];
+    if (!touch) return;
+    const dx = Math.abs(touch.clientX - touchStartX);
+    const dy = Math.abs(touch.clientY - touchStartY);
+    const dt = Date.now() - touchStartTime;
+    const wasRealMove = singleTouchMoved || dt > 350 || dx > 40 || dy > 40;
+    singleTouchMoved = false;
+    if (wasRealMove) return;
+    if (
+      e.target.closest(".pdf-toolbar") ||
+      e.target.closest("button") ||
+      e.target.closest("input")
+    )
+      return;
+    const container = e.currentTarget;
+    const rect = container.getBoundingClientRect();
+    const relX = (touch.clientX - rect.left) / rect.width;
 
-  canvasContainer.addEventListener("touchcancel", () => {
+    // Middle band is a dead zone for page-turning on purpose — repurposed
+    // as a tap target to show/hide the reading chrome (toolbar, progress
+    // bar), the way most comic/book readers handle a center tap.
+    if (relX > 0.35 && relX < 0.65) {
+      toggleToolbarVisibility();
+      return;
+    }
+
+    // Edge-tap page turning is a fit-scale, single-page-mode affordance.
+    // In cascade mode scrolling is how you turn pages, and once the user
+    // has zoomed in, an edge tap lands inside the zoomed content and must
+    // not be misread as a page-turn.
+    const isZoomed = modalScale > (modalFitScale || 1) * 1.02;
+    if (modalViewMode === "cascade" || isZoomed) return;
+
+    if (relX <= 0.35) {
+      if (modalPageNum > 1) {
+        modalPageNum--;
+        queueModalRender();
+      }
+    } else if (relX >= 0.65) {
+      if (modalPdfDoc && modalPageNum < modalPdfDoc.numPages) {
+        modalPageNum++;
+        queueModalRender();
+      }
+    }
+  }
+
+  function handleTouchCancel() {
     isPinching = false;
     pinchStartDistance = 0;
     pinchStartScale = modalScale;
+    singleTouchMoved = false;
+    pinchAnchor = null;
+    if (modalViewMode === "cascade") {
+      scheduleCascadeZoomCommit(0);
+    } else {
+      scheduleZoomCommit(0);
+    }
+  }
+
+  canvasContainer.addEventListener("touchstart", handleTouchStart, {
+    passive: true,
   });
+  canvasContainer.addEventListener("touchmove", handleTouchMove, {
+    passive: false,
+  });
+  canvasContainer.addEventListener("touchend", handleTouchEnd, {
+    passive: true,
+  });
+  canvasContainer.addEventListener("touchcancel", handleTouchCancel);
+
+  // Cascade mode scrolls in its own container, but pinch-zoom and the
+  // center-tap chrome toggle should work there too.
+  if (cascadeScrollEl) {
+    cascadeScrollEl.addEventListener("touchstart", handleTouchStart, {
+      passive: true,
+    });
+    cascadeScrollEl.addEventListener("touchmove", handleTouchMove, {
+      passive: false,
+    });
+    cascadeScrollEl.addEventListener("touchend", handleTouchEnd, {
+      passive: true,
+    });
+    cascadeScrollEl.addEventListener("touchcancel", handleTouchCancel);
+  }
+
+  // Any real interaction with the viewer keeps the chrome visible/revives
+  // it, so auto-hide never fights the person actually using the controls.
+  const viewerEl = document.getElementById("pdfViewerModal");
+  let lastActivityShow = 0;
+  viewerEl.addEventListener("pointerdown", (e) => {
+    if (e.target.closest(".pdf-toolbar")) toggleToolbarVisibility(true);
+  });
+  viewerEl.addEventListener("mousemove", () => {
+    const now = Date.now();
+    if (now - lastActivityShow < 200) return;
+    lastActivityShow = now;
+    if (modalToolbarHidden) toggleToolbarVisibility(true);
+    else scheduleToolbarAutoHide();
+  });
+  document
+    .getElementById("pdfChromeReveal")
+    ?.addEventListener("click", () => toggleToolbarVisibility(true));
 
   let resizeTimeout;
-  window.addEventListener("resize", () => {
+  function handleViewerResize() {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
       if (
-        modalPdfDoc &&
-        document.getElementById("pdfModal").classList.contains("open")
-      ) {
+        !modalPdfDoc ||
+        !document.getElementById("pdfModal").classList.contains("open")
+      )
+        return;
+      invalidateModalContainerSize();
+      if (modalViewMode === "cascade") {
+        relayoutCascadePages();
+      } else {
         queueModalRender();
       }
     }, 200);
-  });
+  }
+
+  window.addEventListener("resize", handleViewerResize);
+  // Mobile browsers show/hide their own chrome (address bar, etc.) as the
+  // page scrolls, which changes the visual viewport without necessarily
+  // firing a plain "resize" — visualViewport catches that too.
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", handleViewerResize);
+  }
+  window.addEventListener("orientationchange", handleViewerResize);
 
   document.addEventListener("fullscreenchange", () => {
     const isFullscreen = document.fullscreenElement !== null;
@@ -1152,6 +1886,25 @@ function initModalEvents() {
       icon.classList.toggle("fa-expand", !isFullscreen);
       icon.classList.toggle("fa-compress", isFullscreen);
     }
+
+    // The browser resizes the viewer element when entering/exiting
+    // fullscreen, but that doesn't fire a window "resize" event on every
+    // browser/OS combo — so the cached fit-box (modalContainerWidth/Height)
+    // goes stale and the page keeps rendering at the old, smaller size,
+    // leaving blank space around it in fullscreen. Re-measure and re-render
+    // once layout has actually settled.
+    invalidateModalContainerSize();
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (!document.getElementById("pdfModal").classList.contains("open"))
+          return;
+        if (modalViewMode === "cascade") {
+          relayoutCascadePages();
+        } else if (modalPdfDoc) {
+          queueModalRender();
+        }
+      });
+    });
   });
 }
 

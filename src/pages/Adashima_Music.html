@@ -653,17 +653,36 @@
     <div class="expanded-player-overlay" id="expandedPlayerOverlay">
       <div class="expanded-player-bg" id="expandedPlayerBg"></div>
       <div class="expanded-player-container">
-        <button
-          class="expanded-player-close"
-          id="expandedPlayerClose"
-          aria-label="Close expanded player"
-        >
-          <span
-            class="iconify"
-            data-icon="mdi:close"
-            data-inline="false"
-          ></span>
-        </button>
+        <div class="expanded-player-header">
+          <button
+            class="expanded-player-close"
+            id="expandedPlayerClose"
+            aria-label="Close expanded player"
+          >
+            <span
+              class="iconify"
+              data-icon="mdi:chevron-down"
+              data-inline="false"
+            ></span>
+          </button>
+          <div class="expanded-player-heading">
+            <span class="expanded-player-eyebrow">Now Playing</span>
+            <span class="expanded-player-heading-title" id="expandedAlbum"
+              >—</span
+            >
+          </div>
+          <button
+            class="expanded-queue-toggle"
+            id="expandedQueueToggle"
+            aria-label="Open queue"
+          >
+            <span
+              class="iconify"
+              data-icon="mdi:playlist-music"
+              data-inline="false"
+            ></span>
+          </button>
+        </div>
 
         <div class="expanded-player-grid">
           <div class="expanded-player-left">
@@ -683,7 +702,6 @@
                 Select a track
               </div>
               <div class="expanded-track-artist" id="expandedArtist">—</div>
-              <div class="expanded-track-album" id="expandedAlbum">—</div>
             </div>
 
             <div class="expanded-progress-section">
@@ -760,7 +778,10 @@
             </div>
           </div>
 
-          <div class="expanded-player-right">
+          <div
+            class="expanded-player-right"
+            id="expandedPlayerRight"
+          >
             <div class="expanded-queue-panel">
               <div class="expanded-queue-header">
                 <span class="expanded-queue-title" id="expandedQueueTitle"
@@ -776,10 +797,121 @@
             </div>
           </div>
         </div>
+
+        <div class="expanded-page-dots" id="expandedPageDots" aria-hidden="true">
+          <span class="expanded-page-dot active" data-page="0"></span>
+          <span class="expanded-page-dot" data-page="1"></span>
+        </div>
       </div>
     </div>
 
     <script src="/src/js/language-switch.js"></script>
     <script src="/src/js/music.js"></script>
+    <script>
+      // Mobile "Now Playing" ⇄ "Up Next" paging — mirrors Spotify's
+      // swipe-to-see-queue behavior: the two panels sit side by side and
+      // scroll-snap horizontally, with dots tracking which page is active.
+      // No-ops harmlessly if elements are missing, and is inert on desktop
+      // where the two panels are already shown side by side in the grid.
+      (function () {
+        var overlay = document.getElementById("expandedPlayerOverlay");
+        var grid = document.querySelector(".expanded-player-grid");
+        var toggle = document.getElementById("expandedQueueToggle");
+        var dotsWrap = document.getElementById("expandedPageDots");
+        if (!grid || !dotsWrap) return;
+
+        var dots = Array.prototype.slice.call(
+          dotsWrap.querySelectorAll(".expanded-page-dot")
+        );
+        var mq = window.matchMedia("(max-width: 768px)");
+
+        function updateActiveDot() {
+          if (!mq.matches || !grid.clientWidth) return;
+          var page = Math.round(grid.scrollLeft / grid.clientWidth);
+          dots.forEach(function (dot, i) {
+            dot.classList.toggle("active", i === page);
+          });
+        }
+
+        function goToPage(i, smooth) {
+          if (!mq.matches) return;
+          grid.scrollTo({
+            left: i * grid.clientWidth,
+            behavior: smooth === false ? "auto" : "smooth",
+          });
+        }
+
+        var rafPending = false;
+        grid.addEventListener(
+          "scroll",
+          function () {
+            if (rafPending) return;
+            rafPending = true;
+            window.requestAnimationFrame(function () {
+              updateActiveDot();
+              rafPending = false;
+            });
+          },
+          { passive: true }
+        );
+
+        dots.forEach(function (dot, i) {
+          dot.addEventListener("click", function () {
+            goToPage(i);
+          });
+        });
+
+        if (toggle) {
+          toggle.addEventListener("click", function () {
+            goToPage(1);
+          });
+        }
+
+        // Snap back to the Now Playing page every time the expanded
+        // player reopens, so it never opens mid-swipe on the queue.
+        if (overlay) {
+          var observer = new MutationObserver(function () {
+            if (overlay.classList.contains("open")) {
+              window.requestAnimationFrame(function () {
+                goToPage(0, false);
+                updateActiveDot();
+              });
+            }
+          });
+          observer.observe(overlay, {
+            attributes: true,
+            attributeFilter: ["class"],
+          });
+        }
+
+        window.addEventListener("resize", updateActiveDot);
+      })();
+
+      // Paints the "played" portion of the expanded-player seek bar
+      // in the accent color. music.js updates the slider's .value
+      // directly during playback, which doesn't fire an input event,
+      // so this polls lightly instead of hooking into music.js.
+      (function () {
+        var slider = document.getElementById("expandedProgressSlider");
+        if (!slider) return;
+
+        function paint() {
+          var min = Number(slider.min) || 0;
+          var max = Number(slider.max) || 100;
+          var val = Number(slider.value) || 0;
+          var pct = max > min ? ((val - min) / (max - min)) * 100 : 0;
+          slider.style.background =
+            "linear-gradient(to right, #e2c9e0 0%, #e2c9e0 " +
+            pct +
+            "%, rgba(255,255,255,0.18) " +
+            pct +
+            "%, rgba(255,255,255,0.18) 100%)";
+        }
+
+        slider.addEventListener("input", paint);
+        paint();
+        window.setInterval(paint, 250);
+      })();
+    </script>
   </body>
 </html>

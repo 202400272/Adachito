@@ -1,54 +1,87 @@
 [
   {
-  "version": "2.2.7",
-  "build": "20260812",
-  "date": "12 de agosto de 2026",
-  "subtitle": "Optimización de Imágenes, Mejoras de Información y Correcciones de Localización",
-  "changes": {
-    "new": [],
-    "improvements": [
-      "Se convirtió el formato de todas las imágenes del sitio a WebP para optimizar su tamaño y mejorar los tiempos de carga.",
-      "Se ajustó la sección Acerca de para mostrar correctamente la información disponible.",
-      "Se mejoró la presentación de la información de la serie en la página de inicio para dispositivos de escritorio."
-    ],
-    "fixes": [
-      "Se corrigió un problema de persistencia del idioma que provocaba que la selección no se aplicara correctamente en determinadas pantallas.",
-      "Se corrigieron inconsistencias en el cambio de idioma entre diferentes secciones y páginas del sitio."
-    ],
-    "notes": [
-      "Esta actualización se centra en optimizar los recursos visuales del sitio, mejorar la presentación de la información y reforzar la persistencia del idioma.",
-      "Todas las imágenes del sitio fueron convertidas al formato WebP con el objetivo de reducir el peso de los recursos y mejorar el rendimiento de carga.",
-      "La sección Acerca de fue ajustada para mostrar correctamente su información, mientras que la página de inicio recibió correcciones en la presentación de la información de la serie en PC.",
-      "También se corrigieron problemas de persistencia del idioma que impedían que algunas pantallas reflejaran correctamente la selección realizada por el usuario."
-    ]
-  }
-},
-{
-"version": "2.2.6",
-"build": "20260811",
-"date": "11 de agosto de 2026",
-"subtitle": "Localización de la interfaz en tagalo y optimización del tema para móviles",
-"changes": {
-"new": [
-"Se añadió el tagalo como nuevo idioma de la interfaz.",
-"Se añadió una localización inicial de la interfaz en tagalo como prototipo para el futuro soporte multilingüe."
-],
-"improvements": [
-"Se optimizó el sistema de cambio de tema para Chrome en dispositivos móviles.",
-"Se mejoraron las transiciones y los cambios de apariencia en Chrome para móviles.",
-"Se perfeccionó el comportamiento del cambio de tema en dispositivos móviles para ofrecer una experiencia más fluida y consistente."
-],
-"fixes": [
-"Se corrigieron pequeñas inconsistencias en el cambio de tema que afectaban a Chrome en dispositivos móviles."
-],
-"notes": [
-"El tagalo ya está disponible como idioma de la interfaz, pero la localización se considera actualmente un prototipo.",
-"La implementación del tagalo está destinada principalmente a probar y validar la capacidad del sitio para admitir idiomas adicionales en el futuro.",
-"La localización en tagalo se aplica actualmente solo a la interfaz de usuario; el contenido del sitio no se ha modificado.",
-"Esta versión establece la base inicial para ampliar el soporte de idiomas del sitio en futuras actualizaciones."
-]
-}
-},
+    "version": "2.2.8",
+    "build": "20260814",
+    "date": "14 de agosto de 2026",
+    "subtitle": "Reestructuración de la navegación y optimizaciones del lector/reproductor",
+    "changes": {
+      "new": [
+        "Se rediseñó la navegación de la barra lateral con una estructura más clara que separa la navegación principal, los enlaces de la comunidad, los enlaces a la obra original, el estado y los ajustes.",
+        "Se añadió una sección de Navegación plegable para poder expandir o contraer la lista de páginas según sea necesario.",
+        "Se añadió un botón de cierre específico al menú de navegación móvil.",
+        "Se añadió el ajuste «Ocultar el menú hamburguesa en otras páginas» (solo para móviles), que oculta el botón del menú en las páginas que no sean la página de inicio, donde siempre permanecerá visible."
+      ],
+      "improvements": [
+        "Se actualizaron los enlaces de navegación internos de la barra lateral para reflejar las páginas reales del sitio (Anime, Mini Anime, Manga, Novelas, Historias Extra, CD Drama, Música, Galería, Cronología, Constelación, Estadísticas, Otros, Acerca de).",
+        "Inicio ahora es un elemento de navegación estándar que refleja la página actual en lugar de funcionar como un botón independiente para volver atrás.",
+        "Se separaron visualmente los enlaces externos (Facebook, Novela Ligera, Manga, Blog del autor) de la navegación interna para dejar claro que llevan fuera del sitio.",
+        "Se optimizó el lector de PDF de la página de Novelas para lograr una carga y navegación de las páginas más fluidas.",
+        "Se optimizó la vista ampliada del reproductor de la página de Música para mejorar el rendimiento y la capacidad de respuesta."
+      ],
+      "fixes": [
+        "Se solucionó un problema en móviles que impedía cerrar el menú de navegación una vez abierto."
+      ],
+      "notes": [
+        "Esta versión se centra en reestructurar la navegación del sitio para ofrecer una jerarquía más clara y una mejor experiencia en dispositivos móviles, además de optimizar el rendimiento del lector de PDF de Novelas y del reproductor ampliado de la página de Música.",
+        "La barra lateral se reorganizó en secciones diferenciadas, los enlaces de navegación interna ahora apuntan a las páginas reales del sitio y los enlaces externos se distinguen visualmente de los internos.",
+        "La navegación móvil se mejoró con un botón de cierre específico y un nuevo ajuste para ocultar el botón del menú en las páginas que no sean la de inicio, manteniendo siempre visible el menú en la página de inicio.",
+        "Tanto el lector de PDF de la página de Novelas como el reproductor ampliado de la página de Música fueron optimizados para ofrecer un rendimiento más fluido y eficiente."
+      ]
+    }
+  },
+  {
+    "version": "2.2.7",
+    "build": "20260812",
+    "date": "12 de agosto de 2026",
+    "subtitle": "Optimización de imágenes, actualizaciones de información y correcciones de localización",
+    "changes": {
+      "new": [],
+      "improvements": [
+        "Se convirtieron todas las imágenes del sitio web al formato WebP para reducir el tamaño de los archivos y mejorar el rendimiento de carga.",
+        "Se actualizó la sección Acerca de para que muestre correctamente la información disponible.",
+        "Se mejoró la sección de información de series en la página de inicio para pantallas de escritorio.",
+        "Se redujeron los renderizados innecesarios en la página de Música al buscar, cambiar de canción o marcar una canción como favorita, disminuyendo el uso de CPU y el calentamiento del dispositivo durante el uso prolongado."
+      ],
+      "fixes": [
+        "Se corrigió un problema de persistencia del idioma que impedía que el idioma seleccionado se aplicara correctamente en ciertas páginas.",
+        "Se resolvieron inconsistencias de localización donde algunas pantallas no se actualizaban correctamente después de cambiar el idioma seleccionado.",
+        "Se corrigió un problema en el lector de Novelas donde la página parecía aumentar ligeramente su zoom cada vez que se avanzaba a la siguiente página."
+      ],
+      "notes": [
+        "Esta versión se centra en la optimización de recursos visuales, la mejora en la presentación de la información y el fortalecimiento de la persistencia del idioma en todo el sitio web.",
+        "Todas las imágenes del sitio se convirtieron a WebP para reducir su tamaño y mejorar el rendimiento general de carga.",
+        "La sección Acerca de se ajustó para mostrar correctamente su información, mientras que la página de inicio recibió correcciones en la sección de información de series para escritorio.",
+        "También se corrigió la persistencia del idioma para garantizar que el idioma seleccionado se mantenga y aplique de manera consistente en las diferentes páginas y pantallas.",
+        "Esta versión también reduce el trabajo en segundo plano innecesario en la página de Música para un uso más fluido y con menor calentamiento, y corrige el lector de Novelas para que el tamaño de página se mantenga constante al pasar las hojas."
+      ]
+    }
+  },
+  {
+    "version": "2.2.6",
+    "build": "20260811",
+    "date": "11 de agosto de 2026",
+    "subtitle": "Localización de la interfaz en tagalo y optimización del tema para móviles",
+    "changes": {
+      "new": [
+        "Se añadió el tagalo como nuevo idioma de la interfaz.",
+        "Se añadió una localización inicial de la interfaz en tagalo como prototipo para el futuro soporte multilingüe."
+      ],
+      "improvements": [
+        "Se optimizó el sistema de cambio de tema para Chrome en dispositivos móviles.",
+        "Se mejoraron las transiciones y los cambios de apariencia en Chrome para móviles.",
+        "Se perfeccionó el comportamiento del cambio de tema en dispositivos móviles para ofrecer una experiencia más fluida y consistente."
+      ],
+      "fixes": [
+        "Se corrigieron pequeñas inconsistencias en el cambio de tema que afectaban a Chrome en dispositivos móviles."
+      ],
+      "notes": [
+        "El tagalo ya está disponible como idioma de la interfaz, pero la localización se considera actualmente un prototipo.",
+        "La implementación del tagalo está destinada principalmente a probar y validar la capacidad del sitio para admitir idiomas adicionales en el futuro.",
+        "La localización en tagalo se aplica actualmente solo a la interfaz de usuario; el contenido del sitio no se ha modificado.",
+        "Esta versión establece la base inicial para ampliar el soporte de idiomas del sitio en futuras actualizaciones."
+      ]
+    }
+  },
   {
     "version": "2.2.5",
     "build": "20260810",

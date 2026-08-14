@@ -31,7 +31,13 @@
     "downloadPDF": "Download PDF",
     "downloadEPUB": "Download EPUB",
     "thumbnails": "Thumbnails",
-    "loadingDocument": "Loading document..."
+    "loadingDocument": "Loading document...",
+    "moreOptions": "More options",
+    "cascadeMode": "Cascade mode (continuous scroll)",
+    "cascade": "Cascade",
+    "showControls": "Show controls",
+    "adjust": "Adjust",
+    "download": "Download"
   },
   "modal": {
     "reading": "Reading:",
