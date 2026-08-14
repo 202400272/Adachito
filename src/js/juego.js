@@ -24,7 +24,7 @@ let btnShoot;
 function initializeJuegoPage() {
   particlesContainer = document.getElementById("particles");
   if (particlesContainer) {
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 12; i++) {
       let star = document.createElement("div");
       star.className = "star";
       star.style.left = Math.random() * 100 + "vw";
@@ -103,14 +103,14 @@ function initializeJuegoPage() {
     musicToggle.addEventListener("click", (e) => {
       e.stopPropagation();
       toggleMusic();
-    });
+    }, { passive: true });
   }
 
   if (langToggle && langDropdown) {
     langToggle.addEventListener("click", (e) => {
       e.stopPropagation();
       langDropdown.classList.toggle("open");
-    });
+    }, { passive: true });
   }
 
   if (langOptions.length > 0) {
@@ -119,16 +119,17 @@ function initializeJuegoPage() {
         const selectedLang = option.getAttribute("data-lang");
         applyLanguage(selectedLang);
         if (langDropdown) langDropdown.classList.remove("open");
-      });
+      }, { passive: true });
     });
   }
 
+  let closeDropdown = (e) => {
+    if (!langDropdown.contains(e.target)) {
+      langDropdown.classList.remove("open");
+    }
+  };
   if (langDropdown) {
-    document.addEventListener("click", (e) => {
-      if (!langDropdown.contains(e.target)) {
-        langDropdown.classList.remove("open");
-      }
-    });
+    document.addEventListener("click", closeDropdown, { passive: true });
   }
 
   document.body.addEventListener(
@@ -139,7 +140,7 @@ function initializeJuegoPage() {
       }
       document.body.removeEventListener("click", initAudio);
     },
-    { once: true },
+    { once: true, passive: true },
   );
 
   if (canvas) {
@@ -150,12 +151,10 @@ function initializeJuegoPage() {
         if (isTouchDevice) {
           if (isGameOver) {
             resetGame();
-            animate();
           }
         } else {
           if (isGameOver) {
             resetGame();
-            animate();
           } else {
             yashiro.jump();
           }
@@ -168,12 +167,11 @@ function initializeJuegoPage() {
       if (!isTouchDevice) {
         if (isGameOver) {
           resetGame();
-          animate();
         } else {
           yashiro.jump();
         }
       }
-    });
+    }, { passive: true });
   }
 
   if (btnJump) {
@@ -183,7 +181,6 @@ function initializeJuegoPage() {
         e.preventDefault();
         if (isGameOver) {
           resetGame();
-          animate();
         } else {
           yashiro.jump();
         }
@@ -194,11 +191,10 @@ function initializeJuegoPage() {
     btnJump.addEventListener("click", () => {
       if (isGameOver) {
         resetGame();
-        animate();
       } else {
         yashiro.jump();
       }
-    });
+    }, { passive: true });
   }
 
   if (btnShoot) {
@@ -213,7 +209,7 @@ function initializeJuegoPage() {
 
     btnShoot.addEventListener("click", () => {
       if (!isGameOver) fireBoomerang();
-    });
+    }, { passive: true });
   }
 
   detectTouch();
@@ -225,11 +221,22 @@ function initializeJuegoPage() {
       resizeCanvas();
       resizePending = false;
     });
-  });
+  }, { passive: true });
   setTimeout(resizeCanvas, 50);
   resizeCanvas();
   applyLanguage(currentLang);
-  animate();
+  startGameWhenReady();
+}
+
+let gameLoopStarted = false;
+function startGameWhenReady() {
+  if (!canvas || !ctx || gameLoopStarted) return;
+  if (imagesLoaded >= gameImages.length) {
+    gameLoopStarted = true;
+    animate();
+    return;
+  }
+  setTimeout(startGameWhenReady, 30);
 }
 
 document.addEventListener("DOMContentLoaded", initializeJuegoPage);
@@ -414,34 +421,59 @@ let gameSpeed = baseSpeed;
 let obstacles = [];
 let spawnRate = 90;
 let particlesGame = [];
+let particlePool = [];
+let particleCount = 0;
 let combo = 0;
 let boomerangs = [];
 let isInvulnerable = false;
 let invulnerabilityTime = 0;
 let lastDonaSpawn = -100;
 let powerUpParticles = [];
+let powerUpPool = [];
+let powerUpCount = 0;
 let gameTimeSeconds = 0;
 let starRainActive = false;
 let lastStarRainTime = -100;
 let donutSpawnActive = false;
 
-let lastFrameTime = 0;
-const TARGET_FRAME_MS = 1000 / 60;
+const MAX_PARTICLES = 200;
+const MAX_POWERUP_PARTICLES = 100;
+
+for(let i=0;i<MAX_PARTICLES;i++){
+  particlePool.push({x:0,y:0,vx:0,vy:0,life:0,color:"#a28cbd",draw(){},update(){}});
+}
+for(let i=0;i<MAX_POWERUP_PARTICLES;i++){
+  powerUpPool.push({x:0,y:0,vx:0,vy:0,life:0,color:"#FFD700",draw(){},update(){}});
+}
 
 const imgYashiro = new Image();
-imgYashiro.src = "../../assets/Imagenes/Yashiro_flotante_pixel-Photoroom.webp";
+imgYashiro.src = "/assets/Imagenes/Yashiro_flotante_pixel-Photoroom.webp";
 const imgmeteoro = new Image();
-imgmeteoro.src = "../../assets/Imagenes/meteoro-Photoroom.webp";
+imgmeteoro.src = "/assets/Imagenes/meteoro-Photoroom.webp";
 const imgEstrella = new Image();
-imgEstrella.src = "../../assets/Imagenes/Estrella-Photoroom.webp";
+imgEstrella.src = "/assets/Imagenes/Estrella-Photoroom.webp";
 const imgEstrellaAzul = new Image();
-imgEstrellaAzul.src = "../../assets/Imagenes/Estrella_Azul-Photoroom.webp";
+imgEstrellaAzul.src = "/assets/Imagenes/Estrella_Azul-Photoroom.webp";
 const imgFondo = new Image();
-imgFondo.src = "../../assets/Imagenes/Fondo_pixel.webp";
+imgFondo.src = "/assets/Imagenes/Fondo_pixel.webp";
 const imgBoomerang = new Image();
-imgBoomerang.src = "../../assets/Imagenes/boomerang-Photoroom.webp";
+imgBoomerang.src = "/assets/Imagenes/boomerang-Photoroom.webp";
 const imgDona = new Image();
-imgDona.src = "../../assets/Imagenes/dona_pixel-Photoroom.webp";
+imgDona.src = "/assets/Imagenes/dona_pixel-Photoroom.webp";
+
+const gameImages = [imgYashiro, imgmeteoro, imgEstrella, imgEstrellaAzul, imgFondo, imgBoomerang, imgDona];
+let imagesLoaded = 0;
+let imagesFailed = false;
+gameImages.forEach(img => {
+  img.onload = () => {
+    imagesLoaded++;
+  };
+  img.onerror = () => {
+    imagesFailed = true;
+    imagesLoaded++;
+    console.error("Juego: no se pudo cargar la imagen", img.src);
+  };
+});
 
 const yashiro = {
   x: 50,
@@ -499,7 +531,6 @@ const yashiro = {
 };
 
 function resetGame() {
-  lastFrameTime = 0;
   obstacles = [];
   score = 0;
   frames = 0;
@@ -512,11 +543,12 @@ function resetGame() {
   isInvulnerable = false;
   invulnerabilityTime = 0;
   lastDonaSpawn = -100;
-  powerUpParticles = [];
   gameTimeSeconds = 0;
   starRainActive = false;
   lastStarRainTime = -100;
   donutSpawnActive = false;
+  particleCount = 0;
+  powerUpCount = 0;
 }
 
 function spawnObstacle() {
@@ -563,9 +595,7 @@ function spawnObstacle() {
     health: health,
     isBluestar: isBluestar,
     baseY: yPos,
-    verticalOscillation: starRainActive
-      ? Math.sin(Math.random() * Math.PI * 2) * 40
-      : 0,
+    verticalOscillation: starRainActive ? Math.sin(Math.random() * Math.PI * 2) * 40 : 0,
     oscillationSpeed: starRainActive ? 0.08 + Math.random() * 0.04 : 0,
     oscillationPhase: Math.random() * Math.PI * 2,
     hitboxOffset: { x: 3, y: 3, w: -6, h: -6 },
@@ -577,73 +607,20 @@ function spawnObstacle() {
         height: this.height + this.hitboxOffset.h,
       };
     },
-    draw() {
-      if (this.image === imgEstrella || this.image === imgEstrellaAzul) {
-        ctx.save();
-        ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
-        ctx.rotate(this.rotation);
-        ctx.drawImage(
-          this.image,
-          -this.width / 2,
-          -this.height / 2,
-          this.width,
-          this.height,
-        );
-        ctx.restore();
-        if (this.isBluestar && this.health > 1) {
-          ctx.fillStyle = "rgba(255,255,255,0.7)";
-          ctx.font = "bold 16px Quicksand";
-          ctx.textAlign = "center";
-          ctx.textBaseline = "middle";
-          ctx.fillText(
-            this.health,
-            this.x + this.width / 2,
-            this.y + this.height / 2,
-          );
-        }
-      } else {
-        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-      }
-    },
-    update() {
-      this.x -= gameSpeed;
-      if (starRainActive && this.oscillationSpeed > 0) {
-        this.oscillationPhase += this.oscillationSpeed;
-        this.y =
-          this.baseY +
-          Math.sin(this.oscillationPhase) * this.verticalOscillation;
-      }
-      this.rotation += 0.1;
-      this.draw();
-    },
   });
 }
 
 function spawnParticlesFunc(x, y, color = "#a28cbd") {
-  for (let i = 0; i < 8; i++) {
-    particlesGame.push({
-      x,
-      y,
-      vx: (Math.random() - 0.5) * 10,
-      vy: (Math.random() - 0.5) * 10,
-      life: 40,
-      color,
-      draw() {
-        ctx.globalAlpha = this.life / 40;
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.globalAlpha = 1;
-      },
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        this.vy += 0.3;
-        this.life--;
-        this.draw();
-      },
-    });
+  const count = color === "#d32f2f" ? 4 : 3;
+  for (let i = 0; i < count && particleCount < MAX_PARTICLES; i++) {
+    const p = particlePool[particleCount];
+    p.x = x;
+    p.y = y;
+    p.vx = (Math.random() - 0.5) * 8;
+    p.vy = (Math.random() - 0.5) * 8;
+    p.life = 40;
+    p.color = color;
+    particleCount++;
   }
 }
 
@@ -666,35 +643,6 @@ function spawnDona() {
         height: this.height + this.hitboxOffset.h,
       };
     },
-    draw() {
-      ctx.save();
-      ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
-      ctx.rotate(this.rotation);
-      ctx.drawImage(
-        this.image,
-        -this.width / 2,
-        -this.height / 2,
-        this.width,
-        this.height,
-      );
-      ctx.restore();
-      ctx.strokeStyle = "rgba(255,215,0,0.4)";
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.arc(
-        this.x + this.width / 2,
-        this.y + this.height / 2,
-        this.width / 2 + 8,
-        0,
-        Math.PI * 2,
-      );
-      ctx.stroke();
-    },
-    update() {
-      this.x -= gameSpeed;
-      this.rotation += 0.15;
-      this.draw();
-    },
   });
 }
 
@@ -706,24 +654,6 @@ function fireBoomerang() {
     height: 30,
     speed: 8,
     rotation: 0,
-    draw() {
-      ctx.save();
-      ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
-      ctx.rotate(this.rotation);
-      ctx.drawImage(
-        imgBoomerang,
-        -this.width / 2,
-        -this.height / 2,
-        this.width,
-        this.height,
-      );
-      ctx.restore();
-    },
-    update() {
-      this.x += this.speed;
-      this.rotation += 0.3;
-      this.draw();
-    },
   });
 }
 
@@ -759,6 +689,15 @@ function getGameText(key) {
 }
 
 function animate(timestamp) {
+  try {
+    animateFrame(timestamp);
+  } catch (err) {
+    console.error("Juego: error en el frame de animación", err);
+    requestAnimationFrame(animate);
+  }
+}
+
+function animateFrame(timestamp) {
   if (isGameOver) {
     ctx.fillStyle = "rgba(0,0,0,0.7)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -796,15 +735,11 @@ function animate(timestamp) {
       ? getGameText("restartTouch")
       : getGameText("restartDesktop");
     ctx.fillText(restartMsg, canvas.width / 2, canvas.height / 2 + 75);
+    requestAnimationFrame(animate);
     return;
   }
 
   requestAnimationFrame(animate);
-
-  if (!lastFrameTime) lastFrameTime = timestamp;
-  const elapsed = timestamp - lastFrameTime;
-  if (elapsed < TARGET_FRAME_MS) return;
-  lastFrameTime = timestamp;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(imgFondo, 0, 0, canvas.width, canvas.height);
@@ -818,44 +753,51 @@ function animate(timestamp) {
 
   yashiro.update();
 
-  for (let i = particlesGame.length - 1; i >= 0; i--) {
-    particlesGame[i].update();
-    if (particlesGame[i].life <= 0) particlesGame.splice(i, 1);
+  for (let i = 0; i < particleCount; i++) {
+    const p = particlePool[i];
+    if (p.life > 0) {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.3;
+      p.life--;
+      ctx.globalAlpha = p.life / 40;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+      ctx.fill();
+    }
   }
+  ctx.globalAlpha = 1;
 
   if (isInvulnerable) {
     invulnerabilityTime--;
-    if (invulnerabilityTime <= 0) isInvulnerable = false;
   }
 
   for (let i = boomerangs.length - 1; i >= 0; i--) {
-    let boom = boomerangs[i];
-    boom.update();
+    const boom = boomerangs[i];
+    boom.x += boom.speed;
+    boom.rotation += 0.3;
+    ctx.save();
+    ctx.translate(boom.x + boom.width / 2, boom.y + boom.height / 2);
+    ctx.rotate(boom.rotation);
+    ctx.drawImage(imgBoomerang, -boom.width / 2, -boom.height / 2, boom.width, boom.height);
+    ctx.restore();
 
     if (boom.x > canvas.width) {
       boomerangs.splice(i, 1);
       continue;
     }
 
-    for (let j = obstacles.length - 1; j >= 0; j--) {
-      let obs = obstacles[j];
-      if (
-        (obs.image === imgEstrella || obs.image === imgEstrellaAzul) &&
-        !obs.isPowerUp
-      ) {
-        if (
-          boom.x < obs.x + obs.width &&
-          boom.x + boom.width > obs.x &&
-          boom.y < obs.y + obs.height &&
-          boom.y + boom.height > obs.y
-        ) {
+    const obsLen = obstacles.length;
+    for (let j = obsLen - 1; j >= 0; j--) {
+      const obs = obstacles[j];
+      if ((obs.image === imgEstrella || obs.image === imgEstrellaAzul) && !obs.isPowerUp) {
+        if (boom.x < obs.x + obs.width && boom.x + boom.width > obs.x && boom.y < obs.y + obs.height && boom.y + boom.height > obs.y) {
           obs.health--;
-          spawnParticlesFunc(
-            obs.x + obs.width / 2,
-            obs.y + obs.height / 2,
-            "#ffd700",
-          );
-          if (obs.health <= 0) obstacles.splice(j, 1);
+          spawnParticlesFunc(obs.x + obs.width / 2, obs.y + obs.height / 2, "#ffd700");
+          if (obs.health <= 0) {
+            obstacles.splice(j, 1);
+          }
           boomerangs.splice(i, 1);
           break;
         }
@@ -880,20 +822,14 @@ function animate(timestamp) {
         donutSpawnActive = true;
         lastDonaSpawn = gameTimeSeconds;
         spawnDona();
-      }
-
-      if (donutSpawnActive && gameTimeSeconds - lastDonaSpawn >= 30) {
+      } else if (gameTimeSeconds - lastDonaSpawn >= 30) {
         spawnDona();
         lastDonaSpawn = gameTimeSeconds;
       }
     }
   }
 
-  if (
-    gameTimeSeconds > 0 &&
-    gameTimeSeconds % 50 === 0 &&
-    gameTimeSeconds !== lastStarRainTime
-  ) {
+  if (gameTimeSeconds > 0 && gameTimeSeconds % 50 === 0 && gameTimeSeconds !== lastStarRainTime) {
     starRainActive = true;
     lastStarRainTime = gameTimeSeconds;
   }
@@ -901,167 +837,138 @@ function animate(timestamp) {
     starRainActive = false;
   }
 
-  let adjustedSpawnRate = starRainActive ? 45 : spawnRate;
-  if (frames % adjustedSpawnRate === 0) spawnObstacle();
+  if (frames % (starRainActive ? 45 : spawnRate) === 0) spawnObstacle();
 
-  for (let i = 0; i < obstacles.length; i++) {
-    let obs = obstacles[i];
-    obs.update();
+  const obsLen = obstacles.length;
+  for (let i = obsLen - 1; i >= 0; i--) {
+    const obs = obstacles[i];
+    obs.x -= gameSpeed;
+    
+    if (obs.image === imgEstrella || obs.image === imgEstrellaAzul) {
+      if (starRainActive && obs.oscillationSpeed > 0) {
+        obs.oscillationPhase += obs.oscillationSpeed;
+        obs.y = obs.baseY + Math.sin(obs.oscillationPhase) * obs.verticalOscillation;
+      }
+      obs.rotation += 0.1;
+      ctx.save();
+      ctx.translate(obs.x + obs.width / 2, obs.y + obs.height / 2);
+      ctx.rotate(obs.rotation);
+      ctx.drawImage(obs.image, -obs.width / 2, -obs.height / 2, obs.width, obs.height);
+      ctx.restore();
+      if (obs.isBluestar && obs.health > 1) {
+        ctx.fillStyle = "rgba(255,255,255,0.7)";
+        ctx.font = "bold 16px Quicksand";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(obs.health, obs.x + obs.width / 2, obs.y + obs.height / 2);
+      }
+    } else if (obs.isPowerUp) {
+      obs.rotation += 0.15;
+      ctx.save();
+      ctx.translate(obs.x + obs.width / 2, obs.y + obs.height / 2);
+      ctx.rotate(obs.rotation);
+      ctx.drawImage(obs.image, -obs.width / 2, -obs.height / 2, obs.width, obs.height);
+      ctx.restore();
+      ctx.strokeStyle = "rgba(255,215,0,0.4)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(obs.x + obs.width / 2, obs.y + obs.height / 2, obs.width / 2 + 8, 0, Math.PI * 2);
+      ctx.stroke();
+    } else {
+      ctx.drawImage(obs.image, obs.x, obs.y, obs.width, obs.height);
+    }
 
-    let yBox = yashiro.getHitbox();
-    let oBox = obs.getHitbox();
+    const yBox = yashiro.getHitbox();
+    const oBox = obs.getHitbox();
 
-    if (
-      yBox.x < oBox.x + oBox.width &&
-      yBox.x + yBox.width > oBox.x &&
-      yBox.y < oBox.y + oBox.height &&
-      yBox.y + yBox.height > oBox.y
-    ) {
+    if (yBox.x < oBox.x + oBox.width && yBox.x + yBox.width > oBox.x && yBox.y < oBox.y + oBox.height && yBox.y + yBox.height > oBox.y) {
       if (obs.isPowerUp) {
         isInvulnerable = true;
         invulnerabilityTime = 300;
-        spawnParticlesFunc(
-          obs.x + obs.width / 2,
-          obs.y + obs.height / 2,
-          "#ffd700",
-        );
-        for (let k = 0; k < 15; k++) {
-          powerUpParticles.push({
-            x: yashiro.x + yashiro.width / 2,
-            y: yashiro.y + yashiro.height / 2,
-            vx: (Math.random() - 0.5) * 12,
-            vy: (Math.random() - 0.5) * 12,
-            life: 60,
-            color: "#FFD700",
-            draw() {
-              ctx.globalAlpha = this.life / 60;
-              ctx.fillStyle = this.color;
-              ctx.beginPath();
-              ctx.arc(this.x, this.y, 4, 0, Math.PI * 2);
-              ctx.fill();
-              ctx.globalAlpha = 1;
-            },
-            update() {
-              this.x += this.vx;
-              this.y += this.vy;
-              this.vy += 0.2;
-              this.life--;
-              this.draw();
-            },
-          });
+        spawnParticlesFunc(obs.x + obs.width / 2, obs.y + obs.height / 2, "#ffd700");
+        for (let k = 0; k < 10 && powerUpCount < MAX_POWERUP_PARTICLES; k++) {
+          const p = powerUpPool[powerUpCount];
+          p.x = yashiro.x + yashiro.width / 2;
+          p.y = yashiro.y + yashiro.height / 2;
+          p.vx = (Math.random() - 0.5) * 10;
+          p.vy = (Math.random() - 0.5) * 10;
+          p.life = 60;
+          p.color = "#FFD700";
+          powerUpCount++;
         }
         obstacles.splice(i, 1);
-        i--;
-        continue;
-      }
-
-      if (!isInvulnerable) {
+      } else if (!isInvulnerable) {
         if (!isGameOver) {
           playDeathSound();
         }
         isGameOver = true;
         combo = 0;
-        spawnParticlesFunc(
-          yashiro.x + yashiro.width / 2,
-          yashiro.y + yashiro.height / 2,
-          "#d32f2f",
-        );
+        spawnParticlesFunc(yashiro.x + yashiro.width / 2, yashiro.y + yashiro.height / 2, "#d32f2f");
         if (score > highScore) {
           highScore = score;
           localStorage.setItem("adashima_hs", highScore);
         }
       } else {
         obstacles.splice(i, 1);
-        i--;
-        continue;
       }
-    }
-
-    if (obs.x + obs.width < 0) {
+    } else if (obs.x + obs.width < 0) {
       obstacles.splice(i, 1);
-      i--;
       if (!obs.isPowerUp) {
         combo++;
-        spawnParticlesFunc(
-          yashiro.x + yashiro.width / 2,
-          yashiro.y + yashiro.height / 2,
-          "#4caf50",
-        );
+        spawnParticlesFunc(yashiro.x + yashiro.width / 2, yashiro.y + yashiro.height / 2, "#4caf50");
       }
     }
   }
-
-  ctx.fillStyle = "rgba(0,0,0,0.4)";
-  ctx.font = "20px Quicksand";
-  ctx.textAlign = "left";
-  ctx.fillText(`${getGameText("points")}: ${score}`, 22, 42);
-  ctx.textAlign = "right";
-  ctx.fillText(
-    `${getGameText("recordLabel")}: ${highScore}`,
-    canvas.width - 18,
-    42,
-  );
 
   ctx.fillStyle = "rgb(255,255,255)";
   ctx.font = "bold 20px Quicksand";
   ctx.textAlign = "left";
   ctx.fillText(`${getGameText("points")}: ${score}`, 20, 40);
   ctx.textAlign = "right";
-  ctx.fillText(
-    `${getGameText("recordLabel")}: ${highScore}`,
-    canvas.width - 20,
-    40,
-  );
+  ctx.fillText(`${getGameText("recordLabel")}: ${highScore}`, canvas.width - 20, 40);
 
-  if (isInvulnerable) {
-    let invulPercent = Math.ceil((invulnerabilityTime / 300) * 100);
+  if (isInvulnerable && invulnerabilityTime > 0) {
+    const invulPercent = Math.ceil((invulnerabilityTime / 300) * 100);
     ctx.fillStyle = "rgba(255,215,0,0.6)";
     ctx.font = "bold 24px Quicksand";
     ctx.textAlign = "center";
-    ctx.fillText(
-      `🛡️ ${getGameText("invulnerable")} ${invulPercent}%`,
-      canvas.width / 2,
-      canvas.height - 30,
-    );
+    ctx.fillText(`🛡️ ${getGameText("invulnerable")} ${invulPercent}%`, canvas.width / 2, canvas.height - 30);
     ctx.strokeStyle = `rgba(255,215,0,${0.5 - (300 - invulnerabilityTime) / 1200})`;
     ctx.lineWidth = 3;
     ctx.beginPath();
-    ctx.arc(
-      yashiro.x + yashiro.width / 2,
-      yashiro.y + yashiro.height / 2,
-      yashiro.width / 2 + 15,
-      0,
-      Math.PI * 2,
-    );
+    ctx.arc(yashiro.x + yashiro.width / 2, yashiro.y + yashiro.height / 2, yashiro.width / 2 + 15, 0, Math.PI * 2);
     ctx.stroke();
   }
 
   if (starRainActive) {
-    let timeRemainingInRain = 15 - (gameTimeSeconds - lastStarRainTime);
+    const timeRemainingInRain = 15 - (gameTimeSeconds - lastStarRainTime);
     ctx.fillStyle = "rgba(100,200,255,0.7)";
     ctx.font = "bold 32px Quicksand";
     ctx.textAlign = "center";
-    ctx.fillText(
-      `🌧️ ${getGameText("rain")} - ${timeRemainingInRain}s`,
-      canvas.width / 2,
-      90,
-    );
+    ctx.fillText(`🌧️ ${getGameText("rain")} - ${timeRemainingInRain}s`, canvas.width / 2, 90);
   } else {
-    let timeToNextEvent = 50 - (gameTimeSeconds % 50);
+    const timeToNextEvent = 50 - (gameTimeSeconds % 50);
     ctx.fillStyle = "rgba(255,255,255,0.5)";
     ctx.font = "14px Quicksand";
     ctx.textAlign = "center";
-    ctx.fillText(
-      `${getGameText("nextRain")}: ${timeToNextEvent}s`,
-      canvas.width / 2,
-      270,
-    );
+    ctx.fillText(`${getGameText("nextRain")}: ${timeToNextEvent}s`, canvas.width / 2, 270);
   }
 
-  for (let i = powerUpParticles.length - 1; i >= 0; i--) {
-    powerUpParticles[i].update();
-    if (powerUpParticles[i].life <= 0) powerUpParticles.splice(i, 1);
+  for (let i = 0; i < powerUpCount; i++) {
+    const p = powerUpPool[i];
+    if (p.life > 0) {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.2;
+      p.life--;
+      ctx.globalAlpha = p.life / 60;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
   }
+  ctx.globalAlpha = 1;
 }
 
 window.addEventListener("keydown", (e) => {
@@ -1069,7 +976,6 @@ window.addEventListener("keydown", (e) => {
     e.preventDefault();
     if (isGameOver) {
       resetGame();
-      animate();
     } else {
       yashiro.jump();
     }
