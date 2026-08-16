@@ -1,5 +1,31 @@
 [
   {
+    "version": "2.2.9",
+    "build": "20260815",
+    "date": "15 de agosto de 2026",
+    "subtitle": "Migración a Vite y mejoras en el lector y el reproductor",
+    "changes": {
+      "new": [
+        "Se migró el sistema de compilación del sitio a Vite, reemplazando la configuración de compilación anterior.",
+        "El servidor de desarrollo de Vite ofrece una depuración considerablemente mejor: recarga instantánea de módulos en caliente, mensajes de error más claros en el navegador y trazas de pila más rápidas y precisas."
+      ],
+      "improvements": [
+        "Se optimizó aún más el lector de PDF tanto en la página de Manga como en la de Novelas para lograr una renderización y navegación de páginas más fluidas.",
+        "Se mejoró el comportamiento del gesto de pellizco (pinch) para hacer zoom, así como el zoom con los botones de acercar/alejar, en los lectores de PDF de Manga y Novelas, especialmente en móviles.",
+        "Se renovó el diseño visual de la vista ampliada del reproductor en la página de Música."
+      ],
+      "fixes": [
+        "Se solucionó un problema en el lector de PDF de Manga donde cambiar al modo de lectura en Cascada mostraba una pantalla en blanco en lugar de las páginas del manga.",
+        "Se solucionó un problema donde el gesto de pellizco para hacer zoom en móviles, dentro del lector de PDF de Manga, podía trabarse o no seguir los dedos con fluidez."
+      ],
+      "notes": [
+        "Esta versión migra el sistema de compilación del proyecto a Vite, lo que mejora considerablemente la experiencia de depuración para el equipo de desarrollo gracias a recompilaciones más rápidas y mensajes de error más claros. Se trata de un cambio interno de herramientas que no afecta la experiencia de lectura de los visitantes habituales.",
+        "Los lectores de PDF de Manga y Novelas recibieron más optimizaciones, junto con correcciones al modo de lectura en Cascada y a los gestos de pellizco para hacer zoom en móviles.",
+        "La vista ampliada del reproductor en la página de Música recibió una actualización de diseño visual."
+      ]
+    }
+  },
+  {
     "version": "2.2.8",
     "build": "20260814",
     "date": "14 de agosto de 2026",

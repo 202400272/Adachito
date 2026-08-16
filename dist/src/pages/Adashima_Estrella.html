@@ -63,7 +63,12 @@
     <script>
       const APP_VERSION = "1.0.6";
       window.APP_VERSION = APP_VERSION;
-    </script>
+      document.write(
+        '<link rel="stylesheet" href="/src/css/estrella.css?v=' +
+          APP_VERSION +
+          '" />',
+      );
+    </script>
 
     <link
       rel="icon"
@@ -99,7 +104,6 @@
       sizes="512x512"
       href="/assets/icon-512x512-D6FRuYV7.webp"
     />
-    <link rel="stylesheet" crossorigin href="/assets/estrella-Cj2dGfvJ.css">
   </head>
   <body>
     <audio
@@ -131,6 +135,8 @@
           <img
             src="/assets/Adashim_Menu-BdZH3IHP.webp"
             alt="AdashimaVerse"
+            width="250"
+            height="177"
             onerror="this.style.display = 'none'"
           />
           <div class="logo-label">
