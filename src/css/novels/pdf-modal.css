@@ -84,6 +84,18 @@
   background: var(--pdf-canvas-bg, #1a1a1f);
 }
 
+/* Grab/grabbing affordance for desktop click-drag panning. The JS only
+   engages actual dragging once zoomed past fit scale (see mousedown
+   handler), but showing "grab" at all times here is a cheap, harmless
+   hint; "grabbing" during an active drag confirms the interaction. */
+.pdf-canvas-container {
+  cursor: grab;
+}
+.pdf-canvas-container.panning {
+  cursor: grabbing;
+  user-select: none;
+}
+
 .pdf-canvas-wrapper {
   display: flex;
   align-items: center;
@@ -99,6 +111,10 @@
      constrain with CSS width/height here, that would fight the
      fit-to-viewport calculation and reintroduce empty margins or
      distort the aspect ratio. */
+  /* Promotes the canvas to its own compositing layer ahead of the zoom
+     gesture so the CSS-transform preview (applyZoomPreview) doesn't
+     stutter on the frame it first engages. */
+  will-change: transform;
 }
 
 /* --------------------------------------------------------------------
@@ -110,7 +126,9 @@
   min-width: 0;
   min-height: 0;
   overflow-y: auto;
-  overflow-x: hidden;
+  /* Was overflow-x: hidden — that clipped zoomed-in pages instead of
+     letting them pan horizontally like single-page mode does. */
+  overflow-x: auto;
   touch-action: pan-x pan-y;
   -webkit-overflow-scrolling: touch;
   background: var(--pdf-canvas-bg, #1a1a1f);
@@ -124,8 +142,12 @@
 
 .pdf-cascade-page {
   position: relative;
-  width: 100%;
-  max-width: 100%;
+  /* Width is set explicitly by JS (renderCascadePage / relayoutCascadePages)
+     to reflect the current zoom level — do not default to 100%/max-width
+     here, that fought the inline width once zoomed and squashed pages
+     back down to the container's own size. flex-shrink:0 keeps it from
+     being compressed by the flex column when wider than the container. */
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -138,7 +160,6 @@
   display: block;
   width: 100%;
   height: 100%;
-  max-width: 100%;
   opacity: 0;
   transition: opacity 0.18s ease;
 }
@@ -175,76 +196,166 @@
   }
 }
 
-@media (min-width: 769px) {
-  .pdf-cascade-page {
-    max-width: min(100%, 900px);
-  }
+/* The 900px desktop reading-width cap now lives in JS (getCascadeBaseWidth)
+   so it factors into the same scale computation as zoom, instead of a
+   separate CSS max-width fighting the JS-driven width once zoomed. */
+
+/* --------------------------------------------------------------------
+   Merged header: the "Reading: Volume X" title bar and the page/zoom
+   controls now live in ONE row (#pdfModal .pdf-modal-header) instead
+   of a title bar plus a second floating toolbar. This saves a whole
+   row of vertical space and keeps the controls permanently visible
+   and readable instead of a low-contrast HUD that faded in and out.
+
+   Specificity note: every rule below is scoped with the #pdfModal id
+   so it reliably wins over the shared, lower-contrast defaults in
+   pdf-reader.css (used by the manga reader too) regardless of the
+   order the stylesheets happen to load in.
+   -------------------------------------------------------------------- */
+
+#pdfModal .pdf-modal-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  padding: 10px 16px;
+  background: rgba(15, 15, 20, 0.96);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#pdfModal .pdf-modal-title {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 40%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: rgba(232, 200, 223, 0.95);
+}
+
+#pdfModal .pdf-modal-title span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#pdfModal .pdf-modal-close {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+#pdfModal .pdf-modal-close:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+/* The toolbar, once inside the header, flows inline instead of
+   floating absolutely over the canvas — it shares the header's own
+   opaque background, so it never needs (or gets) its own bar. */
+#pdfModal .pdf-toolbar-in-header {
+  /* relative (not static): the "more" dropdown below still anchors
+     its position off this element, it just no longer floats over
+     the canvas itself */
+  position: relative;
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  min-width: 0;
+  padding: 0;
+  background: transparent;
+  border-bottom: none;
+  min-height: 0;
+}
+
+#pdfModal .pdf-toolbar-in-header .pdf-toolbar-primary {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-wrap: nowrap;
+}
+
+/* High-contrast controls: solid near-white icons on the opaque header
+   bar, replacing the low-opacity mauve that was hard to see. */
+#pdfModal .pdf-toolbar-in-header .pdf-btn {
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+#pdfModal .pdf-toolbar-in-header .pdf-btn:hover,
+#pdfModal .pdf-toolbar-in-header .pdf-btn:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+#pdfModal .pdf-toolbar-in-header .pdf-btn:active {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+#pdfModal .pdf-toolbar-in-header .pdf-btn.active,
+#pdfModal .pdf-toolbar-in-header .pdf-btn[aria-pressed="true"] {
+  background: rgba(255, 255, 255, 0.26);
+  color: #fff;
+}
+
+#pdfModal .pdf-toolbar-in-header .pdf-btn:disabled {
+  opacity: 0.35;
+}
+
+#pdfModal .pdf-toolbar-in-header .pdf-page-info,
+#pdfModal .pdf-toolbar-in-header .pdf-zoom-display {
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 600;
+}
+
+#pdfModal .pdf-toolbar-in-header .pdf-page-input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+
+#pdfModal .pdf-toolbar-in-header .pdf-page-input:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+#pdfModal .pdf-toolbar-in-header .pdf-toolbar-divider {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* "More" dropdown still anchors under its own button — unaffected by
+   the toolbar now living inside the header instead of over the canvas. */
+#pdfModal .pdf-toolbar-in-header .pdf-toolbar-secondary {
+  background: rgba(24, 24, 27, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#pdfModal .pdf-toolbar-in-header .pdf-toolbar-secondary .pdf-btn {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+#pdfModal .pdf-toolbar-in-header .pdf-toolbar-secondary .pdf-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
 }
 
 /* --------------------------------------------------------------------
-   Minimal HUD: toolbar + progress bar fade away while reading and
-   reappear on interaction (see JS: scheduleToolbarAutoHide /
-   toggleToolbarVisibility, which toggle .pdf-chrome-hidden).
+   Progress bar: the only piece that still floats over the canvas and
+   auto-hides while reading (see JS: scheduleToolbarAutoHide /
+   toggleToolbarVisibility, which toggle .pdf-chrome-hidden on the
+   viewer). The controls themselves no longer auto-hide now that
+   they're part of the fixed header above.
    -------------------------------------------------------------------- */
 
-.pdf-toolbar,
 .pdf-progress-wrap {
   position: absolute;
   left: 0;
   right: 0;
+  top: auto;
+  bottom: 0;
   z-index: 5;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.12);
   transition:
     opacity 0.25s ease,
     transform 0.25s ease;
   opacity: 1;
-  transform: translateY(0);
-}
-
-.pdf-modal-title.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.pdf-toolbar {
-  top: 0;
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  padding: 6px 8px;
-  /* Flat, near-opaque bar — this is the reading HUD, not a floating
-     gradient overlay, so it reads clearly over any page content. */
-  background: rgba(18, 18, 20, 0.94);
-}
-
-/* Inner wrapper for the prev/next/zoom/more controls. Flex row so
-   buttons lay out horizontally along the toolbar instead of falling
-   back to unstyled block/inline flow. */
-.pdf-toolbar-primary {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  flex: 1;
-  min-width: 0;
-}
-
-.pdf-progress-wrap {
-  top: auto;
-  bottom: 0;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.pdf-chrome-hidden .pdf-toolbar {
-  opacity: 0;
-  transform: translateY(-8px);
-  pointer-events: none;
 }
 
 .pdf-chrome-hidden .pdf-progress-wrap {
@@ -252,6 +363,8 @@
   pointer-events: none;
 }
 
+/* The reveal tab still exists to bring the progress bar back on
+   touch devices, tucked under the (now merged) header. */
 .pdf-chrome-reveal {
   position: absolute;
   top: 6px;
@@ -282,22 +395,18 @@
 
 /* --------------------------------------------------------------------
    Toolbar controls: one flat icon-only row. No visible button chrome
-   at rest — icons sit directly on the bar, exactly like a native
-   mobile document-viewer toolbar, and only pick up a background on
-   hover/active/pressed so the row stays visually quiet while reading.
+   at rest — icons pick up a background only on hover/active/pressed.
    -------------------------------------------------------------------- */
 
 .pdf-btn-label {
   display: none;
 }
 
-.pdf-btn {
+#pdfModal .pdf-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border: none;
-  background: transparent;
-  color: #e8e8ea;
   border-radius: 6px;
   width: 34px;
   height: 34px;
@@ -307,72 +416,41 @@
   transition: background 0.15s ease;
 }
 
-.pdf-btn:hover,
-.pdf-btn:focus-visible {
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.pdf-btn:active {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.pdf-btn.active,
-.pdf-btn[aria-pressed="true"] {
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-}
-
-.pdf-btn:disabled {
-  opacity: 0.3;
-  cursor: default;
-}
-
-/* Prev/next flank the page indicator; zoom controls flank the
-   percentage — pull those pairs visually together, then let the rest
-   of the row breathe, mirroring the reference bar's grouping. */
-.pdf-toolbar {
-  justify-content: space-between;
-}
-
-.pdf-page-info,
-.pdf-zoom-display {
-  color: #cfcfd2;
-  font-size: 12.5px;
-  white-space: nowrap;
-  padding: 0 2px;
-  flex: 0 0 auto;
-}
-
-.pdf-page-input {
-  width: 56px;
+#pdfModal .pdf-page-input {
+  width: 52px;
   height: 30px;
   border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
   text-align: center;
   font-size: 13px;
 }
 
-.pdf-toolbar-divider {
+#pdfModal .pdf-toolbar-divider {
   width: 1px;
   height: 20px;
-  background: rgba(255, 255, 255, 0.15);
   margin: 0 2px;
 }
 
 /* --------------------------------------------------------------------
    Kebab (⋮) overflow menu: a small dropdown anchored under the
-   button, not an inline row — matches how the reference's toolbar
-   stays a single flat line no matter how many actions it holds.
+   button, not an inline row.
    -------------------------------------------------------------------- */
 
-.pdf-more-wrap {
+#pdfModal .pdf-more-wrap {
   position: relative;
   flex: 0 0 auto;
+  /* Establishes its own stacking context so the dropdown's z-index
+     below is actually compared against the rest of the modal, rather
+     than being capped by ancestors that never declare a z-index of
+     their own (.pdf-modal-header, .pdf-toolbar-in-header,
+     .pdf-toolbar-primary are all z-index:auto). Without this, the
+     dropdown — despite being position:absolute — was painting
+     *underneath* deeper body elements that do set an explicit
+     z-index, e.g. .pdf-thumbnails-sidebar (7), .pdf-progress-wrap (5),
+     .pdf-chrome-reveal (6), and .pdf-page-indicator-mobile (4). */
+  z-index: 20;
 }
 
-.pdf-toolbar-secondary {
+#pdfModal .pdf-toolbar-secondary {
   position: absolute;
   top: calc(100% + 6px);
   right: 0;
@@ -382,7 +460,6 @@
   gap: 2px;
   padding: 6px;
   border-radius: 10px;
-  background: rgba(24, 24, 27, 0.98);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   opacity: 0;
   transform: translateY(-6px) scale(0.98);
@@ -390,15 +467,19 @@
   transition:
     opacity 0.15s ease,
     transform 0.15s ease;
+  /* Belt-and-suspenders: matches .pdf-more-wrap's stacking context
+     above, kept explicit here in case this class is ever reused
+     outside that wrapper. Highest layer inside the modal shell. */
+  z-index: 20;
 }
 
-.pdf-toolbar-secondary.open {
+#pdfModal .pdf-toolbar-secondary.open {
   opacity: 1;
   transform: translateY(0) scale(1);
   pointer-events: auto;
 }
 
-.pdf-toolbar-secondary .pdf-btn {
+#pdfModal .pdf-toolbar-secondary .pdf-btn {
   width: 100%;
   height: auto;
   justify-content: flex-start;
@@ -407,65 +488,86 @@
   border-radius: 7px;
 }
 
-.pdf-toolbar-secondary .pdf-btn-label {
+#pdfModal .pdf-toolbar-secondary .pdf-btn-label {
   display: inline;
   font-size: 13.5px;
 }
 
 /* --------------------------------------------------------------------
-   Responsive behavior
+   Responsive behavior: header wraps to a second line on narrow
+   screens rather than the controls shrinking to the point of being
+   hard to tap or see — this still costs far less height than the old
+   separate title bar + toolbar.
    -------------------------------------------------------------------- */
 
-/* Desktop: hover reveals chrome; page info stays visible since there's
-   room for it (mobile hides it — see below — to match the compact
-   reference toolbar exactly). */
-@media (min-width: 769px) {
-  .custom-pdf-viewer:hover .pdf-toolbar,
-  .custom-pdf-viewer:hover .pdf-progress-wrap {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-}
-
-/* Tablet & mobile: larger touch targets; on touch there's no hover to
-   reveal chrome, so it relies entirely on the tap-to-toggle/auto-hide
-   behavior driven from JS. Page number/percentage text is dropped from
-   the row itself — it's still available via the mobile indicator pill
-   and the thumbnails panel — to keep the bar exactly one compact row. */
 @media (max-width: 768px) {
-  .pdf-toolbar {
-    padding: 8px 6px;
+  #pdfModal .pdf-modal-header {
+    padding: 8px 10px;
+    gap: 6px 10px;
   }
 
-  .pdf-btn {
-    width: 42px;
-    height: 42px;
+  #pdfModal .pdf-modal-title {
+    max-width: 100%;
+    flex-basis: 100%;
+    order: -1;
+    font-size: 0.85rem;
+  }
+
+  #pdfModal .pdf-toolbar-in-header {
+    flex-basis: 100%;
+    justify-content: center;
+  }
+
+  /* Let the icon row itself wrap on very narrow phones instead of
+     clipping or overflowing past the edge of the modal. */
+  #pdfModal .pdf-toolbar-in-header .pdf-toolbar-primary {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  #pdfModal .pdf-btn {
+    width: 40px;
+    height: 40px;
     border-radius: 8px;
     font-size: 16px;
   }
 
-  .pdf-page-info {
+  #pdfModal .pdf-page-info {
     display: none;
   }
 
-  .pdf-zoom-display {
+  #pdfModal .pdf-zoom-display {
     font-size: 12px;
     min-width: 34px;
     text-align: center;
   }
 
-  .pdf-page-input {
-    width: 56px;
-    height: 38px;
+  #pdfModal .pdf-page-input {
+    width: 52px;
+    height: 36px;
   }
 }
 
 @media (min-width: 481px) and (max-width: 900px) {
   /* Tablet: same touch-first model as mobile but roomier targets. */
-  .pdf-btn {
-    width: 46px;
-    height: 46px;
+  #pdfModal .pdf-btn {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  #pdfModal .pdf-modal-title {
+    font-size: 0.8rem;
+  }
+
+  #pdfModal .pdf-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  #pdfModal .pdf-page-input {
+    width: 44px;
   }
 }
 
@@ -497,5 +599,242 @@
   .pdf-chrome-hidden .pdf-page-indicator-mobile {
     display: flex !important;
     opacity: 0.85;
+  }
+}
+/* ========================================================================
+   MOBILE READER v2 — immersive ebook layout
+   Scoped to #pdfModal so the shared manga/PDF reader remains unchanged.
+   ======================================================================== */
+@media (max-width: 768px) {
+  #pdfModal .pdf-modal-content {
+    width: 100vw;
+    height: 100dvh;
+    max-width: 100vw;
+    max-height: 100dvh;
+    margin: 0;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right)
+      env(safe-area-inset-bottom) env(safe-area-inset-left);
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  /* One compact row: title | essential navigation | close */
+  #pdfModal .pdf-modal-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 6px;
+    min-height: 50px;
+    padding: 5px 8px 5px 12px;
+    flex-wrap: nowrap;
+    background: rgba(15, 15, 20, 0.96);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    z-index: 30;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  #pdfModal .pdf-modal-title {
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+    font-size: 0.84rem;
+    line-height: 1.2;
+  }
+
+  #pdfModal .pdf-modal-title span {
+    min-width: 0;
+  }
+
+  #pdfModal .pdf-toolbar-in-header {
+    grid-column: 2;
+    grid-row: 1;
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 0;
+    justify-content: center;
+    padding: 0;
+    background: transparent;
+  }
+
+  #pdfModal .pdf-toolbar-in-header .pdf-toolbar-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    flex-wrap: nowrap;
+  }
+
+  /* Keep only Previous / page / Next / More in the primary row. */
+  #pdfModal #pdfPageInputModal,
+  #pdfModal #pdfZoomOutModal,
+  #pdfModal #zoomDisplayModal,
+  #pdfModal #pdfZoomInModal,
+  #pdfModal .pdf-toolbar-divider {
+    display: none;
+  }
+
+  #pdfModal .pdf-toolbar-in-header .pdf-btn {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 10px;
+    font-size: 15px;
+  }
+
+  #pdfModal .pdf-toolbar-in-header .pdf-page-info {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    padding: 0 4px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.72);
+    white-space: nowrap;
+  }
+
+  #pdfModal .pdf-modal-close {
+    grid-column: 3;
+    grid-row: 1;
+    width: 38px;
+    height: 38px;
+    margin: 0;
+    border-radius: 10px;
+    font-size: 1rem;
+  }
+
+  /* The PDF gets all remaining space. */
+  #pdfModal .pdf-modal-body {
+    flex: 1;
+    min-height: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #pdfModal .pdf-modal-body .custom-pdf-viewer {
+    height: 100%;
+    min-height: 0;
+    border: 0;
+    border-radius: 0;
+    background: #0d0b11;
+  }
+
+  #pdfModal .pdf-canvas-container {
+    align-items: center;
+    justify-content: center;
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #pdfModal .pdf-canvas-wrapper {
+    padding: 0;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  #pdfModal .pdf-canvas-wrapper canvas {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  /* Keep the existing page indicator as the quiet HUD while chrome is hidden. */
+  #pdfModal .pdf-page-indicator-mobile {
+    left: 50%;
+    right: auto;
+    bottom: max(14px, env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: rgba(15, 15, 20, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 11px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
+  }
+
+  /* Existing chrome auto-hide state: hide the whole header, not just the
+     progress bar. The reveal tab remains available inside the viewer. */
+  #pdfModal:has(.custom-pdf-viewer.pdf-chrome-hidden) .pdf-modal-header {
+    opacity: 0;
+    transform: translateY(-100%);
+    pointer-events: none;
+  }
+
+  #pdfModal:has(.custom-pdf-viewer.pdf-chrome-hidden) .pdf-modal-body {
+    /* The header remains in the flex layout while hidden; collapse its space. */
+    margin-top: -50px;
+  }
+
+  /* More menu: anchor it to the ⋯ button instead of the bottom of
+     the viewport. The parent .pdf-more-wrap is position:relative,
+     so this opens directly beneath the button on mobile. */
+  #pdfModal .pdf-more-wrap {
+    position: relative;
+    z-index: 40;
+  }
+
+  #pdfModal .pdf-toolbar-secondary {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    left: auto;
+    bottom: auto;
+
+    width: min(250px, calc(100vw - 20px));
+    min-width: 0;
+    max-height: min(70dvh, 430px);
+    overflow-y: auto;
+
+    padding: 6px;
+    border-radius: 14px;
+    background: rgba(24, 24, 27, 0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+
+    /* Keep the dropdown above the PDF/canvas layers. */
+    z-index: 50;
+  }
+
+  #pdfModal .pdf-toolbar-secondary .pdf-btn {
+    min-height: 44px;
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  #pdfModal .pdf-chrome-reveal {
+    top: max(6px, env(safe-area-inset-top));
+    width: 48px;
+    height: 24px;
+    border-radius: 0 0 14px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  #pdfModal .pdf-modal-header {
+    min-height: 46px;
+    padding: 4px 6px 4px 10px;
+  }
+
+  #pdfModal .pdf-modal-title {
+    font-size: 0.78rem;
+  }
+
+  #pdfModal .pdf-toolbar-in-header .pdf-btn,
+  #pdfModal .pdf-modal-close {
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+    border-radius: 9px;
+  }
+
+  #pdfModal .pdf-toolbar-in-header .pdf-page-info {
+    min-width: 58px;
+    font-size: 10px;
+  }
+
+  #pdfModal:has(.custom-pdf-viewer.pdf-chrome-hidden) .pdf-modal-body {
+    margin-top: -46px;
   }
 }

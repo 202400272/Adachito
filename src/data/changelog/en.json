@@ -1,5 +1,31 @@
 [
   {
+    "version": "2.2.9",
+    "build": "20260815",
+    "date": "August 15, 2026",
+    "subtitle": "Vite Migration & Reader/Player Refinements",
+    "changes": {
+      "new": [
+        "Migrated the site's build tooling to Vite, replacing the previous build setup.",
+        "Vite's dev server brings substantially better debugging: instant hot-module reloading, clearer in-browser error overlays, and faster, more accurate source-mapped stack traces."
+      ],
+      "improvements": [
+        "Further optimized the PDF reader in both the Manga and Novels pages for smoother page rendering and navigation.",
+        "Improved pinch-to-zoom and zoom in/out behavior in the Manga and Novels PDF readers, especially on mobile.",
+        "Refreshed the visual design of the expanded player view on the Music page."
+      ],
+      "fixes": [
+        "Fixed an issue in the Manga PDF reader where switching to Cascade reading mode displayed a blank screen instead of the manga pages.",
+        "Fixed an issue where pinch-to-zoom gestures on mobile in the Manga PDF reader could stutter or fail to track fingers smoothly."
+      ],
+      "notes": [
+        "This release migrates the project's build system to Vite, which significantly improves the developer debugging experience through faster rebuilds and clearer error reporting. This is an internal tooling change and doesn't affect the reading experience for regular visitors.",
+        "The Manga and Novels PDF readers received further optimization, along with fixes to Cascade reading mode and to pinch-to-zoom gestures on mobile.",
+        "The Music page's expanded player received a visual design update."
+      ]
+    }
+  },
+  {
     "version": "2.2.8",
     "build": "20260814",
     "date": "August 14, 2026",

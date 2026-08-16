@@ -2273,47 +2273,36 @@ document.addEventListener("keydown", (e) => {
 });
 
 // ===== LOAD MENU WITH TRANSLATION SUPPORT =====
-fetch("/src/components/menu.html?v=" + Date.now(), { cache: "no-store" })
+fetch("/src/components/menu.html?v=20260816-1", { cache: "no-store" })
   .then((response) => {
     if (!response.ok)
       throw new Error("HTTP error " + response.status + " loading menu");
     return response.text();
   })
   .then((data) => {
-    const container =
-      document.getElementById("sidebar-container") ||
-      document.getElementById("menu-container");
-    if (!container) return;
-
-    const normalizedData = data
+    data = data
       .replace(/src="\.\/(assets\/)/g, 'src="../../$1')
       .replace(
         /data-route="\.\.\/\.\.\/index\.html"/g,
         'data-route="../../../index.html"',
       );
+    const container =
+      document.getElementById("sidebar-container") ||
+      document.getElementById("menu-container");
+    if (!container) return;
+    container.innerHTML = data;
 
-    const doc = new DOMParser().parseFromString(normalizedData, "text/html");
-    const frag = document.createDocumentFragment();
-
-    [...doc.head.childNodes, ...doc.body.childNodes].forEach((node) => {
-      if (node.nodeType === 1 || node.nodeType === 3) {
-        if (node.nodeName.toLowerCase() === "script") {
-          const s = document.createElement("script");
-          if (node.src) s.src = node.src;
-          else s.textContent = node.textContent;
-          frag.appendChild(s);
-        } else {
-          frag.appendChild(node.cloneNode(true));
-        }
-      }
+    container.querySelectorAll("script").forEach((oldScript) => {
+      const s = document.createElement("script");
+      Array.from(oldScript.attributes).forEach((a) =>
+        s.setAttribute(a.name, a.value),
+      );
+      s.appendChild(document.createTextNode(oldScript.innerHTML));
+      oldScript.parentNode.replaceChild(s, oldScript);
     });
-
-    container.innerHTML = "";
-    container.appendChild(frag);
 
     setTimeout(() => {
       document.dispatchEvent(new CustomEvent("menuLoaded"));
-      enforceMenuLayout();
     }, 100);
   })
   .catch((e) => console.warn("menu.html not available:", e.message));
@@ -2322,7 +2311,6 @@ document.addEventListener("menuLoaded", function () {
   if (typeof window.translateMenu === "function") {
     window.translateMenu(currentLang);
   }
-  enforceMenuLayout();
 });
 
 // ===== FORCE MENU LAYOUT (bypasses any stylesheet load-order / cache issue) =====

@@ -1,3 +1,9 @@
-For local testing, run this via cmd:
+For local testing, run these via cmd:
 
+1. if you want to test the output of 'npm run build'
 npx wrangler pages dev dist --port 5500
+
+2. if you want to test from the root:
+npx wrangler pages dev . --port 5500
+
+For production builds, use method #1

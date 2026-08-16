@@ -68,10 +68,10 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=20260812"
     />
 
-    <link rel="stylesheet" href="/src/css/anime.css?v=20260812" />
-    <link rel="stylesheet" href="/src/css/lang-switch.css?v=20260812" />
-    <link rel="stylesheet" href="/src/components/styles/scrollbar.css?v=20260812" />
-    <link rel="stylesheet" href="/src/components/styles/menu.css?v=20260812" />
+    <link rel="stylesheet" href="/src/css/anime.css?v=20260816-1" />
+    <link rel="stylesheet" href="/src/css/lang-switch.css?v=20260816-1" />
+    <link rel="stylesheet" href="/src/components/styles/scrollbar.css?v=20260816-1" />
+    <link rel="stylesheet" href="/src/components/styles/menu.css?v=20260816-1" />
     <style>
       /* ------------------------------------------------------------
          The menu component (menu.html) is fetched and injected into
@@ -84,40 +84,22 @@
          layout always wins regardless of load order.
          ------------------------------------------------------------ */
       @media (min-width: 901px) {
-        #sidebar-container {
-          position: fixed !important;
-          top: 0 !important;
-          left: 0 !important;
-          width: 300px !important;
-          height: 100vh !important;
-          overflow-y: auto !important;
-          z-index: 1 !important;
-          display: block !important;
-        }
         html body #sidebar-container #menu-component-wrapper .sidebar {
           position: fixed !important;
           top: 0 !important;
           left: 0 !important;
           right: auto !important;
-          width: 300px !important;
           height: 100vh !important;
           overflow-y: auto !important;
           transform: none !important;
-          z-index: 1 !important;
-          flex-shrink: 0 !important;
-        }
-        #menu-component-wrapper {
-          position: static !important;
-          width: 100% !important;
-          height: 100% !important;
+          z-index: 10;
         }
         html body #menu-component-wrapper .mobile-toggle {
           display: none !important;
         }
         .main-content {
-          margin-left: 300px !important;
-          width: calc(100% - 300px) !important;
-          padding-right: 16px !important;
+          margin-left: 300px;
+          width: calc(100% - 300px);
         }
       }
       @media (max-width: 900px) {
@@ -174,7 +156,7 @@
     />
   </head>
   <body>
-    <div id="sidebar-container" style="display: block"></div>
+    <div id="sidebar-container" style="display: contents"></div>
 
     <!-- PARTICLES -->
     <div class="particles" id="particles"></div>
@@ -979,7 +961,7 @@
     </div>
 
     <!-- Import JS -->
-    <script src="/src/js/language-switch.js?v=20260812"></script>
-    <script src="/src/js/anime.js?v=20260812"></script>
+    <script type="module" src="/src/js/language-switch.js"></script>
+    <script type="module" src="/src/js/anime.js"></script>
   </body>
 </html>

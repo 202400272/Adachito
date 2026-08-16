@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "vite build && node scripts/copy-static.js",
-    "dev": "vite --host",
-    "preview": "vite preview --host"
+    "dev": "vite",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",

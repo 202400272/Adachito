@@ -1,9 +1,12 @@
 // Runs after `vite build`. Copies files that are loaded via runtime
 // fetch()/string paths rather than <link>/<script> tags Vite can see,
 // so it can't hash or bundle them — they just need to reach dist/ as-is.
-const fs = require("fs").promises;
-const path = require("path");
+import fs from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const root = path.join(__dirname, "..");
 const dist = path.join(root, "dist");
 

@@ -62,14 +62,39 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://static.cloudflareinsights.com" />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="preload"
+      as="style"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+        rel="stylesheet"
+      />
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      />
+    </noscript>
     <link rel="stylesheet" href="/src/css/index.css?v=1.5.2" />
     <link
       rel="stylesheet"
@@ -203,13 +228,15 @@
           <div class="bike-glow"></div>
           <img
             src="/assets/Imagenes/Ada_bici-Photoroom.webp"
+            srcset="/assets/Imagenes/Ada_bici-Photoroom-700w.webp 700w, /assets/Imagenes/Ada_bici-Photoroom.webp 1600w"
+            sizes="(max-width: 800px) 90vw, 800px"
             alt="Bicicleta Adachi"
             class="floating-bike"
             loading="eager"
             fetchpriority="high"
             decoding="async"
-            width="1920"
-            height="1494"
+            width="1600"
+            height="1245"
           />
         </div>
       </section>
