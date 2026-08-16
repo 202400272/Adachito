@@ -1,0 +1,18 @@
+/Adashima_About          /src/pages/Adashima_About          200
+/Adashima_Anime          /src/pages/Adashima_Anime           200
+/Adashima_Drama          /src/pages/Adashima_Drama           200
+/Adashima_Estrella       /src/pages/Adashima_Estrella        200
+/Adashima_Extra_Stories  /src/pages/Adashima_Extra_Stories   200
+/Adashima_Gallery        /src/pages/Adashima_Gallery         200
+/Adashima_Linea          /src/pages/Adashima_Linea           200
+/Adashima_Manga          /src/pages/Adashima_Manga           200
+/Adashima_Music          /src/pages/Adashima_Music           200
+/Adashima_Novelas        /src/pages/Adashima_Novelas         200
+/Adashima_Otros          /src/pages/Adashima_Otros           200
+/Adashima_Stats          /src/pages/Adashima_Stats           200
+/Juego                   /src/pages/Juego                     200
+/Author_Archive          /src/pages/otros/Author_Archive     200
+/otros/Author_Archive.html /src/pages/otros/Author_Archive 200
+
+# Optional SPA catch-all (uncomment if you want unknown routes to serve index.html)
+# /*  /index.html  200

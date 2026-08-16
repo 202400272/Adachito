@@ -1,2 +1,3 @@
 For local testing, run this via cmd:
-npx wrangler pages dev . --port 5500
+
+npx wrangler pages dev dist --port 5500

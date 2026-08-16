@@ -214,9 +214,9 @@
               data-tg="Wala pang mga paborito"
             >No favorites yet</h3>
             <p id="favoritesEmptyDesc"
-              data-es="Marca pistas con \"Me encanta\" para verlas aquí."
-              data-en="Mark tracks with \"Like\" to see them here."
-              data-tg="Markahan ang mga track ng \"Like\" para makita sila dito."
+              data-es="Marca pistas con Me encanta para verlas aquí."
+              data-en="Mark tracks with Like to see them here."
+              data-tg="Markahan ang mga track ng Like para makita sila dito."
             >Mark tracks with "Like" to see them here.</p>
           </div>
         </div>
@@ -808,11 +808,7 @@
     <script src="/src/js/language-switch.js"></script>
     <script src="/src/js/music.js"></script>
     <script>
-      // Mobile "Now Playing" ⇄ "Up Next" paging — mirrors Spotify's
-      // swipe-to-see-queue behavior: the two panels sit side by side and
-      // scroll-snap horizontally, with dots tracking which page is active.
-      // No-ops harmlessly if elements are missing, and is inert on desktop
-      // where the two panels are already shown side by side in the grid.
+
       (function () {
         var overlay = document.getElementById("expandedPlayerOverlay");
         var grid = document.querySelector(".expanded-player-grid");

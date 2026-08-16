@@ -223,6 +223,17 @@
   background: rgba(18, 18, 20, 0.94);
 }
 
+/* Inner wrapper for the prev/next/zoom/more controls. Flex row so
+   buttons lay out horizontally along the toolbar instead of falling
+   back to unstyled block/inline flow. */
+.pdf-toolbar-primary {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
 .pdf-progress-wrap {
   top: auto;
   bottom: 0;

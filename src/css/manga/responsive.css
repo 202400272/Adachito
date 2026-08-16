@@ -24,19 +24,14 @@
 }
 
 @media (max-width: 768px) {
-  .main-content {
-    background-image: url('../../../assets/Imagenes/IMAGENMANGA_MOVIL.webp');
-    background-position: center center;
-    background-size: cover;
-    background-attachment: scroll;
-    min-height: 100vh;
-    padding: 24px 16px 40px;
-  }
-
-        flex-direction: column;
-    }
-
     .main-content {
+        background-image: url('../../../assets/Imagenes/IMAGENMANGA_MOVIL.webp');
+        background-position: center center;
+        background-size: cover;
+        background-attachment: scroll;
+        min-height: 100vh;
+        padding: 24px 16px 40px;
+        flex-direction: column;
         background-position: top center;
         padding: 18px 10px 50px;
     }
@@ -312,7 +307,7 @@
         max-width: 100% !important;
         height: auto !important;
     }
-}
+} /* <-- Added missing closing bracket for @media (max-width: 768px) */
 
 @media (max-width: 480px) {
     .main-content {

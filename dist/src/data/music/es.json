@@ -1,0 +1,631 @@
+{
+  "language": "Spanish",
+  "langLabel": "Español",
+  "page": {
+    "title": "Música",
+    "subtitle": "OST & Bandas Sonoras",
+    "backToLibrary": "Volver a la Música",
+    "favoritesButtonLabel": "Favoritos",
+    "favoritesHeading": "Favoritos",
+    "favoritesEmptyTitle": "Aún no hay favoritos",
+    "favoritesEmptyDesc": "Marca pistas con \"Me encanta\" para verlas aquí."
+  },
+  "ost": {
+    "badge": "BANDA SONORA ORIGINAL",
+    "title": "Adachi to Shimamura",
+    "album": "Banda Sonora Original",
+    "titleJp": "アニメ 安達としまむら オリジナル・サウンドトラック",
+    "titleEn": "Anime Adachi to Shimamura Original Soundtrack",
+    "artist": "Varios Artistas",
+    "releaseYear": "2020",
+    "trackCount": "{count} pistas",
+    "totalDuration": "{duration}",
+    "playAll": "Reproducir Álbum",
+    "playAllTracks": "Reproducir todo",
+    "shuffle": "Aleatorio",
+    "saveToFavorites": "Guardar en favoritos",
+    "tracksHeading": "Pistas",
+    "searchPlaceholder": "Buscar pistas...",
+    "noTracksFound": "No se encontraron pistas",
+    "noTracksDesc": "Intenta ajustar tu búsqueda.",
+    "noFavorites": "Aún no hay pistas favoritas",
+    "noFavoritesDesc": "Guarda pistas con el botón del corazón para encontrarlas aquí.",
+    "loading": "Cargando pistas...",
+    "catalogNumber": "Número de Catálogo",
+    "barcode": "Código de Barras",
+    "releaseDate": "Fecha de Lanzamiento",
+    "releasePrice": "Precio de Lanzamiento",
+    "mediaFormat": "Formato",
+    "classification": "Clasificación",
+    "label": "Sello",
+    "distributor": "Distribuidor",
+    "phonographicCopyright": "Copyright Fonográfico",
+    "totalTracks": "Total de Pistas",
+    "totalDurationLabel": "Duración Total",
+    "disc": "Disco",
+    "discLength": "Duración del disco"
+  },
+  "filters": {
+    "all": "Todas",
+    "anime": "Anime OST",
+    "character": "Personaje",
+    "drama": "Drama CD",
+    "favorites": "Favoritos"
+  },
+  "player": {
+    "selectTrack": "Selecciona una pista",
+    "play": "Reproducir",
+    "pause": "Pausar",
+    "previous": "Pista anterior",
+    "next": "Siguiente pista",
+    "shuffle": "Aleatorio",
+    "repeat": "Repetir",
+    "repeatOff": "Repetir desactivado",
+    "repeatAll": "Repetir todo",
+    "repeatOne": "Repetir una",
+    "volume": "Volumen",
+    "mute": "Silenciar",
+    "unmute": "Activar sonido",
+    "queue": "Cola",
+    "toggleFavorite": "Alternar favorito",
+    "addFavorite": "Añadir a favoritos",
+    "removeFavorite": "Quitar de favoritos",
+    "seek": "Buscar",
+    "nowPlaying": "REPRODUCIENDO AHORA",
+    "nextUp": "SIGUIENTE",
+    "queueTitle": "Cola",
+    "closeQueue": "Cerrar cola",
+    "noTrackPlaying": "No hay pista reproduciéndose",
+    "playbackError": "No se puede reproducir \"{title}\". Por favor, inténtalo de nuevo.",
+    "playAlbum": "Reproducir Álbum"
+  },
+  "trackList": {
+    "track": "pista",
+    "tracks": "pistas"
+  },
+  "credits": {
+    "title": "Créditos",
+    "music": "Música",
+    "strings": "Cuerdas",
+    "concertmaster": "Concertino",
+    "violin": "Violín",
+    "viola": "Viola",
+    "cello": "Violonchelo",
+    "contrabass": "Contrabajo",
+    "stringQuartet": "Cuarteto de Cuerdas",
+    "violinSolo": "Violín Solo",
+    "celloSolo": "Violonchelo Solo",
+    "piccoloFlute": "Flautín, Flauta",
+    "oboe": "Oboe",
+    "clarinet": "Clarinete",
+    "bassoon": "Fagot",
+    "marimba": "Marimba",
+    "whistling": "Silbido",
+    "pianica": "Pianica",
+    "piano": "Piano",
+    "programming": "Programación y Otros Instrumentos",
+    "otherInstruments": "Otros Instrumentos",
+    "musicianCoordinator": "Coordinador de Músicos",
+    "acousticGuitar": "Guitarra Acústica",
+    "electricGuitar": "Guitarra Eléctrica",
+    "gutGuitar": "Guitarra de Tripa",
+    "mandolin": "Mandolina",
+    "ukulele": "Ukelele",
+    "banjo": "Banjo",
+    "recordingEngineer": "Ingeniero de Grabación y Mezcla",
+    "mixingEngineer": "Ingeniero de Mezcla",
+    "assistantEngineer": "Ingeniero Asistente",
+    "recordedAt": "Grabado en",
+    "mixedAt": "Mezclado en",
+    "masteringEngineer": "Ingeniero de Masterización",
+    "masteredAt": "Masterizado en",
+    "productionManagement": "Gestión de Producción",
+    "recordingProducer": "Productor de Grabación",
+    "recordingProductionAssistant": "Asistente de Producción de Grabación",
+    "coverDesign": "Diseño de Portada",
+    "aAndR": "A&R",
+    "soundtrackProductManagement": "Gestión de Producto de Banda Sonora",
+    "executiveProducer": "Productor Ejecutivo",
+    "composedBy": "Compuesto por",
+    "musicians": "Músicos",
+    "soundtrackStaff": "Personal de la Banda Sonora"
+  },
+  "albums": [
+    {
+      "id": "ost",
+      "title": "Adachi to Shimamura",
+      "title_jp": "アニメ 安達としまむら オリジナル・サウンドトラック",
+      "title_en": "Anime Adachi to Shimamura Original Soundtrack",
+      "artist": "Varios Artistas",
+      "year": "2020",
+      "coverImage": "../../assets/Imagenes/Adashima ost1.webp",
+      "badge": "BANDA SONORA ORIGINAL",
+      "catalogNumber": "UZCL-2200",
+      "barcode": "4571217144307",
+      "releaseDate": "09 de diciembre de 2020",
+      "releasePrice": "2750 JPY",
+      "mediaFormat": "CD",
+      "classification": "Banda Sonora Original",
+      "label": "Anchor Records",
+      "distributor": "Sony Music Solutions Inc.",
+      "phonographicCopyright": "Anchor Records",
+      "folder": "ost",
+      "tracks": [
+        {
+          "id": "ost-1",
+          "title": "Dónde Estoy",
+          "title_jp": "居場所",
+          "title_en": "Whereabouts",
+          "artist": "Hanae Nakamura",
+          "duration": "2:06",
+          "filename": "01. Whereabouts.flac"
+        },
+        {
+          "id": "ost-2",
+          "title": "Pausa para el Almuerzo",
+          "title_jp": "昼休み",
+          "title_en": "Lunch Break",
+          "artist": "Miki Sakurai",
+          "duration": "2:20",
+          "filename": "02. Lunch Break.flac"
+        },
+        {
+          "id": "ost-3",
+          "title": "Junto a Ti",
+          "title_jp": "君の隣",
+          "title_en": "Besides You",
+          "artist": "Natsumi Tabuchi",
+          "duration": "2:35",
+          "filename": "03. Besides You.flac"
+        },
+        {
+          "id": "ost-4",
+          "title": "Pequeña Elevación",
+          "title_jp": "小さな高揚",
+          "title_en": "Small Elevation",
+          "artist": "Miki Sakurai",
+          "duration": "2:24",
+          "filename": "04. Small Elevation.flac"
+        },
+        {
+          "id": "ost-5",
+          "title": "Qué es Socializar",
+          "title_jp": "人付き合いとは",
+          "title_en": "What is Socializing",
+          "artist": "Natsumi Tabuchi",
+          "duration": "2:11",
+          "filename": "05. What is Socializing.flac"
+        },
+        {
+          "id": "ost-6",
+          "title": "Salir",
+          "title_jp": "お出かけ",
+          "title_en": "Go Out",
+          "artist": "Hanae Nakamura",
+          "duration": "1:51",
+          "filename": "06. Go Out.flac"
+        },
+        {
+          "id": "ost-7",
+          "title": "Mundo Negro Azabache",
+          "title_jp": "漆黒の世界",
+          "title_en": "Jet Black World",
+          "artist": "Hanae Nakamura",
+          "duration": "2:02",
+          "filename": "07. Jet Black World.flac"
+        },
+        {
+          "id": "ost-8",
+          "title": "Gente del Futuro",
+          "title_jp": "未来人",
+          "title_en": "Future People",
+          "artist": "Miki Sakurai",
+          "duration": "2:04",
+          "filename": "08. Future People.flac"
+        },
+        {
+          "id": "ost-9",
+          "title": "Comunicación Desconocida",
+          "title_jp": "未知のコミュニケーション",
+          "title_en": "Unknown Communication",
+          "artist": "Miki Sakurai",
+          "duration": "1:58",
+          "filename": "09. Unknown Communication.flac"
+        },
+        {
+          "id": "ost-10",
+          "title": "Cada Día Sin Más",
+          "title_jp": "何気ない毎日",
+          "title_en": "Casual Everyday",
+          "artist": "Hanae Nakamura",
+          "duration": "2:04",
+          "filename": "10. Casual Everyday.flac"
+        },
+        {
+          "id": "ost-11",
+          "title": "Somos Poco Serios",
+          "title_jp": "不真面目な私たち",
+          "title_en": "We are Unscrupulous",
+          "artist": "Natsumi Tabuchi",
+          "duration": "2:05",
+          "filename": "11. We are Unscrupulous.flac"
+        },
+        {
+          "id": "ost-12",
+          "title": "Vergüenza y Delirio",
+          "title_jp": "恥じらいと妄想",
+          "title_en": "Shame and Delusion",
+          "artist": "Hanae Nakamura",
+          "duration": "1:59",
+          "filename": "12. Shame and Delusion.flac"
+        },
+        {
+          "id": "ost-13",
+          "title": "Sentimientos que Quiero Reprimir",
+          "title_jp": "抑えたい気持ち",
+          "title_en": "Feelings I Want to Suppress",
+          "artist": "Miki Sakurai",
+          "duration": "2:10",
+          "filename": "13. Feelings I Want to Suppress.flac"
+        },
+        {
+          "id": "ost-14",
+          "title": "Sentimientos Irritados",
+          "title_jp": "イライラした気持ち",
+          "title_en": "Irritated Feelings",
+          "artist": "Natsumi Tabuchi",
+          "duration": "1:55",
+          "filename": "14. Irritated Feelings.flac"
+        },
+        {
+          "id": "ost-15",
+          "title": "Aun así... Palpitando",
+          "title_jp": "それでも…ドキドキ",
+          "title_en": "Even if ... Throbbing",
+          "artist": "Hanae Nakamura",
+          "duration": "2:08",
+          "filename": "15. Even if... Throbbing.flac"
+        },
+        {
+          "id": "ost-16",
+          "title": "Volvamos Juntas a Casa",
+          "title_jp": "一緒に帰ろう",
+          "title_en": "Let's Go Home Together",
+          "artist": "Miki Sakurai",
+          "duration": "2:12",
+          "filename": "16. Let's Go Home Together.flac"
+        },
+        {
+          "id": "ost-17",
+          "title": "Hermana",
+          "title_jp": "妹",
+          "title_en": "Sister",
+          "artist": "Natsumi Tabuchi",
+          "duration": "1:48",
+          "filename": "17. Sister.flac"
+        },
+        {
+          "id": "ost-18",
+          "title": "Fui Vista...",
+          "title_jp": "見られた…",
+          "title_en": "Was Seen ...",
+          "artist": "Hanae Nakamura",
+          "duration": "1:52",
+          "filename": "18. Was Seen....flac"
+        },
+        {
+          "id": "ost-19",
+          "title": "Mi Mejor Esfuerzo y el Tuyo",
+          "title_jp": "私のベストとあなたのベスト",
+          "title_en": "My Best and Your Best",
+          "artist": "Miki Sakurai",
+          "duration": "2:15",
+          "filename": "19. My Best and Your Best.flac"
+        },
+        {
+          "id": "ost-20",
+          "title": "Amiga",
+          "title_jp": "友達",
+          "title_en": "Friend",
+          "artist": "Natsumi Tabuchi",
+          "duration": "1:58",
+          "filename": "20. Friend.flac"
+        },
+        {
+          "id": "ost-21",
+          "title": "Sensación de Distancia",
+          "title_jp": "距離感",
+          "title_en": "A Sense of Distance",
+          "artist": "Hanae Nakamura",
+          "duration": "2:05",
+          "filename": "21. A Sense of Distance.flac"
+        },
+        {
+          "id": "ost-22",
+          "title": "Corazón Desenredado",
+          "title_jp": "ほどけた心",
+          "title_en": "Unraveled Heart",
+          "artist": "Miki Sakurai",
+          "duration": "2:18",
+          "filename": "22. Unraveled Heart.flac"
+        },
+        {
+          "id": "ost-23",
+          "title": "Sentimientos que Estallan",
+          "title_jp": "弾ける気持ち",
+          "title_en": "Feelings Pop",
+          "artist": "Natsumi Tabuchi",
+          "duration": "1:45",
+          "filename": "23. Feelings Pop.flac"
+        },
+        {
+          "id": "ost-24",
+          "title": "Realidad",
+          "title_jp": "現実",
+          "title_en": "Reality",
+          "artist": "Hanae Nakamura",
+          "duration": "2:02",
+          "filename": "24. Reality.flac"
+        },
+        {
+          "id": "ost-25",
+          "title": "Es Suave",
+          "title_jp": "柔らかい",
+          "title_en": "It's Soft",
+          "artist": "Miki Sakurai",
+          "duration": "1:50",
+          "filename": "25. It's Soft.flac"
+        },
+        {
+          "id": "ost-26",
+          "title": "Compartiendo Cosas Malas",
+          "title_jp": "悪いことの共有",
+          "title_en": "Sharing Bad Things",
+          "artist": "Natsumi Tabuchi",
+          "duration": "1:55",
+          "filename": "26. Sharing Bad Things.flac"
+        },
+        {
+          "id": "ost-27",
+          "title": "Enfurruñada",
+          "title_jp": "ふてくされる",
+          "title_en": "Sulking",
+          "artist": "Hanae Nakamura",
+          "duration": "1:48",
+          "filename": "27. Sulking.flac"
+        },
+        {
+          "id": "ost-28",
+          "title": "Sentimientos que Pasan",
+          "title_jp": "通り過ぎる想い",
+          "title_en": "Feelings Passing By",
+          "artist": "Miki Sakurai",
+          "duration": "2:00",
+          "filename": "28. Feelings Passing By.flac"
+        },
+        {
+          "id": "ost-29",
+          "title": "Dogimagi",
+          "title_jp": "ドギマギ",
+          "title_en": "Dogimagi",
+          "artist": "Natsumi Tabuchi",
+          "duration": "1:42",
+          "filename": "29. Dogimagi.flac"
+        },
+        {
+          "id": "ost-30",
+          "title": "Quiero Llevarme Bien Contigo",
+          "title_jp": "仲良くなりたい",
+          "title_en": "I Want to Get Along With You",
+          "artist": "Hanae Nakamura",
+          "duration": "2:10",
+          "filename": "30. I Want to Get Along With You.flac"
+        },
+        {
+          "id": "ost-31",
+          "title": "Sensación de Seguridad",
+          "title_jp": "安心感",
+          "title_en": "A Sense of Security",
+          "artist": "Miki Sakurai",
+          "duration": "2:05",
+          "filename": "31. A Sense of Security.flac"
+        },
+        {
+          "id": "ost-32",
+          "title": "De Ahora en Adelante",
+          "title_jp": "これから",
+          "title_en": "From Now On",
+          "artist": "Natsumi Tabuchi",
+          "duration": "2:15",
+          "filename": "32. From Now On.flac"
+        },
+        {
+          "id": "ost-33",
+          "title": "Hasta Ahora",
+          "title_jp": "今まで",
+          "title_en": "Until Now",
+          "artist": "Hanae Nakamura",
+          "duration": "2:08",
+          "filename": "33. Until Now.flac"
+        },
+        {
+          "id": "ost-34",
+          "title": "Digámoslo",
+          "title_jp": "伝えよう",
+          "title_en": "Let's Tell",
+          "artist": "Miki Sakurai",
+          "duration": "2:12",
+          "filename": "34. Let's Tell.flac"
+        },
+        {
+          "id": "ost-35",
+          "title": "Abraza tus Sentimientos",
+          "title_jp": "気持ちを受け止めて",
+          "title_en": "Embrace Your Feelings",
+          "artist": "Natsumi Tabuchi",
+          "duration": "2:20",
+          "filename": "35. Embrace Your Feelings.flac"
+        }
+      ]
+    },
+    {
+      "id": "opening",
+      "title": "Kimi ni Aeta Hi",
+      "title_jp": "君に会えた日",
+      "title_en": "The Day I Met You",
+      "artist": "Adachi and Shimamura (CV: Akari Kitō, Miku Itō)",
+      "year": "2020",
+      "coverImage": "../../assets/Imagenes/Adashima ost2.webp",
+      "badge": "TEMA DE APERTURA",
+      "catalogNumber": "PCCG-01929",
+      "releasePrice": "¥1,430",
+      "description": "El tema principal Kimi ni Aeta Hi se utilizó como opening del anime Adachi and Shimamura.",
+      "folder": "opening",
+      "tracks": [
+        {
+          "id": "opening-1",
+          "title": "El Día que te Conocí",
+          "title_jp": "君に会えた日",
+          "title_en": "The Day I Met You",
+          "artist": "Adachi and Shimamura (CV: Akari Kitō, Miku Itō)",
+          "duration": "4:12",
+          "filename": "01. Kimi ni Aeta Hi.flac"
+        },
+        {
+          "id": "opening-2",
+          "title": "Merry-Go-Round",
+          "title_jp": "メリーゴーラウンド",
+          "title_en": "Merry-Go-Round",
+          "artist": "Adachi and Shimamura (CV: Akari Kitō, Miku Itō)",
+          "duration": "3:48",
+          "filename": "02. Merry-Go-Round.flac"
+        },
+        {
+          "id": "opening-3",
+          "title": "El Día que te Conocí -TV size ver.-",
+          "title_jp": "君に会えた日 -TV size ver.-",
+          "title_en": "The Day I Met You -TV size ver.-",
+          "artist": "Adachi and Shimamura (CV: Akari Kitō, Miku Itō)",
+          "duration": "1:30",
+          "filename": "03. Kimi ni Aeta Hi (TV size ver.).flac"
+        },
+        {
+          "id": "opening-4",
+          "title": "Merry-Go-Round -Glocken Ver.-",
+          "title_jp": "メリーゴーラウンド -Glocken Ver.-",
+          "title_en": "Merry-Go-Round -Glocken Ver.-",
+          "artist": "Adachi and Shimamura (CV: Akari Kitō, Miku Itō)",
+          "duration": "2:15",
+          "filename": "04. Merry-Go-Round (Glocken Ver.).flac"
+        },
+        {
+          "id": "opening-5",
+          "title": "El Día que te Conocí -Instrumental-",
+          "title_jp": "君に会えた日 -Instrumental-",
+          "title_en": "The Day I Met You -Instrumental-",
+          "artist": "Adachi and Shimamura (CV: Akari Kitō, Miku Itō)",
+          "duration": "4:12",
+          "filename": "05. Kimi ni Aeta Hi (Instrumental).flac"
+        },
+        {
+          "id": "opening-6",
+          "title": "Merry-Go-Round -Instrumental-",
+          "title_jp": "メリーゴーラウンド -Instrumental-",
+          "title_en": "Merry-Go-Round -Instrumental-",
+          "artist": "Adachi and Shimamura (CV: Akari Kitō, Miku Itō)",
+          "duration": "3:48",
+          "filename": "06. Merry-Go-Round (Instrumental).flac"
+        },
+        {
+          "id": "opening-7",
+          "title": "El Día que te Conocí -Versión Solo de Adachi-",
+          "title_jp": "君に会えた日 -Adachi Solo Ver.-",
+          "title_en": "The Day I Met You -Adachi Solo Ver.-",
+          "artist": "Adachi and Shimamura (CV: Akari Kitō, Miku Itō)",
+          "duration": "4:12",
+          "filename": "07. Kimi ni Aeta Hi (Adachi Solo Ver.).flac"
+        },
+        {
+          "id": "opening-8",
+          "title": "El Día que te Conocí -Versión Solo de Shimamura-",
+          "title_jp": "君に会えた日 -Shimamura Solo Ver.-",
+          "title_en": "The Day I Met You -Shimamura Solo Ver.-",
+          "artist": "Adachi and Shimamura (CV: Akari Kitō, Miku Itō)",
+          "duration": "4:12",
+          "filename": "08. Kimi ni Aeta Hi (Shimamura Solo Ver.).flac"
+        }
+      ]
+    },
+    {
+      "id": "ending",
+      "title": "Kimi no Tonari de",
+      "title_jp": "キミのとなりで",
+      "title_en": "By Your Side",
+      "artist": "Akari Kitō",
+      "year": "2020",
+      "coverImage": "../../assets/Imagenes/Adashima ost3.webp",
+      "badge": "TEMA DE CIERRE",
+      "catalogNumber": "PCCG-01941",
+      "releasePrice": "¥1,430",
+      "releaseDate": "28 de octubre de 2020",
+      "description": "Kimi no Tonari de (キミのとなりで, lit. \"Junto a Ti\") es el ending del anime Adachi and Shimamura, interpretado por Akari Kitō.",
+      "folder": "ending",
+      "tracks": [
+        {
+          "id": "ending-1",
+          "title": "Junto a Ti",
+          "title_jp": "キミのとなりで",
+          "title_en": "By Your Side",
+          "artist": "Akari Kitō",
+          "duration": "4:34",
+          "filename": "01. Kimi no Tonari de.flac"
+        },
+        {
+          "id": "ending-2",
+          "title": "Dive to World",
+          "title_jp": "Dive to World",
+          "title_en": "Dive to World",
+          "artist": "Akari Kitō",
+          "duration": "3:52",
+          "filename": "02. Dive to World.flac"
+        },
+        {
+          "id": "ending-3",
+          "title": "Sueño Transparente",
+          "title_jp": "透明な夢",
+          "title_en": "Transparent Dream",
+          "artist": "Akari Kitō",
+          "duration": "4:18",
+          "filename": "03. Toumei na Yume.flac"
+        },
+        {
+          "id": "ending-4",
+          "title": "Junto a Ti -Instrumental-",
+          "title_jp": "キミのとなりで -Instrumental-",
+          "title_en": "By Your Side -Instrumental-",
+          "artist": "Akari Kitō",
+          "duration": "4:34",
+          "filename": "04. Kimi no Tonari de (Instrumental).flac"
+        },
+        {
+          "id": "ending-5",
+          "title": "Dive to World -Instrumental-",
+          "title_jp": "Dive to World -Instrumental-",
+          "title_en": "Dive to World -Instrumental-",
+          "artist": "Akari Kitō",
+          "duration": "3:52",
+          "filename": "05. Dive to World (Instrumental).flac"
+        },
+        {
+          "id": "ending-6",
+          "title": "Sueño Transparente -Instrumental-",
+          "title_jp": "透明な夢 -Instrumental-",
+          "title_en": "Transparent Dream -Instrumental-",
+          "artist": "Akari Kitō",
+          "duration": "4:18",
+          "filename": "06. Toumei na Yume (Instrumental).flac"
+        }
+      ]
+    }
+  ]
+}

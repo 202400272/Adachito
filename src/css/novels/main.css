@@ -5,7 +5,7 @@
 /* ----- 1. CORE / BASE ----- */
 @import url("variables.css");
 @import url("reset-base.css");
-@import url("fonts.css");
+@import url("font.css");
 
 /* ----- 2. LAYOUT ----- */
 @import url("sidebar.css");

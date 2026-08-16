@@ -1,0 +1,648 @@
+﻿<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adashima Constelación</title>
+    <meta
+      name="description"
+      content="View the Adashima constellations, rewards, and official lore visualized for the Adachi to Shimamura universe."
+    />
+    <link
+      rel="canonical"
+      href="https://adashimaverse.com/Adashima_Estrella"
+    />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AdashimaVerse" />
+    <meta property="og:title" content="Adashima Constelación" />
+    <meta
+      property="og:description"
+      content="View the Adashima constellations, rewards, and official lore visualized for the Adachi to Shimamura universe."
+    />
+    <meta
+      property="og:url"
+      content="https://adashimaverse.com/Adashima_Estrella"
+    />
+    <meta
+      property="og:image"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="AdashimaVerse - Adashima Constelación"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Adashima Constelación" />
+    <meta
+      name="twitter:description"
+      content="View the Adashima constellations, rewards, and official lore visualized for the Adachi to Shimamura universe."
+    />
+    <meta
+      name="twitter:image"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="AdashimaVerse - Adashima Constelación"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script>
+      const APP_VERSION = "1.0.6";
+      window.APP_VERSION = APP_VERSION;
+    </script>
+
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/assets/favicon-uSrLs8-o.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/apple-touch-icon-DH8J7IUg.webp"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/favicon-32x32-DtP-22ky.webp"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/favicon-16x16-BGKEfZ1k.webp"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/assets/icon-192x192-GLdRI4rU.webp"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="/assets/icon-512x512-D6FRuYV7.webp"
+    />
+    <link rel="stylesheet" crossorigin href="/assets/estrella-Cj2dGfvJ.css">
+  </head>
+  <body>
+    <audio
+      id="bg-audio"
+      src="/assets/Estrella-D2NIdvHK.mp3"
+      loop
+      preload="none"
+      style="display: none"
+    ></audio>
+
+    <button id="menu-button" aria-label="Abrir menú" type="button">
+      <i class="fas fa-bars" aria-hidden="true"></i>
+    </button>
+    <div class="nav-overlay" id="menu-overlay" aria-hidden="true"></div>
+
+    <nav class="sidebar" id="sideMenu">
+      <button
+        class="menu-close-btn"
+        id="menu-close-btn"
+        aria-label="Cerrar menú"
+        type="button"
+      >
+        ×
+      </button>
+      <div class="sidebar-inner">
+        
+
+        <div class="sidebar-box">
+          <img
+            src="/assets/Adashim_Menu-BdZH3IHP.webp"
+            alt="AdashimaVerse"
+            onerror="this.style.display = 'none'"
+          />
+          <div class="logo-label">
+            AdashimaVerse<br />
+            <span
+              class="sub-text"
+              id="sidebar-logo-sub"
+              style="display: none"
+            ></span>
+          </div>
+        </div>
+
+        <a
+          href="https://www.facebook.com/p/Adachi-to-Shimamura-Latinoamérica-61551058385796/"
+          target="_blank"
+          class="fb-btn"
+          id="sidebar-fb-link"
+        >
+          <i class="fab fa-facebook-f"></i>
+          <span id="sidebar-fb-text">Visítanos en Facebook</span>
+        </a>
+
+        <div class="progress-card" id="sidebar-progress">
+          <h4>
+            <i class="fas fa-star"></i>
+            <span id="sidebar-constellations-label">Constelaciones</span>
+          </h4>
+          <div class="progress-bar-wrap">
+            <div
+              class="progress-bar-fill"
+              id="prog-bar"
+              style="width: 0%"
+            ></div>
+          </div>
+          <div class="progress-text" id="prog-text">0 / 10 completadas</div>
+        </div>
+
+        <div class="info-card">
+          <h4>
+            <i class="fas fa-gift"></i>
+            <span id="sidebar-unlocks-label">Desbloqueos</span>
+          </h4>
+          <div class="links-grid" id="unlocks-list">
+            <span
+              style="font-size: 0.82rem; color: #aaa"
+              id="sidebar-unlocks-empty"
+              >Completa constelaciones para desbloquear recompensas...</span
+            >
+          </div>
+        </div>
+
+        <div class="info-card char-section">
+          <h4>
+            <i class="fas fa-lock" id="profiles-lock-icon"></i>
+            <span id="sidebar-profiles-label">Perfiles</span>
+          </h4>
+          <div class="links-grid">
+            <button
+              class="menu-btn"
+              id="btn-shimamura"
+              onclick="openProfileModal('shimamuraModal')"
+              disabled
+              style="opacity: 0.4; cursor: not-allowed"
+            >
+              Hougetsu Shimamura <i class="fas fa-moon"></i>
+            </button>
+            <button
+              class="menu-btn"
+              id="btn-adachi"
+              onclick="openProfileModal('adachiModal')"
+              disabled
+              style="opacity: 0.4; cursor: not-allowed"
+            >
+              Sakura Adachi <i class="fas fa-leaf"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h4>
+            <i class="fas fa-book-reader"></i>
+            <span id="sidebar-novel-status">Estado de la Novela</span>
+          </h4>
+          <span class="status-badge" id="sidebar-novel-badge"
+            >En Publicación</span
+          >
+        </div>
+
+        <div class="info-card">
+          <h4>
+            <i class="fas fa-heart"></i>
+            <span id="sidebar-support-label">Apoya la Obra Original</span>
+          </h4>
+          <div class="links-grid">
+            <a
+              href="https://dengekibunko.jp/product/adashima/"
+              target="_blank"
+              class="link-tag"
+            >
+              <span id="sidebar-link-novel">Novela Ligera</span>
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+            <a
+              href="https://comic-walker.com/detail/KC_004197_S?episodeType=first"
+              target="_blank"
+              class="link-tag"
+            >
+              <span id="sidebar-link-manga">Manga</span>
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+            <a
+              href="https://kakuyomu.jp/works/1177354054897444952"
+              target="_blank"
+              class="link-tag"
+            >
+              <span id="sidebar-link-blog">Blog del autor</span>
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+        </div>
+
+        <a href="/" class="menu-btn" id="sidebar-back-home">
+          <i class="fas fa-home"></i>
+          <span id="sidebar-back-text">Volver al Inicio</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="main-content">
+      <div class="sky-bg" id="sky-bg"></div>
+      <div class="sky-overlay"></div>
+
+      <div class="particles" id="particles"></div>
+
+      <div class="sky-title">
+        <h1 id="page-title">Adashima Constelación</h1>
+        <p id="page-subtitle">
+          Arrastra las estrellas para desbloquear historias extra y mucho más
+        </p>
+      </div>
+
+      <canvas id="sky-canvas"></canvas>
+
+      <div class="hud" style="top: 180px">
+        <button class="hud-btn" onclick="showInstructions()">
+          <i class="fas fa-question-circle"></i><br /><span id="hud-help"
+            >Ayuda</span
+          >
+        </button>
+        <button class="hud-btn" id="hud-reset-btn" onclick="resetStars()">
+          <i class="fas fa-redo-alt"></i><br /><span id="hud-reset"
+            >Reiniciar</span
+          >
+        </button>
+      </div>
+
+      <button
+        class="sound-toggle"
+        id="sound-btn"
+        onclick="toggleSound()"
+        title="Sonido"
+        style="top: 100px; right: 15px"
+      >
+        <i class="fas fa-volume-mute" id="sound-icon"></i>
+      </button>
+
+      <div class="const-panel" id="const-panel"></div>
+
+      <div class="floating-adashima">
+        <img
+          src="/assets/FlotanteEstrella-BpjtYIWu.webp"
+          alt="Adashima"
+          onerror="this.style.display = 'none'"
+        />
+      </div>
+
+      <div class="star-tooltip" id="star-tooltip"></div>
+
+      <div id="final-download-container">
+        <p class="final-download-text" id="final-download-text"></p>
+        <button class="btn-all-stories" onclick="downloadAllMiniStories()">
+          <i class="fas fa-file-pdf"></i>
+          <span id="final-download-btn">Descargar todo</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="final-event-overlay">
+      <div class="final-aurora"></div>
+      <div class="final-message">
+        <h2 id="final-title"></h2>
+        <button
+          class="final-close-btn"
+          onclick="closeFinalEvent()"
+          id="final-close-btn"
+        >
+          Cerrar
+        </button>
+      </div>
+      <div class="final-girls">
+        <img
+          src="/assets/Imagenes/Carta adachi.png"
+          class="final-girl-img"
+          alt="Adachi"
+          onerror="this.style.display = 'none'"
+        />
+        <img
+          src="/assets/Imagenes/Carta shimamura.png"
+          class="final-girl-img"
+          alt="Shimamura"
+          onerror="this.style.display = 'none'"
+        />
+      </div>
+    </div>
+
+    <div id="rewardModal" class="modal-overlay">
+      <div class="modal-dialog">
+        <div class="reward-modal-content">
+          <div class="reward-stars" id="reward-stars"></div>
+          <div class="reward-icon" id="reward-icon" style="display: none"></div>
+          <h2 id="reward-title">¡Recompensa desbloqueada!</h2>
+          <p id="reward-body">Texto de recompensa</p>
+          <div id="reward-pdf-btn" style="display: none; margin-top: auto">
+            <button class="btn-pdf-download" onclick="downloadStoryPDF()">
+              <i class="fas fa-file-pdf"></i>
+              <span id="reward-pdf-label">Descargar historia en PDF</span>
+            </button>
+          </div>
+          <button
+            class="btn-close-reward"
+            onclick="closeRewardModal()"
+            id="reward-continue-btn"
+          >
+            Continuar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="instructionsModal" class="modal-overlay">
+      <div class="modal-dialog">
+        <div class="reward-modal-content">
+          <h2 id="instructions-title" style="flex-shrink: 0">Cómo jugar</h2>
+          <p id="instructions-body"></p>
+          <button
+            class="btn-close-reward"
+            onclick="closeModal('instructionsModal')"
+            id="instructions-btn"
+          >
+            ¡Entendido!
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="adachiModal" class="modal-overlay">
+      <div class="modal-dialog">
+        <button class="btn-close-modal" onclick="closeModal('adachiModal')">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="binder-page">
+          <div class="holes">
+            <div class="hole"></div>
+            <div class="hole"></div>
+            <div class="hole"></div>
+            <div class="hole"></div>
+            <div class="hole"></div>
+            <div class="hole"></div>
+          </div>
+          <h2 class="section-title" id="profile-adachi-title"></h2>
+          <div class="profile-section">
+            <div class="profile-text" id="profile-adachi-name"></div>
+            <div class="profile-image-container">
+              <img
+                src="/assets/Adachi_perfil-C20Xhxgu.webp"
+                alt="Adachi Sakura"
+                onerror="
+                  this.src =
+                    'https://via.placeholder.com/200x240/fce4ec/f06292?text=Adachi'
+                "
+              />
+            </div>
+          </div>
+          <h2 class="section-title" id="profile-favorite-label"></h2>
+          <div class="grid-2">
+            <div class="qa-item">
+              <span class="qa-label" id="profile-label-food"></span>
+              <div class="qa-answer" id="profile-adachi-food"></div>
+            </div>
+            <div class="qa-item">
+              <span class="qa-label" id="profile-label-color"></span>
+              <div class="qa-answer" id="profile-adachi-color"></div>
+            </div>
+            <div class="qa-item">
+              <span class="qa-label" id="profile-label-genre"></span>
+              <div class="qa-answer" id="profile-adachi-genre"></div>
+            </div>
+            <div class="qa-item">
+              <span class="qa-label" id="profile-label-person"></span>
+              <div
+                class="qa-answer"
+                id="profile-adachi-person"
+                style="color: var(--sakura-dark)"
+              ></div>
+            </div>
+          </div>
+          <h2 class="section-title" id="profile-whatif-label"></h2>
+          <div class="qa-item">
+            <span class="qa-label" id="profile-label-reborn"></span>
+            <div class="qa-answer" id="profile-adachi-reborn"></div>
+          </div>
+          <div class="qa-item">
+            <span class="qa-label" id="profile-label-vacation"></span>
+            <div class="qa-answer" id="profile-adachi-vacation"></div>
+          </div>
+          <h2 class="section-title" id="profile-love-label"></h2>
+          <div class="grid-2">
+            <div class="qa-item">
+              <span class="qa-label" id="profile-label-like"></span>
+              <div class="yes-no-container">
+                <span class="circle-highlight" id="yes-label"></span
+                ><span id="no-label"></span>
+              </div>
+            </div>
+            <div class="qa-item">
+              <span class="qa-label" id="profile-label-confessed"></span>
+              <div class="yes-no-container">
+                <span class="circle-highlight" id="yes-label2"></span
+                ><span id="no-label2"></span>
+              </div>
+            </div>
+          </div>
+          <div class="qa-item">
+            <span class="qa-label" id="profile-label-type"></span>
+            <div class="qa-answer" id="profile-adachi-type"></div>
+          </div>
+          <div class="qa-item">
+            <span class="qa-label" id="profile-label-call"></span>
+            <div class="qa-answer" id="profile-adachi-call"></div>
+          </div>
+          <div class="qa-item">
+            <span class="qa-label" id="profile-label-heart"></span>
+            <div class="qa-answer" id="profile-adachi-heart"></div>
+          </div>
+          <div class="qa-item">
+            <span class="qa-label" id="profile-label-date"></span>
+            <div class="qa-answer" id="profile-adachi-date"></div>
+          </div>
+          <div style="text-align: center">
+            <button
+              class="btn-download-profile"
+              onclick="downloadProfile('adachiModal')"
+              id="profile-download-btn"
+            >
+              <i class="fas fa-download"></i>
+              <span id="profile-download-label"></span>
+            </button>
+            <br />
+            <button
+              class="btn-close-profile"
+              onclick="closeModal('adachiModal')"
+              id="profile-close-btn"
+            >
+              <i class="fas fa-times"></i>
+              <span id="profile-close-label"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="shimamuraModal" class="modal-overlay">
+      <div class="modal-dialog">
+        <button class="btn-close-modal" onclick="closeModal('shimamuraModal')">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="binder-page">
+          <div class="holes">
+            <div class="hole"></div>
+            <div class="hole"></div>
+            <div class="hole"></div>
+            <div class="hole"></div>
+            <div class="hole"></div>
+            <div class="hole"></div>
+          </div>
+          <h2 class="section-title" id="profile-shimamura-title"></h2>
+          <div class="profile-section">
+            <div class="profile-text" id="profile-shimamura-name"></div>
+            <div class="profile-image-container">
+              <img
+                src="/assets/PERFIL_SHIMAMURA-DG_haZFM.webp"
+                alt="Shimamura"
+                onerror="
+                  this.src =
+                    'https://via.placeholder.com/200x240/e3f2fd/64b5f6?text=Shimamura'
+                "
+              />
+            </div>
+          </div>
+          <h2 class="section-title" id="profile-favorite-label2"></h2>
+          <div class="grid-2">
+            <div class="qa-item">
+              <span class="qa-label" id="profile-label-food2"></span>
+              <div class="qa-answer" id="profile-shimamura-food"></div>
+            </div>
+            <div class="qa-item">
+              <span class="qa-label" id="profile-label-color2"></span>
+              <div class="qa-answer" id="profile-shimamura-color"></div>
+            </div>
+            <div class="qa-item">
+              <span class="qa-label" id="profile-label-genre2"></span>
+              <div class="qa-answer" id="profile-shimamura-genre"></div>
+            </div>
+            <div class="qa-item">
+              <span class="qa-label" id="profile-label-person2"></span>
+              <div class="qa-answer" id="profile-shimamura-person"></div>
+            </div>
+          </div>
+          <h2 class="section-title" id="profile-whatif-label2"></h2>
+          <div class="qa-item">
+            <span class="qa-label" id="profile-label-reborn2"></span>
+            <div class="qa-answer" id="profile-shimamura-reborn"></div>
+          </div>
+          <div class="qa-item">
+            <span class="qa-label" id="profile-label-vacation2"></span>
+            <div class="qa-answer" id="profile-shimamura-vacation"></div>
+          </div>
+          <h2 class="section-title" id="profile-love-label2"></h2>
+          <div class="grid-2">
+            <div class="qa-item">
+              <span class="qa-label" id="profile-label-like2"></span>
+              <div class="yes-no-container">
+                <span class="circle-highlight" id="yes-label3"></span
+                ><span id="no-label3"></span>
+              </div>
+            </div>
+            <div class="qa-item">
+              <span class="qa-label" id="profile-label-confessed2"></span>
+              <div class="yes-no-container">
+                <span id="yes-label4"></span
+                ><span class="circle-highlight" id="no-label4"></span>
+              </div>
+            </div>
+          </div>
+          <div class="qa-item">
+            <span class="qa-label" id="profile-label-type2"></span>
+            <div class="qa-answer" id="profile-shimamura-type"></div>
+          </div>
+          <div class="qa-item">
+            <span class="qa-label" id="profile-label-call2"></span>
+            <div class="qa-answer" id="profile-shimamura-call"></div>
+          </div>
+          <div class="qa-item">
+            <span class="qa-label" id="profile-label-heart2"></span>
+            <div class="qa-answer" id="profile-shimamura-heart"></div>
+          </div>
+          <div class="qa-item">
+            <span class="qa-label" id="profile-label-date2"></span>
+            <div class="qa-answer" id="profile-shimamura-date"></div>
+          </div>
+          <div style="text-align: center">
+            <button
+              class="btn-download-profile"
+              onclick="downloadProfile('shimamuraModal')"
+              id="profile-download-btn2"
+            >
+              <i class="fas fa-download"></i>
+              <span id="profile-download-label2"></span>
+            </button>
+            <br />
+            <button
+              class="btn-close-profile"
+              onclick="closeModal('shimamuraModal')"
+              id="profile-close-btn2"
+            >
+              <i class="fas fa-times"></i>
+              <span id="profile-close-label2"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Import JS -->
+    <script src="/src/js/language-switch.js"></script>
+    <script>
+      document.write(
+        '<script src="/src/js/estrella.js?v=' + APP_VERSION + '"><\/script>',
+      );
+    </script>
+    <div
+      id="reset-confirm"
+      class="reset-confirm"
+      aria-hidden="true"
+      role="dialog"
+      aria-label="Confirmación reinicio estrellas"
+    >
+      <div class="reset-card" role="document">
+        <p class="reset-message" id="reset-message">
+          ¿Reiniciar las estrellas? Los desbloqueos se mantendrán.
+        </p>
+        <div class="reset-actions">
+          <button id="reset-cancel" class="reset-btn reset-cancel">
+            Cancelar
+          </button>
+          <button id="reset-confirm-btn" class="reset-btn reset-confirm-btn">
+            Reiniciar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast-msg" class="toast-msg" aria-hidden="true"></div>
+  </body>
+</html>

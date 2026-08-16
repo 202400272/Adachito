@@ -1,0 +1,304 @@
+{
+  "header": {
+    "title": "Timeline",
+    "subtitle": "Adachi to Shimamura — Ang Kanilang Kuwento sa High School"
+  },
+  "filters": {
+    "all": "Lahat ng Pangyayari",
+    "year1": "Unang Taon",
+    "year2": "Ikalawang Taon",
+    "year3": "Ikatlo at Huling Taon"
+  },
+  "yearBadges": {
+    "year1": "Unang Taon sa High School",
+    "year2": "Ikalawang Taon sa High School",
+    "year3": "Ikatlo at Huling Taon sa High School"
+  },
+  "footer": "Hindi opisyal na Adachi to Shimamura fan site.<br>Ginawa ng mga fan at walang kinikitang tubo.<br>Ang Adachi to Shimamura at lahat ng karapatan nito ay pagmamay-ari ni Hitoma Iruma.",
+  "floatingTitle": "I-click para pumunta sa mini-game!",
+  "langLabel": "Tagalog",
+  "events": [
+    {
+      "year": "year1",
+      "side": "right",
+      "season": "<i class=\"fas fa-cloud-sun-rainbow\"></i> Tagsibol \u00b7 Abril",
+      "date": "Abril 10",
+      "title": "Kaarawan ni Shimamura",
+      "desc": "Labing-anim na taong gulang na si Shimamura. Labinlima naman si Adachi. Nagsisimula sila ng kanilang unang taon sa high school, kahit hindi pa nila nakikilala ang isa't isa.",
+      "img": "../../assets/Imagenes/burbuja1.webp",
+      "vol": "",
+      "quotes": []
+    },
+    {
+      "year": "year1",
+      "side": "left",
+      "season": "<i class=\"fas fa-leaf\"></i> Unang Bahagi ng Setyembre",
+      "date": "",
+      "title": "Nagkita Sila sa Ikalawang Palapag ng Gymnasium",
+      "desc": "Sa unang pagkakataon, pumunta si Shimamura sa ikalawang palapag ng gymnasium at nadatnan doon si Adachi, nakapaa at nakabitin ang mga binti habang inuugoy ang mga ito. Nagulat si Adachi at napagkamalan niyang guro si Shimamura.",
+      "img": "../../assets/Imagenes/burbuja2.webp",
+      "vol": "Volume 1",
+      "quotes": [
+        "\"Bagama't hindi ko pa alam noon, iyon pala ang unang araw na nag-skip ng klase si Shimamura.\" (Volume 1)"
+      ]
+    },
+    {
+      "year": "year1",
+      "side": "right",
+      "season": "<i class=\"fas fa-snowflake\"></i> Taglamig \u00b7 Disyembre",
+      "date": "",
+      "title": "Unang Pasko",
+      "desc": "Si Adachi, na hindi pa kailanman nakipag-date sa isang espesyal na okasyon, ay unang pagkakataong nagpalipas ng Pasko kasama si Shimamura. Sa kanilang date, naglibot sila sa shopping mall, naglaro ng air hockey, nagpalitan ng mga regalo, at binigyan ni Shimamura si Adachi ng boomerang.",
+      "img": "../../assets/Imagenes/burbuja3.webp",
+      "vol": "Volume 2",
+      "quotes": [
+        "\"Akala ko isa itong sirang hanger. Anuman iyon, tinanggap ko ang asul at hugis-V na bagay. Tinanggap ko iyon...\" (Volume 2)"
+      ]
+    },
+    {
+      "year": "year1",
+      "side": "left",
+      "season": "<i class=\"fas fa-heart\"></i> Taglamig \u00b7 Pebrero",
+      "date": "",
+      "title": "Unang Valentine's Day at Palitan ng Tsokolate",
+      "desc": "Kinakabahan para sa Valentine's Day, niyaya ni Adachi si Shimamura na sabay silang bumili ng mga tsokolate. Habang magkasama sila, nabasa ni Adachi ang mensahe ni Shimamura: \"Ipagpatuloy natin ito, ngayon at sa hinaharap!\" Hindi na niya napigilan ang kanyang damdamin at niyakap si Shimamura.",
+      "img": "../../assets/Imagenes/burbuja4.webp",
+      "vol": "Volume 3",
+      "quotes": [
+        "\"Ang ibig kong sabihin, ikaw ang iniisip ko nang ipadala ko iyon. Kaya ganoon ang naging resulta.\" (Volume 3)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "right",
+      "season": "<i class=\"fas fa-wind\"></i> Tagsibol \u00b7 Unang Bahagi ng Abril",
+      "date": "",
+      "title": "Nagsimula ang Ikalawang Taon",
+      "desc": "Labing-anim na taong gulang na si Adachi at labimpito naman si Shimamura. Nagsisimula ang panibagong school year kasabay ng pagbabago ng kanilang mga klase. Natatakot si Adachi na baka paghiwalayin sila ng bagong taon o tuluyang mabago nito ang kanilang relasyon.",
+      "img": "../../assets/Imagenes/burbuja5.webp",
+      "vol": "Volume 4",
+      "quotes": [
+        "\"Kung tutuusin, ngayon lang tayo unang sabay na pumasok sa paaralan, hindi ba?\" (Volume 4)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "left",
+      "season": "<i class=\"fas fa-sun\"></i> Unang Bahagi ng Tag-init",
+      "date": "",
+      "title": "Ang Mungkahi ni Adachi",
+      "desc": "Sa huling araw ng school term, sinabi ni Adachi kay Shimamura na gusto niyang gamitin ang summer vacation para mas mapalapit pa sila sa isa't isa. Doon nagsimula ang pinakamahalagang tag-init sa kanilang buhay.",
+      "img": "../../assets/Imagenes/burbuja6.webp",
+      "vol": "Volume 5",
+      "quotes": [
+        "\"Iniisip ko lang na magiging maganda kung magagamit natin ang summer break para mas mapalapit pa tayo sa isa't isa. Oo.\" (Volume 5)",
+        "\"Doon, sa ngiting iyon, nagsimula ang tag-init nang taong iyon.\" (Volume 5)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "right",
+      "season": "<i class=\"fas fa-cloud-rain\"></i> Tag-init \u00b7 Summer Vacation",
+      "date": "",
+      "title": "Pag-aaway at Pagkakasundo",
+      "desc": "Habang summer vacation, nagtatrabaho si Adachi sa isang booth sa festival nang makita niya roon si Shimamura kasama ang isang babaeng hindi niya kilala. Ilang araw siyang hindi mapakali sa imaheng iyon, hanggang sa tuluyan itong sumabog sa isang tawag nila ni Shimamura. Kalaunan, nag-ipon siya ng lakas ng loob para muling tumawag, at nagkasundo silang magkita kinabukasan. Sa kanilang pagkakasundo, may mga bulaklak at isang \"maging magkaibigan ulit tayo,\" na nag-iwan kay Adachi ng magkahalong saya at pagkadismaya. Pagkatapos nito, magkasama nilang tinapos ang listahang ginawa ni Adachi.",
+      "img": "../../assets/Imagenes/burbuja7.webp",
+      "vol": "Volume 5",
+      "quotes": [
+        "\"Sa tingin ko, ito ang unang pagkakataon na nakatanggap ako ng mga bulaklak.\" (Volume 5)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "left",
+      "season": "<i class=\"fas fa-torii-gate\"></i> Tag-init \u00b7 Obon",
+      "date": "",
+      "title": "Paglalakbay sa Probinsya",
+      "desc": "Ngayong sa wakas ay nakabalik na sa dati ang samahan nila ni Shimamura at gusto na niyang muling makasama ito, sinabi ni Shimamura na hindi siya puwede dahil pupunta ang kanyang pamilya sa bahay ng kanyang mga lolo't lola para sa Obon.",
+      "img": "../../assets/Imagenes/burbuja8.webp",
+      "vol": "Volume 6",
+      "quotes": [
+        "\"Ay, hindi, dahil pupunta kami sa bahay ng mga lolo't lola ko. Alam mo naman, para sa pista ng Obon.\" (Volume 6)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "right",
+      "season": "<i class=\"fas fa-fire\"></i> Summer Festival",
+      "date": "",
+      "title": "Pag-amin ni Adachi",
+      "desc": "Sa wakas ay umamin si Adachi kay Shimamura at sinabi niyang mahal niya ito. Matapos tumakas si Adachi, hindi makayanan ang tindi ng sandaling iyon, nauwi sila sa isang pag-uusap nang silang dalawa lamang sa tabi ng isang hotel.",
+      "img": "../../assets/Imagenes/burbuja9.webp",
+      "vol": "Volume 6",
+      "quotes": [
+        "\"Mahal kita.\" (Volume 6)",
+        "\"Gusto kong makasama ka.\"<br>\"Nandito lang ako.\"<br>\"Gusto kong isipin mo ako.\"<br>\"Iniisip naman kita.\"<br>\"Gusto kong ako lang ang tingnan mo.\" (Volume 6)",
+        "\"Ang ako ngayon ay malayang makapagpasya: 'Sige, bakit hindi.'\" (Volume 6)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "left",
+      "season": "<i class=\"fas fa-leaf\"></i> Taglagas \u00b7 Setyembre",
+      "date": "",
+      "title": "Unang Araw ng Pasok Bilang Magkasintahan",
+      "desc": "Maagang dumating si Adachi sa bahay ni Shimamura, suot ang kanyang uniporme, upang sabay silang pumasok. Ito ang unang araw ng bagong term.",
+      "img": "../../assets/Imagenes/burbuja10.webp",
+      "vol": "Volume 7",
+      "quotes": [
+        "\"Setyembre na. Ngayon magsisimula ang klase.\" (Volume 7)",
+        "\"Mahal mo ako, at mahal kita. Tama? Simple lang, hindi ba?\" (Volume 7)",
+        "\"Bakit? Dahil ang lahat ng iyon ang naging daan para makilala ko si Shimamura. Ang simpleng pag-iisip tungkol doon ay nagbigay-liwanag sa mundo ko. Para sa akin, ang Setyembre ay katumbas ng pagsisimula ng bagong taon.\" (Volume 7)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "right",
+      "season": "<i class=\"fas fa-bus\"></i> Taglagas \u00b7 Oktubre",
+      "date": "",
+      "title": "School Trip sa Kitakyushu",
+      "desc": "Ang school trip ng mga second-year high school student ay sa Kitakyushu. Nang ipahayag na tig-lilimang tao ang bawat grupo, agad na tumayo si Adachi at tumakbo papunta sa desk ni Shimamura.",
+      "img": "../../assets/Imagenes/burbuja11.webp",
+      "vol": "Volume 8",
+      "quotes": [
+        "\"Tila Oktubre ang panahon ng mga school trip para sa mga second-year high school student.\" (Volume 8)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "left",
+      "season": "<i class=\"fas fa-holly-berry\"></i> Taglamig \u00b7 Disyembre",
+      "date": "",
+      "title": "Ikalawang Pasko",
+      "desc": "Nagkita sina Adachi at Shimamura sa ilalim ng malaking Christmas tree sa shopping mall, at muli na namang suot ni Adachi ang kanyang kapansin-pansing Chinese dress.",
+      "img": "../../assets/Imagenes/burbuja12.1.webp",
+      "vol": "Volume 9",
+      "quotes": [
+        "\"Pagkasabi ko pa lamang ng mga salitang iyon, biglang bumalik sa isip ko ang mga alaala ng nakaraang Pasko. Ang pinakatumatak sa akin ay ang kulay na asul.\" (Volume 9)",
+        "\"Kaya kailangan kong gawin ang lahat para hindi kita mawala. Para pigilan ang parte ng sarili ko na... Oo. Naiinis sa lahat ng bagay.\" (Volume 9)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "right",
+      "season": "<i class=\"fas fa-calendar-alt\"></i> Taglamig \u00b7 Disyembre \u2013 Enero",
+      "date": "",
+      "title": "Bagong Taon sa Bahay ng mga Lolo't Lola",
+      "desc": "Pumunta si Shimamura kasama ang kanyang pamilya sa bahay ng kanyang mga lolo't lola upang ipagdiwang ang Bagong Taon, gaya ng kanilang nakasanayan. Sa hardin nang gabing iyon, balak niyang tawagan si Adachi upang batiin ito ng Manigong Bagong Taon.",
+      "img": "../../assets/Imagenes/burbuja13.webp",
+      "vol": "Volume 10",
+      "quotes": [
+        "\"Kasalukuyan kaming bumibisita sa mga lolo't lola ko para sa Bagong Taon, gaya ng aming taunang tradisyon. Para sa akin, ito na ang ikalabing-pitong beses kong pagpunta roon.\" (Volume 10)"
+      ]
+    },
+    {
+      "year": "year2",
+      "side": "left",
+      "season": "<i class=\"fas fa-envelope-open-text\"></i> Taglamig \u00b7 Pebrero",
+      "date": "",
+      "title": "Ikalawang Valentine's Day at Pamamaalam kay Tarumi",
+      "desc": "Nakipagkita si Shimamura kay Tarumi bago ang Valentine's Day at sinabi niyang mayroon na siyang kasintahan, tuluyan nang isinasara ang anumang posibilidad ng romantikong relasyon sa pagitan nila. Di nagtagal, sumama si Shimamura kay Adachi sa Nagoya upang bumili ng mga tsokolate para sa Valentine's Day.",
+      "img": "../../assets/Imagenes/burbuja14.webp",
+      "vol": "Volume 10",
+      "quotes": [
+        "\"Nagkasundo kaming magkita sa istasyon. Ito ang ikalawang pagkakataon na may nakilala akong isang tao rito noong Pebrero. Noong unang pagkakataon, babae rin ang kasama ko. Ang tanging kaibahan ay... Oo. Iwan na lang natin iyon sa ganoon.\" (Volume 10)"
+      ]
+    },
+    {
+      "year": "year3",
+      "side": "right",
+      "season": "<i class=\"fas fa-graduation-cap\"></i> Tagsibol \u00b7 Unang Bahagi ng Abril",
+      "date": "",
+      "title": "Simula ng Ikatlo at Huling Taon",
+      "desc": "Labimpitong taong gulang na si Adachi at labingwalo naman si Shimamura. Ito na ang huli nilang taon na magkasama sa high school.",
+      "img": "../../assets/Imagenes/burbuja16.webp",
+      "vol": "",
+      "quotes": []
+    },
+    {
+      "year": "year3",
+      "side": "left",
+      "season": "<i class=\"fas fa-umbrella-beach\"></i> Tagsibol \u00b7 Katapusan ng Term",
+      "date": "",
+      "title": "Plano para sa Huling Summer Vacation",
+      "desc": "Habang papalapit ang huli nilang summer vacation sa high school, iminungkahi ni Adachi na pumunta silang dalawa sa beach. Para may pambayad sa biyahe, nakipagkasundo si Shimamura sa kanyang mga magulang na gumawa ng mga gawaing-bahay kapalit ng pera.",
+      "img": "../../assets/Imagenes/burbuja16.webp",
+      "vol": "Volume 12",
+      "quotes": [
+        "\"Papalapit na ang summer break. Ang huli nating summer break sa high school.\" (Volume 12)",
+        "\"Sige. Kung papayag kang gumawa ng mga gawaing-bahay ngayong summer vacation, mababayaran kita nang maaga.\" (Volume 12)"
+      ]
+    },
+    {
+      "year": "year3",
+      "side": "right",
+      "season": "<i class=\"fas fa-home\"></i> Tag-init \u00b7 Simula ng Bakasyon",
+      "date": "",
+      "title": "Paggawa ng Gawaing-Bahay ni Shimamura",
+      "desc": "",
+      "img": "../../assets/Imagenes/burbuja16.webp",
+      "vol": "Volume 12",
+      "quotes": [
+        "\"Ako si Shimamura Hougetsu. Ako ang magiging tagapangalaga ng bahay ninyo ngayong summer.\" (Volume 12)",
+        "\"Tingnan mo, may ginagawa si Ate.\" (Volume 12)"
+      ]
+    },
+    {
+      "year": "year3",
+      "side": "left",
+      "season": "<i class=\"fas fa-book-reader\"></i> Tag-init \u00b7 Hulyo \u2013 Agosto",
+      "date": "",
+      "title": "Pag-aaral sa Bahay ni Shimamura",
+      "desc": "Ginamit ni Adachi ang pag-aaral para sa mga exam bilang dahilan upang pumunta sa bahay ni Shimamura. Alam na alam naman ni Shimamura na hindi sila gaanong makakapag-aral.",
+      "img": "../../assets/Imagenes/burbuja17.webp",
+      "vol": "Volume 11",
+      "quotes": [
+        "\"Kasalukuyan naming ginugugol ang summer break ng aming ikatlong taon sa high school. Halos mabibilang na sa daliri ang mga natitirang araw bago ang graduation.\" (Volume 11)",
+        "\"Pinanood ko habang gumuguhit ng mga bilog sa hangin ang daliri ni Adachi. Habang dahan-dahan itong papalapit sa akin, nagpapasya kung saan ito lalapag, ipinikit ko ang mga mata ko.\" (Volume 11)",
+        "\"Pagkatapos ng summer break, may cultural festival, hindi ba?\" (Volume 11)"
+      ]
+    },
+    {
+      "year": "year3",
+      "side": "right",
+      "season": "<i class=\"fas fa-water\"></i> Tag-init \u00b7 Agosto (bago ang Obon)",
+      "date": "",
+      "title": "Paglalakbay sa Beach",
+      "desc": "Pumunta sina Shimamura at Adachi sa beach nang magkasama, tinutupad ang pangako nila para sa summer.",
+      "img": "../../assets/Imagenes/burbuja18.webp",
+      "vol": "Volume 12",
+      "quotes": [
+        "\"Ang dami mong ginawa ngayong araw. May pupuntahan ka ba bukas?\"",
+        "\"Pupunta siya sa beach kasama ang isang babae!\" (Volume 12)"
+      ]
+    },
+    {
+      "year": "year3",
+      "side": "left",
+      "season": "<i class=\"fas fa-torii-gate\"></i> Tag-init \u00b7 Unang Bahagi ng Agosto \u00b7 Obon",
+      "date": "",
+      "title": "Pagbisita sa mga Lolo't Lola \u00b7 Huling Bakasyon",
+      "desc": "Pumunta si Shimamura kasama ang kanyang pamilya sa bahay ng kanyang mga lolo't lola para sa Obon, gaya ng ginagawa nila bawat taon. Sa pagkakataong ito, sumama rin si Yashiro na nagbalatkayo bilang tanuki. Ito na ang mga huling araw ng kanyang summer vacation bilang high school student.",
+      "img": "../../assets/Imagenes/burbuja19.webp",
+      "vol": "Volume 13",
+      "quotes": [
+        "\"Unang linggo na ng Agosto\u2014panahong nasa kalagitnaan na ng sobrang hinog na tag-init, pati na rin ng huli naming summer break sa high school. Ito rin ang panahon kung kailan kami bumibisita sa mga lolo't lola ko sa probinsya.\" (Volume 13)",
+        "\"Pupunta ulit kami sa probinsya ngayong taon, kaya hindi ako makakasama sa iyo bukas. Pasensya na.\" (Volume 13)"
+      ]
+    },
+    {
+      "year": "year3",
+      "side": "right",
+      "season": "<i class=\"fas fa-theater-masks\"></i> Taglagas \u00b7 Unang Bahagi ng Setyembre",
+      "date": "",
+      "title": "School Cultural Festival",
+      "desc": "Bumalik ang school term, kasabay ng balita tungkol sa isang cultural festival sa paaralan.",
+      "img": "../../assets/Imagenes/burbuja20.webp",
+      "vol": "Volume 13",
+      "quotes": [
+        "\"Setyembre na, kahit halos hindi mo ito mapapansin kung hindi dahil sa tunog ng mga insekto sa gabi.\" (Volume 13)",
+        "\"Huling bahagi ng tag-init, bagong semestre. Dalawang taon na ang nakalipas nang nasa eksaktong ganito rin akong sitwasyon\u2014noong sinimulan kong magpakulay ng buhok at magpalipas ng oras sa ikalawang palapag ng gymnasium. Hinila ko ang aking bangs para takpan ang mga mata ko. Halos hindi ko na maalala kung ano ang pakiramdam noong blonde pa ang buhok ko. Pero kung hindi ko piniling magpanggap na delinquent noon, hindi ako makakarating sa kinaroroonan ko ngayon\u2014hindi ko makikilala si Adachi. Si Adachi, ang taong malamang ay tutukoy sa magiging takbo ng natitirang bahagi ng buhay ko.\" (Volume 13)"
+      ]
+    }
+  ]
+}

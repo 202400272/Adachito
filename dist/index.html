@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="version" content="v1.5.2" />
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .getRegistrations()
+          .then((regs) => regs.forEach((reg) => reg.unregister()))
+          .catch(() => {});
+      }
+      if (window.caches && caches.keys) {
+        caches
+          .keys()
+          .then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
+          .catch(() => {});
+      }
+    </script>
+    <title>AdashimaVerse</title>
+    <meta
+      name="description"
+      content="The most complete site about Adachi and Shimamura. Read the novels, explore the manga, anime, characters, short stories, official material, and much more."
+    />
+    <link rel="canonical" href="https://adashimaverse.com/" />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AdashimaVerse" />
+    <meta property="og:title" content="AdashimaVerse" />
+    <meta
+      property="og:description"
+      content="The most complete site about Adachi and Shimamura. Read the novels, explore the manga, anime, characters, short stories, official material, and much more."
+    />
+    <meta property="og:url" content="https://adashimaverse.com/" />
+    <meta
+      property="og:image"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="AdashimaVerse - AdashimaVerse" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AdashimaVerse" />
+    <meta
+      name="twitter:description"
+      content="The most complete site about Adachi and Shimamura. Read the novels, explore the manga, anime, characters, short stories, official material, and much more."
+    />
+    <meta
+      name="twitter:image"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta name="twitter:image:alt" content="AdashimaVerse - AdashimaVerse" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/assets/menu-Cp3sjDZb.css?v=1.5.2"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="/assets/scrollbar-C63qj2WR.css?v=1.5.2"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="/assets/feedback-DFd3y2q6.css?v=1.5.2"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+    </noscript>
+
+    <link rel="icon" type="image/x-icon" href="/assets/favicon-uSrLs8-o.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/apple-touch-icon-DH8J7IUg.webp"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/favicon-32x32-DtP-22ky.webp"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/favicon-16x16-BGKEfZ1k.webp"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/assets/icon-192x192-GLdRI4rU.webp"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="/assets/icon-512x512-D6FRuYV7.webp"
+    />
+    <link rel="stylesheet" crossorigin href="/assets/main-p-Vbpjs_.css">
+  </head>
+  <body>
+    <!-- ===== LOADING SCREEN ===== -->
+<div id="loadingScreen" class="loading-overlay" role="status" aria-label="Loading">
+  <div class="loading-content">
+    <div class="loading-title">AdashimaVerse</div>
+    <div class="loading-indicator">
+      <span class="loading-dot"></span>
+      <span class="loading-dot"></span>
+      <span class="loading-dot"></span>
+    </div>
+    <p class="loading-message" id="loadingMessage">Loading archive...</p>
+  </div>
+</div>
+    <div class="stars-bg"></div>
+    <div class="sparkle-container">
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+    </div>
+    <div class="shooting-star" style="--rotation: -18deg"></div>
+    <div class="shooting-star" style="--rotation: -28deg"></div>
+    <div class="shooting-star" style="--rotation: -22deg"></div>
+    <div class="shooting-star" style="--rotation: -35deg"></div>
+
+    <div class="clouds-container">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+      <div class="cloud cloud-3"></div>
+      <div class="cloud cloud-4"></div>
+      <div class="cloud cloud-5"></div>
+    </div>
+
+    <div class="orb orb-purple"></div>
+    <div class="orb orb-yellow"></div>
+    <div class="orb orb-blue"></div>
+    <div class="orb orb-pink"></div>
+    <div class="orb orb-green"></div>
+    <div class="orb orb-orange"></div>
+    <div class="orb orb-purple-small"></div>
+    <div class="orb orb-blue-large"></div>
+    <div class="orb orb-pink-top"></div>
+    <div class="orb orb-yellow-small"></div>
+
+    <div id="menu-container"></div>
+
+    <div class="main-content">
+      <section class="hero-section">
+        <div class="hero-content">
+          <h1 class="hero-title" id="heroTitle">Adachi to Shimamura</h1>
+          <p class="hero-sub" id="heroSub">
+            Una historia de encuentros, estrellas y el calor de un verano
+            eterno.
+          </p>
+        </div>
+        <div class="bike-container">
+          <div class="bike-glow"></div>
+          <img
+            src="/assets/Ada_bici-Photoroom-lh9DcIm1.webp"
+            alt="Bicicleta Adachi"
+            class="floating-bike"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            width="1920"
+            height="1494"
+          />
+        </div>
+      </section>
+
+      <section class="info-panel glass-box" id="infoPanel">
+        <div class="info-toggle" id="infoToggle" onclick="toggleInfo()">
+          <div class="info-header">
+            <span class="info-icon"><i class="fas fa-book-open"></i></span>
+            <span class="info-title" id="infoTitle"
+              >¿Qué es Adachi to Shimamura?</span
+            >
+            <span class="info-sub" id="infoSub"
+              >Para quienes visitan por primera vez</span
+            >
+          </div>
+          <i class="fas fa-chevron-down info-chevron" id="infoChevron"></i>
+        </div>
+        <div class="info-content" id="infoContent">
+          <div class="info-chips" id="infoChips">
+            <span class="chip"
+              ><i class="fas fa-feather-alt"></i>
+              <span class="chip-text">Hitoma Iruma</span></span
+            >
+            <span class="chip"
+              ><i class="fas fa-heart"></i>
+              <span class="chip-text">Yuri · Slice of Life</span></span
+            >
+            <span class="chip"
+              ><i class="fas fa-calendar-alt"></i>
+              <span class="chip-text">Desde 2013</span></span
+            >
+            <span class="chip"
+              ><i class="fas fa-book"></i>
+              <span class="chip-text">Dengeki Bunko</span></span
+            >
+          </div>
+          <div class="info-body" id="infoBody">
+            <p id="infoP1">
+              <strong>Adachi to Shimamura</strong> es una novela ligera japonesa
+              escrita por <strong>Hitoma Iruma</strong> e ilustrada por
+              <strong>Non</strong>. La historia sigue la relación entre dos
+              chicas de preparatoria: <strong>Adachi</strong>, una solitaria que
+              prefiere pasar el tiempo en el gimnasio, y
+              <strong>Shimamura</strong>, una joven despreocupada que suele
+              faltar a clases.
+            </p>
+            <p id="infoP2">
+              Su amistad comienza en el segundo piso del gimnasio, donde se
+              encuentran por casualidad. Poco a poco, lo que empieza como una
+              conexión superficial se convierte en algo más profundo, tierno y
+              complejo.
+            </p>
+            <p id="infoP3">
+              La obra ha sido adaptada al manga, al anime y a múltiples CD
+              dramas, ganándose un lugar especial en el corazón de los lectores
+              por su delicada exploración de la intimidad, la soledad y el
+              primer amor.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="nav-grid" id="navGrid"></section>
+
+      <div class="release-row">
+        <div class="release-card glass-box">
+          <div class="release-inner">
+            <span class="release-badge" id="updateBadge"
+              ><i class="fas fa-clock"></i> Última actualización</span
+            >
+            <span class="release-divider"></span>
+            <span class="release-details" id="updateDetails">
+              <strong>Volumen 13</strong>
+              <span class="release-sep">·</span> Noviembre 2025
+              <span class="release-sep">·</span>
+              <i class="fas fa-check-circle"></i> Traducción completa
+            </span>
+          </div>
+        </div>
+
+        <div class="release-card next-release-card glass-box">
+          <div class="release-inner">
+            <span class="release-badge next-badge" id="nextBadge"
+              ><i class="fas fa-fire flame-icon"></i> Próximo lanzamiento</span
+            >
+            <span class="release-divider"></span>
+            <span class="release-details" id="nextDetails">
+              <span class="next-pill"
+                ><i class="fas fa-sparkles"></i> Novedad</span
+              >
+              <strong>Volumen 14</strong>
+              <span class="release-sep">·</span>
+              <span class="next-date">Fecha por confirmar</span>
+              <span class="release-sep">·</span>
+              <i class="fas fa-hourglass-half"></i> En traducción
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="yashiro-widget" id="yashiroWidget" onclick="toggleNews()">
+        <div class="yashiro-container" id="yashiroContainer">
+          <img
+            src="/assets/Yashiro_flotante_art-Photoroom-DVtwl4OV.webp"
+            alt="Yashiro"
+            class="yashiro-image"
+            id="yashiroImage"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            width="2000"
+            height="2631"
+            onerror="this.src = './assets/Imagenes/Yashiro-Photoroom.webp'"
+          />
+          <div class="yashiro-tooltip" id="yashiroTooltip">¡Noticias!</div>
+          <div class="news-indicator show" id="newsIndicator">!</div>
+        </div>
+      </div>
+
+      <div class="news-dialog-overlay">
+        <div class="news-dialog-container" id="newsDialog">
+          <div class="news-dialog-inner">
+            <div class="news-character">
+              <img
+                src="/assets/yashironoticia-CxBU4msn.webp"
+                alt="Yashiro"
+                class="news-yashiro-img"
+                id="newsYashiroImg"
+                loading="lazy"
+                decoding="async"
+                width="1196"
+                height="1644"
+                onerror="this.src = './assets/Imagenes/yashiro-chibi.png'"
+              />
+            </div>
+            <div class="news-textbox">
+              <p id="newsText">
+                ¡Bienvenidos a Adashima Latinoamérica!<br />Estamos trabajando
+                en nuevas traducciones y contenido para ustedes.
+              </p>
+            </div>
+          </div>
+          <div class="news-hint" id="newsHint">
+            Haz clic en mí para más noticias
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer" id="footer">
+        <div class="footer-content">
+          <div class="footer-text">
+            Fan site no oficial de Adachi to Shimamura.<br />Creado por fans,
+            sin fines de lucro.<br />Adachi to Shimamura y todos sus derechos
+            pertenecen a Hitoma Iruma.
+          </div>
+          <button
+            class="feedback-footer-btn"
+            id="feedbackOpenBtn"
+            type="button"
+          >
+            <i class="fas fa-comment"></i>
+            <span id="feedbackFooterLabel">Send Feedback</span>
+          </button>
+        </div>
+      </footer>
+    </div>
+
+    <div
+      id="feedbackModal"
+      class="feedback-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="feedbackTitle"
+      style="display: none"
+    >
+      <div class="feedback-overlay"></div>
+      <div class="feedback-container glass-box">
+        <button
+          class="feedback-close"
+          id="feedbackClose"
+          type="button"
+          aria-label="Close feedback form"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+
+        <div class="feedback-header">
+          <h2 id="feedbackTitle">Send Feedback</h2>
+          <p class="feedback-subtitle" id="feedbackSubtitle">
+            Found a bug, typo, missing content, or have a suggestion? We'd love
+            to hear from you.
+          </p>
+        </div>
+
+        <form id="feedbackForm" novalidate>
+          <div
+            class="honeypot"
+            style="position: absolute; left: -9999px; top: -9999px"
+          >
+            <label for="honeypotField">Leave this field empty</label>
+            <input
+              type="text"
+              id="honeypotField"
+              name="honeypot"
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="feedback-field">
+            <label for="feedbackType"
+              ><span id="feedbackTypeLabel">Feedback Type</span>
+              <span class="required">*</span></label
+            >
+            <select id="feedbackType" name="feedbackType" required>
+              <option value="" id="fbTypePlaceholder">Select a type...</option>
+              <option value="Bug Report" id="fbTypeBug">Bug Report</option>
+              <option value="Translation Correction" id="fbTypeTranslation">
+                Translation Correction
+              </option>
+              <option value="Missing Content" id="fbTypeMissing">
+                Missing Content
+              </option>
+              <option value="Broken Link" id="fbTypeBroken">Broken Link</option>
+              <option value="Feature Request" id="fbTypeFeature">
+                Feature Request
+              </option>
+              <option value="General Feedback" id="fbTypeGeneral">
+                General Feedback
+              </option>
+            </select>
+            <span class="field-error" id="feedbackTypeError"></span>
+          </div>
+
+          <div class="feedback-field">
+            <label for="feedbackTitleInput"
+              ><span id="feedbackTitleLabel">Title</span>
+              <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="feedbackTitleInput"
+              name="feedbackTitle"
+              placeholder="Brief summary of your feedback"
+              maxlength="100"
+              required
+            />
+            <div class="char-counter"><span id="titleCount">0</span>/100</div>
+            <span class="field-error" id="feedbackTitleError"></span>
+          </div>
+
+          <div class="feedback-field">
+            <label for="feedbackDescription"
+              ><span id="feedbackDescLabel">Description</span>
+              <span class="required">*</span></label
+            >
+            <textarea
+              id="feedbackDescription"
+              name="feedbackDescription"
+              placeholder="Please provide details about your feedback..."
+              maxlength="3000"
+              rows="6"
+              required
+            ></textarea>
+            <div class="char-counter"><span id="descCount">0</span>/3000</div>
+            <span class="field-error" id="feedbackDescriptionError"></span>
+          </div>
+
+          <div class="feedback-field">
+            <label for="feedbackEmail"
+              ><span id="feedbackEmailLabel">Email</span>
+              <span class="optional">(optional)</span></label
+            >
+            <input
+              type="email"
+              id="feedbackEmail"
+              name="feedbackEmail"
+              placeholder="your@email.com"
+            />
+            <span class="field-hint" id="feedbackEmailHint"
+              >We'll only use this to follow up if needed.</span
+            >
+          </div>
+
+          <div class="feedback-actions">
+            <button type="button" class="feedback-cancel" id="feedbackCancel">
+              <span id="fbCancelLabel">Cancel</span>
+            </button>
+            <button type="submit" class="feedback-submit" id="feedbackSubmit">
+              <span class="submit-text" id="fbSubmitLabel">Send Feedback</span>
+              <span class="submit-spinner" style="display: none"
+                ><i class="fas fa-spinner fa-spin"></i> Sending...</span
+              >
+            </button>
+          </div>
+        </form>
+
+        <div
+          class="feedback-success"
+          id="feedbackSuccess"
+          style="display: none"
+        >
+          <div class="success-icon">✓</div>
+          <h3 id="fbSuccessTitle">Thank You!</h3>
+          <p id="fbSuccessText">Your feedback has been sent successfully.</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- Import JS -->
+    <script src="/src/js/language-switch.js"></script>
+    <script src="/src/js/index.js?v=1.5.2"></script>
+  </body>
+</html>

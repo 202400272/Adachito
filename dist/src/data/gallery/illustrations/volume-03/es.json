@@ -1,0 +1,145 @@
+{
+  "artworks": [
+    {
+      "id": 1,
+      "title": "Pick a Chocolate Fitting of Me",
+      "artist": "Non",
+      "artistCaption": "Ilustración de Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume3/Image%201%20Volume%203%20Light%20Novel.jpg",
+      "publication": "Novela ligera de Adachi to Shimamura Volumen 3",
+      "date": "2014-08-09",
+      "collection": "VOLUMEN 03",
+      "type": "ilustración",
+      "tags": [
+        "ilustración",
+        "volumen-03"
+      ],
+      "featured": true
+    },
+    {
+      "id": 2,
+      "title": "Radiance That Reaches for the Sun: Heliotrope",
+      "artist": "Non",
+      "artistCaption": "Ilustración de Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume3/Image%202%20Volume%203%20Light%20Novel.jpg",
+      "publication": "Novela ligera de Adachi to Shimamura Volumen 3",
+      "date": "2014-08-09",
+      "collection": "VOLUMEN 03",
+      "type": "ilustración",
+      "tags": [
+        "ilustración",
+        "volumen-03"
+      ],
+      "featured": false
+    },
+    {
+      "id": 3,
+      "title": "Radiance That Reaches for the Sun: Heliotrope 2",
+      "artist": "Non",
+      "artistCaption": "Ilustración de Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume3/Image%203%20Volume%203%20Light%20Novel.jpg",
+      "publication": "Novela ligera de Adachi to Shimamura Volumen 3",
+      "date": "2014-08-09",
+      "collection": "VOLUMEN 03",
+      "type": "ilustración",
+      "tags": [
+        "ilustración",
+        "volumen-03"
+      ],
+      "featured": false
+    },
+    {
+      "id": 4,
+      "title": "Thorns That Weave the Past: Old Rose",
+      "artist": "Non",
+      "artistCaption": "Ilustración de Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume3/Image%204%20Volume%203%20Light%20Novel.jpg",
+      "publication": "Novela ligera de Adachi to Shimamura Volumen 3",
+      "date": "2014-08-09",
+      "collection": "VOLUMEN 03",
+      "type": "ilustración",
+      "tags": [
+        "ilustración",
+        "volumen-03"
+      ],
+      "featured": false
+    },
+    {
+      "id": 5,
+      "title": "Radiance That Reaches for the Sun: Heliotrope 2",
+      "artist": "Non",
+      "artistCaption": "Ilustración de Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume3/Image%205%20Volume%203%20Light%20Novel.jpg",
+      "publication": "Novela ligera de Adachi to Shimamura Volumen 3",
+      "date": "2014-08-09",
+      "collection": "VOLUMEN 03",
+      "type": "ilustración",
+      "tags": [
+        "ilustración",
+        "volumen-03"
+      ],
+      "featured": false
+    },
+    {
+      "id": 6,
+      "title": "And Then, Love That Embraces the Holy Mother: Marigold",
+      "artist": "Non",
+      "artistCaption": "Ilustración de Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume3/Image%206%20Volume%203%20Light%20Novel.jpg",
+      "publication": "Novela ligera de Adachi to Shimamura Volumen 3",
+      "date": "2014-08-09",
+      "collection": "VOLUMEN 03",
+      "type": "ilustración",
+      "tags": [
+        "ilustración",
+        "volumen-03"
+      ],
+      "featured": false
+    },
+    {
+      "id": 7,
+      "title": "And Then, Love That Embraces the Holy Mother: Marigold 2",
+      "artist": "Non",
+      "artistCaption": "Ilustración de Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume3/Image%207%20Volume%203%20Light%20Novel.jpg",
+      "publication": "Novela ligera de Adachi to Shimamura Volumen 3",
+      "date": "2014-08-09",
+      "collection": "VOLUMEN 03",
+      "type": "ilustración",
+      "tags": [
+        "ilustración",
+        "volumen-03"
+      ],
+      "featured": false
+    },
+    {
+      "id": 8,
+      "title": "Sakura -When the Prayers Shine-",
+      "artist": "Non",
+      "artistCaption": "Ilustración de Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume3/Image%208%20Volume%203%20Light%20Novel.jpg",
+      "publication": "Novela ligera de Adachi to Shimamura Volumen 3",
+      "date": "2014-08-09",
+      "collection": "VOLUMEN 03",
+      "type": "ilustración",
+      "tags": [
+        "ilustración",
+        "volumen-03"
+      ],
+      "featured": false
+    }
+  ],
+  "uiText": {
+    "searchPlaceholder": "Buscar ilustraciones del Volumen 3...",
+    "publicationLabel": "Publicación",
+    "dateLabel": "Fecha",
+    "collectionLabel": "Colección",
+    "tagsLabel": "Etiquetas",
+    "curatorNote": "Nota del curador"
+  },
+  "artists": {
+    "Non": {
+      "bio": "Non (のん) es quien ilustra la serie de novelas ligeras Adachi to Shimamura, destacando por su estilo delicado y atmosférico."
+    }
+  }
+}

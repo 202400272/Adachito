@@ -1,0 +1,57 @@
+{
+  "pageTitle": "CD Dramas",
+  "selectChannel": "Selecciona un canal",
+  "selectChannelDesc": "Enciende la televisión y elige un canal para comenzar a disfrutar los CD Dramas.",
+  "noSignal": "SIN SEÑAL",
+  "loadingText": "Sintonizando canal...",
+  "osdTitle": "YASHONY CHANNELS",
+  "osdSubtitle": "SELECCIONAR CANAL",
+  "osdFooter": "[ MENU ] PARA CERRAR",
+  "downloadLabel": "Descargar",
+  "downloadingLabel": "Descargando...",
+  "powerBtnTitle": "Encender / Apagar",
+  "menuBtnTitle": "Menú de canales",
+  "playBtnTitle": "Reproducir",
+  "pauseBtnTitle": "Pausar",
+  "downloadBtnTitle": "Descargar episodio actual",
+  "fullscreenBtnTitle": "Pantalla completa",
+  "volKnobTitle": "Volumen — arrastra arriba/abajo",
+  "brtKnobTitle": "Brillo — arrastra arriba/abajo",
+  "footerText": "Fan site no oficial de Adachi to Shimamura.<br>Creado por fans, sin fines de lucro.<br>Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma.",
+  "floatingLinkTitle": "¡Clickea para ir al mini-juego!",
+  "enjoys": "Disfruta del",
+  "del": "del anime.",
+  "channel": "Canal",
+  "channels": [
+    {
+      "id": 0,
+      "label": "CH 1",
+      "title": "CD DRAMA — 2° AÑO",
+      "desc": "Disfruta de este relato en audio que expande las interacciones de los personajes durante su segundo año, con las voces originales del elenco.",
+      "badge": "Canal 1 · Drama",
+      "sub": "2° AÑO",
+      "src": "https://media.adashimaverse.com/CD%20DRAMAS/CD%20DRAMA%202%C2%B0%20A%C3%91O.mp4",
+      "download": "CD DRAMA 2° AÑO.mp4"
+    },
+    {
+      "id": 1,
+      "label": "CH 2",
+      "title": "SHIMAMURA SWORD",
+      "desc": "El momento más incómodo de la historia. Escucha el tan icónico \"Shimamura Sword\".",
+      "badge": "Canal 2 · Extra",
+      "sub": "SHIMAMURA SWORD",
+      "src": "https://media.adashimaverse.com/CD%20DRAMAS/SHIMAMURA%20SWORD.mp4",
+      "download": "SHIMAMURA SWORD.mp4"
+    },
+    {
+      "id": 2,
+      "label": "CH 3",
+      "title": "CD DRAMA — VOLUMEN 13",
+      "desc": "Contenido auditivo exclusivo acompañando al Volumen 13 de las novelas ligeras. Un momento imperdible en la historia de Adachi y Shimamura.",
+      "badge": "Canal 3 · Vol. 13",
+      "sub": "VOLUMEN 13",
+      "src": "https://media.adashimaverse.com/CD%20DRAMAS/CD%20DRAMA%20VOL%2013.mp4",
+      "download": "CD DRAMA VOL 13.mp4"
+    }
+  ]
+}

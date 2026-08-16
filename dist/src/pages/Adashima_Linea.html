@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Adashima - Línea del Tiempo</title>
+    <meta
+      name="description"
+      content="Follow the Adashima timeline and chronology of Adachi to Shimamura events, releases, and story moments."
+    />
+    <link
+      rel="canonical"
+      href="https://adashimaverse.com/Adashima_Linea"
+    />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AdashimaVerse" />
+    <meta property="og:title" content="Adashima - Línea del Tiempo" />
+    <meta
+      property="og:description"
+      content="Follow the Adashima timeline and chronology of Adachi to Shimamura events, releases, and story moments."
+    />
+    <meta
+      property="og:url"
+      content="https://adashimaverse.com/Adashima_Linea"
+    />
+    <meta
+      property="og:image"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="AdashimaVerse - Adashima - Línea del Tiempo"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Adashima - Línea del Tiempo" />
+    <meta
+      name="twitter:description"
+      content="Follow the Adashima timeline and chronology of Adachi to Shimamura events, releases, and story moments."
+    />
+    <meta
+      name="twitter:image"
+      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="AdashimaVerse - Adashima - Línea del Tiempo"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=20260812"
+    />
+
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/assets/favicon-uSrLs8-o.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/apple-touch-icon-DH8J7IUg.webp"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/favicon-32x32-DtP-22ky.webp"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/favicon-16x16-BGKEfZ1k.webp"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/assets/icon-192x192-GLdRI4rU.webp"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="/assets/icon-512x512-D6FRuYV7.webp"
+    />
+    <link rel="stylesheet" crossorigin href="/assets/linea-DMDREj_y.css">
+    <link rel="stylesheet" crossorigin href="/assets/menu-3HM7_tG7.css">
+  </head>
+  <body>
+    <div
+      class="bubble-overlay"
+      id="bubbleOverlay"
+      onclick="closeBubbleModal()"
+    ></div>
+    <div class="bubble-modal" id="bubbleModal">
+      <div class="modal-close" onclick="closeBubbleModal()">
+        <i class="fas fa-times"></i>
+      </div>
+      <div class="modal-img-circle" id="modalImgCircle"></div>
+      <div id="modalContent"></div>
+    </div>
+
+    <div id="sidebar-container" style="display: contents"></div>
+    <div class="sakura-container" id="sakura-env"></div>
+    <div class="page-bg"></div>
+    <div class="stars-bg"></div>
+    <div class="clouds-container">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+    </div>
+
+    <div class="main-content">
+      
+
+      <div class="timeline-header">
+        <h1 id="header-title">Línea del Tiempo</h1>
+        <p class="subtitle" id="header-subtitle">
+          Adachi to Shimamura — Historia de su tiempo en la preparatoria
+        </p>
+        <div class="header-deco">
+          <span class="line"></span>
+          <i class="fas fa-bicycle"></i>
+          <i class="fas fa-star" style="font-size: 0.7rem"></i>
+          <i class="fas fa-heart"></i>
+          <i class="fas fa-star" style="font-size: 0.7rem"></i>
+          <i class="fas fa-bicycle" style="transform: scaleX(-1)"></i>
+          <span class="line right"></span>
+        </div>
+      </div>
+
+      <div class="year-filters" id="year-filters"></div>
+
+      <div class="timeline-wrapper" id="timeline">
+        <div class="timeline-base-line"></div>
+        <div class="timeline-progress" id="timelineProgress"></div>
+
+        <div id="timeline-content"></div>
+      </div>
+
+      <div class="footer" id="footer"></div>
+    </div>
+
+    <!-- Import JS -->
+    <script src="/src/js/language-switch.js?v=20260812"></script>
+    <script src="/src/js/linea.js?v=20260812"></script>
+  </body>
+</html>

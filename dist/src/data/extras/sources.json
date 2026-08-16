@@ -1,0 +1,241 @@
+{
+  "sources": {
+    "manga": {
+      "title": "Manga",
+      "icon": "fa-book",
+      "stories": [
+        {
+          "volume": "Vol. 1",
+          "title": "0.99",
+          "origin": "Special Edition booklet (illustrated by Yuzuhara Moke)"
+        },
+        {
+          "volume": "Vol. 2 (& LN Vol. 9)",
+          "title": "0.88",
+          "origin": "Special Edition booklet"
+        },
+        {
+          "volume": "Vol. 3",
+          "title": "Tarumi and Shimamura",
+          "origin": "Included in the manga (illustrated by Yuzuhara Moke)"
+        }
+      ]
+    },
+    "light_novel": {
+      "title": "Light Novel",
+      "icon": "fa-book-open",
+      "volumes": {
+        "8": {
+          "title": "Vol. 8",
+          "stories": [
+            {
+              "title": "A Year of Us",
+              "origin": "Animate bonus (A6, 4-page leaflet)"
+            }
+          ]
+        },
+        "9": {
+          "title": "Vol. 9",
+          "stories": [
+            {
+              "title": "Two Flowers",
+              "origin": "Melon Books bonus"
+            },
+            {
+              "title": "Like Endless Bubbles",
+              "origin": "Gamers paid bonus"
+            }
+          ]
+        },
+        "10": {
+          "title": "Vol. 10",
+          "stories": [
+            {
+              "title": "Adachi and the Zebra",
+              "origin": "Gamers Limited Edition (4-page)"
+            },
+            {
+              "title": "Sanchi, Deuchi, and Hasaka",
+              "origin": "Melon Books bonus"
+            }
+          ]
+        },
+        "11": {
+          "title": "Vol. 11",
+          "stories": [
+            {
+              "title": "A Wish",
+              "origin": "Gamers bonus"
+            }
+          ]
+        },
+        "12": {
+          "title": "Vol. 12",
+          "stories": [
+            {
+              "title": "Written by Adachi Sakura",
+              "origin": "Gamers paid bonus"
+            },
+            {
+              "title": "A Question Befitting the Ruler of the World",
+              "origin": "Gamers free bonus"
+            },
+            {
+              "title": "Summer at Your Side",
+              "origin": "Melon Books bonus"
+            }
+          ]
+        },
+        "13": {
+          "title": "Vol. 13",
+          "stories": [
+            {
+              "title": "Looking Back Together",
+              "origin": "Melon Books Special Edition"
+            },
+            {
+              "title": "A Future Like This Exists, Too",
+              "origin": "Gamers free bonus"
+            },
+            {
+              "title": "Akakura",
+              "origin": "Melon Books Limited Edition (20p booklet)"
+            },
+            {
+              "title": "Aosagi",
+              "origin": "Gamers Limited Edition (16p booklet)"
+            }
+          ]
+        },
+        "ss": {
+          "title": "Volume SS",
+          "stories": [
+            {
+              "title": "From Me to You",
+              "origin": "Melon Books Special Edition"
+            },
+            {
+              "title": "Toward the Twilight That Fades Away",
+              "origin": "Gamers Limited Edition (4-page)"
+            },
+            {
+              "title": "The Scenery of the Park, Then and Now",
+              "origin": "Gamers Limited Edition"
+            }
+          ]
+        },
+        "ss2": {
+          "title": "Volume SS2",
+          "stories": [
+            {
+              "title": "A Fun Little Quiz Show",
+              "origin": "Gamers free bonus"
+            },
+            {
+              "title": "Sharing Winter",
+              "origin": "Melon Books bonus"
+            },
+            {
+              "title": "Infinite Affection Points",
+              "origin": "Gamers paid bonus"
+            }
+          ]
+        },
+        "99.9": {
+          "title": "Volume 99.9",
+          "stories": [
+            {
+              "title": "The Dazzling Morning Sun That Melts Me",
+              "origin": "Gamers Limited Edition (4-page)"
+            },
+            {
+              "title": "From Me to You",
+              "origin": "Melon Books Special Edition"
+            }
+          ]
+        }
+      }
+    },
+    "miscellaneous": {
+      "title": "Other / Miscellaneous",
+      "icon": "fa-star",
+      "stories": [
+        {
+          "title": "Like Water, an Ordinary Eternity / She Said 'I Hope So'",
+          "origin": "Dengeki Bunko × Animate: Commemorative Booklet (3,000 Titles Milestone)"
+        },
+        {
+          "title": "Too Long",
+          "origin": "Animate Anime Adaptation Commemorative bonus"
+        },
+        {
+          "title": "Dog Sakura",
+          "origin": "Gamers Yuri Club 2nd Anniversary Special Edition"
+        },
+        {
+          "title": "I Cannot Be Measured",
+          "origin": "Gamers Limited Short Story (Summer Book Festival 2024, 8p booklet)"
+        },
+        {
+          "title": "In the Palm of My Hand",
+          "origin": "Animate Bonus (Dengeki Bunko Super Thank You Fair 2020)"
+        },
+        {
+          "title": "Shimamura's Swimsuit",
+          "origin": "Included in Dengeki Girls Swimsuit Festival!"
+        },
+        {
+          "title": "Sharing Warmth",
+          "origin": "Melon Books 2022 Special Anthology bonus"
+        },
+        {
+          "title": "Please Choose the Chocolate That Suits Me!",
+          "origin": "SPECIAL ONLINE EVENT reading drama transcript (alternate Valentine's story)"
+        },
+        {
+          "title": "The Cave",
+          "origin": "Gamers Exclusive (Dengeki Bunko Rookies Fair 2016)"
+        },
+        {
+          "title": "Umi Meets Adachi",
+          "origin": "My First Love's Kiss Volume 1: Melonbooks Bonus"
+        },
+        {
+          "title": "The Fake Sleep Prank & My Mother was There",
+          "origin": "Online Lottery Bonus Short Story (2025)"
+        }
+      ]
+    },
+    "kakuyomu": {
+      "title": "Kakuyomu",
+      "icon": "fa-globe",
+      "stories": [
+        {
+          "title": "A Pleasant Holiday Under the Sun",
+          "origin": "Original work published on Kakuyomu.",
+          "url": "https://kakuyomu.jp/works/1177354054897444952/episodes/16818093090943385005"
+        },
+        {
+          "title": "It Was Yesterday, Apparently",
+          "origin": "Original work published on Kakuyomu.",
+          "url": "https://kakuyomu.jp/works/1177354054897444952/episodes/16818622172872413269"
+        },
+        {
+          "title": "The Mystery of the Shimamura Family",
+          "origin": "Original work published on Kakuyomu.",
+          "url": "https://kakuyomu.jp/works/1177354054897444952/episodes/16816452218471455977"
+        },
+        {
+          "title": "Perfection That Feels Unstable",
+          "origin": "Original work published on Kakuyomu.",
+          "url": "https://kakuyomu.jp/works/1177354054897444952/episodes/16816927859985378330"
+        },
+        {
+          "title": "Day Two of My Birthday",
+          "origin": "Original work published on Kakuyomu.",
+          "url": "https://kakuyomu.jp/works/1177354054897444952/episodes/2912051597433894240"
+        }
+      ]
+    }
+  }
+}
