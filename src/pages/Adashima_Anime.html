@@ -10,7 +10,7 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
@@ -71,7 +71,6 @@
     <link rel="stylesheet" href="/src/css/anime.css?v=20260816-1" />
     <link rel="stylesheet" href="/src/css/lang-switch.css?v=20260816-1" />
     <link rel="stylesheet" href="/src/components/styles/scrollbar.css?v=20260816-1" />
-    <link rel="stylesheet" href="/src/components/styles/menu.css?v=20260816-1" />
     <style>
       /* ------------------------------------------------------------
          The menu component (menu.html) is fetched and injected into
@@ -83,25 +82,52 @@
          menu.css/menu.html are not touched) so the fixed column
          layout always wins regardless of load order.
          ------------------------------------------------------------ */
+      #sidebar-container {
+        pointer-events: none;
+      }
+      #sidebar-container .sidebar,
+      #sidebar-container .mobile-toggle,
+      #sidebar-container .drawer-close-btn {
+        pointer-events: auto;
+      }
+
       @media (min-width: 901px) {
-        html body #sidebar-container #menu-component-wrapper .sidebar {
+        html body #sidebar-container,
+        html body #sidebar-container #menu-component-wrapper,
+        html body #sidebar-container #menu-component-wrapper .sidebar,
+        html body #sidebar-container #menu-component-wrapper .sidebar-inner {
+          display: block !important;
           position: fixed !important;
           top: 0 !important;
           left: 0 !important;
-          right: auto !important;
+          width: 300px !important;
+          max-width: 300px !important;
           height: 100vh !important;
           overflow-y: auto !important;
           transform: none !important;
-          z-index: 10;
+          z-index: 1 !important;
+          pointer-events: auto !important;
         }
         html body #menu-component-wrapper .mobile-toggle {
           display: none !important;
         }
-        .main-content {
-          margin-left: 300px;
-          width: calc(100% - 300px);
+        html body .main-content {
+          margin-left: 300px !important;
+          width: calc(100% - 300px) !important;
+          max-width: calc(100% - 300px) !important;
+          position: relative !important;
+          z-index: 2 !important;
+        }
+        html body #powerBtn,
+        html body .crt-stage,
+        html body .tv-controls-row,
+        html body .crt-screen-frame,
+        html body .crt-tv-wrapper {
+          position: relative !important;
+          z-index: 3 !important;
         }
       }
+
       @media (max-width: 900px) {
         #menu-component-wrapper .mobile-toggle {
           left: 15px !important;
@@ -156,7 +182,7 @@
     />
   </head>
   <body>
-    <div id="sidebar-container" style="display: contents"></div>
+    <div id="sidebar-container"></div>
 
     <!-- PARTICLES -->
     <div class="particles" id="particles"></div>

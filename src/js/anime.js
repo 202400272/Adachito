@@ -2322,6 +2322,8 @@ function enforceMenuLayout() {
   const wrapper = document.getElementById("menu-component-wrapper");
   const sidebar = document.getElementById("sideMenu");
   const toggle = document.getElementById("menu-toggle-btn");
+  const container = document.getElementById("sidebar-container");
+  const mainContent = document.querySelector(".main-content");
   if (!wrapper || !sidebar) return;
 
   const isDesktop = window.innerWidth >= 901;
@@ -2331,14 +2333,58 @@ function enforceMenuLayout() {
     if (el) el.style.setProperty(prop, val, "important");
   };
 
+  if (container) {
+    set(container, "display", isDesktop ? "block" : "block");
+    set(container, "pointer-events", "none");
+    set(container, "position", isDesktop ? "fixed" : "static");
+    set(container, "top", isDesktop ? "0" : "auto");
+    set(container, "left", isDesktop ? "0" : "auto");
+    set(container, "width", isDesktop ? "300px" : "auto");
+    set(container, "height", isDesktop ? "100vh" : "auto");
+    set(container, "z-index", isDesktop ? "1" : "auto");
+  }
+
+  if (mainContent) {
+    set(mainContent, "margin-left", isDesktop ? "300px" : "0");
+    set(mainContent, "width", isDesktop ? "calc(100% - 300px)" : "100%");
+    set(mainContent, "max-width", isDesktop ? "calc(100% - 300px)" : "1400px");
+    set(mainContent, "position", "relative");
+    set(mainContent, "z-index", "10");
+    set(mainContent, "pointer-events", "auto");
+    set(mainContent, "padding-left", isDesktop ? "16px" : "8px");
+  }
+
+  const tvStage = document.querySelector(".crt-stage");
+  if (tvStage) {
+    set(tvStage, "position", "relative");
+    set(tvStage, "z-index", "12");
+  }
+
+  const powerButton = document.getElementById("powerBtn");
+  if (powerButton) {
+    set(powerButton, "position", "relative");
+    set(powerButton, "z-index", "12");
+  }
+
   if (isDesktop) {
+    set(wrapper, "position", "fixed");
+    set(wrapper, "top", "0");
+    set(wrapper, "left", "0");
+    set(wrapper, "width", "300px");
+    set(wrapper, "height", "100vh");
+    set(wrapper, "z-index", "1");
+    set(wrapper, "pointer-events", "auto");
+
     set(sidebar, "position", "fixed");
     set(sidebar, "top", "0");
     set(sidebar, "left", "0");
     set(sidebar, "right", "auto");
+    set(sidebar, "width", "300px");
     set(sidebar, "height", "100vh");
     set(sidebar, "overflow-y", "auto");
     set(sidebar, "transform", "none");
+    set(sidebar, "pointer-events", "auto");
+    set(sidebar, "z-index", "1");
     set(toggle, "display", "none");
   } else {
     set(sidebar, "position", "fixed");
@@ -2348,6 +2394,7 @@ function enforceMenuLayout() {
     set(sidebar, "height", "100vh");
     set(sidebar, "overflow-y", "auto");
     set(sidebar, "transform", isActive ? "translateX(0)" : "translateX(-110%)");
+    set(sidebar, "pointer-events", "auto");
     set(toggle, "display", "flex");
     set(toggle, "left", "15px");
     set(toggle, "right", "auto");
