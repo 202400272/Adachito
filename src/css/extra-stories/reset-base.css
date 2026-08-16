@@ -15,5 +15,7 @@ body {
 }
 
 #sidebar-container {
-  display: contents;
+  display: block;
+  width: 300px;
+  min-height: 100vh;
 }

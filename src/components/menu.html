@@ -33,16 +33,16 @@
         --text-main: #5c4b51 !important;
         --text-secondary: #5c4b51 !important;
         --text-muted: #7a6a72 !important;
-        --glass-bg: rgba(255, 255, 255, 0.45) !important;
-        --glass-border: rgba(255, 255, 255, 0.6) !important;
+        --glass-bg: rgba(255, 255, 255, 0.8) !important;
+        --glass-border: rgba(255, 255, 255, 0.8) !important;
         --glass-shadow: 0 8px 32px 0 rgba(135, 107, 145, 0.15) !important;
-        --nav-bg: linear-gradient(135deg, rgba(252, 228, 236, 0.72), rgba(227, 242, 253, 0.72)) !important;
-        --nav-border: rgba(255, 255, 255, 0.6) !important;
+        --nav-bg: linear-gradient(135deg, rgba(255, 245, 247, 0.98), rgba(234, 244, 255, 0.98)) !important;
+        --nav-border: rgba(255, 255, 255, 0.8) !important;
         --nav-text: #5c4b51 !important;
         --nav-shadow: 0 8px 32px 0 rgba(135, 107, 145, 0.15) !important;
-        --surface-bg: rgba(255, 255, 255, 0.85) !important;
-        --surface-border: rgba(240, 98, 146, 0.25) !important;
-        --surface-glass: rgba(255, 255, 255, 0.3) !important;
+        --surface-bg: rgba(255, 255, 255, 0.94) !important;
+        --surface-border: rgba(240, 98, 146, 0.3) !important;
+        --surface-glass: rgba(255, 255, 255, 0.86) !important;
         --accent-primary: #f06292 !important;
         --accent-soft: rgba(240, 98, 146, 0.12) !important;
         font-family: "Nunito", sans-serif !important;
@@ -55,6 +55,7 @@
         height: 100vh !important;
         z-index: 1 !important;
         pointer-events: auto !important;
+        background: linear-gradient(135deg, rgba(255, 245, 247, 0.98), rgba(234, 244, 255, 0.98)) !important;
         transition: color 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
       }
 
@@ -81,28 +82,30 @@
         --accent-soft: rgba(74, 127, 168, 0.12) !important;
       }
       body.time-afternoon #menu-component-wrapper {
-        --nav-bg: linear-gradient(135deg, rgba(252, 228, 236, 0.72), rgba(227, 242, 253, 0.72)) !important;
-        --nav-border: rgba(255, 255, 255, 0.6) !important;
-        --nav-text: #5c4b51 !important;
-        --nav-shadow: 0 8px 32px 0 rgba(135, 107, 145, 0.15) !important;
-        --text-main: #5c4b51 !important;
-        --text-secondary: #5c4b51 !important;
-        --surface-bg: #fef5f7 !important;
-        --surface-border: rgba(240, 98, 146, 0.25) !important;
-        --accent-primary: #f06292 !important;
-        --accent-soft: rgba(240, 98, 146, 0.12) !important;
+        --nav-bg: linear-gradient(180deg, rgba(250, 214, 227, 0.96), rgba(232, 216, 247, 0.97)) !important;
+        --nav-border: rgba(255, 255, 255, 0.42) !important;
+        --nav-text: #4a2f57 !important;
+        --nav-shadow: 0 12px 28px 0 rgba(120, 82, 139, 0.16) !important;
+        --text-main: #4a2f57 !important;
+        --text-secondary: #5b4a67 !important;
+        --surface-bg: rgba(255, 255, 255, 0.18) !important;
+        --surface-border: rgba(255, 255, 255, 0.38) !important;
+        --accent-primary: #d56796 !important;
+        --accent-soft: rgba(214, 103, 150, 0.14) !important;
+        background: linear-gradient(180deg, rgba(250, 214, 227, 0.96), rgba(232, 216, 247, 0.97)) !important;
       }
       body.time-night #menu-component-wrapper {
-        --nav-bg: linear-gradient(135deg, rgba(34, 22, 48, 0.92), rgba(54, 32, 68, 0.9)) !important;
-        --nav-border: rgba(180, 140, 170, 0.22) !important;
-        --nav-text: #d8c8e0 !important;
-        --nav-shadow: 0 8px 32px 0 rgba(15, 8, 30, 0.55) !important;
-        --text-main: #d8c8e0 !important;
-        --text-secondary: #b8a0c0 !important;
-        --surface-bg: rgba(60, 40, 75, 0.5) !important;
-        --surface-border: rgba(180, 140, 170, 0.25) !important;
+        --nav-bg: linear-gradient(180deg, #2d183e 0%, #201330 100%) !important;
+        --nav-border: rgba(255, 255, 255, 0.18) !important;
+        --nav-text: #f2eafc !important;
+        --nav-shadow: 0 8px 32px 0 rgba(20, 10, 28, 0.35) !important;
+        --text-main: #f2eafc !important;
+        --text-secondary: #d9c9e8 !important;
+        --surface-bg: rgba(255, 255, 255, 0.08) !important;
+        --surface-border: rgba(255, 255, 255, 0.14) !important;
         --accent-primary: #c98aa8 !important;
         --accent-soft: rgba(180, 120, 150, 0.18) !important;
+        background: linear-gradient(180deg, #2d183e 0%, #201330 100%) !important;
       }
 
       /* ============================================================
@@ -1138,6 +1141,22 @@
           return VALID_THEMES.includes(theme) ? theme : getTimePeriod();
         }
 
+        function ensureStoredThemeState() {
+          try {
+            const storedAuto = localStorage.getItem(APPEARANCE_STORAGE_KEY);
+            if (storedAuto !== "true" && storedAuto !== "false") {
+              localStorage.setItem(APPEARANCE_STORAGE_KEY, "true");
+            }
+
+            const storedManual = localStorage.getItem(MANUAL_THEME_STORAGE_KEY);
+            if (storedManual && !VALID_THEMES.includes(storedManual)) {
+              localStorage.setItem(MANUAL_THEME_STORAGE_KEY, getTimePeriod());
+            }
+          } catch (e) {
+            // Ignore storage issues.
+          }
+        }
+
         function getTimePeriod() {
           const hour = new Date().getHours();
           if (hour >= 5 && hour < 12) return "morning";
@@ -1193,6 +1212,7 @@
         }
 
         function updateTimeTheme() {
+          ensureStoredThemeState();
           const period = getActiveTheme();
           applyTheme(period);
           document.dispatchEvent(
@@ -1226,6 +1246,7 @@
         window.getTimePeriod = getTimePeriod;
         window.getActiveTheme = getActiveTheme;
         window.setAppearanceTheme = function(theme, useAutoMode) {
+          ensureStoredThemeState();
           const nextTheme = normalizeTheme(theme);
 
           if (useAutoMode) {

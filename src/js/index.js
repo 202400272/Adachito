@@ -1039,6 +1039,22 @@ if ("serviceWorker" in navigator) {
     return VALID_THEMES.includes(theme) ? theme : getTimePeriod();
   }
 
+  function ensureStoredThemeState() {
+    try {
+      const storedAuto = localStorage.getItem(APPEARANCE_STORAGE_KEY);
+      if (storedAuto !== "true" && storedAuto !== "false") {
+        localStorage.setItem(APPEARANCE_STORAGE_KEY, "true");
+      }
+
+      const storedManual = localStorage.getItem(MANUAL_THEME_STORAGE_KEY);
+      if (storedManual && !VALID_THEMES.includes(storedManual)) {
+        localStorage.setItem(MANUAL_THEME_STORAGE_KEY, getTimePeriod());
+      }
+    } catch (e) {
+      // Ignore storage issues.
+    }
+  }
+
   function getTimeBasedPreference() {
     try {
       const value = localStorage.getItem(APPEARANCE_STORAGE_KEY);
@@ -1091,6 +1107,7 @@ if ("serviceWorker" in navigator) {
   }
 
   function setAppearanceTheme(theme, useAutoMode = false) {
+    ensureStoredThemeState();
     const nextTheme = normalizeTheme(theme);
 
     if (useAutoMode) {
@@ -1105,6 +1122,7 @@ if ("serviceWorker" in navigator) {
   }
 
   function updateTimeTheme() {
+    ensureStoredThemeState();
     const period = getActiveTheme();
     applyTheme(period);
 
