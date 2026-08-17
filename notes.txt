@@ -1,9 +1,123 @@
-For local testing, run these via cmd:
+AdaShimaverse — dev notes
+==========================
+(See README.md for full architecture/deployment docs. This file is quick
+reference for local testing + a few gotchas that aren't obvious from the code.)
 
-1. if you want to test the output of 'npm run build'
-npx wrangler pages dev dist --port 5500
+TECH STACK — WHAT EACH PIECE ACTUALLY DOES HERE
+--------------------------------------------------
+HTML / CSS / vanilla JS (ES6+)
+  The actual site. One HTML page per section (src/pages/*.html), mostly one
+  JS file per page (src/js/manga.js, stats.js, etc.), and a mix of flat and
+  per-section CSS files (src/css/). No frontend framework — just native
+  DOM APIs, fetch(), and event listeners. This is intentional, not
+  half-migrated: see README's "Design Principles" for why.
 
-2. if you want to test from the root:
-npx wrangler pages dev . --port 5500
+JSON (src/data/)
+  The content layer. Volume metadata, chapter info, gallery entries, help
+  copy, etc. all live here and get fetch()'d by page-specific JS at
+  runtime, then rendered into the DOM. Editing a JSON file is how you
+  update catalogue content — you should almost never need to touch page
+  markup for a routine data change.
 
-For production builds, use method #1
+Vite (devDependency, powers `npm run dev` / `npm run preview`)
+  Local dev server with hot reload, and a preview server for its own
+  build output. vite.config.js defines a proper multi-page build (one
+  Rollup entry per page) — but that config is NOT what produces the dist/
+  that actually ships (see BUILD PIPELINE below). Right now Vite is
+  effectively a dev-server-only dependency in practice, even though it's
+  capable of more.
+
+@tailwindcss/vite + tailwindcss (devDependencies)
+  Installed and configured — src/css/tailwind.css exists and imports the
+  Tailwind layers — but as of now no page's <head> actually links to
+  tailwind.css. It's present but currently unused/inert. Worth clarifying
+  with the team whether this is early setup for an upcoming page/feature
+  or leftover from an abandoned attempt, since an unused dependency in a
+  build tool config is easy to forget about and then trip over later.
+
+esbuild (devDependency)
+  Only referenced once, as Vite's `cssMinify: "esbuild"` build option.
+  Not used directly/standalone anywhere in scripts/.
+
+playwright (devDependency)
+  Installed, but there's no test suite in the repo currently (no *.spec.js,
+  no playwright.config.js, no tests/ directory). Likely intended for
+  future E2E testing of the reader, filters, search, etc. — but don't go
+  looking for existing tests, there aren't any yet.
+
+Cloudflare Pages + Wrangler
+  The actual host. wrangler.toml points pages_build_output_dir at dist/.
+  _headers and _redirects are Cloudflare Pages config files (not read by
+  Vite or Node) — see README for what they do. `npx wrangler pages dev`
+  is how you test against Pages' actual routing/header behavior locally.
+
+Node build scripts (scripts/*.js)
+  Plain Node, no framework. build.js is what npm run build actually runs
+  (recursive copy, no processing). build-pages.js and copy-static.js are
+  written but not wired into package.json — see BUILD PIPELINE below.
+
+Service worker (sw.js)
+  Not a caching/offline layer despite offline.html existing. Its only job
+  is forcibly clearing Cache Storage and unregistering itself on every
+  install/activate — a deploy-time "make sure nobody's stuck on stale
+  assets" mechanism, not a PWA cache strategy.
+
+LOCAL TESTING
+-------------
+1. Fast dev loop (Vite, hot reload):
+   npm run dev
+
+2. Test the real production build output (do this before deploying):
+   npm run build
+   npx wrangler pages dev dist --port 5500
+
+3. Test straight from the project root, no build step:
+   npx wrangler pages dev . --port 5500
+
+Use #2 before every deploy — it's the only local setup that actually
+respects _headers and _redirects the way Cloudflare Pages will in prod.
+The plain `npm run dev` server does NOT enforce those.
+
+BUILD PIPELINE — READ THIS BEFORE TOUCHING vite.config.js
+-----------------------------------------------------------
+`npm run build` currently runs scripts/build.js, which does a plain
+recursive file copy into dist/ — no bundling, no minification, no hashing.
+vite.config.js defines a proper multi-page Vite build (one entry per page),
+but that config is only actually exercised by `npm run dev` / `npm run preview`
+right now, NOT by `npm run build`.
+
+There are two other scripts (scripts/build-pages.js, scripts/copy-static.js)
+that look like they're meant to run alongside `vite build` in a "real"
+production pipeline, but neither is wired into package.json's `build` script.
+If you're picking this up: confirm with the team whether we're mid-migration
+to the Vite-based build, or whether build.js is the intended long-term setup
+and the other two scripts are dead weight. Don't assume vite.config.js is
+what's actually shipping to prod — as of now, it isn't.
+
+CACHE-BUSTING
+-------------
+Most CSS/JS is referenced by a static path, not bundled, so cache-busting is
+manual: pages append `?v=X.X.X` to hrefs/srcs (e.g. /src/js/index.js?v=1.5.3).
+If you edit a shared CSS/JS file, bump its `?v=` on every page that
+references it, or people can keep serving a stale cached copy.
+
+A short list of shared files (menu.css, menu.html, scrollbar.css,
+lang-switch.js, anime.js, anime.css) skip this convention entirely — they're
+forced to no-cache/must-revalidate directly in `_headers` instead. Check
+that file before assuming a new shared asset needs the ?v= treatment vs. a
+_headers entry.
+
+SERVICE WORKER (sw.js)
+-----------------------
+Not a real offline cache — on every install/activate it clears all Cache
+Storage and unregisters itself (prod build also force-reloads open tabs).
+Its only job is guaranteeing stale state gets wiped after a deploy. If you
+ship something that depends on old cached assets being gone everywhere,
+bump KILL_SWITCH_ID at the top of the file.
+
+ROUTING
+-------
+Clean URLs (e.g. /Adashima_Help) are defined in _redirects, mapped to the
+real file under src/pages/. New page under src/pages/ → add a line to
+_redirects or it's unreachable at a clean URL. Cloudflare Pages appends
+.html automatically when resolving these.

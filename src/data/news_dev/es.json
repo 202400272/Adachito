@@ -1,39 +1,69 @@
 [
+    {
+    "id": "news-interface-refresh",
+    "publishDate": "2026-08-17",
+    "type": "DEV UPDATE",
+    "title": "Un pequeño ajuste para las novedades",
+    "text": "El index recibió algunos cambios para mejorar la sección de Novedades y ajustar un poco más la interfaz general del sitio.",
+    "sourceUrl": "",
+    "body": [
+      "Esta vez no hay una gran función nueva, sino una pequeña actualización centrada principalmente en la página de inicio.",
+      "La sección de Novedades del index fue modificada para mejorar su presentación y hacer que las noticias se integren de una forma más clara con el resto de la interfaz. Se ajustaron la distribución, el contenido mostrado y algunos detalles visuales para que la sección resulte más limpia y fácil de explorar.",
+      "También aproveché para realizar algunos pequeños ajustes en la interfaz general del index."
+    ]
+  },
+  {
+    "id": "performance-and-interface-refresh",
+    "publishDate": "2026-08-17",
+    "type": "DEV UPDATE",
+    "title": "Una pequeña actualización y otra tarde perdida optimizando",
+    "text": "No ha pasado mucho desde la última actualización de desarrollo, pero después de pasar otra tarde entera con esto cuando supuestamente iba a leer libros....",
+    "sourceUrl": "",
+    "body": [
+      "No ha pasado mucho desde la última actualización de desarrollo, pero después de pasar otra tarde entera con esto cuando supuestamente iba a leer libros....",
+      "Terminé volviendo a revisar el sitio y corrigiendo algunas cosas que me estaban molestando después del rediseño reciente. Esta actualización se centra principalmente en la consistencia, el comportamiento y el rendimiento, en lugar de añadir otra función enorme.",
+      "El menú hamburguesa móvil ha sido rediseñado otra vez para hacerlo más pequeño, limpio y menos intrusivo. El ajuste para ocultar el menú en otras páginas también es ahora más fiable, incluida la página de Anime, donde algunas reglas específicas podían volver a mostrarlo.",
+      "La sección Explora Adachi & Shimamura de la página principal también fue refinada. Las tarjetas de novelas, manga y anime ahora integran sus iconos directamente en la composición en lugar de tratarlos como simples decoraciones, dando a la sección un aspecto editorial mucho más limpio.",
+      "También restauré los temas de Mañana, Tarde y Noche en el reproductor de Música, la cola y el reproductor ampliado, el Centro de Ayuda, la página About y el modal de materiales de traducción, y Estadísticas.",
+      "Seguí trabajando en el rendimiento. Se limpió la ruta de renderizado inicial de la página principal, se redujeron dependencias de fuentes innecesarias y se ajustó la imagen principal para móviles. Lighthouse todavía muestra margen de mejora, especialmente en la ruta crítica de renderizado, pero el sitio está cada vez más cerca de donde quiero que esté.",
+      "Y sí, realmente pasé otra tarde optimizando un archivo de fans en lugar de leer los libros que se suponía que iba a leer. Supongo que eso ya forma parte del proceso de desarrollo."
+    ]
+  },
   {
     "id": "first-major-update",
     "publishDate": "2026-08-02",
     "type": "DEV UPDATE",
-    "es": {
-      "title": "¡Ya está aquí la primera gran actualización!",
-      "messages": [
-        "Después de mucho trabajo entre bastidores, el sitio ha recibido su primera gran actualización.",
-        "Esta actualización marca un hito importante para el proyecto. Ahora todo el sitio está disponible en inglés, lo que permite que más lectores accedan al archivo y facilita la exploración de todo lo que el sitio tiene para ofrecer.",
-        "También se han añadido cuatro secciones completamente nuevas: Estadísticas, Historias Extra, Galería y Música. Cada sección ofrece una nueva forma de explorar y disfrutar de las obras más allá de sus historias principales.",
-        "Muchas de las páginas existentes también han recibido cambios importantes, nuevas funciones y mejoras para hacer del sitio una experiencia más completa y agradable.",
-        "Esta actualización no habría sido posible sin la ayuda de varias personas. Un enorme agradecimiento a Chitoshima por ayudar a probar el sitio y asegurarse de que todo funcionara correctamente.",
-        "También queremos agradecer especialmente a sneikkimies y Cuetie Scans por permitirnos utilizar y alojar sus traducciones. Su trabajo ha sido una parte importante de este archivo y estamos enormemente agradecidos por la oportunidad de compartirlo aquí.",
-        "Por último, nuestro mayor agradecimiento es para Hitoma Iruma por crear Adachi y Shimamura, una maravillosa obra literaria que nos inspiró a crear este proyecto y compartirlo con otros lectores.",
-        "Gracias a todas las personas que han visitado, apoyado y seguido el proyecto a lo largo del camino. Esta es solo la primera gran actualización y todavía queda mucho por venir. Esperamos que disfruten explorando todo lo nuevo."
-      ]
-    }
+    "title": "¡Ya está aquí la primera gran actualización!",
+    "text": "Después de mucho trabajo entre bastidores, el sitio ha recibido su primera gran actualización.",
+    "sourceUrl": "",
+    "body": [
+      "Después de mucho trabajo entre bastidores, el sitio ha recibido su primera gran actualización.",
+      "Esta actualización marca un hito importante para el proyecto. Ahora todo el sitio está disponible en inglés, lo que permite que más lectores accedan al archivo y facilita la exploración de todo lo que el sitio tiene para ofrecer.",
+      "También se han añadido cuatro secciones completamente nuevas: Estadísticas, Historias Extra, Galería y Música. Cada sección ofrece una nueva forma de explorar y disfrutar de las obras más allá de sus historias principales.",
+      "Muchas de las páginas existentes también han recibido cambios importantes, nuevas funciones y mejoras para hacer del sitio una experiencia más completa y agradable.",
+      "Esta actualización no habría sido posible sin la ayuda de varias personas. Un enorme agradecimiento a Chitoshima por ayudar a probar el sitio y asegurarse de que todo funcionara correctamente.",
+      "También queremos agradecer especialmente a sneikkimies y Cuetie Scans por permitirnos utilizar y alojar sus traducciones. Su trabajo ha sido una parte importante de este archivo y estamos enormemente agradecidos por la oportunidad de compartirlo aquí.",
+      "Por último, nuestro mayor agradecimiento es para Hitoma Iruma por crear Adachi y Shimamura, una maravillosa obra literaria que nos inspiró a crear este proyecto y compartirlo con otros lectores.",
+      "Gracias a todas las personas que han visitado, apoyado y seguido el proyecto a lo largo del camino. Esta es solo la primera gran actualización y todavía queda mucho por venir. Esperamos que disfruten explorando todo lo nuevo."
+    ]
   },
   {
     "id": "second-major-update",
     "publishDate": "2026-08-15",
     "type": "DEV UPDATE",
-    "es": {
-      "title": "¡Ya está aquí la segunda gran actualización!",
-      "messages": [
-        "Después de varias semanas de desarrollo continuo, el sitio ha recibido su segunda gran actualización. Esta versión se centra en ampliar el archivo, mejorar la navegación, perfeccionar la experiencia visual y optimizar el rendimiento general del sitio.",
-        "El sistema de navegación ha recibido una importante renovación, con una estructura más clara que separa la navegación principal, los enlaces de la comunidad y externos, las obras originales, el estado y la configuración. La navegación móvil también ha sido mejorada con un botón de cierre dedicado y controles adicionales para gestionar el menú móvil.",
-        "La experiencia visual se ha ampliado considerablemente. La Galería ha recibido un rediseño completo con una nueva disposición para las obras destacadas, presentación automática de diapositivas, una vista de tipo masonry mejorada, información sobre los artistas, filtros mejorados y contenido adicional de ilustraciones y portadas. La página de inicio también ha recibido mejoras en la disposición de la información y en su flujo general.",
-        "Ahora el sitio cuenta con una atmósfera dinámica basada en la hora del día, con temas de Mañana, Tarde y Noche que adaptan la apariencia del sitio a lo largo del día. También se ha incorporado una pantalla de carga dedicada para ofrecer una transición más fluida mientras el sitio se inicia.",
-        "La compatibilidad con idiomas también ha continuado expandiéndose. Se ha añadido contenido en español a más áreas del archivo, mientras que el tagalo se ha introducido como prototipo para futuras localizaciones. El sistema de idiomas también ha sido reorganizado para ofrecer un cambio de idioma y una persistencia más consistentes en todo el sitio.",
-        "La experiencia de lectura y escucha también ha recibido numerosas mejoras. Los lectores de PDF de Manga y Novelas han sido optimizados para ofrecer una navegación más fluida, un mejor comportamiento del zoom en dispositivos móviles, carga diferida de miniaturas, almacenamiento en caché de documentos y un menor consumo de recursos. La sección de Música ha recibido mejoras en su interfaz, además de correcciones relacionadas con la identificación de pistas y el estado del reproductor.",
-        "También se han realizado importantes mejoras entre bastidores. La arquitectura CSS ha sido reorganizada en módulos específicos para cada página y más fáciles de mantener, reduciendo la dependencia de la anterior hoja de estilos monolítica. El sistema de compilación del sitio también ha migrado a Vite, proporcionando un flujo de desarrollo más rápido y una depuración mejorada.",
-        "Varios otros sistemas han recibido mejoras de fiabilidad y correcciones. Los filtros y la búsqueda de la Galería ahora son más completos y receptivos, la persistencia del progreso de Constellation y del contenido descargable ha mejorado, los modales de comentarios han sido perfeccionados para ofrecer una mejor compatibilidad entre dispositivos y se han resuelto diversos problemas relacionados con móviles, localización e interfaz.",
-        "Esta actualización representa otro gran paso adelante para el archivo. Aunque todavía queda mucho por mejorar y ampliar, estamos satisfechos con el progreso realizado desde la primera gran actualización. Gracias a todas las personas que continúan visitando, apoyando y siguiendo el proyecto. Esperamos que disfruten de todo lo incluido en esta segunda gran actualización."
-      ]
-    }
+    "title": "¡Ya está aquí la segunda gran actualización!",
+    "text": "Después de varias semanas de desarrollo continuo, el sitio ha recibido su segunda gran actualización. Esta versión se centra en ampliar el archivo, mejorar la navegación, perfeccionar la experiencia visual y optimizar el rendimiento general del sitio.",
+    "sourceUrl": "",
+    "body": [
+      "Después de varias semanas de desarrollo continuo, el sitio ha recibido su segunda gran actualización. Esta versión se centra en ampliar el archivo, mejorar la navegación, perfeccionar la experiencia visual y optimizar el rendimiento general del sitio.",
+      "El sistema de navegación ha recibido una importante renovación, con una estructura más clara que separa la navegación principal, los enlaces de la comunidad y externos, las obras originales, el estado y la configuración. La navegación móvil también ha sido mejorada con un botón de cierre dedicado y controles adicionales para gestionar el menú móvil.",
+      "La experiencia visual se ha ampliado considerablemente. La Galería ha recibido un rediseño completo con una nueva disposición para las obras destacadas, presentación automática de diapositivas, una vista de tipo masonry mejorada, información sobre los artistas, filtros mejorados y contenido adicional de ilustraciones y portadas. La página de inicio también ha recibido mejoras en la disposición de la información y en su flujo general.",
+      "Ahora el sitio cuenta con una atmósfera dinámica basada en la hora del día, con temas de Mañana, Tarde y Noche que adaptan la apariencia del sitio a lo largo del día. También se ha incorporado una pantalla de carga dedicada para ofrecer una transición más fluida mientras el sitio se inicia.",
+      "La compatibilidad con idiomas también ha continuado expandiéndose. Se ha añadido contenido en español a más áreas del archivo, mientras que el tagalo se ha introducido como prototipo para futuras localizaciones. El sistema de idiomas también ha sido reorganizado para ofrecer un cambio de idioma y una persistencia más consistentes en todo el sitio.",
+      "La experiencia de lectura y escucha también ha recibido numerosas mejoras. Los lectores de PDF de Manga y Novelas han sido optimizados para ofrecer una navegación más fluida, un mejor comportamiento del zoom en dispositivos móviles, carga diferida de miniaturas, almacenamiento en caché de documentos y un menor consumo de recursos. La sección de Música ha recibido mejoras en su interfaz, además de correcciones relacionadas con la identificación de pistas y el estado del reproductor.",
+      "También se han realizado importantes mejoras entre bastidores. La arquitectura CSS ha sido reorganizada en módulos específicos para cada página y más fáciles de mantener, reduciendo la dependencia de la anterior hoja de estilos monolítica. El sistema de compilación del sitio también ha migrado a Vite, proporcionando un flujo de desarrollo más rápido y una depuración mejorada.",
+      "Varios otros sistemas han recibido mejoras de fiabilidad y correcciones. Los filtros y la búsqueda de la Galería ahora son más completos y receptivos, la persistencia del progreso de Constellation y del contenido descargable ha mejorado, los modales de comentarios han sido perfeccionados para ofrecer una mejor compatibilidad entre dispositivos y se han resuelto diversos problemas relacionados con móviles, localización e interfaz.",
+      "Esta actualización representa otro gran paso adelante para el archivo. Aunque todavía queda mucho por mejorar y ampliar, estamos satisfechos con el progreso realizado desde la primera gran actualización. Gracias a todas las personas que continúan visitando, apoyando y siguiendo el proyecto. Esperamos que disfruten de todo lo incluido en esta segunda gran actualización."
+    ]
   }
 ]

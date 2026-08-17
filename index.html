@@ -48,7 +48,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-    <link rel="preconnect" href="https://static.cloudflareinsights.com" />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-solid-900.woff2"
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-brands-400.woff2"
+    />
     <link
       rel="preload"
       as="style"
@@ -214,7 +227,7 @@
           <div class="bike-glow"></div>
           <img
             src="/assets/Imagenes/Ada_bici-Photoroom.webp"
-            srcset="/assets/Imagenes/Ada_bici-Photoroom-700w.webp 700w, /assets/Imagenes/Ada_bici-Photoroom.webp 1600w"
+            srcset="/assets/Imagenes/Ada_bici-Photoroom-600w.webp 600w, /assets/Imagenes/Ada_bici-Photoroom-700w.webp 700w, /assets/Imagenes/Ada_bici-Photoroom.webp 1600w"
             sizes="(max-width: 800px) 90vw, 800px"
             alt="Bicicleta Adachi"
             class="floating-bike"
@@ -281,7 +294,7 @@
           <h2 class="section-heading-title" id="exploreSectionTitle">Explore Adachi &amp; Shimamura</h2>
           <p class="section-heading-sub" id="exploreSectionSub">Novels, manga, anime, and other stories from the series.</p>
         </div>
-        <div class="story-grid" id="navGrid"></div>
+        <div class="story-grid explore-cards" id="navGrid"></div>
       </section>
 
       <!-- ===== MORE FROM THE ARCHIVE ===== -->
@@ -304,6 +317,14 @@
 
         <div class="bulletin-board" id="updatesBoard">
           <article class="bulletin-feature" id="bulletinFeature" aria-live="polite">
+            <div class="bulletin-feature-scene" aria-hidden="true">
+              <img
+                class="bulletin-feature-bg"
+                src="/assets/Imagenes/fondo_noticia_2-Photoroom.png"
+                alt=""
+                loading="lazy"
+              />
+            </div>
             <div class="bulletin-feature-top">
               <span class="bulletin-type" id="bulletinFeatureType">LATEST</span>
               <time class="bulletin-date" id="bulletinFeatureDate"></time>
@@ -577,10 +598,16 @@
       </div>
     </div>
 
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script
+      src="https://unpkg.com/lucide@1.31.0/dist/umd/lucide.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+      defer
+    ></script>
     <!-- Import JS -->
-    <script src="./src/js/language-switch.js"></script>
-    <script src="./src/js/index.js?v=1.5.3"></script>
+    <script src="./src/js/language-switch.js" defer></script>
+    <script src="./src/js/index.js?v=1.5.3" defer></script>
   </body>
 </html>

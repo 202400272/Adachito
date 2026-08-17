@@ -1,0 +1,77 @@
+
+/* ============================================================
+   SHARED PAGE TIME THEMES
+   The menu owns the body.time-* class; these rules style the
+   independent page surfaces, players and modals consistently.
+   ============================================================ */
+
+/* HELP */
+body.time-morning { --help-bg:#edf4fb; --help-card:rgba(247,250,253,.82); --help-border:rgba(95,134,170,.18); --help-text:#4f5f73; --help-muted:#63758b; --help-accent:#5f86aa; --help-accent-soft:rgba(95,134,170,.11); }
+body.time-afternoon { --help-bg:#f8edf1; --help-card:rgba(255,255,255,.78); --help-border:rgba(209,135,162,.20); --help-text:#4a354f; --help-muted:#765f79; --help-accent:#c46f91; --help-accent-soft:rgba(196,111,145,.11); }
+body.time-night { --help-bg:#17111d; --help-card:rgba(39,28,48,.82); --help-border:rgba(221,190,226,.12); --help-text:#f1e8f5; --help-muted:#c7b9cf; --help-accent:#d39bc6; --help-accent-soft:rgba(211,155,198,.12); }
+body.time-morning .help-hero { background:linear-gradient(135deg,#eaf3fb,#e7eef8 52%,#f3ebf7) !important; }
+body.time-afternoon .help-hero { background:linear-gradient(135deg,#f9e9ef,#f1e2ee 52%,#f8ecd8) !important; }
+body.time-night .help-hero { background:linear-gradient(135deg,#29182f,#211a31 55%,#18263a) !important; }
+body.time-morning .help-hero h1, body.time-morning .help-section h2, body.time-morning .help-card h3 { color:#4f6f8e !important; }
+body.time-afternoon .help-hero h1, body.time-afternoon .help-section h2, body.time-afternoon .help-card h3 { color:#8f526f !important; }
+body.time-night .help-hero h1, body.time-night .help-section h2, body.time-night .help-card h3 { color:#f4eaf7 !important; }
+body.time-morning .help-hero p, body.time-morning .help-card p, body.time-morning .help-start-card p { color:#63758b !important; }
+body.time-afternoon .help-hero p, body.time-afternoon .help-card p, body.time-afternoon .help-start-card p { color:#705d73 !important; }
+body.time-night .help-hero p, body.time-night .help-card p, body.time-night .help-start-card p { color:#d7cadf !important; }
+body.time-morning .help-card, body.time-morning .help-feedback-card, body.time-morning .help-start-card, body.time-morning .help-category { background:var(--help-card) !important; border-color:var(--help-border) !important; }
+body.time-afternoon .help-card, body.time-afternoon .help-feedback-card, body.time-afternoon .help-start-card, body.time-afternoon .help-category { background:var(--help-card) !important; border-color:var(--help-border) !important; }
+body.time-night .help-card, body.time-night .help-feedback-card, body.time-night .help-start-card, body.time-night .help-category { background:var(--help-card) !important; border-color:var(--help-border) !important; }
+
+/* MUSIC — player bar, queue and expanded player */
+body.time-morning { --music-theme-accent:#5f86aa; --music-theme-pink:#b487a5; --music-theme-text:#4f5f73; --music-theme-surface:rgba(247,250,253,.92); --music-theme-border:rgba(95,134,170,.18); --music-theme-bg:linear-gradient(165deg,#eaf3fb,#edf0fa 62%,#f3ebf7); }
+body.time-afternoon { --music-theme-accent:#8c5a96; --music-theme-pink:#d187a2; --music-theme-text:#3d234d; --music-theme-surface:rgba(255,248,244,.92); --music-theme-border:rgba(140,90,150,.16); --music-theme-bg:linear-gradient(165deg,#f3e6ee,#e8cdd4 55%,#f6e8d3); }
+body.time-night { --music-theme-accent:#d39bc6; --music-theme-pink:#e0a3bf; --music-theme-text:#f2eaf5; --music-theme-surface:rgba(43,33,51,.96); --music-theme-border:rgba(221,190,226,.14); --music-theme-bg:linear-gradient(165deg,#17121e,#211827 46%,#171d2a); }
+body.time-morning .music-shell, body.time-morning .music-main, body.time-morning .music-page, body.time-morning .music-container { background:var(--music-theme-bg) !important; color:var(--music-theme-text) !important; }
+body.time-afternoon .music-shell, body.time-afternoon .music-main, body.time-afternoon .music-page, body.time-afternoon .music-container { background:var(--music-theme-bg) !important; color:var(--music-theme-text) !important; }
+body.time-night .music-shell, body.time-night .music-main, body.time-night .music-page, body.time-night .music-container { background:var(--music-theme-bg) !important; color:var(--music-theme-text) !important; }
+body.time-morning .player-bar, body.time-morning .queue-drawer, body.time-morning .expanded-player-container { background:var(--music-theme-surface) !important; border-color:var(--music-theme-border) !important; color:var(--music-theme-text) !important; }
+body.time-afternoon .player-bar, body.time-afternoon .queue-drawer, body.time-afternoon .expanded-player-container { background:var(--music-theme-surface) !important; border-color:var(--music-theme-border) !important; color:var(--music-theme-text) !important; }
+body.time-night .player-bar, body.time-night .queue-drawer, body.time-night .expanded-player-container { background:var(--music-theme-surface) !important; border-color:var(--music-theme-border) !important; color:var(--music-theme-text) !important; }
+body.time-morning .player-bar-title, body.time-morning .player-bar-artist, body.time-morning .queue-current, body.time-morning .queue-item { color:var(--music-theme-text) !important; }
+body.time-afternoon .player-bar-title, body.time-afternoon .player-bar-artist, body.time-afternoon .queue-current, body.time-afternoon .queue-item { color:var(--music-theme-text) !important; }
+body.time-night .player-bar-title, body.time-night .player-bar-artist, body.time-night .queue-current, body.time-night .queue-item { color:var(--music-theme-text) !important; }
+body.time-morning .player-bar-progress, body.time-morning .player-bar-progress::-webkit-slider-runnable-track { background:rgba(95,134,170,.18) !important; }
+body.time-afternoon .player-bar-progress, body.time-afternoon .player-bar-progress::-webkit-slider-runnable-track { background:rgba(140,90,150,.16) !important; }
+body.time-night .player-bar-progress, body.time-night .player-bar-progress::-webkit-slider-runnable-track { background:rgba(211,155,198,.16) !important; }
+body.time-morning .player-bar button, body.time-morning .queue-close, body.time-morning .queue-item button { color:#5f86aa !important; }
+body.time-afternoon .player-bar button, body.time-afternoon .queue-close, body.time-afternoon .queue-item button { color:#8c5a96 !important; }
+body.time-night .player-bar button, body.time-night .queue-close, body.time-night .queue-item button { color:#d39bc6 !important; }
+body.time-morning .expanded-player-overlay, body.time-morning .queue-overlay { background:rgba(224,234,245,.72) !important; }
+body.time-afternoon .expanded-player-overlay, body.time-afternoon .queue-overlay { background:rgba(80,55,75,.22) !important; }
+body.time-night .expanded-player-overlay, body.time-night .queue-overlay { background:rgba(5,3,9,.72) !important; }
+
+/* ABOUT + translator materials + changelog */
+body.time-morning .about-shell, body.time-morning .about-main { background:linear-gradient(135deg,#eaf3fb,#f3ebf7) !important; color:#4f5f73 !important; }
+body.time-afternoon .about-shell, body.time-afternoon .about-main { background:linear-gradient(135deg,#f3e6ee,#f6e8d3) !important; color:#3d234d !important; }
+body.time-night .about-shell, body.time-night .about-main { background:linear-gradient(135deg,#17121e,#211827 55%,#171d2a) !important; color:#f2eaf5 !important; }
+body.time-morning .about-card, body.time-morning .translator-materials-modal, body.time-morning .changelog-modal { background:rgba(247,250,253,.94) !important; border-color:rgba(95,134,170,.18) !important; color:#4f5f73 !important; }
+body.time-afternoon .about-card, body.time-afternoon .translator-materials-modal, body.time-afternoon .changelog-modal { background:rgba(255,248,244,.94) !important; border-color:rgba(140,90,150,.18) !important; color:#3d234d !important; }
+body.time-night .about-card, body.time-night .translator-materials-modal, body.time-night .changelog-modal { background:rgba(43,33,51,.96) !important; border-color:rgba(221,190,226,.14) !important; color:#f2eaf5 !important; }
+body.time-morning .about-hero-content { background:rgba(247,250,253,.88) !important; }
+body.time-afternoon .about-hero-content { background:rgba(255,248,244,.88) !important; }
+body.time-night .about-hero-content { background:rgba(43,33,51,.88) !important; }
+body.time-morning .about-card h2, body.time-morning .about-card h3 { color:#4f6f8e !important; }
+body.time-afternoon .about-card h2, body.time-afternoon .about-card h3 { color:#7d4f82 !important; }
+body.time-night .about-card h2, body.time-night .about-card h3 { color:#ead8ec !important; }
+body.time-morning .translator-materials-modal *, body.time-morning .changelog-modal *, body.time-morning .about-card * { border-color:rgba(95,134,170,.15); }
+body.time-afternoon .translator-materials-modal *, body.time-afternoon .changelog-modal *, body.time-afternoon .about-card * { border-color:rgba(140,90,150,.15); }
+body.time-night .translator-materials-modal *, body.time-night .changelog-modal *, body.time-night .about-card * { border-color:rgba(221,190,226,.12); }
+
+/* STATS */
+body.time-morning { --stats-bg:linear-gradient(135deg,#eaf3fb,#edf0fa 60%,#f3ebf7); --stats-text:#4f5f73; --stats-surface:rgba(247,250,253,.84); --stats-border:rgba(95,134,170,.18); --stats-accent:#5f86aa; }
+body.time-afternoon { --stats-bg:linear-gradient(135deg,#fbe9e7,#f3e5f5 52%,#f8ecd8); --stats-text:#4a3b52; --stats-surface:rgba(255,255,255,.72); --stats-border:rgba(140,90,150,.16); --stats-accent:#8c5a96; }
+body.time-night { --stats-bg:linear-gradient(135deg,#17121e,#211827 55%,#171d2a); --stats-text:#f2eaf5; --stats-surface:rgba(43,33,51,.9); --stats-border:rgba(221,190,226,.14); --stats-accent:#d39bc6; }
+body.time-morning .stats-dashboard-pro, body.time-morning .stats-main { background:var(--stats-bg) !important; color:var(--stats-text) !important; }
+body.time-afternoon .stats-dashboard-pro, body.time-afternoon .stats-main { background:var(--stats-bg) !important; color:var(--stats-text) !important; }
+body.time-night .stats-dashboard-pro, body.time-night .stats-main { background:var(--stats-bg) !important; color:var(--stats-text) !important; }
+body.time-morning .dashboard-card, body.time-morning .kpi-card, body.time-morning .chart-card, body.time-morning .stat-panel, body.time-morning .volume-card, body.time-morning .compare-card, body.time-morning .achievement-card, body.time-morning .funfact-card { background:var(--stats-surface) !important; border-color:var(--stats-border) !important; color:var(--stats-text) !important; }
+body.time-afternoon .dashboard-card, body.time-afternoon .kpi-card, body.time-afternoon .chart-card, body.time-afternoon .stat-panel, body.time-afternoon .volume-card, body.time-afternoon .compare-card, body.time-afternoon .achievement-card, body.time-afternoon .funfact-card { background:var(--stats-surface) !important; border-color:var(--stats-border) !important; color:var(--stats-text) !important; }
+body.time-night .dashboard-card, body.time-night .kpi-card, body.time-night .chart-card, body.time-night .stat-panel, body.time-night .volume-card, body.time-night .compare-card, body.time-night .achievement-card, body.time-night .funfact-card { background:var(--stats-surface) !important; border-color:var(--stats-border) !important; color:var(--stats-text) !important; }
+body.time-morning .dashboard-card-title, body.time-morning .kpi-card-title, body.time-morning .panel-heading, body.time-morning .volume-card-title { color:#4f6f8e !important; }
+body.time-afternoon .dashboard-card-title, body.time-afternoon .kpi-card-title, body.time-afternoon .panel-heading, body.time-afternoon .volume-card-title { color:#704e78 !important; }
+body.time-night .dashboard-card-title, body.time-night .kpi-card-title, body.time-night .panel-heading, body.time-night .volume-card-title { color:#ead8ec !important; }

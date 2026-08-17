@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import * as esbuild from 'esbuild';
 
 const ITEMS_TO_COPY = [
   'index.html',
@@ -13,6 +14,8 @@ const ITEMS_TO_COPY = [
   'data',
   'pages',
 ];
+
+const MINIFY_EXTENSIONS = new Set(['.js', '.css']);
 
 async function copyRecursive(src, dest) {
   const stat = await fs.stat(src);
@@ -40,6 +43,32 @@ async function normalizeRedirects(srcPath, destPath) {
   await fs.writeFile(destPath, `${lines.join('\n')}\n`, 'utf8');
 }
 
+async function minifyRecursive(dir) {
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      await minifyRecursive(fullPath);
+    } else {
+      const ext = path.extname(entry.name);
+      if (MINIFY_EXTENSIONS.has(ext)) {
+        const code = await fs.readFile(fullPath, 'utf8');
+        const loader = ext === '.css' ? 'css' : 'js';
+        try {
+          const result = await esbuild.transform(code, {
+            loader,
+            minify: true,
+          });
+          await fs.writeFile(fullPath, result.code, 'utf8');
+          console.log('Minified', path.relative(process.cwd(), fullPath));
+        } catch (err) {
+          console.warn(`Skipping minify for ${fullPath}:`, err.message);
+        }
+      }
+    }
+  }
+}
+
 async function main() {
   const root = process.cwd();
   const dist = path.join(root, 'dist');
@@ -63,6 +92,9 @@ async function main() {
       console.log(`Skipping ${item}: not found`);
     }
   }
+
+  console.log('\nMinifying JS and CSS...');
+  await minifyRecursive(dist);
 
   console.log('\nBuild complete — output folder: dist');
 }

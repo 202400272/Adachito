@@ -68,15 +68,14 @@
     <link rel="stylesheet" href="/src/components/styles/menu.css?v=20260812" />
     <link rel="stylesheet" href="/src/css/about/main.css?v=20260812" />
     <style>
+      /* Time-based palette: keep the existing light palette for morning/afternoon,
+         and let night use the same dark language as the rest of the site. */
       body.time-morning,
       body.time-afternoon,
-      body.time-night,
       body.time-morning .about-shell,
       body.time-afternoon .about-shell,
-      body.time-night .about-shell,
       body.time-morning .about-main,
-      body.time-afternoon .about-main,
-      body.time-night .about-main {
+      body.time-afternoon .about-main {
         --page-bg: linear-gradient(135deg, #fbe9e7 0%, #f3e5f5 50%, #e8eaf6 100%);
         --page-text: #3d234d;
         --surface: rgba(255, 255, 255, 0.62);
@@ -105,86 +104,187 @@
 
       body.time-morning .about-hero-content,
       body.time-afternoon .about-hero-content,
-      body.time-night .about-hero-content,
       body.time-morning .about-card,
       body.time-afternoon .about-card,
-      body.time-night .about-card,
       body.time-morning .translator-materials-modal,
       body.time-afternoon .translator-materials-modal,
-      body.time-night .translator-materials-modal,
       body.time-morning .changelog-modal,
-      body.time-afternoon .changelog-modal,
-      body.time-night .changelog-modal {
+      body.time-afternoon .changelog-modal {
         background: rgba(255, 248, 244, 0.92) !important;
         border-color: rgba(140, 90, 150, 0.18) !important;
       }
 
       body.time-morning,
       body.time-afternoon,
-      body.time-night,
       body.time-morning .about-shell,
       body.time-afternoon .about-shell,
-      body.time-night .about-shell,
       body.time-morning .about-main,
-      body.time-afternoon .about-main,
-      body.time-night .about-main {
-        --plum: #5c3a6b !important;
-        --dusty-rose: #d187a2 !important;
-        --color-mid: #9a6898 !important;
-        --color-deep: #6c5287 !important;
-        --muted-text: #5f4b6b !important;
-        --page-text: #3d234d !important;
+      body.time-afternoon .about-main {
+        --plum: #5c3a6b;
+        --dusty-rose: #d187a2;
       }
 
-      .about-hero-title,
-      .about-section-title {
-        color: #d73778 !important;
-      }
+      body.time-morning .about-hero-title,
+      body.time-afternoon .about-hero-title,
+      body.time-morning .about-section-title,
+      body.time-afternoon .about-section-title { color: #d73778 !important; }
 
-      .about-hero-title .iconify,
-      .about-section-title .iconify {
-        color: #ef7aa8 !important;
-      }
+      body.time-morning .about-hero-title .iconify,
+      body.time-afternoon .about-hero-title .iconify,
+      body.time-morning .about-section-title .iconify,
+      body.time-afternoon .about-section-title .iconify { color: #ef7aa8 !important; }
 
-      .about-hero-subtitle,
-      .about-section-subtitle,
-      .translator-info h4,
-      .translator-info h4 a,
-      .translator-role,
-      .translator-badge,
-      .translator-desc,
-      .view-materials-btn,
-      .material-title,
-      .materials-group-header,
-      .materials-count,
-      .material-date,
-      .changelog-modal-title,
-      .changelog-nav-item-version,
-      .changelog-nav-item-date,
-      .changelog-details-empty,
-      .translator-materials-title,
-      .translator-materials-close,
-      .material-status.status-pending,
-      .material-status.status-in-review,
-      .material-status.status-in-progress,
-      .material-status.status-complete {
+      body.time-morning .about-hero-subtitle,
+      body.time-afternoon .about-hero-subtitle,
+      body.time-morning .about-section-subtitle,
+      body.time-afternoon .about-section-subtitle,
+      body.time-morning .translator-info h4,
+      body.time-afternoon .translator-info h4,
+      body.time-morning .translator-info h4 a,
+      body.time-afternoon .translator-info h4 a,
+      body.time-morning .translator-role,
+      body.time-afternoon .translator-role,
+      body.time-morning .translator-badge,
+      body.time-afternoon .translator-badge,
+      body.time-morning .translator-desc,
+      body.time-afternoon .translator-desc,
+      body.time-morning .view-materials-btn,
+      body.time-afternoon .view-materials-btn,
+      body.time-morning .material-title,
+      body.time-afternoon .material-title,
+      body.time-morning .materials-group-header,
+      body.time-afternoon .materials-group-header,
+      body.time-morning .materials-count,
+      body.time-afternoon .materials-count,
+      body.time-morning .material-date,
+      body.time-afternoon .material-date,
+      body.time-morning .changelog-modal-title,
+      body.time-afternoon .changelog-modal-title,
+      body.time-morning .changelog-nav-item-version,
+      body.time-afternoon .changelog-nav-item-version,
+      body.time-morning .changelog-nav-item-date,
+      body.time-afternoon .changelog-nav-item-date,
+      body.time-morning .changelog-details-empty,
+      body.time-afternoon .changelog-details-empty,
+      body.time-morning .translator-materials-title,
+      body.time-afternoon .translator-materials-title,
+      body.time-morning .translator-materials-close,
+      body.time-afternoon .translator-materials-close {
         color: #4a3556 !important;
       }
 
-      .changelog-nav-header,
-      .changelog-details-empty,
-      .materials-empty,
-      .material-date,
-      .view-materials-btn .material-count {
+      body.time-morning .changelog-nav-header,
+      body.time-afternoon .changelog-nav-header,
+      body.time-morning .materials-empty,
+      body.time-afternoon .materials-empty,
+      body.time-morning .view-materials-btn .material-count,
+      body.time-afternoon .view-materials-btn .material-count {
         color: #6d4b6b !important;
       }
 
-      .materials-empty .iconify,
-      .translator-materials-close:hover,
-      .translator-link .link-icon .iconify,
-      .translator-card:hover .translator-icon {
+      body.time-morning .materials-empty .iconify,
+      body.time-afternoon .materials-empty .iconify,
+      body.time-morning .translator-materials-close:hover,
+      body.time-afternoon .translator-materials-close:hover,
+      body.time-morning .translator-link .link-icon .iconify,
+      body.time-afternoon .translator-link .link-icon .iconify,
+      body.time-morning .translator-card:hover .translator-icon,
+      body.time-afternoon .translator-card:hover .translator-icon {
         color: #8b5c88 !important;
       }
+
+      /* Night */
+      body.time-night,
+      body.time-night .about-shell,
+      body.time-night .about-main {
+        --page-bg: radial-gradient(circle at 72% 10%, rgba(132, 83, 153, 0.14), transparent 28%), linear-gradient(165deg, #17121e 0%, #211827 46%, #171d2a 100%);
+        --page-text: #f2eaf5;
+        --surface: #2b2133;
+        --surface-hover: #403048;
+        --surface-strong: #33263b;
+        --surface-soft: #241c2c;
+        --surface-subtle: rgba(255, 255, 255, 0.045);
+        --surface-border: rgba(221, 190, 226, 0.14);
+        --accent: #d39bc6;
+        --accent-strong: #c486b6;
+        --accent-soft: rgba(211, 155, 198, 0.14);
+        --accent-border: rgba(221, 190, 226, 0.14);
+        --accent-border-strong: rgba(221, 190, 226, 0.24);
+        --muted-text: #c8b9cf;
+        --shadow-color: rgba(4, 2, 8, 0.48);
+        --shadow-color-strong: rgba(4, 2, 8, 0.62);
+        --shadow-soft: rgba(4, 2, 8, 0.35);
+        --shadow-glow: rgba(211, 155, 198, 0.22);
+        --color-deep: #f1e8f4;
+        --color-mid: #d7add0;
+        --color-blush: #e0a3bf;
+        --color-text: #f2eaf5;
+        --glass-bg: rgba(34, 26, 43, 0.90);
+        --glass-border: rgba(221, 190, 226, 0.12);
+        --plum: #f2eaf5;
+        --dusty-rose: #d39bc6;
+      }
+
+      body.time-night .about-hero-content,
+      body.time-night .about-card,
+      body.time-night .translator-materials-modal,
+      body.time-night .changelog-modal {
+        background: rgba(43, 33, 51, 0.94) !important;
+        border-color: rgba(221, 190, 226, 0.14) !important;
+        color: #f2eaf5;
+      }
+
+      body.time-night .about-hero-title,
+      body.time-night .about-section-title { color: #f2d8ed !important; }
+      body.time-night .about-hero-title .iconify,
+      body.time-night .about-section-title .iconify { color: #e0a3bf !important; }
+      body.time-night .about-hero-subtitle,
+      body.time-night .about-section-subtitle,
+      body.time-night .translator-info h4,
+      body.time-night .translator-info h4 a,
+      body.time-night .translator-role,
+      body.time-night .translator-badge,
+      body.time-night .translator-desc,
+      body.time-night .view-materials-btn,
+      body.time-night .material-title,
+      body.time-night .materials-group-header,
+      body.time-night .materials-count,
+      body.time-night .material-date,
+      body.time-night .changelog-modal-title,
+      body.time-night .changelog-nav-item-version,
+      body.time-night .changelog-nav-item-date,
+      body.time-night .changelog-details-empty,
+      body.time-night .translator-materials-title,
+      body.time-night .translator-materials-close {
+        color: #f0e7f3 !important;
+      }
+      body.time-night .translator-role,
+      body.time-night .translator-desc,
+      body.time-night .material-date,
+      body.time-night .changelog-nav-item-date { color: #c8b9cf !important; }
+      body.time-night .changelog-nav-header,
+      body.time-night .materials-empty,
+      body.time-night .view-materials-btn .material-count { color: #cbbbd2 !important; }
+      body.time-night .materials-empty .iconify,
+      body.time-night .translator-materials-close:hover,
+      body.time-night .translator-link .link-icon .iconify,
+      body.time-night .translator-card:hover .translator-icon { color: #e0a3bf !important; }
+
+      /* The materials modal contains a few legacy hard-coded light colors. */
+      body.time-night .translator-materials-header { border-bottom-color: rgba(221, 190, 226, 0.12); }
+      body.time-night .translator-materials-close { color: #cfc1d6; }
+      body.time-night .translator-materials-close:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+      body.time-night .materials-group-header { border-bottom-color: rgba(211, 155, 198, 0.22); }
+      body.time-night .materials-count { background: rgba(211, 155, 198, 0.14); }
+      body.time-night .material-item { background: #33263b; border-color: rgba(221, 190, 226, 0.08); }
+      body.time-night .material-item:hover { background: #403048; border-color: rgba(211, 155, 198, 0.22); }
+      body.time-night .material-title { color: #f1e8f4 !important; }
+      body.time-night .material-date { color: #bfaec7 !important; }
+      body.time-night .materials-empty .iconify { color: #8f7b98 !important; }
+      body.time-night .material-status.status-complete { background: #24452f; color: #b9e8c5 !important; }
+      body.time-night .material-status.status-in-progress { background: #4b3a20; color: #f3d99b !important; }
+      body.time-night .material-status.status-in-review { background: #203b54; color: #b8dcf8 !important; }
+      body.time-night .material-status.status-pending { background: #3b3540; color: #d2c7d8 !important; }
     </style>
     <link
       rel="icon"

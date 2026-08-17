@@ -749,9 +749,14 @@ function renderNav(data) {
   // featured (novels) card gets a large decorative background icon
   // instead of a corner badge, matching the reference layout.
   const storyIcons = {
-    novels: "book",
-    manga: "book-open",
+    novels: "library",
+    manga: "images",
     anime: "clapperboard",
+  };
+
+  const storyActionLabel = {
+    en: "Explore",
+    tg: "Tuklasin",
   };
 
   function buildCard(item, variant = "story", index = 0) {
@@ -772,44 +777,19 @@ function renderNav(data) {
       return card;
     }
 
-    const isFeatured = index === 0;
-    const kicker = storyKickers[item.key] || "";
     const iconName = storyIcons[item.key] || faToLucide(item.icon);
+    const actionLabel = storyActionLabel[currentLang] || "Explorar";
 
-    card.className = `nav-card nav-card-story ${isFeatured ? "nav-card-featured" : "nav-card-side"} nav-card-${item.key || ""}`;
+    card.className = `nav-card nav-card-story explore-card explore-card-${item.key || ""}`;
+    card.style.setProperty("--explore-i", index);
 
-    if (isFeatured) {
-      card.innerHTML = `
-        <span class="story-card-kicker">
-          <span class="story-card-kicker-line" aria-hidden="true"></span>
-          <span class="story-card-kicker-text">${kicker}</span>
-        </span>
-        <h3 class="story-card-title">${item.title || ""}</h3>
-        <span class="story-card-underline" aria-hidden="true"></span>
-        ${item.desc ? `<p class="story-card-desc">${item.desc}</p>` : ""}
-        <span class="story-card-action">
-          <span class="story-card-action-line" aria-hidden="true"></span>
-          <span class="story-card-action-btn" aria-hidden="true"><i data-lucide="arrow-right"></i></span>
-        </span>
-        <span class="story-card-decor" aria-hidden="true"><i data-lucide="${iconName}"></i></span>
-      `;
-    } else {
-      card.innerHTML = `
-        <span class="story-card-kicker">
-          <span class="story-card-kicker-line" aria-hidden="true"></span>
-          <span class="story-card-kicker-text">${kicker}</span>
-        </span>
-        <span class="story-card-side-row">
-          <span class="story-card-side-text">
-            <h3 class="story-card-title">${item.title || ""}</h3>
-            <span class="story-card-underline" aria-hidden="true"></span>
-            ${item.desc ? `<p class="story-card-desc">${item.desc}</p>` : ""}
-          </span>
-          <span class="story-card-icon" aria-hidden="true"><i data-lucide="${iconName}"></i></span>
-        </span>
-        <span class="story-card-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></span>
-      `;
-    }
+    card.innerHTML = `
+      <span class="explore-card-glow" aria-hidden="true"></span>
+      <span class="explore-card-icon" aria-hidden="true"><i data-lucide="${iconName}"></i></span>
+      <h3 class="explore-card-title">${item.title || ""}</h3>
+      ${item.desc ? `<p class="explore-card-desc">${item.desc}</p>` : ""}
+      <span class="explore-card-action" data-label="${actionLabel}" aria-hidden="true"><i data-lucide="arrow-right"></i></span>
+    `;
     return card;
   }
 
@@ -1060,7 +1040,14 @@ function sanitizeNewsMessage(message) {
 
 function getLocalizedUpdateText(update) {
   if (!update) return null;
-  return update[currentLang] || update.en || update.es || update.tg || null;
+
+  const preferredKeys = [currentLang, "en", "es", "tg", "tl"];
+  for (const key of preferredKeys) {
+    const value = update[key];
+    if (value && typeof value === "object") return value;
+  }
+
+  return update;
 }
 
 // Returns a comparable number for an id like "1", "2", "news_series-3", etc.
@@ -1212,6 +1199,53 @@ function getBulletinUpdates() {
 }
 
 let bulletinExpanded = false;
+let bulletinRefreshInterval = null;
+const BULLETIN_REFRESH_MS = 5000;
+
+// ---------------------------------------------------------------
+// "New" indicator: remembers which bulletin entries the visitor has
+// already opened, so unopened/new entries can show a small animated
+// badge. The badge disappears the moment that entry is opened.
+// ---------------------------------------------------------------
+const BULLETIN_SEEN_KEY = "adashima_bulletin_seen_ids";
+
+function getSeenBulletinIds() {
+  try {
+    const raw = localStorage.getItem(BULLETIN_SEEN_KEY);
+    if (raw === null) return null; // never initialized (first-ever visit)
+    const parsed = JSON.parse(raw);
+    return new Set(Array.isArray(parsed) ? parsed : []);
+  } catch (error) {
+    return null;
+  }
+}
+
+function saveSeenBulletinIds(set) {
+  try {
+    localStorage.setItem(BULLETIN_SEEN_KEY, JSON.stringify(Array.from(set)));
+  } catch (error) {
+    // Storage unavailable (private mode, etc.) — fail silently, the
+    // badge system just won't persist across reloads.
+  }
+}
+
+function markBulletinIdSeen(id) {
+  if (!id) return;
+  let seen = getSeenBulletinIds();
+  if (!seen) seen = new Set();
+  if (seen.has(id)) return;
+  seen.add(id);
+  saveSeenBulletinIds(seen);
+
+  // Instantly clear the badge wherever this entry is currently shown,
+  // without waiting for a full re-render.
+  document
+    .querySelectorAll(`[data-bulletin-id="${CSS.escape(id)}"]`)
+    .forEach((el) => {
+      el.classList.remove("is-new");
+      el.querySelectorAll(".bulletin-new-badge").forEach((badge) => badge.remove());
+    });
+}
 let activeBulletinUpdate = null;
 let lastBulletinTrigger = null;
 
@@ -1238,6 +1272,7 @@ const BULLETIN_SECTION_COPY = {
     source: "Source",
     showMore: "Show older updates",
     showLess: "Show fewer updates",
+    newBadge: "New",
   },
   es: {
     archiveKicker: "ARCHIVO",
@@ -1248,6 +1283,7 @@ const BULLETIN_SECTION_COPY = {
     source: "Fuente",
     showMore: "Mostrar novedades anteriores",
     showLess: "Mostrar menos novedades",
+    newBadge: "Nuevo",
   },
   tg: {
     archiveKicker: "ARCHIVE",
@@ -1258,6 +1294,7 @@ const BULLETIN_SECTION_COPY = {
     source: "Pinagmulan",
     showMore: "Ipakita ang mga lumang update",
     showLess: "Ipakita ang mas kaunti",
+    newBadge: "Bago",
   },
 };
 
@@ -1300,6 +1337,7 @@ function openBulletinModal(update, trigger = null) {
 
   activeBulletinUpdate = update;
   lastBulletinTrigger = trigger;
+  markBulletinIdSeen(update.id);
 
   type.textContent = normalizedType;
   date.textContent = formatBulletinDate(normalizedDate);
@@ -1405,6 +1443,15 @@ function renderBulletin() {
   bulletinUpdatesCache = updates;
   const sectionCopy = getBulletinSectionCopy();
 
+  // First-ever visit: nothing should read as "new" yet — seed the seen
+  // list with everything currently published, so only entries added
+  // *after* this point will ever show the badge.
+  let seenIds = getSeenBulletinIds();
+  if (seenIds === null) {
+    seenIds = new Set(updates.map((item) => item.id));
+    saveSeenBulletinIds(seenIds);
+  }
+
   if (archiveKicker) archiveKicker.textContent = sectionCopy.archiveKicker;
   if (listTitle) listTitle.textContent = sectionCopy.listTitle;
 
@@ -1427,6 +1474,17 @@ function renderBulletin() {
     || updates.find((item) => item.featured)
     || updates[0];
   const others = updates.filter((item) => item.id !== featured.id);
+
+  feature.dataset.bulletinId = featured.id;
+  feature.classList.toggle("is-new", !seenIds.has(featured.id));
+  const existingFeatureBadge = feature.querySelector(".bulletin-new-badge");
+  if (existingFeatureBadge) existingFeatureBadge.remove();
+  if (!seenIds.has(featured.id)) {
+    const featureBadge = document.createElement("span");
+    featureBadge.className = "bulletin-new-badge bulletin-new-badge--feature";
+    featureBadge.innerHTML = `<i data-lucide="sparkle" aria-hidden="true"></i><span>${sectionCopy.newBadge || "New"}</span>`;
+    feature.querySelector(".bulletin-feature-top")?.appendChild(featureBadge);
+  }
 
   featureType.textContent = featured.type;
   featureDate.textContent = formatBulletinDate(feature.date);
@@ -1460,6 +1518,9 @@ function renderBulletin() {
     const row = document.createElement("article");
     row.className = "bulletin-item";
     row.dataset.type = String(item.type || "news").toLowerCase().replace(/\s+/g, "-");
+    row.dataset.bulletinId = item.id;
+    const isNew = !seenIds.has(item.id);
+    row.classList.toggle("is-new", isNew);
     row.tabIndex = 0;
     row.setAttribute("role", "button");
     row.setAttribute("aria-label", `${getBulletinModalCopy().read}: ${item.title}`);
@@ -1480,6 +1541,12 @@ function renderBulletin() {
     const meta = document.createElement("div");
     meta.className = "bulletin-item-meta";
     meta.innerHTML = `<span>${item.type}</span><time>${formatBulletinDate(item.date)}</time>`;
+    if (isNew) {
+      const badge = document.createElement("span");
+      badge.className = "bulletin-new-badge";
+      badge.innerHTML = `<i data-lucide="sparkle" aria-hidden="true"></i><span>${sectionCopy.newBadge || "New"}</span>`;
+      meta.appendChild(badge);
+    }
 
     const summary = document.createElement("p");
     summary.textContent = item.text || item.body[0] || "";
@@ -1598,6 +1665,10 @@ function renderApp(data) {
   renderBulletin();
   refreshLucideIcons();
 
+  if (document.visibilityState === "visible") {
+    startBulletinRefreshLoop();
+  }
+
   const footer = document.getElementById("footer");
   if (footer) {
     const footerText = footer.querySelector(".footer-text");
@@ -1625,7 +1696,7 @@ function getNewsFolderUrl(folder, lang) {
 }
 
 async function fetchNewsFolder(folder, lang) {
-  const response = await fetch(`${getNewsFolderUrl(folder, lang)}?v=1.0.0`, {
+  const response = await fetch(`${getNewsFolderUrl(folder, lang)}?v=${Date.now()}`, {
     cache: "no-store",
   });
   if (!response.ok) throw new Error(`${folder}: HTTP ${response.status}`);
@@ -1657,7 +1728,9 @@ function normalizeNewsFolder(folder, payload, lang) {
           ? entry.es
           : entry.tg && typeof entry.tg === "object"
             ? entry.tg
-            : entry;
+            : entry.tl && typeof entry.tl === "object"
+              ? entry.tl
+              : entry;
 
     // Flatten the localized content into the canonical shape used by the
     // bulletin. This is important: the modal should never have to know
@@ -1748,6 +1821,31 @@ async function loadNewsContent() {
     renderBulletin();
   }
 }
+
+function stopBulletinRefreshLoop() {
+  if (bulletinRefreshInterval) {
+    clearInterval(bulletinRefreshInterval);
+    bulletinRefreshInterval = null;
+  }
+}
+
+function startBulletinRefreshLoop() {
+  if (bulletinRefreshInterval) return;
+  if (document.visibilityState !== "visible") return;
+
+  bulletinRefreshInterval = setInterval(() => {
+    if (document.visibilityState !== "visible") return;
+    loadNewsContent();
+  }, BULLETIN_REFRESH_MS);
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
+    startBulletinRefreshLoop();
+  } else {
+    stopBulletinRefreshLoop();
+  }
+});
 
 function applyNewsLanguage() {
   if (!rawNewsData) return;

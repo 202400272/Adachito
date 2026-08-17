@@ -3,20 +3,24 @@
     "id": "1",
     "publishDate": "2026-01-16",
     "type": "SERIES NEWS",
-    "es": {
-      "title": "¡Anunciado el lanzamiento en inglés del volumen 13 de Adachi y Shimamura!",
-      "text": "La edición en inglés del volumen 13 de Adachi y Shimamura saldrá a la venta en Norteamérica el 20 de octubre de 2026, publicada por Airship. La novela ligera de 224 páginas cuenta con historia y arte de Hitoma Iruma, raemz y Non. Titulado \"Poniendo en escena\", el volumen sigue a Adachi y Shimamura como estudiantes de tercer año, quienes de alguna manera se olvidaron por completo del Festival Cultural hasta que fueron invitadas a participar. Aunque el evento solo durará un par de días, parece que Adachi tiene algo un poco más especial en mente.",
-      "sourceUrl": "https://sevenseasentertainment.com/books/adachi-and-shimamura-light-novel-vol-13/"
-    }
+    "title": "¡Anunciado el lanzamiento en inglés del volumen 13 de Adachi y Shimamura!",
+    "text": "La edición en inglés del volumen 13 de Adachi y Shimamura saldrá a la venta en Norteamérica el 20 de octubre de 2026, publicada por Airship. La novela ligera de 224 páginas cuenta con historia y arte de Hitoma Iruma, raemz y Non. Titulado \"Poniendo en escena\", el volumen sigue a Adachi y Shimamura como estudiantes de tercer año, quienes de alguna manera se olvidaron por completo del Festival Cultural hasta que fueron invitadas a participar. Aunque el evento solo durará un par de días, parece que Adachi tiene algo un poco más especial en mente.",
+    "sourceUrl": "https://sevenseasentertainment.com/books/adachi-and-shimamura-light-novel-vol-13/"
   },
   {
     "id": "2",
     "publishDate": "2026-08-06",
     "type": "SERIES NEWS",
-    "es": {
-      "title": "¡Anunciado el volumen SS3!",
-      "text": "La tercera colección de historias cortas de Adachi to Shimamura saldrá a la venta en Japón el 10 de septiembre. Junto a \"Sus recuerdos\", que sigue un viaje que ambas realizan como estudiantes universitarias, el volumen incluye muchas historias nuevas sobre su vida cotidiana en casa, en el supermercado e incluso en el extranjero.",
-      "sourceUrl": "https://dengekibunko.jp/product/322604000552.html"
-    }
+    "title": "¡Anunciado el volumen SS3!",
+    "text": "La tercera colección de historias cortas de Adachi to Shimamura saldrá a la venta en Japón el 10 de septiembre. Junto a \"Sus recuerdos\", que sigue un viaje que ambas realizan como estudiantes universitarias, el volumen incluye muchas historias nuevas sobre su vida cotidiana en casa, en el supermercado e incluso en el extranjero.",
+    "sourceUrl": "https://dengekibunko.jp/product/322604000552.html"
+  },
+  {
+    "id": "3",
+    "publishDate": "2026-08-17",
+    "type": "SERIES NEWS",
+    "title": "¡Ya están disponibles los bonus del volumen SS3!",
+    "text": "Las tiendas japonesas Melonbooks y Gamers ya han revelado los bonus de compra para el volumen SS3 de Adachi to Shimamura. Ambos establecimientos ofrecen contenido especial para quienes adquieran la tercera colección de historias cortas, que saldrá a la venta en Japón el 10 de septiembre del 2026.",
+    "sourceUrl": "https://www.gamers.co.jp/pn/%E3%80%90%E5%B0%8F%E8%AA%AC%E3%80%91%E5%AE%89%E9%81%94%E3%81%A8%E3%81%97%E3%81%BE%E3%82%80%E3%82%89SS%283%29/pd/10911372/"
   }
 ]

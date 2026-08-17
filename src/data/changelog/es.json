@@ -1,4 +1,49 @@
 [
+    {
+    "version": "2.3.2",
+    "build": "20260819",
+    "date": "17 de agosto de 2026",
+    "subtitle": "Actualización de Novedades y refinamientos del Index",
+    "changes": {
+      "new": [
+        "Se añadió un marcador visual en la sección de Novedades para indicar cuando hay una noticia nueva.",
+        "Se añadió una nueva imagen de fondo para complementar la interfaz de la página de inicio."
+      ],
+      "improvements": [
+        "Se actualizaron los archivos JSON de Novedades para incorporar y organizar las nuevas entradas.",
+        "Se ajustó la interfaz del Index para mejorar la distribución y presentación.",
+        "Se refinó la sección de Novedades para hacer más visible el contenido reciente."
+      ],
+      "fixes": [],
+      "notes": [
+        "Esta versión se centra principalmente en actualizar el sistema de Novedades y realizar pequeños refinamientos visuales en el Index."
+      ]
+    }
+  },
+  {
+    "version": "2.3.1",
+    "build": "20260818",
+    "date": "17 de agosto de 2026",
+    "subtitle": "Rendimiento, menú móvil y refinamientos visuales",
+    "changes": {
+      "new": [
+        "Se restauraron los estilos de los temas basados en la hora (Mañana, Tarde y Noche) en Música, Ayuda, Acerca de, materiales de traducción y Estadísticas.",
+        "Se refinaron las tarjetas de Explora Adachi & Shimamura con iconos de Lucide integrados y un diseño editorial más limpio."
+      ],
+      "improvements": [
+        "Se rediseñó el menú de hamburguesa móvil con un control más pequeño y compacto, además de un estilo de navegación más limpio.",
+        "Se mejoró la preferencia del menú móvil para que ocultar el menú de hamburguesa en otras páginas se respete correctamente, incluida la página de Anime.",
+        "Se redujeron las dependencias innecesarias de tipografías del menú y se continuaron las optimizaciones de la ruta de renderizado crítica de la página de inicio."
+      ],
+      "fixes": [
+        "Se corrigió un problema en el que el CSS específico de la página podía sobrescribir la preferencia de ocultar el menú de hamburguesa en Anime.",
+        "Se corrigió un problema por el que la barra del reproductor de Música, la cola, el reproductor ampliado, Ayuda, Acerca de, el modal de materiales de traducción y Estadísticas perdían sus estilos de tema basados en la hora."
+      ],
+      "notes": [
+        "Esta versión es principalmente una actualización de refinamiento posterior al reciente rediseño de la página de inicio y el menú. Se centra en recuperar la consistencia del sistema visual, mejorar el comportamiento móvil y continuar optimizando el rendimiento."
+      ]
+    }
+  },
   {
     "version": "2.3.0",
     "build": "20260816",

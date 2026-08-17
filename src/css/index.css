@@ -5269,7 +5269,7 @@ body.time-night .feedback-footer-btn {
   border: 1px solid var(--surface-border);
   border-radius: 28px;
   background: color-mix(in srgb, var(--glass-bg) 70%, transparent);
-  box-shadow: 0 18px 50px rgba(54, 34, 65, .07);
+  box-shadow: 0 18px 50px color-mix(in srgb, var(--accent-primary) 10%, transparent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -6334,4 +6334,865 @@ body.bulletin-modal-open {
 .discover-grid .nav-card-arrow svg {
   width: 12px;
   height: 12px;
+}
+
+/* ============================================================
+   EXPLORE THE STORY — final minimalist card treatment
+   ============================================================ */
+.story-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.35fr) minmax(260px, .85fr) !important;
+  grid-template-rows: repeat(2, minmax(150px, 1fr)) !important;
+  grid-template-areas: "novels manga" "novels anime" !important;
+  gap: 14px !important;
+  max-width: 1040px;
+}
+.story-grid .nav-card {
+  position: relative !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  min-width: 0 !important;
+  padding: 22px !important;
+  border: 1px solid rgba(92, 75, 81, .12) !important;
+  border-radius: 20px !important;
+  background: rgba(255,255,255,.58) !important;
+  box-shadow: 0 10px 30px rgba(80, 55, 90, .055) !important;
+  text-decoration: none !important;
+  color: inherit !important;
+  isolation: isolate;
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease !important;
+}
+.story-grid .nav-card:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 16px 36px rgba(80, 55, 90, .10) !important;
+  border-color: rgba(140,90,150,.24) !important;
+}
+.story-grid .nav-card::before { display: none !important; }
+.story-grid .nav-card-featured { grid-area: novels !important; }
+.story-grid .nav-card:nth-child(2) { grid-area: manga !important; }
+.story-grid .nav-card:nth-child(3) { grid-area: anime !important; }
+.story-grid .story-card-kicker {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  font-size: .64rem !important;
+  font-weight: 700 !important;
+  letter-spacing: .14em !important;
+  color: var(--story-accent, #8c5a96) !important;
+  text-transform: uppercase;
+}
+.story-grid .story-card-kicker-line {
+  width: 22px !important;
+  height: 1px !important;
+  background: currentColor !important;
+  opacity: .65;
+}
+.story-grid .story-card-title {
+  margin: 9px 0 0 !important;
+  font-family: "Noto Serif JP", Georgia, serif !important;
+  font-size: 1.5rem !important;
+  line-height: 1.15 !important;
+  letter-spacing: -.015em;
+  color: var(--text-main, #3d234d) !important;
+}
+.story-grid .nav-card-featured .story-card-title { font-size: clamp(2rem, 4vw, 3.15rem) !important; max-width: 78%; }
+.story-grid .story-card-desc {
+  margin: 10px 0 0 !important;
+  max-width: 560px;
+  font-size: .82rem !important;
+  line-height: 1.65 !important;
+  color: var(--text-muted, #766a78) !important;
+}
+.story-grid .story-card-underline { display: none !important; }
+.story-grid .story-card-side-row { align-items: center !important; gap: 14px !important; }
+.story-grid .story-card-icon,
+.story-grid .story-card-decor {
+  position: relative !important;
+  inset: auto !important;
+  flex: 0 0 48px;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 14px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: var(--story-accent, #8c5a96) !important;
+  background: var(--accent-soft, rgba(140,90,150,.10)) !important;
+  opacity: 1 !important;
+  transform: none !important;
+  z-index: 2 !important;
+}
+.story-grid .story-card-decor { position: absolute !important; right: 22px !important; bottom: 22px !important; width: 66px !important; height: 66px !important; opacity: .12 !important; border-radius: 18px !important; }
+.story-grid .story-card-icon svg,
+.story-grid .story-card-decor svg { width: 23px !important; height: 23px !important; }
+.story-grid .story-card-decor svg { width: 32px !important; height: 32px !important; }
+.story-grid .story-card-action {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-top: 20px !important;
+  color: var(--story-accent, #8c5a96) !important;
+}
+.story-grid .story-card-action-line { width: 30px !important; height: 1px !important; background: currentColor !important; opacity: .45; }
+.story-grid .story-card-action-btn,
+.story-grid .story-card-arrow {
+  width: 30px !important;
+  height: 30px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+  background: var(--accent-soft, rgba(140,90,150,.10)) !important;
+  color: var(--story-accent, #8c5a96) !important;
+}
+.story-grid .story-card-action-btn svg,
+.story-grid .story-card-arrow svg { width: 14px !important; height: 14px !important; }
+.story-grid .nav-card-side .story-card-arrow { margin-top: 12px !important; align-self: flex-end !important; }
+body.time-morning .story-grid .nav-card { background: rgba(247,250,253,.72) !important; border-color: rgba(95,134,170,.16) !important; }
+body.time-morning .story-grid .story-card-icon,
+body.time-morning .story-grid .story-card-decor,
+body.time-morning .story-grid .story-card-action-btn,
+body.time-morning .story-grid .story-card-arrow { color: #5f86aa !important; background: rgba(95,134,170,.10) !important; }
+body.time-afternoon .story-grid .nav-card { background: rgba(255,255,255,.58) !important; }
+body.time-night .story-grid .nav-card { background: rgba(38,29,47,.82) !important; border-color: rgba(221,190,226,.13) !important; box-shadow: 0 12px 36px rgba(0,0,0,.18) !important; }
+body.time-night .story-grid .story-card-title { color: #f1e8f4 !important; }
+body.time-night .story-grid .story-card-desc { color: #bfaec7 !important; }
+body.time-night .story-grid .story-card-icon,
+body.time-night .story-grid .story-card-decor,
+body.time-night .story-grid .story-card-action-btn,
+body.time-night .story-grid .story-card-arrow { color: #d39bc6 !important; background: rgba(211,155,198,.11) !important; }
+@media (max-width: 900px) {
+  .story-grid { grid-template-columns: 1fr !important; grid-template-rows: auto !important; grid-template-areas: "novels" "manga" "anime" !important; }
+  .story-grid .nav-card-featured .story-card-title { font-size: 2rem !important; max-width: 76%; }
+}
+@media (max-width: 520px) {
+  .story-grid .nav-card { padding: 19px !important; border-radius: 17px !important; }
+  .story-grid .story-card-title { font-size: 1.35rem !important; }
+  .story-grid .nav-card-featured .story-card-title { font-size: 1.8rem !important; }
+  .story-grid .story-card-desc { font-size: .78rem !important; }
+}
+
+
+/* ============================================================
+   EXPLORE THE STORY — INTEGRATED ICON COMPOSITION
+   Icons are ornaments within the card layout, not standalone UI controls.
+   ============================================================ */
+.story-grid .nav-card {
+  --story-accent: #c86b9b;
+  --story-icon-opacity: .12;
+  isolation: isolate !important;
+}
+.story-grid .nav-card::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 170px;
+  height: 170px;
+  right: -44px;
+  bottom: -54px;
+  border: 1px solid currentColor;
+  border-radius: 46% 54% 60% 40%;
+  color: var(--story-accent);
+  opacity: .10;
+  transform: rotate(-12deg);
+  pointer-events: none;
+}
+.story-grid .story-card-decor,
+.story-grid .story-card-icon {
+  background: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: var(--story-accent) !important;
+}
+.story-grid .story-card-decor {
+  position: absolute !important;
+  right: 26px !important;
+  bottom: 18px !important;
+  width: 118px !important;
+  height: 118px !important;
+  opacity: var(--story-icon-opacity) !important;
+  transform: rotate(-7deg) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+.story-grid .story-card-decor svg {
+  width: 100% !important;
+  height: 100% !important;
+  stroke-width: 1.15 !important;
+}
+.story-grid .story-card-side-row {
+  position: relative !important;
+  display: block !important;
+  padding-right: 72px !important;
+}
+.story-grid .story-card-icon {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  width: 52px !important;
+  height: 52px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: .72 !important;
+}
+.story-grid .story-card-icon svg {
+  width: 34px !important;
+  height: 34px !important;
+  stroke-width: 1.25 !important;
+}
+.story-grid .story-card-side-row::after {
+  content: "";
+  position: absolute;
+  right: 9px;
+  top: 54px;
+  width: 34px;
+  height: 1px;
+  background: var(--story-accent);
+  opacity: .42;
+}
+.story-grid .story-card-title {
+  position: relative !important;
+  z-index: 2 !important;
+}
+.story-grid .story-card-desc {
+  position: relative !important;
+  z-index: 2 !important;
+}
+.story-grid .nav-card-featured .story-card-title { max-width: 74% !important; }
+.story-grid .nav-card-featured::after { width: 240px; height: 240px; right: -74px; bottom: -92px; opacity: .075; }
+.story-grid .nav-card-featured .story-card-decor { width: 170px !important; height: 170px !important; right: 26px !important; bottom: 14px !important; }
+.story-grid .story-card-action { position: relative !important; z-index: 3 !important; }
+.story-grid .story-card-action-btn,
+.story-grid .story-card-arrow {
+  background: transparent !important;
+  border: 1px solid color-mix(in srgb, var(--story-accent) 60%, transparent) !important;
+}
+body.time-morning .story-grid .nav-card { --story-accent: #5f86aa; }
+body.time-afternoon .story-grid .nav-card { --story-accent: #b86591; }
+body.time-night .story-grid .nav-card { --story-accent: #d39bc6; }
+@media (max-width: 900px) {
+  .story-grid .nav-card-featured .story-card-title { max-width: 72% !important; }
+  .story-grid .nav-card-featured .story-card-decor { width: 130px !important; height: 130px !important; }
+}
+@media (max-width: 520px) {
+  .story-grid .story-card-side-row { padding-right: 58px !important; }
+  .story-grid .story-card-icon { width: 42px !important; height: 42px !important; }
+  .story-grid .story-card-icon svg { width: 29px !important; height: 29px !important; }
+  .story-grid .story-card-side-row::after { right: 4px; top: 46px; width: 28px; }
+  .story-grid .nav-card-featured .story-card-decor { width: 110px !important; height: 110px !important; right: 8px !important; }
+}
+
+/* ===== EXPLORE ADACHI & SHIMAMURA — redesign ===== */
+.explore-section .editorial-heading {
+  margin-bottom: 36px !important;
+}
+
+.explore-section {
+  margin-bottom: clamp(40px, 5vw, 64px) !important;
+}
+
+#discoverSection.discover-section {
+  margin-top: 0 !important;
+}
+
+.story-grid.explore-cards {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  grid-template-rows: auto !important;
+  grid-template-areas: none !important;
+  gap: 24px !important;
+  align-items: stretch !important;
+}
+
+.story-grid.explore-cards .explore-card-novels { --explore-accent: var(--accent-primary); --explore-accent-2: #ffb37b; }
+.story-grid.explore-cards .explore-card-manga  { --explore-accent: var(--accent-secondary); --explore-accent-2: #9b8cf0; }
+.story-grid.explore-cards .explore-card-anime  { --explore-accent: var(--accent-primary); --explore-accent-2: var(--accent-secondary); }
+
+.story-grid.explore-cards .nav-card.explore-card {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  grid-area: auto !important;
+  min-height: 320px !important;
+  padding: 42px 30px 32px !important;
+  border-radius: 30px !important;
+  background:
+    radial-gradient(120% 90% at 50% -10%, color-mix(in srgb, var(--explore-accent) 16%, transparent) 0%, transparent 60%),
+    var(--surface-glass) !important;
+  border: 1px solid var(--surface-border) !important;
+  box-shadow: var(--surface-shadow) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  overflow: hidden !important;
+  text-decoration: none !important;
+  animation: exploreCardIn .6s cubic-bezier(.2,.8,.2,1) both !important;
+  animation-delay: calc(var(--explore-i, 0) * .1s) !important;
+  transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease, border-color .4s ease !important;
+}
+
+@keyframes exploreCardIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.story-grid.explore-cards .nav-card.explore-card::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 5px !important;
+  background: linear-gradient(90deg, var(--explore-accent) 0%, var(--explore-accent-2) 100%) !important;
+  opacity: 0 !important;
+  transform: scaleX(0) !important;
+  transform-origin: left center !important;
+  transition: opacity .4s ease, transform .5s cubic-bezier(.2,.8,.2,1) !important;
+  pointer-events: none !important;
+}
+
+.story-grid.explore-cards .nav-card.explore-card::after {
+  content: "" !important;
+  position: absolute !important;
+  z-index: 0 !important;
+  width: 170px !important;
+  height: 170px !important;
+  right: -60px !important;
+  bottom: -60px !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle, var(--explore-accent-2) 0%, transparent 72%) !important;
+  opacity: .16 !important;
+  pointer-events: none !important;
+  transition: opacity .4s ease, transform .5s ease !important;
+}
+
+.story-grid.explore-cards .nav-card.explore-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 20px 38px -16px rgba(74, 47, 87, 0.3) !important;
+  border-color: color-mix(in srgb, var(--explore-accent) 45%, var(--surface-border)) !important;
+}
+
+.story-grid.explore-cards .nav-card.explore-card:hover::before {
+  opacity: 1 !important;
+  transform: scaleX(1) !important;
+}
+
+.story-grid.explore-cards .nav-card.explore-card:hover::after {
+  opacity: .2 !important;
+}
+
+.story-grid.explore-cards .explore-card-glow {
+  position: absolute !important;
+  z-index: 0 !important;
+  width: 200px !important;
+  height: 200px !important;
+  top: -80px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle, var(--explore-accent) 0%, transparent 70%) !important;
+  opacity: .16 !important;
+  filter: blur(4px) !important;
+  pointer-events: none !important;
+  transition: opacity .4s ease !important;
+}
+
+.story-grid.explore-cards .nav-card.explore-card:hover .explore-card-glow {
+  opacity: .24 !important;
+}
+
+.story-grid.explore-cards .explore-card-icon {
+  position: relative !important;
+  z-index: 2 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 92px !important;
+  height: 92px !important;
+  margin-bottom: 22px !important;
+  border-radius: 62% 38% 55% 45% / 45% 55% 45% 55% !important;
+  color: #fff !important;
+  background: linear-gradient(145deg, var(--explore-accent) 0%, var(--explore-accent-2) 100%) !important;
+  box-shadow: 0 10px 20px -8px color-mix(in srgb, var(--explore-accent) 50%, transparent) !important;
+  transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease, border-radius .4s ease !important;
+}
+
+.story-grid.explore-cards .nav-card.explore-card:hover .explore-card-icon {
+  transform: scale(1.06) !important;
+  border-radius: 45% 55% 40% 60% / 55% 45% 55% 45% !important;
+  box-shadow: 0 14px 26px -8px color-mix(in srgb, var(--explore-accent) 60%, transparent) !important;
+}
+
+.story-grid.explore-cards .explore-card-icon svg {
+  width: 34px !important;
+  height: 34px !important;
+  stroke-width: 1.8 !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.story-grid.explore-cards .explore-card-title {
+  position: relative !important;
+  z-index: 2 !important;
+  font-family: var(--font-display, "Noto Serif JP", serif) !important;
+  font-size: 1.62rem !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  color: var(--text-main) !important;
+  margin: 0 0 12px !important;
+}
+
+.story-grid.explore-cards .explore-card-desc {
+  position: relative !important;
+  z-index: 2 !important;
+  font-size: .92rem !important;
+  line-height: 1.6 !important;
+  color: var(--text-secondary) !important;
+  margin: 0 0 28px !important;
+  max-width: 30ch !important;
+  flex: 1 !important;
+}
+
+.story-grid.explore-cards .explore-card-action {
+  position: relative !important;
+  z-index: 2 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  width: auto !important;
+  min-width: 46px !important;
+  height: 46px !important;
+  padding: 0 18px !important;
+  border-radius: 999px !important;
+  border: 1.5px solid color-mix(in srgb, var(--explore-accent) 45%, transparent) !important;
+  color: var(--explore-accent) !important;
+  background: color-mix(in srgb, var(--explore-accent) 8%, transparent) !important;
+  margin-top: auto !important;
+  transition: background .35s ease, border-color .35s ease, color .35s ease, transform .35s ease, width .35s ease, padding .35s ease !important;
+}
+
+.story-grid.explore-cards .explore-card-action::before {
+  content: attr(data-label) !important;
+  font-size: .74rem !important;
+  font-weight: 700 !important;
+  letter-spacing: .04em !important;
+  max-width: 0 !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  opacity: 0 !important;
+  transition: max-width .35s ease, opacity .3s ease !important;
+}
+
+.story-grid.explore-cards .nav-card.explore-card:hover .explore-card-action::before {
+  max-width: 120px !important;
+  opacity: 1 !important;
+}
+
+.story-grid.explore-cards .explore-card-action svg {
+  width: 18px !important;
+  height: 18px !important;
+  stroke-width: 2.2 !important;
+  flex-shrink: 0 !important;
+}
+
+.story-grid.explore-cards .nav-card.explore-card:hover .explore-card-action {
+  background: linear-gradient(120deg, var(--explore-accent), var(--explore-accent-2)) !important;
+  border-color: transparent !important;
+  color: #fff !important;
+  transform: translateX(2px) !important;
+  padding: 0 20px !important;
+}
+
+body.time-night .story-grid.explore-cards .nav-card.explore-card {
+  background:
+    radial-gradient(120% 90% at 50% -10%, color-mix(in srgb, var(--explore-accent) 20%, transparent) 0%, transparent 60%),
+    rgba(40, 28, 48, 0.55) !important;
+  border-color: rgba(216, 138, 184, 0.25) !important;
+}
+
+body.time-night .story-grid.explore-cards .explore-card-title {
+  color: #f1e8f4 !important;
+}
+
+body.time-night .story-grid.explore-cards .explore-card-desc {
+  color: #c8b8d8 !important;
+}
+
+@media (max-width: 900px) {
+  .story-grid.explore-cards {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto !important;
+    gap: 20px !important;
+    max-width: 460px !important;
+    margin: 0 auto !important;
+  }
+  .story-grid.explore-cards .nav-card.explore-card {
+    min-height: unset !important;
+    padding: 36px 26px 30px !important;
+  }
+  .story-grid.explore-cards .explore-card-desc {
+    max-width: 34ch !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .story-grid.explore-cards .nav-card.explore-card {
+    padding: 32px 22px 26px !important;
+    border-radius: 26px !important;
+  }
+  .story-grid.explore-cards .explore-card-icon {
+    width: 68px !important;
+    height: 68px !important;
+    margin-bottom: 16px !important;
+    border-radius: 18px !important;
+  }
+  .story-grid.explore-cards .explore-card-icon svg {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .story-grid.explore-cards .explore-card-title {
+    font-size: 1.32rem !important;
+  }
+  .story-grid.explore-cards .explore-card-desc {
+    font-size: .87rem !important;
+    margin-bottom: 20px !important;
+  }
+  .story-grid.explore-cards .explore-card-action {
+    height: 42px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-grid.explore-cards .nav-card.explore-card,
+  .story-grid.explore-cards .explore-card-glow::before,
+  .story-grid.explore-cards .explore-card-glow::after {
+    animation: none !important;
+  }
+}
+/* ============================================================
+   NOVEDADES — visual recreation to match the reference mock
+   (scoped strictly to the bulletin/"What's New" components)
+   ============================================================ */
+
+/* ---------- Board shell: airier, rounder, matches reference card ---------- */
+/* NOTE: grid-template-columns/min-height only apply at desktop widths —
+   the original stylesheet already collapses `.bulletin-board` to a single
+   column at <=900px, and this rule must not fight that or the two panels
+   overlap on mobile. */
+@media (min-width: 901px) {
+  .bulletin-board {
+    grid-template-columns: minmax(0, 1.12fr) minmax(340px, .88fr);
+    min-height: 460px;
+  }
+}
+
+.bulletin-board {
+  border-radius: 32px;
+  background: color-mix(in srgb, var(--glass-bg) 60%, transparent);
+  box-shadow:
+    0 20px 46px color-mix(in srgb, var(--accent-primary) 14%, transparent),
+    0 6px 18px color-mix(in srgb, var(--accent-secondary) 12%, transparent);
+}
+
+/* ---------- Feature panel: soft watercolor wash + silhouette scene ---------- */
+.bulletin-feature {
+  background:
+    radial-gradient(circle at 88% 8%, rgba(244, 164, 190, .28), transparent 40%),
+    radial-gradient(circle at 100% 100%, rgba(139, 184, 216, .22), transparent 46%),
+    linear-gradient(150deg, rgba(255,255,255,.12), rgba(255,255,255,.02));
+}
+
+/* Padding is only enhanced above the point where the original
+   stylesheet's own mobile padding rules (<=600px) take over — this
+   keeps their tighter, tested mobile spacing intact. */
+@media (min-width: 601px) {
+  .bulletin-feature {
+    padding: clamp(28px, 3.4vw, 44px) clamp(28px, 3.6vw, 46px) clamp(26px, 3vw, 40px);
+  }
+}
+
+.bulletin-feature-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.bulletin-feature-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom right;
+  opacity: .24;
+  filter: blur(1px) saturate(1.05);
+  -webkit-mask-image: linear-gradient(100deg, transparent 0%, transparent 22%, rgba(0,0,0,.45) 48%, rgba(0,0,0,.8) 72%, rgba(0,0,0,.55) 100%);
+  mask-image: linear-gradient(100deg, transparent 0%, transparent 22%, rgba(0,0,0,.45) 48%, rgba(0,0,0,.8) 72%, rgba(0,0,0,.55) 100%);
+  mix-blend-mode: multiply;
+}
+
+.bulletin-feature-top {
+  position: relative;
+  z-index: 2;
+  justify-content: flex-start;
+}
+
+/* Pill-shaped "SERIES NEWS" badge, sitting on top of the scene */
+.bulletin-type {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 18px 9px 14px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-primary) 16%, var(--glass-bg) 84%);
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 30%, transparent);
+  box-shadow: 0 8px 20px rgba(233, 155, 183, .18);
+  opacity: 1;
+}
+
+.bulletin-type::before {
+  background: var(--accent-primary);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent-primary) 16%, transparent);
+}
+
+.bulletin-feature-content {
+  position: relative;
+  z-index: 2;
+}
+
+@media (min-width: 601px) {
+  .bulletin-feature-content {
+    padding-top: clamp(30px, 4vw, 46px);
+  }
+}
+
+.bulletin-feature-number {
+  z-index: 1;
+}
+
+/* ---------- Archive list panel ---------- */
+.bulletin-list-panel {
+  background: linear-gradient(165deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
+}
+
+@media (min-width: 601px) {
+  .bulletin-list-panel {
+    padding: 30px 26px 24px;
+  }
+}
+
+.bulletin-list-heading {
+  border-bottom: 0;
+  padding-bottom: 14px;
+}
+
+.bulletin-count {
+  padding-top: 4px;
+  font-size: .8rem;
+  opacity: .5;
+}
+
+/* Individual cards instead of a flat divided list */
+.bulletin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.bulletin-item {
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 14px;
+  padding: 17px 18px 16px;
+  border: 1px solid color-mix(in srgb, var(--surface-border) 65%, transparent);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--glass-bg) 55%, transparent);
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--accent-secondary) 10%, transparent);
+  transition: padding .2s ease, background .2s ease, box-shadow .2s ease, transform .2s ease, border-color .2s ease;
+}
+
+.bulletin-item:hover {
+  padding: 17px 18px 16px;
+  background: color-mix(in srgb, var(--glass-bg) 78%, transparent);
+  border-color: color-mix(in srgb, var(--accent-primary) 30%, transparent);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--accent-primary) 16%, transparent);
+  transform: translateY(-1px);
+}
+
+.bulletin-item-index {
+  padding-top: 1px;
+  color: var(--accent-primary);
+  font: 700 .95rem/1.2 "Noto Serif JP", serif;
+  opacity: .55;
+}
+
+.bulletin-item-content {
+  padding-right: 20px;
+}
+
+/* Pill-shaped "Show older updates" button */
+.bulletin-more {
+  width: auto;
+  margin: 8px auto 2px;
+  padding: 11px 22px;
+  border: 1px solid var(--surface-border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--glass-bg) 60%, transparent);
+  opacity: .85;
+}
+
+.bulletin-more:hover {
+  opacity: 1;
+  background: color-mix(in srgb, var(--glass-bg) 85%, transparent);
+}
+
+/* ---------- "New update" indicator ---------- */
+/* Fix the meta-row separator so it only ever appears after the type
+   label, never after our injected badge. */
+.bulletin-item-meta span::after {
+  content: none;
+}
+
+.bulletin-item-meta > span:first-child::after {
+  content: "·";
+  margin-left: 10px;
+  opacity: .55;
+}
+
+.bulletin-new-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 10px;
+  padding: 3px 10px 3px 8px;
+  border-radius: 999px;
+  background: linear-gradient(120deg, var(--accent-primary), var(--accent-secondary));
+  color: #fff;
+  font: 700 .58rem/1.3 "Quicksand", sans-serif;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: middle;
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent-primary) 55%, transparent);
+  animation: bulletinNewPulse 2.2s ease-in-out infinite;
+}
+
+.bulletin-new-badge i,
+.bulletin-new-badge svg {
+  width: 10px;
+  height: 10px;
+  animation: bulletinSparkleSpin 2.6s linear infinite;
+}
+
+.bulletin-feature-top .bulletin-new-badge {
+  margin-left: 12px;
+  padding: 5px 13px 5px 10px;
+  font-size: .62rem;
+}
+
+.bulletin-feature-top .bulletin-new-badge i,
+.bulletin-feature-top .bulletin-new-badge svg {
+  width: 12px;
+  height: 12px;
+}
+
+@keyframes bulletinNewPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent-primary) 45%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent-primary) 0%, transparent);
+  }
+}
+
+@keyframes bulletinSparkleSpin {
+  0%, 80%, 100% { transform: rotate(0deg) scale(1); }
+  40% { transform: rotate(180deg) scale(1.15); }
+}
+
+/* Give "new" cards a soft glowing outline instead of a flat border */
+.bulletin-item.is-new {
+  border-color: color-mix(in srgb, var(--accent-primary) 45%, transparent);
+  background: linear-gradient(140deg, color-mix(in srgb, var(--accent-primary) 8%, var(--glass-bg)), color-mix(in srgb, var(--accent-secondary) 6%, var(--glass-bg)));
+  animation: bulletinNewGlow 2.6s ease-in-out infinite;
+}
+
+@keyframes bulletinNewGlow {
+  0%, 100% {
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--accent-secondary) 10%, transparent), 0 0 0 0 color-mix(in srgb, var(--accent-primary) 22%, transparent);
+  }
+  50% {
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--accent-secondary) 10%, transparent), 0 0 0 5px color-mix(in srgb, var(--accent-primary) 0%, transparent);
+  }
+}
+
+.bulletin-feature.is-new .bulletin-feature-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 85% 10%, color-mix(in srgb, var(--accent-primary) 16%, transparent), transparent 55%);
+  animation: bulletinNewPulse 2.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bulletin-new-badge,
+  .bulletin-new-badge i,
+  .bulletin-new-badge svg,
+  .bulletin-item.is-new,
+  .bulletin-feature.is-new .bulletin-feature-scene::after {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .bulletin-feature-bg {
+    opacity: .18;
+    object-position: bottom center;
+    -webkit-mask-image: linear-gradient(0deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,.35) 45%, transparent 78%);
+    mask-image: linear-gradient(0deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,.35) 45%, transparent 78%);
+  }
+}
+
+@media (max-width: 600px) {
+  .bulletin-board {
+    border-radius: 24px;
+  }
+
+  .bulletin-feature-bg {
+    inset: auto;
+    right: -6%;
+    bottom: -2%;
+    left: auto;
+    top: auto;
+    width: 68%;
+    max-width: 260px;
+    height: auto;
+    object-fit: contain;
+    object-position: bottom right;
+    opacity: .22;
+    -webkit-mask-image: radial-gradient(circle at 60% 55%, rgba(0,0,0,.85) 0%, rgba(0,0,0,.45) 55%, transparent 82%);
+    mask-image: radial-gradient(circle at 60% 55%, rgba(0,0,0,.85) 0%, rgba(0,0,0,.45) 55%, transparent 82%);
+  }
+
+  .bulletin-type {
+    padding: 7px 15px 7px 12px;
+  }
+
+  .bulletin-list-panel {
+    padding: 22px 16px 18px;
+  }
+
+  .bulletin-item {
+    grid-template-columns: 26px minmax(0, 1fr);
+    padding: 15px 14px 14px;
+    border-radius: 16px;
+  }
 }

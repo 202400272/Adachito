@@ -1,4 +1,49 @@
 [
+    {
+    "version": "2.3.2",
+    "build": "20260819",
+    "date": "August 17, 2026",
+    "subtitle": "News Updates and Homepage Refinements",
+    "changes": {
+      "new": [
+        "Added a visual indicator to the News section to show when a new news entry is available.",
+        "Added a new background image to complement the homepage interface."
+      ],
+      "improvements": [
+        "Updated the News JSON files to incorporate and organize new entries.",
+        "Adjusted the Index interface to improve the layout and presentation of its different sections.",
+        "Refined the News section to make recent content more noticeable."
+      ],
+      "fixes": [],
+      "notes": [
+        "This release mainly focuses on updating the News system and making small visual refinements to the Index."
+      ]
+    }
+  },
+  {
+    "version": "2.3.1",
+    "build": "20260818",
+    "date": "August 17, 2026",
+    "subtitle": "Performance, Mobile Menu & Visual Refinements",
+    "changes": {
+      "new": [
+        "Restored time-based Morning, Afternoon, and Night theme styling across Music, Help, About, translator materials, and Stats.",
+        "Refined the Explore Adachi & Shimamura cards with integrated Lucide icons and a cleaner editorial layout."
+      ],
+      "improvements": [
+        "Redesigned the mobile burger menu with a smaller, more compact control and cleaner navigation styling.",
+        "Improved the mobile menu preference so hiding the burger menu on other pages is reliably respected, including on Anime.",
+        "Reduced unnecessary menu typography dependencies and continued homepage critical-rendering-path optimizations."
+      ],
+      "fixes": [
+        "Fixed page-specific CSS from overriding the hidden burger menu preference on Anime.",
+        "Fixed Music player bar, queue, expanded player, Help, About, translator materials modal, and Stats components losing their time-based theme styles."
+      ],
+      "notes": [
+        "This release is primarily a refinement pass following the recent homepage and menu redesign. It focuses on making the visual system consistent again while tightening mobile behavior and performance."
+      ]
+    }
+  },
   {
     "version": "2.3.0",
     "build": "20260816",
@@ -138,7 +183,6 @@
       ]
     }
   },
-
   {
     "version": "2.2.5",
     "build": "20260810",
@@ -728,7 +772,9 @@
         "Improved project organization and maintainability."
       ],
       "fixes": [],
-      "notes": ["Internal refactor with no major user-facing changes."]
+      "notes": [
+        "Internal refactor with no major user-facing changes."
+      ]
     }
   }
 ]

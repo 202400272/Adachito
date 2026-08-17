@@ -37,6 +37,15 @@ let readerSettings = null;
 let readerScrollHandler = null;
 let readerResizeHandler = null;
 
+function loadDyslexicFont() {
+  if (document.getElementById("opendyslexic-font")) return;
+  const link = document.createElement("link");
+  link.id = "opendyslexic-font";
+  link.rel = "stylesheet";
+  link.href = "https://fonts.cdnfonts.com/css/opendyslexic";
+  document.head.appendChild(link);
+}
+
 function loadReaderSettings() {
   try {
     const saved = localStorage.getItem(READER_SETTINGS_KEY);
@@ -48,6 +57,9 @@ function loadReaderSettings() {
     }
   } catch (e) {
     readerSettings = { ...defaultSettings };
+  }
+  if (readerSettings.dyslexiaFont) {
+    loadDyslexicFont();
   }
   return readerSettings;
 }
@@ -1218,6 +1230,9 @@ function initReaderSettings() {
   if (dyslexiaToggle) {
     dyslexiaToggle.addEventListener("click", () => {
       readerSettings.dyslexiaFont = !readerSettings.dyslexiaFont;
+      if (readerSettings.dyslexiaFont) {
+        loadDyslexicFont();
+      }
       saveReaderSettings();
       applyReaderSettings();
       updateSettingsUI();

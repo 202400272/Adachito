@@ -250,6 +250,17 @@
       sizes="512x512"
       href="/assets/Imagenes/icon-512x512.webp"
     />
+      <style id="anime-burger-preference-guard">
+      @media (max-width: 900px) {
+        html body #menu-component-wrapper.mobile-toggle-hidden .mobile-toggle,
+        html body #menu-component-wrapper.mobile-toggle-hidden #menu-toggle-btn {
+          display: none !important;
+          visibility: hidden !important;
+          opacity: 0 !important;
+          pointer-events: none !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="sidebar-container"></div>

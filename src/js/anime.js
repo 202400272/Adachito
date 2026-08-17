@@ -2273,7 +2273,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 // ===== LOAD MENU WITH TRANSLATION SUPPORT =====
-fetch("/src/components/menu.html?v=20260816-1", { cache: "no-store" })
+fetch("/src/components/menu.html?v=20260818-1", { cache: "no-store" })
   .then((response) => {
     if (!response.ok)
       throw new Error("HTTP error " + response.status + " loading menu");
@@ -2393,11 +2393,34 @@ function enforceMenuLayout() {
     set(sidebar, "right", "auto");
     set(sidebar, "height", "100vh");
     set(sidebar, "overflow-y", "auto");
-    set(sidebar, "transform", isActive ? "translateX(0)" : "translateX(-110%)");
+    set(sidebar, "transform", isActive ? "translateX(0)" : "translateX(-105%)");
     set(sidebar, "pointer-events", "auto");
-    set(toggle, "display", "flex");
-    set(toggle, "left", "15px");
-    set(toggle, "right", "auto");
+
+    // Respect the shared burger-menu preference. The Anime page has its own
+    // layout enforcement with !important styles, so it must explicitly check
+    // the same setting instead of always forcing the toggle back to flex.
+    let hideBurger = false;
+    try {
+      const hideOnOtherPages =
+        localStorage.getItem("adashima_hide_burger_other_pages") === "true";
+      const path = window.location.pathname.replace(/\/+$/, "").toLowerCase();
+      const isHome = path === "" || path === "/index.html" || path === "/index";
+      hideBurger = hideOnOtherPages && !isHome;
+    } catch (e) {
+      hideBurger = false;
+    }
+
+    set(toggle, "display", hideBurger ? "none" : "flex");
+    if (hideBurger) {
+      toggle.style.setProperty("display", "none", "important");
+      toggle.style.setProperty("visibility", "hidden", "important");
+      toggle.style.setProperty("pointer-events", "none", "important");
+    } else {
+      toggle.style.removeProperty("visibility");
+      toggle.style.removeProperty("pointer-events");
+    }
+    set(toggle, "left", "auto");
+    set(toggle, "right", "14px");
   }
 }
 
