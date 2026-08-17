@@ -67,6 +67,22 @@
   color: #6b6b6b;
 }
 
+.theme-light .settings-toggle-btn {
+  border-color: #e8e4de;
+}
+
+.theme-light .settings-toggle-text {
+  color: #2b2b2b;
+}
+
+.theme-light .settings-toggle-btn.active {
+  border-color: #2b2b2b;
+}
+
+.theme-light .settings-reset-group {
+  border-top-color: #e8e4de;
+}
+
 .theme-light .settings-theme-btn.active,
 .theme-light .settings-lh-btn.active,
 .theme-light .settings-width-btn.active {
@@ -138,6 +154,22 @@
 .theme-sepia .settings-width-btn {
   border-color: #dcd0bc;
   color: #6a5a4a;
+}
+
+.theme-sepia .settings-toggle-btn {
+  border-color: #dcd0bc;
+}
+
+.theme-sepia .settings-toggle-text {
+  color: #3c3024;
+}
+
+.theme-sepia .settings-toggle-btn.active {
+  border-color: #3c3024;
+}
+
+.theme-sepia .settings-reset-group {
+  border-top-color: #dcd0bc;
 }
 
 .theme-sepia .settings-theme-btn.active,
@@ -216,6 +248,26 @@
 .theme-dark .settings-width-btn {
   border-color: #2a2a2a;
   color: #8a8a8a;
+}
+
+.theme-dark .settings-toggle-btn {
+  border-color: #2a2a2a;
+}
+
+.theme-dark .settings-toggle-text {
+  color: #e8e4dd;
+}
+
+.theme-dark .settings-toggle-btn.active {
+  border-color: #e8e4dd;
+}
+
+.theme-dark .settings-toggle-switch {
+  background: #2a2a2a;
+}
+
+.theme-dark .settings-reset-group {
+  border-top-color: #2a2a2a;
 }
 
 .theme-dark .settings-theme-btn:hover,

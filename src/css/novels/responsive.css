@@ -1,7 +1,7 @@
 @media (max-width: 992px) {
   .novels-grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
   }
 }
 
@@ -121,7 +121,8 @@
   }
 
   .view-toggle-group {
-    align-self: flex-end;
+    align-self: center;
+    margin: 0 auto;
   }
 
   .view-toggle-btn {
@@ -143,33 +144,24 @@
     max-height: none;
   }
 
-  .update-box.view-grid .novels-grid {
-    padding: 1rem;
-    gap: 1rem;
-  }
-
   .novels-grid {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 1rem;
-    padding: 0;
+    gap: 0.85rem;
   }
 
   .novel-card .card-body {
-    padding: 0.6rem 0.8rem 0.9rem;
+    padding: 0.6rem 0.7rem 0.8rem;
   }
   .novel-card .card-title {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
   .novel-card .card-desc {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
   }
 
-  .novel-item {
-    margin-bottom: 10px;
-  }
   summary.novel-summary {
-    padding: 14px 16px;
-    font-size: 0.95rem;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.8rem;
   }
   .novel-content {
     padding: 0 16px 16px;
@@ -260,15 +252,9 @@
     padding: 10px;
   }
 
-  .update-box.view-grid .novels-grid {
-    padding: 0.75rem;
-    gap: 0.75rem;
-    border-radius: 16px;
-  }
-
   .novels-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
+    gap: 0.6rem;
   }
 
   .novel-card {
@@ -383,10 +369,17 @@
   }
 }
 
+@media (min-width: 1400px) {
+  .novels-grid {
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
 @media (max-width: 360px) {
   .novels-grid {
     grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
   .novel-card .card-title {
     font-size: 0.7rem;

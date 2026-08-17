@@ -6,11 +6,12 @@
 
 body {
   font-family: "Quicksand", sans-serif;
-  background: linear-gradient(135deg, #fbe9e7 0%, #f3e5f5 50%, #e8eaf6 100%);
-  color: #4a3b52;
+  background: var(--page-bg);
+  color: var(--page-text);
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  transition: background 0.8s ease, color 0.35s ease;
   display: flex;
 }
 

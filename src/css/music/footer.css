@@ -4,7 +4,7 @@
   margin-top: 24px;
   text-align: center;
   font-size: 0.7rem;
-  color: rgba(92, 58, 107, 0.5);
+  color: var(--text-faint);
   z-index: 5;
   line-height: 1.6;
   letter-spacing: 0.02em;

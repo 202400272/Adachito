@@ -22,7 +22,7 @@
 }
 
 .story-bookmark-btn.bookmarked {
-  color: #d1a3c6;
+  color: var(--dusty-rose);
 }
 
 .story-bookmark-btn.bookmarked:hover {
@@ -45,7 +45,7 @@
   gap: 0.3rem;
   font-size: 0.6rem;
   font-weight: 600;
-  color: #5f4b6b;
+  color: var(--page-muted);
   opacity: 0.5;
   padding: 0.1rem 0.5rem;
   border-radius: 12px;

@@ -14,7 +14,7 @@
 }
 
 .album-card {
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--surface);
   backdrop-filter: blur(8px);
   border-radius: 16px;
   border: 1px solid rgba(200, 180, 210, 0.08);
@@ -31,7 +31,7 @@
 }
 
 .album-card:focus-visible {
-  outline: 2px solid #8c5a96;
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -70,7 +70,7 @@
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
   font-size: 2.6rem;
-  color: rgba(140, 90, 150, 0.45);
+  color: var(--text-jp);
 }
 
 .album-card-overlay {
@@ -119,7 +119,7 @@
 .album-card-title-jp {
   font-family: "Noto Serif JP", serif;
   font-size: 0.7rem;
-  color: rgba(92, 58, 107, 0.4);
+  color: var(--text-jp);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -127,7 +127,7 @@
 }
 
 .album-card.playing, .album-card.playing-paused {
-  border-color: rgba(140, 90, 150, 0.45);
+  border-color: var(--text-jp);
   box-shadow: 0 0 0 2px rgba(140, 90, 150, 0.25), var(--shadow-lg);
 }
 

@@ -6,13 +6,13 @@
 }
 
 .about-hero-content {
-  background: rgba(255, 255, 255, 0.4);
+  background: var(--surface);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: 2.8rem;
   padding: 2rem 2rem;
-  border: 1px solid rgba(209, 163, 198, 0.2);
-  box-shadow: 0 20px 60px rgba(92, 58, 107, 0.08);
+  border: 1px solid var(--accent-border);
+  box-shadow: 0 20px 60px var(--shadow-color);
 }
 
 .about-hero-title {
@@ -54,14 +54,14 @@
 }
 
 .hero-badge {
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--surface);
   backdrop-filter: blur(4px);
   padding: 0.4rem 1.2rem;
   border-radius: 60px;
   font-size: 0.85rem;
   font-weight: 500;
   color: var(--plum);
-  border: 1px solid rgba(209, 163, 198, 0.15);
+  border: 1px solid var(--accent-soft);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -74,7 +74,7 @@
 }
 
 .hero-badge:hover {
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--surface-strong);
   border-color: var(--dusty-rose);
   transform: translateY(-2px);
 }

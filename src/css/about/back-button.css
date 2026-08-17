@@ -5,18 +5,18 @@
   z-index: 50;
   padding: 0.5rem 1rem;
   margin-bottom: 1rem;
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--surface);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 60px;
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  border: 1px solid rgba(209, 163, 198, 0.2);
-  box-shadow: 0 4px 20px rgba(92, 58, 107, 0.08);
+  border: 1px solid var(--accent-border);
+  box-shadow: 0 4px 20px var(--shadow-color);
   transition: all 0.3s ease;
   text-decoration: none;
-  color: #5c3a6b;
+  color: var(--plum);
   font-family: "Quicksand", sans-serif;
   font-weight: 600;
   font-size: 0.9rem;
@@ -28,10 +28,10 @@
 }
 
 .back-button-sticky:hover {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: #d1a3c6;
+  background: var(--surface-strong);
+  border-color: var(--dusty-rose);
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(92, 58, 107, 0.12);
+  box-shadow: 0 8px 28px var(--shadow-color);
 }
 
 .back-button-sticky:hover .iconify {

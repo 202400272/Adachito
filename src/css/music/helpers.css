@@ -1,7 +1,7 @@
 .empty-state {
   text-align: center;
   padding: 3rem 2rem;
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--surface-soft);
   border-radius: 16px;
   border: 1px solid rgba(200, 180, 210, 0.06);
 }
@@ -9,13 +9,13 @@
 .empty-state-icon .iconify {
   font-size: 2.5rem;
   opacity: 0.4;
-  color: #9a6898;
+  color: var(--icon-text);
 }
 
 .empty-state h3 {
   font-family: "Playfair Display", "Noto Serif JP", serif;
   font-size: 1.1rem;
-  color: #3d234d;
+  color: var(--text-plum);
   margin-bottom: 0.3rem;
 }
 

@@ -70,7 +70,7 @@
         "key": "constellation",
         "title": "Constelación",
         "desc": "Descubrimientos ocultos a lo largo del archivo.",
-        "icon": "fa-star-and-crescent"
+        "icon": "fa-star"
       },
       {
         "key": "anime",
@@ -80,7 +80,7 @@
       },
       {
         "key": "others",
-        "title": "Archivo",
+        "title": "Otros",
         "desc": "Publicaciones oficiales y medios adicionales.",
         "icon": "fa-archive"
       },
@@ -95,6 +95,18 @@
         "title": "Acerca de",
         "desc": "Información sobre el proyecto, colaboradores y agradecimientos.",
         "icon": "fa-info-circle"
+      },
+      {
+        "key": "authorArchive",
+        "title": "Archivo del Autor",
+        "desc": "Material del autor, entrevistas y referencias históricas.",
+        "icon": "fa-user"
+      },
+      {
+        "key": "help",
+        "title": "Centro de Ayuda",
+        "desc": "Guías, preguntas frecuentes y soporte del archivo.",
+        "icon": "fa-circle-question"
       }
     ]
   },

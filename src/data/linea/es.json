@@ -7,7 +7,8 @@
     "all": "Toda la historia",
     "year1": "1.er Año Escolar",
     "year2": "2.do Año Escolar",
-    "year3": "3.er Año Escolar"
+    "year3": "3.er Año Escolar",
+    "multiverse": "Multiverso"
   },
   "yearBadges": {
     "year1": "Primer Año Escolar",
@@ -300,5 +301,95 @@
         "\"Un nuevo período escolar comienza, dejando el verano atrás. Hace dos años, desde este mismo punto, empecé a desviarme hacia el segundo piso del gimnasio y hasta me teñí el cabello de rubio. Pero gracias a aquellos desvíos inesperados, tuve un encuentro inesperado que me llevó a donde estoy ahora. Quizá ese encuentro sea uno de esos que cambian la vida para siempre.\" (Volumen 13)"
       ]
     }
-  ]
+  ],
+  "multiverse": {
+    "title": "Multiverso",
+    "subtitle": "Historias secundarias canónicas que se ramifican de la línea temporal principal de Adachi to Shimamura.",
+    "mainTimeline": "Línea temporal principal",
+    "mainTimelineDesc": "La historia canónica contada a través de las novelas ligeras.",
+    "branchLabel": "Divergencia",
+    "sourceLabel": "Fuente",
+    "items": [
+      {
+        "id": 1,
+        "title": "Si Todos Fueran Pequeños",
+        "volume": "Volumen 5",
+        "divergence": "Adachi y Shimamura vuelven a ser niñas antes de que su relación pueda desarrollarse.",
+        "note": "Una rama alternativa centrada en su infancia."
+      },
+      {
+        "id": 2,
+        "title": "Si No Se Hubieran Conocido en el Segundo Piso del Gimnasio",
+        "volume": "Volumen 7",
+        "divergence": "Su primer encuentro en el segundo piso del gimnasio nunca ocurre, creando un camino completamente distinto.",
+        "note": "La primera gran divergencia: se elimina su encuentro original."
+      },
+      {
+        "id": 3,
+        "title": "Si Adachi Se Hubiera Quedado Como Era al Principio",
+        "volume": "Volumen 7",
+        "divergence": "Adachi nunca cambia respecto a la versión distante y retraída del comienzo de la historia.",
+        "note": "Una divergencia centrada en el desarrollo de Adachi."
+      },
+      {
+        "id": 4,
+        "title": "En Este Mundo",
+        "volume": "Volumen 7",
+        "divergence": "Aparecen dos premisas AU: se conocen al final del mundo; y Adachi es científica mientras Shimamura es una alienígena.",
+        "note": "Dos mundos alternativos distintos dentro de un mismo capítulo."
+      },
+      {
+        "id": 5,
+        "title": "Si Adachi Fuera Profesora",
+        "volume": "Volumen 12",
+        "divergence": "La vida de Adachi toma una rama futura en la que se convierte en profesora.",
+        "note": "Una AU sobre una posible vida futura."
+      },
+      {
+        "id": 6,
+        "title": "Si Adachi Fuera Novelista",
+        "volume": "Volumen 12",
+        "divergence": "El futuro de Adachi toma una rama en la que se convierte en novelista.",
+        "note": "Una AU sobre una posible vida futura."
+      },
+      {
+        "id": 7,
+        "title": "Si Shimamura Volviera a...",
+        "volume": "Volumen 12",
+        "divergence": "El camino de Shimamura se bifurca mediante un regreso a un punto anterior, abriendo otra versión posible de los acontecimientos.",
+        "note": "Una divergencia relativamente cercana al canon desde un punto posterior de la historia."
+      }
+    ],
+    "note": "Todas las entradas mostradas aquí son historias secundarias canónicas. Los niveles indican cuánto se aleja cada premisa de la línea temporal principal, no si la historia es canónica.",
+    "levels": [
+      {
+        "id": "minor",
+        "title": "Divergencia menor",
+        "desc": "La premisa cambia solo una pequeña parte de la línea temporal o de las circunstancias establecidas.",
+        "ids": [
+          2,
+          3,
+          7
+        ]
+      },
+      {
+        "id": "moderate",
+        "title": "Divergencia moderada",
+        "desc": "La historia se desarrolla en una versión notablemente distinta de los acontecimientos, las vidas o las circunstancias.",
+        "ids": [
+          1,
+          5,
+          6
+        ]
+      },
+      {
+        "id": "major",
+        "title": "Divergencia mayor",
+        "desc": "La premisa cambia fundamentalmente el mundo, las identidades o las condiciones de la historia.",
+        "ids": [
+          4
+        ]
+      }
+    ]
+  }
 }

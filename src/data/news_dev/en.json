@@ -1,0 +1,39 @@
+[
+  {
+    "id": "first-major-update",
+    "publishDate": "2026-08-02",
+    "type": "DEV UPDATE",
+    "en": {
+      "title": "The First Major Update Is Here!",
+      "messages": [
+        "After extensive work behind the scenes, the site has received its first major update.",
+        "This update marks an important milestone for the project. The entire site is now available in English, opening the archive to more readers and making it easier to explore everything the site has to offer.",
+        "Four brand-new sections have also been added: Stats, Extra Stories, Gallery, and Music. Each section provides a new way to explore and enjoy the works beyond their main stories.",
+        "Many of the existing pages have also received significant changes, new features, and improvements to make the site a more complete and enjoyable experience.",
+        "This update would not have been possible without the help of several people. A huge thank-you to Chitoshima for helping test the site and making sure everything was working properly.",
+        "We would also like to give a special thank-you to sneikkimies and Cuetie Scans for allowing us to use and host their translations. Their work has been an important part of this archive, and we are incredibly grateful for the opportunity to share it here.",
+        "Finally, our biggest thanks go to Hitoma Iruma for creating Adachi and Shimamura, a wonderful work of literature that inspired us to create this project and share it with other readers.",
+        "Thank you to everyone who has visited, supported, and followed the project along the way. This is only the first major update, and there is still much more to come. We hope you enjoy exploring everything that is new."
+      ]
+    }
+  },
+  {
+    "id": "second-major-update",
+    "publishDate": "2026-08-15",
+    "type": "DEV UPDATE",
+    "en": {
+      "title": "The Second Major Update Is Here!",
+      "messages": [
+        "After several weeks of continued development, the site has received its second major update. This release focuses on expanding the archive, improving navigation, refining the visual experience, and optimizing the site's overall performance.",
+        "The navigation system has received a major overhaul with a clearer structure separating primary navigation, community and external links, original works, status, and settings. Mobile navigation has also been improved with a dedicated close button and additional controls for managing the mobile menu.",
+        "The visual experience has been significantly expanded. The Gallery received a complete redesign with a new featured artwork layout, automatic slideshow, improved masonry presentation, artist information, enhanced filtering, and additional artwork and cover content. The homepage has also received improvements to its information layout and overall flow.",
+        "The site now features a dynamic time-based atmosphere with Morning, Afternoon, and Night themes that adapt the site's appearance throughout the day. A dedicated loading screen has also been introduced to provide a smoother transition while the site initializes.",
+        "Language support has continued to expand. Spanish content has been added to more areas of the archive, while Tagalog has been introduced as a prototype for future localization. The language system has also been reorganized to provide more consistent language switching and persistence across the site.",
+        "The reading and listening experience has also received extensive improvements. The Manga and Novels PDF readers have been optimized for smoother navigation, improved mobile zoom behavior, lazy thumbnail loading, document caching, and reduced resource usage. The Music section has received interface improvements as well as fixes for track identification and player state.",
+        "Significant improvements have also been made behind the scenes. The CSS architecture has been reorganized into maintainable, page-specific modules, reducing reliance on the previous monolithic stylesheet. The site's build system has also been migrated to Vite, providing a faster development workflow and improved debugging.",
+        "Several other systems have received reliability improvements and fixes. Gallery filtering and search are now more complete and responsive, Constellation progress and downloadable content have improved persistence, feedback modals have been refined for better compatibility across devices, and various mobile, localization, and interface issues have been resolved.",
+        "This update represents another major step forward for the archive. While there is still more to improve and expand, we are pleased with the progress made since the first major update. Thank you to everyone who continues to visit, support, and follow the project. We hope you enjoy everything included in this second major update."
+      ]
+    }
+  }
+]

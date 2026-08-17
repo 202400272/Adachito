@@ -4,18 +4,18 @@
 
 .extra-sources {
   margin-top: 3rem;
-  background: rgba(255, 255, 255, 0.35);
+  background: var(--page-surface);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 2rem;
-  border: 1px solid rgba(209, 163, 198, 0.12);
+  border: 1px solid var(--page-soft);
   box-shadow: 0 8px 32px rgba(92, 58, 107, 0.06);
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
 .extra-sources:hover {
-  box-shadow: 0 12px 40px rgba(92, 58, 107, 0.1);
+  box-shadow: 0 12px 40px var(--page-shadow);
 }
 
 .sources-header {
@@ -53,7 +53,7 @@
 }
 
 .sources-badge {
-  background: rgba(209, 163, 198, 0.15);
+  background: var(--page-soft);
   padding: 0.15rem 0.8rem;
   border-radius: 20px;
   font-size: 0.7rem;
@@ -64,7 +64,7 @@
 }
 
 .sources-toggle-btn {
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--page-surface);
   border: 1px solid rgba(209, 163, 198, 0.1);
   border-radius: 50%;
   width: 36px;
@@ -79,7 +79,7 @@
 }
 
 .sources-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--page-surface);
   border-color: var(--dusty-rose);
 }
 
@@ -115,7 +115,7 @@
 
 .sources-description {
   font-size: 0.9rem;
-  color: #5f4b6b;
+  color: var(--page-muted);
   opacity: 0.7;
   margin-bottom: 1.2rem;
   line-height: 1.6;
@@ -132,9 +132,9 @@
 .source-filter-btn {
   padding: 0.3rem 1rem;
   border-radius: 30px;
-  border: 1px solid rgba(209, 163, 198, 0.12);
-  background: rgba(255, 255, 255, 0.3);
-  color: #5f4b6b;
+  border: 1px solid var(--page-soft);
+  background: var(--page-surface);
+  color: var(--page-muted);
   font-family: "Quicksand", sans-serif;
   font-size: 0.75rem;
   font-weight: 500;
@@ -143,7 +143,7 @@
 }
 
 .source-filter-btn:hover {
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--page-surface-strong);
   border-color: var(--dusty-rose);
 }
 
@@ -167,7 +167,7 @@
 }
 
 .source-category:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--page-surface);
 }
 
 .source-category-header {
@@ -199,9 +199,9 @@
   font-family: "Quicksand", sans-serif;
   font-size: 0.65rem;
   font-weight: 500;
-  color: #5f4b6b;
+  color: var(--page-muted);
   opacity: 0.5;
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--page-surface);
   padding: 0.05rem 0.6rem;
   border-radius: 12px;
   margin-left: 0.3rem;
@@ -256,7 +256,7 @@
 }
 
 .source-item:hover {
-  background: rgba(255, 255, 255, 0.4);
+  background: var(--page-surface);
   border-left-color: var(--dusty-rose);
 }
 
@@ -285,7 +285,7 @@
 }
 
 .source-origin {
-  color: #5f4b6b;
+  color: var(--page-muted);
   opacity: 0.6;
   font-size: 0.75rem;
   display: flex;
@@ -309,13 +309,13 @@
   text-decoration: none;
   padding: 0.05rem 0.6rem;
   border-radius: 12px;
-  border: 1px solid rgba(209, 163, 198, 0.15);
+  border: 1px solid var(--page-soft);
   transition: all 0.2s ease;
   background: rgba(255, 255, 255, 0.2);
 }
 
 .source-link:hover {
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--page-surface-strong);
   border-color: var(--dusty-rose);
   transform: translateY(-1px);
 }
@@ -338,7 +338,7 @@
 
 .sources-empty {
   text-align: center;
-  color: #5f4b6b;
+  color: var(--page-muted);
   opacity: 0.5;
   padding: 2rem 0;
   font-size: 0.9rem;

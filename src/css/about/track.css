@@ -14,16 +14,16 @@
 }
 
 .track-item {
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--surface-soft);
   border-radius: 1.2rem;
   padding: 1.2rem 1.5rem 1.5rem;
-  border: 1px solid rgba(209, 163, 198, 0.08);
+  border: 1px solid var(--accent-soft);
   transition: all 0.3s ease;
 }
 
 .track-item:hover {
-  background: rgba(255, 255, 255, 0.4);
-  border-color: rgba(209, 163, 198, 0.2);
+  background: var(--surface);
+  border-color: var(--accent-border);
   transform: translateY(-2px);
 }
 

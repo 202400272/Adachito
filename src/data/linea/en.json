@@ -7,7 +7,8 @@
     "all": "All Events",
     "year1": "1st School Year",
     "year2": "2nd School Year",
-    "year3": "3rd School Year"
+    "year3": "3rd School Year",
+    "multiverse": "Multiverse"
   },
   "yearBadges": {
     "year1": "First School Year",
@@ -300,5 +301,95 @@
         "\"Late summer, a new semester. I’d been in this exact same situation two years ago when I’d started dyeing my hair and spending time on the gym’s second floor. I went ahead and pulled my bangs in front of my eyes. I could barely remember what that had felt like anymore, having blonde hair. And yet, had I never chosen to try playing a delinquent, I would never have gotten to where I was now—I would never have met Adachi. Adachi, the person who would likely go on the define the rest of my life.\" (Volume 13)"
       ]
     }
-  ]
+  ],
+  "multiverse": {
+    "title": "Multiverse",
+    "subtitle": "Canon side stories that branch away from the main Adachi to Shimamura timeline.",
+    "mainTimeline": "Main Timeline",
+    "mainTimelineDesc": "The canonical story told through the light novels.",
+    "branchLabel": "Divergence",
+    "sourceLabel": "Source",
+    "items": [
+      {
+        "id": 1,
+        "title": "If Everyone Was Little",
+        "volume": "Volume 5",
+        "divergence": "Adachi and Shimamura are reset to childhood before their relationship can develop.",
+        "note": "A childhood what-if branch."
+      },
+      {
+        "id": 2,
+        "title": "If They Hadn't Met on the Gym's Second Floor",
+        "volume": "Volume 7",
+        "divergence": "The first meeting on the gym's second floor never happens, creating a fundamentally different relationship path.",
+        "note": "The earliest major divergence: their original encounter is removed."
+      },
+      {
+        "id": 3,
+        "title": "If Adachi Had Stayed Like She Was at First",
+        "volume": "Volume 7",
+        "divergence": "Adachi never changes from the distant, withdrawn version of herself seen at the beginning of the story.",
+        "note": "A character-development divergence centered on Adachi."
+      },
+      {
+        "id": 4,
+        "title": "In This World",
+        "volume": "Volume 7",
+        "divergence": "Two separate AU premises appear together: they meet at the end of the world; and Adachi is a scientist while Shimamura is an alien.",
+        "note": "Two distinct alternate worlds are contained in one chapter."
+      },
+      {
+        "id": 5,
+        "title": "If Adachi Were a Teacher",
+        "volume": "Volume 12",
+        "divergence": "Adachi's life branches into a future where she becomes a teacher.",
+        "note": "A future-life AU."
+      },
+      {
+        "id": 6,
+        "title": "If Adachi Were a Novelist",
+        "volume": "Volume 12",
+        "divergence": "Adachi's future branches toward a life as a novelist.",
+        "note": "A future-life AU."
+      },
+      {
+        "id": 7,
+        "title": "If Shimamura Went Back to the...",
+        "volume": "Volume 12",
+        "divergence": "Shimamura's path branches through a return to an earlier point, opening another possible version of events.",
+        "note": "A relatively close-to-canon divergence from a later point in the story."
+      }
+    ],
+    "note": "All entries shown here are canon side stories. The levels indicate how far each premise diverges from the main timeline—not whether the story is canon.",
+    "levels": [
+      {
+        "id": "minor",
+        "title": "Minor Divergence",
+        "desc": "The premise changes only a small part of the established timeline or circumstances.",
+        "ids": [
+          2,
+          3,
+          7
+        ]
+      },
+      {
+        "id": "moderate",
+        "title": "Moderate Divergence",
+        "desc": "The story moves into a noticeably different version of events, lives, or circumstances.",
+        "ids": [
+          1,
+          5,
+          6
+        ]
+      },
+      {
+        "id": "major",
+        "title": "Major Divergence",
+        "desc": "The premise fundamentally changes the world, identities, or conditions of the story.",
+        "ids": [
+          4
+        ]
+      }
+    ]
+  }
 }

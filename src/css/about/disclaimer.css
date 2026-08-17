@@ -10,7 +10,7 @@
 }
 
 .disclaimer-content p {
-  color: #5f4b6b;
+  color: var(--muted-text);
   font-size: 0.95rem;
   line-height: 1.6;
   opacity: 0.8;
@@ -22,7 +22,7 @@
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 0.5rem;
   padding: 0.8rem 1rem;
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--surface-soft);
   border-radius: 1rem;
 }
 
@@ -31,7 +31,7 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 0.85rem;
-  color: #5f4b6b;
+  color: var(--muted-text);
   padding: 0.2rem 0;
 }
 
@@ -44,8 +44,8 @@
 .disclaimer-note {
   margin-top: 0.5rem;
   padding: 0.8rem 1rem;
-  background: rgba(209, 163, 198, 0.08);
+  background: var(--accent-soft);
   border-radius: 1rem;
   font-style: italic;
-  border: 1px solid rgba(209, 163, 198, 0.1);
+  border: 1px solid var(--accent-soft);
 }

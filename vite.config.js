@@ -6,6 +6,7 @@ const root = resolve(__dirname);
 const page = (p) => resolve(root, p);
 
 export default defineConfig({
+  base: '/',
   plugins: [tailwindcss()],
 
   build: {
@@ -15,6 +16,7 @@ export default defineConfig({
         main: page("index.html"),
         offline: page("offline.html"),
         about: page("src/pages/Adashima_About.html"),
+        help: page("src/pages/Adashima_Help.html"),
         anime: page("src/pages/Adashima_Anime.html"),
         drama: page("src/pages/Adashima_Drama.html"),
         estrella: page("src/pages/Adashima_Estrella.html"),

@@ -4,13 +4,13 @@
 }
 
 .extra-hero-content {
-  background: rgba(255, 255, 255, 0.4);
+  background: var(--page-surface);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: 2.8rem;
   padding: 2.5rem 2rem;
-  border: 1px solid rgba(209, 163, 198, 0.2);
-  box-shadow: 0 20px 60px rgba(92, 58, 107, 0.08);
+  border: 1px solid var(--page-border);
+  box-shadow: 0 20px 60px var(--page-shadow);
 }
 
 .extra-hero-title {
@@ -31,7 +31,7 @@
   font-family: "Quicksand", sans-serif;
   font-size: 1.1rem;
   font-weight: 400;
-  color: #5a4a63;
+  color: var(--page-muted);
   max-width: 640px;
   margin: 0.8rem auto 0;
   opacity: 0.85;

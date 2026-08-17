@@ -3,9 +3,9 @@
   margin-top: 3rem;
   text-align: center;
   font-size: 0.8rem;
-  color: rgba(92, 58, 107, 0.6);
+  color: var(--muted-text);
   padding: 1.5rem 0 0.5rem;
-  border-top: 1px solid rgba(209, 163, 198, 0.08);
+  border-top: 1px solid var(--accent-soft);
 }
 
 .about-footer p {

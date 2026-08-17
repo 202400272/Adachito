@@ -1,5 +1,35 @@
 [
   {
+    "version": "2.3.0",
+    "build": "20260816",
+    "date": "16 de agosto de 2026",
+    "subtitle": "Rediseño de la página de inicio y el menú, nuevo Centro de Ayuda",
+    "changes": {
+      "new": [
+        "Se añadió un nuevo Centro de Ayuda con guías sobre cómo empezar, controles de lectura, navegación, configuración de idioma y solución de problemas.",
+        "Se añadió un campo de búsqueda de temas de ayuda para encontrar respuestas rápidamente en el Centro de Ayuda.",
+        "Se añadió una sección de Multiverso en la página de Línea de Tiempo.",
+        "Se añadió una opción de Fuente para Disléxicos en el lector de Historias Extra, usando OpenDyslexic.",
+        "Se añadió un Modo Inmersivo en el lector de Historias Extra para una lectura sin distracciones, ocultando el encabezado y la barra de progreso hasta que lo desactives.",
+        "Se añadió un botón de Restablecer Valores Predeterminados en el panel de ajustes del lector de Historias Extra."
+      ],
+      "improvements": [
+        "Se rediseñó la página de inicio con un nuevo diseño visual.",
+        "Se rediseñó el menú del sitio para una navegación más clara y consistente en todas las páginas."
+      ],
+      "fixes": [
+        "Se corrigió que el lector de Historias Extra no retomara tu posición de desplazamiento al reabrir una historia que ya habías empezado a leer.",
+        "Se corrigió una fuga de memoria en el lector de Historias Extra en la que abrir historias repetidamente podía acumular escuchadores de redimensionamiento de ventana duplicados."
+      ],
+      "notes": [
+        "La página de inicio y el menú fueron rediseñados en esta versión, renovando el aspecto general y la navegación del archivo.",
+        "Ahora está disponible un nuevo Centro de Ayuda, que ofrece a los visitantes un lugar central para encontrar respuestas sobre el uso de AdaShimaverse sin necesidad de enviar comentarios por preguntas comunes.",
+        "La página de Línea de Tiempo ahora incluye una sección de Multiverso.",
+        "El lector de Historias Extra recibió nuevas opciones de accesibilidad y enfoque, junto con correcciones en el progreso de lectura y la estabilidad."
+      ]
+    }
+  },
+  {
     "version": "2.2.9",
     "build": "20260815",
     "date": "15 de agosto de 2026",

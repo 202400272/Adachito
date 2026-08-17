@@ -10,7 +10,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--surface-strong);
   border: 1px solid rgba(140, 90, 150, 0.16);
   font-family: "Inter", sans-serif;
   font-size: 0.92rem;
@@ -26,7 +26,7 @@
 
 .back-to-library-btn:hover {
   color: var(--text-plum);
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--surface-bright);
   transform: translateY(-2px);
   box-shadow: 0 10px 24px rgba(92, 58, 107, 0.14);
 }
@@ -46,10 +46,10 @@
   gap: 2.5rem;
   padding: 2rem 2.5rem;
   margin-bottom: 2rem;
-  background: rgba(255, 255, 255, 0.4);
+  background: var(--surface-soft);
   backdrop-filter: blur(8px);
   border-radius: 20px;
-  border: 1px solid rgba(200, 180, 210, 0.06);
+  border: 1px solid var(--surface-border);
   box-shadow: var(--shadow-sm);
 }
 
@@ -69,7 +69,7 @@
   border-radius: 16px;
   overflow: hidden;
   box-shadow: var(--shadow-lg);
-  background: #f0dced;
+  background: var(--surface-strong);
 }
 
 .album-artwork-glow {
@@ -98,11 +98,7 @@
   display: none;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(
-    135deg,
-    #ecd9e8,
-    #f6e0ee
-  );
+  background: linear-gradient(135deg, var(--surface-strong), var(--surface-bright));
   position: relative;
   z-index: 1;
 }
@@ -116,7 +112,7 @@
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
   font-size: 3.4rem;
-  color: rgba(140, 90, 150, 0.45);
+  color: var(--text-jp);
 }
 
 
@@ -137,8 +133,8 @@
   letter-spacing: 0.15em;
   font-size: 0.7rem;
   font-weight: 600;
-  color: #8c5a96;
-  opacity: 0.6;
+  color: var(--accent);
+  opacity: 1;
   text-transform: uppercase;
   margin-bottom: 0.45rem;
 }
@@ -154,13 +150,13 @@
 .album-hero-title-jp {
   font-family: "Noto Serif JP", serif;
   font-size: 0.95rem;
-  color: rgba(92, 58, 107, 0.4);
+  color: var(--text-jp);
   margin-top: 0.16rem;
 }
 
 .album-hero-meta {
   font-size: 0.95rem;
-  color: #5c3a6b;
+  color: var(--text-soft);
   display: flex;
   flex-wrap: wrap;
   gap: 0.3rem 0.8rem;
@@ -168,7 +164,7 @@
 }
 
 .album-hero-meta .meta-dot {
-  color: rgba(92, 58, 107, 0.2);
+  color: var(--text-faint);
 }
 
 .album-hero-actions {

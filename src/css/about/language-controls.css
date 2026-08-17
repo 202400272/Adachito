@@ -12,27 +12,27 @@
   gap: 12px;
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.85),
+    var(--surface-strong),
     rgba(232, 200, 223, 0.6)
   );
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1.5px solid rgba(209, 163, 198, 0.5);
+  border: 1.5px solid var(--accent-border-strong);
   border-radius: 32px;
   padding: 12px 24px;
-  box-shadow: 0 8px 32px rgba(92, 58, 107, 0.15);
+  box-shadow: 0 8px 32px var(--shadow-color);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
 }
 
 .lang-wrapper:hover {
-  border-color: rgba(209, 163, 198, 0.8);
-  box-shadow: 0 12px 40px rgba(92, 58, 107, 0.25);
+  border-color: var(--accent-strong);
+  box-shadow: 0 12px 40px var(--shadow-color-strong);
   transform: translateY(-2px);
 }
 
 .lang-wrapper i {
-  color: #8c5a96;
+  color: var(--color-mid);
   font-size: 1.2rem;
   flex-shrink: 0;
   pointer-events: none;
@@ -60,7 +60,7 @@
 .lang-dropdown-toggle {
   background: transparent;
   border: none;
-  color: #5c3a6b;
+  color: var(--plum);
   font-weight: 700;
   font-family: "Quicksand", sans-serif;
   font-size: 1rem;
@@ -74,10 +74,10 @@
 }
 
 .lang-dropdown-toggle:hover {
-  color: #8c5a96;
+  color: var(--color-mid);
 }
 .lang-dropdown-toggle:focus-visible {
-  color: #8c5a96;
+  color: var(--color-mid);
 }
 .lang-dropdown-toggle:disabled {
   opacity: 0.5;
@@ -86,7 +86,7 @@
 
 .lang-caret {
   font-size: 0.68rem;
-  color: #8c5a96;
+  color: var(--color-mid);
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -103,15 +103,15 @@
   list-style: none;
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.95),
+    var(--surface-strong),
     rgba(232, 200, 223, 0.88)
   );
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1.5px solid rgba(209, 163, 198, 0.5);
+  border: 1.5px solid var(--accent-border-strong);
   border-radius: 18px;
   padding: 8px;
-  box-shadow: 0 12px 32px rgba(92, 58, 107, 0.25);
+  box-shadow: 0 12px 32px var(--shadow-color-strong);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-8px) scale(0.96);
@@ -132,7 +132,7 @@
 .lang-option {
   padding: 10px 16px;
   border-radius: 12px;
-  color: #5c3a6b;
+  color: var(--plum);
   font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;

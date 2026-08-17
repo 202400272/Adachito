@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   z-index: 2;
-  background: rgba(255, 248, 244, 0.38);
+  background: var(--page-overlay);
   backdrop-filter: blur(8px);
   min-height: 100vh;
   min-height: 100dvh;
@@ -22,7 +22,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 248, 244, 0.16);
+  background: var(--page-overlay-soft);
   z-index: -1;
   pointer-events: none;
   transition: background 0.8s ease;

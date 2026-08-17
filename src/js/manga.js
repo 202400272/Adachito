@@ -2100,10 +2100,15 @@ document.addEventListener("DOMContentLoaded", async function () {
   const clearBtn = document.getElementById("searchClearBtn");
 
   if (searchInput) {
+    let searchDebounceTimer;
     searchInput.addEventListener("input", function () {
       const hasValue = this.value.length > 0;
       if (clearBtn) clearBtn.classList.toggle("visible", hasValue);
-      applySearch(this.value);
+      const value = this.value;
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        applySearch(value);
+      }, 150);
     });
   }
 
@@ -2199,13 +2204,19 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   const stickyEl = document.getElementById("libraryControlsSticky");
   if (stickyEl) {
-    window.addEventListener("scroll", function () {
-      if (window.scrollY > 10) {
-        stickyEl.classList.add("scrolled");
-      } else {
-        stickyEl.classList.remove("scrolled");
-      }
-    });
+    let scrollTicking = false;
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (scrollTicking) return;
+        scrollTicking = true;
+        requestAnimationFrame(function () {
+          stickyEl.classList.toggle("scrolled", window.scrollY > 10);
+          scrollTicking = false;
+        });
+      },
+      { passive: true }
+    );
   }
 
   // Expose functions to global scope

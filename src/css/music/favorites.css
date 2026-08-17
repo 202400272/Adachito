@@ -23,7 +23,7 @@
   font-family: "Playfair Display", "Noto Serif JP", serif;
   font-size: 0.95rem;
   font-weight: 700;
-  color: var(--text-plum, #5c3a6b);
+  color: var(--text-plum, var(--text-soft));
   margin: 0;
   flex: 1;
 }
@@ -37,7 +37,7 @@
   padding: 0 0.45rem;
   border-radius: 999px;
   background: rgba(140, 90, 150, 0.1);
-  color: #8c5a96;
+  color: var(--accent);
   font-size: 0.6rem;
   font-weight: 700;
   font-family: "Inter", sans-serif;
@@ -80,7 +80,7 @@
 .favorite-card {
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.56);
+  background: var(--surface);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-radius: 10px;
@@ -99,7 +99,7 @@
 /* Only apply hover on devices that support it */
 @media (hover: hover) {
   .favorite-card:hover {
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--surface-strong);
     transform: scale(1.02);
     box-shadow: var(--shadow-lg, 0 8px 24px rgba(90, 58, 112, 0.15));
     border-color: rgba(209, 163, 198, 0.16);
@@ -219,7 +219,7 @@
   font-family: "Playfair Display", "Noto Serif JP", serif;
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--text-plum, #5c3a6b);
+  color: var(--text-plum, var(--text-soft));
   line-height: 1.25;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -237,7 +237,7 @@
 .favorite-card-album {
   font-size: 0.6rem;
   font-weight: 600;
-  color: #8c5a96;
+  color: var(--accent);
   letter-spacing: -0.1px;
   white-space: nowrap;
   overflow: hidden;
@@ -273,7 +273,7 @@
   font-family: "Inter", sans-serif;
   font-size: 0.55rem;
   font-weight: 600;
-  color: #5c3a6b;
+  color: var(--text-soft);
   opacity: 0.5;
   letter-spacing: 0.2px;
 }
@@ -292,7 +292,7 @@
   border-radius: 999px;
   padding: 0.25rem;
   cursor: pointer;
-  color: #d187a2;
+  color: var(--accent-pink);
   background: transparent;
   transition: all 0.15s ease;
   -webkit-tap-highlight-color: transparent;

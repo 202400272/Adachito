@@ -1,4 +1,3 @@
-
 let translations = null;
 let stories = [];
 let filteredStoriesCache = [];
@@ -31,10 +30,12 @@ const defaultSettings = {
   fontFamily: "'Source Serif 4', Georgia, serif",
   lineHeight: 1.9,
   readingWidth: 700,
+  dyslexiaFont: false,
 };
 
 let readerSettings = null;
 let readerScrollHandler = null;
+let readerResizeHandler = null;
 
 function loadReaderSettings() {
   try {
@@ -78,7 +79,9 @@ function applyReaderSettings() {
   const textEl = content.querySelector(".reader-text");
   if (textEl) {
     textEl.style.fontSize = `${readerSettings.fontSize}px`;
-    textEl.style.fontFamily = readerSettings.fontFamily;
+    textEl.style.fontFamily = readerSettings.dyslexiaFont
+      ? "'OpenDyslexic', 'Comic Sans MS', sans-serif"
+      : readerSettings.fontFamily;
   }
 
   const paragraphs = content.querySelectorAll(".reader-text p");
@@ -115,6 +118,20 @@ function updateSettingsUI() {
       parseInt(btn.dataset.width) === readerSettings.readingWidth,
     );
   });
+
+  const dyslexiaBtn = document.getElementById("dyslexiaToggle");
+  if (dyslexiaBtn) {
+    dyslexiaBtn.classList.toggle("active", !!readerSettings.dyslexiaFont);
+    dyslexiaBtn.setAttribute(
+      "aria-pressed",
+      String(!!readerSettings.dyslexiaFont),
+    );
+  }
+
+  const fontFamilySelect = document.getElementById("fontFamilySelect");
+  if (fontFamilySelect) {
+    fontFamilySelect.disabled = !!readerSettings.dyslexiaFont;
+  }
 }
 
 function toggleSettingsPanel(show) {
@@ -138,6 +155,24 @@ function toggleSettingsPanel(show) {
     panel.classList.add("open");
   } else {
     panel.classList.remove("open");
+  }
+}
+
+function toggleImmersiveMode(force) {
+  const modal = document.querySelector(".reader-modal");
+  const exitBtn = document.getElementById("readerImmersiveExit");
+  const toggleBtn = document.getElementById("readerImmersiveBtn");
+  if (!modal) return;
+
+  const isActive =
+    force !== undefined ? force : !modal.classList.contains("immersive");
+
+  modal.classList.toggle("immersive", isActive);
+  if (exitBtn) exitBtn.hidden = !isActive;
+  if (toggleBtn) toggleBtn.setAttribute("aria-pressed", String(isActive));
+
+  if (isActive) {
+    toggleSettingsPanel(false);
   }
 }
 
@@ -914,6 +949,12 @@ async function openReader(index) {
     readerScrollHandler = null;
   }
 
+  // Remove old resize handler
+  if (readerResizeHandler) {
+    window.removeEventListener("resize", readerResizeHandler);
+    readerResizeHandler = null;
+  }
+
   content.innerHTML = `
         <div class="reader-loading">
           <div class="reader-spinner"></div>
@@ -986,6 +1027,16 @@ async function openReader(index) {
   const currentProgress = getReadingProgress(story.id);
   progress.style.width = currentProgress + "%";
 
+  // Restore scroll position to match saved progress, once layout has painted
+  if (currentProgress > 0) {
+    requestAnimationFrame(() => {
+      const scrollHeight = readerBody.scrollHeight - readerBody.clientHeight;
+      if (scrollHeight > 0) {
+        readerBody.scrollTop = (scrollHeight * currentProgress) / 100;
+      }
+    });
+  }
+
   updateReaderNav();
   toggleSettingsPanel(false);
 
@@ -1021,7 +1072,7 @@ async function openReader(index) {
   readerBody.addEventListener("scroll", readerScrollHandler);
 
   // Also check on resize for proper height calculation
-  window.addEventListener("resize", function onResize() {
+  readerResizeHandler = function () {
     if (overlay.classList.contains("active")) {
       // Recalculate scroll position
       const scrollTop = readerBody.scrollTop;
@@ -1034,7 +1085,9 @@ async function openReader(index) {
         progress.style.width = scrollProgress + "%";
       }
     }
-  });
+  };
+
+  window.addEventListener("resize", readerResizeHandler);
 }
 
 function updateReaderNav() {
@@ -1063,11 +1116,18 @@ function closeReader() {
     readerScrollHandler = null;
   }
 
+  // Remove resize handler
+  if (readerResizeHandler) {
+    window.removeEventListener("resize", readerResizeHandler);
+    readerResizeHandler = null;
+  }
+
   overlay.classList.remove("active");
   document.body.classList.remove("reader-active");
   document.body.style.overflow = "";
   currentStoryIndex = -1;
   toggleSettingsPanel(false);
+  toggleImmersiveMode(false);
 }
 
 function navigateReader(direction) {
@@ -1154,6 +1214,42 @@ function initReaderSettings() {
     });
   });
 
+  const dyslexiaToggle = document.getElementById("dyslexiaToggle");
+  if (dyslexiaToggle) {
+    dyslexiaToggle.addEventListener("click", () => {
+      readerSettings.dyslexiaFont = !readerSettings.dyslexiaFont;
+      saveReaderSettings();
+      applyReaderSettings();
+      updateSettingsUI();
+    });
+  }
+
+  const settingsReset = document.getElementById("settingsReset");
+  if (settingsReset) {
+    settingsReset.addEventListener("click", () => {
+      readerSettings = { ...defaultSettings };
+      saveReaderSettings();
+      applyReaderSettings();
+      updateSettingsUI();
+      showMessage("Settings reset to defaults.");
+    });
+  }
+
+  const immersiveBtn = document.getElementById("readerImmersiveBtn");
+  if (immersiveBtn) {
+    immersiveBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleImmersiveMode(true);
+    });
+  }
+
+  const immersiveExit = document.getElementById("readerImmersiveExit");
+  if (immersiveExit) {
+    immersiveExit.addEventListener("click", () => {
+      toggleImmersiveMode(false);
+    });
+  }
+
   document.getElementById("readerMarkRead").addEventListener("click", () => {
     const story = filteredStoriesCache[currentStoryIndex];
     if (story) {
@@ -1235,6 +1331,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (e.key === "Escape") {
       const panel = document.getElementById("readerSettingsPanel");
       if (panel && panel.classList.contains("open")) {
+        return;
+      }
+      const modal = document.querySelector(".reader-modal");
+      if (modal && modal.classList.contains("immersive")) {
+        toggleImmersiveMode(false);
         return;
       }
       closeReader();

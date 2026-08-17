@@ -143,11 +143,89 @@ function buildTimelineHTML(data) {
 
 function buildYearFiltersHTML(data) {
   return `
-                <button type="button" class="year-btn active" data-year="all">${data.filters.all}</button>
-                <button type="button" class="year-btn" data-year="year1">${data.filters.year1}</button>
-                <button type="button" class="year-btn" data-year="year2">${data.filters.year2}</button>
-                <button type="button" class="year-btn" data-year="year3">${data.filters.year3}</button>
-            `;
+    <button type="button" class="year-btn active" data-year="all">${data.filters.all}</button>
+    <button type="button" class="year-btn" data-year="year1">${data.filters.year1}</button>
+    <button type="button" class="year-btn" data-year="year2">${data.filters.year2}</button>
+    <button type="button" class="year-btn" data-year="year3">${data.filters.year3}</button>
+    <button type="button" class="year-btn multiverse-btn" data-year="multiverse">${data.filters.multiverse || "Multiverse"}</button>
+  `;
+}
+
+function buildMultiverseHTML(data) {
+  const m = data.multiverse;
+  if (!m || !Array.isArray(m.items)) return "";
+
+  const levels = Array.isArray(m.levels) ? m.levels : [];
+  const itemById = new Map(m.items.map((item) => [Number(item.id), item]));
+
+  const levelCards = levels.map((level, index) => {
+    const items = (level.ids || [])
+      .map((id) => itemById.get(Number(id)))
+      .filter(Boolean);
+
+    return `
+      <section class="mv-level mv-level-${level.id}" aria-labelledby="mv-level-${level.id}">
+        <div class="mv-level-branch-point" aria-hidden="true"><span></span></div>
+        <div class="mv-level-body">
+          <header class="mv-level-header">
+            <div class="mv-level-title-row">
+              <span class="mv-level-index">${String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <span class="mv-level-eyebrow">${m.branchLabel}</span>
+                <h3 id="mv-level-${level.id}">${level.title}</h3>
+              </div>
+            </div>
+            <p>${level.desc}</p>
+          </header>
+
+          <div class="mv-level-branches">
+            ${items.map((item) => `
+              <article class="mv-branch-card" data-branch="${item.id}">
+                <div class="mv-branch-connector" aria-hidden="true"><span></span></div>
+                <div class="mv-branch-card-inner">
+                  <span class="mv-branch-number">${String(item.id).padStart(2, "0")}</span>
+                  <div class="mv-branch-copy">
+                    <div class="mv-branch-meta"><span>${m.branchLabel}</span><b>${item.volume}</b></div>
+                    <h4>${item.title}</h4>
+                    <p>${item.divergence}</p>
+                    <small>${item.note}</small>
+                  </div>
+                </div>
+              </article>
+            `).join("")}
+          </div>
+        </div>
+      </section>
+    `;
+  }).join("");
+
+  return `
+    <section class="multiverse-chart" aria-labelledby="multiverse-title">
+      <header class="multiverse-heading">
+        <span class="multiverse-kicker"><i class="fas fa-code-branch"></i> ${m.mainTimeline}</span>
+        <h2 id="multiverse-title">${m.title}</h2>
+        <p>${m.subtitle}</p>
+      </header>
+
+      <div class="mv-map">
+        <div class="mv-main-node">
+          <span class="mv-main-orbit"><i class="fas fa-star"></i></span>
+          <div>
+            <span class="mv-main-label">${m.mainTimeline}</span>
+            <strong>${m.mainTimelineDesc}</strong>
+          </div>
+        </div>
+
+        <div class="mv-main-trunk" aria-hidden="true"></div>
+        <div class="mv-level-split" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="mv-levels">
+          ${levelCards}
+        </div>
+      </div>
+
+      <p class="multiverse-note"><i class="fas fa-info-circle"></i>${m.note}</p>
+    </section>
+  `;
 }
 
 function initYearFilterControls() {
@@ -171,12 +249,14 @@ function renderApp(data) {
   const headerSubtitle = document.getElementById("header-subtitle");
   const yearFilters = document.getElementById("year-filters");
   const timelineContent = document.getElementById("timeline-content");
+  const multiverseContent = document.getElementById("multiverse-content");
   const footer = document.getElementById("footer");
 
   if (headerTitle) headerTitle.textContent = data.header.title;
   if (headerSubtitle) headerSubtitle.textContent = data.header.subtitle;
   if (yearFilters) yearFilters.innerHTML = buildYearFiltersHTML(data);
   if (timelineContent) timelineContent.innerHTML = buildTimelineHTML(data);
+  if (multiverseContent) multiverseContent.innerHTML = buildMultiverseHTML(data);
   if (footer) footer.innerHTML = data.footer;
 
   initYearFilterControls();
@@ -262,20 +342,28 @@ window.addEventListener("resize", () => {
 });
 
 function filterYear(year, btn) {
-  document
-    .querySelectorAll(".year-btn")
-    .forEach((b) => b.classList.remove("active"));
+  document.querySelectorAll(".year-btn").forEach((b) => b.classList.remove("active"));
   btn.classList.add("active");
   closeBubbleModal();
+
+  const timelineContent = document.getElementById("timeline-content");
+  const multiverseContent = document.getElementById("multiverse-content");
+  const isMultiverse = year === "multiverse";
+
+  if (timelineContent) timelineContent.hidden = isMultiverse;
+  if (multiverseContent) multiverseContent.hidden = !isMultiverse;
+
+  if (isMultiverse) {
+    document.querySelectorAll(".event-row, .year-block").forEach((el) => {
+      el.style.removeProperty("display");
+    });
+    return;
+  }
 
   const isMobile = window.matchMedia("(max-width: 700px)").matches;
   document.querySelectorAll(".event-row").forEach((row) => {
     const show = year === "all" || row.dataset.year === year;
-    row.style.setProperty(
-      "display",
-      show ? (isMobile ? "flex" : "grid") : "none",
-      "important",
-    );
+    row.style.setProperty("display", show ? (isMobile ? "flex" : "grid") : "none", "important");
   });
   document.querySelectorAll(".year-block").forEach((block) => {
     const show = year === "all" || block.dataset.year === year;

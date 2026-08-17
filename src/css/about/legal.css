@@ -1,6 +1,6 @@
 /* ---------- legal card ---------- */
 .legal-card {
-  border-color: rgba(209, 163, 198, 0.2);
+  border-color: var(--accent-border);
 }
 
 .legal-content {
@@ -13,7 +13,7 @@
   display: flex;
   gap: 1rem;
   padding: 1.2rem;
-  background: rgba(209, 163, 198, 0.08);
+  background: var(--accent-soft);
   border-radius: 1.2rem;
   border-left: 4px solid var(--dusty-rose);
 }
@@ -32,7 +32,7 @@
 }
 
 .legal-notice p {
-  color: #5f4b6b;
+  color: var(--muted-text);
   font-size: 0.9rem;
   line-height: 1.5;
   opacity: 0.8;
@@ -49,14 +49,14 @@
   align-items: center;
   gap: 0.6rem;
   font-size: 0.85rem;
-  color: #5f4b6b;
+  color: var(--muted-text);
   padding: 0.3rem 0.5rem;
   border-radius: 8px;
   transition: background 0.3s ease;
 }
 
 .legal-item:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--surface-soft);
 }
 
 .legal-item .iconify {

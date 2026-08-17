@@ -55,7 +55,7 @@
 .queue-header h4 {
   font-family: "Playfair Display", "Noto Serif JP", serif;
   font-size: 1rem;
-  color: #3d234d;
+  color: var(--text-plum);
   letter-spacing: 0.04em;
 }
 
@@ -63,7 +63,7 @@
   background: none;
   border: none;
   font-size: 1.1rem;
-  color: #9a6898;
+  color: var(--icon-text);
   cursor: pointer;
   padding: 6px 10px;
   border-radius: 8px;
@@ -75,7 +75,7 @@
 }
 
 .queue-close:hover {
-  color: #8c5a96;
+  color: var(--accent);
   background: rgba(140, 90, 150, 0.06);
 }
 
@@ -106,17 +106,17 @@
   font-family: "Noto Serif JP", serif;
   font-weight: 500;
   font-size: 0.85rem;
-  color: #3d234d;
+  color: var(--text-plum);
 }
 
 .qct-artist {
   font-size: 0.7rem;
-  color: #5c3a6b;
+  color: var(--text-soft);
 }
 
 .qct-empty {
   font-size: 0.8rem;
-  color: #9a6898;
+  color: var(--icon-text);
   font-style: italic;
 }
 
@@ -170,14 +170,14 @@
 }
 
 .queue-item.current .qi-index {
-  color: #8c5a96;
+  color: var(--accent);
 }
 
 .queue-item .qi-title {
   font-family: "Noto Serif JP", serif;
   font-size: 0.75rem;
   font-weight: 500;
-  color: #3d234d;
+  color: var(--text-plum);
   flex: 1;
   white-space: nowrap;
   overflow: hidden;
@@ -185,19 +185,19 @@
 }
 
 .queue-item.current .qi-title {
-  color: #8c5a96;
+  color: var(--accent);
 }
 
 .queue-item .qi-artist {
   font-size: 0.65rem;
-  color: #5c3a6b;
+  color: var(--text-soft);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .queue-item.current .qi-artist {
-  color: #8c5a96;
+  color: var(--accent);
 }
 
 .queue-list-wrap::-webkit-scrollbar {

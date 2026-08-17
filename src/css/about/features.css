@@ -15,7 +15,7 @@
 }
 
 .about-feature:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--surface);
 }
 
 .about-feature-icon {
@@ -23,7 +23,7 @@
   height: 48px;
   min-width: 48px;
   border-radius: 60px;
-  background: rgba(209, 163, 198, 0.15);
+  background: var(--accent-soft);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,7 +44,7 @@
 
 .about-feature-content p {
   font-size: 0.9rem;
-  color: #5f4b6b;
+  color: var(--muted-text);
   line-height: 1.5;
   opacity: 0.8;
 }

@@ -42,7 +42,7 @@
 .search-wrap {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--surface);
   border-radius: 60px;
   padding: 0.12rem 0.5rem 0.12rem 0.7rem;
   border: 1px solid rgba(140, 90, 150, 0.06);
@@ -56,9 +56,9 @@
 }
 
 .search-wrap:focus-within {
-  border-color: #8c5a96;
+  border-color: var(--accent);
   box-shadow: 0 0 0 4px rgba(140, 90, 150, 0.06);
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--surface-strong);
 }
 
 .search-wrap .iconify {
@@ -74,16 +74,16 @@
   outline: none;
   width: 180px;
   font-family: "Inter", sans-serif;
-  color: #3d234d;
+  color: var(--text-plum);
 }
 
 .search-wrap input::placeholder {
-  color: #9a6898;
+  color: var(--icon-text);
 }
 
 .view-toggle-group {
   display: flex;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--surface);
   border-radius: 6px;
   border: 1px solid rgba(200, 180, 210, 0.08);
   overflow: hidden;
@@ -96,7 +96,7 @@
   border: none;
   padding: 0.15rem 0.5rem;
   border-radius: 4px;
-  color: #9a6898;
+  color: var(--icon-text);
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -110,17 +110,17 @@
 }
 
 .view-toggle-btn:hover {
-  color: #8c5a96;
+  color: var(--accent);
   background: rgba(140, 90, 150, 0.06);
 }
 
 .view-toggle-btn.active {
-  color: #8c5a96;
+  color: var(--accent);
   background: rgba(140, 90, 150, 0.1);
 }
 
 .track-table-wrapper {
-  background: rgba(255, 255, 255, 0.4);
+  background: var(--surface-soft);
   backdrop-filter: blur(8px);
   border-radius: 16px;
   border: 1px solid rgba(200, 180, 210, 0.06);
@@ -143,7 +143,7 @@
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(92, 58, 107, 0.35);
+  color: var(--text-micro);
 }
 
 .th-number { text-align: center; }
@@ -174,7 +174,7 @@
 .track-row:hover { background: rgba(215, 190, 225, 0.06); }
 .track-row.active {
   background: rgba(200, 170, 220, 0.08);
-  border-left: 3px solid #8c5a96;
+  border-left: 3px solid var(--accent);
   margin-left: -1px;
   padding-left: calc(1.2rem + 1px);
 }
@@ -190,18 +190,18 @@
 .col-number {
   font-size: 0.7rem;
   font-weight: 400;
-  color: #9a6898;
+  color: var(--icon-text);
   font-variant-numeric: tabular-nums;
   transition: opacity 0.2s ease;
 }
 
-.col-state-paused .iconify { font-size: 0.65rem; color: #8c5a96; }
+.col-state-paused .iconify { font-size: 0.65rem; color: var(--accent); }
 
 .col-play-btn {
   display: none;
   background: none;
   border: none;
-  color: #8c5a96;
+  color: var(--accent);
   font-size: 0.7rem;
   cursor: pointer;
   padding: 6px;
@@ -215,7 +215,7 @@
 
 .col-play-btn .iconify { font-size: 0.7rem; }
 .col-play-btn:hover {
-  color: #6c5287;
+  color: var(--accent-strong);
   transform: translate(-50%, -50%) scale(1.2);
   background: rgba(140, 90, 150, 0.08);
 }
@@ -234,7 +234,7 @@
 .equalizer span {
   display: block;
   width: 3px;
-  background: #8c5a96;
+  background: var(--accent);
   border-radius: 2px;
   animation: eq 0.6s infinite alternate ease-in-out;
 }
@@ -255,14 +255,14 @@
   font-family: "Noto Serif JP", serif;
   font-size: 0.85rem;
   font-weight: 500;
-  color: #3d234d;
+  color: var(--text-plum);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.3;
 }
 
-.track-row.active .track-title-jp { color: #8c5a96; }
+.track-row.active .track-title-jp { color: var(--accent); }
 
 .track-title-en {
   font-family: "Inter", sans-serif;
@@ -286,7 +286,7 @@
 .track-duration {
   font-family: "Inter", sans-serif;
   font-size: 0.65rem;
-  color: #5c3a6b;
+  color: var(--text-soft);
   font-variant-numeric: tabular-nums;
 }
 
@@ -299,7 +299,7 @@
 .track-dl-btn {
   background: none;
   border: none;
-  color: #9a6898;
+  color: var(--icon-text);
   font-size: 0.8rem;
   cursor: pointer;
   padding: 6px;
@@ -312,7 +312,7 @@
 
 .track-dl-btn .iconify { font-size: 0.8rem; }
 .track-dl-btn:hover {
-  color: #8c5a96;
+  color: var(--accent);
   transform: scale(1.1);
   background: rgba(140, 90, 150, 0.08);
 }
@@ -331,7 +331,7 @@
 .track-fav-btn {
   background: none;
   border: none;
-  color: #9a6898;
+  color: var(--icon-text);
   font-size: 0.8rem;
   cursor: pointer;
   padding: 6px;
@@ -344,9 +344,9 @@
 
 .track-fav-btn .iconify { font-size: 0.8rem; }
 .track-fav-btn:hover {
-  color: #d187a2;
+  color: var(--accent-pink);
   transform: scale(1.1);
   background: rgba(212, 123, 154, 0.06);
 }
-.track-fav-btn.faved { color: #d187a2; }
+.track-fav-btn.faved { color: var(--accent-pink); }
 .track-fav-btn.faved:hover { color: #b45a86; }

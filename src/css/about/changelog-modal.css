@@ -24,7 +24,7 @@
 }
 
 .changelog-modal {
-  background: rgba(255, 248, 244, 0.92);
+  background: var(--surface-strong);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 2rem;
@@ -33,8 +33,8 @@
   max-height: 85vh;
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(209, 163, 198, 0.15);
-  box-shadow: 0 32px 80px rgba(92, 58, 107, 0.15);
+  border: 1px solid var(--surface-border);
+  box-shadow: 0 32px 80px var(--shadow-color);
   transform: scale(0.95) translateY(10px);
   opacity: 0;
   transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
@@ -47,9 +47,9 @@
   align-items: center;
   justify-content: space-between;
   padding: 20px 28px;
-  border-bottom: 1px solid rgba(209, 163, 198, 0.1);
+  border-bottom: 1px solid var(--accent-soft);
   flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-subtle);
 }
 
 .changelog-modal-title {
@@ -68,7 +68,7 @@
 }
 
 .changelog-modal-close {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--surface-soft);
   border: none;
   border-radius: 50%;
   width: 40px;
@@ -84,7 +84,7 @@
 }
 
 .changelog-modal-close:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--surface-soft);
   transform: rotate(90deg);
 }
 
@@ -104,10 +104,10 @@
 .changelog-nav {
   width: 260px;
   min-width: 260px;
-  border-right: 1px solid rgba(209, 163, 198, 0.1);
+  border-right: 1px solid var(--accent-soft);
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--surface-subtle);
 }
 
 .changelog-nav-header {
@@ -120,7 +120,7 @@
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: rgba(95, 75, 107, 0.6);
+  color: var(--muted-text);
   border-bottom: 1px solid rgba(209, 163, 198, 0.05);
   flex-shrink: 0;
 }
@@ -144,14 +144,14 @@
 }
 
 .changelog-nav-list::-webkit-scrollbar-thumb {
-  background: rgba(209, 163, 198, 0.3);
+  background: var(--surface-border);
   border-radius: 4px;
 }
 
 .changelog-nav-empty {
   padding: 40px 20px;
   text-align: center;
-  color: rgba(95, 75, 107, 0.5);
+  color: var(--muted-text);
   font-family: "Quicksand", sans-serif;
   font-size: 0.9rem;
 }
@@ -173,11 +173,11 @@
 }
 
 .changelog-nav-item:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-soft);
 }
 
 .changelog-nav-item.selected {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--surface-soft);
   border-left-color: var(--dusty-rose);
 }
 
@@ -198,7 +198,7 @@
   font-family: "Quicksand", sans-serif;
   font-weight: 400;
   font-size: 0.75rem;
-  color: rgba(95, 75, 107, 0.5);
+  color: var(--muted-text);
 }
 
 .changelog-nav-item-badge {
@@ -233,7 +233,7 @@
   flex: 1;
   overflow-y: auto;
   padding: 24px 28px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--surface-subtle);
 }
 
 .changelog-details::-webkit-scrollbar {
@@ -245,7 +245,7 @@
 }
 
 .changelog-details::-webkit-scrollbar-thumb {
-  background: rgba(209, 163, 198, 0.3);
+  background: var(--surface-border);
   border-radius: 4px;
 }
 
@@ -255,7 +255,7 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  color: rgba(95, 75, 107, 0.4);
+  color: var(--muted-text);
   font-family: "Quicksand", sans-serif;
   font-size: 0.95rem;
 }
@@ -273,7 +273,7 @@
 .changelog-details-header {
   margin-bottom: 24px;
   padding-bottom: 20px;
-  border-bottom: 1px solid rgba(209, 163, 198, 0.08);
+  border-bottom: 1px solid var(--accent-soft);
 }
 
 .changelog-details-version {
@@ -297,11 +297,11 @@
   font-family: "Quicksand", sans-serif;
   font-weight: 400;
   font-size: 0.8rem;
-  color: rgba(95, 75, 107, 0.5);
+  color: var(--muted-text);
 }
 
 .changelog-details-build {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-soft);
   padding: 2px 12px;
   border-radius: 12px;
 }
@@ -310,7 +310,7 @@
   font-family: "Quicksand", sans-serif;
   font-weight: 500;
   font-size: 1rem;
-  color: rgba(95, 75, 107, 0.7);
+  color: var(--muted-text);
   margin-top: 4px;
 }
 
@@ -356,7 +356,7 @@
   font-family: "Quicksand", sans-serif;
   font-weight: 400;
   font-size: 0.9rem;
-  color: rgba(95, 75, 107, 0.8);
+  color: var(--page-text);
   padding: 4px 0;
   line-height: 1.5;
   position: relative;
@@ -375,7 +375,7 @@
   font-family: "Quicksand", sans-serif;
   font-weight: 400;
   font-size: 0.9rem;
-  color: rgba(95, 75, 107, 0.4);
+  color: var(--muted-text);
   text-align: center;
   padding: 20px 0;
 }

@@ -1,0 +1,39 @@
+[
+  {
+    "id": "first-major-update",
+    "publishDate": "2026-08-02",
+    "type": "DEV UPDATE",
+    "tl": {
+      "title": "Narito na ang Unang Malaking Update!",
+      "messages": [
+        "Matapos ang matagal na pagtatrabaho sa likod ng mga eksena, nakatanggap na ang site ng unang malaking update nito.",
+        "Mahalagang milestone ang update na ito para sa proyekto. Ngayon, available na sa English ang buong site, kaya mas maraming mambabasa ang makaka-access sa archive at mas madali nilang matutuklasan ang lahat ng iniaalok ng site.",
+        "Nagdagdag din ng apat na bagong seksyon: Stats, Extra Stories, Gallery, at Music. Bawat seksyon ay nagbibigay ng panibagong paraan para tuklasin at tangkilikin ang mga obra bukod sa kanilang pangunahing mga kuwento.",
+        "Marami rin sa mga kasalukuyang page ang nakatanggap ng malalaking pagbabago, mga bagong feature, at mga pagpapahusay upang maging mas kumpleto at mas kasiya-siya ang paggamit sa site.",
+        "Hindi magiging posible ang update na ito kung wala ang tulong ng ilang tao. Maraming-maraming salamat kay Chitoshima sa pagtulong na i-test ang site at siguraduhing gumagana nang maayos ang lahat.",
+        "Nais din naming magpasalamat nang espesyal kina sneikkimies at Cuetie Scans sa pagpayag na gamitin at i-host ang kanilang mga translation. Naging mahalagang bahagi ng archive na ito ang kanilang trabaho, at labis kaming nagpapasalamat sa pagkakataong maibahagi ito rito.",
+        "At higit sa lahat, ang pinakamalaking pasasalamat namin ay kay Hitoma Iruma sa paglikha ng Adachi and Shimamura, isang napakagandang akdang pampanitikan na nagbigay-inspirasyon sa amin upang likhain ang proyektong ito at ibahagi ito sa iba pang mga mambabasa.",
+        "Salamat sa lahat ng bumisita, sumuporta, at sumubaybay sa proyekto sa buong panahong ito. Unang malaking update pa lamang ito, at marami pang darating. Sana ay masiyahan kayo sa pagtuklas sa lahat ng bago."
+      ]
+    }
+  },
+  {
+    "id": "second-major-update",
+    "publishDate": "2026-08-15",
+    "type": "DEV UPDATE",
+    "tl": {
+      "title": "Narito na ang Ikalawang Malaking Update!",
+      "messages": [
+        "Matapos ang ilang linggo ng patuloy na development, nakatanggap na ang site ng ikalawang malaking update nito. Nakatuon ang release na ito sa pagpapalawak ng archive, pagpapahusay ng navigation, pag-aayos ng visual experience, at pag-optimize ng pangkalahatang performance ng site.",
+        "Malaking pagbabago ang ginawa sa navigation system, na ngayon ay may mas malinaw na istruktura para paghiwalayin ang pangunahing navigation, community at external links, original works, status, at settings. Pinahusay din ang mobile navigation gamit ang dedicated close button at karagdagang controls para sa pamamahala ng mobile menu.",
+        "Malaki rin ang naging pagpapalawak sa visual experience. Nakakuha ang Gallery ng kumpletong redesign na may bagong featured artwork layout, automatic slideshow, mas maayos na masonry presentation, impormasyon tungkol sa mga artist, pinahusay na filtering, at karagdagang artwork at cover content. Pinahusay din ang homepage sa paraan ng pagpapakita ng impormasyon at sa pangkalahatang daloy nito.",
+        "Mayroon na ring dynamic time-based atmosphere ang site, na may Morning, Afternoon, at Night themes na nag-aangkop sa itsura ng site habang lumilipas ang araw. Nagdagdag din ng dedicated loading screen upang maging mas maayos ang transition habang nag-i-initialize ang site.",
+        "Patuloy ring pinalalawak ang language support. Nadagdagan ang Spanish content sa mas maraming bahagi ng archive, habang ipinakilala naman ang Tagalog bilang prototype para sa mga susunod na localization. Inayos din ang language system upang maging mas consistent ang pagpapalit ng wika at pagpapanatili ng napiling language sa buong site.",
+        "Malaki rin ang mga naging improvement sa reading at listening experience. Na-optimize ang Manga at Novels PDF readers para sa mas maayos na navigation, mas magandang mobile zoom behavior, lazy loading ng thumbnails, document caching, at mas mababang resource usage. Nakakuha rin ang Music section ng mga interface improvement at mga fix para sa track identification at player state.",
+        "Malalaking improvement din ang ginawa sa likod ng mga eksena. Inayos muli ang CSS architecture bilang mga module na nakatuon sa bawat page at mas madaling i-maintain, kaya nabawasan ang pagdepende sa dating monolithic stylesheet. Inilipat din ang build system ng site sa Vite, na nagbibigay ng mas mabilis na development workflow at mas magandang debugging.",
+        "Marami pang ibang system ang nakatanggap ng reliability improvements at fixes. Mas kumpleto at mas responsive na ngayon ang Gallery filtering at search, napahusay ang persistence ng Constellation progress at downloadable content, inayos ang feedback modals para sa mas magandang compatibility sa iba't ibang device, at naresolba ang iba't ibang problema sa mobile, localization, at interface.",
+        "Ang update na ito ay isa na namang malaking hakbang para sa archive. Bagama't marami pa ring kailangang pagandahin at idagdag, masaya kami sa naging progreso mula noong unang malaking update. Salamat sa lahat ng patuloy na bumibisita, sumusuporta, at sumusubaybay sa proyekto. Sana ay masiyahan kayo sa lahat ng kasama sa ikalawang malaking update na ito."
+      ]
+    }
+  }
+]

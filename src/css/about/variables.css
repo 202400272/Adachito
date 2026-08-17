@@ -1,4 +1,4 @@
-/* ---------- root variables ---------- */
+/* About page design tokens */
 :root {
   --lavender: #c9b8e8;
   --blush: #f0c8d8;
@@ -7,12 +7,87 @@
   --plum: #5c3a6b;
   --dusty-rose: #d1a3c6;
   --warm-white: #fff8f4;
-  --glass-bg: rgba(255, 255, 255, 0.6);
-  --glass-border: rgba(209, 163, 198, 0.3);
-  --shadow-soft: rgba(92, 58, 107, 0.1);
+
+  --page-bg: linear-gradient(135deg, #fbe9e7 0%, #f3e5f5 50%, #e8eaf6 100%);
+  --page-text: #3d234d;
+
+  --surface: rgba(255, 255, 255, 0.62);
+  --surface-hover: rgba(255, 255, 255, 0.76);
+  --surface-strong: rgba(255, 248, 244, 0.94);
+  --surface-soft: rgba(255, 255, 255, 0.34);
+  --surface-subtle: rgba(255, 255, 255, 0.12);
+  --surface-border: rgba(140, 90, 150, 0.18);
+
+  --accent: #d1a3c6;
+  --accent-strong: #8c5a96;
+  --accent-soft: rgba(209, 163, 198, 0.15);
+  --accent-border: rgba(209, 163, 198, 0.22);
+  --accent-border-strong: rgba(209, 163, 198, 0.38);
+
+  --muted-text: #5f4b6b;
+  --shadow-color: rgba(92, 58, 107, 0.10);
+  --shadow-color-strong: rgba(92, 58, 107, 0.18);
+  --shadow-soft: var(--shadow-color);
   --shadow-glow: rgba(209, 163, 198, 0.25);
   --color-deep: #6c5287;
   --color-mid: #9a6898;
   --color-blush: #d187a2;
   --color-text: #3d234d;
+  --glass-bg: var(--surface);
+  --glass-border: var(--surface-border);
+}
+
+body.time-morning {
+  --page-bg: linear-gradient(135deg, #eaf3fb 0%, #edf2fa 48%, #f3eafa 100%);
+  --page-text: #4f5870;
+  --surface: rgba(247, 250, 253, 0.74);
+  --surface-hover: rgba(250, 252, 255, 0.88);
+  --surface-strong: rgba(244, 248, 252, 0.96);
+  --surface-soft: rgba(244, 248, 252, 0.52);
+  --surface-subtle: rgba(244, 248, 252, 0.24);
+  --surface-border: rgba(128, 158, 191, 0.24);
+  --accent: #8aaac8;
+  --accent-strong: #557b9f;
+  --accent-soft: rgba(138, 170, 200, 0.14);
+  --accent-border: rgba(138, 170, 200, 0.24);
+  --accent-border-strong: rgba(138, 170, 200, 0.42);
+  --muted-text: #667185;
+  --shadow-color: rgba(75, 103, 133, 0.10);
+  --shadow-color-strong: rgba(75, 103, 133, 0.18);
+  --plum: #557b9f;
+  --dusty-rose: #8aaac8;
+  --color-mid: #6689ad;
+  --color-deep: #5b7594;
+  --color-text: #4f5870;
+}
+
+body.time-afternoon {
+  --page-bg: linear-gradient(135deg, #fbe9e7 0%, #f3e5f5 50%, #e8eaf6 100%);
+}
+
+body.time-night {
+  --page-bg: linear-gradient(135deg, #17121f 0%, #21182a 50%, #151e2d 100%);
+  --page-text: #eee6f3;
+
+  --surface: rgba(39, 29, 49, 0.88);
+  --surface-hover: rgba(49, 37, 61, 0.96);
+  --surface-strong: rgba(32, 24, 41, 0.97);
+  --surface-soft: rgba(255, 255, 255, 0.065);
+  --surface-subtle: rgba(255, 255, 255, 0.035);
+  --surface-border: rgba(222, 192, 224, 0.15);
+
+  --accent: #d79ac3;
+  --accent-strong: #efb6d5;
+  --accent-soft: rgba(215, 154, 195, 0.14);
+  --accent-border: rgba(215, 154, 195, 0.22);
+  --accent-border-strong: rgba(239, 182, 213, 0.42);
+
+  --muted-text: #c7b9cf;
+  --shadow-color: rgba(5, 3, 9, 0.36);
+  --shadow-color-strong: rgba(5, 3, 9, 0.55);
+  --plum: #f0e7f4;
+  --dusty-rose: #dda4c7;
+  --color-mid: #d8b1d1;
+  --color-deep: #cbbbd3;
+  --color-text: #eee6f3;
 }

@@ -9,15 +9,59 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const root = path.join(__dirname, "..");
 const dist = path.join(root, "dist");
+const BUILD_ID = Date.now().toString(36);
+
+function isCacheBustSafeUrl(url) {
+  return (
+    !url ||
+    url.startsWith("#") ||
+    url.startsWith("data:") ||
+    url.startsWith("mailto:") ||
+    url.startsWith("tel:") ||
+    /^([a-z]+:)?\/\//i.test(url)
+  );
+}
+
+async function appendCacheBustToHtml(filePath) {
+  let content = await fs.readFile(filePath, "utf8");
+  const updated = content.replace(
+    /(src|href)=(['"])([^'"?#]+)(\?[^'"#]*)?\2/g,
+    (match, attr, quote, url, existingQuery) => {
+      if (isCacheBustSafeUrl(url)) return match;
+      if (url.startsWith("/")) {
+        const params = new URLSearchParams(existingQuery ? existingQuery.replace(/^\?/, "") : "");
+        params.set("v", BUILD_ID);
+        const queryString = params.toString();
+        return `${attr}=${quote}${url}${queryString ? `?${queryString}` : ""}${quote}`;
+      }
+      return match;
+    },
+  );
+
+  if (updated !== content) {
+    await fs.writeFile(filePath, updated, "utf8");
+  }
+}
+
+async function addBuildStampToHtmlFiles() {
+  const entries = await fs.readdir(dist, { recursive: true });
+  for (const entry of entries) {
+    if (!entry.endsWith(".html")) continue;
+    const filePath = path.join(dist, entry);
+    await appendCacheBustToHtml(filePath);
+  }
+}
 
 // [source relative to project root, dest relative to dist]
 const ITEMS = [
   ["assets", "assets"], // Imagenes/ + Sound/, referenced by dynamic JS paths
   ["src/data", "src/data"], // JSON content, fetch()'d by string path per page
+  ["src/css", "src/css"], // Raw CSS files referenced directly by static pages
   ["src/components/styles", "src/components/styles"], // CSS files loaded as static runtime assets
   ["src/components/menu.html", "src/components/menu.html"], // fetch()'d fragment
   ["src/components/feedback.html", "src/components/feedback.html"], // fetch()'d fragment
   ["_redirects", "_redirects"], // Cloudflare Pages reads this from the output dir
+  ["sw.js", "sw.js"], // Must be present in the deployed build so stale browser caches can be invalidated
   // Plain (non type="module") <script src="..."> tags aren't bundled by
   // Vite and aren't moved into dist either — it just leaves the src
   // reference as-is, so the actual files need to land at that same
@@ -53,7 +97,9 @@ async function main() {
       console.log(`Skipping ${src}: not found`);
     }
   }
-  console.log("\nStatic copy complete.");
+
+  await addBuildStampToHtmlFiles();
+  console.log(`\nStatic copy complete with build stamp ${BUILD_ID}.`);
 }
 
 main().catch((err) => {

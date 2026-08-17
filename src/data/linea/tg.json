@@ -7,7 +7,8 @@
     "all": "Lahat ng Pangyayari",
     "year1": "Unang Taon",
     "year2": "Ikalawang Taon",
-    "year3": "Ikatlo at Huling Taon"
+    "year3": "Ikatlo at Huling Taon",
+    "multiverse": "Multiverse"
   },
   "yearBadges": {
     "year1": "Unang Taon sa High School",
@@ -21,7 +22,7 @@
     {
       "year": "year1",
       "side": "right",
-      "season": "<i class=\"fas fa-cloud-sun-rainbow\"></i> Tagsibol \u00b7 Abril",
+      "season": "<i class=\"fas fa-cloud-sun-rainbow\"></i> Tagsibol · Abril",
       "date": "Abril 10",
       "title": "Kaarawan ni Shimamura",
       "desc": "Labing-anim na taong gulang na si Shimamura. Labinlima naman si Adachi. Nagsisimula sila ng kanilang unang taon sa high school, kahit hindi pa nila nakikilala ang isa't isa.",
@@ -45,7 +46,7 @@
     {
       "year": "year1",
       "side": "right",
-      "season": "<i class=\"fas fa-snowflake\"></i> Taglamig \u00b7 Disyembre",
+      "season": "<i class=\"fas fa-snowflake\"></i> Taglamig · Disyembre",
       "date": "",
       "title": "Unang Pasko",
       "desc": "Si Adachi, na hindi pa kailanman nakipag-date sa isang espesyal na okasyon, ay unang pagkakataong nagpalipas ng Pasko kasama si Shimamura. Sa kanilang date, naglibot sila sa shopping mall, naglaro ng air hockey, nagpalitan ng mga regalo, at binigyan ni Shimamura si Adachi ng boomerang.",
@@ -58,7 +59,7 @@
     {
       "year": "year1",
       "side": "left",
-      "season": "<i class=\"fas fa-heart\"></i> Taglamig \u00b7 Pebrero",
+      "season": "<i class=\"fas fa-heart\"></i> Taglamig · Pebrero",
       "date": "",
       "title": "Unang Valentine's Day at Palitan ng Tsokolate",
       "desc": "Kinakabahan para sa Valentine's Day, niyaya ni Adachi si Shimamura na sabay silang bumili ng mga tsokolate. Habang magkasama sila, nabasa ni Adachi ang mensahe ni Shimamura: \"Ipagpatuloy natin ito, ngayon at sa hinaharap!\" Hindi na niya napigilan ang kanyang damdamin at niyakap si Shimamura.",
@@ -71,7 +72,7 @@
     {
       "year": "year2",
       "side": "right",
-      "season": "<i class=\"fas fa-wind\"></i> Tagsibol \u00b7 Unang Bahagi ng Abril",
+      "season": "<i class=\"fas fa-wind\"></i> Tagsibol · Unang Bahagi ng Abril",
       "date": "",
       "title": "Nagsimula ang Ikalawang Taon",
       "desc": "Labing-anim na taong gulang na si Adachi at labimpito naman si Shimamura. Nagsisimula ang panibagong school year kasabay ng pagbabago ng kanilang mga klase. Natatakot si Adachi na baka paghiwalayin sila ng bagong taon o tuluyang mabago nito ang kanilang relasyon.",
@@ -98,7 +99,7 @@
     {
       "year": "year2",
       "side": "right",
-      "season": "<i class=\"fas fa-cloud-rain\"></i> Tag-init \u00b7 Summer Vacation",
+      "season": "<i class=\"fas fa-cloud-rain\"></i> Tag-init · Summer Vacation",
       "date": "",
       "title": "Pag-aaway at Pagkakasundo",
       "desc": "Habang summer vacation, nagtatrabaho si Adachi sa isang booth sa festival nang makita niya roon si Shimamura kasama ang isang babaeng hindi niya kilala. Ilang araw siyang hindi mapakali sa imaheng iyon, hanggang sa tuluyan itong sumabog sa isang tawag nila ni Shimamura. Kalaunan, nag-ipon siya ng lakas ng loob para muling tumawag, at nagkasundo silang magkita kinabukasan. Sa kanilang pagkakasundo, may mga bulaklak at isang \"maging magkaibigan ulit tayo,\" na nag-iwan kay Adachi ng magkahalong saya at pagkadismaya. Pagkatapos nito, magkasama nilang tinapos ang listahang ginawa ni Adachi.",
@@ -111,7 +112,7 @@
     {
       "year": "year2",
       "side": "left",
-      "season": "<i class=\"fas fa-torii-gate\"></i> Tag-init \u00b7 Obon",
+      "season": "<i class=\"fas fa-torii-gate\"></i> Tag-init · Obon",
       "date": "",
       "title": "Paglalakbay sa Probinsya",
       "desc": "Ngayong sa wakas ay nakabalik na sa dati ang samahan nila ni Shimamura at gusto na niyang muling makasama ito, sinabi ni Shimamura na hindi siya puwede dahil pupunta ang kanyang pamilya sa bahay ng kanyang mga lolo't lola para sa Obon.",
@@ -139,7 +140,7 @@
     {
       "year": "year2",
       "side": "left",
-      "season": "<i class=\"fas fa-leaf\"></i> Taglagas \u00b7 Setyembre",
+      "season": "<i class=\"fas fa-leaf\"></i> Taglagas · Setyembre",
       "date": "",
       "title": "Unang Araw ng Pasok Bilang Magkasintahan",
       "desc": "Maagang dumating si Adachi sa bahay ni Shimamura, suot ang kanyang uniporme, upang sabay silang pumasok. Ito ang unang araw ng bagong term.",
@@ -154,7 +155,7 @@
     {
       "year": "year2",
       "side": "right",
-      "season": "<i class=\"fas fa-bus\"></i> Taglagas \u00b7 Oktubre",
+      "season": "<i class=\"fas fa-bus\"></i> Taglagas · Oktubre",
       "date": "",
       "title": "School Trip sa Kitakyushu",
       "desc": "Ang school trip ng mga second-year high school student ay sa Kitakyushu. Nang ipahayag na tig-lilimang tao ang bawat grupo, agad na tumayo si Adachi at tumakbo papunta sa desk ni Shimamura.",
@@ -167,7 +168,7 @@
     {
       "year": "year2",
       "side": "left",
-      "season": "<i class=\"fas fa-holly-berry\"></i> Taglamig \u00b7 Disyembre",
+      "season": "<i class=\"fas fa-holly-berry\"></i> Taglamig · Disyembre",
       "date": "",
       "title": "Ikalawang Pasko",
       "desc": "Nagkita sina Adachi at Shimamura sa ilalim ng malaking Christmas tree sa shopping mall, at muli na namang suot ni Adachi ang kanyang kapansin-pansing Chinese dress.",
@@ -181,7 +182,7 @@
     {
       "year": "year2",
       "side": "right",
-      "season": "<i class=\"fas fa-calendar-alt\"></i> Taglamig \u00b7 Disyembre \u2013 Enero",
+      "season": "<i class=\"fas fa-calendar-alt\"></i> Taglamig · Disyembre – Enero",
       "date": "",
       "title": "Bagong Taon sa Bahay ng mga Lolo't Lola",
       "desc": "Pumunta si Shimamura kasama ang kanyang pamilya sa bahay ng kanyang mga lolo't lola upang ipagdiwang ang Bagong Taon, gaya ng kanilang nakasanayan. Sa hardin nang gabing iyon, balak niyang tawagan si Adachi upang batiin ito ng Manigong Bagong Taon.",
@@ -194,7 +195,7 @@
     {
       "year": "year2",
       "side": "left",
-      "season": "<i class=\"fas fa-envelope-open-text\"></i> Taglamig \u00b7 Pebrero",
+      "season": "<i class=\"fas fa-envelope-open-text\"></i> Taglamig · Pebrero",
       "date": "",
       "title": "Ikalawang Valentine's Day at Pamamaalam kay Tarumi",
       "desc": "Nakipagkita si Shimamura kay Tarumi bago ang Valentine's Day at sinabi niyang mayroon na siyang kasintahan, tuluyan nang isinasara ang anumang posibilidad ng romantikong relasyon sa pagitan nila. Di nagtagal, sumama si Shimamura kay Adachi sa Nagoya upang bumili ng mga tsokolate para sa Valentine's Day.",
@@ -207,7 +208,7 @@
     {
       "year": "year3",
       "side": "right",
-      "season": "<i class=\"fas fa-graduation-cap\"></i> Tagsibol \u00b7 Unang Bahagi ng Abril",
+      "season": "<i class=\"fas fa-graduation-cap\"></i> Tagsibol · Unang Bahagi ng Abril",
       "date": "",
       "title": "Simula ng Ikatlo at Huling Taon",
       "desc": "Labimpitong taong gulang na si Adachi at labingwalo naman si Shimamura. Ito na ang huli nilang taon na magkasama sa high school.",
@@ -218,7 +219,7 @@
     {
       "year": "year3",
       "side": "left",
-      "season": "<i class=\"fas fa-umbrella-beach\"></i> Tagsibol \u00b7 Katapusan ng Term",
+      "season": "<i class=\"fas fa-umbrella-beach\"></i> Tagsibol · Katapusan ng Term",
       "date": "",
       "title": "Plano para sa Huling Summer Vacation",
       "desc": "Habang papalapit ang huli nilang summer vacation sa high school, iminungkahi ni Adachi na pumunta silang dalawa sa beach. Para may pambayad sa biyahe, nakipagkasundo si Shimamura sa kanyang mga magulang na gumawa ng mga gawaing-bahay kapalit ng pera.",
@@ -232,7 +233,7 @@
     {
       "year": "year3",
       "side": "right",
-      "season": "<i class=\"fas fa-home\"></i> Tag-init \u00b7 Simula ng Bakasyon",
+      "season": "<i class=\"fas fa-home\"></i> Tag-init · Simula ng Bakasyon",
       "date": "",
       "title": "Paggawa ng Gawaing-Bahay ni Shimamura",
       "desc": "",
@@ -246,7 +247,7 @@
     {
       "year": "year3",
       "side": "left",
-      "season": "<i class=\"fas fa-book-reader\"></i> Tag-init \u00b7 Hulyo \u2013 Agosto",
+      "season": "<i class=\"fas fa-book-reader\"></i> Tag-init · Hulyo – Agosto",
       "date": "",
       "title": "Pag-aaral sa Bahay ni Shimamura",
       "desc": "Ginamit ni Adachi ang pag-aaral para sa mga exam bilang dahilan upang pumunta sa bahay ni Shimamura. Alam na alam naman ni Shimamura na hindi sila gaanong makakapag-aral.",
@@ -261,7 +262,7 @@
     {
       "year": "year3",
       "side": "right",
-      "season": "<i class=\"fas fa-water\"></i> Tag-init \u00b7 Agosto (bago ang Obon)",
+      "season": "<i class=\"fas fa-water\"></i> Tag-init · Agosto (bago ang Obon)",
       "date": "",
       "title": "Paglalakbay sa Beach",
       "desc": "Pumunta sina Shimamura at Adachi sa beach nang magkasama, tinutupad ang pangako nila para sa summer.",
@@ -275,21 +276,21 @@
     {
       "year": "year3",
       "side": "left",
-      "season": "<i class=\"fas fa-torii-gate\"></i> Tag-init \u00b7 Unang Bahagi ng Agosto \u00b7 Obon",
+      "season": "<i class=\"fas fa-torii-gate\"></i> Tag-init · Unang Bahagi ng Agosto · Obon",
       "date": "",
-      "title": "Pagbisita sa mga Lolo't Lola \u00b7 Huling Bakasyon",
+      "title": "Pagbisita sa mga Lolo't Lola · Huling Bakasyon",
       "desc": "Pumunta si Shimamura kasama ang kanyang pamilya sa bahay ng kanyang mga lolo't lola para sa Obon, gaya ng ginagawa nila bawat taon. Sa pagkakataong ito, sumama rin si Yashiro na nagbalatkayo bilang tanuki. Ito na ang mga huling araw ng kanyang summer vacation bilang high school student.",
       "img": "../../assets/Imagenes/burbuja19.webp",
       "vol": "Volume 13",
       "quotes": [
-        "\"Unang linggo na ng Agosto\u2014panahong nasa kalagitnaan na ng sobrang hinog na tag-init, pati na rin ng huli naming summer break sa high school. Ito rin ang panahon kung kailan kami bumibisita sa mga lolo't lola ko sa probinsya.\" (Volume 13)",
+        "\"Unang linggo na ng Agosto—panahong nasa kalagitnaan na ng sobrang hinog na tag-init, pati na rin ng huli naming summer break sa high school. Ito rin ang panahon kung kailan kami bumibisita sa mga lolo't lola ko sa probinsya.\" (Volume 13)",
         "\"Pupunta ulit kami sa probinsya ngayong taon, kaya hindi ako makakasama sa iyo bukas. Pasensya na.\" (Volume 13)"
       ]
     },
     {
       "year": "year3",
       "side": "right",
-      "season": "<i class=\"fas fa-theater-masks\"></i> Taglagas \u00b7 Unang Bahagi ng Setyembre",
+      "season": "<i class=\"fas fa-theater-masks\"></i> Taglagas · Unang Bahagi ng Setyembre",
       "date": "",
       "title": "School Cultural Festival",
       "desc": "Bumalik ang school term, kasabay ng balita tungkol sa isang cultural festival sa paaralan.",
@@ -297,8 +298,98 @@
       "vol": "Volume 13",
       "quotes": [
         "\"Setyembre na, kahit halos hindi mo ito mapapansin kung hindi dahil sa tunog ng mga insekto sa gabi.\" (Volume 13)",
-        "\"Huling bahagi ng tag-init, bagong semestre. Dalawang taon na ang nakalipas nang nasa eksaktong ganito rin akong sitwasyon\u2014noong sinimulan kong magpakulay ng buhok at magpalipas ng oras sa ikalawang palapag ng gymnasium. Hinila ko ang aking bangs para takpan ang mga mata ko. Halos hindi ko na maalala kung ano ang pakiramdam noong blonde pa ang buhok ko. Pero kung hindi ko piniling magpanggap na delinquent noon, hindi ako makakarating sa kinaroroonan ko ngayon\u2014hindi ko makikilala si Adachi. Si Adachi, ang taong malamang ay tutukoy sa magiging takbo ng natitirang bahagi ng buhay ko.\" (Volume 13)"
+        "\"Huling bahagi ng tag-init, bagong semestre. Dalawang taon na ang nakalipas nang nasa eksaktong ganito rin akong sitwasyon—noong sinimulan kong magpakulay ng buhok at magpalipas ng oras sa ikalawang palapag ng gymnasium. Hinila ko ang aking bangs para takpan ang mga mata ko. Halos hindi ko na maalala kung ano ang pakiramdam noong blonde pa ang buhok ko. Pero kung hindi ko piniling magpanggap na delinquent noon, hindi ako makakarating sa kinaroroonan ko ngayon—hindi ko makikilala si Adachi. Si Adachi, ang taong malamang ay tutukoy sa magiging takbo ng natitirang bahagi ng buhay ko.\" (Volume 13)"
       ]
     }
-  ]
+  ],
+  "multiverse": {
+    "title": "Multiverse",
+    "subtitle": "Mga canon na side story na humihiwalay mula sa pangunahing timeline ng Adachi to Shimamura.",
+    "mainTimeline": "Main Timeline",
+    "mainTimelineDesc": "Ang canonical na kuwento na isinalaysay sa light novels.",
+    "branchLabel": "Divergence",
+    "sourceLabel": "Source",
+    "items": [
+      {
+        "id": 1,
+        "title": "If Everyone Was Little",
+        "volume": "Volume 5",
+        "divergence": "Adachi and Shimamura are reset to childhood before their relationship can develop.",
+        "note": "A childhood what-if branch."
+      },
+      {
+        "id": 2,
+        "title": "If They Hadn't Met on the Gym's Second Floor",
+        "volume": "Volume 7",
+        "divergence": "Their first meeting on the gym's second floor never happens, creating a different path.",
+        "note": "The first major divergence."
+      },
+      {
+        "id": 3,
+        "title": "If Adachi Had Stayed Like She Was at First",
+        "volume": "Volume 7",
+        "divergence": "Adachi never changes from the distant version of herself seen at the beginning.",
+        "note": "A character-development divergence."
+      },
+      {
+        "id": 4,
+        "title": "In This World",
+        "volume": "Volume 7",
+        "divergence": "Two AU premises: they meet at the end of the world; and Adachi is a scientist while Shimamura is an alien.",
+        "note": "Two alternate worlds in one chapter."
+      },
+      {
+        "id": 5,
+        "title": "If Adachi Were a Teacher",
+        "volume": "Volume 12",
+        "divergence": "Adachi's future branches into a life as a teacher.",
+        "note": "A future-life AU."
+      },
+      {
+        "id": 6,
+        "title": "If Adachi Were a Novelist",
+        "volume": "Volume 12",
+        "divergence": "Adachi's future branches into a life as a novelist.",
+        "note": "A future-life AU."
+      },
+      {
+        "id": 7,
+        "title": "If Shimamura Went Back to the...",
+        "volume": "Volume 12",
+        "divergence": "Shimamura's path branches through a return to an earlier point.",
+        "note": "Isang medyo malapit-sa-canon na divergence mula sa mas huling bahagi ng kuwento."
+      }
+    ],
+    "note": "Lahat ng entry dito ay canon side stories. Ipinapakita ng mga level kung gaano kalayo ang premise mula sa main timeline, hindi kung canon ang kuwento.",
+    "levels": [
+      {
+        "id": "minor",
+        "title": "Minor Divergence",
+        "desc": "Maliit lamang ang pagbabagong ginagawa sa established timeline o mga pangyayari.",
+        "ids": [
+          2,
+          3,
+          7
+        ]
+      },
+      {
+        "id": "moderate",
+        "title": "Moderate Divergence",
+        "desc": "Mas kapansin-pansin ang pagbabago sa mga pangyayari, buhay, o sitwasyon.",
+        "ids": [
+          1,
+          5,
+          6
+        ]
+      },
+      {
+        "id": "major",
+        "title": "Major Divergence",
+        "desc": "Malaki ang pagbabago sa mundo, identities, o pangunahing kondisyon ng kuwento.",
+        "ids": [
+          4
+        ]
+      }
+    ]
+  }
 }

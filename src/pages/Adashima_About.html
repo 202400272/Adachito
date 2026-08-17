@@ -67,6 +67,125 @@
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js?v=20260812"></script>
     <link rel="stylesheet" href="/src/components/styles/menu.css?v=20260812" />
     <link rel="stylesheet" href="/src/css/about/main.css?v=20260812" />
+    <style>
+      body.time-morning,
+      body.time-afternoon,
+      body.time-night,
+      body.time-morning .about-shell,
+      body.time-afternoon .about-shell,
+      body.time-night .about-shell,
+      body.time-morning .about-main,
+      body.time-afternoon .about-main,
+      body.time-night .about-main {
+        --page-bg: linear-gradient(135deg, #fbe9e7 0%, #f3e5f5 50%, #e8eaf6 100%);
+        --page-text: #3d234d;
+        --surface: rgba(255, 255, 255, 0.62);
+        --surface-hover: rgba(255, 255, 255, 0.76);
+        --surface-strong: rgba(255, 248, 244, 0.94);
+        --surface-soft: rgba(255, 255, 255, 0.34);
+        --surface-subtle: rgba(255, 255, 255, 0.12);
+        --surface-border: rgba(140, 90, 150, 0.18);
+        --accent: #d1a3c6;
+        --accent-strong: #8c5a96;
+        --accent-soft: rgba(209, 163, 198, 0.15);
+        --accent-border: rgba(209, 163, 198, 0.22);
+        --accent-border-strong: rgba(209, 163, 198, 0.38);
+        --muted-text: #5f4b6b;
+        --shadow-color: rgba(92, 58, 107, 0.1);
+        --shadow-color-strong: rgba(92, 58, 107, 0.18);
+        --shadow-soft: rgba(92, 58, 107, 0.1);
+        --shadow-glow: rgba(209, 163, 198, 0.25);
+        --color-deep: #6c5287;
+        --color-mid: #9a6898;
+        --color-blush: #d187a2;
+        --color-text: #3d234d;
+        --glass-bg: rgba(255, 255, 255, 0.62);
+        --glass-border: rgba(140, 90, 150, 0.18);
+      }
+
+      body.time-morning .about-hero-content,
+      body.time-afternoon .about-hero-content,
+      body.time-night .about-hero-content,
+      body.time-morning .about-card,
+      body.time-afternoon .about-card,
+      body.time-night .about-card,
+      body.time-morning .translator-materials-modal,
+      body.time-afternoon .translator-materials-modal,
+      body.time-night .translator-materials-modal,
+      body.time-morning .changelog-modal,
+      body.time-afternoon .changelog-modal,
+      body.time-night .changelog-modal {
+        background: rgba(255, 248, 244, 0.92) !important;
+        border-color: rgba(140, 90, 150, 0.18) !important;
+      }
+
+      body.time-morning,
+      body.time-afternoon,
+      body.time-night,
+      body.time-morning .about-shell,
+      body.time-afternoon .about-shell,
+      body.time-night .about-shell,
+      body.time-morning .about-main,
+      body.time-afternoon .about-main,
+      body.time-night .about-main {
+        --plum: #5c3a6b !important;
+        --dusty-rose: #d187a2 !important;
+        --color-mid: #9a6898 !important;
+        --color-deep: #6c5287 !important;
+        --muted-text: #5f4b6b !important;
+        --page-text: #3d234d !important;
+      }
+
+      .about-hero-title,
+      .about-section-title {
+        color: #d73778 !important;
+      }
+
+      .about-hero-title .iconify,
+      .about-section-title .iconify {
+        color: #ef7aa8 !important;
+      }
+
+      .about-hero-subtitle,
+      .about-section-subtitle,
+      .translator-info h4,
+      .translator-info h4 a,
+      .translator-role,
+      .translator-badge,
+      .translator-desc,
+      .view-materials-btn,
+      .material-title,
+      .materials-group-header,
+      .materials-count,
+      .material-date,
+      .changelog-modal-title,
+      .changelog-nav-item-version,
+      .changelog-nav-item-date,
+      .changelog-details-empty,
+      .translator-materials-title,
+      .translator-materials-close,
+      .material-status.status-pending,
+      .material-status.status-in-review,
+      .material-status.status-in-progress,
+      .material-status.status-complete {
+        color: #4a3556 !important;
+      }
+
+      .changelog-nav-header,
+      .changelog-details-empty,
+      .materials-empty,
+      .material-date,
+      .view-materials-btn .material-count {
+        color: #6d4b6b !important;
+      }
+
+      .materials-empty .iconify,
+      .translator-materials-close:hover,
+      .translator-link .link-icon .iconify,
+      .translator-card:hover .translator-icon {
+        color: #8b5c88 !important;
+      }
+    </style>
     <link
       rel="icon"
       type="image/x-icon"

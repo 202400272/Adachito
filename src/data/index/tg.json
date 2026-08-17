@@ -70,7 +70,7 @@
         "key": "constellation",
         "title": "Constellation",
         "desc": "Mga nakatagong discovery sa buong archive.",
-        "icon": "fa-star-and-crescent"
+        "icon": "fa-star"
       },
       {
         "key": "anime",
@@ -80,7 +80,7 @@
       },
       {
         "key": "others",
-        "title": "Archive",
+        "title": "Others",
         "desc": "Iba pang official publication at media.",
         "icon": "fa-archive"
       },
@@ -95,6 +95,18 @@
         "title": "About",
         "desc": "Impormasyon tungkol sa project, contributors, at acknowledgements.",
         "icon": "fa-info-circle"
+      },
+      {
+        "key": "authorArchive",
+        "title": "Author Archive",
+        "desc": "Mga materyales ng may-akda, interview, at historical references.",
+        "icon": "fa-user"
+      },
+      {
+        "key": "help",
+        "title": "Help Center",
+        "desc": "Mga guide, FAQ, at support para sa archive.",
+        "icon": "fa-circle-question"
       }
     ]
   },

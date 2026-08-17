@@ -3,7 +3,7 @@
    ============================================================ */
 
 .support-card {
-  border-color: rgba(209, 163, 198, 0.15);
+  border-color: var(--accent-soft);
 }
 
 .support-grid {
@@ -14,16 +14,16 @@
 }
 
 .support-item {
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--surface-soft);
   border-radius: 1.2rem;
   padding: 1.2rem 1.5rem 1.5rem;
-  border: 1px solid rgba(209, 163, 198, 0.08);
+  border: 1px solid var(--accent-soft);
   transition: all 0.3s ease;
 }
 
 .support-item:hover {
-  background: rgba(255, 255, 255, 0.4);
-  border-color: rgba(209, 163, 198, 0.2);
+  background: var(--surface);
+  border-color: var(--accent-border);
   transform: translateY(-2px);
 }
 
@@ -46,7 +46,7 @@
 
 .support-item-subtitle {
   font-size: 0.8rem;
-  color: #5f4b6b;
+  color: var(--muted-text);
   opacity: 0.6;
   font-weight: 500;
   text-transform: uppercase;
@@ -56,7 +56,7 @@
 
 .support-item-description {
   font-size: 0.85rem;
-  color: #5f4b6b;
+  color: var(--muted-text);
   line-height: 1.6;
   opacity: 0.8;
   margin-bottom: 1rem;
@@ -74,9 +74,9 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.4rem 0.9rem;
-  background: rgba(255, 255, 255, 0.4);
+  background: var(--surface);
   backdrop-filter: blur(4px);
-  border: 1px solid rgba(209, 163, 198, 0.12);
+  border: 1px solid var(--accent-soft);
   border-radius: 8px;
   color: var(--plum);
   font-family: "Quicksand", sans-serif;
@@ -88,10 +88,10 @@
 }
 
 .support-btn:hover {
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--surface-hover);
   border-color: var(--dusty-rose);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(92, 58, 107, 0.08);
+  box-shadow: 0 4px 12px var(--shadow-color);
 }
 
 .support-btn .iconify {
@@ -144,12 +144,12 @@
   height: 80px;
   min-width: 80px;
   border-radius: 50%;
-  background: rgba(209, 163, 198, 0.15);
+  background: var(--accent-soft);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border: 2px solid rgba(209, 163, 198, 0.15);
+  border: 2px solid var(--accent-soft);
 }
 
 .support-author-portrait img {
@@ -179,7 +179,7 @@
 
 .support-author-bio {
   font-size: 0.85rem;
-  color: #5f4b6b;
+  color: var(--muted-text);
   line-height: 1.6;
   opacity: 0.8;
 }

@@ -71,7 +71,7 @@
   font-family: "Noto Serif JP", serif;
   font-size: 0.75rem;
   font-weight: 500;
-  color: #3d234d;
+  color: var(--text-plum);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -122,7 +122,7 @@
 }
 
 .ctrl-btn:hover {
-  color: #8c5a96;
+  color: var(--accent);
   background: rgba(140, 90, 150, 0.06);
   transform: scale(1.05);
 }
@@ -132,7 +132,7 @@
 }
 
 .ctrl-play {
-  background: #8c5a96;
+  background: var(--accent);
   color: white;
   border-radius: 50%;
   width: 34px;
@@ -146,7 +146,7 @@
 }
 
 .ctrl-play:hover {
-  background: #6c5287;
+  background: var(--accent-strong);
   transform: scale(1.06);
   box-shadow: 0 6px 24px rgba(140, 90, 150, 0.35);
 }
@@ -156,11 +156,11 @@
 }
 
 .ctrl-shift.active, .ctrl-repeat.active {
-  color: #8c5a96;
+  color: var(--accent);
 }
 
 .ctrl-shift.active .iconify, .ctrl-repeat.active .iconify {
-  color: #8c5a96;
+  color: var(--accent);
 }
 
 .player-bar-progress {
@@ -201,7 +201,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #8c5a96;
+  background: var(--accent);
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0 2px 8px rgba(140, 90, 150, 0.3);
@@ -215,7 +215,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #8c5a96;
+  background: var(--accent);
   cursor: pointer;
   border: none;
 }
@@ -233,7 +233,7 @@
 }
 
 .ctrl-fav.faved {
-  color: #d187a2;
+  color: var(--accent-pink);
 }
 
 .ctrl-fav.faved:hover {
@@ -265,7 +265,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #8c5a96;
+  background: var(--accent);
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -278,7 +278,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #8c5a96;
+  background: var(--accent);
   cursor: pointer;
   border: none;
 }

@@ -59,7 +59,7 @@
   position: relative !important;
   z-index: 20 !important;
   flex: 0 0 300px !important;
-  background: transparent !important;
+  background: linear-gradient(180deg, #2d183e 0%, #201330 100%) !important;
 }
 
 #menu-container > #menu-component-wrapper,
@@ -70,6 +70,33 @@
   max-width: 300px !important;
   position: relative !important;
   background: linear-gradient(180deg, #2d183e 0%, #201330 100%);
+}
+
+body.time-morning #menu-container,
+body.time-morning #sidebar-container,
+body.time-morning #menu-container > #menu-component-wrapper,
+body.time-morning #sidebar-container > #menu-component-wrapper,
+body.time-morning #menu-component-wrapper,
+body.time-morning #menu-component-wrapper .sidebar {
+  background: rgb(245, 232, 248) linear-gradient(135deg, rgb(230, 240, 252), rgb(245, 232, 248)) !important;
+}
+
+body.time-afternoon #menu-container,
+body.time-afternoon #sidebar-container,
+body.time-afternoon #menu-container > #menu-component-wrapper,
+body.time-afternoon #sidebar-container > #menu-component-wrapper,
+body.time-afternoon #menu-component-wrapper,
+body.time-afternoon #menu-component-wrapper .sidebar {
+  background: rgb(232, 216, 247) linear-gradient(180deg, rgb(250, 214, 227), rgb(232, 216, 247)) !important;
+}
+
+body.time-night #menu-container,
+body.time-night #sidebar-container,
+body.time-night #menu-container > #menu-component-wrapper,
+body.time-night #sidebar-container > #menu-component-wrapper,
+body.time-night #menu-component-wrapper,
+body.time-night #menu-component-wrapper .sidebar {
+  background: rgb(45, 24, 62) linear-gradient(180deg, #2d183e 0%, #201330 100%) !important;
 }
 
 @media (max-width: 900px) {
@@ -98,8 +125,8 @@
 body.time-morning #menu-component-wrapper {
   --nav-bg: linear-gradient(
     135deg,
-    rgba(230, 240, 252, 0.8),
-    rgba(245, 232, 248, 0.7)
+    rgb(230, 240, 252),
+    rgb(245, 232, 248)
   );
   --nav-border: rgba(200, 215, 235, 0.7);
   --nav-text: #837896;
@@ -110,9 +137,10 @@ body.time-morning #menu-component-wrapper {
   --surface-border: rgba(168, 200, 232, 0.4);
   --accent-primary: #4a7fa8;
   --accent-soft: rgba(74, 127, 168, 0.12);
+  background: linear-gradient(135deg, rgb(230, 240, 252), rgb(245, 232, 248));
 }
 body.time-afternoon #menu-component-wrapper {
-  --nav-bg: linear-gradient(180deg, rgba(250, 214, 227, 0.96), rgba(232, 216, 247, 0.97));
+  --nav-bg: linear-gradient(180deg, rgb(250, 214, 227), rgb(232, 216, 247));
   --nav-border: rgba(255, 255, 255, 0.42);
   --nav-text: #4a2f57;
   --nav-shadow: 0 12px 28px 0 rgba(120, 82, 139, 0.16);
@@ -122,7 +150,7 @@ body.time-afternoon #menu-component-wrapper {
   --surface-border: rgba(255, 255, 255, 0.38);
   --accent-primary: #d56796;
   --accent-soft: rgba(214, 103, 150, 0.14);
-  background: linear-gradient(180deg, rgba(250, 214, 227, 0.96), rgba(232, 216, 247, 0.97));
+  background: linear-gradient(180deg, rgb(250, 214, 227), rgb(232, 216, 247));
 }
 body.time-night #menu-component-wrapper {
   --nav-bg: linear-gradient(180deg, #2d183e 0%, #201330 100%);
@@ -223,8 +251,6 @@ body.time-night #menu-component-wrapper {
   left: 0;
   overflow-y: auto;
   background: var(--nav-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border-right: 1px solid var(--nav-border);
   box-shadow: var(--nav-shadow);
   z-index: 20;
@@ -375,6 +401,36 @@ body.time-afternoon #menu-component-wrapper .branding-area .logo-label {
   .nav-section-toggle[aria-expanded="true"]
   .nav-section-chevron {
   transform: rotate(180deg);
+}
+
+
+/* Categorized navigation groups */
+#menu-component-wrapper .nav-subsection {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+#menu-component-wrapper .nav-subsection + .nav-subsection {
+  margin-top: 10px;
+}
+#menu-component-wrapper .nav-subsection-label {
+  display: block;
+  padding: 4px 8px 3px;
+  font-size: 0.58rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-secondary);
+  opacity: 0.42;
+  line-height: 1.2;
+}
+#menu-component-wrapper .nav-subsection-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+#menu-component-wrapper .nav-subsection-list .nav-item {
+  min-height: 44px;
 }
 
 /* ============================================================

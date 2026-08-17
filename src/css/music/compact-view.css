@@ -1,5 +1,5 @@
 .compact-view-container {
-  background: rgba(255, 255, 255, 0.4);
+  background: var(--surface-soft);
   backdrop-filter: blur(8px);
   border-radius: 16px;
   border: 1px solid rgba(200, 180, 210, 0.06);
@@ -17,8 +17,8 @@
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(92, 58, 107, 0.35);
-  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-micro);
+  background: var(--surface-soft);
 }
 
 .ch-number { text-align: center; }
@@ -50,13 +50,13 @@
 .compact-track-row:hover { background: rgba(215, 190, 225, 0.06); }
 .compact-track-row.active {
   background: rgba(200, 170, 220, 0.08);
-  border-left: 2px solid #8c5a96;
+  border-left: 2px solid var(--accent);
 }
 
 .cr-number {
   font-family: "Inter", sans-serif;
   font-size: 0.6rem;
-  color: #9a6898;
+  color: var(--icon-text);
   text-align: center;
   font-variant-numeric: tabular-nums;
 }
@@ -73,13 +73,13 @@
   font-family: "Noto Serif JP", serif;
   font-size: 0.7rem;
   font-weight: 500;
-  color: #3d234d;
+  color: var(--text-plum);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.compact-track-row.active .cr-title-jp { color: #8c5a96; }
+.compact-track-row.active .cr-title-jp { color: var(--accent); }
 
 .cr-title-en {
   font-family: "Inter", sans-serif;
@@ -93,7 +93,7 @@
 .cr-artist {
   font-family: "Inter", sans-serif;
   font-size: 0.6rem;
-  color: #5c3a6b;
+  color: var(--text-soft);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -113,7 +113,7 @@
 .cr-duration {
   font-family: "Inter", sans-serif;
   font-size: 0.55rem;
-  color: #5c3a6b;
+  color: var(--text-soft);
   text-align: right;
   font-variant-numeric: tabular-nums;
 }

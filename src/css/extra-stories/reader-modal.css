@@ -47,6 +47,42 @@
   position: relative;
 }
 
+.reader-modal.immersive .reader-controls-sticky,
+.reader-modal.immersive .reader-progress-wrap {
+  display: none;
+}
+
+.reader-immersive-exit {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 40;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.55;
+  font-size: 0.75rem;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.reader-immersive-exit:hover {
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+.reader-immersive-exit[hidden] {
+  display: none;
+}
+
 .reader-progress-wrap {
   height: 2px;
   background: #e8e4de;

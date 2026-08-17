@@ -216,8 +216,8 @@
     {
       "name": "BlackSheep",
       "link": "",
-      "works": ["Colección de Historias Extra"],
-      "description": "Tradujo la Colección de Historias Extra al inglés.",
+      "works": [],
+      "description": "Tradujo historias extra al inglés.",
       "icon": "mdi:book-open-page-variant",
       "badge": "Traductor",
       "role": "Traductor de Historias Extra"
@@ -284,9 +284,9 @@
   },
   "versionTitle": "Información de la Versión",
   "versionItems": [
-    { "label": "Versión del Sitio Web", "value": "v2.2.9" },
-    { "label": "Número de Compilación", "value": "#20260815" },
-    { "label": "Última Actualización", "value": "Agosto 15, 2026" },
+    { "label": "Versión del Sitio Web", "value": "v2.3.0" },
+    { "label": "Número de Compilación", "value": "#20260816" },
+    { "label": "Última Actualización", "value": "Agosto 16, 2026" },
     { "label": "Progreso de Traducción", "value": "92%" }
   ],
   "changelogBtn": "Ver Registro de Cambios",

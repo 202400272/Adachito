@@ -2,7 +2,7 @@
   grid-column: 1 / -1;
   text-align: center;
   padding: 4rem 2rem;
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--page-surface);
   border-radius: 2rem;
   border: 1px solid rgba(209, 163, 198, 0.08);
 }
@@ -16,7 +16,7 @@
 
 .extra-empty-state p {
   font-size: 1rem;
-  color: #5f4b6b;
+  color: var(--page-muted);
   opacity: 0.6;
 }
 
@@ -28,14 +28,14 @@
 
 .es-coming-soon {
   grid-column: 1 / -1;
-  background: rgba(255, 255, 255, 0.45);
+  background: var(--page-surface);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 2rem;
   border: 1px solid rgba(209, 163, 198, 0.3);
   padding: 4rem 2rem;
   text-align: center;
-  box-shadow: 0 12px 40px rgba(92, 58, 107, 0.08);
+  box-shadow: 0 12px 40px var(--page-shadow);
   margin: 2rem 0;
   display: flex;
   flex-direction: column;
@@ -50,7 +50,7 @@
   height: 90px;
   background: linear-gradient(
     135deg,
-    rgba(209, 163, 198, 0.2),
+    var(--page-border),
     rgba(200, 180, 255, 0.15)
   );
   border-radius: 50%;
@@ -76,7 +76,7 @@
   border-radius: 50%;
   padding: 6px;
   border: 1px solid rgba(209, 163, 198, 0.3);
-  box-shadow: 0 2px 8px rgba(92, 58, 107, 0.1);
+  box-shadow: 0 2px 8px var(--page-shadow);
 }
 
 .es-coming-soon-title {
@@ -89,7 +89,7 @@
 
 .es-coming-soon-text {
   font-size: 1.1rem;
-  color: #5f4b6b;
+  color: var(--page-muted);
   max-width: 550px;
   line-height: 1.6;
 }

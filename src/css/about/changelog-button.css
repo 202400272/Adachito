@@ -10,9 +10,9 @@
   align-items: center;
   gap: 0.6rem;
   padding: 0.6rem 1.4rem;
-  background: rgba(255, 255, 255, 0.35);
+  background: var(--surface);
   backdrop-filter: blur(4px);
-  border: 1px solid rgba(209, 163, 198, 0.15);
+  border: 1px solid var(--accent-soft);
   border-radius: 60px;
   color: var(--plum);
   font-family: "Quicksand", sans-serif;
@@ -28,8 +28,8 @@
 }
 
 .changelog-btn:hover {
-  background: rgba(255, 255, 255, 0.65);
+  background: var(--surface-hover);
   border-color: var(--dusty-rose);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(92, 58, 107, 0.08);
+  box-shadow: 0 8px 24px var(--shadow-color);
 }

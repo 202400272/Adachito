@@ -1,5 +1,35 @@
 [
   {
+    "version": "2.3.0",
+    "build": "20260816",
+    "date": "August 16, 2026",
+    "subtitle": "Homepage & Menu Redesign, New Help Center",
+    "changes": {
+      "new": [
+        "Added a new Help Center with guides covering getting started, reading controls, navigation, language settings, and troubleshooting.",
+        "Added a searchable help topics field for quickly finding answers in the Help Center.",
+        "Added a Multiverse section to the Timeline page.",
+        "Added a Dyslexia-Friendly Font option to the Extra Stories reader, powered by OpenDyslexic.",
+        "Added an Immersive Mode to the Extra Stories reader for distraction-free reading, hiding the header and progress bar until you exit it.",
+        "Added a Reset to Defaults button to the Extra Stories reader settings panel."
+      ],
+      "improvements": [
+        "Redesigned the homepage with an updated visual layout.",
+        "Redesigned the site menu for a cleaner, more consistent navigation experience across pages."
+      ],
+      "fixes": [
+        "Fixed the Extra Stories reader not resuming your scroll position when reopening a story you'd already started reading.",
+        "Fixed a memory leak in the Extra Stories reader where repeatedly opening stories could stack duplicate window resize listeners."
+      ],
+      "notes": [
+        "The homepage and menu have been redesigned as part of this release, refreshing the overall look and navigation of the archive.",
+        "A new Help Center is now available, giving visitors a central place to find answers about using AdaShimaverse without needing to send feedback for common questions.",
+        "The Timeline page now includes a Multiverse section.",
+        "The Extra Stories reader received new accessibility and focus options, along with fixes to reading progress and stability."
+      ]
+    }
+  },
+  {
     "version": "2.2.9",
     "build": "20260815",
     "date": "August 15, 2026",

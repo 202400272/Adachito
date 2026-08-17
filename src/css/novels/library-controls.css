@@ -2,9 +2,9 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1rem 0.75rem;
-  margin: 1.2rem 0 1.8rem 0;
+  margin: 1.2rem auto 1.8rem auto;
   padding: 0 0.2rem;
   width: 100%;
   max-width: 920px;
@@ -70,7 +70,8 @@
   flex-shrink: 0;
   gap: 0.5rem;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .view-toggle-btn {

@@ -1,0 +1,352 @@
+{
+  "pageTitle": "Centro de ayuda — AdaShimaverse",
+  "hero": {
+    "kicker": "Centro de ayuda",
+    "title": "Encuentra tu camino por AdaShimaverse",
+    "subtitle": "Una guía práctica para leer el archivo, encontrar adaptaciones y extras, usar los lectores integrados, entender las estadísticas y reportar problemas.",
+    "search": "Buscar temas de ayuda...",
+    "searchHint": "/",
+    "searchMeta": "Busca preguntas, funciones, ajustes o términos del archivo."
+  },
+  "categories": [
+    {
+      "id": "new-fan-guide",
+      "icon": "fa-route",
+      "title": "Guía para nuevos fans",
+      "description": "Qué consumir primero y por qué"
+    },
+    {
+      "id": "getting-started",
+      "icon": "fa-compass",
+      "title": "Primeros pasos",
+      "description": "Lo básico"
+    },
+    {
+      "id": "archive",
+      "icon": "fa-box-archive",
+      "title": "Archivo y metadatos",
+      "description": "Cómo está organizado el archivo"
+    },
+    {
+      "id": "stats-guide",
+      "icon": "fa-chart-simple",
+      "title": "Entender las estadísticas",
+      "description": "Qué significan los números"
+    },
+    {
+      "id": "reading",
+      "icon": "fa-book-open",
+      "title": "Lectura",
+      "description": "Lectores, descargas y progreso"
+    },
+    {
+      "id": "navigation",
+      "icon": "fa-compass-drafting",
+      "title": "Navegación",
+      "description": "Encuentra contenido rápido"
+    },
+    {
+      "id": "settings",
+      "icon": "fa-sliders",
+      "title": "Ajustes",
+      "description": "Idioma y apariencia"
+    },
+    {
+      "id": "troubleshooting",
+      "icon": "fa-wrench",
+      "title": "Solución de problemas",
+      "description": "Arreglos comunes"
+    },
+    {
+      "id": "feedback",
+      "icon": "fa-message",
+      "title": "Comentarios",
+      "description": "Problemas y correcciones"
+    }
+  ],
+  "sections": [
+    {
+      "id": "new-fan-guide",
+      "icon": "fa-route",
+      "eyebrow": "EMPIEZA AQUÍ",
+      "title": "Guía para nuevos fans: ¿qué debería consumir primero?",
+      "items": [
+        {
+          "question": "La respuesta corta: empieza por las novelas ligeras.",
+          "answer": "Las <strong>novelas ligeras son el material original</strong> de <em>Adachi to Shimamura</em>. Si quieres la versión más completa de la historia y el mejor punto para conocer a los personajes, empieza por el <strong>Volumen 1</strong> y sigue las novelas en orden de publicación."
+        },
+        {
+          "question": "1. Novelas ligeras — el material principal",
+          "answer": "Empieza con <strong>Light Novels → Volume 1</strong> y continúa con los volúmenes numerados en orden. Las novelas son la base de la historia, así que esta es la ruta recomendada si eres nuevo o quieres la experiencia más completa."
+        },
+        {
+          "question": "2. Manga — adaptaciones y otras formas de contar la historia",
+          "answer": "El manga es una <strong>adaptación de la historia</strong>, no el material principal. Es una buena opción si prefieres el formato visual, quieres volver a visitar escenas conocidas o quieres ver cómo las versiones de manga interpretan a los personajes y sus momentos."
+        },
+        {
+          "question": "3. Anime — una adaptación visual",
+          "answer": "El anime es otra adaptación de las novelas ligeras. Es un punto de entrada sencillo si conociste Adachi y Shimamura por la animación, pero no sustituye a las novelas. Si empiezas por el anime y después quieres conocer la historia completa, volver a <strong>Light Novels → Volume 1</strong> es la opción más segura."
+        },
+        {
+          "question": "4. Historias extra y novelas especiales",
+          "answer": "Cuando ya conozcas la historia principal, explora <strong>Extra Stories</strong> y el material de novelas especiales. Es mejor tratarlos como contenido complementario, no como punto de partida. Si un extra está claramente relacionado con un volumen o lanzamiento concreto, leer primero ese material principal puede ayudarte a evitar spoilers o perder contexto."
+        },
+        {
+          "question": "5. Drama CDs, música, galería y otros materiales",
+          "answer": "Son partes complementarias del archivo. Disfruta de <strong>Drama CD</strong> y <strong>Music</strong> si quieres más contenido de audio, y visita <strong>Gallery</strong>, <strong>Timeline</strong> y <strong>Constellation</strong> para referencias, material visual o nuevas formas de explorar la serie fuera de la historia principal."
+        },
+        {
+          "question": "¿Ya viste el anime?",
+          "answer": "Si vienes del anime, puedes continuar la historia aproximadamente desde el capítulo 26 del manga, que corresponde al punto posterior al volumen 4 de la novela ligera. Si prefieres continuar directamente con las novelas ligeras, puedes comenzar por el volumen 5.<br><br>Sin embargo, si quieres disfrutar de la historia con mayor profundidad y de la narración original, recomendamos leer las novelas ligeras desde el volumen 1. De esta forma podrás conocer los monólogos, pensamientos de los personajes y detalles de las escenas que fueron omitidos en las adaptaciones."
+        }
+      ]
+    },
+    {
+      "id": "getting-started",
+      "icon": "fa-compass",
+      "eyebrow": "EMPIEZA AQUÍ",
+      "title": "Primeros pasos",
+      "items": [
+        {
+          "question": "¿Qué es AdaShimaverse?",
+          "answer": "AdaShimaverse es un archivo de fans no oficial y sin fines de lucro dedicado a <em>Adachi to Shimamura</em>. Reúne material de referencia y recursos accesibles para fans de la serie en un solo lugar."
+        },
+        {
+          "question": "¿Qué puedo encontrar aquí?",
+          "answer": "El menú incluye <strong>Anime, Manga, Novelas, Extra Stories, Drama CD, Music, Gallery, Timeline, Constellation, Stats, Others</strong> y <strong>About</strong>. Cada sección está pensada para un tipo de material distinto."
+        },
+        {
+          "question": "¿Por dónde debería empezar a leer?",
+          "answer": "Si quieres la historia principal, abre <strong>Novels</strong>. Para el manga, usa <strong>Manga</strong>. <strong>Extra Stories</strong> reúne material secundario y cuenta con sus propias funciones de marcadores y progreso de lectura."
+        },
+        {
+          "question": "¿El material es oficial?",
+          "answer": "No. AdaShimaverse es un archivo hecho por fans y no es un sitio oficial de los creadores, la editorial ni los titulares de derechos. El sitio no tiene fines de lucro. Consulta <strong>About</strong> para información del proyecto, créditos y enlaces a la obra original."
+        },
+        {
+          "question": "¿Puedo usar AdaShimaverse en el móvil?",
+          "answer": "Sí. El sitio está diseñado para pantallas pequeñas. En móvil puedes usar el botón flotante del menú para abrir la navegación y los ajustes. Si quieres ocultarlo en otras páginas, puedes desactivarlo desde los ajustes del menú."
+        }
+      ]
+    },
+    {
+      "id": "reading",
+      "icon": "fa-book-open",
+      "eyebrow": "LECTURA",
+      "title": "Lectura y controles del lector",
+      "items": [
+        {
+          "question": "¿Cómo leo un volumen de novela o manga?",
+          "answer": "Abre <strong>Novels</strong> o <strong>Manga</strong>, elige un volumen y pulsa <strong>Read</strong>. El documento se abrirá en el lector del sitio."
+        },
+        {
+          "question": "¿Qué puedo hacer en el lector PDF?",
+          "answer": "El lector permite <strong>acercar/alejar, restablecer el zoom, avanzar o retroceder páginas, ir a una página concreta, pantalla completa, miniaturas</strong> y <strong>modo cascada</strong> para desplazamiento continuo."
+        },
+        {
+          "question": "¿Qué es el modo Cascada?",
+          "answer": "El modo Cascada muestra el documento como una tira vertical continua en lugar de una página a la vez. Es útil si prefieres desplazarte de forma natural por un documento largo."
+        },
+        {
+          "question": "¿Puedo descargar un libro?",
+          "answer": "Cuando hay una descarga disponible, el lector muestra los formatos correspondientes. El archivo de novelas puede ofrecer <strong>PDF</strong> y <strong>EPUB</strong>; la disponibilidad depende de cada volumen."
+        },
+        {
+          "question": "¿Cuáles son los atajos de teclado del lector?",
+          "answer": "En los lectores PDF de novelas y manga, <strong>Flecha izquierda</strong> va a la página anterior, <strong>Flecha derecha</strong> a la siguiente, <strong>0</strong> restablece el zoom y <strong>F</strong> activa la pantalla completa. También se reconocen <strong>Page Up/Page Down</strong>."
+        },
+        {
+          "question": "¿Cómo funcionan los marcadores y el progreso?",
+          "answer": "<strong>Extra Stories</strong> puede guardar marcadores y progreso de lectura en el navegador. El progreso se actualiza mientras lees y puedes filtrar la biblioteca para ver tus historias marcadas. No es un sistema de sincronización mediante cuenta."
+        },
+        {
+          "question": "¿Qué pasa si borro los datos del navegador?",
+          "answer": "Algunas preferencias y datos de lectura se guardan localmente en el navegador. Borrar los datos del sitio puede eliminar marcadores, progreso de Extra Stories y otras preferencias guardadas localmente."
+        }
+      ]
+    },
+    {
+      "id": "navigation",
+      "icon": "fa-compass-drafting",
+      "eyebrow": "NAVEGACIÓN",
+      "title": "Encuentra contenido rápidamente",
+      "items": [
+        {
+          "question": "¿Qué contiene cada sección principal?",
+          "answer": "<strong>Novels</strong> y <strong>Manga</strong> se centran en volúmenes y capítulos; <strong>Extra Stories</strong> reúne historias cortas; <strong>Anime</strong> cubre la adaptación animada; <strong>Drama CD</strong> y <strong>Music</strong> se centran en audio; <strong>Gallery</strong> en material visual; <strong>Timeline</strong> organiza eventos; <strong>Constellation</strong> es una función de referencia; <strong>Stats</strong> muestra datos; y <strong>Others</strong> reúne material variado."
+        },
+        {
+          "question": "¿Cómo encuentro un título concreto?",
+          "answer": "Usa el buscador cuando la sección lo tenga. En las bibliotecas puedes reducir los resultados usando información como el título, descripción o volumen. Si no aparece nada, prueba con una parte más corta del título u otra forma de escribirlo."
+        },
+        {
+          "question": "¿Puedo cambiar entre vista Grid y List?",
+          "answer": "Algunas bibliotecas ofrecen vistas <strong>Grid</strong> y <strong>List</strong>. Usa los controles de vista cerca de la parte superior cuando estén disponibles."
+        },
+        {
+          "question": "¿Dónde están los enlaces a la obra original?",
+          "answer": "El menú tiene una sección <strong>Support the Original Work</strong> con enlaces a la novela ligera oficial, el manga y recursos web del autor. Son enlaces externos y se abren fuera de AdaShimaverse."
+        },
+        {
+          "question": "¿Para qué sirven Timeline y Constellation?",
+          "answer": "<strong>Timeline</strong> sirve como referencia cronológica, mientras que <strong>Constellation</strong> permite explorar relaciones y detalles de la serie. Son útiles cuando buscas contexto y no solamente leer un volumen."
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "icon": "fa-sliders",
+      "eyebrow": "AJUSTES",
+      "title": "Idioma, apariencia y preferencias",
+      "items": [
+        {
+          "question": "¿Qué idiomas tiene la interfaz?",
+          "answer": "La interfaz principal incluye <strong>inglés, español y tagalo</strong>. Algunas secciones o contenidos pueden tener una disponibilidad de idiomas diferente según el material."
+        },
+        {
+          "question": "¿Cómo cambio el idioma?",
+          "answer": "Abre el menú, busca el ajuste de <strong>Language</strong> y elige el idioma que prefieras. La selección se guarda localmente en el navegador."
+        },
+        {
+          "question": "¿Qué es la apariencia basada en la hora?",
+          "answer": "La apariencia basada en la hora cambia automáticamente el aspecto del sitio según la hora del día. Puedes desactivar esta función y elegir las opciones de apariencia disponibles desde el menú."
+        },
+        {
+          "question": "¿Qué hace el ajuste Mobile menu button?",
+          "answer": "Controla si el botón flotante del menú móvil aparece en otras páginas. En la página de inicio el botón permanece disponible."
+        },
+        {
+          "question": "¿Necesito una cuenta?",
+          "answer": "No. No necesitas una cuenta para navegar o usar las funciones normales de lectura. Algunas preferencias se guardan localmente en el navegador en lugar de estar vinculadas a una cuenta."
+        }
+      ]
+    },
+    {
+      "id": "archive",
+      "icon": "fa-box-archive",
+      "eyebrow": "ARCHIVO",
+      "title": "Estructura del archivo y metadatos",
+      "items": [
+        {
+          "question": "¿Cuál es la diferencia entre Novelas, Manga y Extra Stories?",
+          "answer": "<strong>Novelas</strong> contiene el archivo principal de las novelas ligeras. <strong>Manga</strong> reúne las adaptaciones de manga y sus volúmenes. <strong>Extra Stories</strong> contiene material breve o complementario organizado como historias individuales. Son colecciones distintas, no tres versiones de la misma biblioteca."
+        },
+        {
+          "question": "¿Por qué algunas entradas tienen etiquetas como Special, Short Story o Upcoming?",
+          "answer": "Las etiquetas indican cómo se clasifica cada entrada en el archivo. <strong>Special</strong> identifica material como el Volumen 99.9, <strong>Short Story</strong> identifica las colecciones de historias cortas y <strong>Upcoming</strong> indica un volumen con fecha conocida que todavía no forma parte del archivo publicado."
+        },
+        {
+          "question": "¿Por qué el número de páginas puede diferir del libro impreso?",
+          "answer": "El número de páginas del archivo se basa en las páginas representadas por el documento almacenado y en su rango registrado. El material inicial, las convenciones de numeración, los escaneos u otras diferencias del documento pueden hacer que el número no coincida con el anunciado por la editorial."
+        },
+        {
+          "question": "¿Cómo debería leer material relacionado con un volumen concreto?",
+          "answer": "Cuando una historia extra, ilustración u otro elemento pertenece claramente a una publicación concreta, lo más seguro es leer primero el volumen principal correspondiente. Así conservas el contexto y reduces el riesgo de encontrarte con referencias antes de tiempo."
+        },
+        {
+          "question": "¿Por qué algunos contenidos están disponibles en un idioma y no en otro?",
+          "answer": "La interfaz del sitio y el contenido del archivo son cosas distintas. La interfaz admite varios idiomas, pero un libro, artículo, ilustración u otro recurso puede existir solo en determinados idiomas. Que falte un idioma no significa necesariamente que falte el contenido."
+        },
+        {
+          "question": "¿Dónde puedo comprobar la fuente o la información oficial de publicación?",
+          "answer": "Según lo que busques, consulta la entrada correspondiente, Timeline, los metadatos de Gallery o About. Cuando el archivo ofrece un enlace oficial, úsalo como referencia para información del editor o creador en lugar de tratar el archivo de fans como fuente oficial."
+        }
+      ]
+    },
+    {
+      "id": "stats-guide",
+      "icon": "fa-chart-simple",
+      "eyebrow": "ESTADÍSTICAS",
+      "title": "Cómo entender la página de estadísticas",
+      "items": [
+        {
+          "question": "¿Qué cuentan los totales principales?",
+          "answer": "La página de Statistics separa la <strong>colección registrada</strong> del <strong>material publicado</strong>. Los totales de capítulos y páginas excluyen las entradas futuras sin número de páginas registrado, mientras que el total de volúmenes registrados puede incluir una publicación futura."
+        },
+        {
+          "question": "¿Cómo se calcula el retraso de traducción?",
+          "answer": "El retraso corresponde al número de días entre la <strong>fecha de publicación japonesa</strong> registrada y la <strong>fecha de finalización en inglés</strong> registrada. Es una métrica del archivo, no una medida del tiempo que tardó una editorial oficial en publicar una edición inglesa."
+        },
+        {
+          "question": "¿Qué mide el intervalo de publicación?",
+          "answer": "Es el número de días entre las fechas de publicación japonesa de dos entradas consecutivas incluidas en las estadísticas. Describe la separación entre publicaciones, no el tiempo necesario para escribir o traducir un volumen."
+        },
+        {
+          "question": "¿Por qué un volumen futuro aparece en unas estadísticas y no en otras?",
+          "answer": "El material futuro es útil para describir la colección completa, por lo que puede aparecer en los recuentos de volúmenes registrados o categorías. Se excluye de métricas que necesitan páginas completas, contenido publicado o una fecha de traducción terminada."
+        },
+        {
+          "question": "¿Pueden cambiar las estadísticas?",
+          "answer": "Sí. La página se genera a partir de los datos estadísticos del archivo, por lo que corregir fechas, páginas, clasificaciones o estados de publicación puede cambiar los resultados. Los números deben entenderse como una instantánea del conjunto de datos actual."
+        },
+        {
+          "question": "¿Cuál es la mejor forma de usar la sección Charts?",
+          "answer": "Usa los gráficos para comparar, no para sacar conclusiones absolutas. <strong>Pages per Volume</strong> y <strong>Chapters per Volume</strong> comparan la estructura; <strong>Cumulative Pages</strong> muestra el tamaño acumulado del archivo publicado; y <strong>Translation Delay</strong> compara los intervalos JP→EN registrados."
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "icon": "fa-wrench",
+      "eyebrow": "SOLUCIÓN DE PROBLEMAS",
+      "title": "Cuando algo no funciona",
+      "items": [
+        {
+          "question": "Una página aparece completamente en blanco. ¿Qué hago?",
+          "answer": "Primero recarga la página. Si sigue en blanco, prueba una recarga completa y después una ventana privada/incógnito u otro navegador. Si solo ocurre en una página, incluye esa página exacta en tu reporte."
+        },
+        {
+          "question": "El lector abre pero el documento está en blanco o no termina de cargar.",
+          "answer": "Espera unos segundos y vuelve a cargar la página. Comprueba que JavaScript esté habilitado y que el navegador o alguna extensión no esté bloqueando los recursos del documento. Si funciona en otro navegador, indica cuál falló y qué volumen estaba afectado."
+        },
+        {
+          "question": "Faltan imágenes, audio u otro contenido.",
+          "answer": "Recarga la página y comprueba primero tu conexión. Si el resto del sitio funciona pero un elemento concreto no, puede tratarse de un problema de ese recurso. Indica el título, volumen, pista o elemento exacto al reportarlo."
+        },
+        {
+          "question": "El sitio parece desactualizado después de una actualización.",
+          "answer": "Es posible que el navegador siga usando recursos antiguos en caché. Haz una recarga completa. Si instalaste el sitio o usas caché sin conexión, ciérralo y vuelve a abrirlo para cargar los recursos actuales."
+        },
+        {
+          "question": "Desaparecieron mis marcadores o mi progreso.",
+          "answer": "Los marcadores y el progreso de Extra Stories se guardan localmente en el navegador. Pueden desaparecer si se borraron los datos del sitio, se restableció el almacenamiento local o cambiaste de navegador/dispositivo. Actualmente no hay sincronización mediante cuenta."
+        },
+        {
+          "question": "Una descarga indica que el archivo no está disponible.",
+          "answer": "Es posible que el archivo no esté disponible para ese elemento en este momento. Intenta de nuevo más tarde y comprueba si existe otro formato. Si un archivo que antes funcionaba dejó de hacerlo, indica el volumen o elemento exacto al reportarlo."
+        }
+      ]
+    },
+    {
+      "id": "feedback",
+      "icon": "fa-message",
+      "eyebrow": "COMENTARIOS",
+      "title": "Reporta un problema o sugiere una mejora",
+      "items": [
+        {
+          "question": "¿Qué tipo de problemas puedo reportar?",
+          "answer": "Puedes reportar <strong>páginas rotas, archivos faltantes, información incorrecta, errores de traducción, enlaces rotos, problemas del lector</strong> y fallos visuales o técnicos."
+        },
+        {
+          "question": "¿Qué información hace útil un reporte?",
+          "answer": "Incluye la <strong>página o sección, título/volumen/capítulo, navegador y dispositivo</strong> cuando sea relevante, y explica brevemente qué esperabas que ocurriera y qué ocurrió. Una captura de pantalla también puede ayudar."
+        },
+        {
+          "question": "¿Puedo sugerir una función?",
+          "answer": "Sí. Se aceptan sugerencias para nuevas funciones, mejoras de navegación, controles del lector, organización del archivo y pequeños cambios que hagan el sitio más cómodo. Explica qué problema resolvería la función."
+        },
+        {
+          "question": "¿Dónde envío comentarios?",
+          "answer": "Usa el formulario <strong>Send Feedback</strong> del sitio cuando esté disponible. Para información del proyecto, créditos y detalles generales, consulta <strong>About</strong>."
+        },
+        {
+          "question": "¿Quién posee los derechos de la serie original?",
+          "answer": "<em>Adachi and Shimamura</em>, sus personajes, ilustraciones y obras relacionadas pertenecen a sus respectivos titulares de derechos. AdaShimaverse es un proyecto de fans no oficial y no reclama la propiedad de la obra original."
+        }
+      ]
+    }
+  ],
+  "noResults": "No se encontraron temas de ayuda.",
+  "footer": "Sitio de fans no oficial de Adachi to Shimamura.<br />Creado por fans, sin fines de lucro.<br />Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma.",
+  "about": "Sobre AdaShimaverse"
+}

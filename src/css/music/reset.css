@@ -9,15 +9,8 @@ body {
   display: flex;
   min-height: 100vh;
   min-height: 100dvh;
-  background: linear-gradient(
-    165deg,
-    #f3e6ee 0%,
-    #ecd9e2 25%,
-    #e8cdd4 55%,
-    #efd9c8 85%,
-    #f6e8d3 100%
-  );
-  color: #3a2a42;
+  background: var(--page-bg);
+  color: var(--page-text);
   overflow-x: hidden;
   margin: 0;
   transition: background 0.8s ease;

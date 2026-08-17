@@ -199,6 +199,116 @@
   border-color: #c0c0c0;
 }
 
+.settings-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.settings-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #e8e4de;
+  border-radius: 4px;
+  background: transparent;
+  font-family: "Quicksand", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.settings-toggle-btn:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.settings-toggle-btn.active {
+  border-color: #2b2b2b;
+  background: rgba(43, 43, 43, 0.04);
+}
+
+.settings-toggle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  color: #6b6b6b;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.settings-toggle-btn.active .settings-toggle-icon {
+  color: #2b2b2b;
+}
+
+.settings-toggle-text {
+  flex: 1;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #2b2b2b;
+}
+
+.settings-toggle-switch {
+  position: relative;
+  width: 34px;
+  height: 20px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  background: #e8e4de;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: background-color 0.2s ease;
+}
+
+.settings-toggle-btn.active .settings-toggle-switch {
+  background: #2b2b2b;
+}
+
+.settings-toggle-knob {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease;
+}
+
+.settings-toggle-btn.active .settings-toggle-knob {
+  transform: translateX(14px);
+}
+
+.settings-reset-group {
+  padding-top: 0.6rem;
+  border-top: 1px solid #e8e4de;
+}
+
+.settings-reset-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid #e8e4de;
+  border-radius: 4px;
+  background: transparent;
+  font-family: "Quicksand", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #9a6a6a;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.settings-reset-btn:hover {
+  background: rgba(154, 60, 60, 0.06);
+  border-color: rgba(154, 60, 60, 0.3);
+  color: #8a3a3a;
+}
+
 .settings-line-height {
   display: flex;
   gap: 0.3rem;

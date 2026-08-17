@@ -1,5 +1,5 @@
-const fs = require('fs').promises;
-const path = require('path');
+import fs from 'node:fs/promises';
+import path from 'node:path';
 
 const ITEMS_TO_COPY = [
   'index.html',
@@ -11,7 +11,7 @@ const ITEMS_TO_COPY = [
   'css',
   'js',
   'data',
-  'pages'
+  'pages',
 ];
 
 async function copyRecursive(src, dest) {
@@ -32,18 +32,18 @@ async function normalizeRedirects(srcPath, destPath) {
   const raw = await fs.readFile(srcPath, 'utf8');
   const lines = raw
     .split(/\r?\n/)
-    .map(line => line.trim())
-    .filter(line => line.length > 0)
-    .map(line => line.replace(/\s+/g, ' '));
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0)
+    .map((line) => line.replace(/\s+/g, ' '));
+
   await fs.mkdir(path.dirname(destPath), { recursive: true });
-  await fs.writeFile(destPath, lines.join('\n') + '\n', 'utf8');
+  await fs.writeFile(destPath, `${lines.join('\n')}\n`, 'utf8');
 }
 
 async function main() {
   const root = process.cwd();
   const dist = path.join(root, 'dist');
 
-  // remove old dist
   await fs.rm(dist, { recursive: true, force: true });
   await fs.mkdir(dist, { recursive: true });
 
@@ -59,7 +59,7 @@ async function main() {
         await copyRecursive(src, dest);
         console.log('Copied', item);
       }
-    } catch (err) {
+    } catch {
       console.log(`Skipping ${item}: not found`);
     }
   }
@@ -67,7 +67,7 @@ async function main() {
   console.log('\nBuild complete — output folder: dist');
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error(err);
   process.exit(1);
 });

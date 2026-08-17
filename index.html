@@ -3,21 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="version" content="v1.5.2" />
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-          .getRegistrations()
-          .then((regs) => regs.forEach((reg) => reg.unregister()))
-          .catch(() => {});
-      }
-      if (window.caches && caches.keys) {
-        caches
-          .keys()
-          .then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
-          .catch(() => {});
-      }
-    </script>
+    <meta name="version" content="v1.5.3" />
     <title>AdashimaVerse</title>
     <meta
       name="description"
@@ -66,10 +52,10 @@
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Quicksand:wght@400;500;600;700&display=swap"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Quicksand:wght@400;500;600;700&display=swap"
       rel="stylesheet"
       media="print"
       onload="this.media='all'"
@@ -87,7 +73,7 @@
     />
     <noscript>
       <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Quicksand:wght@400;500;600;700&display=swap"
         rel="stylesheet"
       />
       <link
@@ -95,34 +81,34 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
       />
     </noscript>
-    <link rel="stylesheet" href="/src/css/index.css?v=1.5.2" />
+    <link rel="stylesheet" href="/src/css/index.css?v=1.5.3" />
     <link
       rel="stylesheet"
-      href="/src/components/styles/menu.css?v=1.5.2"
+      href="/src/components/styles/menu.css?v=1.5.3"
       media="print"
       onload="this.media='all'"
     />
     <link
       rel="stylesheet"
-      href="/src/components/styles/scrollbar.css?v=1.5.2"
+      href="/src/components/styles/scrollbar.css?v=1.5.3"
       media="print"
       onload="this.media='all'"
     />
     <link
       rel="stylesheet"
-      href="/src/components/styles/feedback.css?v=1.5.2"
+      href="/src/components/styles/feedback.css?v=1.5.3"
       media="print"
       onload="this.media='all'"
     />
     <noscript>
-      <link rel="stylesheet" href="/src/components/styles/menu.css?v=1.5.2" />
+      <link rel="stylesheet" href="/src/components/styles/menu.css?v=1.5.3" />
       <link
         rel="stylesheet"
-        href="/src/components/styles/scrollbar.css?v=1.5.2"
+        href="/src/components/styles/scrollbar.css?v=1.5.3"
       />
       <link
         rel="stylesheet"
-        href="/src/components/styles/feedback.css?v=1.5.2"
+        href="/src/components/styles/feedback.css?v=1.5.3"
       />
     </noscript>
 
@@ -216,14 +202,14 @@
     <div id="menu-container"></div>
 
     <div class="main-content">
-      <section class="hero-section">
+      <section class="hero-section" id="heroSection">
         <div class="hero-content">
           <h1 class="hero-title" id="heroTitle">Adachi to Shimamura</h1>
           <p class="hero-sub" id="heroSub">
             Una historia de encuentros, estrellas y el calor de un verano
             eterno.
           </p>
-        </div>
+</div>
         <div class="bike-container">
           <div class="bike-glow"></div>
           <img
@@ -241,148 +227,141 @@
         </div>
       </section>
 
-      <section class="info-panel glass-box" id="infoPanel">
-        <div class="info-toggle" id="infoToggle" onclick="toggleInfo()">
-          <div class="info-header">
-            <span class="info-icon"><i class="fas fa-book-open"></i></span>
-            <span class="info-title" id="infoTitle"
-              >¿Qué es Adachi to Shimamura?</span
-            >
-            <span class="info-sub" id="infoSub"
-              >Para quienes visitan por primera vez</span
-            >
-          </div>
-          <i class="fas fa-chevron-down info-chevron" id="infoChevron"></i>
-        </div>
-        <div class="info-content" id="infoContent">
-          <div class="info-chips" id="infoChips">
-            <span class="chip"
-              ><i class="fas fa-feather-alt"></i>
-              <span class="chip-text">Hitoma Iruma</span></span
-            >
-            <span class="chip"
-              ><i class="fas fa-heart"></i>
-              <span class="chip-text">Yuri · Slice of Life</span></span
-            >
-            <span class="chip"
-              ><i class="fas fa-calendar-alt"></i>
-              <span class="chip-text">Desde 2013</span></span
-            >
-            <span class="chip"
-              ><i class="fas fa-book"></i>
-              <span class="chip-text">Dengeki Bunko</span></span
-            >
-          </div>
-          <div class="info-body" id="infoBody">
-            <p id="infoP1">
-              <strong>Adachi to Shimamura</strong> es una novela ligera japonesa
-              escrita por <strong>Hitoma Iruma</strong> e ilustrada por
-              <strong>Non</strong>. La historia sigue la relación entre dos
-              chicas de preparatoria: <strong>Adachi</strong>, una solitaria que
-              prefiere pasar el tiempo en el gimnasio, y
-              <strong>Shimamura</strong>, una joven despreocupada que suele
-              faltar a clases.
-            </p>
-            <p id="infoP2">
-              Su amistad comienza en el segundo piso del gimnasio, donde se
-              encuentran por casualidad. Poco a poco, lo que empieza como una
-              conexión superficial se convierte en algo más profundo, tierno y
-              complejo.
-            </p>
-            <p id="infoP3">
-              La obra ha sido adaptada al manga, al anime y a múltiples CD
-              dramas, ganándose un lugar especial en el corazón de los lectores
-              por su delicada exploración de la intimidad, la soledad y el
-              primer amor.
-            </p>
+      <!-- ===== ABOUT THE SERIES ===== -->
+      <section class="series-intro" id="infoPanel" aria-labelledby="infoTitle">
+        <button
+          type="button"
+          class="series-intro-toggle"
+          id="infoToggle"
+          aria-expanded="false"
+          aria-controls="infoContent"
+        >
+          <span class="series-intro-toggle-copy">
+            <span class="section-eyebrow" id="infoEyebrow">THE SERIES</span>
+            <span class="editorial-title" id="infoTitle">What is Adachi to Shimamura?</span>
+            <span class="editorial-subtitle" id="infoSub">An introduction for new readers</span>
+          </span>
+          <span class="series-intro-chevron" id="infoChevron" aria-hidden="true">
+            <i data-lucide="chevron-down"></i>
+          </span>
+        </button>
+
+        <div class="info-content" id="infoContent" role="region" aria-labelledby="infoTitle" hidden>
+          <div class="info-inner">
+            <div class="info-chips" id="infoChips">
+              <span class="chip"><i data-lucide="feather" aria-hidden="true"></i><span class="chip-text">Hitoma Iruma</span></span>
+              <span class="chip"><i data-lucide="heart" aria-hidden="true"></i><span class="chip-text">Yuri · Slice of Life</span></span>
+              <span class="chip"><i data-lucide="calendar" aria-hidden="true"></i><span class="chip-text">Since 2013</span></span>
+              <span class="chip"><i data-lucide="book" aria-hidden="true"></i><span class="chip-text">Dengeki Bunko</span></span>
+            </div>
+            <div class="info-body" id="infoBody">
+              <p id="infoP1">
+                <strong>Adachi to Shimamura</strong> is a Japanese light novel series written by
+                <strong>Hitoma Iruma</strong> and illustrated by <strong>Non</strong>. The story follows
+                two high school girls, <strong>Adachi</strong> and <strong>Shimamura</strong>.
+              </p>
+              <p id="infoP2">
+                Their friendship begins when they happen to meet on the second floor of the gymnasium.
+                Over time, what starts as a casual connection gradually becomes something deeper,
+                tender, and more complicated.
+              </p>
+              <p id="infoP3">
+                The series has also been adapted into manga, anime, and multiple drama CDs, earning a
+                special place for its delicate exploration of intimacy, loneliness, and first love.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="nav-grid" id="navGrid"></section>
+      <!-- ===== EXPLORE THE STORY ===== -->
+      <section class="homepage-section explore-section" id="exploreSection" aria-labelledby="exploreSectionTitle">
+        <div class="section-heading editorial-heading">
+          <span class="section-eyebrow" id="exploreEyebrow">THE STORY</span>
+          <h2 class="section-heading-title" id="exploreSectionTitle">Explore Adachi &amp; Shimamura</h2>
+          <p class="section-heading-sub" id="exploreSectionSub">Novels, manga, anime, and other stories from the series.</p>
+        </div>
+        <div class="story-grid" id="navGrid"></div>
+      </section>
 
-      <div class="release-row">
-        <div class="release-card glass-box">
-          <div class="release-inner">
-            <span class="release-badge" id="updateBadge"
-              ><i class="fas fa-clock"></i> Última actualización</span
-            >
-            <span class="release-divider"></span>
-            <span class="release-details" id="updateDetails">
-              <strong>Volumen 13</strong>
-              <span class="release-sep">·</span> Noviembre 2025
-              <span class="release-sep">·</span>
-              <i class="fas fa-check-circle"></i> Traducción completa
-            </span>
-          </div>
+      <!-- ===== MORE FROM THE ARCHIVE ===== -->
+      <section class="homepage-section discover-section" id="discoverSection" aria-labelledby="discoverSectionTitle">
+        <div class="section-heading editorial-heading compact-heading">
+          <span class="section-eyebrow" id="discoverEyebrow">THE ARCHIVE</span>
+          <h2 class="section-heading-title" id="discoverSectionTitle">More from the Archive</h2>
+          <p class="section-heading-sub" id="discoverSectionSub">Additional stories, media, artwork, and discoveries.</p>
+        </div>
+        <div class="discover-grid" id="navGridSecondary"></div>
+      </section>
+
+      <!-- ===== WHAT'S NEW ===== -->
+      <section class="homepage-section updates-section" id="updatesSection" aria-labelledby="updatesTitle">
+        <div class="section-heading editorial-heading">
+          <span class="section-eyebrow" id="updatesEyebrow">SERIES NEWS</span>
+          <h2 class="section-heading-title" id="updatesTitle">What's New</h2>
+          <p class="section-heading-sub" id="updatesSub">News, announcements, and recent developments from the world of Adachi &amp; Shimamura.</p>
         </div>
 
-        <div class="release-card next-release-card glass-box">
-          <div class="release-inner">
-            <span class="release-badge next-badge" id="nextBadge"
-              ><i class="fas fa-fire flame-icon"></i> Próximo lanzamiento</span
-            >
-            <span class="release-divider"></span>
-            <span class="release-details" id="nextDetails">
-              <span class="next-pill"
-                ><i class="fas fa-sparkles"></i> Novedad</span
-              >
-              <strong>Volumen 14</strong>
-              <span class="release-sep">·</span>
-              <span class="next-date">Fecha por confirmar</span>
-              <span class="release-sep">·</span>
-              <i class="fas fa-hourglass-half"></i> En traducción
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="yashiro-widget" id="yashiroWidget" onclick="toggleNews()">
-        <div class="yashiro-container" id="yashiroContainer">
-          <img
-            src="/assets/Imagenes/Yashiro_flotante_art-Photoroom.webp"
-            alt="Yashiro"
-            class="yashiro-image"
-            id="yashiroImage"
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-            width="2000"
-            height="2631"
-            onerror="this.src = './assets/Imagenes/Yashiro-Photoroom.webp'"
-          />
-          <div class="yashiro-tooltip" id="yashiroTooltip">¡Noticias!</div>
-          <div class="news-indicator show" id="newsIndicator">!</div>
-        </div>
-      </div>
-
-      <div class="news-dialog-overlay">
-        <div class="news-dialog-container" id="newsDialog">
-          <div class="news-dialog-inner">
-            <div class="news-character">
-              <img
-                src="/assets/Imagenes/yashironoticia.webp"
-                alt="Yashiro"
-                class="news-yashiro-img"
-                id="newsYashiroImg"
-                loading="lazy"
-                decoding="async"
-                width="1196"
-                height="1644"
-                onerror="this.src = './assets/Imagenes/yashiro-chibi.png'"
-              />
+        <div class="bulletin-board" id="updatesBoard">
+          <article class="bulletin-feature" id="bulletinFeature" aria-live="polite">
+            <div class="bulletin-feature-top">
+              <span class="bulletin-type" id="bulletinFeatureType">LATEST</span>
+              <time class="bulletin-date" id="bulletinFeatureDate"></time>
             </div>
-            <div class="news-textbox">
-              <p id="newsText">
-                ¡Bienvenidos a Adashima Latinoamérica!<br />Estamos trabajando
-                en nuevas traducciones y contenido para ustedes.
-              </p>
+            <div class="bulletin-feature-content">
+              <h3 id="bulletinFeatureTitle">Latest update</h3>
+              <p id="bulletinFeatureText">News and announcements about the series will appear here.</p>
+              <div class="bulletin-feature-actions">
+                <button type="button" class="bulletin-read" id="bulletinFeatureRead">
+                  <span>Read full update</span><i data-lucide="arrow-right" aria-hidden="true"></i>
+                </button>
+                <a class="bulletin-source" id="bulletinFeatureLink" href="#" target="_blank" rel="noopener noreferrer" hidden>
+                  <span>Source</span><i data-lucide="external-link" aria-hidden="true"></i>
+                </a>
+              </div>
             </div>
-          </div>
-          <div class="news-hint" id="newsHint">
-            Haz clic en mí para más noticias
+            <span class="bulletin-feature-number" aria-hidden="true">01</span>
+          </article>
+
+          <div class="bulletin-list-panel">
+            <div class="bulletin-list-heading">
+              <div>
+                <span class="bulletin-list-kicker">ARCHIVE</span>
+                <h3 id="bulletinListTitle">Latest updates</h3>
+              </div>
+              <span class="bulletin-count" id="bulletinCount">0</span>
+            </div>
+            <div class="bulletin-list" id="bulletinList" aria-live="polite"></div>
+            <button type="button" class="bulletin-more" id="bulletinMore" aria-expanded="false" hidden>
+              <span id="bulletinMoreLabel">Show older updates</span>
+              <i class="bulletin-more-chevron" data-lucide="chevron-down" aria-hidden="true"></i>
+            </button>
           </div>
         </div>
+      </section>
+
+      <div class="bulletin-modal" id="bulletinModal" aria-hidden="true">
+        <div class="bulletin-modal-backdrop" data-bulletin-close></div>
+        <section class="bulletin-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="bulletinModalTitle">
+          <button type="button" class="bulletin-modal-close" id="bulletinModalClose" aria-label="Close update">
+            <i data-lucide="x" aria-hidden="true"></i>
+          </button>
+          <div class="bulletin-modal-header">
+            <div>
+              <span class="bulletin-modal-type" id="bulletinModalType"></span>
+              <time class="bulletin-modal-date" id="bulletinModalDate"></time>
+            </div>
+            <span class="bulletin-modal-number" id="bulletinModalNumber" aria-hidden="true">01</span>
+          </div>
+          <div class="bulletin-modal-content">
+            <h2 id="bulletinModalTitle"></h2>
+            <div class="bulletin-modal-body" id="bulletinModalBody"></div>
+            <a class="bulletin-modal-source" id="bulletinModalSource" href="#" target="_blank" rel="noopener noreferrer" hidden>
+              <span>Source</span>
+              <i data-lucide="external-link" aria-hidden="true"></i>
+            </a>
+          </div>
+        </section>
       </div>
 
       <footer class="footer" id="footer">
@@ -397,7 +376,7 @@
             id="feedbackOpenBtn"
             type="button"
           >
-            <i class="fas fa-comment"></i>
+            <i data-lucide="message-circle"></i>
             <span id="feedbackFooterLabel">Send Feedback</span>
           </button>
         </div>
@@ -420,7 +399,7 @@
           type="button"
           aria-label="Close feedback form"
         >
-          <i class="fas fa-times"></i>
+          <i data-lucide="x"></i>
         </button>
 
         <div class="feedback-header">
@@ -429,6 +408,20 @@
             Found a bug, typo, missing content, or have a suggestion? We'd love
             to hear from you.
           </p>
+        </div>
+
+        <div
+          class="feedback-draft-notice"
+          id="feedbackDraftNotice"
+          style="display: none"
+        >
+          <i data-lucide="file-clock"></i>
+          <span id="feedbackDraftNoticeText"
+            >Draft restored from your last visit.</span
+          >
+          <button type="button" id="feedbackDraftClear">
+            <span id="feedbackDraftClearLabel">Clear draft</span>
+          </button>
         </div>
 
         <form id="feedbackForm" novalidate>
@@ -447,29 +440,67 @@
           </div>
 
           <div class="feedback-field">
-            <label for="feedbackType"
-              ><span id="feedbackTypeLabel">Feedback Type</span>
+            <label id="feedbackTypeLabel" for="feedbackTypeTrigger"
+              ><span id="feedbackTypeLabelText">Feedback Type</span>
               <span class="required">*</span></label
             >
-            <select id="feedbackType" name="feedbackType" required>
-              <option value="" id="fbTypePlaceholder">Select a type...</option>
-              <option value="Bug Report" id="fbTypeBug">Bug Report</option>
-              <option value="Translation Correction" id="fbTypeTranslation">
-                Translation Correction
-              </option>
-              <option value="Missing Content" id="fbTypeMissing">
-                Missing Content
-              </option>
-              <option value="Broken Link" id="fbTypeBroken">Broken Link</option>
-              <option value="Feature Request" id="fbTypeFeature">
-                Feature Request
-              </option>
-              <option value="General Feedback" id="fbTypeGeneral">
-                General Feedback
-              </option>
-            </select>
+            <div class="feedback-select-wrap" id="feedbackTypeSelectWrap">
+              <button
+                type="button"
+                class="feedback-select-trigger"
+                id="feedbackTypeTrigger"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+              >
+                <span id="feedbackTypeTriggerLabel">Select a type...</span>
+                <i
+                  data-lucide="chevron-down"
+                  class="feedback-select-chevron"
+                ></i>
+              </button>
+              <ul
+                class="feedback-select-listbox"
+                id="feedbackTypeListbox"
+                role="listbox"
+                tabindex="-1"
+                aria-labelledby="feedbackTypeLabel"
+                hidden
+              ></ul>
+              <select
+                id="feedbackType"
+                name="feedbackType"
+                required
+                class="feedback-select-native"
+                tabindex="-1"
+                aria-hidden="true"
+              >
+                <option value="" id="fbTypePlaceholder">
+                  Select a type...
+                </option>
+                <option value="Bug Report" id="fbTypeBug">Bug Report</option>
+                <option
+                  value="Translation Correction"
+                  id="fbTypeTranslation"
+                >
+                  Translation Correction
+                </option>
+                <option value="Missing Content" id="fbTypeMissing">
+                  Missing Content
+                </option>
+                <option value="Broken Link" id="fbTypeBroken">
+                  Broken Link
+                </option>
+                <option value="Feature Request" id="fbTypeFeature">
+                  Feature Request
+                </option>
+                <option value="General Feedback" id="fbTypeGeneral">
+                  General Feedback
+                </option>
+              </select>
+            </div>
             <span class="field-error" id="feedbackTypeError"></span>
           </div>
+
 
           <div class="feedback-field">
             <label for="feedbackTitleInput"
@@ -528,7 +559,7 @@
             <button type="submit" class="feedback-submit" id="feedbackSubmit">
               <span class="submit-text" id="fbSubmitLabel">Send Feedback</span>
               <span class="submit-spinner" style="display: none"
-                ><i class="fas fa-spinner fa-spin"></i> Sending...</span
+                ><i data-lucide="loader-2" class="spin-icon"></i> Sending...</span
               >
             </button>
           </div>
@@ -546,9 +577,10 @@
       </div>
     </div>
 
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <!-- Import JS -->
-    <script src="/src/js/language-switch.js"></script>
-    <script src="/src/js/index.js?v=1.5.2"></script>
+    <script src="./src/js/language-switch.js"></script>
+    <script src="./src/js/index.js?v=1.5.3"></script>
   </body>
 </html>

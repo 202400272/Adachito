@@ -59,6 +59,15 @@
         transition: color 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
       }
 
+      body.time-morning #menu-component-wrapper,
+      body.time-morning #menu-component-wrapper .sidebar,
+      body.time-afternoon #menu-component-wrapper,
+      body.time-afternoon #menu-component-wrapper .sidebar,
+      body.time-night #menu-component-wrapper,
+      body.time-night #menu-component-wrapper .sidebar {
+        background: rgb(45, 24, 62) var(--nav-bg) !important;
+      }
+
       @media (min-width: 901px) {
         #menu-component-wrapper,
         #menu-component-wrapper .sidebar {
@@ -80,6 +89,7 @@
         --surface-border: rgba(168, 200, 232, 0.4) !important;
         --accent-primary: #4a7fa8 !important;
         --accent-soft: rgba(74, 127, 168, 0.12) !important;
+        background: linear-gradient(135deg, rgba(230, 240, 252, 0.8), rgba(245, 232, 248, 0.7)) !important;
       }
       body.time-afternoon #menu-component-wrapper {
         --nav-bg: linear-gradient(180deg, rgba(250, 214, 227, 0.96), rgba(232, 216, 247, 0.97)) !important;
@@ -198,12 +208,39 @@
         z-index: 1 !important;
         transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         background-image: radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
-                          radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.5) 0%, transparent 50%);
+                          radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.5) 0%, transparent 50%),
+                          radial-gradient(1.5px 1.5px at 20% 12%, rgba(255, 255, 255, 0.9) 50%, transparent 100%),
+                          radial-gradient(1px 1px at 68% 6%, rgba(255, 255, 255, 0.7) 50%, transparent 100%),
+                          radial-gradient(1.5px 1.5px at 42% 22%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+                          radial-gradient(1px 1px at 88% 40%, rgba(255, 255, 255, 0.6) 50%, transparent 100%),
+                          radial-gradient(1.5px 1.5px at 22% 62%, rgba(255, 255, 255, 0.7) 50%, transparent 100%),
+                          radial-gradient(1px 1px at 58% 78%, rgba(255, 255, 255, 0.5) 50%, transparent 100%),
+                          radial-gradient(1.5px 1.5px at 90% 88%, rgba(255, 255, 255, 0.6) 50%, transparent 100%);
+        background-repeat: no-repeat;
+        transition: background-image 0.6s ease;
+      }
+      /* Night theme echoes the starry hero on the right: same twinkling dots,
+         plus two soft color blobs (pink + blue) standing in for its glow orbs. */
+      body.time-night #menu-component-wrapper .sidebar {
+        background: rgb(45, 24, 62) var(--nav-bg) !important;
+        background-image: radial-gradient(circle at 20% 20%, rgba(240, 98, 146, 0.1) 0%, transparent 45%),
+                          radial-gradient(circle at 85% 75%, rgba(100, 130, 220, 0.12) 0%, transparent 45%),
+                          radial-gradient(1.5px 1.5px at 20% 12%, rgba(255, 255, 255, 0.85) 50%, transparent 100%),
+                          radial-gradient(1px 1px at 68% 6%, rgba(255, 255, 255, 0.6) 50%, transparent 100%),
+                          radial-gradient(1.5px 1.5px at 42% 22%, rgba(255, 255, 255, 0.75) 50%, transparent 100%),
+                          radial-gradient(1px 1px at 88% 40%, rgba(255, 255, 255, 0.55) 50%, transparent 100%),
+                          radial-gradient(1.5px 1.5px at 22% 62%, rgba(255, 255, 255, 0.65) 50%, transparent 100%),
+                          radial-gradient(1px 1px at 58% 78%, rgba(255, 255, 255, 0.45) 50%, transparent 100%),
+                          radial-gradient(1.5px 1.5px at 90% 88%, rgba(255, 255, 255, 0.55) 50%, transparent 100%) !important;
       }
       #menu-component-wrapper .sidebar::-webkit-scrollbar { width: 6px; }
+      #menu-component-wrapper .sidebar::-webkit-scrollbar-track { background: transparent; }
       #menu-component-wrapper .sidebar::-webkit-scrollbar-thumb {
         background: rgba(240, 98, 146, 0.3);
         border-radius: 10px;
+      }
+      #menu-component-wrapper .sidebar::-webkit-scrollbar-thumb:hover {
+        background: rgba(240, 98, 146, 0.5);
       }
       #menu-component-wrapper .sidebar-inner {
         padding: 30px 25px;
@@ -218,6 +255,7 @@
          BRANDING (non-interactive, strongest visual)
          ============================================================ */
       #menu-component-wrapper .branding-area {
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -227,7 +265,22 @@
         cursor: default;
         pointer-events: none;
       }
+      #menu-component-wrapper .branding-area::before {
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: 50%;
+        width: 180px;
+        height: 180px;
+        transform: translateX(-50%);
+        background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%) !important;
+        filter: blur(18px);
+        z-index: 0;
+        transition: background-color 2.5s ease;
+      }
       #menu-component-wrapper .branding-area img {
+        position: relative;
+        z-index: 2;
         width: auto;
         max-width: 100%;
         height: auto;
@@ -310,7 +363,37 @@
         transform: rotate(180deg);
       }
 
-      /* ============================================================
+      
+/* Categorized navigation groups */
+#menu-component-wrapper .nav-subsection {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+#menu-component-wrapper .nav-subsection + .nav-subsection {
+  margin-top: 10px;
+}
+#menu-component-wrapper .nav-subsection-label {
+  display: block;
+  padding: 4px 8px 3px;
+  font-size: 0.58rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-secondary);
+  opacity: 0.42;
+  line-height: 1.2;
+}
+#menu-component-wrapper .nav-subsection-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+#menu-component-wrapper .nav-subsection-list .nav-item {
+  min-height: 44px;
+}
+
+/* ============================================================
          PRIMARY NAVIGATION (unified list — strongest interaction styling)
          ============================================================ */
       #menu-component-wrapper .nav-list {
@@ -331,7 +414,7 @@
         width: 100%;
         min-height: 46px;
         padding: 10px 14px 10px 16px;
-        border-radius: 14px;
+        border-radius: 16px;
         background: transparent;
         border: 1px solid transparent;
         color: var(--nav-text, var(--text-main)) !important;
@@ -344,6 +427,7 @@
         text-align: left;
         transition: background-color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
                     color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                    box-shadow 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
                     transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
       #menu-component-wrapper .nav-item::before {
@@ -362,11 +446,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 22px;
+        width: 30px;
+        height: 30px;
         flex-shrink: 0;
-        font-size: 1.02rem;
+        font-size: 0.95rem;
         color: var(--hougetsu-dark) !important;
-        transition: color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        background: var(--surface-glass) !important;
+        border-radius: 10px;
+        transition: color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                    background-color 2.5s ease;
       }
       #menu-component-wrapper .nav-item .nav-item-label { flex: 1; line-height: 1.25; }
       #menu-component-wrapper .nav-item .nav-item-arrow {
@@ -380,6 +468,7 @@
       #menu-component-wrapper .nav-item:hover,
       #menu-component-wrapper .nav-item:focus-visible {
         background: var(--accent-soft) !important;
+        box-shadow: 0 3px 12px var(--accent-soft);
       }
       #menu-component-wrapper .nav-item:hover .nav-item-arrow,
       #menu-component-wrapper .nav-item:focus-visible .nav-item-arrow,
@@ -397,6 +486,7 @@
         background: var(--accent-soft) !important;
         font-weight: 700;
         color: var(--accent-primary) !important;
+        box-shadow: 0 4px 16px var(--accent-soft);
       }
       #menu-component-wrapper .nav-item.active::before { height: 60%; }
       #menu-component-wrapper .nav-item.active .nav-item-icon { color: var(--accent-primary) !important; }
@@ -417,6 +507,9 @@
       #menu-component-wrapper .nav-item.secondary .nav-item-icon {
         font-size: 0.85rem;
         width: 18px;
+        height: 18px;
+        background: transparent !important;
+        border-radius: 0;
         color: var(--text-muted) !important;
       }
       #menu-component-wrapper .nav-item.secondary .nav-item-arrow {
@@ -448,7 +541,7 @@
          ============================================================ */
       #menu-component-wrapper .sidebar-divider {
         height: 1px;
-        background: var(--surface-border) !important;
+        background: linear-gradient(90deg, transparent, var(--surface-border) 20%, var(--surface-border) 80%, transparent) !important;
         margin: 4px 0 8px 0;
         transition: background-color 2.5s ease;
       }
@@ -463,8 +556,9 @@
         gap: 10px;
         background: transparent;
         padding: 10px 16px;
-        border-radius: 12px;
+        border-radius: 16px;
         border: 1px dashed var(--surface-border) !important;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
         transition: border-color 2.5s ease;
       }
       #menu-component-wrapper .info-card h4 {
@@ -496,8 +590,9 @@
       #menu-component-wrapper .settings-card {
         background: transparent;
         border: 1px solid var(--surface-border) !important;
-        border-radius: 16px;
+        border-radius: 18px;
         padding: 14px 16px 16px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
         transition: background-color 2.5s ease, border-color 2.5s ease;
       }
       #menu-component-wrapper .settings-body-inner {
@@ -634,7 +729,7 @@
         flex-direction: column;
         width: 100%;
         background: var(--surface-bg) !important;
-        border-radius: 12px;
+        border-radius: 14px;
         border: 1px solid var(--surface-border) !important;
         overflow: hidden;
         transition: border-color 2.5s ease, background-color 2.5s ease;
@@ -891,11 +986,19 @@
               <i class="fas fa-chevron-down nav-section-chevron" id="navSectionChevron" aria-hidden="true"></i>
             </button>
             <div class="nav-list collapsible open" id="navList" role="navigation" aria-label="Main">
+              <div class="nav-subsection" aria-label="Main">
+                <span class="nav-subsection-label" id="menu-main-label">MAIN</span>
+                <div class="nav-subsection-list">
               <a href="#" onclick="return false;" data-route="" data-page="home" class="nav-item" id="menu-back-home">
                 <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-house"></i></span>
                 <span class="nav-item-label" id="menu-back-text">Inicio</span>
                 <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
               </a>
+                </div>
+              </div>
+              <div class="nav-subsection" aria-label="Library">
+                <span class="nav-subsection-label" id="menu-library-label">LIBRARY</span>
+                <div class="nav-subsection-list">
               <a href="/Adashima_Anime" data-page="anime" class="nav-item">
                 <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-clapperboard"></i></span>
                 <span class="nav-item-label" id="menu-nav-anime">Anime</span>
@@ -916,6 +1019,11 @@
                 <span class="nav-item-label" id="menu-nav-extra">Extra Stories</span>
                 <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
               </a>
+                </div>
+              </div>
+              <div class="nav-subsection" aria-label="Media">
+                <span class="nav-subsection-label" id="menu-media-label">MEDIA</span>
+                <div class="nav-subsection-list">
               <a href="/Adashima_Drama" data-page="drama" class="nav-item">
                 <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-masks-theater"></i></span>
                 <span class="nav-item-label" id="menu-nav-drama">Drama CD</span>
@@ -931,6 +1039,11 @@
                 <span class="nav-item-label" id="menu-nav-gallery">Gallery</span>
                 <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
               </a>
+                </div>
+              </div>
+              <div class="nav-subsection" aria-label="Explore">
+                <span class="nav-subsection-label" id="menu-explore-label">EXPLORE</span>
+                <div class="nav-subsection-list">
               <a href="/Adashima_Linea" data-page="timeline" class="nav-item">
                 <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-clock-rotate-left"></i></span>
                 <span class="nav-item-label" id="menu-nav-timeline">Timeline</span>
@@ -951,11 +1064,23 @@
                 <span class="nav-item-label" id="menu-nav-others">Others</span>
                 <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
               </a>
+                </div>
+              </div>
+              <div class="nav-subsection" aria-label="Info">
+                <span class="nav-subsection-label" id="menu-info-label">INFO</span>
+                <div class="nav-subsection-list">
               <a href="/Adashima_About" data-page="about" class="nav-item">
                 <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-circle-info"></i></span>
                 <span class="nav-item-label" id="menu-nav-about">About</span>
                 <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
               </a>
+                  <a href="/Adashima_Help" data-page="help" class="nav-item" id="menu-nav-help">
+                    <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-circle-question"></i></span>
+                    <span class="nav-item-label" id="menu-help-text">Help Center</span>
+                    <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1614,9 +1739,15 @@
             appearanceNight: "Noche",
             homepageNoticeText: "El botón siempre está visible en la página de inicio",
             navLabel: "NAVEGACIÓN",
+            mainLabel: "PRINCIPAL",
+            libraryLabel: "BIBLIOTECA",
+            mediaLabel: "MEDIOS",
+            exploreLabel: "EXPLORAR",
+            infoLabel: "INFORMACIÓN",
             communityLabel: "COMUNIDAD",
             statusLabel: "ESTADO",
             navAnime: "Anime",
+            navMiniAnime: "Mini Anime",
             navManga: "Manga",
             navNovels: "Novelas",
             navExtra: "Historias Extra",
@@ -1628,6 +1759,7 @@
             navStats: "Estadísticas",
             navOthers: "Otros",
             navAbout: "Acerca de",
+            navHelpText: "Centro de Ayuda",
             mobileSettingsLabel: "MÓVIL",
             hideBurgerText: "Ocultar menú en otras páginas",
             hideBurgerDesc: "Oculta el botón del menú en páginas distintas a la de inicio.",
@@ -1655,9 +1787,15 @@
             appearanceNight: "Night",
             homepageNoticeText: "The button is always visible on the homepage",
             navLabel: "NAVIGATION",
+            mainLabel: "MAIN",
+            libraryLabel: "LIBRARY",
+            mediaLabel: "MEDIA",
+            exploreLabel: "EXPLORE",
+            infoLabel: "INFO",
             communityLabel: "COMMUNITY",
             statusLabel: "STATUS",
             navAnime: "Anime",
+            navMiniAnime: "Mini Anime",
             navManga: "Manga",
             navNovels: "Novels",
             navExtra: "Extra Stories",
@@ -1669,6 +1807,7 @@
             navStats: "Stats",
             navOthers: "Others",
             navAbout: "About",
+            navHelpText: "Help Center",
             mobileSettingsLabel: "MOBILE",
             hideBurgerText: "Hide Burger Menu in Other Pages",
             hideBurgerDesc: "Hide the menu button on pages other than the homepage.",
@@ -1696,9 +1835,15 @@
             appearanceNight: "Gabi",
             homepageNoticeText: "Palaging nakikita ang button sa homepage",
             navLabel: "NABIGASYON",
+            mainLabel: "PANGUNAHIN",
+            libraryLabel: "LIBRARY",
+            mediaLabel: "MEDIA",
+            exploreLabel: "TUKLASIN",
+            infoLabel: "INFO",
             communityLabel: "KOMUNIDAD",
             statusLabel: "KATAYUAN",
             navAnime: "Anime",
+            navMiniAnime: "Mini Anime",
             navManga: "Manga",
             navNovels: "Mga Nobela",
             navExtra: "Extra Stories",
@@ -1710,6 +1855,7 @@
             navStats: "Stats",
             navOthers: "Iba pa",
             navAbout: "Tungkol",
+            navHelpText: "Help Center",
             mobileSettingsLabel: "MOBILE",
             hideBurgerText: "Itago ang burger menu sa ibang pahina",
             hideBurgerDesc: "Itago ang button ng menu sa mga pahinang hindi homepage.",
@@ -1738,6 +1884,11 @@
             "menu-appearance-selector-label": t.appearanceSelectorLabel,
             "menu-homepage-notice-text": t.homepageNoticeText,
             "menu-nav-label": t.navLabel,
+            "menu-main-label": t.mainLabel,
+            "menu-library-label": t.libraryLabel,
+            "menu-media-label": t.mediaLabel,
+            "menu-explore-label": t.exploreLabel,
+            "menu-info-label": t.infoLabel,
             "menu-community-label": t.communityLabel,
             "menu-status-label": t.statusLabel,
             "menu-nav-anime": t.navAnime,
@@ -1753,6 +1904,7 @@
             "menu-nav-stats": t.navStats,
             "menu-nav-others": t.navOthers,
             "menu-nav-about": t.navAbout,
+            "menu-help-text": t.navHelpText,
             "menu-nav-settings-label": t.mobileSettingsLabel,
             "menu-hide-burger-text": t.hideBurgerText,
             "menu-hide-burger-desc": t.hideBurgerDesc,

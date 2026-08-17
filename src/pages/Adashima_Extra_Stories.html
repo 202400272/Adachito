@@ -66,6 +66,7 @@
       href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=EB+Garamond:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Serif:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/opendyslexic" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -75,6 +76,24 @@
     <link rel="stylesheet" href="/src/components/styles/menu.css" />
 
     <link rel="stylesheet" href="/src/css/extra-stories/main.css" />
+    <style>
+      body.time-morning,
+      body.time-afternoon,
+      body.time-night {
+        --page-bg: linear-gradient(135deg, #fbe9e7 0%, #f3e5f5 50%, #e8eaf6 100%);
+        --page-text: #4a3b52;
+        --page-surface: rgba(255, 255, 255, 0.55);
+        --page-surface-strong: rgba(255, 255, 255, 0.78);
+        --page-border: rgba(209, 163, 198, 0.25);
+        --page-accent: #d1a3c6;
+        --page-accent-strong: #9a6898;
+        --page-muted: #5f4b6b;
+        --page-shadow: rgba(92, 58, 107, 0.1);
+        --page-soft: rgba(209, 163, 198, 0.12);
+        --plum: #5c3a6b;
+        --dusty-rose: #d1a3c6;
+      }
+    </style>
   </head>
   <body>
     <div id="sidebar-container"></div>
@@ -216,6 +235,15 @@
     <!-- ===== READER MODAL ===== -->
     <div class="reader-overlay" id="readerOverlay">
       <div class="reader-modal">
+        <button
+          class="reader-immersive-exit"
+          id="readerImmersiveExit"
+          aria-label="Exit immersive mode"
+          hidden
+        >
+          <i class="fas fa-compress"></i>
+        </button>
+
         <!-- Progress bar - sticky at top -->
         <div class="reader-progress-wrap">
           <div
@@ -245,6 +273,14 @@
             >
               <i class="fas fa-check-circle"></i>
               <span id="readerMarkLabel">Read</span>
+            </button>
+            <button
+              class="reader-settings-btn reader-immersive-btn"
+              id="readerImmersiveBtn"
+              aria-label="Immersive mode"
+              aria-pressed="false"
+            >
+              <i class="fas fa-expand"></i>
             </button>
             <button
               class="reader-settings-btn"
@@ -361,6 +397,31 @@
                   Wide
                 </button>
               </div>
+            </div>
+
+            <div class="settings-group">
+              <label class="settings-label">Accessibility</label>
+              <button
+                class="settings-toggle-btn"
+                id="dyslexiaToggle"
+                aria-pressed="false"
+              >
+                <span class="settings-toggle-icon"
+                  ><i class="fas fa-font"></i
+                ></span>
+                <span class="settings-toggle-text"
+                  >Dyslexia-Friendly Font</span
+                >
+                <span class="settings-toggle-switch"
+                  ><span class="settings-toggle-knob"></span
+                ></span>
+              </button>
+            </div>
+
+            <div class="settings-group settings-reset-group">
+              <button class="settings-reset-btn" id="settingsReset">
+                <i class="fas fa-rotate-left"></i> Reset to Defaults
+              </button>
             </div>
           </div>
         </div>

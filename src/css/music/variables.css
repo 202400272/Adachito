@@ -1,3 +1,4 @@
+/* Music page design tokens */
 :root {
   --lavender: #9a6898;
   --blush: #d187a2;
@@ -22,4 +23,108 @@
   --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.08);
   --shadow-xl: 0 16px 60px rgba(0, 0, 0, 0.12);
+
+  --page-bg: linear-gradient(165deg, #f3e6ee 0%, #ecd9e2 25%, #e8cdd4 55%, #efd9c8 85%, #f6e8d3 100%);
+  --page-text: #3a2a42;
+  --page-overlay: rgba(255, 248, 244, 0.38);
+  --page-overlay-soft: rgba(255, 248, 244, 0.16);
+  --panel-bg: rgba(255, 255, 255, 0.72);
+  --panel-strong: rgba(255, 255, 255, 0.92);
+  --panel-border: rgba(210, 168, 214, 0.35);
+  --accent: #8c5a96;
+  --accent-strong: #6c5287;
+  --accent-pink: #d187a2;
+  --muted-text: #8f5b8d;
+  --icon-text: #9a6898;
+  --shadow-color: rgba(90, 58, 112, 0.16);
+
+  /* Component surfaces — every page component should use these rather than hard-coded white. */
+  --surface: rgba(255, 255, 255, 0.58);
+  --surface-soft: rgba(255, 255, 255, 0.40);
+  --surface-strong: rgba(255, 255, 255, 0.82);
+  --surface-bright: rgba(255, 255, 255, 0.94);
+  --surface-hover: rgba(255, 255, 255, 0.90);
+  --surface-border: rgba(140, 90, 150, 0.14);
+  --surface-highlight: rgba(255, 255, 255, 0.50);
+  --surface-text: #3d234d;
+  --surface-muted: #7f6389;
+  --text-jp: rgba(92, 58, 107, 0.62);
+  --text-faint: rgba(92, 58, 107, 0.48);
+  --text-micro: rgba(92, 58, 107, 0.42);
+  --border-subtle: rgba(140, 90, 150, 0.10);
+}
+
+body.time-morning {
+  --page-bg: linear-gradient(165deg, #eaf3fb 0%, #e7eef8 30%, #edf0fa 62%, #f3ebf7 100%);
+  --page-text: #4f5f73;
+  --page-overlay: rgba(241, 247, 252, 0.52);
+  --page-overlay-soft: rgba(239, 246, 252, 0.24);
+  --panel-bg: rgba(247, 250, 253, 0.72);
+  --panel-strong: rgba(247, 250, 253, 0.94);
+  --panel-border: rgba(129, 163, 195, 0.28);
+  --accent: #5f86aa;
+  --accent-strong: #466d91;
+  --accent-pink: #b487a5;
+  --muted-text: #63758b;
+  --icon-text: #6889aa;
+  --shadow-color: rgba(70, 101, 132, 0.13);
+  --glass-bg: rgba(247, 250, 253, 0.82);
+  --glass-border: rgba(129, 163, 195, 0.25);
+  --text-plum: #4f5f73;
+  --text-soft: #5d6f83;
+  --text-light: #6889aa;
+  --surface: rgba(247, 250, 253, 0.62);
+  --surface-soft: rgba(239, 246, 252, 0.44);
+  --surface-strong: rgba(247, 250, 253, 0.84);
+  --surface-bright: rgba(250, 252, 255, 0.96);
+  --surface-hover: rgba(250, 252, 255, 0.92);
+  --surface-border: rgba(95, 134, 170, 0.16);
+  --surface-highlight: rgba(255, 255, 255, 0.48);
+  --surface-text: #4f5f73;
+  --surface-muted: #63758b;
+  --text-jp: rgba(79, 95, 115, 0.68);
+  --text-faint: rgba(79, 95, 115, 0.52);
+  --text-micro: rgba(79, 95, 115, 0.46);
+  --border-subtle: rgba(95, 134, 170, 0.12);
+}
+
+body.time-afternoon {
+  --page-bg: linear-gradient(165deg, #f3e6ee 0%, #ecd9e2 25%, #e8cdd4 55%, #efd9c8 85%, #f6e8d3 100%);
+}
+
+body.time-night {
+  --page-bg: radial-gradient(circle at 72% 10%, rgba(132, 83, 153, 0.14), transparent 28%), linear-gradient(165deg, #17121e 0%, #211827 46%, #171d2a 100%);
+  --page-text: #f2eaf5;
+  --page-overlay: rgba(20, 15, 27, 0.62);
+  --page-overlay-soft: rgba(255, 255, 255, 0.025);
+  --panel-bg: rgba(38, 29, 47, 0.88);
+  --panel-strong: rgba(31, 24, 39, 0.96);
+  --panel-border: rgba(221, 190, 226, 0.13);
+  --accent: #d39bc6;
+  --accent-strong: #c486b6;
+  --accent-pink: #e0a3bf;
+  --muted-text: #c8b9cf;
+  --icon-text: #d7add0;
+  --shadow-color: rgba(4, 2, 8, 0.48);
+  --glass-bg: rgba(34, 26, 43, 0.90);
+  --glass-border: rgba(221, 190, 226, 0.12);
+  --glass-shadow: 0 12px 40px rgba(3, 2, 7, 0.28);
+  --text-plum: #f2eaf5;
+  --text-soft: #d4c7da;
+  --text-light: #d7add0;
+
+  /* Dark surfaces stay visibly dark instead of becoming translucent gray. */
+  --surface: #2b2133;
+  --surface-soft: #241c2c;
+  --surface-strong: #33263b;
+  --surface-bright: #3a2b43;
+  --surface-hover: #403048;
+  --surface-border: rgba(221, 190, 226, 0.14);
+  --surface-highlight: rgba(255, 255, 255, 0.055);
+  --surface-text: #f1e8f4;
+  --surface-muted: #bfaec7;
+  --text-jp: #cfc1d6;
+  --text-faint: #b9a9c2;
+  --text-micro: #aF9db8;
+  --border-subtle: rgba(221, 190, 226, 0.18);
 }

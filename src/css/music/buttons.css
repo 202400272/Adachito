@@ -9,11 +9,11 @@
   font-family: "Inter", sans-serif;
   font-weight: 500;
   font-size: 0.8rem;
-  color: #3d234d;
+  color: var(--text-plum);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   box-shadow: var(--shadow-sm);
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--surface-strong);
   backdrop-filter: blur(4px);
 }
 
@@ -33,14 +33,14 @@
 }
 
 .btn-primary {
-  background: #8c5a96;
-  border-color: #8c5a96;
+  background: var(--accent);
+  border-color: var(--accent);
   color: white;
   box-shadow: 0 4px 16px rgba(140, 90, 150, 0.25);
 }
 
 .btn-primary:hover {
-  background: #6c5287;
+  background: var(--accent-strong);
   box-shadow: 0 6px 24px rgba(140, 90, 150, 0.35);
 }
 

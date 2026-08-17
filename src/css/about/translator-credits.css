@@ -11,11 +11,11 @@
 }
 
 .translator-card {
-  background: rgba(255, 255, 255, 0.35);
+  background: var(--surface);
   backdrop-filter: blur(4px);
   border-radius: 1.5rem;
   padding: 1.5rem;
-  border: 1px solid rgba(209, 163, 198, 0.1);
+  border: 1px solid var(--accent-soft);
   display: flex;
   gap: 1.2rem;
   align-items: flex-start;
@@ -30,10 +30,10 @@
 }
 
 .translator-card:hover {
-  background: rgba(255, 255, 255, 0.6);
-  border-color: rgba(209, 163, 198, 0.25);
+  background: var(--surface);
+  border-color: var(--accent-border-strong);
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(92, 58, 107, 0.08);
+  box-shadow: 0 12px 32px var(--shadow-color);
 }
 
 .translator-icon {
@@ -41,7 +41,7 @@
   height: 52px;
   min-width: 52px;
   border-radius: 50%;
-  background: rgba(209, 163, 198, 0.15);
+  background: var(--accent-soft);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,7 +55,7 @@
 }
 
 .translator-card:hover .translator-icon {
-  background: rgba(209, 163, 198, 0.25);
+  background: var(--accent-border-strong);
   transform: scale(1.05);
 }
 
@@ -102,7 +102,7 @@
 .translator-link:hover {
   color: var(--dusty-rose);
   border-bottom-color: var(--dusty-rose);
-  background: rgba(209, 163, 198, 0.08);
+  background: var(--accent-soft);
 }
 
 .translator-link .link-icon {
@@ -129,19 +129,19 @@
 
 .translator-badge {
   display: inline-block;
-  background: rgba(209, 163, 198, 0.15);
+  background: var(--accent-soft);
   padding: 0.15rem 0.7rem;
   border-radius: 60px;
   font-size: 0.7rem;
   font-weight: 600;
   color: var(--plum);
   margin-bottom: 0.5rem;
-  border: 1px solid rgba(209, 163, 198, 0.1);
+  border: 1px solid var(--accent-soft);
 }
 
 .translator-desc {
   font-size: 0.85rem;
-  color: #5f4b6b;
+  color: var(--muted-text);
   line-height: 1.5;
   opacity: 0.8;
   margin-top: 0.3rem;

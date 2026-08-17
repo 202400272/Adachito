@@ -16,7 +16,7 @@
   gap: 1rem;
   padding: 0.6rem 0.8rem 0.6rem 0.8rem;
   margin-bottom: 1.2rem;
-  border-bottom: 2px solid rgba(209, 163, 198, 0.12);
+  border-bottom: 2px solid var(--page-soft);
   flex-wrap: wrap;
 }
 
@@ -26,7 +26,7 @@
   border-radius: 12px;
   background: linear-gradient(
     135deg,
-    rgba(209, 163, 198, 0.15),
+    var(--page-soft),
     rgba(200, 180, 255, 0.1)
   );
   display: flex;
@@ -53,10 +53,10 @@
 .volume-count {
   font-family: "Quicksand", sans-serif;
   font-size: 0.75rem;
-  color: #5f4b6b;
+  color: var(--page-muted);
   opacity: 0.5;
   font-weight: 500;
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--page-surface);
   padding: 0.2rem 0.9rem;
   border-radius: 40px;
   border: 1px solid rgba(209, 163, 198, 0.08);
@@ -70,11 +70,11 @@
 }
 
 .story-card {
-  background: rgba(255, 255, 255, 0.45);
+  background: var(--page-surface);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 1.2rem;
-  border: 1px solid rgba(209, 163, 198, 0.15);
+  border: 1px solid var(--page-soft);
   box-shadow: 0 8px 32px rgba(92, 58, 107, 0.06);
   overflow: hidden;
   transition: all 0.3s ease;
@@ -110,10 +110,10 @@
 }
 
 .story-card:hover {
-  background: rgba(255, 255, 255, 0.65);
-  border-color: rgba(209, 163, 198, 0.25);
+  background: var(--page-surface-strong);
+  border-color: var(--page-border);
   transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(92, 58, 107, 0.1);
+  box-shadow: 0 12px 40px var(--page-shadow);
 }
 
 .story-card-body {
@@ -126,13 +126,13 @@
   gap: 0.8rem;
   margin-bottom: 0.5rem;
   font-size: 0.75rem;
-  color: #5f4b6b;
+  color: var(--page-muted);
   opacity: 0.6;
   flex-wrap: wrap;
 }
 
 .story-type {
-  background: rgba(209, 163, 198, 0.12);
+  background: var(--page-soft);
   padding: 0.1rem 0.6rem;
   border-radius: 20px;
   font-size: 0.65rem;
@@ -146,7 +146,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  background: rgba(209, 163, 198, 0.12);
+  background: var(--page-soft);
   padding: 0.1rem 0.6rem;
   border-radius: 20px;
   font-size: 0.65rem;
@@ -171,7 +171,7 @@
 
 .story-description {
   font-size: 0.85rem;
-  color: #5f4b6b;
+  color: var(--page-muted);
   line-height: 1.5;
   opacity: 0.8;
   display: -webkit-box;
@@ -207,9 +207,9 @@
   align-items: center;
   gap: 0.4rem;
   padding: 0.35rem 1rem;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--page-surface);
   backdrop-filter: blur(4px);
-  border: 1px solid rgba(209, 163, 198, 0.15);
+  border: 1px solid var(--page-soft);
   border-radius: 60px;
   color: var(--plum);
   font-family: "Quicksand", sans-serif;
@@ -220,10 +220,10 @@
 }
 
 .story-read-btn:hover {
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--page-surface-strong);
   border-color: var(--dusty-rose);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(92, 58, 107, 0.08);
+  box-shadow: 0 4px 12px var(--page-shadow);
 }
 
 .story-read-btn i {

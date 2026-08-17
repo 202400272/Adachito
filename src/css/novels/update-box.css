@@ -1,15 +1,7 @@
 .update-box {
-  background: var(--glass);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 28px;
-  border: 1.5px solid var(--glass-border);
   width: 100%;
-  max-width: 920px;
-  padding: 32px;
-  box-shadow: var(--shadow-soft);
-  max-height: 76vh;
-  overflow-y: auto;
+  max-width: 1100px;
+  flex: 1;
   position: relative;
   min-height: 200px;
   display: flex;
@@ -66,22 +58,22 @@
   overflow: visible !important;
 }
 
-.update-box.view-grid .novels-grid {
-  background: rgba(255, 255, 255, 0.7);
+.update-box.view-list {
+  background: rgba(255, 255, 255, 0.76);
   backdrop-filter: blur(12px);
-  border-radius: 28px;
-  border: 1.5px solid rgba(209, 163, 198, 0.25);
-  padding: 1.8rem 1.5rem;
-  box-shadow: 0 8px 32px rgba(92, 58, 107, 0.06);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius-lg);
+  border: 2px solid rgba(209, 163, 198, 0.45);
+  padding: 28px;
+  box-shadow: var(--shadow-lg);
+  max-height: 70vh;
+  overflow-y: auto;
 }
 
-.update-box.view-list {
-  background: var(--glass);
-  backdrop-filter: blur(16px);
-  border-radius: 28px;
-  border: 1.5px solid var(--glass-border);
-  padding: 32px;
-  box-shadow: var(--shadow-soft);
-  max-height: 76vh;
-  overflow-y: auto;
+.update-box.view-list::-webkit-scrollbar {
+  width: 5px;
+}
+.update-box.view-list::-webkit-scrollbar-thumb {
+  background: rgba(209, 163, 198, 0.5);
+  border-radius: 10px;
 }

@@ -177,6 +177,8 @@ function getScatterData() {
 function calculateStats(data) {
   const activeVolumes = data.filter((v) => !v.is_upcoming && v.page_count > 0);
   const totalVolumes = data.length;
+  const releasedVolumes = activeVolumes.length;
+  const upcomingVolumes = data.filter((v) => v.is_upcoming).length;
   const totalChapters = activeVolumes.reduce((sum, v) => sum + v.chapters, 0);
   const totalPages = activeVolumes.reduce((sum, v) => sum + v.page_count, 0);
   const avgPagesPerVolume = Math.round(totalPages / activeVolumes.length);
@@ -259,6 +261,8 @@ function calculateStats(data) {
 
   statsSummary = {
     totalVolumes,
+    releasedVolumes,
+    upcomingVolumes,
     totalChapters,
     totalPages,
     avgPagesPerVolume,
@@ -441,115 +445,132 @@ function renderAll() {
 }
 
 function renderOverview() {
+  const released = statsSummary.releasedVolumes || 0;
+  const upcoming = statsSummary.upcomingVolumes || 0;
+  const total = statsSummary.totalVolumes || 0;
+  const completion = total ? Math.round((released / total) * 100) : 0;
+  const avgPages = statsSummary.avgPagesPerVolume || 0;
+  const avgChapters = statsSummary.avgChaptersPerVolume || 0;
+  const years = parseInt(statsSummary.publicationEnd) - parseInt(statsSummary.publicationStart) + 1;
+
   return `
-            <section class="section-reveal visible" data-section="overview" id="section-overview">
-                <div class="hero-stats-grid">
-                    <div class="hero-stat">
-                        <span class="hero-stat-value">${statsSummary.totalVolumes}</span>
-                        <span class="hero-stat-label">Total Volumes</span>
-                    </div>
-                    <div class="hero-stat">
-                        <span class="hero-stat-value">${statsSummary.totalChapters}</span>
-                        <span class="hero-stat-label">Total Chapters</span>
-                    </div>
-                    <div class="hero-stat">
-                        <span class="hero-stat-value">${statsSummary.totalPages}</span>
-                        <span class="hero-stat-label">Total Pages</span>
-                    </div>
-                    <div class="hero-stat">
-                        <span class="hero-stat-value">${parseInt(statsSummary.publicationEnd) - parseInt(statsSummary.publicationStart) + 1}</span>
-                        <span class="hero-stat-label">Years Active</span>
-                    </div>
-                </div>
-            </section>
-        `;
+    <section class="section-reveal visible stats-overview-pro" data-section="overview" id="section-overview">
+      <div class="stats-overview-head">
+        <div>
+          <p class="stats-eyebrow">SERIES STATISTICS · ARCHIVE SNAPSHOT</p>
+          <h2>Adachi &amp; Shimamura by the numbers</h2>
+          <p>Publication, volume, chapter, page, and translation data recorded across the archive.</p>
+        </div>
+        <div class="archive-status">
+          <span class="status-pulse"></span>
+          <span>Archive active</span>
+          <small>Updated from recorded data</small>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <article class="kpi-card kpi-primary">
+          <div class="kpi-top"><span class="kpi-icon"><iconify-icon icon="fa6-solid:book"></iconify-icon></span><span class="kpi-tag">COLLECTION</span></div>
+          <strong>${released}</strong>
+          <h3>Released volumes</h3>
+          <div class="kpi-meter"><span style="width:${completion}%"></span></div>
+          <p>${completion}% of ${total} tracked entries released${upcoming ? ` · ${upcoming} upcoming` : ""}</p>
+        </article>
+
+        <article class="kpi-card">
+          <div class="kpi-top"><span class="kpi-icon"><iconify-icon icon="fa6-solid:list-ol"></iconify-icon></span><span class="kpi-tag">STRUCTURE</span></div>
+          <strong>${statsSummary.totalChapters.toLocaleString()}</strong>
+          <h3>Recorded chapters</h3>
+          <p>${avgChapters} chapters per released volume on average</p>
+        </article>
+
+        <article class="kpi-card">
+          <div class="kpi-top"><span class="kpi-icon"><iconify-icon icon="fa6-solid:file-lines"></iconify-icon></span><span class="kpi-tag">LENGTH</span></div>
+          <strong>${statsSummary.totalPages.toLocaleString()}</strong>
+          <h3>Recorded pages</h3>
+          <p>${avgPages.toLocaleString()} pages per released volume on average</p>
+        </article>
+
+        <article class="kpi-card">
+          <div class="kpi-top"><span class="kpi-icon"><iconify-icon icon="fa6-solid:calendar"></iconify-icon></span><span class="kpi-tag">TIMESPAN</span></div>
+          <strong>${years}</strong>
+          <h3>Publication years</h3>
+          <p>${statsSummary.publicationStart} — ${statsSummary.publicationEnd}</p>
+        </article>
+      </div>
+
+      <div class="stats-split-row">
+        <article class="stat-panel stat-profile">
+          <div class="panel-heading">
+            <div><span class="panel-kicker">SERIES PROFILE</span><h3>What the archive contains</h3></div>
+            <iconify-icon icon="fa6-solid:chart-simple"></iconify-icon>
+          </div>
+          <div class="profile-rows">
+            <div><span>Released</span><b>${released}</b><em>${completion}%</em></div>
+            <div><span>Upcoming</span><b>${upcoming}</b><em>${total ? Math.round((upcoming / total) * 100) : 0}%</em></div>
+            <div><span>Avg. volume length</span><b>${avgPages.toLocaleString()}</b><em>pages</em></div>
+            <div><span>Avg. chapter count</span><b>${avgChapters}</b><em>chapters</em></div>
+          </div>
+        </article>
+
+        <article class="stat-panel stat-record">
+          <span class="panel-kicker">RECORDS</span>
+          <div class="record-line"><span>Longest volume</span><strong>${statsSummary.mostPagesCount.toLocaleString()} pages</strong></div>
+          <div class="record-volume">${statsSummary.mostPagesVolume}</div>
+          <div class="record-divider"></div>
+          <div class="record-line"><span>Shortest volume</span><strong>${statsSummary.leastPagesCount.toLocaleString()} pages</strong></div>
+          <div class="record-volume">${statsSummary.leastPagesVolume}</div>
+        </article>
+
+        <article class="stat-panel stat-translation">
+          <span class="panel-kicker">TRANSLATION</span>
+          <div class="translation-number">${statsSummary.avgTranslationDays}<small>days</small></div>
+          <h3>Average JP → EN delay</h3>
+          <p>${statsSummary.translatedVolumes || 0} released volumes with recorded translation timing.</p>
+          <div class="translation-range">
+            <span>Fastest <b>${statsSummary.fastestTranslationDays}d</b></span>
+            <span>Slowest <b>${statsSummary.slowestTranslationDays}d</b></span>
+          </div>
+        </article>
+      </div>
+
+      <div class="overview-note">
+        <iconify-icon icon="fa6-regular:circle-info"></iconify-icon>
+        <span>Upcoming entries are tracked separately. Page, chapter, and translation metrics are calculated from released entries with the relevant data recorded.</span>
+      </div>
+    </section>
+  `;
 }
 
 function renderDashboard() {
-  const cards = [
-    {
-      icon: "fa6-solid:book-open",
-      title: "Average Pages",
-      value: `${statsSummary.avgPagesPerVolume} pages`,
-      description: "Per volume",
-      color: "#6366f1",
-    },
-    {
-      icon: "fa6-solid:list-ol",
-      title: "Average Chapters",
-      value: `${statsSummary.avgChaptersPerVolume} chapters`,
-      description: "Per volume",
-      color: "#8b5cf6",
-    },
-    {
-      icon: "fa6-solid:rocket",
-      title: "Fastest Translation",
-      value: `${statsSummary.fastestTranslationDays} days`,
-      description: statsSummary.fastestTranslationVolume,
-      color: "#7eb870",
-    },
-    {
-      icon: "fa6-solid:turtle",
-      title: "Slowest Translation",
-      value: `${statsSummary.slowestTranslationDays} days`,
-      description: statsSummary.slowestTranslationVolume,
-      color: "#e06040",
-    },
-    {
-      icon: "fa6-solid:arrow-up",
-      title: "Largest Volume",
-      value: `${statsSummary.mostPagesCount} pages`,
-      description: statsSummary.mostPagesVolume,
-      color: "#f9b55d",
-    },
-    {
-      icon: "fa6-solid:arrow-down",
-      title: "Smallest Volume",
-      value: `${statsSummary.leastPagesCount} pages`,
-      description: statsSummary.leastPagesVolume,
-      color: "#7fc4e0",
-    },
-    {
-      icon: "fa6-solid:chart-line",
-      title: "Avg Translation Delay",
-      value: `${statsSummary.avgTranslationDays} days`,
-      description: "Across all translated volumes",
-      color: "#818cf8",
-    },
-    {
-      icon: "fa6-solid:calendar-range",
-      title: "Volumes Above Avg",
-      value: `${statsSummary.volumesAboveAvgLength} volumes`,
-      description: `Out of ${volumes.filter((v) => !v.is_upcoming && v.page_count > 0).length} released`,
-      color: "#a78bfa",
-    },
+  const released = volumes.filter(v => !v.is_upcoming && v.page_count > 0);
+  const medianPages = released.length ? [...released].sort((a,b) => a.page_count-b.page_count)[Math.floor(released.length/2)].page_count : 0;
+  const longestGap = gapStats.longest || 0;
+  const avgGap = gapStats.avg || 0;
+  const metrics = [
+    ["Average volume", `${statsSummary.avgPagesPerVolume.toLocaleString()} pages`, "Typical recorded length", "fa6-solid:file-lines"],
+    ["Average chapters", `${statsSummary.avgChaptersPerVolume}`, "Per released volume", "fa6-solid:list-ol"],
+    ["Median volume", `${medianPages.toLocaleString()} pages`, "Middle value by page count", "fa6-solid:chart-column"],
+    ["Publication rhythm", `${avgGap} days`, "Average gap between releases", "fa6-solid:calendar-days"],
+    ["Fastest translation", `${statsSummary.fastestTranslationDays} days`, statsSummary.fastestTranslationVolume, "fa6-solid:bolt"],
+    ["Longest translation", `${statsSummary.slowestTranslationDays} days`, statsSummary.slowestTranslationVolume, "fa6-solid:hourglass-end"],
+    ["Longest release gap", `${longestGap} days`, gapStats.longestVolume || "—", "fa6-solid:arrows-left-right"],
+    ["Above average length", `${statsSummary.volumesAboveAvgLength}`, `of ${released.length} released volumes`, "fa6-solid:arrow-trend-up"]
   ];
-
   return `
-            <section class="section-reveal" data-section="dashboard" id="section-dashboard">
-                <div class="section-header">
-                    <h2 class="section-title"><iconify-icon icon="fa6-regular:gem"></iconify-icon> Overview Dashboard</h2>
-                    <p class="section-subtitle">Key statistics at a glance</p>
-                </div>
-                <div class="dashboard-grid">
-                    ${cards
-                      .map(
-                        (card, i) => `
-                        <div class="dashboard-card stagger-card" style="--card-color: ${card.color};" data-delay="${i * 50}">
-                            <div class="dashboard-card-icon"><iconify-icon icon="${card.icon}"></iconify-icon></div>
-                            <div class="dashboard-card-content">
-                                <span class="dashboard-card-value">${card.value}</span>
-                                <span class="dashboard-card-title">${card.title}</span>
-                                <span class="dashboard-card-description">${card.description}</span>
-                            </div>
-                            <div class="dashboard-card-glow"></div>
-                        </div>
-                    `,
-                      )
-                      .join("")}
-                </div>
-            </section>
-        `;
+    <section class="section-reveal stats-dashboard-pro" data-section="dashboard" id="section-dashboard">
+      <div class="section-header">
+        <div><p class="stats-eyebrow">METRICS</p><h2 class="section-title">The series, measured</h2></div>
+        <p class="section-subtitle">Derived statistics from the archive dataset. Select Charts for visual trends and Volumes for the underlying entries.</p>
+      </div>
+      <div class="metric-board">
+        ${metrics.map((m,i) => `
+          <article class="metric-tile">
+            <div class="metric-tile-head"><span>${m[0]}</span><iconify-icon icon="${m[3]}"></iconify-icon></div>
+            <strong>${m[1]}</strong><p>${m[2]}</p><span class="metric-index">${String(i+1).padStart(2,"0")}</span>
+          </article>`).join("")}
+      </div>
+    </section>`;
 }
 
 function renderTimeline() {

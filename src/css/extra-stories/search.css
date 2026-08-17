@@ -26,9 +26,9 @@
 .search-wrapper input {
   width: 100%;
   padding: 0.8rem 1.2rem 0.8rem 3rem;
-  border: 1px solid rgba(209, 163, 198, 0.15);
+  border: 1px solid var(--page-soft);
   border-radius: 60px;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--page-surface);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   font-family: "Quicksand", sans-serif;
@@ -40,15 +40,15 @@
 }
 
 .search-wrapper input::placeholder {
-  color: #5f4b6b;
+  color: var(--page-muted);
   opacity: 0.4;
   font-weight: 400;
 }
 
 .search-wrapper input:focus {
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--page-surface-strong);
   border-color: var(--dusty-rose);
-  box-shadow: 0 4px 24px rgba(209, 163, 198, 0.12);
+  box-shadow: 0 4px 24px var(--page-soft);
 }
 
 .search-wrapper input:focus ~ i {
