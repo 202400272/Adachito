@@ -146,6 +146,33 @@ const FEEDBACK_CONFIG = {
 };
 
 (function () {
+  let emailjsLoadPromise = null;
+  window.loadEmailJs = function () {
+    if (emailjsLoadPromise) return emailjsLoadPromise;
+    emailjsLoadPromise = new Promise((resolve, reject) => {
+      if (typeof emailjs !== "undefined") {
+        resolve(emailjs);
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
+      script.onload = () => {
+        try {
+          emailjs.init(FEEDBACK_CONFIG.PUBLIC_KEY);
+          console.log("[EmailJS] Initialized");
+        } catch (e) {
+          console.warn("[EmailJS] Init error:", e);
+        }
+        resolve(emailjs);
+      };
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+    return emailjsLoadPromise;
+  };
+})();
+
+(function () {
   const modal = document.getElementById("feedbackModal");
   const openBtn = document.getElementById("feedbackOpenBtn");
   const closeBtn = document.getElementById("feedbackClose");
@@ -381,6 +408,7 @@ const FEEDBACK_CONFIG = {
 
   function openModal() {
     if (!modal) return;
+    window.loadEmailJs?.();
     modal.style.display = "flex";
     document.body.style.overflow = "hidden";
     form.reset();
@@ -493,7 +521,7 @@ const FEEDBACK_CONFIG = {
     }
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     if (isSending) return;
 
@@ -511,7 +539,9 @@ const FEEDBACK_CONFIG = {
       return;
     }
 
-    if (typeof emailjs === "undefined") {
+    try {
+      await window.loadEmailJs();
+    } catch (err) {
       showError("Email service not available. Please try again later.");
       return;
     }
@@ -1885,9 +1915,11 @@ function setInfoExpanded(expanded) {
       return;
     }
 
-    content.style.maxHeight = `${content.scrollHeight}px`;
     requestAnimationFrame(() => {
-      content.style.maxHeight = "0px";
+      content.style.maxHeight = `${content.scrollHeight}px`;
+      requestAnimationFrame(() => {
+        content.style.maxHeight = "0px";
+      });
     });
 
     const onEnd = (event) => {
@@ -1939,13 +1971,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", async function () {
-  try {
-    emailjs.init(FEEDBACK_CONFIG.PUBLIC_KEY);
-    console.log("[EmailJS] Initialized");
-  } catch (e) {
-    console.warn("[EmailJS] Init error:", e);
-  }
-
   updateLangLabel();
   setInfoExpanded(false);
 
