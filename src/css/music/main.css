@@ -28,3 +28,97 @@
 @import url("helpers.css");
 @import url("footer.css");
 @import url("responsive.css");
+/* ===== LOCAL TIME-OF-DAY THEME ===== */
+body.time-morning {
+  --music-theme-accent: #5f86aa;
+  --music-theme-pink: #b487a5;
+  --music-theme-text: #4f5f73;
+  --music-theme-surface: rgba(247, 250, 253, 0.92);
+  --music-theme-border: rgba(95, 134, 170, 0.18);
+  --music-theme-bg: linear-gradient(165deg, #eaf3fb, #edf0fa 62%, #f3ebf7);
+}
+body.time-afternoon {
+  --music-theme-accent: #8c5a96;
+  --music-theme-pink: #d187a2;
+  --music-theme-text: #3d234d;
+  --music-theme-surface: rgba(255, 248, 244, 0.92);
+  --music-theme-border: rgba(140, 90, 150, 0.16);
+  --music-theme-bg: linear-gradient(165deg, #f3e6ee, #e8cdd4 55%, #f6e8d3);
+}
+body.time-night {
+  --music-theme-accent: #d39bc6;
+  --music-theme-pink: #e0a3bf;
+  --music-theme-text: #f2eaf5;
+  --music-theme-surface: rgba(43, 33, 51, 0.96);
+  --music-theme-border: rgba(221, 190, 226, 0.14);
+  --music-theme-bg: linear-gradient(165deg, #17121e, #211827 46%, #171d2a);
+}
+body.time-morning .music-shell,
+body.time-morning .music-main,
+body.time-morning .music-page,
+body.time-morning .music-container,
+body.time-afternoon .music-shell,
+body.time-afternoon .music-main,
+body.time-afternoon .music-page,
+body.time-afternoon .music-container,
+body.time-night .music-shell,
+body.time-night .music-main,
+body.time-night .music-page,
+body.time-night .music-container {
+  background: var(--music-theme-bg) !important;
+  color: var(--music-theme-text) !important;
+}
+body.time-morning .player-bar,
+body.time-morning .queue-drawer,
+body.time-morning .expanded-player-container,
+body.time-afternoon .player-bar,
+body.time-afternoon .queue-drawer,
+body.time-afternoon .expanded-player-container,
+body.time-night .player-bar,
+body.time-night .queue-drawer,
+body.time-night .expanded-player-container {
+  background: var(--music-theme-surface) !important;
+  border-color: var(--music-theme-border) !important;
+  color: var(--music-theme-text) !important;
+}
+body.time-morning .player-bar-title,
+body.time-morning .player-bar-artist,
+body.time-morning .queue-current,
+body.time-morning .queue-item,
+body.time-afternoon .player-bar-title,
+body.time-afternoon .player-bar-artist,
+body.time-afternoon .queue-current,
+body.time-afternoon .queue-item,
+body.time-night .player-bar-title,
+body.time-night .player-bar-artist,
+body.time-night .queue-current,
+body.time-night .queue-item {
+  color: var(--music-theme-text) !important;
+}
+body.time-morning .player-bar button,
+body.time-morning .queue-close,
+body.time-morning .queue-item button {
+  color: #5f86aa !important;
+}
+body.time-afternoon .player-bar button,
+body.time-afternoon .queue-close,
+body.time-afternoon .queue-item button {
+  color: #8c5a96 !important;
+}
+body.time-night .player-bar button,
+body.time-night .queue-close,
+body.time-night .queue-item button {
+  color: #d39bc6 !important;
+}
+body.time-morning .expanded-player-overlay,
+body.time-morning .queue-overlay {
+  background: rgba(224, 234, 245, 0.72) !important;
+}
+body.time-afternoon .expanded-player-overlay,
+body.time-afternoon .queue-overlay {
+  background: rgba(80, 55, 75, 0.22) !important;
+}
+body.time-night .expanded-player-overlay,
+body.time-night .queue-overlay {
+  background: rgba(5, 3, 9, 0.72) !important;
+}

@@ -10,7 +10,9 @@
   );
   backdrop-filter: blur(14px);
   border: 1px solid var(--panel-border);
-  box-shadow: 0 16px 44px var(--shadow-color), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 16px 44px var(--shadow-color),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -44,7 +46,9 @@
   font-size: 3.25rem;
   font-weight: 700;
   color: var(--text-plum);
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.55), 0 4px 24px rgba(140, 90, 150, 0.25);
+  text-shadow:
+    0 0 20px rgba(255, 255, 255, 0.55),
+    0 4px 24px rgba(140, 90, 150, 0.25);
   letter-spacing: -0.02em;
   display: flex;
   align-items: center;

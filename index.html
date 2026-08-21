@@ -10,6 +10,7 @@
       content="The most complete site about Adachi and Shimamura. Read the novels, explore the manga, anime, characters, short stories, official material, and much more."
     />
     <link rel="canonical" href="https://adashimaverse.com/" />
+    <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#000000" />
 
     <meta property="og:type" content="website" />
@@ -22,13 +23,13 @@
     <meta property="og:url" content="https://adashimaverse.com/" />
     <meta
       property="og:image"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
     <meta
       property="og:image:secure_url"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:type" content="image/webp" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="AdashimaVerse - AdashimaVerse" />
@@ -41,27 +42,12 @@
     />
     <meta
       name="twitter:image"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
     <meta name="twitter:image:alt" content="AdashimaVerse - AdashimaVerse" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      crossorigin
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-solid-900.woff2"
-    />
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      crossorigin
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-brands-400.woff2"
-    />
     <link
       rel="preload"
       as="style"
@@ -71,104 +57,149 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Quicksand:wght@400;500;600;700&display=swap"
       rel="stylesheet"
       media="print"
-      onload="this.media='all'"
-    />
-    <link
-      rel="preload"
-      as="style"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-      media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <noscript>
       <link
         href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Quicksand:wght@400;500;600;700&display=swap"
         rel="stylesheet"
       />
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-      />
     </noscript>
-    <link rel="stylesheet" href="/src/css/index.css?v=1.5.3" />
+    <!-- Critical above-the-fold CSS, inlined so first paint doesn't wait
+         on the full ~23KB stylesheet. Keep this in sync with the
+         .loading-overlay / .loading-* rules in src/css/index.css. -->
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: #1a1028;
+      }
+      .loading-overlay {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        background: linear-gradient(
+          165deg,
+          #1a1028 0%,
+          #2a1a3a 25%,
+          #3a2a4a 55%,
+          #4a2a5a 80%,
+          #3a2a4a 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+        transition:
+          opacity 0.7s ease,
+          visibility 0.7s ease;
+        will-change: opacity, visibility;
+        pointer-events: all;
+      }
+      .loading-overlay.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      .loading-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        padding: 20px;
+        text-align: center;
+      }
+      .loading-title {
+        font-family: "Noto Serif JP", serif;
+        font-size: clamp(2.2rem, 8vw, 4.5rem);
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.92);
+        text-shadow:
+          0 0 30px rgba(209, 135, 162, 0.3),
+          0 0 60px rgba(209, 135, 162, 0.15),
+          0 4px 20px rgba(0, 0, 0, 0.3);
+        letter-spacing: 2px;
+        line-height: 1.1;
+      }
+      .loading-indicator {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+      }
+      .loading-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow: 0 0 12px rgba(209, 135, 162, 0.3);
+      }
+      .loading-message {
+        font-family: "Quicksand", sans-serif;
+        font-size: clamp(0.85rem, 2vw, 1.05rem);
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.6);
+        letter-spacing: 0.3px;
+        margin-top: 4px;
+      }
+    </style>
+    <link rel="preload" as="style" href="/src/css/index.css?v=1.5.3" />
+    <link
+      rel="stylesheet"
+      href="/src/css/index.css?v=1.5.3"
+      media="print"
+      onload="this.media = 'all'"
+    />
     <link
       rel="stylesheet"
       href="/src/components/styles/menu.css?v=1.5.3"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="/src/components/styles/scrollbar.css?v=1.5.3"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="/src/components/styles/feedback.css?v=1.5.3"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <noscript>
+      <link rel="stylesheet" href="/src/css/index.css?v=1.5.3" />
       <link rel="stylesheet" href="/src/components/styles/menu.css?v=1.5.3" />
-      <link
-        rel="stylesheet"
-        href="/src/components/styles/scrollbar.css?v=1.5.3"
-      />
-      <link
-        rel="stylesheet"
-        href="/src/components/styles/feedback.css?v=1.5.3"
-      />
+      <link rel="stylesheet" href="/src/components/styles/scrollbar.css?v=1.5.3" />
+      <link rel="stylesheet" href="/src/components/styles/feedback.css?v=1.5.3" />
     </noscript>
 
     <link rel="icon" type="image/x-icon" href="/assets/Imagenes/favicon.ico" />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/assets/Imagenes/apple-touch-icon.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/assets/Imagenes/favicon-32x32.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/assets/Imagenes/favicon-16x16.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="/assets/Imagenes/icon-192x192.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="512x512"
-      href="/assets/Imagenes/icon-512x512.webp"
-    />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/Imagenes/apple-touch-icon.webp" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/Imagenes/favicon-32x32.webp" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/Imagenes/favicon-16x16.webp" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/Imagenes/icon-192x192.webp" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/Imagenes/icon-512x512.webp" />
   </head>
   <body>
     <!-- ===== LOADING SCREEN ===== -->
-<div id="loadingScreen" class="loading-overlay" role="status" aria-label="Loading">
-  <div class="loading-content">
-    <div class="loading-title">AdashimaVerse</div>
-    <div class="loading-indicator">
-      <span class="loading-dot"></span>
-      <span class="loading-dot"></span>
-      <span class="loading-dot"></span>
+    <div id="loadingScreen" class="loading-overlay" role="status" aria-label="Loading">
+      <div class="loading-content">
+        <div class="loading-title">AdashimaVerse</div>
+        <div class="loading-indicator">
+          <span class="loading-dot"></span>
+          <span class="loading-dot"></span>
+          <span class="loading-dot"></span>
+        </div>
+        <p class="loading-message" id="loadingMessage">Loading archive...</p>
+      </div>
     </div>
-    <p class="loading-message" id="loadingMessage">Loading archive...</p>
-  </div>
-</div>
     <div class="stars-bg"></div>
     <div class="sparkle-container">
       <div class="sparkle"></div>
@@ -219,22 +250,33 @@
         <div class="hero-content">
           <h1 class="hero-title" id="heroTitle">Adachi to Shimamura</h1>
           <p class="hero-sub" id="heroSub">
-            Una historia de encuentros, estrellas y el calor de un verano
-            eterno.
+            Una historia de encuentros, estrellas y el calor de un verano eterno.
           </p>
-</div>
+        </div>
         <div class="bike-container">
           <div class="bike-glow"></div>
-          <img
-            src="/assets/Imagenes/Ada_bici-Photoroom.webp"
-            alt="Bicicleta Adachi"
-            class="floating-bike"
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-            width="1600"
-            height="1245"
-          />
+          <picture>
+            <source
+              type="image/avif"
+              srcset="/assets/Imagenes/Ada_bici-Photoroom-600w.avif 600w"
+              sizes="(max-width: 800px) 90vw, 595px"
+            />
+            <source
+              type="image/webp"
+              srcset="/assets/Imagenes/Ada_bici-Photoroom-600w.webp 600w"
+              sizes="(max-width: 800px) 90vw, 595px"
+            />
+            <img
+              src="/assets/Imagenes/Ada_bici-Photoroom-600w.webp"
+              alt="Bicicleta Adachi"
+              class="floating-bike"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+              width="600"
+              height="466"
+            />
+          </picture>
         </div>
       </section>
 
@@ -260,25 +302,39 @@
         <div class="info-content" id="infoContent" role="region" aria-labelledby="infoTitle" hidden>
           <div class="info-inner">
             <div class="info-chips" id="infoChips">
-              <span class="chip"><i data-lucide="feather" aria-hidden="true"></i><span class="chip-text">Hitoma Iruma</span></span>
-              <span class="chip"><i data-lucide="heart" aria-hidden="true"></i><span class="chip-text">Yuri · Slice of Life</span></span>
-              <span class="chip"><i data-lucide="calendar" aria-hidden="true"></i><span class="chip-text">Since 2013</span></span>
-              <span class="chip"><i data-lucide="book" aria-hidden="true"></i><span class="chip-text">Dengeki Bunko</span></span>
+              <span class="chip"
+                ><i data-lucide="feather" aria-hidden="true"></i
+                ><span class="chip-text">Hitoma Iruma</span></span
+              >
+              <span class="chip"
+                ><i data-lucide="heart" aria-hidden="true"></i
+                ><span class="chip-text">Yuri · Slice of Life</span></span
+              >
+              <span class="chip"
+                ><i data-lucide="calendar" aria-hidden="true"></i
+                ><span class="chip-text">Since 2013</span></span
+              >
+              <span class="chip"
+                ><i data-lucide="book" aria-hidden="true"></i
+                ><span class="chip-text">Dengeki Bunko</span></span
+              >
             </div>
             <div class="info-body" id="infoBody">
               <p id="infoP1">
                 <strong>Adachi to Shimamura</strong> is a Japanese light novel series written by
-                <strong>Hitoma Iruma</strong> and illustrated by <strong>Non</strong>. The story follows
-                two high school girls, <strong>Adachi</strong> and <strong>Shimamura</strong>.
+                <strong>Hitoma Iruma</strong> and illustrated by <strong>Non</strong>. The story
+                follows two high school girls, <strong>Adachi</strong> and
+                <strong>Shimamura</strong>.
               </p>
               <p id="infoP2">
-                Their friendship begins when they happen to meet on the second floor of the gymnasium.
-                Over time, what starts as a casual connection gradually becomes something deeper,
-                tender, and more complicated.
+                Their friendship begins when they happen to meet on the second floor of the
+                gymnasium. Over time, what starts as a casual connection gradually becomes something
+                deeper, tender, and more complicated.
               </p>
               <p id="infoP3">
-                The series has also been adapted into manga, anime, and multiple drama CDs, earning a
-                special place for its delicate exploration of intimacy, loneliness, and first love.
+                The series has also been adapted into manga, anime, and multiple drama CDs, earning
+                a special place for its delicate exploration of intimacy, loneliness, and first
+                love.
               </p>
             </div>
           </div>
@@ -286,57 +342,69 @@
       </section>
 
       <!-- ===== EXPLORE THE STORY ===== -->
-      <section class="homepage-section explore-section" id="exploreSection" aria-labelledby="exploreSectionTitle">
+      <section
+        class="homepage-section explore-section"
+        id="exploreSection"
+        aria-labelledby="exploreSectionTitle"
+      >
         <div class="section-heading editorial-heading">
           <span class="section-eyebrow" id="exploreEyebrow">THE STORY</span>
-          <h2 class="section-heading-title" id="exploreSectionTitle">Explore Adachi &amp; Shimamura</h2>
-          <p class="section-heading-sub" id="exploreSectionSub">Novels, manga, anime, and other stories from the series.</p>
+          <h2 class="section-heading-title" id="exploreSectionTitle">
+            Explore Adachi &amp; Shimamura
+          </h2>
+          <p class="section-heading-sub" id="exploreSectionSub">
+            Novels, manga, anime, and other stories from the series.
+          </p>
         </div>
-        <div class="story-grid explore-cards" id="navGrid"></div>
+        <div class="story-grid" id="navGrid"></div>
       </section>
 
       <!-- ===== MORE FROM THE ARCHIVE ===== -->
-      <section class="homepage-section discover-section" id="discoverSection" aria-labelledby="discoverSectionTitle">
+      <section
+        class="homepage-section discover-section"
+        id="discoverSection"
+        aria-labelledby="discoverSectionTitle"
+      >
         <div class="section-heading editorial-heading compact-heading">
           <span class="section-eyebrow" id="discoverEyebrow">THE ARCHIVE</span>
           <h2 class="section-heading-title" id="discoverSectionTitle">More from the Archive</h2>
-          <p class="section-heading-sub" id="discoverSectionSub">Additional stories, media, artwork, and discoveries.</p>
+          <p class="section-heading-sub" id="discoverSectionSub">
+            Additional stories, media, artwork, and discoveries.
+          </p>
         </div>
         <div class="discover-grid" id="navGridSecondary"></div>
       </section>
 
       <!-- ===== WHAT'S NEW ===== -->
-      <section class="homepage-section updates-section" id="updatesSection" aria-labelledby="updatesTitle">
+      <section
+        class="homepage-section updates-section"
+        id="updatesSection"
+        aria-labelledby="updatesTitle"
+      >
         <div class="section-heading editorial-heading">
           <span class="section-eyebrow" id="updatesEyebrow">SERIES NEWS</span>
           <h2 class="section-heading-title" id="updatesTitle">What's New</h2>
-          <p class="section-heading-sub" id="updatesSub">News, announcements, and recent developments from the world of Adachi &amp; Shimamura.</p>
+          <p class="section-heading-sub" id="updatesSub">
+            News, announcements, and recent developments from the world of Adachi &amp; Shimamura.
+          </p>
         </div>
 
         <div class="bulletin-board" id="updatesBoard">
           <article class="bulletin-feature" id="bulletinFeature" aria-live="polite">
-            <div class="bulletin-feature-scene" aria-hidden="true">
-              <img
-                class="bulletin-feature-bg"
-                src="/assets/Imagenes/fondo_noticia_2-Photoroom.webp"
-                alt=""
-                loading="lazy"
-              />
-            </div>
             <div class="bulletin-feature-top">
               <span class="bulletin-type" id="bulletinFeatureType">LATEST</span>
               <time class="bulletin-date" id="bulletinFeatureDate"></time>
             </div>
             <div class="bulletin-feature-content">
               <h3 id="bulletinFeatureTitle">Latest update</h3>
-              <p id="bulletinFeatureText">News and announcements about the series will appear here.</p>
+              <p id="bulletinFeatureText">
+                News and announcements about the series will appear here.
+              </p>
               <div class="bulletin-feature-actions">
                 <button type="button" class="bulletin-read" id="bulletinFeatureRead">
                   <span>Read full update</span><i data-lucide="arrow-right" aria-hidden="true"></i>
                 </button>
-                <a class="bulletin-source" id="bulletinFeatureLink" href="#" target="_blank" rel="noopener noreferrer" hidden>
-                  <span>Source</span><i data-lucide="external-link" aria-hidden="true"></i>
-                </a>
+                <div class="bulletin-sources" id="bulletinFeatureSources" hidden></div>
               </div>
             </div>
             <span class="bulletin-feature-number" aria-hidden="true">01</span>
@@ -350,19 +418,56 @@
               </div>
               <span class="bulletin-count" id="bulletinCount">0</span>
             </div>
+            <div
+              class="bulletin-filters"
+              id="bulletinFilters"
+              role="group"
+              aria-label="Filter updates"
+            >
+              <button
+                type="button"
+                class="bulletin-filter is-active"
+                data-bulletin-filter="all"
+                aria-pressed="true"
+              >
+                All
+              </button>
+              <button
+                type="button"
+                class="bulletin-filter"
+                data-bulletin-filter="series"
+                aria-pressed="false"
+              >
+                Series News
+              </button>
+              <button
+                type="button"
+                class="bulletin-filter"
+                data-bulletin-filter="dev"
+                aria-pressed="false"
+              >
+                Dev Updates
+              </button>
+            </div>
             <div class="bulletin-list" id="bulletinList" aria-live="polite"></div>
-            <button type="button" class="bulletin-more" id="bulletinMore" aria-expanded="false" hidden>
-              <span id="bulletinMoreLabel">Show older updates</span>
-              <i class="bulletin-more-chevron" data-lucide="chevron-down" aria-hidden="true"></i>
-            </button>
           </div>
         </div>
       </section>
 
       <div class="bulletin-modal" id="bulletinModal" aria-hidden="true">
         <div class="bulletin-modal-backdrop" data-bulletin-close></div>
-        <section class="bulletin-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="bulletinModalTitle">
-          <button type="button" class="bulletin-modal-close" id="bulletinModalClose" aria-label="Close update">
+        <section
+          class="bulletin-modal-dialog"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="bulletinModalTitle"
+        >
+          <button
+            type="button"
+            class="bulletin-modal-close"
+            id="bulletinModalClose"
+            aria-label="Close update"
+          >
             <i data-lucide="x" aria-hidden="true"></i>
           </button>
           <div class="bulletin-modal-header">
@@ -370,34 +475,82 @@
               <span class="bulletin-modal-type" id="bulletinModalType"></span>
               <time class="bulletin-modal-date" id="bulletinModalDate"></time>
             </div>
-            <span class="bulletin-modal-number" id="bulletinModalNumber" aria-hidden="true">01</span>
+            <span class="bulletin-modal-number" id="bulletinModalNumber" aria-hidden="true"
+              >01</span
+            >
           </div>
           <div class="bulletin-modal-content">
             <h2 id="bulletinModalTitle"></h2>
+            <div class="bulletin-modal-author" id="bulletinModalAuthor" hidden></div>
             <div class="bulletin-modal-body" id="bulletinModalBody"></div>
-            <a class="bulletin-modal-source" id="bulletinModalSource" href="#" target="_blank" rel="noopener noreferrer" hidden>
-              <span>Source</span>
-              <i data-lucide="external-link" aria-hidden="true"></i>
-            </a>
+            <div
+              class="bulletin-sources bulletin-modal-sources"
+              id="bulletinModalSources"
+              hidden
+            ></div>
           </div>
         </section>
       </div>
 
       <footer class="footer" id="footer">
         <div class="footer-content">
-          <div class="footer-text">
-            Fan site no oficial de Adachi to Shimamura.<br />Creado por fans,
-            sin fines de lucro.<br />Adachi to Shimamura y todos sus derechos
-            pertenecen a Hitoma Iruma.
+          <div class="footer-main">
+            <div class="footer-brand">
+              <span class="footer-eyebrow">ADASHIMAVERSE</span>
+              <p class="footer-tagline">
+                An unofficial fan archive dedicated to <em>Adachi to Shimamura</em>.
+              </p>
+              <p class="footer-description">
+                A place to read, explore, and keep track of the stories, adaptations, and little
+                details that make Adachi and Shimamura worth revisiting.
+              </p>
+            </div>
+
+            <div class="footer-column">
+              <span class="footer-column-title">COMMUNITY</span>
+              <nav class="footer-links" aria-label="Community links">
+                <a
+                  class="footer-link"
+                  href="https://www.reddit.com/r/AdachiToShimamura/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Reddit</a
+                >
+                <a
+                  class="footer-link"
+                  href="https://discord.com/invite/a4TMBNJQ3"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Discord</a
+                >
+                <a
+                  class="footer-link"
+                  href="https://www.facebook.com/p/Adachi-to-Shimamura-Latinoam%C3%A9rica-61551058385796/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Facebook (Latinoamérica Fan Page)</a
+                >
+              </nav>
+            </div>
+
+            <div class="footer-column footer-feedback-column">
+              <span class="footer-column-title">HELP KEEP IT BETTER</span>
+              <p class="footer-feedback-copy">
+                Found a typo, missing content, or something that could be improved?
+              </p>
+              <button class="feedback-footer-btn" id="feedbackOpenBtn" type="button">
+                <span id="feedbackFooterLabel">Send Feedback</span>
+              </button>
+            </div>
           </div>
-          <button
-            class="feedback-footer-btn"
-            id="feedbackOpenBtn"
-            type="button"
-          >
-            <i data-lucide="message-circle"></i>
-            <span id="feedbackFooterLabel">Send Feedback</span>
-          </button>
+
+          <div class="footer-bottom">
+            <p class="footer-disclaimer">
+              AdashimaVerse is an unofficial, non-profit fan project. <em>Adachi to Shimamura</em>
+              is written by Hitoma Iruma and illustrated by Non. All rights to the original work
+              belong to their respective creators and publishers.
+            </p>
+          </div>
         </div>
       </footer>
     </div>
@@ -424,30 +577,20 @@
         <div class="feedback-header">
           <h2 id="feedbackTitle">Send Feedback</h2>
           <p class="feedback-subtitle" id="feedbackSubtitle">
-            Found a bug, typo, missing content, or have a suggestion? We'd love
-            to hear from you.
+            Found a bug, typo, missing content, or have a suggestion? We'd love to hear from you.
           </p>
         </div>
 
-        <div
-          class="feedback-draft-notice"
-          id="feedbackDraftNotice"
-          style="display: none"
-        >
+        <div class="feedback-draft-notice" id="feedbackDraftNotice" style="display: none">
           <i data-lucide="file-clock"></i>
-          <span id="feedbackDraftNoticeText"
-            >Draft restored from your last visit.</span
-          >
+          <span id="feedbackDraftNoticeText">Draft restored from your last visit.</span>
           <button type="button" id="feedbackDraftClear">
             <span id="feedbackDraftClearLabel">Clear draft</span>
           </button>
         </div>
 
         <form id="feedbackForm" novalidate>
-          <div
-            class="honeypot"
-            style="position: absolute; left: -9999px; top: -9999px"
-          >
+          <div class="honeypot" style="position: absolute; left: -9999px; top: -9999px">
             <label for="honeypotField">Leave this field empty</label>
             <input
               type="text"
@@ -472,10 +615,7 @@
                 aria-expanded="false"
               >
                 <span id="feedbackTypeTriggerLabel">Select a type...</span>
-                <i
-                  data-lucide="chevron-down"
-                  class="feedback-select-chevron"
-                ></i>
+                <i data-lucide="chevron-down" class="feedback-select-chevron"></i>
               </button>
               <ul
                 class="feedback-select-listbox"
@@ -493,38 +633,23 @@
                 tabindex="-1"
                 aria-hidden="true"
               >
-                <option value="" id="fbTypePlaceholder">
-                  Select a type...
-                </option>
+                <option value="" id="fbTypePlaceholder">Select a type...</option>
                 <option value="Bug Report" id="fbTypeBug">Bug Report</option>
-                <option
-                  value="Translation Correction"
-                  id="fbTypeTranslation"
-                >
+                <option value="Translation Correction" id="fbTypeTranslation">
                   Translation Correction
                 </option>
-                <option value="Missing Content" id="fbTypeMissing">
-                  Missing Content
-                </option>
-                <option value="Broken Link" id="fbTypeBroken">
-                  Broken Link
-                </option>
-                <option value="Feature Request" id="fbTypeFeature">
-                  Feature Request
-                </option>
-                <option value="General Feedback" id="fbTypeGeneral">
-                  General Feedback
-                </option>
+                <option value="Missing Content" id="fbTypeMissing">Missing Content</option>
+                <option value="Broken Link" id="fbTypeBroken">Broken Link</option>
+                <option value="Feature Request" id="fbTypeFeature">Feature Request</option>
+                <option value="General Feedback" id="fbTypeGeneral">General Feedback</option>
               </select>
             </div>
             <span class="field-error" id="feedbackTypeError"></span>
           </div>
 
-
           <div class="feedback-field">
             <label for="feedbackTitleInput"
-              ><span id="feedbackTitleLabel">Title</span>
-              <span class="required">*</span></label
+              ><span id="feedbackTitleLabel">Title</span> <span class="required">*</span></label
             >
             <input
               type="text"
@@ -584,11 +709,7 @@
           </div>
         </form>
 
-        <div
-          class="feedback-success"
-          id="feedbackSuccess"
-          style="display: none"
-        >
+        <div class="feedback-success" id="feedbackSuccess" style="display: none">
           <div class="success-icon">✓</div>
           <h3 id="fbSuccessTitle">Thank You!</h3>
           <p id="fbSuccessText">Your feedback has been sent successfully.</p>
@@ -596,10 +717,8 @@
       </div>
     </div>
 
-    <script
-      src="https://unpkg.com/lucide@1.31.0/dist/umd/lucide.min.js"
-      defer
-    ></script>
+    <script src="https://unpkg.com/lucide@1.31.0/dist/umd/lucide.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
     <!-- Import JS -->
     <script src="./src/js/language-switch.js" defer></script>
     <script src="./src/js/index.js?v=1.5.3" defer></script>

@@ -3,16 +3,22 @@
     "id": "1",
     "publishDate": "2026-01-16",
     "type": "SERIES NEWS",
-    "title": "Inanunsyo na ang English Release ng Adachi and Shimamura Volume 13!",
-    "text": "Ang English edition ng Adachi and Shimamura Volume 13 ay ilalabas sa North America sa Oktubre 20, 2026, na ilalathala ng Airship. Ang 224-pahinang light novel ay nagtatampok ng kuwento at sining nina Hitoma Iruma, raemz, at Non. Ang volume, na pinamagatang \"Putting on a Show,\" ay sumusunod kina Adachi at Shimamura bilang mga third-year student na kahit papaano ay tuluyang nakalimot tungkol sa Culture Festival hanggang sa maimbitahan silang lumahok. Bagama't ilang araw lamang tatagal ang event, mukhang may ibang bagay na nasa isip si Adachi.",
-    "sourceUrl": "https://sevenseasentertainment.com/books/adachi-and-shimamura-light-novel-vol-13/"
+    "tl": {
+      "title": "Inanunsyo na ang English Release ng Adachi and Shimamura Volume 13!",
+      "text": "Ang English edition ng Adachi and Shimamura Volume 13 ay ilalabas sa North America sa Oktubre 20, 2026, na ilalathala ng Airship. Ang 224-pahinang light novel ay nagtatampok ng kuwento at sining nina Hitoma Iruma, raemz, at Non. Ang volume, na pinamagatang \"Putting on a Show,\" ay sumusunod kina Adachi at Shimamura bilang mga third-year student na kahit papaano ay tuluyang nakalimot tungkol sa Culture Festival hanggang sa maimbitahan silang lumahok. Bagama't ilang araw lamang tatagal ang event, mukhang may ibang bagay na nasa isip si Adachi.",
+      "sourceUrl": "https://sevenseasentertainment.com/books/adachi-and-shimamura-light-novel-vol-13/"
+    },
+    "tg": {}
   },
   {
     "id": "2",
     "publishDate": "2026-08-06",
     "type": "SERIES NEWS",
-    "title": "Inanunsyo na ang Volume SS3!",
-    "text": "Ang ikatlong collection ng mga short story ng Adachi to Shimamura ay ilalabas sa Japan sa Setyembre 10. Kasama ng \"Her Memories,\" na sumusunod sa isang paglalakbay na ginawa nilang dalawa bilang mga university student, naglalaman ang volume ng maraming bagong kuwentong tungkol sa kanilang pang-araw-araw na buhay sa bahay, sa supermarket, at maging sa ibang bansa.",
-    "sourceUrl": "https://dengekibunko.jp/product/322604000552.html"
+    "tl": {
+      "title": "Inanunsyo na ang Volume SS3!",
+      "text": "Ang ikatlong collection ng mga short story ng Adachi to Shimamura ay ilalabas sa Japan sa Setyembre 10. Kasama ng \"Her Memories,\" na sumusunod sa isang paglalakbay na ginawa nilang dalawa bilang mga university student, naglalaman ang volume ng maraming bagong kuwentong tungkol sa kanilang pang-araw-araw na buhay sa bahay, sa supermarket, at maging sa ibang bansa.",
+      "sourceUrl": "https://dengekibunko.jp/product/322604000552.html"
+    },
+    "tg": {}
   }
 ]

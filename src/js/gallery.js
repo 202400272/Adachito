@@ -13,7 +13,7 @@ const BASE_PATH = window.LanguageSwitch?.getDataFolderUrl
       return href.endsWith("/") ? href : href + "/";
     })();
 
-let currentLang = (() => {
+let currentLanguage = (() => {
   const storedLang =
     window.LanguageSwitch?.getCurrentLanguage?.() ||
     localStorage.getItem("lang") ||
@@ -42,8 +42,8 @@ let currentArtist = "all";
 let currentCollection = "all";
 let searchQuery = "";
 
-let currentViewerIndex = 0;
-let viewerItems = [];
+let _currentViewerIndex = 0;
+let _viewerItems = [];
 
 // ===== OPTIMIZED PERFORMANCE CONFIG =====
 const CONFIG = {
@@ -130,18 +130,14 @@ function normalizeVolumeLabel(label) {
 function isVolumeCollection(collectionName) {
   if (!collectionName) return false;
   const normalizedCollection = normalizeVolumeLabel(collectionName);
-  return VOLUME_DEFINITIONS.some(
-    (vol) => normalizeVolumeLabel(vol.label) === normalizedCollection,
-  );
+  return VOLUME_DEFINITIONS.some((vol) => normalizeVolumeLabel(vol.label) === normalizedCollection);
 }
 
 function getVolumeDisplayName(collectionLabel) {
   if (!collectionLabel) return collectionLabel || "";
   const normalized = String(collectionLabel).trim();
   const matched = normalized.match(/volume\s*(.+)/i);
-  const volumeNumber = matched
-    ? matched[1].replace(/^0+/, "") || "0"
-    : normalized;
+  const volumeNumber = matched ? matched[1].replace(/^0+/, "") || "0" : normalized;
   if (currentLanguage === "es") {
     return `Volumen ${volumeNumber}`;
   }
@@ -479,8 +475,7 @@ const STATIC_TRANSLATIONS = {
     clear: "Limpiar",
     footerLine1: "Sitio de fans no oficial de Adachi to Shimamura.",
     footerLine2: "Creado por fans, sin fines de lucro.",
-    footerLine3:
-      "Adachi to Shimamura y todos los derechos pertenecen a Hitoma Iruma.",
+    footerLine3: "Adachi to Shimamura y todos los derechos pertenecen a Hitoma Iruma.",
     loadingExhibition: "Cargando exhibición...",
     loadingGallery: "Cargando galería...",
     failedExhibition: "Error al cargar la exhibición",
@@ -522,10 +517,7 @@ function getStaticText(key, params = {}) {
 
   if (params && typeof params === "object") {
     Object.entries(params).forEach(([paramKey, paramValue]) => {
-      text = text.replace(
-        new RegExp(`\\{${paramKey}\\}`, "g"),
-        String(paramValue),
-      );
+      text = text.replace(new RegExp(`\\{${paramKey}\\}`, "g"), String(paramValue));
     });
   }
 
@@ -538,24 +530,19 @@ function applyStaticTranslations() {
     el.textContent = lang === "en" ? el.dataset.i18nEn : el.dataset.i18nEs;
   });
   document.querySelectorAll("[data-i18n-placeholder-es]").forEach((el) => {
-    el.placeholder =
-      lang === "en"
-        ? el.dataset.i18nPlaceholderEn
-        : el.dataset.i18nPlaceholderEs;
+    el.placeholder = lang === "en" ? el.dataset.i18nPlaceholderEn : el.dataset.i18nPlaceholderEs;
   });
   document.querySelectorAll("[data-i18n-alt-es]").forEach((el) => {
     el.alt = lang === "en" ? el.dataset.i18nAltEn : el.dataset.i18nAltEs;
   });
   document.querySelectorAll("[data-i18n-aria-es]").forEach((el) => {
-    el.setAttribute(
-      "aria-label",
-      lang === "en" ? el.dataset.i18nAriaEn : el.dataset.i18nAriaEs,
-    );
+    el.setAttribute("aria-label", lang === "en" ? el.dataset.i18nAriaEn : el.dataset.i18nAriaEs);
   });
   document.documentElement.lang = lang;
 }
 
 // FIXED: Use LanguageSwitch for data URL
+// eslint-disable-next-line no-unused-vars -- may be invoked from an inline onclick handler in HTML
 function getCollectionDataUrl(folder, lang) {
   if (window.LanguageSwitch?.getDataUrl) {
     return window.LanguageSwitch.getDataUrl(`gallery/${folder}`, lang);
@@ -573,7 +560,7 @@ async function fetchLanguageJson(basePath, lang) {
       const url = window.LanguageSwitch.getDataUrl(`gallery/${basePath}`, lang);
       const response = await fetch(url, { cache: "no-store" });
       if (response.ok) return response;
-    } catch (e) {
+    } catch {
       // Fall through to fallback
     }
   }
@@ -602,7 +589,7 @@ let allArtworksCache = [];
 let loadingPromises = new Map();
 let failedCollections = new Set();
 let volumeMetadataLoaded = false;
-let isInitialRender = true;
+let _isInitialRender = true;
 let artistsData = {};
 let slideshowInterval = null;
 let slideshowArtworks = [];
@@ -613,8 +600,8 @@ let searchIndex = null;
 let searchIndexDirty = true;
 let cachedFilteredResults = null;
 let lastFilterKey = "";
-let groupedCollectionsCache = null;
-let groupedCollectionsDirty = true;
+let _groupedCollectionsCache = null;
+let _groupedCollectionsDirty = true;
 let artistListCache = null;
 let collectionListCache = null;
 let isRendering = false;
@@ -758,10 +745,7 @@ class ImageLoader {
       return priorityMap[b.priority] - priorityMap[a.priority];
     });
 
-    const batch = this.loadingQueue.splice(
-      0,
-      this.maxConcurrent - this.activeLoads,
-    );
+    const batch = this.loadingQueue.splice(0, this.maxConcurrent - this.activeLoads);
     this.activeLoads += batch.length;
 
     await Promise.all(
@@ -874,17 +858,10 @@ async function loadAllCollections(lang) {
     if (!loadedCollections.has(fullKey) && !loadingPromises.has(fullKey)) {
       const loadPromise = (async () => {
         try {
-          const response = await fetchLanguageJson(
-            `illustrations/${vol.path}`,
-            lang,
-          );
+          const response = await fetchLanguageJson(`illustrations/${vol.path}`, lang);
           if (!response.ok) return null;
           const data = await response.json();
-          if (
-            !data.artworks ||
-            !Array.isArray(data.artworks) ||
-            data.artworks.length === 0
-          ) {
+          if (!data.artworks || !Array.isArray(data.artworks) || data.artworks.length === 0) {
             return null;
           }
 
@@ -955,8 +932,7 @@ async function loadAllCollections(lang) {
 
           const processedArtworks = data.artworks.map((art) => {
             const processed = normalizeArtworkMetadata({ ...art });
-            if (!processed.type)
-              processed.type = def.type || def.folder.slice(0, -1);
+            if (!processed.type) processed.type = def.type || def.folder.slice(0, -1);
             if (!processed.uniqueId) {
               processed.uniqueId = `${def.type || def.folder}-${processed.id || Date.now()}-${Math.random().toString(36).substr(2, 6)}`;
             }
@@ -997,7 +973,7 @@ async function loadAllCollections(lang) {
 
       searchIndex = buildSearchIndex(allArtworksCache);
       searchIndexDirty = false;
-      groupedCollectionsDirty = true;
+      _groupedCollectionsDirty = true;
       cachedFilteredResults = null;
 
       return true;
@@ -1067,16 +1043,12 @@ function getFilteredArtworks() {
         continue;
       }
 
-      if (
-        normalizedFilter === "illustration" &&
-        !isVolumeCollection(item.collection)
-      ) {
+      if (normalizedFilter === "illustration" && !isVolumeCollection(item.collection)) {
         continue;
       }
     }
     if (currentArtist !== "all" && item.artist !== currentArtist) continue;
-    if (currentCollection !== "all" && item.collection !== currentCollection)
-      continue;
+    if (currentCollection !== "all" && item.collection !== currentCollection) continue;
 
     if (query && searchIndex) {
       const searchText = searchIndex.get(i);
@@ -1091,7 +1063,7 @@ function getFilteredArtworks() {
 }
 
 // ===== OPTIMIZED IMAGE HTML =====
-function getOptimizedImageHTML(artwork, type = "grid") {
+function getOptimizedImageHTML(artwork, _type = "grid") {
   if (!artwork || !artwork.image) return "";
 
   const originalSrc = artwork.image;
@@ -1294,10 +1266,7 @@ function renderRandomMasonryGallery() {
   if (!container) return;
 
   const allArtworks = galleryData ? galleryData.artworks : [];
-  const randomArtworks = getRandomArtworks(
-    allArtworks,
-    CONFIG.RANDOM_DISPLAY_COUNT,
-  );
+  const randomArtworks = getRandomArtworks(allArtworks, CONFIG.RANDOM_DISPLAY_COUNT);
 
   if (randomArtworks.length === 0) {
     container.innerHTML = `
@@ -1311,15 +1280,12 @@ function renderRandomMasonryGallery() {
   }
 
   // Set up slideshow with artworks that have images
-  const slideshowCandidates = randomArtworks.filter(
-    (a) => a.image && !a.placeholder,
-  );
+  const slideshowCandidates = randomArtworks.filter((a) => a.image && !a.placeholder);
   if (slideshowCandidates.length > 0) {
     startSlideshow(slideshowCandidates);
   }
 
-  const heroArtwork =
-    randomArtworks.find((a) => a.featured) || randomArtworks[0];
+  const heroArtwork = randomArtworks.find((a) => a.featured) || randomArtworks[0];
   updateHeroImageOptimized(heroArtwork);
 
   const combinedItems = buildCombinedItems(randomArtworks);
@@ -1728,20 +1694,18 @@ function openViewer(uniqueId) {
   let item = null;
 
   if (index === -1) {
-    const fallbackIndex = galleryData.artworks.findIndex(
-      (a) => a.uniqueId === uniqueId,
-    );
+    const fallbackIndex = galleryData.artworks.findIndex((a) => a.uniqueId === uniqueId);
     if (fallbackIndex !== -1) {
-      viewerItems = galleryData.artworks;
-      currentViewerIndex = fallbackIndex;
+      _viewerItems = galleryData.artworks;
+      _currentViewerIndex = fallbackIndex;
       item = galleryData.artworks[fallbackIndex];
     } else {
       console.warn("Artwork not found:", uniqueId);
       return;
     }
   } else {
-    viewerItems = allItems;
-    currentViewerIndex = index;
+    _viewerItems = allItems;
+    _currentViewerIndex = index;
     item = allItems[index];
   }
 
@@ -1837,12 +1801,8 @@ function filterByCollection(collectionName) {
   currentCollection = collectionName;
   document.getElementById("collectionFilter").value = collectionName;
   currentFilter = "all";
-  document
-    .querySelectorAll(".filter-pill")
-    .forEach((p) => p.classList.remove("active"));
-  document
-    .querySelector('.filter-pill[data-filter="all"]')
-    ?.classList.add("active");
+  document.querySelectorAll(".filter-pill").forEach((p) => p.classList.remove("active"));
+  document.querySelector('.filter-pill[data-filter="all"]')?.classList.add("active");
   document.getElementById("artistFilter").value = "all";
   currentArtist = "all";
   searchQuery = "";
@@ -1850,16 +1810,14 @@ function filterByCollection(collectionName) {
   document.getElementById("searchClearBtn")?.classList.remove("visible");
 
   cachedFilteredResults = null;
-  groupedCollectionsDirty = true;
-  isInitialRender = true;
+  _groupedCollectionsDirty = true;
+  _isInitialRender = true;
   lastFilterKey = "";
 
   renderExhibitionIncremental();
 
   setTimeout(() => {
-    document
-      .getElementById("exhibitionSections")
-      ?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById("exhibitionSections")?.scrollIntoView({ behavior: "smooth" });
   }, 100);
 }
 
@@ -1870,19 +1828,15 @@ function restoreMainExhibition() {
   searchQuery = "";
 
   document.getElementById("collectionFilter").value = "all";
-  document
-    .querySelectorAll(".filter-pill")
-    .forEach((p) => p.classList.remove("active"));
-  document
-    .querySelector('.filter-pill[data-filter="all"]')
-    ?.classList.add("active");
+  document.querySelectorAll(".filter-pill").forEach((p) => p.classList.remove("active"));
+  document.querySelector('.filter-pill[data-filter="all"]')?.classList.add("active");
   document.getElementById("artistFilter").value = "all";
   document.getElementById("gallerySearch").value = "";
   document.getElementById("searchClearBtn")?.classList.remove("visible");
 
   cachedFilteredResults = null;
-  groupedCollectionsDirty = true;
-  isInitialRender = true;
+  _groupedCollectionsDirty = true;
+  _isInitialRender = true;
   lastFilterKey = "";
 
   renderExhibitionIncremental();
@@ -1901,19 +1855,15 @@ function clearFilters() {
   searchQuery = "";
 
   document.getElementById("collectionFilter").value = "all";
-  document
-    .querySelectorAll(".filter-pill")
-    .forEach((p) => p.classList.remove("active"));
-  document
-    .querySelector('.filter-pill[data-filter="all"]')
-    ?.classList.add("active");
+  document.querySelectorAll(".filter-pill").forEach((p) => p.classList.remove("active"));
+  document.querySelector('.filter-pill[data-filter="all"]')?.classList.add("active");
   document.getElementById("artistFilter").value = "all";
   document.getElementById("gallerySearch").value = "";
   document.getElementById("searchClearBtn")?.classList.remove("visible");
 
   cachedFilteredResults = null;
-  groupedCollectionsDirty = true;
-  isInitialRender = true;
+  _groupedCollectionsDirty = true;
+  _isInitialRender = true;
   lastFilterKey = "";
 
   renderExhibitionIncremental();
@@ -1948,8 +1898,7 @@ function updateUIText() {
   if (!translations) return;
   const searchInput = document.getElementById("gallerySearch");
   if (searchInput) {
-    searchInput.placeholder =
-      translations.searchPlaceholder || getStaticText("searchPlaceholder");
+    searchInput.placeholder = translations.searchPlaceholder || getStaticText("searchPlaceholder");
   }
 }
 
@@ -1963,6 +1912,7 @@ function updateLangLabel(lang) {
   });
 }
 
+// eslint-disable-next-line no-unused-vars -- may be invoked from an inline onclick handler in HTML
 function formatDate(dateString) {
   const date = new Date(dateString);
   return date.toLocaleDateString(currentLanguage === "en" ? "en-US" : "es-ES", {
@@ -1979,12 +1929,8 @@ function updateStats() {
   const artistEl = document.getElementById("artistCount");
   const collectionEl = document.getElementById("collectionCount");
   if (totalEl) totalEl.textContent = realArtworks.length;
-  if (artistEl)
-    artistEl.textContent = new Set(realArtworks.map((a) => a.artist)).size;
-  if (collectionEl)
-    collectionEl.textContent = new Set(
-      realArtworks.map((a) => a.collection),
-    ).size;
+  if (artistEl) artistEl.textContent = new Set(realArtworks.map((a) => a.artist)).size;
+  if (collectionEl) collectionEl.textContent = new Set(realArtworks.map((a) => a.collection)).size;
 }
 
 function populateFilters() {
@@ -2000,12 +1946,8 @@ function populateFilters() {
   let collectionListChanged = false;
   if (!collectionListCache) {
     const volumeCollections = VOLUME_DEFINITIONS.map((v) => v.label);
-    const regularCollections = [
-      ...new Set(realArtworks.map((a) => a.collection)),
-    ];
-    collectionListCache = [
-      ...new Set([...regularCollections, ...volumeCollections]),
-    ].sort();
+    const regularCollections = [...new Set(realArtworks.map((a) => a.collection))];
+    collectionListCache = [...new Set([...regularCollections, ...volumeCollections])].sort();
     collectionListChanged = true;
   }
 
@@ -2019,9 +1961,7 @@ function populateFilters() {
       opt.textContent = a;
       artistSelect.appendChild(opt);
     });
-    artistSelect.value = artistListCache.includes(previousValue)
-      ? previousValue
-      : "all";
+    artistSelect.value = artistListCache.includes(previousValue) ? previousValue : "all";
   }
 
   const collectionSelect = document.getElementById("collectionFilter");
@@ -2034,9 +1974,7 @@ function populateFilters() {
       opt.textContent = getCollectionDisplayName(c);
       collectionSelect.appendChild(opt);
     });
-    collectionSelect.value = collectionListCache.includes(previousValue)
-      ? previousValue
-      : "all";
+    collectionSelect.value = collectionListCache.includes(previousValue) ? previousValue : "all";
   }
 }
 
@@ -2062,10 +2000,10 @@ async function loadGalleryData(lang, initialLoad = true) {
 
   try {
     let uiText = null;
-    let artists = null;
+    let _artists = null;
 
     cachedFilteredResults = null;
-    groupedCollectionsDirty = true;
+    _groupedCollectionsDirty = true;
     artistListCache = null;
     collectionListCache = null;
 
@@ -2073,7 +2011,7 @@ async function loadGalleryData(lang, initialLoad = true) {
       searchIndex = null;
       searchIndexDirty = true;
       imageCache.clear();
-      isInitialRender = true;
+      _isInitialRender = true;
     }
 
     await loadAllCollections(lang);
@@ -2105,9 +2043,7 @@ async function loadGalleryData(lang, initialLoad = true) {
     }
 
     // Start slideshow with featured and random artworks
-    const slideshowCandidates = allArtworksCache.filter(
-      (a) => a.image && !a.placeholder,
-    );
+    const slideshowCandidates = allArtworksCache.filter((a) => a.image && !a.placeholder);
     if (slideshowCandidates.length > 0) {
       startSlideshow(slideshowCandidates);
     }
@@ -2127,14 +2063,12 @@ function setupFilters() {
     pill.addEventListener(
       "click",
       async function () {
-        document
-          .querySelectorAll(".filter-pill")
-          .forEach((p) => p.classList.remove("active"));
+        document.querySelectorAll(".filter-pill").forEach((p) => p.classList.remove("active"));
         this.classList.add("active");
         currentFilter = this.dataset.filter;
         cachedFilteredResults = null;
-        groupedCollectionsDirty = true;
-        isInitialRender = true;
+        _groupedCollectionsDirty = true;
+        _isInitialRender = true;
         lastFilterKey = "";
         await renderExhibitionIncremental();
       },
@@ -2149,8 +2083,8 @@ function setupFilters() {
       async function () {
         currentArtist = this.value;
         cachedFilteredResults = null;
-        groupedCollectionsDirty = true;
-        isInitialRender = true;
+        _groupedCollectionsDirty = true;
+        _isInitialRender = true;
         lastFilterKey = "";
         await renderExhibitionIncremental();
       },
@@ -2165,8 +2099,8 @@ function setupFilters() {
       async function () {
         currentCollection = this.value;
         cachedFilteredResults = null;
-        groupedCollectionsDirty = true;
-        isInitialRender = true;
+        _groupedCollectionsDirty = true;
+        _isInitialRender = true;
         lastFilterKey = "";
         await renderExhibitionIncremental();
       },
@@ -2299,8 +2233,8 @@ function setupBackToMenuMotion() {
 // ===== DEBOUNCED SEARCH =====
 const debouncedSearch = debounce(async function () {
   cachedFilteredResults = null;
-  groupedCollectionsDirty = true;
-  isInitialRender = true;
+  _groupedCollectionsDirty = true;
+  _isInitialRender = true;
   lastFilterKey = "";
   await renderExhibitionIncremental();
 }, 200);
@@ -3328,10 +3262,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       "input",
       function () {
         searchQuery = this.value;
-        if (clearBtn)
-          clearBtn.classList.toggle("visible", this.value.length > 0);
+        if (clearBtn) clearBtn.classList.toggle("visible", this.value.length > 0);
         cachedFilteredResults = null;
-        groupedCollectionsDirty = true;
+        _groupedCollectionsDirty = true;
         lastFilterKey = "";
         debouncedSearch();
       },
@@ -3348,8 +3281,8 @@ document.addEventListener("DOMContentLoaded", async function () {
           searchQuery = "";
           clearBtn.classList.remove("visible");
           cachedFilteredResults = null;
-          groupedCollectionsDirty = true;
-          isInitialRender = true;
+          _groupedCollectionsDirty = true;
+          _isInitialRender = true;
           lastFilterKey = "";
           renderExhibitionIncremental();
           searchInput.focus();

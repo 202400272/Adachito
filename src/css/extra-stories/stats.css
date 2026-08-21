@@ -1,37 +1,45 @@
 .extra-stats {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem 3rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0 0 34px;
+  border-top: 1px solid var(--page-border);
+  border-bottom: 1px solid var(--page-border);
+  border-radius: 18px;
   background: var(--page-surface);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 60px;
-  padding: 0.8rem 2.5rem;
-  margin: 0.5rem auto 2rem;
-  border: 1px solid rgba(209, 163, 198, 0.1);
-  width: fit-content;
-  box-shadow: 0 4px 20px rgba(92, 58, 107, 0.04);
+  box-shadow: 0 10px 28px var(--page-shadow);
+  overflow: hidden;
 }
 
 .stat-item {
-  display: flex;
-  align-items: baseline;
-  gap: 0.4rem;
-  font-size: 0.9rem;
-  color: var(--plum);
-  font-weight: 500;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "icon number" "icon label";
+  column-gap: 13px;
+  align-items: center;
+  min-height: 76px;
+  padding: 12px 22px;
 }
 
+.stat-item + .stat-item {
+  border-left: 1px solid var(--page-border);
+}
 .stat-item i {
-  color: var(--dusty-rose);
-  opacity: 0.6;
+  grid-area: icon;
+  color: var(--page-accent);
   font-size: 0.85rem;
 }
-
 .stat-number {
-  font-weight: 700;
-  font-size: 1.2rem;
+  grid-area: number;
   color: var(--plum);
-  margin-right: 0.1rem;
+  font:
+    700 1.3rem/1 "Cormorant Garamond",
+    serif;
+}
+.stat-item > span:last-child {
+  grid-area: label;
+  color: var(--page-muted);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }

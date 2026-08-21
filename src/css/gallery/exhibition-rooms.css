@@ -86,7 +86,9 @@
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
   aspect-ratio: 2/3;
   background: rgba(255, 255, 255, 0.02);
 }
@@ -131,7 +133,9 @@
 .room-supporting-item {
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
   aspect-ratio: 2/3;
   background: rgba(255, 255, 255, 0.02);
 }
@@ -161,7 +165,9 @@
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
   aspect-ratio: 2/3;
   background: rgba(255, 255, 255, 0.02);
 }
@@ -206,7 +212,9 @@
 .room-editorial-item {
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
   aspect-ratio: 2/3;
   background: rgba(255, 255, 255, 0.02);
 }
@@ -236,7 +244,9 @@
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
   aspect-ratio: 2/3;
   background: rgba(255, 255, 255, 0.02);
 }

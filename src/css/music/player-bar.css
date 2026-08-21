@@ -12,7 +12,10 @@
   z-index: 100;
   transform: translateY(100%);
   opacity: 0;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease, left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.4s ease,
+    left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   pointer-events: none;
   visibility: hidden;
   height: var(--player-height-desktop);
@@ -155,11 +158,13 @@
   transform: scale(0.94);
 }
 
-.ctrl-shift.active, .ctrl-repeat.active {
+.ctrl-shift.active,
+.ctrl-repeat.active {
   color: var(--accent);
 }
 
-.ctrl-shift.active .iconify, .ctrl-repeat.active .iconify {
+.ctrl-shift.active .iconify,
+.ctrl-repeat.active .iconify {
   color: var(--accent);
 }
 
@@ -228,7 +233,8 @@
   justify-content: flex-end;
 }
 
-.ctrl-fav .iconify, .ctrl-queue .iconify {
+.ctrl-fav .iconify,
+.ctrl-queue .iconify {
   font-size: 0.85rem;
 }
 

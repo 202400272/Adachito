@@ -9,11 +9,7 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.85),
-    rgba(232, 200, 223, 0.6)
-  );
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(232, 200, 223, 0.6));
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1.5px solid rgba(209, 163, 198, 0.5);
@@ -104,11 +100,7 @@
   min-width: 170px;
   margin: 0;
   list-style: none;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.95),
-    rgba(232, 200, 223, 0.88)
-  );
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(232, 200, 223, 0.88));
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1.5px solid rgba(209, 163, 198, 0.5);

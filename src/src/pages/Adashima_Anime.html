@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+    />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Adashima · Anime</title>
+    <meta
+      name="description"
+      content="Explore the anime section of AdashimaVerse with episode guides, character details, and multimedia highlights."
+    />
+    <link rel="canonical" href="https://adashimaverse.com/Adashima_Anime" />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AdashimaVerse" />
+    <meta property="og:title" content="Adashima · Anime" />
+    <meta
+      property="og:description"
+      content="Explore the anime section of AdashimaVerse with episode guides, character details, and multimedia highlights."
+    />
+    <meta property="og:url" content="https://adashimaverse.com/Adashima_Anime" />
+    <meta property="og:image" content="https://adashimaverse.com/Imagenes/Social_Card.webp" />
+    <meta
+      property="og:image:secure_url"
+      content="https://adashimaverse.com/Imagenes/Social_Card.webp"
+    />
+    <meta property="og:image:type" content="image/webp" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="AdashimaVerse - Adashima · Anime" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Adashima · Anime" />
+    <meta
+      name="twitter:description"
+      content="Explore the anime section of AdashimaVerse with episode guides, character details, and multimedia highlights."
+    />
+    <meta name="twitter:image" content="https://adashimaverse.com/Imagenes/Social_Card.webp" />
+    <meta name="twitter:image:alt" content="AdashimaVerse - Adashima · Anime" />
+
+    <script src="https://code.iconify.design/3/3.1.1/iconify.min.js?v=20260812"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=20260812"
+    />
+
+    <link rel="stylesheet" href="/src/css/anime.css?v=20260820-2" />
+    <link rel="stylesheet" href="/src/css/lang-switch.css?v=20260816-1" />
+    <link rel="stylesheet" href="/src/components/styles/scrollbar.css?v=20260816-1" />
+    <style>
+      /* ------------------------------------------------------------
+         The menu component (menu.html) is fetched and injected into
+         #sidebar-container AFTER this page loads, and it brings its
+         own stylesheet (menu.css) which defines .sidebar as sticky.
+         Because that stylesheet is attached later in the document,
+         it wins ties in specificity against the rules below. We use
+         !important + an extra html/body prefix here (this file only,
+         menu.css/menu.html are not touched) so the fixed column
+         layout always wins regardless of load order.
+         ------------------------------------------------------------ */
+      #sidebar-container {
+        pointer-events: none;
+      }
+      #sidebar-container .sidebar,
+      #sidebar-container .mobile-toggle,
+      #sidebar-container .drawer-close-btn {
+        pointer-events: auto;
+      }
+      html body #sidebar-container,
+      html body #sidebar-container #menu-component-wrapper,
+      html body #sidebar-container #menu-component-wrapper .sidebar,
+      html body #sidebar-container #menu-component-wrapper .sidebar-inner {
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        scrollbar-width: thin !important;
+      }
+
+      @media (min-width: 901px) {
+        html body #sidebar-container,
+        html body #sidebar-container #menu-component-wrapper,
+        html body #sidebar-container #menu-component-wrapper .sidebar,
+        html body #sidebar-container #menu-component-wrapper .sidebar-inner {
+          display: block !important;
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          width: 300px !important;
+          max-width: 300px !important;
+          height: 100vh !important;
+          overflow-y: auto !important;
+          overflow-x: hidden !important;
+          transform: none !important;
+          z-index: 1 !important;
+          pointer-events: auto !important;
+        }
+        html body #menu-component-wrapper .mobile-toggle {
+          display: none !important;
+        }
+        html body .main-content {
+          margin-left: 300px !important;
+          width: calc(100% - 300px) !important;
+          max-width: calc(100% - 300px) !important;
+          position: relative !important;
+          z-index: 2 !important;
+        }
+        html body #powerBtn,
+        html body .modern-player {
+          position: relative !important;
+          z-index: 3 !important;
+        }
+      }
+
+      @media (max-width: 900px) {
+        html body #sidebar-container,
+        html body #sidebar-container #menu-component-wrapper,
+        html body #sidebar-container #menu-component-wrapper .sidebar,
+        html body #sidebar-container #menu-component-wrapper .sidebar-inner {
+          display: block !important;
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          width: 300px !important;
+          max-width: 300px !important;
+          height: 100vh !important;
+          z-index: 20000 !important;
+          overflow-y: auto !important;
+          overflow-x: hidden !important;
+          pointer-events: auto !important;
+        }
+
+        html body #sidebar-container {
+          width: 0 !important;
+          max-width: 0 !important;
+          pointer-events: none !important;
+        }
+
+        html body #sidebar-container {
+          width: 0 !important;
+          max-width: 0 !important;
+          pointer-events: none !important;
+        }
+
+        html body #sidebar-container #menu-component-wrapper {
+          position: fixed !important;
+          inset: 0 !important;
+          width: 100vw !important;
+          max-width: none !important;
+          height: 100dvh !important;
+          overflow: visible !important;
+          background: transparent !important;
+          transform: none !important;
+          opacity: 1 !important;
+          z-index: 20000 !important;
+        }
+
+        html body #sidebar-container #menu-component-wrapper .sidebar {
+          left: 0 !important;
+          right: auto !important;
+          width: 300px !important;
+          max-width: 300px !important;
+          transform: translate3d(-110%, 0, 0) !important;
+          border-radius: 0 30px 30px 0 !important;
+          border-right: none !important;
+          box-shadow: 0 12px 32px rgba(20, 10, 28, 0.35) !important;
+          opacity: 1 !important;
+        }
+
+        html body #sidebar-container #menu-component-wrapper .sidebar.active {
+          transform: translate3d(0, 0, 0) !important;
+        }
+
+        html body #menu-component-wrapper .mobile-toggle {
+          display: flex !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          left: 15px !important;
+          right: auto !important;
+          top: 15px !important;
+          z-index: 20002 !important;
+          position: fixed !important;
+        }
+
+        html body #menu-component-wrapper .drawer-close-btn {
+          display: none !important;
+        }
+
+        html body .main-content {
+          margin-left: 0 !important;
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+      }
+    </style>
+
+    <link rel="icon" type="image/x-icon" href="/assets/Imagenes/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/Imagenes/apple-touch-icon.webp" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/Imagenes/favicon-32x32.webp" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/Imagenes/favicon-16x16.webp" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/Imagenes/icon-192x192.webp" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/Imagenes/icon-512x512.webp" />
+    <style id="anime-burger-preference-guard">
+      @media (max-width: 900px) {
+        html body #menu-component-wrapper.mobile-toggle-hidden .mobile-toggle,
+        html body #menu-component-wrapper.mobile-toggle-hidden #menu-toggle-btn {
+          display: none !important;
+          visibility: hidden !important;
+          opacity: 0 !important;
+          pointer-events: none !important;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="/src/components/styles/footer.css" />
+    <link rel="stylesheet" href="/src/components/styles/feedback.css" />
+  </head>
+  <body>
+    <div id="sidebar-container"></div>
+
+    <!-- PARTICLES -->
+    <div class="particles" id="particles"></div>
+
+    <!-- FLOATING DECORATIONS -->
+    <div class="floating-decor decor-1"></div>
+    <div class="floating-decor decor-2"></div>
+    <div class="floating-decor decor-3"></div>
+
+    <!-- KEYBOARD SHORTCUTS HELP BUTTON -->
+    <button
+      class="keyboard-help-btn"
+      id="keyboardHelpBtn"
+      title="Keyboard shortcuts"
+      aria-label="Toggle keyboard shortcuts"
+    >
+      <span class="iconify" data-icon="mdi:keyboard" data-inline="false"></span>
+    </button>
+
+    <!-- KEYBOARD SHORTCUTS PANEL -->
+    <div
+      class="keyboard-help-overlay"
+      id="keyboardHelpOverlay"
+      role="dialog"
+      aria-label="Keyboard shortcuts"
+    >
+      <div class="keyboard-help-panel">
+        <div class="kh-header">
+          <div class="kh-title">
+            <span class="iconify" data-icon="mdi:keyboard" data-inline="false"></span>
+            KEYBOARD SHORTCUTS
+          </div>
+          <button class="kh-close" id="khClose" aria-label="Close shortcuts">
+            <span class="iconify" data-icon="mdi:close" data-inline="false"></span>
+          </button>
+        </div>
+        <div class="kh-divider"></div>
+        <div class="kh-grid">
+          <div class="kh-row">
+            <span class="kh-key"><kbd>Space</kbd></span>
+            <span class="kh-action">Play / Pause</span>
+          </div>
+          <div class="kh-row">
+            <span class="kh-key"><kbd>←</kbd> / <kbd>→</kbd></span>
+            <span class="kh-action">Seek ±10 seconds</span>
+          </div>
+          <div class="kh-row">
+            <span class="kh-key"><kbd>↑</kbd> / <kbd>↓</kbd></span>
+            <span class="kh-action">Volume up / down</span>
+          </div>
+          <div class="kh-row">
+            <span class="kh-key"><kbd>M</kbd></span>
+            <span class="kh-action">Mute / Unmute</span>
+          </div>
+          <div class="kh-row">
+            <span class="kh-key"><kbd>F</kbd></span>
+            <span class="kh-action">Toggle Fullscreen</span>
+          </div>
+          <div class="kh-row">
+            <span class="kh-key"><kbd>C</kbd></span>
+            <span class="kh-action">Channel Menu</span>
+          </div>
+          <div class="kh-row">
+            <span class="kh-key"><kbd>X</kbd></span>
+            <span class="kh-action">Cinema Mode</span>
+          </div>
+          <div class="kh-row">
+            <span class="kh-key"><kbd>Esc</kbd></span>
+            <span class="kh-action">Close overlays / menus</span>
+          </div>
+          <div class="kh-row">
+            <span class="kh-key"><kbd>?</kbd></span>
+            <span class="kh-action">Toggle this guide</span>
+          </div>
+        </div>
+        <div class="kh-footer">
+          <span class="kh-hint">Press <kbd>?</kbd> or <kbd>Esc</kbd> to close</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+      <!-- ===== CINEMATIC HERO ===== -->
+      <section class="hero-section" id="heroSection">
+        <div class="hero-background">
+          <img
+            class="hero-artwork-img"
+            id="heroArtworkImg"
+            src="https://media.adashimaverse.com/assets/hero/adachi_shimamura_keyart.jpg"
+            alt="Adachi to Shimamura"
+            loading="eager"
+            decoding="async"
+            onerror="this.style.display = 'none'"
+          />
+          <div class="hero-overlay-left"></div>
+        </div>
+        <div class="hero-content">
+          <div class="hero-badge">BROADCAST ARCHIVE</div>
+          <h1 class="hero-title">
+            Adachi to Shimamura
+            <span class="jp">安達としまむら</span>
+          </h1>
+          <div class="hero-tags">
+            <span>Romance</span>
+            <span>Slice of Life</span>
+            <span>2020</span>
+            <span>12 Episodes</span>
+            <span>TV Series</span>
+          </div>
+          <p class="hero-synopsis" id="heroSynopsis">
+            High school students Adachi and Shimamura share a bond that goes beyond friendship. A
+            tender story of connection, growth, and the quiet moments that define a relationship.
+          </p>
+        </div>
+      </section>
+
+      <!-- ===== NOW WATCHING / MODERN PLAYER ===== -->
+      <section class="now-watching-section" id="nowWatchingSection">
+        <div class="now-watching-header">
+          <div class="now-watching-left">
+            <span class="now-label">NOW WATCHING</span>
+            <span class="now-episode" id="nowPlayingSub">Select an episode</span>
+          </div>
+          <div class="now-watching-right">
+            <span class="now-episode-badge" id="nowEpisodeBadge">— / —</span>
+          </div>
+        </div>
+
+        <div class="modern-player" id="crtWrapper">
+          <div class="modern-player-screen" id="crtBody">
+            <video
+              class="modern-video crt-video"
+              id="crtVideo"
+              preload="metadata"
+              crossorigin="anonymous"
+              playsinline
+              controls
+            ></video>
+
+            <div class="modern-player-empty no-signal-screen off-state" id="noSignal">
+              <span class="modern-empty-icon iconify" data-icon="mdi:play-circle-outline"></span>
+              <strong id="noSignalText">Select an episode to start watching</strong>
+              <span id="powerPrompt">Choose an episode below</span>
+            </div>
+
+            <div class="modern-player-top">
+              <span class="channel-badge" id="overlayChannel">EP 01</span>
+              <div class="episode-title" id="overlayTitle">Episode Title</div>
+            </div>
+
+            <div class="modern-player-bottom" id="crtOverlay">
+              <div class="modern-progress">
+                <div class="progress-track">
+                  <div class="progress-fill" id="overlayProgressFill" style="width: 0%"></div>
+                </div>
+                <span class="progress-time" id="overlayProgressTime">00:00 / 00:00</span>
+              </div>
+              <div class="modern-controls">
+                <button class="modern-control" id="overlaySeekBack" title="Rewind 10 seconds">
+                  <span class="iconify" data-icon="mdi:rewind-10"></span>
+                </button>
+                <button
+                  class="modern-control modern-play"
+                  id="overlayPlayPause"
+                  title="Play / Pause"
+                >
+                  <span class="iconify" data-icon="mdi:play"></span>
+                </button>
+                <button class="modern-control" id="overlaySeekFwd" title="Forward 10 seconds">
+                  <span class="iconify" data-icon="mdi:fast-forward-10"></span>
+                </button>
+                <button class="modern-control" id="overlayPrev" title="Previous episode">
+                  <span class="iconify" data-icon="mdi:skip-previous"></span>
+                </button>
+                <button class="modern-control" id="overlayNext" title="Next episode">
+                  <span class="iconify" data-icon="mdi:skip-next"></span>
+                </button>
+                <span class="modern-control-spacer"></span>
+                <button class="modern-control" id="fullscreenBtn" title="Fullscreen">
+                  <span class="iconify" data-icon="mdi:fullscreen"></span>
+                </button>
+              </div>
+            </div>
+
+            <div class="end-episode-overlay" id="endEpisodeOverlay">
+              <div class="eol-label" id="eolLabel">EPISODE COMPLETE</div>
+              <div class="eol-title" id="eolTitle">Episode Title</div>
+              <div class="eol-sub" id="eolSub">—</div>
+              <div class="eol-actions">
+                <button class="eol-btn" id="eolReplayBtn">
+                  <span class="iconify" data-icon="mdi:refresh"></span><span>Replay</span>
+                </button>
+                <button class="eol-btn" id="eolNextBtn">
+                  <span class="iconify" data-icon="mdi:skip-next"></span><span>Next episode</span>
+                </button>
+              </div>
+              <div class="un-title" id="upNextTitle"></div>
+              <div id="upNextCh"></div>
+            </div>
+
+            <div class="modern-hidden-compat" aria-hidden="true">
+              <button id="powerBtn"></button><button id="menuBtn"></button>
+              <button id="playPauseBtn"></button><button id="seekBackBtn"></button
+              ><button id="seekFwdBtn"></button> <button id="prevEpBtn"></button
+              ><button id="nextEpBtn"></button>
+              <button id="overlayFullscreen"></button>
+              <div id="crtScreen"><div id="screenGlow"></div></div>
+              <div id="crtStageGlow"></div>
+              <div id="tvLed"></div>
+              <div id="staticOverlay"></div>
+              <div id="interferenceOverlay"></div>
+              <div id="powerFlash"></div>
+              <div id="powerEffect"></div>
+              <div id="channelIndicator"></div>
+              <div id="loadingIndicator"><div id="loadingText"></div></div>
+              <div id="crtOsdNotification">
+                <div id="osdNotification">
+                  <div id="osdNotifMain"></div>
+                  <div id="osdNotifSub"></div>
+                </div>
+              </div>
+              <div id="osdMenu">
+                <div id="osdChannelList"></div>
+                <div id="osdTitle"></div>
+                <div id="osdSubtitle"></div>
+                <div id="osdFooter"></div>
+              </div>
+              <div id="volKnob">
+                <div id="volKnobCircle"><div id="volIndicator"></div></div>
+                <div id="volOsd">
+                  <div id="volOsdValue"></div>
+                  <div id="volOsdBar"></div>
+                </div>
+                <div id="volTip"></div>
+                <svg>
+                  <path id="volArcBg"></path>
+                  <path id="volArcFill"></path>
+                </svg>
+              </div>
+              <div id="brtKnob">
+                <div id="brtKnobCircle"><div id="brtIndicator"></div></div>
+                <div id="brtOsd">
+                  <div id="brtOsdValue"></div>
+                  <div id="brtOsdBar"></div>
+                </div>
+                <div id="brtTip"></div>
+                <svg>
+                  <path id="brtArcBg"></path>
+                  <path id="brtArcFill"></path>
+                </svg>
+              </div>
+              <div id="statusLed"></div>
+              <div id="statusText"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== EPISODE INFO PANEL ===== -->
+      <div class="episode-info-panel" id="episodeInfoPanel">
+        <div class="info-inner">
+          <div class="info-left">
+            <span class="episode-number" id="episodeNumber">—</span>
+            <div class="episode-title" id="episodeTitle">
+              <span id="channelTitle">Select a channel</span>
+              <span class="jp" id="jpTitle"></span>
+            </div>
+            <p class="episode-desc" id="channelDesc">
+              Turn on the TV and choose a channel to start watching.
+            </p>
+            <div class="episode-meta" id="episodeMeta">
+              <span><span class="meta-icon">⏱</span> <span id="metaDuration">—</span></span>
+              <span><span class="meta-icon">📅</span> <span id="metaRelease">—</span></span>
+              <span><span class="meta-icon">🔊</span> <span id="metaAudio">JAPANESE</span></span>
+            </div>
+            <div class="progress-area">
+              <div class="progress-track">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+              </div>
+              <span class="progress-time" id="progressTime">00:00 / 00:00</span>
+              <span class="progress-state" id="progressState">—</span>
+            </div>
+          </div>
+          <div class="info-right">
+            <span class="episode-badge" id="episodeBadge">— / —</span>
+            <div class="download-actions">
+              <button class="download-btn" id="downloadBtn">
+                <span class="iconify" data-icon="mdi:download" data-inline="false"></span>
+                <span id="downloadLabel">Download</span>
+              </button>
+              <button class="download-btn" id="downloadAllBtn">
+                <span class="iconify" data-icon="mdi:download-multiple" data-inline="false"></span>
+                <span id="downloadAllLabel">Download All</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== EPISODES SECTION ===== -->
+      <section class="episodes-section" id="episodesSection">
+        <div class="guide-header">
+          <div class="guide-header-left">
+            <h2 id="guideTitle">Episodes</h2>
+            <span class="guide-sub" id="guideSub">CHANNEL GUIDE · 12 EPISODES</span>
+          </div>
+          <div class="guide-header-right">
+            <span class="guide-progress-text" id="guideProgressText">0 / 0 WATCHED</span>
+            <div class="guide-progress-track">
+              <div class="guide-progress-fill" id="guideProgressFill" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="guide-toolbar">
+          <div class="guide-search-wrap">
+            <span
+              class="guide-search-icon iconify"
+              data-icon="mdi:search"
+              data-inline="false"
+            ></span>
+            <input
+              type="text"
+              class="guide-search-input"
+              id="guideSearchInput"
+              placeholder="Search episodes..."
+              aria-label="Buscar en la guía"
+            />
+            <button class="guide-search-clear" id="guideSearchClear" aria-label="Limpiar búsqueda">
+              ✕
+            </button>
+          </div>
+          <div class="guide-collapse-controls">
+            <div class="view-toggle" id="viewToggle">
+              <button class="active" data-view="list">List</button>
+              <button data-view="grid">Grid</button>
+            </div>
+            <button class="guide-collapse-btn" id="guideExpandAll" aria-label="Expandir todos">
+              Expand
+            </button>
+            <button class="guide-collapse-btn" id="guideCollapseAll" aria-label="Colapsar todos">
+              Collapse
+            </button>
+          </div>
+        </div>
+
+        <div class="guide-folders" id="guideFolders"></div>
+      </section>
+
+      <div class="secondary-actions" style="margin-top: 6px">
+        <span class="action-hint" id="actionHint">Download your favorite episodes</span>
+      </div>
+
+      <div class="download-modal" id="downloadModal" aria-hidden="true">
+        <div
+          class="download-modal-card"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="downloadModalTitle"
+        >
+          <div class="download-modal-title" id="downloadModalTitle">
+            <span class="download-modal-badge">
+              <span class="iconify" data-icon="mdi:download" data-inline="false"></span>
+            </span>
+            <span id="downloadModalTitleText">Download all episodes</span>
+          </div>
+          <div class="download-modal-text" id="downloadModalText">
+            All 12 episodes will be downloaded. Continue?
+          </div>
+          <div class="download-modal-actions">
+            <button
+              class="download-modal-btn download-modal-cancel"
+              id="downloadModalCancel"
+              type="button"
+            >
+              <span id="cancelLabel">Cancel</span>
+            </button>
+            <button
+              class="download-modal-btn download-modal-confirm"
+              id="downloadModalConfirm"
+              type="button"
+            >
+              <span id="continueLabel">Continue</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="footer-container"></div>
+      <script type="module" src="/src/components/js/footer.js"></script>
+    </div>
+
+    <!-- Import JS -->
+    <script type="module" src="/src/js/language-switch.js"></script>
+    <script type="module" src="/src/js/anime.js"></script>
+    <script type="module" src="/src/components/js/feedback.js"></script>
+  </body>
+</html>

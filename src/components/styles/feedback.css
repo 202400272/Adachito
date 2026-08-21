@@ -58,7 +58,7 @@
   max-height: 90dvh; /* For mobile browsers */
   overflow-y: auto;
   overflow-x: hidden; /* Prevent horizontal scroll within modal */
-  box-shadow: 
+  box-shadow:
     0 40px 100px rgba(0, 0, 0, 0.6),
     0 0 80px rgba(192, 132, 252, 0.05),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
@@ -75,13 +75,20 @@
 
 /* Subtle gradient border effect */
 .feedback-container::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: -1px;
   border-radius: 32px;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(192, 132, 252, 0.2), rgba(232, 121, 169, 0.1), rgba(192, 132, 252, 0.05));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  background: linear-gradient(
+    135deg,
+    rgba(192, 132, 252, 0.2),
+    rgba(232, 121, 169, 0.1),
+    rgba(192, 132, 252, 0.05)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
@@ -144,18 +151,24 @@
   position: relative;
 }
 .feedback-header::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -14px;
   left: 50%;
   transform: translateX(-50%);
   width: 80px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(192, 132, 252, 0.4), rgba(232, 121, 169, 0.4), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(192, 132, 252, 0.4),
+    rgba(232, 121, 169, 0.4),
+    transparent
+  );
   border-radius: 2px;
 }
 .feedback-header h2 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: "Cormorant Garamond", serif;
   font-size: 2.4rem;
   font-weight: 700;
   background: linear-gradient(135deg, #f0e6ff, #c084fc);
@@ -166,7 +179,7 @@
   letter-spacing: 0.02em;
 }
 .feedback-subtitle {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.5);
   margin: 0.5rem 0 0 0;
@@ -185,7 +198,7 @@
   border: 1px solid rgba(192, 132, 252, 0.2);
   border-radius: 14px;
   color: rgba(255, 255, 255, 0.6);
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.78rem;
   animation: feedbackFadeIn 0.3s ease-out;
 }
@@ -204,7 +217,7 @@
   border: none;
   padding: 0;
   color: #e879a9;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.78rem;
   font-weight: 600;
   text-decoration: underline;
@@ -226,7 +239,7 @@
 }
 .feedback-field label {
   display: block;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.8rem;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.7);
@@ -252,7 +265,7 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   color: #fff;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.95rem;
   transition: all 0.3s ease;
   box-sizing: border-box;
@@ -300,7 +313,7 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   color: rgba(255, 255, 255, 0.35);
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.95rem;
   text-align: left;
   cursor: pointer;
@@ -356,10 +369,12 @@
   padding: 0.65rem 0.8rem;
   border-radius: 10px;
   color: #f0e6ff;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
 }
 .feedback-select-option.is-placeholder {
   color: rgba(255, 255, 255, 0.35);
@@ -409,7 +424,7 @@
 /* Character Counter */
 .char-counter {
   text-align: right;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.7rem;
   color: rgba(255, 255, 255, 0.2);
   margin-top: 0.3rem;
@@ -426,7 +441,7 @@
 /* Field Hints & Errors */
 .field-hint {
   display: block;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.7rem;
   color: rgba(255, 255, 255, 0.2);
   margin-top: 0.3rem;
@@ -434,7 +449,7 @@
 }
 .field-error {
   display: block;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.75rem;
   color: #ff6b8a;
   margin-top: 0.3rem;
@@ -461,7 +476,7 @@
   padding: 0.8rem 2rem;
   border: none;
   border-radius: 16px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
@@ -486,7 +501,7 @@
   overflow: hidden;
 }
 .feedback-submit::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
@@ -537,7 +552,7 @@
   animation: feedbackSuccessBounce 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .feedback-success h3 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: "Cormorant Garamond", serif;
   font-size: 2rem;
   font-weight: 700;
   color: #fff;
@@ -548,7 +563,7 @@
   background-clip: text;
 }
 .feedback-success p {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   color: rgba(255, 255, 255, 0.4);
   font-size: 0.95rem;
   margin: 0;
@@ -564,7 +579,7 @@
   border-radius: 16px;
   padding: 0.85rem 1.8rem;
   color: rgba(255, 255, 255, 0.85);
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
@@ -582,7 +597,7 @@
 
 /* Glow effect behind the button */
 .feedback-footer-btn::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: -1px;
   border-radius: 16px;
@@ -599,7 +614,7 @@
 
 /* Shine animation on hover */
 .feedback-footer-btn::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
@@ -624,7 +639,7 @@
   color: #ffffff;
   border-color: rgba(192, 132, 252, 0.4);
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 
+  box-shadow:
     0 8px 30px rgba(192, 132, 252, 0.2),
     0 0 40px rgba(192, 132, 252, 0.05);
 }
@@ -660,13 +675,21 @@
    ============================================================ */
 
 @keyframes feedbackFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes feedbackOverlayFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes feedbackSlideUp {
@@ -687,23 +710,50 @@
 }
 
 @keyframes feedbackShake {
-  0%, 100% { transform: translateX(0); }
-  20% { transform: translateX(-6px); }
-  40% { transform: translateX(6px); }
-  60% { transform: translateX(-4px); }
-  80% { transform: translateX(4px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
 }
 
 @keyframes feedbackSuccessPop {
-  0% { opacity: 0; transform: scale(0.8); }
-  100% { opacity: 1; transform: scale(1); }
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes feedbackSuccessBounce {
-  0% { transform: scale(0); opacity: 0; }
-  50% { transform: scale(1.2); }
-  70% { transform: scale(0.95); }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* Form Error Message (global) */
@@ -714,7 +764,7 @@
   background: rgba(255, 107, 138, 0.08);
   border-radius: 12px;
   border: 1px solid rgba(255, 107, 138, 0.15);
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 0.85rem;
   color: rgba(255, 107, 138, 0.8);
   animation: feedbackShake 0.4s ease;
@@ -733,7 +783,7 @@
     max-height: 92dvh; /* For mobile browsers */
     animation: feedbackSlideUpMobile 0.36s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  
+
   .feedback-header h2 {
     font-size: 1.8rem;
   }
@@ -741,11 +791,11 @@
     width: 50px;
     bottom: -12px;
   }
-  
+
   .feedback-subtitle {
     font-size: 0.8rem;
   }
-  
+
   .feedback-field {
     margin-bottom: 1rem;
   }
@@ -756,7 +806,7 @@
     padding: 0.7rem 0.9rem;
     border-radius: 14px;
   }
-  
+
   .feedback-actions {
     flex-direction: column-reverse;
     gap: 0.6rem;
@@ -769,7 +819,7 @@
     font-size: 0.9rem;
     border-radius: 14px;
   }
-  
+
   .feedback-success .success-icon {
     width: 56px;
     height: 56px;
@@ -778,7 +828,7 @@
   .feedback-success h3 {
     font-size: 1.5rem;
   }
-  
+
   .feedback-close {
     width: 34px;
     height: 34px;
@@ -786,7 +836,7 @@
     top: 12px;
     right: 14px;
   }
-  
+
   .feedback-footer-btn {
     padding: 0.7rem 1.4rem;
     font-size: 0.8rem;

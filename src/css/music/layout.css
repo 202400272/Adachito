@@ -10,7 +10,9 @@
   backdrop-filter: blur(8px);
   min-height: 100vh;
   min-height: 100dvh;
-  transition: background 0.8s ease, padding 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    background 0.8s ease,
+    padding 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   width: 100%;
   max-width: 100%;
   margin-left: 0;

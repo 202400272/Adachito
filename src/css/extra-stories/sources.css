@@ -1,345 +1,145 @@
-/* ============================================================
-   SOURCES SECTION
-   ============================================================ */
-
 .extra-sources {
-  margin-top: 3rem;
+  margin-top: 58px;
+  border: 1px solid var(--page-border);
+  border-radius: 20px;
   background: var(--page-surface);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 2rem;
-  border: 1px solid var(--page-soft);
-  box-shadow: 0 8px 32px rgba(92, 58, 107, 0.06);
+  box-shadow: 0 10px 30px var(--page-shadow);
   overflow: hidden;
-  transition: all 0.3s ease;
 }
-
-.extra-sources:hover {
-  box-shadow: 0 12px 40px var(--page-shadow);
-}
-
 .sources-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.2rem 2rem;
+  padding: 18px 22px;
   cursor: pointer;
-  user-select: none;
-  transition: background 0.3s ease;
-  background: rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid transparent;
 }
-
 .sources-header:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--page-soft);
 }
-
 .sources-title-wrapper {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 10px;
 }
-
 .sources-title-wrapper i {
-  font-size: 1.3rem;
-  color: var(--dusty-rose);
+  color: var(--page-accent);
 }
-
 .sources-title {
-  font-family: "Noto Serif JP", serif;
-  font-size: 1.2rem;
-  color: var(--plum);
-  font-weight: 700;
   margin: 0;
+  color: var(--plum);
+  font:
+    700 1.35rem/1 "Cormorant Garamond",
+    serif;
 }
-
 .sources-badge {
-  background: var(--page-soft);
-  padding: 0.15rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--plum);
-  border: 1px solid rgba(209, 163, 198, 0.1);
-  white-space: nowrap;
+  padding: 3px 7px;
+  border: 1px solid var(--page-border);
+  color: var(--page-muted);
+  font-size: 0.62rem;
 }
-
 .sources-toggle-btn {
-  background: var(--page-surface);
-  border: 1px solid rgba(209, 163, 198, 0.1);
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--plum);
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--page-border);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--page-accent);
   cursor: pointer;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
 }
-
-.sources-toggle-btn:hover {
-  background: var(--page-surface);
-  border-color: var(--dusty-rose);
-}
-
 .sources-toggle-btn i {
-  transition: transform 0.3s ease;
-  font-size: 0.9rem;
+  transition: transform 0.25s ease;
 }
-
 .sources-toggle-btn.open i {
   transform: rotate(180deg);
 }
-
 .sources-body {
-  padding: 0 2rem 2rem;
   display: none;
-  animation: sources-expand 0.3s ease forwards;
+  padding: 0 22px 24px;
 }
-
 .sources-body.open {
   display: block;
 }
-
-@keyframes sources-expand {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 .sources-description {
-  font-size: 0.9rem;
+  max-width: 760px;
+  margin: 18px 0;
   color: var(--page-muted);
-  opacity: 0.7;
-  margin-bottom: 1.2rem;
-  line-height: 1.6;
-  padding-top: 0.5rem;
+  font:
+    0.8rem/1.7 "Source Serif 4",
+    serif;
 }
-
 .sources-filter {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-bottom: 1.2rem;
+  gap: 3px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--page-border);
 }
-
-.source-filter-btn {
-  padding: 0.3rem 1rem;
-  border-radius: 30px;
-  border: 1px solid var(--page-soft);
-  background: var(--page-surface);
-  color: var(--page-muted);
-  font-family: "Quicksand", sans-serif;
-  font-size: 0.75rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.source-filter-btn:hover {
-  background: var(--page-surface-strong);
-  border-color: var(--dusty-rose);
-}
-
-.source-filter-btn.active {
-  background: var(--dusty-rose);
-  color: #fff;
-  border-color: var(--dusty-rose);
-}
-
 .source-category {
-  margin-bottom: 1.5rem;
-  border: 1px solid rgba(209, 163, 198, 0.08);
-  border-radius: 1rem;
+  margin-bottom: 16px;
+  border: 1px solid var(--page-border);
+  border-radius: 14px;
+  background: var(--page-bg);
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
 }
-
-.source-category:last-child {
-  margin-bottom: 0;
-}
-
-.source-category:hover {
-  background: var(--page-surface);
-}
-
 .source-category-header {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.8rem 1.2rem;
-  background: rgba(255, 255, 255, 0.15);
-  border-bottom: 1px solid rgba(209, 163, 198, 0.06);
+  gap: 8px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--page-border);
 }
-
 .source-category-title {
-  font-family: "Noto Serif JP", serif;
-  font-size: 1rem;
-  color: var(--plum);
-  font-weight: 700;
   margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.source-category-title i {
-  color: var(--dusty-rose);
-  font-size: 0.9rem;
-}
-
-.source-category-count {
-  font-family: "Quicksand", sans-serif;
-  font-size: 0.65rem;
-  font-weight: 500;
-  color: var(--page-muted);
-  opacity: 0.5;
-  background: var(--page-surface);
-  padding: 0.05rem 0.6rem;
-  border-radius: 12px;
-  margin-left: 0.3rem;
-}
-
-.source-subcategory {
-  padding: 0.6rem 1.2rem 0.3rem 1.2rem;
-}
-
-.source-subcategory:last-child {
-  padding-bottom: 0.8rem;
-}
-
-.source-subcategory-title {
-  font-family: "Quicksand", sans-serif;
-  font-size: 0.8rem;
-  font-weight: 600;
   color: var(--plum);
-  opacity: 0.6;
-  margin-bottom: 0.3rem;
+  font:
+    700 1rem "Cormorant Garamond",
+    serif;
+}
+.source-category-title i {
+  color: var(--page-accent);
+}
+.source-category-count {
+  margin-left: auto;
+  color: var(--page-muted);
+  font-size: 0.62rem;
+}
+.source-subcategory {
+  padding: 10px 14px;
+}
+.source-subcategory-title {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 8px;
+  margin: 0 0 7px;
+  color: var(--page-accent-strong);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
-
 .source-subcategory-title::after {
   content: "";
-  flex: 1;
   height: 1px;
-  background: rgba(209, 163, 198, 0.1);
-  margin-left: 0.5rem;
+  flex: 1;
+  background: var(--page-border);
 }
-
 .source-list {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  padding-left: 0.5rem;
+  gap: 2px;
+  padding-left: 5px;
 }
-
 .source-item {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-  font-size: 0.82rem;
-  color: #4a3b52;
-  padding: 0.25rem 0.6rem;
-  border-radius: 6px;
-  transition: background 0.2s ease;
-  flex-wrap: wrap;
+  padding: 6px 8px;
   border-left: 2px solid transparent;
+  color: var(--page-text);
+  font:
+    0.78rem/1.5 "Source Serif 4",
+    serif;
+  transition: 0.2s ease;
 }
-
 .source-item:hover {
-  background: var(--page-surface);
-  border-left-color: var(--dusty-rose);
-}
-
-.source-volume {
-  font-weight: 600;
-  color: var(--plum);
-  background: rgba(209, 163, 198, 0.08);
-  padding: 0.05rem 0.5rem;
-  border-radius: 10px;
-  font-size: 0.65rem;
-  white-space: nowrap;
-  border: 1px solid rgba(209, 163, 198, 0.06);
-}
-
-.source-story {
-  font-weight: 500;
-  color: var(--plum);
-  font-size: 0.85rem;
-}
-
-.source-story i {
-  font-size: 0.6rem;
-  color: var(--dusty-rose);
-  opacity: 0.4;
-  margin-right: 0.2rem;
-}
-
-.source-origin {
-  color: var(--page-muted);
-  opacity: 0.6;
-  font-size: 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.source-origin i {
-  font-size: 0.6rem;
-  color: var(--dusty-rose);
-  opacity: 0.3;
-}
-
-.source-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  color: var(--dusty-rose);
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-decoration: none;
-  padding: 0.05rem 0.6rem;
-  border-radius: 12px;
-  border: 1px solid var(--page-soft);
-  transition: all 0.2s ease;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.source-link:hover {
+  border-left-color: var(--page-accent);
   background: var(--page-surface-strong);
-  border-color: var(--dusty-rose);
-  transform: translateY(-1px);
-}
-
-.source-link i {
-  font-size: 0.6rem;
-}
-
-.source-list-links .source-item {
-  background: rgba(255, 255, 255, 0.08);
-  padding: 0.3rem 0.6rem;
-  border-radius: 8px;
-  margin-bottom: 0.2rem;
-  border-left: 2px solid var(--dusty-rose);
-}
-
-.source-list-links .source-item:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.sources-empty {
-  text-align: center;
-  color: var(--page-muted);
-  opacity: 0.5;
-  padding: 2rem 0;
-  font-size: 0.9rem;
 }

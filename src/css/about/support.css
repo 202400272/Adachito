@@ -95,9 +95,18 @@
 }
 
 .support-btn .iconify {
-  font-size: 1rem;
+  width: 1.05rem;
+  height: 1.05rem;
+  font-size: 1.05rem;
   color: var(--dusty-rose);
-  flex-shrink: 0;
+  flex: 0 0 1.05rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.support-btn .iconify[data-icon^="simple-icons:"] {
+  color: currentColor;
 }
 
 .support-btn .support-btn-icon {

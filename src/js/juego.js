@@ -1,7 +1,4 @@
-let currentLang =
-  localStorage.getItem("lang") ||
-  localStorage.getItem("preferredLanguage") ||
-  "es";
+let currentLang = localStorage.getItem("lang") || localStorage.getItem("preferredLanguage") || "es";
 let isMusicPlaying = false;
 
 let particlesContainer;
@@ -41,12 +38,8 @@ function initializeJuegoPage() {
   langDropdown = document.querySelector(".lang-dropdown");
   langToggle = document.querySelector(".lang-dropdown-toggle");
   langOptions = Array.from(document.querySelectorAll(".lang-option"));
-  languageElements = Array.from(
-    document.querySelectorAll("[data-es][data-en]"),
-  );
-  langSelectedLabel =
-    document.getElementById("langSelectedLabel") ||
-    ({ textContent: "" });
+  languageElements = Array.from(document.querySelectorAll("[data-es][data-en]"));
+  langSelectedLabel = document.getElementById("langSelectedLabel") || { textContent: "" };
   canvas = document.getElementById("gameCanvas");
   ctx = canvas ? canvas.getContext("2d", { alpha: false, desynchronized: true }) : null;
   container = document.getElementById("gameContainer");
@@ -67,10 +60,7 @@ function initializeJuegoPage() {
       .then((data) => {
         data = data
           .replace(/src="\.\/(assets\/)/g, 'src="../../$1')
-          .replace(
-            /data-route="\.\.\/\.\.\/index\.html"/g,
-            'data-route="../../../index.html"',
-          );
+          .replace(/data-route="\.\.\/\.\.\/index\.html"/g, 'data-route="../../../index.html"');
         menuContainer.innerHTML = data;
 
         const scripts = menuContainer.querySelectorAll("script");
@@ -84,9 +74,7 @@ function initializeJuegoPage() {
         });
 
         const preferredLang =
-          localStorage.getItem("lang") ||
-          localStorage.getItem("preferredLanguage") ||
-          "es";
+          localStorage.getItem("lang") || localStorage.getItem("preferredLanguage") || "es";
         setTimeout(() => {
           hookMenuLanguageSync();
           if (window.translateMenu) {
@@ -94,32 +82,42 @@ function initializeJuegoPage() {
           }
         }, 100);
       })
-      .catch((error) =>
-        console.error("Error cargando menu.html:", error.message),
-      );
+      .catch((error) => console.error("Error cargando menu.html:", error.message));
   }
 
   if (musicToggle) {
-    musicToggle.addEventListener("click", (e) => {
-      e.stopPropagation();
-      toggleMusic();
-    }, { passive: true });
+    musicToggle.addEventListener(
+      "click",
+      (e) => {
+        e.stopPropagation();
+        toggleMusic();
+      },
+      { passive: true },
+    );
   }
 
   if (langToggle && langDropdown) {
-    langToggle.addEventListener("click", (e) => {
-      e.stopPropagation();
-      langDropdown.classList.toggle("open");
-    }, { passive: true });
+    langToggle.addEventListener(
+      "click",
+      (e) => {
+        e.stopPropagation();
+        langDropdown.classList.toggle("open");
+      },
+      { passive: true },
+    );
   }
 
   if (langOptions.length > 0) {
     langOptions.forEach((option) => {
-      option.addEventListener("click", () => {
-        const selectedLang = option.getAttribute("data-lang");
-        applyLanguage(selectedLang);
-        if (langDropdown) langDropdown.classList.remove("open");
-      }, { passive: true });
+      option.addEventListener(
+        "click",
+        () => {
+          const selectedLang = option.getAttribute("data-lang");
+          applyLanguage(selectedLang);
+          if (langDropdown) langDropdown.classList.remove("open");
+        },
+        { passive: true },
+      );
     });
   }
 
@@ -163,15 +161,19 @@ function initializeJuegoPage() {
       { passive: false },
     );
 
-    canvas.addEventListener("click", () => {
-      if (!isTouchDevice) {
-        if (isGameOver) {
-          resetGame();
-        } else {
-          yashiro.jump();
+    canvas.addEventListener(
+      "click",
+      () => {
+        if (!isTouchDevice) {
+          if (isGameOver) {
+            resetGame();
+          } else {
+            yashiro.jump();
+          }
         }
-      }
-    }, { passive: true });
+      },
+      { passive: true },
+    );
   }
 
   if (btnJump) {
@@ -188,13 +190,17 @@ function initializeJuegoPage() {
       { passive: false },
     );
 
-    btnJump.addEventListener("click", () => {
-      if (isGameOver) {
-        resetGame();
-      } else {
-        yashiro.jump();
-      }
-    }, { passive: true });
+    btnJump.addEventListener(
+      "click",
+      () => {
+        if (isGameOver) {
+          resetGame();
+        } else {
+          yashiro.jump();
+        }
+      },
+      { passive: true },
+    );
   }
 
   if (btnShoot) {
@@ -207,21 +213,29 @@ function initializeJuegoPage() {
       { passive: false },
     );
 
-    btnShoot.addEventListener("click", () => {
-      if (!isGameOver) fireBoomerang();
-    }, { passive: true });
+    btnShoot.addEventListener(
+      "click",
+      () => {
+        if (!isGameOver) fireBoomerang();
+      },
+      { passive: true },
+    );
   }
 
   detectTouch();
   let resizePending = false;
-  window.addEventListener("resize", () => {
-    if (resizePending) return;
-    resizePending = true;
-    requestAnimationFrame(() => {
-      resizeCanvas();
-      resizePending = false;
-    });
-  }, { passive: true });
+  window.addEventListener(
+    "resize",
+    () => {
+      if (resizePending) return;
+      resizePending = true;
+      requestAnimationFrame(() => {
+        resizeCanvas();
+        resizePending = false;
+      });
+    },
+    { passive: true },
+  );
   setTimeout(resizeCanvas, 50);
   resizeCanvas();
   applyLanguage(currentLang);
@@ -229,6 +243,8 @@ function initializeJuegoPage() {
 }
 
 let gameLoopStarted = false;
+let gamePaused = false;
+let lastFrameTimestamp = 0;
 function startGameWhenReady() {
   if (!canvas || !ctx || gameLoopStarted) return;
   if (imagesLoaded >= gameImages.length) {
@@ -238,6 +254,13 @@ function startGameWhenReady() {
   }
   setTimeout(startGameWhenReady, 30);
 }
+
+document.addEventListener("visibilitychange", () => {
+  gamePaused = document.hidden;
+  if (!gamePaused && gameLoopStarted) {
+    requestAnimationFrame(animate);
+  }
+});
 
 document.addEventListener("DOMContentLoaded", initializeJuegoPage);
 
@@ -315,10 +338,7 @@ function updateMusicButton(isPlaying) {
   if (!musicIcon) return;
   musicIcon.className = isPlaying ? "fas fa-volume-up" : "fas fa-volume-mute";
   if (musicToggle) {
-    musicToggle.setAttribute(
-      "aria-label",
-      isPlaying ? "Pausar música" : "Reproducir música",
-    );
+    musicToggle.setAttribute("aria-label", isPlaying ? "Pausar música" : "Reproducir música");
   }
 }
 
@@ -330,9 +350,7 @@ function syncGameLanguage(lang) {
   document.documentElement.lang = selectedLang;
   languageElements.forEach((element) => {
     element.textContent =
-      selectedLang === "es"
-        ? element.getAttribute("data-es")
-        : element.getAttribute("data-en");
+      selectedLang === "es" ? element.getAttribute("data-es") : element.getAttribute("data-en");
   });
   langSelectedLabel.textContent = selectedLang === "es" ? "Español" : "English";
   langOptions.forEach((option) => {
@@ -368,7 +386,6 @@ function hookMenuLanguageSync() {
   syncedTranslateMenu.__juegoSynced = true;
   window.translateMenu = syncedTranslateMenu;
 }
-
 
 const CANVAS_BASE_W = 800;
 const CANVAS_BASE_H = 300;
@@ -420,15 +437,15 @@ let baseSpeed = 4.5;
 let gameSpeed = baseSpeed;
 let obstacles = [];
 let spawnRate = 90;
-let particlesGame = [];
+let _particlesGame = [];
 let particlePool = [];
 let particleCount = 0;
-let combo = 0;
+let _combo = 0;
 let boomerangs = [];
 let isInvulnerable = false;
 let invulnerabilityTime = 0;
 let lastDonaSpawn = -100;
-let powerUpParticles = [];
+let _powerUpParticles = [];
 let powerUpPool = [];
 let powerUpCount = 0;
 let gameTimeSeconds = 0;
@@ -439,11 +456,20 @@ let donutSpawnActive = false;
 const MAX_PARTICLES = 200;
 const MAX_POWERUP_PARTICLES = 100;
 
-for(let i=0;i<MAX_PARTICLES;i++){
-  particlePool.push({x:0,y:0,vx:0,vy:0,life:0,color:"#a28cbd",draw(){},update(){}});
+for (let i = 0; i < MAX_PARTICLES; i++) {
+  particlePool.push({
+    x: 0,
+    y: 0,
+    vx: 0,
+    vy: 0,
+    life: 0,
+    color: "#a28cbd",
+    draw() {},
+    update() {},
+  });
 }
-for(let i=0;i<MAX_POWERUP_PARTICLES;i++){
-  powerUpPool.push({x:0,y:0,vx:0,vy:0,life:0,color:"#FFD700",draw(){},update(){}});
+for (let i = 0; i < MAX_POWERUP_PARTICLES; i++) {
+  powerUpPool.push({ x: 0, y: 0, vx: 0, vy: 0, life: 0, color: "#FFD700", draw() {}, update() {} });
 }
 
 const imgYashiro = new Image();
@@ -456,20 +482,37 @@ const imgEstrellaAzul = new Image();
 imgEstrellaAzul.src = "/assets/Imagenes/Estrella_Azul-Photoroom.webp";
 const imgFondo = new Image();
 imgFondo.src = "/assets/Imagenes/Fondo_pixel.webp";
+const backgroundLayer = document.createElement("canvas");
+backgroundLayer.width = CANVAS_BASE_W;
+backgroundLayer.height = CANVAS_BASE_H;
+const backgroundLayerContext = backgroundLayer.getContext("2d");
+let backgroundReady = false;
 const imgBoomerang = new Image();
 imgBoomerang.src = "/assets/Imagenes/boomerang-Photoroom.webp";
 const imgDona = new Image();
 imgDona.src = "/assets/Imagenes/dona_pixel-Photoroom.webp";
 
-const gameImages = [imgYashiro, imgmeteoro, imgEstrella, imgEstrellaAzul, imgFondo, imgBoomerang, imgDona];
+const gameImages = [
+  imgYashiro,
+  imgmeteoro,
+  imgEstrella,
+  imgEstrellaAzul,
+  imgFondo,
+  imgBoomerang,
+  imgDona,
+];
 let imagesLoaded = 0;
-let imagesFailed = false;
-gameImages.forEach(img => {
+let _imagesFailed = false;
+gameImages.forEach((img) => {
   img.onload = () => {
     imagesLoaded++;
+    if (img === imgFondo && backgroundLayerContext) {
+      backgroundLayerContext.drawImage(img, 0, 0, CANVAS_BASE_W, CANVAS_BASE_H);
+      backgroundReady = true;
+    }
   };
   img.onerror = () => {
-    imagesFailed = true;
+    _imagesFailed = true;
     imagesLoaded++;
     console.error("Juego: no se pudo cargar la imagen", img.src);
   };
@@ -498,15 +541,7 @@ const yashiro = {
     ctx.drawImage(imgYashiro, this.x, this.y, this.width, this.height);
     ctx.fillStyle = "rgba(0,0,0,0.15)";
     ctx.beginPath();
-    ctx.ellipse(
-      this.x + this.width / 2,
-      255,
-      this.width * 0.4,
-      6,
-      0,
-      0,
-      Math.PI * 2,
-    );
+    ctx.ellipse(this.x + this.width / 2, 255, this.width * 0.4, 6, 0, 0, Math.PI * 2);
     ctx.fill();
   },
   jump() {
@@ -516,10 +551,10 @@ const yashiro = {
       playJumpSound();
     }
   },
-  update() {
-    this.y += this.dy;
+  update(frameDelta = 1) {
+    this.y += this.dy * frameDelta;
     if (this.y + this.height < 250) {
-      this.dy += this.gravity;
+      this.dy += this.gravity * frameDelta;
       this.grounded = false;
     } else {
       this.dy = 0;
@@ -537,6 +572,7 @@ function resetGame() {
   gameSpeed = baseSpeed;
   spawnRate = 90;
   isGameOver = false;
+  lastFrameTimestamp = 0;
   yashiro.y = 200;
   yashiro.dy = 0;
   boomerangs = [];
@@ -698,6 +734,13 @@ function animate(timestamp) {
 }
 
 function animateFrame(timestamp) {
+  if (gamePaused || document.hidden) return;
+
+  const frameDelta = lastFrameTimestamp
+    ? Math.min(Math.max((timestamp - lastFrameTimestamp) / 16.667, 0), 2)
+    : 1;
+  lastFrameTimestamp = timestamp;
+
   if (isGameOver) {
     ctx.fillStyle = "rgba(0,0,0,0.7)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -709,18 +752,10 @@ function animateFrame(timestamp) {
     ctx.fillStyle = "#ff6b6b";
     ctx.font = "bold 48px Quicksand";
     ctx.textAlign = "center";
-    ctx.fillText(
-      getGameText("gameOver"),
-      canvas.width / 2,
-      canvas.height / 2 - 35,
-    );
+    ctx.fillText(getGameText("gameOver"), canvas.width / 2, canvas.height / 2 - 35);
     ctx.fillStyle = "white";
     ctx.font = "22px Quicksand";
-    ctx.fillText(
-      `${getGameText("score")}: ${score}`,
-      canvas.width / 2,
-      canvas.height / 2 + 10,
-    );
+    ctx.fillText(`${getGameText("score")}: ${score}`, canvas.width / 2, canvas.height / 2 + 10);
     ctx.fillStyle = "#ffd700";
     ctx.font = "22px Quicksand";
     ctx.fillText(
@@ -731,9 +766,7 @@ function animateFrame(timestamp) {
 
     ctx.fillStyle = "rgba(255,255,255,0.8)";
     ctx.font = "16px Quicksand";
-    const restartMsg = isTouchDevice
-      ? getGameText("restartTouch")
-      : getGameText("restartDesktop");
+    const restartMsg = isTouchDevice ? getGameText("restartTouch") : getGameText("restartDesktop");
     ctx.fillText(restartMsg, canvas.width / 2, canvas.height / 2 + 75);
     requestAnimationFrame(animate);
     return;
@@ -741,8 +774,12 @@ function animateFrame(timestamp) {
 
   requestAnimationFrame(animate);
 
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(imgFondo, 0, 0, canvas.width, canvas.height);
+  if (backgroundReady) {
+    ctx.drawImage(backgroundLayer, 0, 0);
+  } else {
+    ctx.fillStyle = "#2a2034";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
 
   ctx.beginPath();
   ctx.moveTo(0, 250);
@@ -751,15 +788,15 @@ function animateFrame(timestamp) {
   ctx.lineWidth = 2;
   ctx.stroke();
 
-  yashiro.update();
+  yashiro.update(frameDelta);
 
   for (let i = 0; i < particleCount; i++) {
     const p = particlePool[i];
     if (p.life > 0) {
-      p.x += p.vx;
-      p.y += p.vy;
-      p.vy += 0.3;
-      p.life--;
+      p.x += p.vx * frameDelta;
+      p.y += p.vy * frameDelta;
+      p.vy += 0.3 * frameDelta;
+      p.life -= frameDelta;
       ctx.globalAlpha = p.life / 40;
       ctx.fillStyle = p.color;
       ctx.beginPath();
@@ -775,8 +812,8 @@ function animateFrame(timestamp) {
 
   for (let i = boomerangs.length - 1; i >= 0; i--) {
     const boom = boomerangs[i];
-    boom.x += boom.speed;
-    boom.rotation += 0.3;
+    boom.x += boom.speed * frameDelta;
+    boom.rotation += 0.3 * frameDelta;
     ctx.save();
     ctx.translate(boom.x + boom.width / 2, boom.y + boom.height / 2);
     ctx.rotate(boom.rotation);
@@ -792,7 +829,12 @@ function animateFrame(timestamp) {
     for (let j = obsLen - 1; j >= 0; j--) {
       const obs = obstacles[j];
       if ((obs.image === imgEstrella || obs.image === imgEstrellaAzul) && !obs.isPowerUp) {
-        if (boom.x < obs.x + obs.width && boom.x + boom.width > obs.x && boom.y < obs.y + obs.height && boom.y + boom.height > obs.y) {
+        if (
+          boom.x < obs.x + obs.width &&
+          boom.x + boom.width > obs.x &&
+          boom.y < obs.y + obs.height &&
+          boom.y + boom.height > obs.y
+        ) {
           obs.health--;
           spawnParticlesFunc(obs.x + obs.width / 2, obs.y + obs.height / 2, "#ffd700");
           if (obs.health <= 0) {
@@ -839,17 +881,18 @@ function animateFrame(timestamp) {
 
   if (frames % (starRainActive ? 45 : spawnRate) === 0) spawnObstacle();
 
+  const yBox = yashiro.getHitbox();
   const obsLen = obstacles.length;
   for (let i = obsLen - 1; i >= 0; i--) {
     const obs = obstacles[i];
-    obs.x -= gameSpeed;
-    
+    obs.x -= gameSpeed * frameDelta;
+
     if (obs.image === imgEstrella || obs.image === imgEstrellaAzul) {
       if (starRainActive && obs.oscillationSpeed > 0) {
-        obs.oscillationPhase += obs.oscillationSpeed;
+        obs.oscillationPhase += obs.oscillationSpeed * frameDelta;
         obs.y = obs.baseY + Math.sin(obs.oscillationPhase) * obs.verticalOscillation;
       }
-      obs.rotation += 0.1;
+      obs.rotation += 0.1 * frameDelta;
       ctx.save();
       ctx.translate(obs.x + obs.width / 2, obs.y + obs.height / 2);
       ctx.rotate(obs.rotation);
@@ -863,7 +906,7 @@ function animateFrame(timestamp) {
         ctx.fillText(obs.health, obs.x + obs.width / 2, obs.y + obs.height / 2);
       }
     } else if (obs.isPowerUp) {
-      obs.rotation += 0.15;
+      obs.rotation += 0.15 * frameDelta;
       ctx.save();
       ctx.translate(obs.x + obs.width / 2, obs.y + obs.height / 2);
       ctx.rotate(obs.rotation);
@@ -878,10 +921,14 @@ function animateFrame(timestamp) {
       ctx.drawImage(obs.image, obs.x, obs.y, obs.width, obs.height);
     }
 
-    const yBox = yashiro.getHitbox();
     const oBox = obs.getHitbox();
 
-    if (yBox.x < oBox.x + oBox.width && yBox.x + yBox.width > oBox.x && yBox.y < oBox.y + oBox.height && yBox.y + yBox.height > oBox.y) {
+    if (
+      yBox.x < oBox.x + oBox.width &&
+      yBox.x + yBox.width > oBox.x &&
+      yBox.y < oBox.y + oBox.height &&
+      yBox.y + yBox.height > oBox.y
+    ) {
       if (obs.isPowerUp) {
         isInvulnerable = true;
         invulnerabilityTime = 300;
@@ -902,8 +949,12 @@ function animateFrame(timestamp) {
           playDeathSound();
         }
         isGameOver = true;
-        combo = 0;
-        spawnParticlesFunc(yashiro.x + yashiro.width / 2, yashiro.y + yashiro.height / 2, "#d32f2f");
+        _combo = 0;
+        spawnParticlesFunc(
+          yashiro.x + yashiro.width / 2,
+          yashiro.y + yashiro.height / 2,
+          "#d32f2f",
+        );
         if (score > highScore) {
           highScore = score;
           localStorage.setItem("adashima_hs", highScore);
@@ -914,8 +965,12 @@ function animateFrame(timestamp) {
     } else if (obs.x + obs.width < 0) {
       obstacles.splice(i, 1);
       if (!obs.isPowerUp) {
-        combo++;
-        spawnParticlesFunc(yashiro.x + yashiro.width / 2, yashiro.y + yashiro.height / 2, "#4caf50");
+        _combo++;
+        spawnParticlesFunc(
+          yashiro.x + yashiro.width / 2,
+          yashiro.y + yashiro.height / 2,
+          "#4caf50",
+        );
       }
     }
   }
@@ -932,11 +987,21 @@ function animateFrame(timestamp) {
     ctx.fillStyle = "rgba(255,215,0,0.6)";
     ctx.font = "bold 24px Quicksand";
     ctx.textAlign = "center";
-    ctx.fillText(`🛡️ ${getGameText("invulnerable")} ${invulPercent}%`, canvas.width / 2, canvas.height - 30);
+    ctx.fillText(
+      `🛡️ ${getGameText("invulnerable")} ${invulPercent}%`,
+      canvas.width / 2,
+      canvas.height - 30,
+    );
     ctx.strokeStyle = `rgba(255,215,0,${0.5 - (300 - invulnerabilityTime) / 1200})`;
     ctx.lineWidth = 3;
     ctx.beginPath();
-    ctx.arc(yashiro.x + yashiro.width / 2, yashiro.y + yashiro.height / 2, yashiro.width / 2 + 15, 0, Math.PI * 2);
+    ctx.arc(
+      yashiro.x + yashiro.width / 2,
+      yashiro.y + yashiro.height / 2,
+      yashiro.width / 2 + 15,
+      0,
+      Math.PI * 2,
+    );
     ctx.stroke();
   }
 
@@ -957,10 +1022,10 @@ function animateFrame(timestamp) {
   for (let i = 0; i < powerUpCount; i++) {
     const p = powerUpPool[i];
     if (p.life > 0) {
-      p.x += p.vx;
-      p.y += p.vy;
-      p.vy += 0.2;
-      p.life--;
+      p.x += p.vx * frameDelta;
+      p.y += p.vy * frameDelta;
+      p.vy += 0.2 * frameDelta;
+      p.life -= frameDelta;
       ctx.globalAlpha = p.life / 60;
       ctx.fillStyle = p.color;
       ctx.beginPath();

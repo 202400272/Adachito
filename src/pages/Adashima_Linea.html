@@ -11,10 +11,7 @@
       name="description"
       content="Follow the Adashima timeline and chronology of Adachi to Shimamura events, releases, and story moments."
     />
-    <link
-      rel="canonical"
-      href="https://adashimaverse.com/Adashima_Linea"
-    />
+    <link rel="canonical" href="https://adashimaverse.com/Adashima_Linea" />
     <meta name="theme-color" content="#000000" />
 
     <meta property="og:type" content="website" />
@@ -24,25 +21,19 @@
       property="og:description"
       content="Follow the Adashima timeline and chronology of Adachi to Shimamura events, releases, and story moments."
     />
-    <meta
-      property="og:url"
-      content="https://adashimaverse.com/Adashima_Linea"
-    />
+    <meta property="og:url" content="https://adashimaverse.com/Adashima_Linea" />
     <meta
       property="og:image"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
     <meta
       property="og:image:secure_url"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:type" content="image/webp" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="AdashimaVerse - Adashima - Línea del Tiempo"
-    />
+    <meta property="og:image:alt" content="AdashimaVerse - Adashima - Línea del Tiempo" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Adashima - Línea del Tiempo" />
@@ -52,12 +43,9 @@
     />
     <meta
       name="twitter:image"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
-    <meta
-      name="twitter:image:alt"
-      content="AdashimaVerse - Adashima - Línea del Tiempo"
-    />
+    <meta name="twitter:image:alt" content="AdashimaVerse - Adashima - Línea del Tiempo" />
 
     <link
       rel="stylesheet"
@@ -66,47 +54,17 @@
     <link rel="stylesheet" href="/src/css/linea.css?v=20260812" />
     <link rel="stylesheet" href="/src/components/styles/menu.css?v=20260812" />
 
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="/assets/Imagenes/favicon.ico"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/assets/Imagenes/apple-touch-icon.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/assets/Imagenes/favicon-32x32.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/assets/Imagenes/favicon-16x16.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="/assets/Imagenes/icon-192x192.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="512x512"
-      href="/assets/Imagenes/icon-512x512.webp"
-    />
+    <link rel="icon" type="image/x-icon" href="/assets/Imagenes/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/Imagenes/apple-touch-icon.webp" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/Imagenes/favicon-32x32.webp" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/Imagenes/favicon-16x16.webp" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/Imagenes/icon-192x192.webp" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/Imagenes/icon-512x512.webp" />
+    <link rel="stylesheet" href="/src/components/styles/footer.css" />
+    <link rel="stylesheet" href="/src/components/styles/feedback.css" />
   </head>
   <body>
-    <div
-      class="bubble-overlay"
-      id="bubbleOverlay"
-      onclick="closeBubbleModal()"
-    ></div>
+    <div class="bubble-overlay" id="bubbleOverlay" onclick="closeBubbleModal()"></div>
     <div class="bubble-modal" id="bubbleModal">
       <div class="modal-close" onclick="closeBubbleModal()">
         <i class="fas fa-times"></i>
@@ -125,8 +83,6 @@
     </div>
 
     <div class="main-content">
-      
-
       <div class="timeline-header">
         <h1 id="header-title">Línea del Tiempo</h1>
         <p class="subtitle" id="header-subtitle">
@@ -153,11 +109,13 @@
         <div id="multiverse-content" class="multiverse-content" hidden></div>
       </div>
 
-      <div class="footer" id="footer"></div>
+      <div id="footer-container"></div>
+      <script type="module" src="/src/components/js/footer.js"></script>
     </div>
 
     <!-- Import JS -->
     <script src="/src/js/language-switch.js?v=20260812"></script>
     <script src="/src/js/linea.js?v=20260812"></script>
+    <script type="module" src="/src/components/js/feedback.js"></script>
   </body>
 </html>

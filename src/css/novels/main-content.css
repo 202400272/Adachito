@@ -7,7 +7,7 @@
   align-items: center;
   z-index: 2;
   min-height: 100vh;
-  background-image: url("../../../assets/Imagenes/Fondo_seccion_novela.webp");
+  background-image: none;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -29,7 +29,7 @@
 
 @media (max-width: 768px) {
   .main-content {
-    background-image: url("../../../assets/Imagenes/fondonovela_movil2.webp");
+    background-image: none;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -45,5 +45,25 @@
     background-size: cover;
     min-height: 100vh;
     padding: 20px 12px 36px;
+  }
+}
+
+/* ===== Clean surface redesign: no image backgrounds ===== */
+
+.main-content {
+  background:
+    radial-gradient(circle at 85% 12%, rgba(213, 103, 150, 0.1), transparent 28%),
+    radial-gradient(circle at 12% 80%, rgba(100, 138, 183, 0.08), transparent 30%),
+    linear-gradient(135deg, #f8f6fb 0%, #f2eaf7 52%, #edf3fa 100%) !important;
+  background-attachment: fixed !important;
+}
+.main-content::before {
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(8px);
+}
+@media (max-width: 768px) {
+  .main-content {
+    background: linear-gradient(135deg, #f8f6fb 0%, #f3eaf8 55%, #edf3fa 100%) !important;
+    background-attachment: scroll !important;
   }
 }

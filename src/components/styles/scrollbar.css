@@ -39,7 +39,7 @@
   background-clip: padding-box;
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   position: relative;
-  box-shadow: 
+  box-shadow:
     0 0 15px rgba(209, 135, 162, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
     inset 0 -1px 0 rgba(0, 0, 0, 0.05);
@@ -84,25 +84,17 @@
     rgba(130, 80, 160, 1) 100%
   );
   border-color: rgba(255, 255, 255, 0.25);
-  box-shadow: 
+  box-shadow:
     0 0 25px rgba(209, 135, 162, 0.4),
     0 0 50px rgba(209, 135, 162, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
   transform: scaleX(1.05);
 }
 
-::-webkit-scrollbar-thumb:hover::after {
-  opacity: 1;
-}
-
 /* Active state */
 ::-webkit-scrollbar-thumb:active {
-  background: linear-gradient(
-    180deg,
-    rgba(180, 110, 140, 0.95) 0%,
-    rgba(140, 80, 140, 0.95) 100%
-  );
-  box-shadow: 
+  background: linear-gradient(180deg, rgba(180, 110, 140, 0.95) 0%, rgba(140, 80, 140, 0.95) 100%);
+  box-shadow:
     0 0 30px rgba(180, 110, 140, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
@@ -116,12 +108,12 @@
 /* ===== STARS IN THE TRACK ===== */
 /* Creates a subtle starry effect in the scrollbar track */
 ::-webkit-scrollbar-track-piece {
-  background-image: 
-    radial-gradient(1px 1px at 20% 10%, rgba(255,255,255,0.15), transparent),
-    radial-gradient(1px 1px at 60% 30%, rgba(255,255,255,0.1), transparent),
-    radial-gradient(1.5px 1.5px at 80% 60%, rgba(255,255,255,0.12), transparent),
-    radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.08), transparent),
-    radial-gradient(1px 1px at 90% 90%, rgba(255,255,255,0.1), transparent);
+  background-image:
+    radial-gradient(1px 1px at 20% 10%, rgba(255, 255, 255, 0.15), transparent),
+    radial-gradient(1px 1px at 60% 30%, rgba(255, 255, 255, 0.1), transparent),
+    radial-gradient(1.5px 1.5px at 80% 60%, rgba(255, 255, 255, 0.12), transparent),
+    radial-gradient(1px 1px at 40% 80%, rgba(255, 255, 255, 0.08), transparent),
+    radial-gradient(1px 1px at 90% 90%, rgba(255, 255, 255, 0.1), transparent);
   background-repeat: repeat-y;
   background-size: 100% 60px;
   opacity: 0.5;
@@ -151,21 +143,13 @@
 }
 
 .main-content::-webkit-scrollbar-thumb {
-  background: linear-gradient(
-    180deg,
-    rgba(209, 135, 162, 0.5) 0%,
-    rgba(156, 104, 152, 0.6) 100%
-  );
+  background: linear-gradient(180deg, rgba(209, 135, 162, 0.5) 0%, rgba(156, 104, 152, 0.6) 100%);
   border-radius: 10px;
   border: 1.5px solid rgba(255, 255, 255, 0.1);
 }
 
 .main-content::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(
-    180deg,
-    rgba(209, 135, 162, 0.7) 0%,
-    rgba(156, 104, 152, 0.8) 100%
-  );
+  background: linear-gradient(180deg, rgba(209, 135, 162, 0.7) 0%, rgba(156, 104, 152, 0.8) 100%);
   box-shadow: 0 0 20px rgba(209, 135, 162, 0.3);
 }
 
@@ -181,21 +165,13 @@
 }
 
 .news-dialog-container::-webkit-scrollbar-thumb {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.3) 0%,
-    rgba(209, 135, 162, 0.3) 100%
-  );
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(209, 135, 162, 0.3) 100%);
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .news-dialog-container::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.5) 0%,
-    rgba(209, 135, 162, 0.5) 100%
-  );
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(209, 135, 162, 0.5) 100%);
   box-shadow: 0 0 15px rgba(209, 135, 162, 0.2);
 }
 
@@ -259,11 +235,11 @@
     width: 6px;
     height: 6px;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     border-width: 1.5px;
   }
-  
+
   .main-content::-webkit-scrollbar {
     width: 5px;
   }
@@ -274,11 +250,11 @@
     width: 4px;
     height: 4px;
   }
-  
+
   ::-webkit-scrollbar-track {
     border-radius: 6px;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     border-radius: 6px;
     border-width: 1px;
@@ -290,11 +266,11 @@
   ::-webkit-scrollbar-thumb {
     animation: none;
   }
-  
+
   ::-webkit-scrollbar-track-piece {
     animation: none;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     transition: none;
   }
@@ -306,21 +282,13 @@
     background: rgba(0, 0, 0, 0.15);
     border-color: rgba(255, 255, 255, 0.03);
   }
-  
+
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(
-      180deg,
-      rgba(180, 120, 160, 0.5) 0%,
-      rgba(130, 80, 130, 0.6) 100%
-    );
+    background: linear-gradient(180deg, rgba(180, 120, 160, 0.5) 0%, rgba(130, 80, 130, 0.6) 100%);
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(
-      180deg,
-      rgba(180, 120, 160, 0.7) 0%,
-      rgba(130, 80, 130, 0.8) 100%
-    );
+    background: linear-gradient(180deg, rgba(180, 120, 160, 0.7) 0%, rgba(130, 80, 130, 0.8) 100%);
     box-shadow: 0 0 30px rgba(180, 120, 160, 0.3);
   }
 }

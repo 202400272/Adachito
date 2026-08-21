@@ -2,8 +2,8 @@
   "pageTitle": "Centro de ayuda — AdaShimaverse",
   "hero": {
     "kicker": "Centro de ayuda",
-    "title": "Encuentra tu camino por AdaShimaverse",
-    "subtitle": "Una guía práctica para leer el archivo, encontrar adaptaciones y extras, usar los lectores integrados, entender las estadísticas y reportar problemas.",
+    "title": "Descubre cómo moverte por AdaShimaverse",
+    "subtitle": "Una guía práctica para leer el archivo, encontrar adaptaciones y contenido adicional, utilizar los lectores integrados, entender las estadísticas y reportar problemas.",
     "search": "Buscar temas de ayuda...",
     "searchHint": "/",
     "searchMeta": "Busca preguntas, funciones, ajustes o términos del archivo."
@@ -13,7 +13,7 @@
       "id": "new-fan-guide",
       "icon": "fa-route",
       "title": "Guía para nuevos fans",
-      "description": "Qué consumir primero y por qué"
+      "description": "Qué leer primero y por qué"
     },
     {
       "id": "getting-started",
@@ -34,6 +34,24 @@
       "description": "Qué significan los números"
     },
     {
+      "id": "constellation",
+      "icon": "fa-star",
+      "title": "Constelación y desbloqueos",
+      "description": "Recompensas y perfiles"
+    },
+    {
+      "id": "gallery",
+      "icon": "fa-images",
+      "title": "Galería",
+      "description": "Ilustraciones por volumen"
+    },
+    {
+      "id": "minigame",
+      "icon": "fa-gamepad",
+      "title": "Minijuego de Yashiro",
+      "description": "Contenido adicional"
+    },
+    {
       "id": "reading",
       "icon": "fa-book-open",
       "title": "Lectura",
@@ -43,7 +61,7 @@
       "id": "navigation",
       "icon": "fa-compass-drafting",
       "title": "Navegación",
-      "description": "Encuentra contenido rápido"
+      "description": "Encuentra las cosas más rápido"
     },
     {
       "id": "settings",
@@ -55,13 +73,19 @@
       "id": "troubleshooting",
       "icon": "fa-wrench",
       "title": "Solución de problemas",
-      "description": "Arreglos comunes"
+      "description": "Soluciona problemas comunes"
     },
     {
       "id": "feedback",
       "icon": "fa-message",
       "title": "Comentarios",
-      "description": "Problemas y correcciones"
+      "description": "Reporta problemas y correcciones"
+    },
+    {
+      "id": "dmca",
+      "icon": "fa-scale-balanced",
+      "title": "DMCA y derechos de autor",
+      "description": "Cómo pedir un retiro de contenido"
     }
   ],
   "sections": [
@@ -69,35 +93,35 @@
       "id": "new-fan-guide",
       "icon": "fa-route",
       "eyebrow": "EMPIEZA AQUÍ",
-      "title": "Guía para nuevos fans: ¿qué debería consumir primero?",
+      "title": "Guía para nuevos fans: ¿Qué debería leer primero?",
       "items": [
         {
-          "question": "La respuesta corta: empieza por las novelas ligeras.",
-          "answer": "Las <strong>novelas ligeras son el material original</strong> de <em>Adachi to Shimamura</em>. Si quieres la versión más completa de la historia y el mejor punto para conocer a los personajes, empieza por el <strong>Volumen 1</strong> y sigue las novelas en orden de publicación."
+          "question": "La respuesta corta: empieza con las novelas ligeras.",
+          "answer": "Si eres completamente nuevo en <em>Adachi and Shimamura</em>, las <strong>novelas ligeras son el mejor punto de partida</strong>. Son el material original y ofrecen la versión más completa de la historia, incluyendo los pensamientos internos de los personajes, la narración, las conversaciones, el ritmo y pequeños detalles de las escenas que pueden haberse acortado u omitido en las adaptaciones.<br><br>Empieza con el <strong>Volumen 1</strong> y continúa desde ahí. No necesitas conocer las ediciones especiales del archivo antes de comenzar."
         },
         {
-          "question": "1. Novelas ligeras — el material principal",
-          "answer": "Empieza con <strong>Light Novels → Volume 1</strong> y continúa con los volúmenes numerados en orden. Las novelas son la base de la historia, así que esta es la ruta recomendada si eres nuevo o quieres la experiencia más completa."
+          "question": "1. Novelas ligeras — El material principal",
+          "answer": "Empieza con <strong>Novelas ligeras → Volumen 1</strong> y continúa con los volúmenes numerados en orden de publicación.<br><br>La serie también incluye <strong>SS</strong>, <strong>SS2</strong> y <strong>Volumen 99.9</strong>, que recopilan material publicado fuera de los volúmenes numerados habituales. No necesitas memorizar su ubicación antes de empezar.<br><br><strong>El Volumen 99.9</strong> recopila las <strong>Novelas especiales</strong> incluidas originalmente con los lanzamientos japoneses en Blu-ray del anime de 2020. Esas historias se publicaron después del <strong>Volumen 9</strong> y antes del <strong>Volumen 10</strong>, por lo que recomendamos leer el Volumen 99.9 entre los Volúmenes 9 y 10.<br><br>El Volumen 99.9 forma parte del material de las novelas, no es un contenido opcional. Lo importante es empezar con el <strong>Volumen 1</strong>; cuando llegues al Volumen 9, coloca el 99.9 entre los Volúmenes 9 y 10, y después continúa con el Volumen 10 en adelante."
         },
         {
-          "question": "2. Manga — adaptaciones y otras formas de contar la historia",
-          "answer": "El manga es una <strong>adaptación de la historia</strong>, no el material principal. Es una buena opción si prefieres el formato visual, quieres volver a visitar escenas conocidas o quieres ver cómo las versiones de manga interpretan a los personajes y sus momentos."
+          "question": "2. Manga — Dos adaptaciones de la historia",
+          "answer": "Existen <strong>dos adaptaciones al manga</strong> de <em>Adachi and Shimamura</em>. Ambas adaptan las novelas ligeras, pero difieren en extensión, contenido y en la forma en que abordan el material original.<br><br><strong>La versión de 2016 — Mani</strong><br>La primera adaptación fue ilustrada por Mani y se publicó por entregas en Gangan Online de Square Enix entre 2016 y 2017. Fue una adaptación breve y concluyó después de <strong>3 volúmenes</strong>.<br><br>Adapta el comienzo de la historia y cubre material equivalente aproximadamente hasta el <strong>Volumen 3 de las novelas ligeras</strong>. Nunca recibió una traducción ni localización oficial al inglés.<br><br><strong>La versión de 2019 — Moke Yuzuhara</strong><br>La segunda adaptación fue ilustrada por Moke Yuzuhara y comenzó a publicarse en la revista Monthly Comic Dengeki Daioh de Kadokawa en 2019. Es la adaptación de manga más extensa y reconocida, está licenciada por Yen Press en inglés y continúa más allá del punto cubierto por el anime de 2020.<br><br><strong>¿Cuál deberías leer?</strong><br>Si quieres una versión breve y completa del comienzo, el manga de 2016 es una buena opción. Si quieres una adaptación más extensa que cubra una parte mucho mayor de la historia, elige la versión de 2019. También puedes leer ambas; son adaptaciones independientes del mismo material original."
         },
         {
-          "question": "3. Anime — una adaptación visual",
-          "answer": "El anime es otra adaptación de las novelas ligeras. Es un punto de entrada sencillo si conociste Adachi y Shimamura por la animación, pero no sustituye a las novelas. Si empiezas por el anime y después quieres conocer la historia completa, volver a <strong>Light Novels → Volume 1</strong> es la opción más segura."
-        },
-        {
-          "question": "4. Historias extra y novelas especiales",
-          "answer": "Cuando ya conozcas la historia principal, explora <strong>Extra Stories</strong> y el material de novelas especiales. Es mejor tratarlos como contenido complementario, no como punto de partida. Si un extra está claramente relacionado con un volumen o lanzamiento concreto, leer primero ese material principal puede ayudarte a evitar spoilers o perder contexto."
-        },
-        {
-          "question": "5. Drama CDs, música, galería y otros materiales",
-          "answer": "Son partes complementarias del archivo. Disfruta de <strong>Drama CD</strong> y <strong>Music</strong> si quieres más contenido de audio, y visita <strong>Gallery</strong>, <strong>Timeline</strong> y <strong>Constellation</strong> para referencias, material visual o nuevas formas de explorar la serie fuera de la historia principal."
+          "question": "3. Anime — Un punto de entrada visual y sencillo",
+          "answer": "El anime es otra adaptación de las novelas ligeras y un punto de entrada sencillo si prefieres la animación. Aporta su propia dirección visual, música, actuación de voz y presentación de la historia.<br><br>Sin embargo, solo cubre una parte del material original. Algunos pensamientos de los personajes, narración, conversaciones, ritmo y pequeños detalles se condensan u omiten porque el anime debe adaptar las novelas a un número limitado de episodios.<br><br>Si descubriste la serie a través del anime y después quieres experimentar la versión más completa, recomendamos volver a <strong>Novelas ligeras → Volumen 1</strong>. De esta manera puedes experimentar la narrativa original en lugar de tratar el anime como un sustituto del material original."
         },
         {
           "question": "¿Ya viste el anime?",
-          "answer": "Si vienes del anime, puedes continuar la historia aproximadamente desde el capítulo 26 del manga, que corresponde al punto posterior al volumen 4 de la novela ligera. Si prefieres continuar directamente con las novelas ligeras, puedes comenzar por el volumen 5.<br><br>Sin embargo, si quieres disfrutar de la historia con mayor profundidad y de la narración original, recomendamos leer las novelas ligeras desde el volumen 1. De esta forma podrás conocer los monólogos, pensamientos de los personajes y detalles de las escenas que fueron omitidos en las adaptaciones."
+          "answer": "Si terminaste el anime y solo quieres continuar aproximadamente desde donde termina la adaptación, tienes <strong>dos opciones</strong>.<br><br><strong>Continuar con el manga:</strong> comienza aproximadamente en el <strong>capítulo 26</strong>, que retoma la historia alrededor del punto posterior al <strong>Volumen 4</strong> de las novelas ligeras.<br><br><strong>Continuar con las novelas ligeras:</strong> comienza con el <strong>Volumen 5</strong>.<br><br>Estos son puntos de continuación, no sustitutos del comienzo. Si quieres experimentar la historia original correctamente, seguimos recomendando empezar por el <strong>Volumen 1</strong>. Las novelas contienen considerablemente más pensamientos internos de Adachi y Shimamura, narración, conversaciones y pequeños detalles de las escenas de los que el anime puede incluir. Empezar desde el Volumen 1 también conserva el ritmo original en lugar de introducirte directamente en medio del material original."
+        },
+        {
+          "question": "4. Historias adicionales y otro material complementario",
+          "answer": "Las <strong>Historias adicionales</strong> son independientes de las novelas ligeras principales numeradas. Recopilan piezas breves de material complementario pensadas para leerse junto con la historia principal o después de ella, en lugar de formar parte de su secuencia principal de volúmenes.<br><br><strong>No</strong> necesitas leerlas para entender la historia principal. El enfoque más seguro es leer cada Historia adicional <strong>después de haber llegado a la parte de la historia con la que está relacionada</strong>.<br><br>Si una Historia adicional está asociada con un volumen, evento o lanzamiento específico, lee primero ese material principal. Esto conserva el contexto previsto y reduce la posibilidad de encontrarte con un personaje, evento o información antes del momento previsto en la historia.<br><br>Las <strong>Novelas especiales recopiladas en el Volumen 99.9</strong> son diferentes de la sección general de <strong>Historias adicionales</strong> del sitio. El Volumen 99.9 tiene una ubicación definida dentro del orden de lectura de las novelas; las Historias adicionales individuales deben leerse según el volumen o lanzamiento con el que estén relacionadas."
+        },
+        {
+          "question": "Quiero el orden de lectura más sencillo posible",
+          "answer": "Sigue las novelas ligeras numeradas en orden de publicación: <strong>Volumen 1 → Volúmenes 2–9 → Volumen 99.9 → Volumen 10 en adelante.</strong><br><br>Recomendamos colocar el <strong>Volumen 99.9</strong> entre los Volúmenes 9 y 10 porque sus Novelas especiales se publicaron originalmente durante esa parte de la cronología de publicación.<br><br><strong>Ese es el recorrido principal de lectura.</strong> Las Historias adicionales y demás material complementario quedan fuera de la secuencia numerada y pueden explorarse después de llegar a la parte de la historia con la que estén relacionadas."
         }
       ]
     },
@@ -113,19 +137,23 @@
         },
         {
           "question": "¿Qué puedo encontrar aquí?",
-          "answer": "El menú incluye <strong>Anime, Manga, Novelas, Extra Stories, Drama CD, Music, Gallery, Timeline, Constellation, Stats, Others</strong> y <strong>About</strong>. Cada sección está pensada para un tipo de material distinto."
+          "answer": "El menú incluye actualmente <strong>Anime, Manga, Novelas, Historias adicionales, Drama CD, Música, Galería, Cronología, Constelación, Estadísticas, Otros</strong> y <strong>Acerca de</strong>. Cada sección está diseñada para un tipo diferente de material, por lo que no tienes que buscar por todo el sitio para encontrar lo que quieres."
         },
         {
           "question": "¿Por dónde debería empezar a leer?",
-          "answer": "Si quieres la historia principal, abre <strong>Novels</strong>. Para el manga, usa <strong>Manga</strong>. <strong>Extra Stories</strong> reúne material secundario y cuenta con sus propias funciones de marcadores y progreso de lectura."
+          "answer": "Si quieres leer la historia principal, abre <strong>Novelas</strong>. Para el material del manga, utiliza <strong>Manga</strong>. <strong>Historias adicionales</strong> contiene material secundario más breve e incluye sus propias funciones de marcadores y progreso de lectura."
         },
         {
           "question": "¿El material es oficial?",
-          "answer": "No. AdaShimaverse es un archivo hecho por fans y no es un sitio oficial de los creadores, la editorial ni los titulares de derechos. El sitio no tiene fines de lucro. Consulta <strong>About</strong> para información del proyecto, créditos y enlaces a la obra original."
+          "answer": "No. AdaShimaverse es un archivo creado por fans y no es un sitio web oficial de los creadores, la editorial ni los titulares de los derechos. El sitio es un proyecto sin fines de lucro. Consulta la sección <strong>Acerca de</strong> para obtener información del proyecto, créditos y enlaces a la obra original."
         },
         {
-          "question": "¿Puedo usar AdaShimaverse en el móvil?",
-          "answer": "Sí. El sitio está diseñado para pantallas pequeñas. En móvil puedes usar el botón flotante del menú para abrir la navegación y los ajustes. Si quieres ocultarlo en otras páginas, puedes desactivarlo desde los ajustes del menú."
+          "question": "¿Puedo usar AdaShimaverse en mi teléfono?",
+          "answer": "Sí. El sitio está diseñado para funcionar en pantallas pequeñas. En dispositivos móviles, utiliza el botón de menú flotante para abrir la navegación y los ajustes. Si prefieres no ver ese botón en otras páginas, puedes desactivarlo desde los ajustes del menú."
+        },
+        {
+          "question": "¿Hay una aplicación?",
+          "answer": "No hay una aplicación independiente en una tienda de aplicaciones, pero AdaShimaverse se puede instalar como una app en escritorio y móvil. En Android y en Chrome/Edge de escritorio, busca la opción <strong>Instalar</strong> en la barra de direcciones o en el menú del navegador. En iOS, abre el sitio en Safari, toca <strong>Compartir</strong> y luego <strong>Añadir a pantalla de inicio</strong>. Una vez instalada, se abre en su propia ventana con un ícono en tu pantalla de inicio o escritorio."
         }
       ]
     },
@@ -137,31 +165,31 @@
       "items": [
         {
           "question": "¿Cómo leo un volumen de novela o manga?",
-          "answer": "Abre <strong>Novels</strong> o <strong>Manga</strong>, elige un volumen y pulsa <strong>Read</strong>. El documento se abrirá en el lector del sitio."
+          "answer": "Abre <strong>Novelas</strong> o <strong>Manga</strong>, elige un volumen y selecciona <strong>Leer</strong>. El documento se abrirá en el lector del sitio en lugar de llevarte a una página independiente."
         },
         {
-          "question": "¿Qué puedo hacer en el lector PDF?",
-          "answer": "El lector permite <strong>acercar/alejar, restablecer el zoom, avanzar o retroceder páginas, ir a una página concreta, pantalla completa, miniaturas</strong> y <strong>modo cascada</strong> para desplazamiento continuo."
+          "question": "¿Qué puedo hacer en el lector de PDF?",
+          "answer": "El lector permite <strong>acercar/alejar, restablecer el zoom, ir a la página anterior/siguiente, navegar directamente a una página, pantalla completa, miniaturas</strong> y <strong>modo cascada</strong> para desplazamiento continuo. Los controles disponibles pueden variar ligeramente entre lectores."
         },
         {
           "question": "¿Qué es el modo Cascada?",
-          "answer": "El modo Cascada muestra el documento como una tira vertical continua en lugar de una página a la vez. Es útil si prefieres desplazarte de forma natural por un documento largo."
+          "answer": "El modo Cascada muestra el documento como un flujo vertical continuo en lugar de mostrar una página a la vez. Es útil cuando quieres desplazarte de forma natural por un documento largo. Al volver al modo normal, se recupera la navegación página por página."
         },
         {
           "question": "¿Puedo descargar un libro?",
-          "answer": "Cuando hay una descarga disponible, el lector muestra los formatos correspondientes. El archivo de novelas puede ofrecer <strong>PDF</strong> y <strong>EPUB</strong>; la disponibilidad depende de cada volumen."
+          "answer": "Cuando hay una descarga disponible, el lector muestra los formatos disponibles mediante sus controles de descarga. El archivo de novelas puede ofrecer archivos <strong>PDF</strong> y <strong>EPUB</strong>; la disponibilidad depende de cada volumen."
         },
         {
           "question": "¿Cuáles son los atajos de teclado del lector?",
-          "answer": "En los lectores PDF de novelas y manga, <strong>Flecha izquierda</strong> va a la página anterior, <strong>Flecha derecha</strong> a la siguiente, <strong>0</strong> restablece el zoom y <strong>F</strong> activa la pantalla completa. También se reconocen <strong>Page Up/Page Down</strong>."
+          "answer": "En los lectores de PDF de novelas y manga, <strong>Flecha izquierda</strong> pasa a la página anterior, <strong>Flecha derecha</strong> pasa a la página siguiente, <strong>0</strong> restablece el zoom y <strong>F</strong> activa o desactiva la pantalla completa. El lector de PDF también reconoce <strong>Page Up/Page Down</strong>; evita utilizar los atajos mientras escribes en un campo de página o búsqueda."
         },
         {
-          "question": "¿Cómo funcionan los marcadores y el progreso?",
-          "answer": "<strong>Extra Stories</strong> puede guardar marcadores y progreso de lectura en el navegador. El progreso se actualiza mientras lees y puedes filtrar la biblioteca para ver tus historias marcadas. No es un sistema de sincronización mediante cuenta."
+          "question": "¿Cómo funcionan los marcadores y el progreso de lectura?",
+          "answer": "<strong>Historias adicionales</strong> puede guardar marcadores y progreso de lectura en tu navegador. El progreso se registra mientras lees y las historias marcadas pueden filtrarse desde la biblioteca. Son funciones locales del navegador, no un sistema de sincronización basado en cuentas."
         },
         {
-          "question": "¿Qué pasa si borro los datos del navegador?",
-          "answer": "Algunas preferencias y datos de lectura se guardan localmente en el navegador. Borrar los datos del sitio puede eliminar marcadores, progreso de Extra Stories y otras preferencias guardadas localmente."
+          "question": "¿Qué ocurre si borro los datos de mi navegador?",
+          "answer": "Algunas preferencias del sitio y datos de lectura locales se almacenan en tu navegador. Borrar el almacenamiento local del sitio o los datos de navegación puede eliminar elementos como los marcadores de Historias adicionales, el progreso de lectura, las preferencias del lector o el idioma y los ajustes guardados localmente."
         }
       ]
     },
@@ -169,27 +197,27 @@
       "id": "navigation",
       "icon": "fa-compass-drafting",
       "eyebrow": "NAVEGACIÓN",
-      "title": "Encuentra contenido rápidamente",
+      "title": "Encuentra las cosas rápidamente",
       "items": [
         {
           "question": "¿Qué contiene cada sección principal?",
-          "answer": "<strong>Novels</strong> y <strong>Manga</strong> se centran en volúmenes y capítulos; <strong>Extra Stories</strong> reúne historias cortas; <strong>Anime</strong> cubre la adaptación animada; <strong>Drama CD</strong> y <strong>Music</strong> se centran en audio; <strong>Gallery</strong> en material visual; <strong>Timeline</strong> organiza eventos; <strong>Constellation</strong> es una función de referencia; <strong>Stats</strong> muestra datos; y <strong>Others</strong> reúne material variado."
+          "answer": "<strong>Novelas</strong> y <strong>Manga</strong> se centran en volúmenes y capítulos; <strong>Historias adicionales</strong> recopila material secundario más breve; <strong>Anime</strong> cubre la adaptación animada; <strong>Drama CD</strong> y <strong>Música</strong> se centran en material de audio; <strong>Galería</strong> contiene material visual; <strong>Cronología</strong> organiza los acontecimientos; <strong>Constelación</strong> es una función de referencia y exploración; <strong>Estadísticas</strong> proporciona datos del sitio; y <strong>Otros</strong> reúne material diverso."
         },
         {
-          "question": "¿Cómo encuentro un título concreto?",
-          "answer": "Usa el buscador cuando la sección lo tenga. En las bibliotecas puedes reducir los resultados usando información como el título, descripción o volumen. Si no aparece nada, prueba con una parte más corta del título u otra forma de escribirlo."
+          "question": "¿Cómo encuentro un título específico?",
+          "answer": "Utiliza el cuadro de búsqueda cuando una sección disponga de uno. En las páginas de biblioteca, la búsqueda puede filtrar las entradas según información como el título, la descripción o el volumen. Si no obtienes resultados, prueba con una parte más corta del título u otra forma de escribirlo."
         },
         {
-          "question": "¿Puedo cambiar entre vista Grid y List?",
-          "answer": "Algunas bibliotecas ofrecen vistas <strong>Grid</strong> y <strong>List</strong>. Usa los controles de vista cerca de la parte superior cuando estén disponibles."
+          "question": "¿Puedo cambiar entre las vistas Cuadrícula y Lista?",
+          "answer": "Algunas páginas de biblioteca ofrecen las vistas <strong>Cuadrícula</strong> y <strong>Lista</strong>. Utiliza los controles de vista situados cerca de la parte superior de la biblioteca cuando estén disponibles."
         },
         {
-          "question": "¿Dónde están los enlaces a la obra original?",
-          "answer": "El menú tiene una sección <strong>Support the Original Work</strong> con enlaces a la novela ligera oficial, el manga y recursos web del autor. Son enlaces externos y se abren fuera de AdaShimaverse."
+          "question": "¿Dónde están los enlaces a las obras originales?",
+          "answer": "El menú incluye una sección de <strong>Apoya la obra original</strong> con enlaces a las novelas ligeras, el manga y los recursos de la novela web/blog del autor. Estos enlaces son externos y se abren fuera de AdaShimaverse."
         },
         {
-          "question": "¿Para qué sirven Timeline y Constellation?",
-          "answer": "<strong>Timeline</strong> sirve como referencia cronológica, mientras que <strong>Constellation</strong> permite explorar relaciones y detalles de la serie. Son útiles cuando buscas contexto y no solamente leer un volumen."
+          "question": "¿Para qué sirven Cronología y Constelación?",
+          "answer": "<strong>Cronología</strong> sirve como referencia cronológica, mientras que <strong>Constelación</strong> es una función interactiva de referencia para explorar relaciones y detalles a lo largo de la serie. Son útiles cuando buscas contexto en lugar de simplemente leer un volumen."
         }
       ]
     },
@@ -200,24 +228,24 @@
       "title": "Idioma, apariencia y preferencias",
       "items": [
         {
-          "question": "¿Qué idiomas tiene la interfaz?",
-          "answer": "La interfaz principal incluye <strong>inglés, español y tagalo</strong>. Algunas secciones o contenidos pueden tener una disponibilidad de idiomas diferente según el material."
+          "question": "¿Qué idiomas de interfaz están disponibles?",
+          "answer": "La interfaz del sitio incluye <strong>inglés, español y tagalo</strong> como parte de la localización principal. Algunas secciones o contenidos individuales pueden tener una disponibilidad de idiomas diferente según el material."
         },
         {
           "question": "¿Cómo cambio el idioma?",
-          "answer": "Abre el menú, busca el ajuste de <strong>Language</strong> y elige el idioma que prefieras. La selección se guarda localmente en el navegador."
+          "answer": "Abre el menú, busca el ajuste de <strong>Idioma</strong> y elige el idioma que quieras. La selección se guarda localmente en tu navegador para poder restaurarla en una visita posterior."
         },
         {
           "question": "¿Qué es la apariencia basada en la hora?",
-          "answer": "La apariencia basada en la hora cambia automáticamente el aspecto del sitio según la hora del día. Puedes desactivar esta función y elegir las opciones de apariencia disponibles desde el menú."
+          "answer": "La apariencia basada en la hora cambia automáticamente la apariencia del sitio según la hora del día. Puedes desactivar este comportamiento y utilizar las opciones de apariencia disponibles desde el menú."
         },
         {
-          "question": "¿Qué hace el ajuste Mobile menu button?",
-          "answer": "Controla si el botón flotante del menú móvil aparece en otras páginas. En la página de inicio el botón permanece disponible."
+          "question": "¿Qué hace el ajuste del botón de menú móvil?",
+          "answer": "Controla si el botón de menú móvil flotante aparece en otras páginas. La página de inicio mantiene disponible su botón de menú independientemente de este ajuste."
         },
         {
           "question": "¿Necesito una cuenta?",
-          "answer": "No. No necesitas una cuenta para navegar o usar las funciones normales de lectura. Algunas preferencias se guardan localmente en el navegador en lugar de estar vinculadas a una cuenta."
+          "answer": "No necesitas una cuenta para utilizar las funciones normales de navegación y lectura del sitio. Algunas preferencias se guardan localmente en tu navegador en lugar de estar vinculadas a una cuenta de usuario."
         }
       ]
     },
@@ -228,28 +256,72 @@
       "title": "Estructura del archivo y metadatos",
       "items": [
         {
-          "question": "¿Cuál es la diferencia entre Novelas, Manga y Extra Stories?",
-          "answer": "<strong>Novelas</strong> contiene el archivo principal de las novelas ligeras. <strong>Manga</strong> reúne las adaptaciones de manga y sus volúmenes. <strong>Extra Stories</strong> contiene material breve o complementario organizado como historias individuales. Son colecciones distintas, no tres versiones de la misma biblioteca."
+          "question": "¿Cuál es la diferencia entre Novelas, Manga e Historias adicionales?",
+          "answer": "<strong>Novelas</strong> es el archivo principal de novelas ligeras. <strong>Manga</strong> contiene las adaptaciones al manga y sus volúmenes. <strong>Historias adicionales</strong> está destinado a material más breve o complementario que resulta más fácil de explorar como historias individuales. Considera estas secciones como colecciones independientes en lugar de tres versiones de la misma biblioteca."
         },
         {
-          "question": "¿Por qué algunas entradas tienen etiquetas como Special, Short Story o Upcoming?",
-          "answer": "Las etiquetas indican cómo se clasifica cada entrada en el archivo. <strong>Special</strong> identifica material como el Volumen 99.9, <strong>Short Story</strong> identifica las colecciones de historias cortas y <strong>Upcoming</strong> indica un volumen con fecha conocida que todavía no forma parte del archivo publicado."
+          "question": "¿Por qué algunas entradas tienen etiquetas como Especial, Historia corta o Próximamente?",
+          "answer": "Estas etiquetas indican cómo está clasificada una entrada dentro del archivo. <strong>Especial</strong> identifica material como el Volumen 99.9, <strong>Historia corta</strong> identifica las recopilaciones de historias cortas y <strong>Próximamente</strong> se utiliza para un volumen cuyo lanzamiento es conocido pero que todavía no forma parte del archivo publicado."
         },
         {
           "question": "¿Por qué el número de páginas puede diferir del libro impreso?",
-          "answer": "El número de páginas del archivo se basa en las páginas representadas por el documento almacenado y en su rango registrado. El material inicial, las convenciones de numeración, los escaneos u otras diferencias del documento pueden hacer que el número no coincida con el anunciado por la editorial."
+          "answer": "El número de páginas del archivo se basa en las páginas representadas en el documento almacenado y en su rango de páginas registrado. El material preliminar, las convenciones de numeración, los escaneos u otras diferencias del documento pueden hacer que el recuento del archivo difiera del número de páginas anunciado por la editorial. Utiliza el rango de páginas registrado cuando necesites saber exactamente qué está contando el archivo."
         },
         {
-          "question": "¿Cómo debería leer material relacionado con un volumen concreto?",
-          "answer": "Cuando una historia extra, ilustración u otro elemento pertenece claramente a una publicación concreta, lo más seguro es leer primero el volumen principal correspondiente. Así conservas el contexto y reduces el riesgo de encontrarte con referencias antes de tiempo."
+          "question": "¿Cómo debería leer el material relacionado con un volumen concreto?",
+          "answer": "Cuando una historia adicional, ilustración u otro elemento pertenezca claramente a un lanzamiento específico, lo más seguro es leer primero el volumen principal correspondiente. Esto conserva el contexto y reduce la posibilidad de encontrarte con un personaje, acontecimiento o referencia antes del momento previsto en la serie."
         },
         {
-          "question": "¿Por qué algunos contenidos están disponibles en un idioma y no en otro?",
-          "answer": "La interfaz del sitio y el contenido del archivo son cosas distintas. La interfaz admite varios idiomas, pero un libro, artículo, ilustración u otro recurso puede existir solo en determinados idiomas. Que falte un idioma no significa necesariamente que falte el contenido."
+          "question": "¿Por qué algunos contenidos están disponibles en un idioma pero no en otro?",
+          "answer": "La interfaz y el material de origen del archivo son cosas distintas. La interfaz del sitio admite varios idiomas, pero un libro, artículo, entrada de galería u otro recurso individual puede tener una fuente o traducción disponible únicamente en determinados idiomas. Que falte una opción de idioma no significa necesariamente que el elemento original no esté disponible."
         },
         {
-          "question": "¿Dónde puedo comprobar la fuente o la información oficial de publicación?",
-          "answer": "Según lo que busques, consulta la entrada correspondiente, Timeline, los metadatos de Gallery o About. Cuando el archivo ofrece un enlace oficial, úsalo como referencia para información del editor o creador en lugar de tratar el archivo de fans como fuente oficial."
+          "question": "¿Dónde puedo consultar la información de la fuente o del lanzamiento oficial?",
+          "answer": "Utiliza la página del elemento correspondiente, la Cronología, los metadatos de la Galería o la sección Acerca de, dependiendo de lo que quieras comprobar. Cuando el archivo proporcione un enlace externo a la obra oficial, da prioridad a esa fuente para obtener información sobre la editorial o los creadores en lugar de considerar el archivo de fans como una autoridad."
+        }
+      ]
+    },
+    {
+      "id": "translations",
+      "icon": "fa-language",
+      "eyebrow": "TRADUCCIONES Y FUENTES",
+      "title": "Traducciones, fuentes y lanzamientos oficiales",
+      "items": [
+        {
+          "question": "¿Las novelas, el manga y otras obras en formato libro están traducidas oficialmente?",
+          "answer": "<strong>No.</strong> Las novelas, el manga y otras obras en formato libro disponibles en inglés a través de AdaShimaverse son <strong>traducciones de fans, no traducciones oficiales</strong>. El archivo utiliza versiones traducidas por fans del material en lugar de presentarlas como ediciones inglesas licenciadas. Cuando existe un lanzamiento oficial en inglés, esa edición sigue siendo la publicación oficial con licencia y la referencia autorizada."
+        },
+        {
+          "question": "¿Por qué AdaShimaverse utiliza traducciones de fans?",
+          "answer": "El archivo busca facilitar la exploración de la serie en su conjunto, incluido el material que puede no tener un lanzamiento oficial en inglés. Las traducciones de fans permiten acceder a obras que de otro modo no estarían disponibles en inglés, mientras que el archivo las diferencia claramente de las ediciones con licencia oficial."
+        },
+        {
+          "question": "¿Cambiar el idioma del sitio traduce las novelas o el manga?",
+          "answer": "<strong>No.</strong> El idioma de la interfaz del sitio y el idioma del material archivado son independientes. Cambiar la interfaz a inglés, español o tagalo modifica los menús y otros textos del sitio; no traduce automáticamente una novela, manga u otro documento original."
+        },
+        {
+          "question": "¿Todas las obras del archivo están disponibles en inglés?",
+          "answer": "No. La disponibilidad de idiomas depende de cada obra y del material de origen disponible para el archivo. Algunos elementos pueden tener una traducción de fans al inglés, una edición oficial en inglés, otro idioma o no tener ninguna versión en inglés."
+        },
+        {
+          "question": "¿Por qué una traducción de fans puede diferir de otra versión en inglés?",
+          "answer": "Las distintas traducciones pueden tomar decisiones diferentes respecto a la redacción, el tono, los nombres, la terminología y los diálogos. Por lo tanto, una traducción de fans debe considerarse <strong>una traducción del texto original</strong>, no una copia idéntica de otra edición en inglés. Al comparar versiones, las diferencias no significan necesariamente que una versión sea automáticamente incorrecta."
+        },
+        {
+          "question": "¿Una traducción de fans es lo mismo que una edición oficial en inglés?",
+          "answer": "No. Una edición oficial es publicada o licenciada por los titulares de los derechos y sigue el proceso editorial y de traducción de la editorial. Una traducción de fans se produce de forma independiente y no tiene el mismo estatus oficial, incluso cuando adapta el mismo material japonés."
+        },
+        {
+          "question": "¿Debería apoyar los lanzamientos oficiales en inglés?",
+          "answer": "<strong>Sí, siempre que exista un lanzamiento oficial.</strong> Comprar ediciones licenciadas apoya a los creadores, traductores, editoriales y titulares de derechos involucrados en la serie. Las traducciones de fans del archivo tienen como objetivo facilitar el acceso a un conjunto más amplio de material, no sustituir las publicaciones con licencia oficial."
+        },
+        {
+          "question": "¿Dónde puedo encontrar los lanzamientos oficiales?",
+          "answer": "Utiliza los enlaces de <strong>Apoya la obra original</strong> del sitio cuando estén disponibles. Estos dirigen a los lectores hacia fuentes oficiales de las novelas ligeras, el manga y otro material con licencia. Para conocer la disponibilidad específica de cada editorial, confía siempre en la fuente oficial enlazada en lugar de considerar el archivo de fans como la autoridad."
+        },
+        {
+          "question": "¿Puedo reportar un problema con una traducción?",
+          "answer": "Sí. Si encuentras una posible traducción incorrecta, un pasaje omitido, terminología inconsistente u otro problema en material traducido del archivo, utiliza <strong>Enviar comentarios</strong> e indica la obra, volumen, capítulo o página exactos, así como la parte que parece incorrecta. Cuando sea posible, explica qué esperabas encontrar para que el problema pueda investigarse."
         }
       ]
     },
@@ -257,31 +329,103 @@
       "id": "stats-guide",
       "icon": "fa-chart-simple",
       "eyebrow": "ESTADÍSTICAS",
-      "title": "Cómo entender la página de estadísticas",
+      "title": "Cómo entender la página de Estadísticas",
       "items": [
         {
           "question": "¿Qué cuentan los totales principales?",
-          "answer": "La página de Statistics separa la <strong>colección registrada</strong> del <strong>material publicado</strong>. Los totales de capítulos y páginas excluyen las entradas futuras sin número de páginas registrado, mientras que el total de volúmenes registrados puede incluir una publicación futura."
+          "answer": "La página de Estadísticas separa la <strong>colección registrada</strong> del <strong>material publicado</strong>. Los totales de capítulos y páginas excluyen las entradas próximas que no tienen un número de páginas registrado, mientras que el número de volúmenes registrados puede incluir un lanzamiento próximo."
         },
         {
           "question": "¿Cómo se calcula el retraso de traducción?",
-          "answer": "El retraso corresponde al número de días entre la <strong>fecha de publicación japonesa</strong> registrada y la <strong>fecha de finalización en inglés</strong> registrada. Es una métrica del archivo, no una medida del tiempo que tardó una editorial oficial en publicar una edición inglesa."
+          "answer": "El retraso de traducción es el número de días entre la <strong>fecha de lanzamiento japonesa registrada</strong> y la <strong>fecha de finalización de la traducción al inglés registrada</strong>. Es una métrica del archivo, no una medida del tiempo que tardó una editorial oficial en publicar una edición en inglés."
         },
         {
           "question": "¿Qué mide el intervalo de publicación?",
-          "answer": "Es el número de días entre las fechas de publicación japonesa de dos entradas consecutivas incluidas en las estadísticas. Describe la separación entre publicaciones, no el tiempo necesario para escribir o traducir un volumen."
+          "answer": "Un intervalo de publicación es el número de días entre las fechas de lanzamiento japonesas de dos entradas consecutivas publicadas que están incluidas en las estadísticas. Describe el espacio entre lanzamientos, no el tiempo necesario para escribir o traducir un volumen."
         },
         {
-          "question": "¿Por qué un volumen futuro aparece en unas estadísticas y no en otras?",
-          "answer": "El material futuro es útil para describir la colección completa, por lo que puede aparecer en los recuentos de volúmenes registrados o categorías. Se excluye de métricas que necesitan páginas completas, contenido publicado o una fecha de traducción terminada."
+          "question": "¿Por qué un volumen próximo aparece en unas estadísticas pero no en otras?",
+          "answer": "El material próximo es útil para describir la colección en su conjunto, por lo que puede aparecer en los recuentos de volúmenes registrados o de categorías. Se excluye de las métricas que requieren números de páginas completos, capítulos representados en el archivo publicado o una fecha de traducción finalizada."
         },
         {
           "question": "¿Pueden cambiar las estadísticas?",
-          "answer": "Sí. La página se genera a partir de los datos estadísticos del archivo, por lo que corregir fechas, páginas, clasificaciones o estados de publicación puede cambiar los resultados. Los números deben entenderse como una instantánea del conjunto de datos actual."
+          "answer": "Sí. La página se genera a partir de los datos estadísticos del archivo, por lo que las correcciones de fechas, números de páginas, clasificaciones o estados de publicación pueden modificar los resultados. Los números deben interpretarse como una instantánea del conjunto de datos actual del archivo y no como hechos inmutables."
         },
         {
-          "question": "¿Cuál es la mejor forma de usar la sección Charts?",
-          "answer": "Usa los gráficos para comparar, no para sacar conclusiones absolutas. <strong>Pages per Volume</strong> y <strong>Chapters per Volume</strong> comparan la estructura; <strong>Cumulative Pages</strong> muestra el tamaño acumulado del archivo publicado; y <strong>Translation Delay</strong> compara los intervalos JP→EN registrados."
+          "question": "¿Cuál es la mejor manera de utilizar la sección de gráficos?",
+          "answer": "Utiliza los gráficos para hacer comparaciones en lugar de sacar conclusiones absolutas. <strong>Páginas por volumen</strong> y <strong>Capítulos por volumen</strong> comparan la estructura; <strong>Páginas acumuladas</strong> muestra el tamaño progresivo de la colección publicada; y <strong>Retraso de traducción</strong> muestra cómo varía el intervalo registrado entre JP y EN según cada entrada."
+        }
+      ]
+    },
+    {
+      "id": "constellation",
+      "icon": "fa-star",
+      "eyebrow": "CONSTELACIÓN",
+      "title": "Constelación y desbloqueos",
+      "items": [
+        {
+          "question": "¿Qué es la página de Constelación?",
+          "answer": "Constelación es una sección interactiva en la que <strong>conectas estrellas para completar constelaciones</strong>. Cada constelación completada puede desbloquear una recompensa, como una minihistoria u otro contenido del archivo."
+        },
+        {
+          "question": "¿Cómo se desbloquean las recompensas?",
+          "answer": "Cada recompensa está vinculada a un <strong>número específico de constelaciones completadas</strong>. Al alcanzar ese número, se abre automáticamente una ventana con la recompensa correspondiente, que puede incluir un <strong>PDF de una minihistoria</strong> u otro contenido especial."
+        },
+        {
+          "question": "¿Qué son los perfiles de Adachi y Shimamura?",
+          "answer": "Son secciones bloqueadas que se desbloquean al alcanzar determinados hitos: el <strong>perfil de Shimamura se desbloquea después de completar 3 constelaciones</strong>, mientras que el <strong>perfil de Adachi, junto con el acceso completo a todas las historias, se desbloquea después de completar 10</strong>."
+        },
+        {
+          "question": "¿Se guarda mi progreso? ¿Se sincroniza entre dispositivos?",
+          "answer": "El progreso se guarda <strong>localmente en tu navegador</strong>, no en una cuenta. Esto significa que no se sincronizará entre dispositivos y que borrar los datos del sitio de tu navegador restablecerá tus constelaciones y desbloqueos."
+        },
+        {
+          "question": "¿Qué es la insignia de estado de la novela en la barra lateral?",
+          "answer": "Es un indicador rápido que muestra el <strong>estado actual de la novela ligera</strong> (por ejemplo, en publicación o finalizada) directamente desde la barra lateral, sin necesidad de visitar la sección Novelas."
+        }
+      ]
+    },
+    {
+      "id": "gallery",
+      "icon": "fa-images",
+      "eyebrow": "GALERÍA",
+      "title": "Explorar la Galería",
+      "items": [
+        {
+          "question": "¿Qué hay en la Galería?",
+          "answer": "La Galería reúne <strong>ilustraciones oficiales</strong> procedentes de las novelas ligeras y otro material visual, organizado por volumen y por artista cuando esa información está disponible."
+        },
+        {
+          "question": "¿Cómo está organizada?",
+          "answer": "Las obras están agrupadas por <strong>volumen</strong> (Volumen 01, Volumen 02, etc.) y también puedes <strong>filtrar por colección</strong> mediante los filtros situados en la parte superior de la página."
+        },
+        {
+          "question": "¿Puedo ver una imagen en tamaño completo?",
+          "answer": "Sí. Al seleccionar una obra se abre una <strong>vista ampliada</strong> con detalles como el título, el artista y la publicación de origen."
+        },
+        {
+          "question": "Un volumen no muestra ilustraciones. ¿Es normal?",
+          "answer": "Sí, puede ocurrir mientras el archivo sigue creciendo. Si crees que falta contenido que debería estar disponible, puedes reportarlo mediante <strong>Enviar comentarios</strong>."
+        }
+      ]
+    },
+    {
+      "id": "minigame",
+      "icon": "fa-gamepad",
+      "eyebrow": "JUEGO DE YASHIRO",
+      "title": "Sobre el minijuego de Yashiro",
+      "items": [
+        {
+          "question": "¿Qué es el minijuego de Yashiro?",
+          "answer": "Es un pequeño juego independiente inspirado en el personaje de <strong>Yashiro</strong>, creado como contenido adicional y ligero del archivo, sin una conexión directa con la historia principal."
+        },
+        {
+          "question": "¿El progreso del juego se guarda en una cuenta?",
+          "answer": "AdaShimaverse no tiene cuentas. Si el juego guarda alguna preferencia o puntuación, lo hace <strong>localmente en tu navegador</strong>, igual que el resto del sitio."
+        },
+        {
+          "question": "¿Dónde lo encuentro?",
+          "answer": "Puedes acceder a él mediante su enlace en el menú de navegación del sitio."
         }
       ]
     },
@@ -289,31 +433,31 @@
       "id": "troubleshooting",
       "icon": "fa-wrench",
       "eyebrow": "SOLUCIÓN DE PROBLEMAS",
-      "title": "Cuando algo no funciona",
+      "title": "Cuando algo sale mal",
       "items": [
         {
-          "question": "Una página aparece completamente en blanco. ¿Qué hago?",
-          "answer": "Primero recarga la página. Si sigue en blanco, prueba una recarga completa y después una ventana privada/incógnito u otro navegador. Si solo ocurre en una página, incluye esa página exacta en tu reporte."
+          "question": "Una página está completamente en blanco. ¿Qué hago?",
+          "answer": "Primero, vuelve a cargar la página. Si sigue en blanco, prueba una recarga forzada y después intenta abrir la página en una ventana privada/de incógnito o en otro navegador. Si solo una página está afectada, incluye esa página exacta en tu reporte de error."
         },
         {
-          "question": "El lector abre pero el documento está en blanco o no termina de cargar.",
-          "answer": "Espera unos segundos y vuelve a cargar la página. Comprueba que JavaScript esté habilitado y que el navegador o alguna extensión no esté bloqueando los recursos del documento. Si funciona en otro navegador, indica cuál falló y qué volumen estaba afectado."
+          "question": "El lector se abre, pero el documento está en blanco o se queda cargando.",
+          "answer": "Espera un momento para que el documento termine de cargar y después actualiza la página. Comprueba que JavaScript esté habilitado y que tu navegador o alguna extensión que bloquee contenido no esté impidiendo la carga de los recursos del documento. Si funciona en otro navegador, indica cuál es el navegador original y qué volumen está afectado al reportarlo."
         },
         {
-          "question": "Faltan imágenes, audio u otro contenido.",
-          "answer": "Recarga la página y comprueba primero tu conexión. Si el resto del sitio funciona pero un elemento concreto no, puede tratarse de un problema de ese recurso. Indica el título, volumen, pista o elemento exacto al reportarlo."
+          "question": "Faltan imágenes, audio o un elemento específico.",
+          "answer": "Primero vuelve a cargar la página y comprueba tu conexión. Si el resto del sitio funciona pero un solo elemento no, el problema puede estar relacionado específicamente con ese recurso. Indica el título, volumen, pista o elemento de la Galería exacto para que pueda investigarse."
         },
         {
           "question": "El sitio parece desactualizado después de una actualización.",
-          "answer": "Es posible que el navegador siga usando recursos antiguos en caché. Haz una recarga completa. Si instalaste el sitio o usas caché sin conexión, ciérralo y vuelve a abrirlo para cargar los recursos actuales."
+          "answer": "Es posible que tu navegador todavía tenga almacenado en caché un recurso antiguo. Prueba una recarga forzada. Si instalaste el sitio o utilizas almacenamiento en caché sin conexión, ciérralo y vuelve a abrirlo para que pueda cargar los recursos más recientes."
         },
         {
-          "question": "Desaparecieron mis marcadores o mi progreso.",
-          "answer": "Los marcadores y el progreso de Extra Stories se guardan localmente en el navegador. Pueden desaparecer si se borraron los datos del sitio, se restableció el almacenamiento local o cambiaste de navegador/dispositivo. Actualmente no hay sincronización mediante cuenta."
+          "question": "Mis marcadores o mi progreso de lectura desaparecieron.",
+          "answer": "Los marcadores y el progreso de lectura de Historias adicionales se almacenan localmente en tu navegador. Pueden desaparecer si se borraron los datos del sitio, se restableció el almacenamiento local o cambiaste de navegador o dispositivo. Actualmente no existe sincronización basada en cuentas para estas funciones locales."
         },
         {
           "question": "Una descarga indica que el archivo no está disponible.",
-          "answer": "Es posible que el archivo no esté disponible para ese elemento en este momento. Intenta de nuevo más tarde y comprueba si existe otro formato. Si un archivo que antes funcionaba dejó de hacerlo, indica el volumen o elemento exacto al reportarlo."
+          "answer": "Es posible que el archivo no esté disponible actualmente para ese elemento. Inténtalo de nuevo más tarde y comprueba si se ofrece otro formato. Si un archivo que antes funcionaba ha dejado de hacerlo, indica el volumen o elemento exacto al reportarlo."
         }
       ]
     },
@@ -324,29 +468,57 @@
       "title": "Reporta un problema o sugiere una mejora",
       "items": [
         {
-          "question": "¿Qué tipo de problemas puedo reportar?",
-          "answer": "Puedes reportar <strong>páginas rotas, archivos faltantes, información incorrecta, errores de traducción, enlaces rotos, problemas del lector</strong> y fallos visuales o técnicos."
+          "question": "¿Qué debería reportar?",
+          "answer": "Puedes reportar <strong>páginas rotas, archivos faltantes, información incorrecta, errores de traducción, enlaces rotos, problemas con el lector, errores visuales</strong> o cualquier otra cosa que te impida utilizar el sitio con normalidad."
         },
         {
-          "question": "¿Qué información hace útil un reporte?",
-          "answer": "Incluye la <strong>página o sección, título/volumen/capítulo, navegador y dispositivo</strong> cuando sea relevante, y explica brevemente qué esperabas que ocurriera y qué ocurrió. Una captura de pantalla también puede ayudar."
+          "question": "¿Qué información hace útil un reporte de errores?",
+          "answer": "Incluye la <strong>página o sección, título/volumen/capítulo, navegador y dispositivo</strong> cuando sea relevante, además de una breve descripción de lo que esperabas que ocurriera frente a lo que realmente ocurrió. Una captura de pantalla o un error de consola también puede ser útil cuando el problema es visual o técnico."
         },
         {
           "question": "¿Puedo sugerir una función?",
-          "answer": "Sí. Se aceptan sugerencias para nuevas funciones, mejoras de navegación, controles del lector, organización del archivo y pequeños cambios que hagan el sitio más cómodo. Explica qué problema resolvería la función."
+          "answer": "Sí. Las sugerencias de nuevas funciones, mejoras de navegación, controles del lector, organización del archivo o cambios que mejoren la experiencia son bienvenidas. Explica el problema que resolvería la función en lugar de limitarte a describir el botón que quieres que se añada."
         },
         {
-          "question": "¿Dónde envío comentarios?",
-          "answer": "Usa el formulario <strong>Send Feedback</strong> del sitio cuando esté disponible. Para información del proyecto, créditos y detalles generales, consulta <strong>About</strong>."
+          "question": "¿Dónde envío mis comentarios?",
+          "answer": "Utiliza el formulario de <strong>Enviar comentarios</strong> del sitio cuando esté disponible. Para obtener información del proyecto, créditos y otros detalles oficiales del sitio, consulta la sección <strong>Acerca de</strong>."
         },
         {
           "question": "¿Quién posee los derechos de la serie original?",
-          "answer": "<em>Adachi and Shimamura</em>, sus personajes, ilustraciones y obras relacionadas pertenecen a sus respectivos titulares de derechos. AdaShimaverse es un proyecto de fans no oficial y no reclama la propiedad de la obra original."
+          "answer": "<em>Adachi and Shimamura</em> y sus personajes originales, ilustraciones y obras relacionadas pertenecen a sus respectivos titulares de derechos. AdaShimaverse es un proyecto de fans no oficial y no reclama la propiedad de la obra original."
+        }
+      ]
+    },
+    {
+      "id": "dmca",
+      "icon": "fa-scale-balanced",
+      "eyebrow": "DMCA Y DERECHOS DE AUTOR",
+      "title": "DMCA y derechos de autor",
+      "items": [
+        {
+          "question": "¿Cuál es la postura de AdaShimaverse sobre los derechos de autor?",
+          "answer": "AdaShimaverse es un archivo de fans no oficial y sin fines de lucro. <em>Adachi and Shimamura</em>, sus personajes, ilustraciones y obras relacionadas pertenecen a sus respectivos titulares de derechos. No reclamamos la propiedad de ningún material original mencionado o alojado en el sitio, y respetamos los derechos de los creadores y editoriales."
+        },
+        {
+          "question": "¿Cómo pido que se retire algo?",
+          "answer": "Si eres titular de derechos (o representas a uno) y te gustaría que se retirara algo de AdaShimaverse, contáctanos a través de <strong>Enviar comentarios</strong> o los datos de contacto en la sección <strong>Acerca de</strong>. Cuéntanos que es una solicitud relacionada con derechos de autor para poder atenderla con prioridad."
+        },
+        {
+          "question": "¿Qué debería incluir en mi solicitud?",
+          "answer": "Ayuda incluir: de qué material se trata, dónde aparece en el sitio (un enlace o el nombre de la página) y una forma de contactarte por si tenemos alguna duda. Con eso suele bastarnos para revisarlo."
+        },
+        {
+          "question": "¿Cuánto tiempo tarda?",
+          "answer": "Revisamos las solicitudes lo antes posible y retiramos o deshabilitamos el contenido que no debería estar publicado. Como este es un proyecto pequeño hecho por fans, el tiempo de respuesta puede variar, así que gracias por tu paciencia."
+        },
+        {
+          "question": "¿Retirar contenido significa que AdaShimaverse admite alguna infracción?",
+          "answer": "No. Nos tomamos en serio estas solicitudes y preferimos pecar de cautelosos y retirar algo antes que dejar publicado algo que no debería estarlo. AdaShimaverse es un proyecto de fans, sin fines de lucro, hecho con cariño por la serie."
         }
       ]
     }
   ],
-  "noResults": "No se encontraron temas de ayuda.",
-  "footer": "Sitio de fans no oficial de Adachi to Shimamura.<br />Creado por fans, sin fines de lucro.<br />Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma.",
-  "about": "Sobre AdaShimaverse"
+  "noResults": "No se encontraron temas de ayuda coincidentes.",
+  "footer": "Sitio de fans no oficial de Adachi to Shimamura.<br />Creado por fans, sin fines de lucro.<br />Adachi to Shimamura y todos los derechos pertenecen a Hitoma Iruma.",
+  "about": "Acerca de AdaShimaverse"
 }

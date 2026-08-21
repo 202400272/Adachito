@@ -38,6 +38,10 @@ let currentLang = (() => {
   return normalizeLanguage(storedLang, "es");
 })();
 
+let musicData = null;
+let currentAlbumId = null;
+let albumScrollPosition = 0;
+
 function getTrackUrl(albumFolder, filename) {
   return `${R2_CONFIG.baseUrl}/${R2_CONFIG.musicPath}/${albumFolder}/${encodeURIComponent(filename)}`;
 }
@@ -56,8 +60,7 @@ function showDownloadNotice(message) {
 async function triggerDirectDownload(url, filename) {
   try {
     const response = await fetch(url);
-    if (!response.ok || !response.body)
-      throw new Error("Download request failed");
+    if (!response.ok || !response.body) throw new Error("Download request failed");
     const reader = response.body.getReader();
     const chunks = [];
     while (true) {
@@ -75,7 +78,7 @@ async function triggerDirectDownload(url, filename) {
     link.click();
     window.URL.revokeObjectURL(blobUrl);
     link.remove();
-  } catch (err) {
+  } catch {
     const link = document.createElement("a");
     link.style.display = "none";
     link.href = url;
@@ -89,8 +92,8 @@ async function triggerDirectDownload(url, filename) {
       currentLang === "en"
         ? "⚠️ Your browser or ad blocker prevented the direct download. The file was opened in a new tab; save it from there."
         : currentLang === "tg"
-        ? "⚠️ Hindi pinahintulutan ng iyong browser o ad blocker ang direktang pag-download. Binuksan ang file sa isang bagong tab; i-save ito mula doon."
-        : "⚠️ Tu navegador o bloqueador de anuncios impidió la descarga directa. Se abrió el archivo en una nueva pestaña; guárdalo desde ahí.",
+          ? "⚠️ Hindi pinahintulutan ng iyong browser o ad blocker ang direktang pag-download. Binuksan ang file sa isang bagong tab; i-save ito mula doon."
+          : "⚠️ Tu navegador o bloqueador de anuncios impidió la descarga directa. Se abrió el archivo en una nueva pestaña; guárdalo desde ahí.",
     );
   }
 }
@@ -110,7 +113,7 @@ async function downloadSingleTrack(url, filename, btnElement) {
       icon.setAttribute("data-icon", "mdi:check-circle");
       icon.classList.add("dl-success", "dl-pop");
     }
-  } catch (error) {
+  } catch {
     if (icon) {
       icon.classList.remove("spin-anim");
       icon.setAttribute("data-icon", "mdi:alert-circle");
@@ -128,15 +131,11 @@ async function downloadSingleTrack(url, filename, btnElement) {
 }
 
 function updateLangLabel() {
-  const sel = document.querySelector(
-    `.lang-option[data-lang="${currentLang}"]`,
-  );
+  const sel = document.querySelector(`.lang-option[data-lang="${currentLang}"]`);
   const label = document.getElementById("langSelectedLabel");
   if (sel && label) {
     label.textContent = sel.getAttribute("data-label");
-    document
-      .querySelectorAll(".lang-option")
-      .forEach((o) => o.classList.remove("selected"));
+    document.querySelectorAll(".lang-option").forEach((o) => o.classList.remove("selected"));
     sel.classList.add("selected");
   }
 }
@@ -144,20 +143,16 @@ function updateLangLabel() {
 function updateFavoritesBackLabel() {
   const label = document.getElementById("backFromFavoritesLabel");
   if (!label) return;
-  label.textContent = 
-    currentLang === "en" ? "Back to Music" :
-    currentLang === "tg" ? "Bumalik sa Musika" :
-    "Volver a la Música";
+  label.textContent =
+    currentLang === "en"
+      ? "Back to Music"
+      : currentLang === "tg"
+        ? "Bumalik sa Musika"
+        : "Volver a la Música";
 }
 
-function updateFooterText() {
-  const footerText = document.getElementById("footerText");
-  if (!footerText) return;
-  footerText.innerHTML =
-    footerText.getAttribute(`data-${currentLang}`) ||
-    footerText.getAttribute("data-es") ||
-    "Fan site no oficial de Adachi to Shimamura.<br />Creado por fans, sin fines de lucro.<br />Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma.";
-}
+// Footer is now the shared component (src/components/js/footer.js), which
+// handles its own translation.
 
 function getFavoriteKey(albumId, trackId) {
   return `${albumId}:${trackId}`;
@@ -169,7 +164,6 @@ function matchesTrackId(itemId, candidateId) {
 
 updateLangLabel();
 updateFavoritesBackLabel();
-updateFooterText();
 
 (function () {
   let albums = [];
@@ -228,14 +222,18 @@ updateFooterText();
           });
         }
       }
-    } catch (e) {}
+    } catch {
+      /* ignored */
+    }
 
     try {
       const savedView = localStorage.getItem("adashima_music_view");
       if (savedView === "compact" || savedView === "standard") {
         currentView = savedView;
       }
-    } catch (e) {}
+    } catch {
+      /* ignored */
+    }
   }
 
   hydrateFavorites();
@@ -246,8 +244,8 @@ updateFooterText();
   const albumGrid = document.getElementById("albumGrid");
   const albumTrackTable = document.getElementById("albumTrackTable");
   const compactTrackTable = document.getElementById("compactTrackTable");
-  const compactViewContainer = document.getElementById("compactViewContainer");
-  const trackTableWrapper = document.getElementById("trackTableWrapper");
+  const _compactViewContainer = document.getElementById("compactViewContainer");
+  const _trackTableWrapper = document.getElementById("trackTableWrapper");
   const albumEmptyState = document.getElementById("albumEmptyState");
   const albumSearchInput = document.getElementById("albumSearchInput");
   const albumResultCount = document.getElementById("albumResultCount");
@@ -279,9 +277,7 @@ updateFooterText();
   const shuffleAlbumBtn = document.getElementById("shuffleAlbumBtn");
   const backToLibraryBtn = document.getElementById("backToLibraryBtn");
   const expandPlayerBtn = document.getElementById("expandPlayerBtn");
-  const expandedPlayerOverlay = document.getElementById(
-    "expandedPlayerOverlay",
-  );
+  const expandedPlayerOverlay = document.getElementById("expandedPlayerOverlay");
   const expandedPlayerClose = document.getElementById("expandedPlayerClose");
   const expandedPlayerBg = document.getElementById("expandedPlayerBg");
   const expandedArtwork = document.getElementById("expandedArtwork");
@@ -293,26 +289,20 @@ updateFooterText();
   const expandedNext = document.getElementById("expandedNext");
   const expandedShuffle = document.getElementById("expandedShuffle");
   const expandedRepeat = document.getElementById("expandedRepeat");
-  const expandedProgressSlider = document.getElementById(
-    "expandedProgressSlider",
-  );
+  const expandedProgressSlider = document.getElementById("expandedProgressSlider");
   const expandedCurrentTime = document.getElementById("expandedCurrentTime");
   const expandedTotalTime = document.getElementById("expandedTotalTime");
   const expandedQueueList = document.getElementById("expandedQueueList");
   const expandedQueueCount = document.getElementById("expandedQueueCount");
 
   const albumDetailCover = document.getElementById("albumDetailCover");
-  const albumDetailCoverFallback = document.getElementById(
-    "albumDetailCoverFallback",
-  );
+  const albumDetailCoverFallback = document.getElementById("albumDetailCoverFallback");
   const albumDetailBadge = document.getElementById("albumDetailBadge");
   const albumDetailTitle = document.getElementById("albumDetailTitle");
   const albumDetailTitleJp = document.getElementById("albumDetailTitleJp");
   const albumDetailArtist = document.getElementById("albumDetailArtist");
   const albumDetailYear = document.getElementById("albumDetailYear");
-  const albumDetailTrackCount = document.getElementById(
-    "albumDetailTrackCount",
-  );
+  const albumDetailTrackCount = document.getElementById("albumDetailTrackCount");
   const albumDetailDuration = document.getElementById("albumDetailDuration");
   const albumTracksHeading = document.getElementById("albumTracksHeading");
   const albumEmptyTitle = document.getElementById("albumEmptyTitle");
@@ -329,9 +319,7 @@ updateFooterText();
   const favoritesList = document.getElementById("favoritesList");
   const favoritesEmpty = document.getElementById("favoritesEmpty");
   const backFromFavoritesBtn = document.getElementById("backFromFavoritesBtn");
-  const backFromFavoritesLabel = document.getElementById(
-    "backFromFavoritesLabel",
-  );
+  const _backFromFavoritesLabel = document.getElementById("backFromFavoritesLabel");
   const favoritesResultCount = document.getElementById("favoritesResultCount");
 
   let playerVisible = false;
@@ -344,6 +332,7 @@ updateFooterText();
     }
   }
 
+  // eslint-disable-next-line no-unused-vars -- may be invoked from an inline onclick handler in HTML
   function hidePlayer() {
     if (playerVisible) {
       playerVisible = false;
@@ -377,16 +366,12 @@ updateFooterText();
 
       buildTrackIndex();
 
-      musicPageSubtitle.textContent =
-        data.page?.subtitle || "Original Soundtracks";
-      backToLibraryLabel.textContent =
-        data.page?.backToLibrary || "Back to Music";
+      musicPageSubtitle.textContent = data.page?.subtitle || "Original Soundtracks";
+      backToLibraryLabel.textContent = data.page?.backToLibrary || "Back to Music";
       playAlbumLabel.textContent = data.player?.playAlbum || "Play Album";
       albumTracksHeading.textContent = data.ost?.tracksHeading || "Tracks";
-      albumEmptyTitle.textContent =
-        data.ost?.noTracksFound || "No tracks found";
-      albumEmptyDesc.textContent =
-        data.ost?.noTracksDesc || "Try adjusting your search.";
+      albumEmptyTitle.textContent = data.ost?.noTracksFound || "No tracks found";
+      albumEmptyDesc.textContent = data.ost?.noTracksDesc || "Try adjusting your search.";
 
       renderAlbumGrid();
 
@@ -399,31 +384,52 @@ updateFooterText();
       const favEmptyTitle = document.getElementById("favoritesEmptyTitle");
       const favEmptyDesc = document.getElementById("favoritesEmptyDesc");
       const favResultCount = document.getElementById("favoritesResultCount");
-      if (favLabelEl) favLabelEl.textContent = data.page?.favoritesButtonLabel || (currentLang === "en" ? "Favorites" : currentLang === "tg" ? "Mga Paborito" : "Favoritos");
-      if (favHeadingEl) favHeadingEl.textContent = data.page?.favoritesHeading || (currentLang === "en" ? "Favorites" : currentLang === "tg" ? "Mga Paborito" : "Favoritos");
-      if (favEmptyTitle) favEmptyTitle.textContent = data.page?.favoritesEmptyTitle || (currentLang === "en" ? "No favorites yet" : currentLang === "tg" ? "Wala pang mga paborito" : "Aún no hay favoritos");
-      if (favEmptyDesc) favEmptyDesc.textContent = data.page?.favoritesEmptyDesc || (currentLang === "en" ? "Mark tracks with \"Like\" to see them here." : currentLang === "tg" ? "Markahan ang mga track ng \"Like\" para makita sila dito." : "Marca pistas con \"Me encanta\" para verlas aquí.");
+      if (favLabelEl)
+        favLabelEl.textContent =
+          data.page?.favoritesButtonLabel ||
+          (currentLang === "en"
+            ? "Favorites"
+            : currentLang === "tg"
+              ? "Mga Paborito"
+              : "Favoritos");
+      if (favHeadingEl)
+        favHeadingEl.textContent =
+          data.page?.favoritesHeading ||
+          (currentLang === "en"
+            ? "Favorites"
+            : currentLang === "tg"
+              ? "Mga Paborito"
+              : "Favoritos");
+      if (favEmptyTitle)
+        favEmptyTitle.textContent =
+          data.page?.favoritesEmptyTitle ||
+          (currentLang === "en"
+            ? "No favorites yet"
+            : currentLang === "tg"
+              ? "Wala pang mga paborito"
+              : "Aún no hay favoritos");
+      if (favEmptyDesc)
+        favEmptyDesc.textContent =
+          data.page?.favoritesEmptyDesc ||
+          (currentLang === "en"
+            ? 'Mark tracks with "Like" to see them here.'
+            : currentLang === "tg"
+              ? 'Markahan ang mga track ng "Like" para makita sila dito.'
+              : 'Marca pistas con "Me encanta" para verlas aquí.');
       if (favResultCount) favResultCount.textContent = "0";
       updateFavoritesHeaderCount();
 
       const queueDrawerTitle = document.getElementById("queueDrawerTitle");
-      const queueNowPlayingLabel = document.getElementById(
-        "queueNowPlayingLabel",
-      );
+      const queueNowPlayingLabel = document.getElementById("queueNowPlayingLabel");
       const queueNextUpLabel = document.getElementById("queueNextUpLabel");
       const expandedQueueTitle = document.getElementById("expandedQueueTitle");
 
-      if (queueDrawerTitle)
-        queueDrawerTitle.textContent = data.player?.queueTitle || "Queue";
+      if (queueDrawerTitle) queueDrawerTitle.textContent = data.player?.queueTitle || "Queue";
       if (queueNowPlayingLabel)
-        queueNowPlayingLabel.textContent =
-          data.player?.nowPlaying || "Now Playing";
-      if (queueNextUpLabel)
-        queueNextUpLabel.textContent = data.player?.nextUp || "Next Up";
-      if (expandedQueueTitle)
-        expandedQueueTitle.textContent = data.player?.nextUp || "Up Next";
+        queueNowPlayingLabel.textContent = data.player?.nowPlaying || "Now Playing";
+      if (queueNextUpLabel) queueNextUpLabel.textContent = data.player?.nextUp || "Next Up";
+      if (expandedQueueTitle) expandedQueueTitle.textContent = data.player?.nextUp || "Up Next";
 
-      updateFooterText();
       updateFavoritesBackLabel();
 
       if (favoritesView && favoritesView.style.display === "block") {
@@ -483,8 +489,7 @@ updateFooterText();
       card.setAttribute("aria-label", `Open album: ${album.title}`);
 
       const trackCount = album.tracks ? album.tracks.length : 0;
-      const coverImage =
-        album.coverImage || "../../assets/Imagenes/Adashima ost3.webp";
+      const coverImage = album.coverImage || "../../assets/Imagenes/Adashima ost3.webp";
 
       card.innerHTML = `
             <div class="album-card-artwork">
@@ -539,8 +544,7 @@ updateFooterText();
     if (!albumGrid) return;
     const cards = albumGrid.querySelectorAll(".album-card[data-album-id]");
     cards.forEach((card) => {
-      const isActiveAlbum =
-        !!currentTrackId && card.dataset.albumId === currentAlbumId;
+      const isActiveAlbum = !!currentTrackId && card.dataset.albumId === currentAlbumId;
       card.classList.toggle("playing", isActiveAlbum && isPlaying);
       card.classList.toggle("playing-paused", isActiveAlbum && !isPlaying);
     });
@@ -556,8 +560,7 @@ updateFooterText();
     currentAlbumId = albumId;
     viewMode = "album";
 
-    albumDetailCover.src =
-      album.coverImage || "../../assets/Imagenes/Adashima ost3.webp";
+    albumDetailCover.src = album.coverImage || "../../assets/Imagenes/Adashima ost3.webp";
     albumDetailCover.onerror = function () {
       this.style.display = "none";
       albumDetailCoverFallback.style.display = "flex";
@@ -616,9 +619,7 @@ updateFooterText();
     url.searchParams.set("album", albumId);
     window.history.pushState({ album: albumId, view: "album" }, "", url);
 
-    document
-      .querySelector(".music-page-container")
-      .scrollIntoView({ behavior: "smooth" });
+    document.querySelector(".music-page-container").scrollIntoView({ behavior: "smooth" });
 
     albumSearchInput.value = "";
 
@@ -651,7 +652,9 @@ updateFooterText();
     currentView = view;
     try {
       localStorage.setItem("adashima_music_view", view);
-    } catch (e) {}
+    } catch {
+      /* ignored */
+    }
     applyViewMode();
   }
 
@@ -915,7 +918,9 @@ updateFooterText();
         };
       });
       localStorage.setItem("adashima_music_favorites_v2", JSON.stringify(serialized));
-    } catch (e) {}
+    } catch {
+      /* ignored */
+    }
     updateFavoritesHeaderCount();
   }
 
@@ -1161,12 +1166,12 @@ updateFooterText();
   function updateExpandedQueue() {
     if (!expandedQueueList) return;
     expandedQueueList.innerHTML = "";
-    let currentIndex = -1;
+    let _currentIndex = -1;
 
     queue.forEach((qid, index) => {
       const t = getTrack(qid);
       if (!t) return;
-      if (qid === currentTrackId) currentIndex = index;
+      if (qid === currentTrackId) _currentIndex = index;
 
       const div = document.createElement("div");
       const isCurrent = qid === currentTrackId;
@@ -1248,13 +1253,11 @@ updateFooterText();
   function updateExpandedPlayer() {
     const track = getTrack(currentTrackId);
     if (track) {
-      const displayTitle =
-        track.title_jp || track.title || track.title_es || "Untitled";
+      const displayTitle = track.title_jp || track.title || track.title_es || "Untitled";
       expandedTitle.textContent = displayTitle;
       expandedArtist.textContent = track.artist;
       expandedAlbum.textContent = currentAlbum?.title || "";
-      expandedArtwork.src =
-        currentAlbum?.coverImage || "../../assets/Imagenes/Adashima ost2.webp";
+      expandedArtwork.src = currentAlbum?.coverImage || "../../assets/Imagenes/Adashima ost2.webp";
 
       if (currentAlbum?.coverImage) {
         expandedPlayerBg.style.background = `
@@ -1275,14 +1278,12 @@ updateFooterText();
   function updateUI() {
     const track = getTrack(currentTrackId);
     if (track) {
-      const displayTitle =
-        track.title_jp || track.title || track.title_es || "Untitled";
+      const displayTitle = track.title_jp || track.title || track.title_es || "Untitled";
       playerTitle.textContent = displayTitle;
       playerArtist.textContent = track.artist;
       const thumbImg = playerThumb.querySelector("img");
       if (thumbImg && currentAlbum) {
-        thumbImg.src =
-          currentAlbum.coverImage || "../../assets/Imagenes/Adashima ost1.webp";
+        thumbImg.src = currentAlbum.coverImage || "../../assets/Imagenes/Adashima ost1.webp";
         thumbImg.onerror = function () {
           this.style.display = "none";
           this.parentElement.textContent = "🌸";
@@ -1294,8 +1295,7 @@ updateFooterText();
       const thumbImg = playerThumb.querySelector("img");
       if (thumbImg) {
         thumbImg.style.display = "block";
-        thumbImg.src =
-          currentAlbum?.coverImage || "../../assets/Imagenes/Adashima ost1.webp";
+        thumbImg.src = currentAlbum?.coverImage || "../../assets/Imagenes/Adashima ost1.webp";
       }
     }
     const icon = isPlaying ? "mdi:pause" : "mdi:play";
@@ -1314,16 +1314,12 @@ updateFooterText();
     const isFav = key ? favorites.has(key) : false;
     const icon = isFav ? "mdi:heart" : "mdi:heart-outline";
     favBtn.querySelector(".iconify")?.setAttribute("data-icon", icon);
-    favBtn.setAttribute(
-      "aria-label",
-      isFav ? "Remove from favorites" : "Add to favorites",
-    );
+    favBtn.setAttribute("aria-label", isFav ? "Remove from favorites" : "Add to favorites");
     if (isFav) {
       favBtn.classList.add("faved");
     } else {
       favBtn.classList.remove("faved");
     }
-
   }
 
   function showPlaybackError(title) {
@@ -1419,12 +1415,9 @@ updateFooterText();
     shuffle = !shuffle;
     shuffleBtn.classList.toggle("active", shuffle);
     expandedShuffle.classList.toggle("active", shuffle);
-    if (!currentAlbum || !currentAlbum.tracks || !currentAlbum.tracks.length)
-      return;
+    if (!currentAlbum || !currentAlbum.tracks || !currentAlbum.tracks.length) return;
     if (shuffle) {
-      queue = [...currentAlbum.tracks]
-        .sort(() => Math.random() - 0.5)
-        .map((t) => t.id);
+      queue = [...currentAlbum.tracks].sort(() => Math.random() - 0.5).map((t) => t.id);
       if (currentTrackId) {
         const others = queue.filter((id) => id !== currentTrackId);
         if (others.length) {
@@ -1442,17 +1435,11 @@ updateFooterText();
   repeatBtn.addEventListener("click", () => {
     repeatMode = (repeatMode + 1) % 3;
     const icons = ["mdi:repeat", "mdi:repeat", "mdi:repeat-once"];
-    repeatBtn
-      .querySelector(".iconify")
-      ?.setAttribute("data-icon", icons[repeatMode]);
+    repeatBtn.querySelector(".iconify")?.setAttribute("data-icon", icons[repeatMode]);
     repeatBtn.classList.toggle("active", repeatMode > 0);
     repeatBtn.setAttribute(
       "aria-label",
-      repeatMode === 0
-        ? "Repeat off"
-        : repeatMode === 1
-          ? "Repeat all"
-          : "Repeat one",
+      repeatMode === 0 ? "Repeat off" : repeatMode === 1 ? "Repeat all" : "Repeat one",
     );
   });
 
@@ -1550,13 +1537,10 @@ updateFooterText();
   });
 
   shuffleAlbumBtn.addEventListener("click", () => {
-    if (!currentAlbum || !currentAlbum.tracks || !currentAlbum.tracks.length)
-      return;
+    if (!currentAlbum || !currentAlbum.tracks || !currentAlbum.tracks.length) return;
     shuffle = true;
     shuffleBtn.classList.add("active");
-    queue = [...currentAlbum.tracks]
-      .sort(() => Math.random() - 0.5)
-      .map((t) => t.id);
+    queue = [...currentAlbum.tracks].sort(() => Math.random() - 0.5).map((t) => t.id);
     renderQueue();
     updateExpandedQueue();
     playTrack(queue[0]);
@@ -1589,6 +1573,7 @@ updateFooterText();
 
   window.addEventListener("popstate", (e) => {
     if (e.state && e.state.view === "album") {
+      /* handled by popstate view restoration elsewhere */
     } else if (viewMode === "album") {
       goBackToLibrary();
     }
@@ -1606,28 +1591,21 @@ updateFooterText();
 const menuVer = Math.floor(Date.now() / 86400000);
 fetch("/src/components/menu.html?v=" + menuVer)
   .then((response) => {
-    if (!response.ok)
-      throw new Error("Error HTTP " + response.status + " al cargar el menú");
+    if (!response.ok) throw new Error("Error HTTP " + response.status + " al cargar el menú");
     return response.text();
   })
   .then((data) => {
     data = data
       .replace(/src="\.\/(assets\/)/g, 'src="../../$1')
-      .replace(
-        /data-route="\.\.\/\.\.\/index\.html"/g,
-        'data-route="../../../index.html"',
-      );
+      .replace(/data-route="\.\.\/\.\.\/index\.html"/g, 'data-route="../../../index.html"');
     const container =
-      document.getElementById("menu-container") ||
-      document.getElementById("sidebar-container");
+      document.getElementById("menu-container") || document.getElementById("sidebar-container");
     if (!container) return;
     container.innerHTML = data;
 
     container.querySelectorAll("script").forEach((oldScript) => {
       const s = document.createElement("script");
-      Array.from(oldScript.attributes).forEach((a) =>
-        s.setAttribute(a.name, a.value),
-      );
+      Array.from(oldScript.attributes).forEach((a) => s.setAttribute(a.name, a.value));
       s.appendChild(document.createTextNode(oldScript.innerHTML));
       oldScript.parentNode.replaceChild(s, oldScript);
     });

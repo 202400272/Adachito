@@ -23,21 +23,23 @@ let currentLang = (() => {
 
 let translations = null;
 let volumeData = [];
-let isSwitching = false;
-let currentRenderVersion = 0;
-let globalAbortController = new AbortController();
+let _isSwitching = false;
+let _currentRenderVersion = 0;
+let _globalAbortController = new AbortController();
 const pdfCache = new Map();
 const PDFJS_VERSION = "2.16.105";
 const PDFJS_CDN = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDFJS_VERSION}`;
 try {
   pdfjsLib.GlobalWorkerOptions.workerSrc = `${PDFJS_CDN}/pdf.worker.min.js`;
-} catch (e) {}
+} catch {
+  /* ignored */
+}
 
 // ---- modal state ----
 let modalPdfDoc = null;
 let modalPageNum = 1;
-let modalRendering = false;
-let modalPendingPage = null;
+let _modalRendering = false;
+let _modalPendingPage = null;
 let modalScale = 1.0;
 let modalFitScale = 1.0;
 let lastRenderedScale = 1.0;
@@ -63,7 +65,7 @@ let cascadePageEntries = []; // [{ pageNum, wrapper, canvas, aspectRatio, render
 let cascadeIO = null;
 let cascadeRenderedOrder = []; // LRU of rendered page numbers, for eviction
 const CASCADE_KEEP_RENDERED = 6; // how many rendered pages to keep at once
-let cascadeRenderQueue = Promise.resolve();
+let _cascadeRenderQueue = Promise.resolve();
 let cascadeCurrentPage = 1;
 let cascadeZoomTimer = null;
 let cascadeBuildToken = 0;
@@ -84,8 +86,7 @@ let cascadeBaseWidth = null;
 
 function getCascadeBaseWidth() {
   if (cascadeBaseWidth !== null) return cascadeBaseWidth;
-  const container =
-    cascadeContainerEl || document.getElementById("pdfCascadeContainer");
+  const container = cascadeContainerEl || document.getElementById("pdfCascadeContainer");
   const raw = container?.clientWidth || 800;
   const capped = window.innerWidth >= 769 ? Math.min(raw, 900) : raw;
   cascadeBaseWidth = capped;
@@ -166,28 +167,178 @@ const FALLBACK_TRANSLATIONS = {
       loadingDocument: "Cargando documento...",
     },
     volumes: [
-      { id: "1", title: "Volumen 1", desc: "Publicado el 10 de marzo del 2013. Ilustrado por Non.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/01.webp", file: "Adachi to Shimamura Volumen 1 Español.pdf" },
-      { id: "2", title: "Volumen 2", desc: "Publicado el 10 de septiembre del 2013.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/02.webp", file: "Adachi to Shimamura Volumen 2 Español.pdf" },
-      { id: "3", title: "Volumen 3", desc: "Publicado el 9 de agosto del 2014. Ilustrado por Non.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/03.webp", file: "Adachi to Shimamura Volumen 3 Español.pdf" },
-      { id: "4", title: "Volumen 4", desc: "Publicado el 9 de mayo del 2015. Ilustrado por Non.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/04.webp", file: "Adachi to Shimamura Volumen 4 Español.pdf" },
-      { id: "5", title: "Volumen 5", desc: "Publicado el 10 de noviembre del 2015. Ilustrado por Non.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/05.webp", file: "Adachi to Shimamura Volumen 5 Español.pdf" },
-      { id: "6", title: "Volumen 6", desc: "Publicado el 10 de mayo del 2016. Ilustrado por Non.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/06.webp", file: "Adachi to Shimamura Volumen 6 Español.pdf" },
-      { id: "7", title: "Volumen 7", desc: "Publicado el 10 de noviembre del 2016. Ilustrado por Non.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/07.webp", file: "Adachi to Shimamura Volumen 7 Español.pdf" },
-      { id: "8", title: "Volumen 8", desc: "Publicado el 10 de mayo del 2019.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/08.webp", file: "Adachi to Shimamura Volumen 8 Español.pdf" },
-      { id: "8.5", title: "Especial Tarumi", desc: "Publicado en 2019.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/08.webp", file: "Adachi to Shimamura Especial Tarumi Español.pdf" },
-      { id: "9", title: "Volumen 9", desc: "Publicado el 10 de octubre del 2020.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/09.webp", file: "Adachi to Shimamura Volumen 9 Español.pdf" },
-      { id: "10", title: "Volumen 10", desc: "Publicado el 10 de septiembre del 2021. Ilustrado por Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/10.webp", file: "Adachi to Shimamura Volumen 10 Español.pdf" },
-      { id: "11", title: "Volumen 11", desc: "Publicado el 9 de diciembre del 2022. Ilustrado por Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/11.webp", file: "Adachi to Shimamura Volumen 11 Español.pdf" },
-      { id: "12", title: "Volumen 12", desc: "Publicado el 8 de noviembre del 2024. Ilustrado por Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/12.webp", file: "Adachi to Shimamura Volumen 12 Español.pdf" },
-      { id: "13", title: "Volumen 13", desc: "Publicado el 8 de noviembre del 2025. Ilustrado por Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/13.webp", file: "Adachi to Shimamura Volumen 13 Español.pdf" },
-      { id: "13.5", title: "Especiales Volumen 13", desc: "Publicado el 8 de noviembre del 2025.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/13.webp", file: "Especiales Volumen 13 Español.pdf" },
-      { id: "E1", title: "Adachi to Shimamura Especial 1 Español", desc: "Publicado en 2020.", thumbnail: "../../assets/Imagenes/Especial1.webp", file: "Adachi to Shimamura Especial 1 Español (1).pdf" },
-      { id: "E2", title: "Adachi to Shimamura Especial 2 Español", desc: "Publicado en 2020.", thumbnail: "../../assets/Imagenes/Especial2.webp", file: "Adachi to Shimamura Especial 2 Español (2).pdf" },
-      { id: "E3", title: "Adachi to Shimamura Especial 3 Español", desc: "Publicado en 2020.", thumbnail: "../../assets/Imagenes/Especial3.webp", file: "Adachi to Shimamura Especial 3 Español (1).pdf" },
-      { id: "E4", title: "Adachi to Shimamura Especial 4 Español", desc: "Publicado en 2020.", thumbnail: "../../assets/Imagenes/Especial4.webp", file: "Adachi to Shimamura Especial 4 Español (2).pdf" },
-      { id: "99_9", title: "Volumen 99.9", desc: "Publicado el 10 de noviembre del 2023. Ilustrado por Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/99.webp", file: "Adachi to Shimamura Volumen 99.9 Español.pdf" },
-      { id: "SS", title: "Volumen SS", desc: "Publicado el 10 de noviembre del 2023. Ilustrado por Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/SS1.webp", file: "Adachi to Shimamura Volumen SS Español.pdf" },
-      { id: "SS2", title: "Volumen SS2", desc: "Publicado el 8 de noviembre del 2024. Ilustrado por Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/SS2.webp", file: "Adachi to Shimamura Volumen SS2 Español.pdf" },
+      {
+        id: "1",
+        title: "Volumen 1",
+        desc: "Publicado el 10 de marzo del 2013. Ilustrado por Non.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/01.webp",
+        file: "Adachi to Shimamura Volumen 1 Español.pdf",
+      },
+      {
+        id: "2",
+        title: "Volumen 2",
+        desc: "Publicado el 10 de septiembre del 2013.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/02.webp",
+        file: "Adachi to Shimamura Volumen 2 Español.pdf",
+      },
+      {
+        id: "3",
+        title: "Volumen 3",
+        desc: "Publicado el 9 de agosto del 2014. Ilustrado por Non.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/03.webp",
+        file: "Adachi to Shimamura Volumen 3 Español.pdf",
+      },
+      {
+        id: "4",
+        title: "Volumen 4",
+        desc: "Publicado el 9 de mayo del 2015. Ilustrado por Non.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/04.webp",
+        file: "Adachi to Shimamura Volumen 4 Español.pdf",
+      },
+      {
+        id: "5",
+        title: "Volumen 5",
+        desc: "Publicado el 10 de noviembre del 2015. Ilustrado por Non.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/05.webp",
+        file: "Adachi to Shimamura Volumen 5 Español.pdf",
+      },
+      {
+        id: "6",
+        title: "Volumen 6",
+        desc: "Publicado el 10 de mayo del 2016. Ilustrado por Non.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/06.webp",
+        file: "Adachi to Shimamura Volumen 6 Español.pdf",
+      },
+      {
+        id: "7",
+        title: "Volumen 7",
+        desc: "Publicado el 10 de noviembre del 2016. Ilustrado por Non.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/07.webp",
+        file: "Adachi to Shimamura Volumen 7 Español.pdf",
+      },
+      {
+        id: "8",
+        title: "Volumen 8",
+        desc: "Publicado el 10 de mayo del 2019.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/08.webp",
+        file: "Adachi to Shimamura Volumen 8 Español.pdf",
+      },
+      {
+        id: "8.5",
+        title: "Especial Tarumi",
+        desc: "Publicado en 2019.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/08.webp",
+        file: "Adachi to Shimamura Especial Tarumi Español.pdf",
+      },
+      {
+        id: "9",
+        title: "Volumen 9",
+        desc: "Publicado el 10 de octubre del 2020.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/09.webp",
+        file: "Adachi to Shimamura Volumen 9 Español.pdf",
+      },
+      {
+        id: "10",
+        title: "Volumen 10",
+        desc: "Publicado el 10 de septiembre del 2021. Ilustrado por Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/10.webp",
+        file: "Adachi to Shimamura Volumen 10 Español.pdf",
+      },
+      {
+        id: "11",
+        title: "Volumen 11",
+        desc: "Publicado el 9 de diciembre del 2022. Ilustrado por Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/11.webp",
+        file: "Adachi to Shimamura Volumen 11 Español.pdf",
+      },
+      {
+        id: "12",
+        title: "Volumen 12",
+        desc: "Publicado el 8 de noviembre del 2024. Ilustrado por Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/12.webp",
+        file: "Adachi to Shimamura Volumen 12 Español.pdf",
+      },
+      {
+        id: "13",
+        title: "Volumen 13",
+        desc: "Publicado el 8 de noviembre del 2025. Ilustrado por Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/13.webp",
+        file: "Adachi to Shimamura Volumen 13 Español.pdf",
+      },
+      {
+        id: "13.5",
+        title: "Especiales Volumen 13",
+        desc: "Publicado el 8 de noviembre del 2025.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/13.webp",
+        file: "Especiales Volumen 13 Español.pdf",
+      },
+      {
+        id: "E1",
+        title: "Adachi to Shimamura Especial 1 Español",
+        desc: "Publicado en 2020.",
+        thumbnail: "../../assets/Imagenes/Especial1.webp",
+        file: "Adachi to Shimamura Especial 1 Español (1).pdf",
+      },
+      {
+        id: "E2",
+        title: "Adachi to Shimamura Especial 2 Español",
+        desc: "Publicado en 2020.",
+        thumbnail: "../../assets/Imagenes/Especial2.webp",
+        file: "Adachi to Shimamura Especial 2 Español (2).pdf",
+      },
+      {
+        id: "E3",
+        title: "Adachi to Shimamura Especial 3 Español",
+        desc: "Publicado en 2020.",
+        thumbnail: "../../assets/Imagenes/Especial3.webp",
+        file: "Adachi to Shimamura Especial 3 Español (1).pdf",
+      },
+      {
+        id: "E4",
+        title: "Adachi to Shimamura Especial 4 Español",
+        desc: "Publicado en 2020.",
+        thumbnail: "../../assets/Imagenes/Especial4.webp",
+        file: "Adachi to Shimamura Especial 4 Español (2).pdf",
+      },
+      {
+        id: "99_9",
+        title: "Volumen 99.9",
+        desc: "Publicado el 10 de noviembre del 2023. Ilustrado por Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/99.webp",
+        file: "Adachi to Shimamura Volumen 99.9 Español.pdf",
+      },
+      {
+        id: "SS",
+        title: "Volumen SS",
+        desc: "Publicado el 10 de noviembre del 2023. Ilustrado por Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/SS1.webp",
+        file: "Adachi to Shimamura Volumen SS Español.pdf",
+      },
+      {
+        id: "SS2",
+        title: "Volumen SS2",
+        desc: "Publicado el 8 de noviembre del 2024. Ilustrado por Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/SS2.webp",
+        file: "Adachi to Shimamura Volumen SS2 Español.pdf",
+      },
     ],
   },
   en: {
@@ -223,27 +374,213 @@ const FALLBACK_TRANSLATIONS = {
       loadingDocument: "Loading document...",
     },
     volumes: [
-      { id: "1", title: "Volume 1", desc: "Published on March 10, 2013. Illustrated by Non.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/01.webp", filePdf: "Adachi and Shimamura.pdf", fileEpub: "Adachi and Shimamura.epub", translator: "Sneikkimies" },
-      { id: "2", title: "Volume 2", desc: "Published on September 10, 2013.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/02.webp", filePdf: "Adachi and Shimamura 2.pdf", fileEpub: "Adachi and Shimamura 2.epub", translator: "Sneikkimies" },
-      { id: "3", title: "Volume 3", desc: "Published on August 9, 2014. Illustrated by Non.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/03.webp", filePdf: "Adachi and Shimamura 3.pdf", fileEpub: "Adachi and Shimamura 3.epub", translator: "Sneikkimies" },
-      { id: "4", title: "Volume 4", desc: "Published on May 9, 2015. Illustrated by Non.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/04.webp", filePdf: "Adachi and Shimamura 4.pdf", fileEpub: "Adachi and Shimamura 4.epub", translator: "Sneikkimies" },
-      { id: "5", title: "Volume 5", desc: "Published on November 10, 2015. Illustrated by Non.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/05.webp", filePdf: "Adachi and Shimamura 5.pdf", fileEpub: "Adachi and Shimamura 5.epub", translator: "Sneikkimies" },
-      { id: "6", title: "Volume 6", desc: "Published on May 10, 2016. Illustrated by Non.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/06.webp", filePdf: "Adachi and Shimamura 6.pdf", fileEpub: "Adachi and Shimamura 6.epub", translator: "Sneikkimies" },
-      { id: "7", title: "Volume 7", desc: "Published on November 10, 2016. Illustrated by Non.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/07.webp", filePdf: "Adachi and Shimamura 7.pdf", fileEpub: "Adachi and Shimamura 7.epub", translator: "Sneikkimies" },
-      { id: "8", title: "Volume 8", desc: "Published on May 10, 2019.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/08.webp", filePdf: "Adachi and Shimamura 8.pdf", fileEpub: "Adachi and Shimamura 8.epub", translator: "Sneikkimies" },
-      { id: "9", title: "Volume 9", desc: "Published on October 10, 2020.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/09.webp", filePdf: "Adachi and Shimamura 9.pdf", fileEpub: "Adachi and Shimamura 9.epub", translator: "Sneikkimies" },
-      { id: "10", title: "Volume 10", desc: "Published on September 10, 2021. Illustrated by Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/10.webp", filePdf: "Adachi and Shimamura 10.pdf", fileEpub: "Adachi and Shimamura 10.epub", translator: "Sneikkimies" },
-      { id: "11", title: "Volume 11", desc: "Published on December 9, 2022. Illustrated by Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/11.webp", filePdf: "Adachi and Shimamura 11.pdf", fileEpub: "Adachi and Shimamura 11.epub", translator: "Sneikkimies" },
-      { id: "12", title: "Volume 12", desc: "Published on November 8, 2024. Illustrated by Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/12.webp", filePdf: "Adachi and Shimamura 12.pdf", fileEpub: "Adachi and Shimamura 12.epub", translator: "Sneikkimies" },
-      { id: "13", title: "Volume 13", desc: "Published on November 8, 2025. Illustrated by Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/13.webp", filePdf: "Adachi and Shimamura 13.pdf", fileEpub: "Adachi and Shimamura 13.epub", translator: "Sneikkimies" },
-      { id: "E1", title: "Special 1", desc: "Published in 2020.", thumbnail: "../../assets/Imagenes/Especial1.webp", filePdf: "Adachi and Shimamura - Anime Special Novel 1.pdf", fileEpub: "Adachi and Shimamura - Anime Special Novel 1.epub", translator: "Sneikkimies" },
-      { id: "E2", title: "Special 2", desc: "Published in 2020.", thumbnail: "../../assets/Imagenes/Especial2.webp", filePdf: "Adachi and Shimamura BD Extra 2.pdf", fileEpub: "Adachi and Shimamura - Anime Special Novel 2.epub", translator: "Sneikkimies" },
-      { id: "E3", title: "Special 3", desc: "Published in 2020.", thumbnail: "../../assets/Imagenes/Especial3.webp", filePdf: "Adachi and Shimamura BD Extra 3.pdf", fileEpub: "Adachi and Shimamura - Anime Special Novel 3.epub", translator: "Sneikkimies" },
-      { id: "E4", title: "Special 4", desc: "Published in 2020.", thumbnail: "../../assets/Imagenes/Especial4.webp", filePdf: "Adachi and Shimamura BD Extra 4.pdf", fileEpub: "Adachi and Shimamura - Anime Special Novel 4.epub", translator: "Sneikkimies" },
-      { id: "99_9", title: "Volume 99.9", desc: "Published on November 10, 2023. Illustrated by Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/99.webp", filePdf: "Adachi and Shimamura 99.pdf", fileEpub: "Adachi and Shimamura 99.epub", translator: "Sneikkimies" },
-      { id: "SS", title: "Volume SS", desc: "Published on November 10, 2023. Illustrated by Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/SS1.webp", filePdf: "Adachi and Shimamura SS.pdf", fileEpub: "Adachi and Shimamura SS.epub", translator: "Sneikkimies" },
-      { id: "SS2", title: "Volume SS2", desc: "Published on November 8, 2024. Illustrated by Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/SS2.webp", filePdf: "Adachi and Shimamura Novel Vol SS2.pdf", fileEpub: "Adachi and Shimamura SS2.epub", translator: "Sneikkimies" },
-      { id: "ESC", title: "Extra Stories Collection", desc: "Extra stories collection.", thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_G_2P7mtYJGqau2ZqkzFnlaK7cW23Xgdga-i3i-ZvuQQpKq13hDdOZH9M&s=10", filePdf: "_Adachi and Shimamura- Extra Stories Collection.pdf", fileEpub: null, translator: null, isExtra: true },
+      {
+        id: "1",
+        title: "Volume 1",
+        desc: "Published on March 10, 2013. Illustrated by Non.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/01.webp",
+        filePdf: "Adachi and Shimamura.pdf",
+        fileEpub: "Adachi and Shimamura.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "2",
+        title: "Volume 2",
+        desc: "Published on September 10, 2013.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/02.webp",
+        filePdf: "Adachi and Shimamura 2.pdf",
+        fileEpub: "Adachi and Shimamura 2.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "3",
+        title: "Volume 3",
+        desc: "Published on August 9, 2014. Illustrated by Non.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/03.webp",
+        filePdf: "Adachi and Shimamura 3.pdf",
+        fileEpub: "Adachi and Shimamura 3.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "4",
+        title: "Volume 4",
+        desc: "Published on May 9, 2015. Illustrated by Non.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/04.webp",
+        filePdf: "Adachi and Shimamura 4.pdf",
+        fileEpub: "Adachi and Shimamura 4.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "5",
+        title: "Volume 5",
+        desc: "Published on November 10, 2015. Illustrated by Non.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/05.webp",
+        filePdf: "Adachi and Shimamura 5.pdf",
+        fileEpub: "Adachi and Shimamura 5.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "6",
+        title: "Volume 6",
+        desc: "Published on May 10, 2016. Illustrated by Non.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/06.webp",
+        filePdf: "Adachi and Shimamura 6.pdf",
+        fileEpub: "Adachi and Shimamura 6.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "7",
+        title: "Volume 7",
+        desc: "Published on November 10, 2016. Illustrated by Non.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/07.webp",
+        filePdf: "Adachi and Shimamura 7.pdf",
+        fileEpub: "Adachi and Shimamura 7.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "8",
+        title: "Volume 8",
+        desc: "Published on May 10, 2019.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/08.webp",
+        filePdf: "Adachi and Shimamura 8.pdf",
+        fileEpub: "Adachi and Shimamura 8.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "9",
+        title: "Volume 9",
+        desc: "Published on October 10, 2020.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/09.webp",
+        filePdf: "Adachi and Shimamura 9.pdf",
+        fileEpub: "Adachi and Shimamura 9.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "10",
+        title: "Volume 10",
+        desc: "Published on September 10, 2021. Illustrated by Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/10.webp",
+        filePdf: "Adachi and Shimamura 10.pdf",
+        fileEpub: "Adachi and Shimamura 10.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "11",
+        title: "Volume 11",
+        desc: "Published on December 9, 2022. Illustrated by Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/11.webp",
+        filePdf: "Adachi and Shimamura 11.pdf",
+        fileEpub: "Adachi and Shimamura 11.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "12",
+        title: "Volume 12",
+        desc: "Published on November 8, 2024. Illustrated by Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/12.webp",
+        filePdf: "Adachi and Shimamura 12.pdf",
+        fileEpub: "Adachi and Shimamura 12.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "13",
+        title: "Volume 13",
+        desc: "Published on November 8, 2025. Illustrated by Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/13.webp",
+        filePdf: "Adachi and Shimamura 13.pdf",
+        fileEpub: "Adachi and Shimamura 13.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "E1",
+        title: "Special 1",
+        desc: "Published in 2020.",
+        thumbnail: "../../assets/Imagenes/Especial1.webp",
+        filePdf: "Adachi and Shimamura - Anime Special Novel 1.pdf",
+        fileEpub: "Adachi and Shimamura - Anime Special Novel 1.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "E2",
+        title: "Special 2",
+        desc: "Published in 2020.",
+        thumbnail: "../../assets/Imagenes/Especial2.webp",
+        filePdf: "Adachi and Shimamura BD Extra 2.pdf",
+        fileEpub: "Adachi and Shimamura - Anime Special Novel 2.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "E3",
+        title: "Special 3",
+        desc: "Published in 2020.",
+        thumbnail: "../../assets/Imagenes/Especial3.webp",
+        filePdf: "Adachi and Shimamura BD Extra 3.pdf",
+        fileEpub: "Adachi and Shimamura - Anime Special Novel 3.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "E4",
+        title: "Special 4",
+        desc: "Published in 2020.",
+        thumbnail: "../../assets/Imagenes/Especial4.webp",
+        filePdf: "Adachi and Shimamura BD Extra 4.pdf",
+        fileEpub: "Adachi and Shimamura - Anime Special Novel 4.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "99_9",
+        title: "Volume 99.9",
+        desc: "Published on November 10, 2023. Illustrated by Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/99.webp",
+        filePdf: "Adachi and Shimamura 99.pdf",
+        fileEpub: "Adachi and Shimamura 99.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "SS",
+        title: "Volume SS",
+        desc: "Published on November 10, 2023. Illustrated by Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/SS1.webp",
+        filePdf: "Adachi and Shimamura SS.pdf",
+        fileEpub: "Adachi and Shimamura SS.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "SS2",
+        title: "Volume SS2",
+        desc: "Published on November 8, 2024. Illustrated by Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/SS2.webp",
+        filePdf: "Adachi and Shimamura Novel Vol SS2.pdf",
+        fileEpub: "Adachi and Shimamura SS2.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "ESC",
+        title: "Extra Stories Collection",
+        desc: "Extra stories collection.",
+        thumbnail:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_G_2P7mtYJGqau2ZqkzFnlaK7cW23Xgdga-i3i-ZvuQQpKq13hDdOZH9M&s=10",
+        filePdf: "_Adachi and Shimamura- Extra Stories Collection.pdf",
+        fileEpub: null,
+        translator: null,
+        isExtra: true,
+      },
     ],
     generalDownloads: { pdf: "Download PDF Full", epub: "Download EPUB Full" },
   },
@@ -280,27 +617,213 @@ const FALLBACK_TRANSLATIONS = {
       loadingDocument: "Ilo-load ang dokumento...",
     },
     volumes: [
-      { id: "1", title: "Volume 1", desc: "Inilathala noong Marso 10, 2013. Ilustrasyon ni Non.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/01.webp", filePdf: "Adachi and Shimamura.pdf", fileEpub: "Adachi and Shimamura.epub", translator: "Sneikkimies" },
-      { id: "2", title: "Volume 2", desc: "Inilathala noong Setyembre 10, 2013.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/02.webp", filePdf: "Adachi and Shimamura 2.pdf", fileEpub: "Adachi and Shimamura 2.epub", translator: "Sneikkimies" },
-      { id: "3", title: "Volume 3", desc: "Inilathala noong Agosto 9, 2014. Ilustrasyon ni Non.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/03.webp", filePdf: "Adachi and Shimamura 3.pdf", fileEpub: "Adachi and Shimamura 3.epub", translator: "Sneikkimies" },
-      { id: "4", title: "Volume 4", desc: "Inilathala noong Mayo 9, 2015. Ilustrasyon ni Non.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/04.webp", filePdf: "Adachi and Shimamura 4.pdf", fileEpub: "Adachi and Shimamura 4.epub", translator: "Sneikkimies" },
-      { id: "5", title: "Volume 5", desc: "Inilathala noong Nobyembre 10, 2015. Ilustrasyon ni Non.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/05.webp", filePdf: "Adachi and Shimamura 5.pdf", fileEpub: "Adachi and Shimamura 5.epub", translator: "Sneikkimies" },
-      { id: "6", title: "Volume 6", desc: "Inilathala noong Mayo 10, 2016. Ilustrasyon ni Non.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/06.webp", filePdf: "Adachi and Shimamura 6.pdf", fileEpub: "Adachi and Shimamura 6.epub", translator: "Sneikkimies" },
-      { id: "7", title: "Volume 7", desc: "Inilathala noong Nobyembre 10, 2016. Ilustrasyon ni Non.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/07.webp", filePdf: "Adachi and Shimamura 7.pdf", fileEpub: "Adachi and Shimamura 7.epub", translator: "Sneikkimies" },
-      { id: "8", title: "Volume 8", desc: "Inilathala noong Mayo 10, 2019.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/08.webp", filePdf: "Adachi and Shimamura 8.pdf", fileEpub: "Adachi and Shimamura 8.epub", translator: "Sneikkimies" },
-      { id: "9", title: "Volume 9", desc: "Inilathala noong Oktubre 10, 2020.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/09.webp", filePdf: "Adachi and Shimamura 9.pdf", fileEpub: "Adachi and Shimamura 9.epub", translator: "Sneikkimies" },
-      { id: "10", title: "Volume 10", desc: "Inilathala noong Setyembre 10, 2021. Ilustrasyon ni Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/10.webp", filePdf: "Adachi and Shimamura 10.pdf", fileEpub: "Adachi and Shimamura 10.epub", translator: "Sneikkimies" },
-      { id: "11", title: "Volume 11", desc: "Inilathala noong Disyembre 9, 2022. Ilustrasyon ni Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/11.webp", filePdf: "Adachi and Shimamura 11.pdf", fileEpub: "Adachi and Shimamura 11.epub", translator: "Sneikkimies" },
-      { id: "12", title: "Volume 12", desc: "Inilathala noong Nobyembre 8, 2024. Ilustrasyon ni Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/12.webp", filePdf: "Adachi and Shimamura 12.pdf", fileEpub: "Adachi and Shimamura 12.epub", translator: "Sneikkimies" },
-      { id: "13", title: "Volume 13", desc: "Inilathala noong Nobyembre 8, 2025. Ilustrasyon ni Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/13.webp", filePdf: "Adachi and Shimamura 13.pdf", fileEpub: "Adachi and Shimamura 13.epub", translator: "Sneikkimies" },
-      { id: "E1", title: "Special 1", desc: "Inilathala noong 2020.", thumbnail: "../../assets/Imagenes/Especial1.webp", filePdf: "Adachi and Shimamura - Anime Special Novel 1.pdf", fileEpub: "Adachi and Shimamura - Anime Special Novel 1.epub", translator: "Sneikkimies" },
-      { id: "E2", title: "Special 2", desc: "Inilathala noong 2020.", thumbnail: "../../assets/Imagenes/Especial2.webp", filePdf: "Adachi and Shimamura BD Extra 2.pdf", fileEpub: "Adachi and Shimamura - Anime Special Novel 2.epub", translator: "Sneikkimies" },
-      { id: "E3", title: "Special 3", desc: "Inilathala noong 2020.", thumbnail: "../../assets/Imagenes/Especial3.webp", filePdf: "Adachi and Shimamura BD Extra 3.pdf", fileEpub: "Adachi and Shimamura - Anime Special Novel 3.epub", translator: "Sneikkimies" },
-      { id: "E4", title: "Special 4", desc: "Inilathala noong 2020.", thumbnail: "../../assets/Imagenes/Especial4.webp", filePdf: "Adachi and Shimamura BD Extra 4.pdf", fileEpub: "Adachi and Shimamura - Anime Special Novel 4.epub", translator: "Sneikkimies" },
-      { id: "99_9", title: "Volume 99.9", desc: "Inilathala noong Nobyembre 10, 2023. Ilustrasyon ni Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/99.webp", filePdf: "Adachi and Shimamura 99.pdf", fileEpub: "Adachi and Shimamura 99.epub", translator: "Sneikkimies" },
-      { id: "SS", title: "Volume SS", desc: "Inilathala noong Nobyembre 10, 2023. Ilustrasyon ni Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/SS1.webp", filePdf: "Adachi and Shimamura SS.pdf", fileEpub: "Adachi and Shimamura SS.epub", translator: "Sneikkimies" },
-      { id: "SS2", title: "Volume SS2", desc: "Inilathala noong Nobyembre 8, 2024. Ilustrasyon ni Raemz.", thumbnail: "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/SS2.webp", filePdf: "Adachi and Shimamura Novel Vol SS2.pdf", fileEpub: "Adachi and Shimamura SS2.epub", translator: "Sneikkimies" },
-      { id: "ESC", title: "Koleksyon ng mga Dagdag na Kuwento", desc: "Koleksyon ng mga dagdag na kuwento.", thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_G_2P7mtYJGqau2ZqkzFnlaK7cW23Xgdga-i3i-ZvuQQpKq13hDdOZH9M&s=10", filePdf: "_Adachi and Shimamura- Extra Stories Collection.pdf", fileEpub: null, translator: null, isExtra: true },
+      {
+        id: "1",
+        title: "Volume 1",
+        desc: "Inilathala noong Marso 10, 2013. Ilustrasyon ni Non.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/01.webp",
+        filePdf: "Adachi and Shimamura.pdf",
+        fileEpub: "Adachi and Shimamura.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "2",
+        title: "Volume 2",
+        desc: "Inilathala noong Setyembre 10, 2013.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/02.webp",
+        filePdf: "Adachi and Shimamura 2.pdf",
+        fileEpub: "Adachi and Shimamura 2.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "3",
+        title: "Volume 3",
+        desc: "Inilathala noong Agosto 9, 2014. Ilustrasyon ni Non.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/03.webp",
+        filePdf: "Adachi and Shimamura 3.pdf",
+        fileEpub: "Adachi and Shimamura 3.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "4",
+        title: "Volume 4",
+        desc: "Inilathala noong Mayo 9, 2015. Ilustrasyon ni Non.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/04.webp",
+        filePdf: "Adachi and Shimamura 4.pdf",
+        fileEpub: "Adachi and Shimamura 4.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "5",
+        title: "Volume 5",
+        desc: "Inilathala noong Nobyembre 10, 2015. Ilustrasyon ni Non.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/05.webp",
+        filePdf: "Adachi and Shimamura 5.pdf",
+        fileEpub: "Adachi and Shimamura 5.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "6",
+        title: "Volume 6",
+        desc: "Inilathala noong Mayo 10, 2016. Ilustrasyon ni Non.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/06.webp",
+        filePdf: "Adachi and Shimamura 6.pdf",
+        fileEpub: "Adachi and Shimamura 6.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "7",
+        title: "Volume 7",
+        desc: "Inilathala noong Nobyembre 10, 2016. Ilustrasyon ni Non.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/07.webp",
+        filePdf: "Adachi and Shimamura 7.pdf",
+        fileEpub: "Adachi and Shimamura 7.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "8",
+        title: "Volume 8",
+        desc: "Inilathala noong Mayo 10, 2019.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/08.webp",
+        filePdf: "Adachi and Shimamura 8.pdf",
+        fileEpub: "Adachi and Shimamura 8.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "9",
+        title: "Volume 9",
+        desc: "Inilathala noong Oktubre 10, 2020.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/09.webp",
+        filePdf: "Adachi and Shimamura 9.pdf",
+        fileEpub: "Adachi and Shimamura 9.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "10",
+        title: "Volume 10",
+        desc: "Inilathala noong Setyembre 10, 2021. Ilustrasyon ni Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/10.webp",
+        filePdf: "Adachi and Shimamura 10.pdf",
+        fileEpub: "Adachi and Shimamura 10.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "11",
+        title: "Volume 11",
+        desc: "Inilathala noong Disyembre 9, 2022. Ilustrasyon ni Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/11.webp",
+        filePdf: "Adachi and Shimamura 11.pdf",
+        fileEpub: "Adachi and Shimamura 11.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "12",
+        title: "Volume 12",
+        desc: "Inilathala noong Nobyembre 8, 2024. Ilustrasyon ni Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/12.webp",
+        filePdf: "Adachi and Shimamura 12.pdf",
+        fileEpub: "Adachi and Shimamura 12.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "13",
+        title: "Volume 13",
+        desc: "Inilathala noong Nobyembre 8, 2025. Ilustrasyon ni Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/13.webp",
+        filePdf: "Adachi and Shimamura 13.pdf",
+        fileEpub: "Adachi and Shimamura 13.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "E1",
+        title: "Special 1",
+        desc: "Inilathala noong 2020.",
+        thumbnail: "../../assets/Imagenes/Especial1.webp",
+        filePdf: "Adachi and Shimamura - Anime Special Novel 1.pdf",
+        fileEpub: "Adachi and Shimamura - Anime Special Novel 1.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "E2",
+        title: "Special 2",
+        desc: "Inilathala noong 2020.",
+        thumbnail: "../../assets/Imagenes/Especial2.webp",
+        filePdf: "Adachi and Shimamura BD Extra 2.pdf",
+        fileEpub: "Adachi and Shimamura - Anime Special Novel 2.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "E3",
+        title: "Special 3",
+        desc: "Inilathala noong 2020.",
+        thumbnail: "../../assets/Imagenes/Especial3.webp",
+        filePdf: "Adachi and Shimamura BD Extra 3.pdf",
+        fileEpub: "Adachi and Shimamura - Anime Special Novel 3.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "E4",
+        title: "Special 4",
+        desc: "Inilathala noong 2020.",
+        thumbnail: "../../assets/Imagenes/Especial4.webp",
+        filePdf: "Adachi and Shimamura BD Extra 4.pdf",
+        fileEpub: "Adachi and Shimamura - Anime Special Novel 4.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "99_9",
+        title: "Volume 99.9",
+        desc: "Inilathala noong Nobyembre 10, 2023. Ilustrasyon ni Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/99.webp",
+        filePdf: "Adachi and Shimamura 99.pdf",
+        fileEpub: "Adachi and Shimamura 99.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "SS",
+        title: "Volume SS",
+        desc: "Inilathala noong Nobyembre 10, 2023. Ilustrasyon ni Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/SS1.webp",
+        filePdf: "Adachi and Shimamura SS.pdf",
+        fileEpub: "Adachi and Shimamura SS.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "SS2",
+        title: "Volume SS2",
+        desc: "Inilathala noong Nobyembre 8, 2024. Ilustrasyon ni Raemz.",
+        thumbnail:
+          "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeCovers/englishEdition/SS2.webp",
+        filePdf: "Adachi and Shimamura Novel Vol SS2.pdf",
+        fileEpub: "Adachi and Shimamura SS2.epub",
+        translator: "Sneikkimies",
+      },
+      {
+        id: "ESC",
+        title: "Koleksyon ng mga Dagdag na Kuwento",
+        desc: "Koleksyon ng mga dagdag na kuwento.",
+        thumbnail:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_G_2P7mtYJGqau2ZqkzFnlaK7cW23Xgdga-i3i-ZvuQQpKq13hDdOZH9M&s=10",
+        filePdf: "_Adachi and Shimamura- Extra Stories Collection.pdf",
+        fileEpub: null,
+        translator: null,
+        isExtra: true,
+      },
     ],
     generalDownloads: { pdf: "I-download ang Buong PDF", epub: "I-download ang Buong EPUB" },
   },
@@ -310,8 +833,7 @@ const FALLBACK_TRANSLATIONS = {
 async function loadTranslations(lang) {
   try {
     const url =
-      window.LanguageSwitch &&
-      typeof window.LanguageSwitch.getDataUrl === "function"
+      window.LanguageSwitch && typeof window.LanguageSwitch.getDataUrl === "function"
         ? window.LanguageSwitch.getDataUrl("novelas", lang) + "?v=" + Date.now()
         : (() => {
             // Fallback path resolution
@@ -430,12 +952,10 @@ function updateUITranslations() {
   if (download) download.title = getText("pdfControls.downloadPDF");
 
   const epubBtn = document.getElementById("epubDownloadModal");
-  if (epubBtn)
-    epubBtn.title = getText("pdfControls.downloadEPUB") || "Download EPUB";
+  if (epubBtn) epubBtn.title = getText("pdfControls.downloadEPUB") || "Download EPUB";
 
   const closeBtn = document.getElementById("pdfModalClose");
-  if (closeBtn)
-    closeBtn.setAttribute("aria-label", getText("modal.closeReader"));
+  if (closeBtn) closeBtn.setAttribute("aria-label", getText("modal.closeReader"));
 }
 
 async function smartDownload(url, fileName) {
@@ -484,9 +1004,7 @@ function forceDownloadFallback(url, fileName) {
 function buildVolumeHTML(vol) {
   const isEnglish = currentLang === "en";
   const isExtraStories = isEnglish && vol.isExtra;
-  const novelItemClass = isExtraStories
-    ? "novel-item extra-stories-special"
-    : "novel-item";
+  const novelItemClass = isExtraStories ? "novel-item extra-stories-special" : "novel-item";
   const translatorCredit =
     isEnglish && vol.translator && vol.id !== "ESC"
       ? `<div class="translator-credit">Translated by <a href="https://sneikkimies.github.io/" target="_blank" rel="noopener noreferrer">${vol.translator}</a></div>`
@@ -652,7 +1170,7 @@ function cancelThumbnailRendering() {
   modalThumbnailsRendered = false;
 }
 
-function getPdfCacheKey(vol, isEnglish) {
+function getPdfCacheKey(vol, _isEnglish) {
   const fileTarget = vol.filePdf || vol.file;
   return `${currentLang}_${fileTarget}`;
 }
@@ -707,10 +1225,8 @@ async function loadPdfInModal(vol) {
       useSystemFonts: true,
     }).promise;
 
-    document.getElementById("pageCountModal").textContent =
-      modalPdfDoc.numPages;
-    document.getElementById("mobilePageCountModal").textContent =
-      modalPdfDoc.numPages;
+    document.getElementById("pageCountModal").textContent = modalPdfDoc.numPages;
+    document.getElementById("mobilePageCountModal").textContent = modalPdfDoc.numPages;
     loadingEl.classList.remove("visible");
     canvas.style.display = "block";
 
@@ -735,17 +1251,13 @@ async function preloadNextPage() {
   try {
     const nextPageNum = modalPageNum + 1;
     const page = await modalPdfDoc.getPage(nextPageNum);
-    const viewport = page.getViewport({ scale: 1 });
+    const _viewport = page.getViewport({ scale: 1 });
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const scale = 0.5;
     const scaledViewport = page.getViewport({ scale });
 
     const offscreenCanvas = document.createElement("canvas");
-    const clampedDpr = getClampedDpr(
-      scaledViewport.width,
-      scaledViewport.height,
-      dpr,
-    );
+    const clampedDpr = getClampedDpr(scaledViewport.width, scaledViewport.height, dpr);
     offscreenCanvas.width = scaledViewport.width * clampedDpr;
     offscreenCanvas.height = scaledViewport.height * clampedDpr;
     const ctx = offscreenCanvas.getContext("2d");
@@ -805,9 +1317,7 @@ async function renderThumbnails() {
           return;
         }
 
-        batchPromises.push(
-          renderSingleThumbnail(pdfDoc, pageNum, renderVersion, signal),
-        );
+        batchPromises.push(renderSingleThumbnail(pdfDoc, pageNum, renderVersion, signal));
       }
 
       const thumbnails = await Promise.all(batchPromises);
@@ -927,9 +1437,7 @@ function scheduleToolbarAutoHide(delay = 4000) {
     const modal = document.getElementById("pdfModal");
     if (!modal || !modal.classList.contains("open")) return;
     modalToolbarHidden = true;
-    document
-      .getElementById("pdfViewerModal")
-      ?.classList.add("pdf-chrome-hidden");
+    document.getElementById("pdfViewerModal")?.classList.add("pdf-chrome-hidden");
   }, delay);
 }
 
@@ -1048,8 +1556,7 @@ async function renderModalPage() {
     modalRenderTask = null;
   }
 
-  if (!modalPdfDoc || modalPageNum < 1 || modalPageNum > modalPdfDoc.numPages)
-    return;
+  if (!modalPdfDoc || modalPageNum < 1 || modalPageNum > modalPdfDoc.numPages) return;
 
   setNavButtonsDisabled(true);
 
@@ -1063,8 +1570,10 @@ async function renderModalPage() {
     const wrapperEl = document.getElementById("canvasWrapperModal");
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const { width: containerWidth, height: containerHeight } =
-      getModalContainerSize(outerContainer, wrapperEl);
+    const { width: containerWidth, height: containerHeight } = getModalContainerSize(
+      outerContainer,
+      wrapperEl,
+    );
 
     // Preload bitmap (if any) is only ever a fast, low-res instant
     // placeholder for the page-turn — it is drawn immediately below,
@@ -1073,9 +1582,7 @@ async function renderModalPage() {
     // image, or the page looks blurry (it's ~0.5 scale stretched up
     // to full display size).
     const preloaded =
-      modalPreloadPage && modalPreloadPage.pageNum === modalPageNum
-        ? modalPreloadPage
-        : null;
+      modalPreloadPage && modalPreloadPage.pageNum === modalPageNum ? modalPreloadPage : null;
     modalPreloadPage = null;
 
     const page = await modalPdfDoc.getPage(modalPageNum);
@@ -1088,11 +1595,7 @@ async function renderModalPage() {
     contentScale = contentScale * modalScale;
 
     const scaledViewport = page.getViewport({ scale: contentScale });
-    const clampedDpr = getClampedDpr(
-      scaledViewport.width,
-      scaledViewport.height,
-      dpr,
-    );
+    const clampedDpr = getClampedDpr(scaledViewport.width, scaledViewport.height, dpr);
 
     canvas.width = scaledViewport.width * clampedDpr;
     canvas.height = scaledViewport.height * clampedDpr;
@@ -1106,13 +1609,7 @@ async function renderModalPage() {
     if (preloaded) {
       // Instant low-res placeholder so the page-turn feels immediate
       // while the sharp render below is still in flight.
-      ctx.drawImage(
-        preloaded.canvas,
-        0,
-        0,
-        scaledViewport.width,
-        scaledViewport.height,
-      );
+      ctx.drawImage(preloaded.canvas, 0, 0, scaledViewport.width, scaledViewport.height);
     } else {
       canvas.style.opacity = "0.5";
     }
@@ -1143,17 +1640,14 @@ async function renderModalPage() {
       preloadNextPage();
     }
   } catch (error) {
-    if (
-      error.name !== "AbortError" &&
-      error.name !== "RenderingCancelledException"
-    ) {
+    if (error.name !== "AbortError" && error.name !== "RenderingCancelledException") {
       console.error("Error rendering page:", error);
       const canvas = document.getElementById("pdfRenderModal");
       canvas.style.opacity = "0.3";
     }
   } finally {
     setNavButtonsDisabled(false);
-    modalRendering = false;
+    _modalRendering = false;
   }
 }
 
@@ -1277,7 +1771,9 @@ async function buildCascadePages() {
     const vp = firstPage.getViewport({ scale: 1 });
     fallbackAspect = vp.height / vp.width;
     firstPage.cleanup();
-  } catch (e) {}
+  } catch {
+    /* ignored */
+  }
 
   if (token !== cascadeBuildToken) return;
 
@@ -1370,10 +1866,7 @@ function queueCascadeRender(pageNum) {
 }
 
 function drainCascadeRenderQueue() {
-  while (
-    cascadeActiveRenders < CASCADE_MAX_CONCURRENT &&
-    cascadePendingQueue.length > 0
-  ) {
+  while (cascadeActiveRenders < CASCADE_MAX_CONCURRENT && cascadePendingQueue.length > 0) {
     const pageNum = cascadePendingQueue.shift();
     cascadeActiveRenders++;
     renderCascadePage(pageNum).finally(() => {
@@ -1410,11 +1903,7 @@ async function renderCascadePage(pageNum) {
     const scaledViewport = page.getViewport({ scale: contentScale });
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const clampedDpr = getClampedDpr(
-      scaledViewport.width,
-      scaledViewport.height,
-      dpr,
-    );
+    const clampedDpr = getClampedDpr(scaledViewport.width, scaledViewport.height, dpr);
 
     const canvas = entry.canvas;
     canvas.width = scaledViewport.width * clampedDpr;
@@ -1451,10 +1940,7 @@ async function renderCascadePage(pageNum) {
 
     evictFarCascadePages();
   } catch (error) {
-    if (
-      error.name !== "AbortError" &&
-      error.name !== "RenderingCancelledException"
-    ) {
+    if (error.name !== "AbortError" && error.name !== "RenderingCancelledException") {
       console.warn("Cascade render failed for page", pageNum, error);
     }
   } finally {
@@ -1514,10 +2000,7 @@ function relayoutCascadePages() {
   if (!containerRect) return;
   cascadePageEntries.forEach((entry) => {
     const rect = entry.wrapper.getBoundingClientRect();
-    if (
-      rect.bottom > containerRect.top - 400 &&
-      rect.top < containerRect.bottom + 400
-    ) {
+    if (rect.bottom > containerRect.top - 400 && rect.top < containerRect.bottom + 400) {
       queueCascadeRender(entry.pageNum);
     }
   });
@@ -1549,12 +2032,8 @@ function commitCascadeZoomRender() {
 }
 
 function initModalEvents() {
-  document
-    .getElementById("pdfModalClose")
-    .addEventListener("click", closePdfModal);
-  document
-    .getElementById("pdfModalBackdrop")
-    .addEventListener("click", closePdfModal);
+  document.getElementById("pdfModalClose").addEventListener("click", closePdfModal);
+  document.getElementById("pdfModalBackdrop").addEventListener("click", closePdfModal);
 
   document.getElementById("pdfPrevModal").addEventListener("click", () => {
     if (modalPageNum > 1 && !document.getElementById("pdfPrevModal").disabled) {
@@ -1583,8 +2062,7 @@ function initModalEvents() {
   });
 
   function updateZoomDisplay() {
-    document.getElementById("zoomDisplayModal").textContent =
-      Math.round(modalScale * 100) + "%";
+    document.getElementById("zoomDisplayModal").textContent = Math.round(modalScale * 100) + "%";
   }
 
   // Shared by the toolbar buttons, keyboard shortcuts, wheel/trackpad
@@ -1618,26 +2096,20 @@ function initModalEvents() {
     applyZoomChange();
   });
 
-  document
-    .getElementById("pdfFullscreenModal")
-    .addEventListener("click", () => {
-      const elem = document.getElementById("pdfViewerModal");
-      if (!document.fullscreenElement) {
-        if (elem.requestFullscreen) elem.requestFullscreen();
-        else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
-        else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
-        document
-          .getElementById("fsIconModal")
-          .classList.replace("fa-expand", "fa-compress");
-      } else {
-        if (document.exitFullscreen) document.exitFullscreen();
-        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-        else if (document.msExitFullscreen) document.msExitFullscreen();
-        document
-          .getElementById("fsIconModal")
-          .classList.replace("fa-compress", "fa-expand");
-      }
-    });
+  document.getElementById("pdfFullscreenModal").addEventListener("click", () => {
+    const elem = document.getElementById("pdfViewerModal");
+    if (!document.fullscreenElement) {
+      if (elem.requestFullscreen) elem.requestFullscreen();
+      else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+      else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
+      document.getElementById("fsIconModal").classList.replace("fa-expand", "fa-compress");
+    } else {
+      if (document.exitFullscreen) document.exitFullscreen();
+      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      else if (document.msExitFullscreen) document.msExitFullscreen();
+      document.getElementById("fsIconModal").classList.replace("fa-compress", "fa-expand");
+    }
+  });
 
   document.getElementById("pdfDownloadModal").addEventListener("click", () => {
     if (modalCurrentVolume) {
@@ -1645,9 +2117,7 @@ function initModalEvents() {
       const baseUrl = isEnglish
         ? "https://media.adashimaverse.com/Novelas/Ingles/"
         : "https://media.adashimaverse.com/Novelas/";
-      const fileTarget = isEnglish
-        ? modalCurrentVolume.filePdf
-        : modalCurrentVolume.file;
+      const fileTarget = isEnglish ? modalCurrentVolume.filePdf : modalCurrentVolume.file;
       if (fileTarget) {
         smartDownload(baseUrl + encodeURIComponent(fileTarget), fileTarget);
       }
@@ -1670,26 +2140,18 @@ function initModalEvents() {
     }
   });
 
-  document
-    .getElementById("pdfThumbnailToggle")
-    .addEventListener("click", toggleThumbnails);
-  document
-    .getElementById("pdfThumbnailsClose")
-    .addEventListener("click", () => {
-      document.getElementById("pdfThumbnailsSidebar").classList.remove("open");
-      modalThumbnailsVisible = false;
-    });
+  document.getElementById("pdfThumbnailToggle").addEventListener("click", toggleThumbnails);
+  document.getElementById("pdfThumbnailsClose").addEventListener("click", () => {
+    document.getElementById("pdfThumbnailsSidebar").classList.remove("open");
+    modalThumbnailsVisible = false;
+  });
 
-  document
-    .getElementById("pdfCascadeToggle")
-    .addEventListener("click", () => {
-      toggleCascadeMode();
-      // Closing the "more" panel after picking a mode keeps mobile tidy.
-      document.getElementById("pdfToolbarSecondary")?.classList.remove("open");
-      document
-        .getElementById("pdfMoreToggle")
-        ?.setAttribute("aria-expanded", "false");
-    });
+  document.getElementById("pdfCascadeToggle").addEventListener("click", () => {
+    toggleCascadeMode();
+    // Closing the "more" panel after picking a mode keeps mobile tidy.
+    document.getElementById("pdfToolbarSecondary")?.classList.remove("open");
+    document.getElementById("pdfMoreToggle")?.setAttribute("aria-expanded", "false");
+  });
 
   document.getElementById("pdfMoreToggle").addEventListener("click", () => {
     const panel = document.getElementById("pdfToolbarSecondary");
@@ -1817,8 +2279,7 @@ function initModalEvents() {
   canvasContainer.addEventListener("mousedown", (e) => {
     if (modalViewMode === "cascade") return;
     if (modalScale <= (modalFitScale || 1) * 1.02) return;
-    if (e.target.closest(".pdf-toolbar") || e.target.closest("button"))
-      return;
+    if (e.target.closest(".pdf-toolbar") || e.target.closest("button")) return;
     isPanning = true;
     panStartX = e.clientX;
     panStartY = e.clientY;
@@ -1839,10 +2300,7 @@ function initModalEvents() {
   });
 
   const getTouchDistance = (firstTouch, secondTouch) =>
-    Math.hypot(
-      firstTouch.clientX - secondTouch.clientX,
-      firstTouch.clientY - secondTouch.clientY,
-    );
+    Math.hypot(firstTouch.clientX - secondTouch.clientX, firstTouch.clientY - secondTouch.clientY);
   const getTouchMidpoint = (firstTouch, secondTouch) => ({
     clientX: (firstTouch.clientX + secondTouch.clientX) / 2,
     clientY: (firstTouch.clientY + secondTouch.clientY) / 2,
@@ -1864,11 +2322,7 @@ function initModalEvents() {
     if (isPinching || e.touches.length !== 1) return;
     const touch = e.touches[0];
     if (!touch) return;
-    if (
-      e.target.closest(".pdf-toolbar") ||
-      e.target.closest("button") ||
-      e.target.closest("input")
-    )
+    if (e.target.closest(".pdf-toolbar") || e.target.closest("button") || e.target.closest("input"))
       return;
     touchStartX = touch.clientX;
     touchStartY = touch.clientY;
@@ -1898,8 +2352,7 @@ function initModalEvents() {
       0.3,
       Math.min(
         3.0,
-        pinchStartScale *
-          (getTouchDistance(e.touches[0], e.touches[1]) / pinchStartDistance),
+        pinchStartScale * (getTouchDistance(e.touches[0], e.touches[1]) / pinchStartDistance),
       ),
     );
     if (Math.abs(nextScale - modalScale) < 0.01) return;
@@ -1942,11 +2395,7 @@ function initModalEvents() {
     const wasRealMove = singleTouchMoved || dt > 350 || dx > 40 || dy > 40;
     singleTouchMoved = false;
     if (wasRealMove) return;
-    if (
-      e.target.closest(".pdf-toolbar") ||
-      e.target.closest("button") ||
-      e.target.closest("input")
-    )
+    if (e.target.closest(".pdf-toolbar") || e.target.closest("button") || e.target.closest("input"))
       return;
     const container = e.currentTarget;
     const rect = container.getBoundingClientRect();
@@ -2057,11 +2506,7 @@ function initModalEvents() {
   function handleViewerResize() {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-      if (
-        !modalPdfDoc ||
-        !document.getElementById("pdfModal").classList.contains("open")
-      )
-        return;
+      if (!modalPdfDoc || !document.getElementById("pdfModal").classList.contains("open")) return;
       invalidateModalContainerSize();
       if (modalViewMode === "cascade") {
         relayoutCascadePages();
@@ -2097,8 +2542,7 @@ function initModalEvents() {
     invalidateModalContainerSize();
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        if (!document.getElementById("pdfModal").classList.contains("open"))
-          return;
+        if (!document.getElementById("pdfModal").classList.contains("open")) return;
         if (modalViewMode === "cascade") {
           relayoutCascadePages();
         } else if (modalPdfDoc) {
@@ -2115,7 +2559,9 @@ let searchTerm = "";
 function resetPageScrollToTop() {
   try {
     window.history.scrollRestoration = "manual";
-  } catch (e) {}
+  } catch {
+    /* ignored */
+  }
 
   window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   document.documentElement.scrollTop = 0;
@@ -2178,12 +2624,8 @@ function applySearch(term) {
   searchTerm = term.toLowerCase().trim();
   document.querySelectorAll(".novel-item").forEach((el) => {
     const id = el.dataset.volumeId || "";
-    const title = (
-      el.querySelector(".novel-summary span")?.textContent || ""
-    ).toLowerCase();
-    const desc = (
-      el.querySelector(".novel-description p")?.textContent || ""
-    ).toLowerCase();
+    const title = (el.querySelector(".novel-summary span")?.textContent || "").toLowerCase();
+    const desc = (el.querySelector(".novel-description p")?.textContent || "").toLowerCase();
     const match =
       !searchTerm ||
       title.includes(searchTerm) ||
@@ -2212,8 +2654,7 @@ function applySearch(term) {
   const hasVisibleResults = visibleItems + visibleCards > 0;
   const noResultsMsg = document.getElementById("no-results-message");
   if (noResultsMsg) {
-    noResultsMsg.style.display =
-      searchTerm && !hasVisibleResults ? "flex" : "none";
+    noResultsMsg.style.display = searchTerm && !hasVisibleResults ? "flex" : "none";
   }
 }
 
@@ -2249,13 +2690,9 @@ async function loadMenu() {
     let data = await response.text();
     data = data
       .replace(/src="\.\/(assets\/)/g, 'src="../../$1')
-      .replace(
-        /data-route="\.\.\/\.\.\/index\.html"/g,
-        'data-route="../../index.html"',
-      );
+      .replace(/data-route="\.\.\/\.\.\/index\.html"/g, 'data-route="../../index.html"');
     const container =
-      document.getElementById("sidebar-container") ||
-      document.getElementById("menu-container");
+      document.getElementById("sidebar-container") || document.getElementById("menu-container");
     if (!container) return;
     container.innerHTML = data;
     const scripts = container.querySelectorAll("script");
@@ -2278,8 +2715,8 @@ async function loadMenu() {
 async function renderApp() {
   const title = document.getElementById("page-title");
   if (title) title.textContent = getText("headerTitle");
-  const footer = document.getElementById("footer-content");
-  if (footer) footer.innerHTML = getText("footer");
+  // Footer is now the shared component (src/components/js/footer.js),
+  // which handles its own translation.
   const floatingAdashima = document.getElementById("floating-link");
   if (floatingAdashima) floatingAdashima.title = getText("floatingTitle");
 
@@ -2288,18 +2725,15 @@ async function renderApp() {
 
   const viewListBtn = document.getElementById("viewListBtn");
   const viewGridBtn = document.getElementById("viewGridBtn");
-  if (viewListBtn)
-    viewListBtn.innerHTML = `<i class="fas fa-list-ul"></i> ${getText("viewList")}`;
-  if (viewGridBtn)
-    viewGridBtn.innerHTML = `<i class="fas fa-th"></i> ${getText("viewGrid")}`;
+  if (viewListBtn) viewListBtn.innerHTML = `<i class="fas fa-list-ul"></i> ${getText("viewList")}`;
+  if (viewGridBtn) viewGridBtn.innerHTML = `<i class="fas fa-th"></i> ${getText("viewGrid")}`;
 
   const modalTitle = document.getElementById("pdfModalTitle");
   if (modalTitle)
     modalTitle.innerHTML = `${getText("modal.reading")} <span id="pdfVolumeTitle">Volumen</span>`;
 
   const closeBtn = document.getElementById("pdfModalClose");
-  if (closeBtn)
-    closeBtn.setAttribute("aria-label", getText("modal.closeReader"));
+  if (closeBtn) closeBtn.setAttribute("aria-label", getText("modal.closeReader"));
 
   const thumbToggle = document.getElementById("pdfThumbnailToggle");
   if (thumbToggle) thumbToggle.title = getText("pdfControls.thumbnails");
@@ -2314,12 +2748,10 @@ async function renderApp() {
   if (thumbTitle) thumbTitle.textContent = getText("pdfControls.thumbnails");
 
   const loadingText = document.getElementById("pdfLoadingTextModal");
-  if (loadingText)
-    loadingText.textContent = getText("pdfControls.loadingDocument");
+  if (loadingText) loadingText.textContent = getText("pdfControls.loadingDocument");
 
   const errorMsg = document.getElementById("pdfErrorMsgModal");
-  if (errorMsg)
-    errorMsg.textContent = getText("toastMessages.documentNotAvailable");
+  if (errorMsg) errorMsg.textContent = getText("toastMessages.documentNotAvailable");
 
   const retryText = document.getElementById("pdfRetryText");
   if (retryText) retryText.textContent = getText("toastMessages.retry");

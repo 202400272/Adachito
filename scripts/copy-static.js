@@ -1,6 +1,3 @@
-// Runs after `vite build`. Copies files that are loaded via runtime
-// fetch()/string paths rather than <link>/<script> tags Vite can see,
-// so it can't hash or bundle them — they just need to reach dist/ as-is.
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -61,13 +58,8 @@ const ITEMS = [
   ["src/components/menu.html", "src/components/menu.html"], // fetch()'d fragment
   ["src/components/feedback.html", "src/components/feedback.html"], // fetch()'d fragment
   ["_redirects", "_redirects"], // Cloudflare Pages reads this from the output dir
-  ["sw.js", "sw.js"], // Must be present in the deployed build so stale browser caches can be invalidated
-  // Plain (non type="module") <script src="..."> tags aren't bundled by
-  // Vite and aren't moved into dist either — it just leaves the src
-  // reference as-is, so the actual files need to land at that same
-  // path or every page's JS 404s in the built site. This is a stopgap;
-  // switching these to type="module" lets Vite bundle/minify/hash them
-  // properly instead of copying them raw.
+  ["manifest.json", "manifest.json"], 
+  ["sw.js", "sw.js"], 
   ["src/js", "src/js"],
   ["src/pages/otros/js", "src/pages/otros/js"],
 ];

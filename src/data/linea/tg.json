@@ -366,29 +366,19 @@
         "id": "minor",
         "title": "Minor Divergence",
         "desc": "Maliit lamang ang pagbabagong ginagawa sa established timeline o mga pangyayari.",
-        "ids": [
-          2,
-          3,
-          7
-        ]
+        "ids": [2, 3, 7]
       },
       {
         "id": "moderate",
         "title": "Moderate Divergence",
         "desc": "Mas kapansin-pansin ang pagbabago sa mga pangyayari, buhay, o sitwasyon.",
-        "ids": [
-          1,
-          5,
-          6
-        ]
+        "ids": [1, 5, 6]
       },
       {
         "id": "major",
         "title": "Major Divergence",
         "desc": "Malaki ang pagbabago sa mundo, identities, o pangunahing kondisyon ng kuwento.",
-        "ids": [
-          4
-        ]
+        "ids": [4]
       }
     ]
   }

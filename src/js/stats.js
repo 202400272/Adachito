@@ -11,9 +11,9 @@ let searchQuery = "";
 let filterType = "all";
 let compareVolume1 = null;
 let compareVolume2 = null;
-let isLoading = true;
-let isScrolling = false;
-let scrollTimeout = null;
+let _isLoading = true;
+let _isScrolling = false;
+let _scrollTimeout = null;
 let navListenersAttached = false;
 
 function createParticles() {
@@ -31,6 +31,7 @@ function createParticles() {
   }
 }
 
+// eslint-disable-next-line no-unused-vars -- may be invoked from an inline onclick handler in HTML
 function showToast(message) {
   const toast = document.getElementById("toastMessage");
   if (!toast) return;
@@ -89,9 +90,7 @@ function getRank(volume, metric) {
     return `#${rank}`;
   } else if (metric === "delay") {
     const translated = activeVols.filter((v) => v.jp_en_gap_days > 0);
-    const sorted = [...translated].sort(
-      (a, b) => a.jp_en_gap_days - b.jp_en_gap_days,
-    );
+    const sorted = [...translated].sort((a, b) => a.jp_en_gap_days - b.jp_en_gap_days);
     const rank = sorted.findIndex((v) => v.id === volume.id) + 1;
     if (rank === 1) return "Fastest";
     if (rank === sorted.length) return "Slowest";
@@ -102,9 +101,7 @@ function getRank(volume, metric) {
 
 function getPercentile(volume, metric) {
   const activeVols = volumes.filter((v) => !v.is_upcoming && v.page_count > 0);
-  const values = activeVols.map((v) =>
-    metric === "pages" ? v.page_count : v.chapters,
-  );
+  const values = activeVols.map((v) => (metric === "pages" ? v.page_count : v.chapters));
   const sorted = [...values].sort((a, b) => a - b);
   const value = metric === "pages" ? volume.page_count : volume.chapters;
   const index = sorted.indexOf(value);
@@ -114,21 +111,14 @@ function getPercentile(volume, metric) {
 function getMaxValue(metric) {
   const filtered = volumes.filter((v) => v.page_count > 0);
   if (metric === "pages") return Math.max(...filtered.map((v) => v.page_count));
-  if (metric === "chapters")
-    return Math.max(...filtered.map((v) => v.chapters));
+  if (metric === "chapters") return Math.max(...filtered.map((v) => v.chapters));
   if (metric === "delay")
-    return Math.max(
-      ...filtered
-        .filter((v) => v.jp_en_gap_days > 0)
-        .map((v) => v.jp_en_gap_days),
-    );
+    return Math.max(...filtered.filter((v) => v.jp_en_gap_days > 0).map((v) => v.jp_en_gap_days));
   return 1;
 }
 
 function getCategoryBreakdown() {
-  const main = volumes.filter(
-    (v) => !v.is_short_story && !v.is_special && !v.is_upcoming,
-  ).length;
+  const main = volumes.filter((v) => !v.is_short_story && !v.is_special && !v.is_upcoming).length;
   const short = volumes.filter((v) => v.is_short_story).length;
   const special = volumes.filter((v) => v.is_special).length;
   const upcoming = volumes.filter((v) => v.is_upcoming).length;
@@ -138,10 +128,7 @@ function getCategoryBreakdown() {
 function getCumulativePages() {
   const sorted = [...volumes]
     .filter((v) => !v.is_upcoming && v.page_count > 0)
-    .sort(
-      (a, b) =>
-        new Date(a.jp_release).getTime() - new Date(b.jp_release).getTime(),
-    );
+    .sort((a, b) => new Date(a.jp_release).getTime() - new Date(b.jp_release).getTime());
   let runningTotal = 0;
   return sorted.map((v) => {
     runningTotal += v.page_count;
@@ -152,10 +139,7 @@ function getCumulativePages() {
 function getDelayTrendData() {
   return [...volumes]
     .filter((v) => !v.is_upcoming && v.jp_en_gap_days > 0)
-    .sort(
-      (a, b) =>
-        new Date(a.jp_release).getTime() - new Date(b.jp_release).getTime(),
-    )
+    .sort((a, b) => new Date(a.jp_release).getTime() - new Date(b.jp_release).getTime())
     .map((v) => ({
       volume: v.volume_number,
       delay: v.jp_en_gap_days,
@@ -203,8 +187,7 @@ function calculateStats(data) {
     translated[0] || { jp_en_gap_days: 0, title: "" },
   );
   const avgTranslationDays = Math.round(
-    translated.reduce((sum, v) => sum + v.jp_en_gap_days, 0) /
-      translated.length,
+    translated.reduce((sum, v) => sum + v.jp_en_gap_days, 0) / translated.length,
   );
 
   const volumesAboveAvgLength = activeVolumes.filter(
@@ -219,16 +202,13 @@ function calculateStats(data) {
   const maxDate = new Date(Math.max(...dates.map((d) => d.getTime())));
 
   const sortedByDate = [...activeVolumes].sort(
-    (a, b) =>
-      new Date(a.jp_release).getTime() - new Date(b.jp_release).getTime(),
+    (a, b) => new Date(a.jp_release).getTime() - new Date(b.jp_release).getTime(),
   );
   const gaps = [];
   for (let i = 1; i < sortedByDate.length; i++) {
     const prev = new Date(sortedByDate[i - 1].jp_release);
     const curr = new Date(sortedByDate[i].jp_release);
-    const days = Math.floor(
-      (curr.getTime() - prev.getTime()) / (1000 * 60 * 60 * 24),
-    );
+    const days = Math.floor((curr.getTime() - prev.getTime()) / (1000 * 60 * 60 * 24));
     gaps.push({
       from: sortedByDate[i - 1].volume_number,
       to: sortedByDate[i].volume_number,
@@ -237,12 +217,9 @@ function calculateStats(data) {
   }
 
   const avgGap =
-    gaps.length > 0
-      ? Math.round(gaps.reduce((sum, g) => sum + g.days, 0) / gaps.length)
-      : 0;
+    gaps.length > 0 ? Math.round(gaps.reduce((sum, g) => sum + g.days, 0) / gaps.length) : 0;
   const longestGap = gaps.length > 0 ? Math.max(...gaps.map((g) => g.days)) : 0;
-  const shortestGap =
-    gaps.length > 0 ? Math.min(...gaps.map((g) => g.days)) : 0;
+  const shortestGap = gaps.length > 0 ? Math.min(...gaps.map((g) => g.days)) : 0;
   const longestGapEntry = gaps.find((g) => g.days === longestGap);
   const shortestGapEntry = gaps.find((g) => g.days === shortestGap);
 
@@ -250,12 +227,8 @@ function calculateStats(data) {
     avg: avgGap,
     longest: longestGap,
     shortest: shortestGap,
-    longestVolume: longestGapEntry
-      ? `${longestGapEntry.from} → ${longestGapEntry.to}`
-      : "",
-    shortestVolume: shortestGapEntry
-      ? `${shortestGapEntry.from} → ${shortestGapEntry.to}`
-      : "",
+    longestVolume: longestGapEntry ? `${longestGapEntry.from} → ${longestGapEntry.to}` : "",
+    shortestVolume: shortestGapEntry ? `${shortestGapEntry.from} → ${shortestGapEntry.to}` : "",
   };
   publicationGaps = gaps;
 
@@ -282,9 +255,7 @@ function calculateStats(data) {
     publicationEnd: maxDate.getFullYear().toString(),
   };
 
-  const sortedByChapters = [...activeVolumes].sort(
-    (a, b) => b.chapters - a.chapters,
-  );
+  const sortedByChapters = [...activeVolumes].sort((a, b) => b.chapters - a.chapters);
 
   achievements = [
     {
@@ -331,9 +302,7 @@ function calculateStats(data) {
       icon: "fa6-solid:calendar-range",
       title: "Longest Publication Gap",
       value: `${longestGap} days`,
-      volume: longestGapEntry
-        ? `${longestGapEntry.from} → ${longestGapEntry.to}`
-        : "",
+      volume: longestGapEntry ? `${longestGapEntry.from} → ${longestGapEntry.to}` : "",
       description: "Longest wait between volumes",
       color: "#e06040",
     },
@@ -341,9 +310,7 @@ function calculateStats(data) {
       icon: "fa6-solid:calendar-clock",
       title: "Shortest Publication Gap",
       value: `${shortestGap} days`,
-      volume: shortestGapEntry
-        ? `${shortestGapEntry.from} → ${shortestGapEntry.to}`
-        : "",
+      volume: shortestGapEntry ? `${shortestGapEntry.from} → ${shortestGapEntry.to}` : "",
       description: "Shortest wait between volumes",
       color: "#7eb870",
     },
@@ -381,8 +348,7 @@ function calculateStats(data) {
         let maxIncrease = 0;
         let maxIncreaseVol = "";
         for (let i = 1; i < sortedByDate.length; i++) {
-          const diff =
-            sortedByDate[i].page_count - sortedByDate[i - 1].page_count;
+          const diff = sortedByDate[i].page_count - sortedByDate[i - 1].page_count;
           if (diff > maxIncrease) {
             maxIncrease = diff;
             maxIncreaseVol = sortedByDate[i].title;
@@ -413,7 +379,7 @@ async function fetchStats() {
     volumes = data;
     calculateStats(volumes);
     renderAll();
-    isLoading = false;
+    _isLoading = false;
     document.getElementById("statsLoading").style.display = "none";
     document.getElementById("statsContent").style.display = "block";
     initIntersectionObserver();
@@ -474,28 +440,28 @@ function renderOverview() {
           <strong>${released}</strong>
           <h3>Released volumes</h3>
           <div class="kpi-meter"><span style="width:${completion}%"></span></div>
-          <p>${completion}% of ${total} tracked entries released${upcoming ? ` · ${upcoming} upcoming` : ""}</p>
+          <p><b>${completion}%</b> of ${total} tracked entries released${upcoming ? ` <span class="kpi-secondary">· ${upcoming} upcoming</span>` : ""}</p>
         </article>
 
         <article class="kpi-card">
           <div class="kpi-top"><span class="kpi-icon"><iconify-icon icon="fa6-solid:list-ol"></iconify-icon></span><span class="kpi-tag">STRUCTURE</span></div>
           <strong>${statsSummary.totalChapters.toLocaleString()}</strong>
           <h3>Recorded chapters</h3>
-          <p>${avgChapters} chapters per released volume on average</p>
+          <p><b>≈ ${avgChapters}</b> chapters per released volume</p>
         </article>
 
         <article class="kpi-card">
           <div class="kpi-top"><span class="kpi-icon"><iconify-icon icon="fa6-solid:file-lines"></iconify-icon></span><span class="kpi-tag">LENGTH</span></div>
           <strong>${statsSummary.totalPages.toLocaleString()}</strong>
           <h3>Recorded pages</h3>
-          <p>${avgPages.toLocaleString()} pages per released volume on average</p>
+          <p><b>≈ ${avgPages.toLocaleString()}</b> pages per released volume</p>
         </article>
 
         <article class="kpi-card">
           <div class="kpi-top"><span class="kpi-icon"><iconify-icon icon="fa6-solid:calendar"></iconify-icon></span><span class="kpi-tag">TIMESPAN</span></div>
           <strong>${years}</strong>
           <h3>Publication years</h3>
-          <p>${statsSummary.publicationStart} — ${statsSummary.publicationEnd}</p>
+          <p><b>${statsSummary.publicationStart} — ${statsSummary.publicationEnd}</b></p>
         </article>
       </div>
 
@@ -543,19 +509,62 @@ function renderOverview() {
 }
 
 function renderDashboard() {
-  const released = volumes.filter(v => !v.is_upcoming && v.page_count > 0);
-  const medianPages = released.length ? [...released].sort((a,b) => a.page_count-b.page_count)[Math.floor(released.length/2)].page_count : 0;
+  const released = volumes.filter((v) => !v.is_upcoming && v.page_count > 0);
+  const medianPages = released.length
+    ? [...released].sort((a, b) => a.page_count - b.page_count)[Math.floor(released.length / 2)]
+        .page_count
+    : 0;
   const longestGap = gapStats.longest || 0;
   const avgGap = gapStats.avg || 0;
   const metrics = [
-    ["Average volume", `${statsSummary.avgPagesPerVolume.toLocaleString()} pages`, "Typical recorded length", "fa6-solid:file-lines"],
-    ["Average chapters", `${statsSummary.avgChaptersPerVolume}`, "Per released volume", "fa6-solid:list-ol"],
-    ["Median volume", `${medianPages.toLocaleString()} pages`, "Middle value by page count", "fa6-solid:chart-column"],
-    ["Publication rhythm", `${avgGap} days`, "Average gap between releases", "fa6-solid:calendar-days"],
-    ["Fastest translation", `${statsSummary.fastestTranslationDays} days`, statsSummary.fastestTranslationVolume, "fa6-solid:bolt"],
-    ["Longest translation", `${statsSummary.slowestTranslationDays} days`, statsSummary.slowestTranslationVolume, "fa6-solid:hourglass-end"],
-    ["Longest release gap", `${longestGap} days`, gapStats.longestVolume || "—", "fa6-solid:arrows-left-right"],
-    ["Above average length", `${statsSummary.volumesAboveAvgLength}`, `of ${released.length} released volumes`, "fa6-solid:arrow-trend-up"]
+    [
+      "Average volume",
+      `${statsSummary.avgPagesPerVolume.toLocaleString()} pages`,
+      "Typical recorded length",
+      "fa6-solid:file-lines",
+    ],
+    [
+      "Average chapters",
+      `${statsSummary.avgChaptersPerVolume}`,
+      "Per released volume",
+      "fa6-solid:list-ol",
+    ],
+    [
+      "Median volume",
+      `${medianPages.toLocaleString()} pages`,
+      "Middle value by page count",
+      "fa6-solid:chart-column",
+    ],
+    [
+      "Publication rhythm",
+      `${avgGap} days`,
+      "Average gap between releases",
+      "fa6-solid:calendar-days",
+    ],
+    [
+      "Fastest translation",
+      `${statsSummary.fastestTranslationDays} days`,
+      statsSummary.fastestTranslationVolume,
+      "fa6-solid:bolt",
+    ],
+    [
+      "Longest translation",
+      `${statsSummary.slowestTranslationDays} days`,
+      statsSummary.slowestTranslationVolume,
+      "fa6-solid:hourglass-end",
+    ],
+    [
+      "Longest release gap",
+      `${longestGap} days`,
+      gapStats.longestVolume || "—",
+      "fa6-solid:arrows-left-right",
+    ],
+    [
+      "Above average length",
+      `${statsSummary.volumesAboveAvgLength}`,
+      `of ${released.length} released volumes`,
+      "fa6-solid:arrow-trend-up",
+    ],
   ];
   return `
     <section class="section-reveal stats-dashboard-pro" data-section="dashboard" id="section-dashboard">
@@ -564,11 +573,15 @@ function renderDashboard() {
         <p class="section-subtitle">Derived statistics from the archive dataset. Select Charts for visual trends and Volumes for the underlying entries.</p>
       </div>
       <div class="metric-board">
-        ${metrics.map((m,i) => `
+        ${metrics
+          .map(
+            (m, i) => `
           <article class="metric-tile">
             <div class="metric-tile-head"><span>${m[0]}</span><iconify-icon icon="${m[3]}"></iconify-icon></div>
-            <strong>${m[1]}</strong><p>${m[2]}</p><span class="metric-index">${String(i+1).padStart(2,"0")}</span>
-          </article>`).join("")}
+            <strong>${m[1]}</strong><p>${m[2]}</p><span class="metric-index">${String(i + 1).padStart(2, "0")}</span>
+          </article>`,
+          )
+          .join("")}
       </div>
     </section>`;
 }
@@ -693,10 +706,8 @@ function renderTranslation() {
   const maxDelayValue = getMaxValue("delay");
 
   let sorted = [...activeVolumes];
-  if (sortDelay === "longest")
-    sorted.sort((a, b) => b.jp_en_gap_days - a.jp_en_gap_days);
-  else if (sortDelay === "shortest")
-    sorted.sort((a, b) => a.jp_en_gap_days - b.jp_en_gap_days);
+  if (sortDelay === "longest") sorted.sort((a, b) => b.jp_en_gap_days - a.jp_en_gap_days);
+  else if (sortDelay === "shortest") sorted.sort((a, b) => a.jp_en_gap_days - b.jp_en_gap_days);
   else sorted.sort((a, b) => a.id - b.id);
 
   let listHtml = "";
@@ -768,18 +779,14 @@ function renderTranslation() {
 function renderCharts() {
   const maxPages = getMaxValue("pages");
   const maxChapters = getMaxValue("chapters");
-  const maxDelay = getMaxValue("delay");
+  const _maxDelay = getMaxValue("delay");
   const cumulative = getCumulativePages();
-  const maxCumulative =
-    cumulative.length > 0 ? cumulative[cumulative.length - 1].pages : 1;
+  const maxCumulative = cumulative.length > 0 ? cumulative[cumulative.length - 1].pages : 1;
   const trendData = getDelayTrendData();
-  const maxTrendDelay =
-    trendData.length > 0 ? Math.max(...trendData.map((d) => d.delay)) : 1;
+  const maxTrendDelay = trendData.length > 0 ? Math.max(...trendData.map((d) => d.delay)) : 1;
   const scatter = getScatterData();
-  const maxScatterPages =
-    scatter.length > 0 ? Math.max(...scatter.map((d) => d.pages)) : 1;
-  const maxScatterDelay =
-    scatter.length > 0 ? Math.max(...scatter.map((d) => d.delay)) : 1;
+  const maxScatterPages = scatter.length > 0 ? Math.max(...scatter.map((d) => d.pages)) : 1;
+  const maxScatterDelay = scatter.length > 0 ? Math.max(...scatter.map((d) => d.delay)) : 1;
   const category = getCategoryBreakdown();
   const total = volumes.length;
 
@@ -855,8 +862,7 @@ function renderCharts() {
   scatter.forEach((item) => {
     const xPercent = (item.pages / maxScatterPages) * 100;
     const yPercent = (item.delay / maxScatterDelay) * 100;
-    const color =
-      item.delay < 100 ? "#7eb870" : item.delay > 1000 ? "#e06040" : "#6366f1";
+    const color = item.delay < 100 ? "#7eb870" : item.delay > 1000 ? "#e06040" : "#6366f1";
     scatterPoints += `
                 <div class="scatter-point" style="left: ${xPercent}%; bottom: ${yPercent}%; background-color: ${color};" 
                      title="${item.title}: ${item.pages} pages, ${item.delay} days delay"></div>
@@ -1091,22 +1097,15 @@ function renderVolumes() {
 
   let filtered = [...volumes];
   if (filterType === "main")
-    filtered = filtered.filter(
-      (v) => !v.is_short_story && !v.is_special && !v.is_upcoming,
-    );
-  else if (filterType === "short")
-    filtered = filtered.filter((v) => v.is_short_story);
-  else if (filterType === "special")
-    filtered = filtered.filter((v) => v.is_special);
-  else if (filterType === "upcoming")
-    filtered = filtered.filter((v) => v.is_upcoming);
+    filtered = filtered.filter((v) => !v.is_short_story && !v.is_special && !v.is_upcoming);
+  else if (filterType === "short") filtered = filtered.filter((v) => v.is_short_story);
+  else if (filterType === "special") filtered = filtered.filter((v) => v.is_special);
+  else if (filterType === "upcoming") filtered = filtered.filter((v) => v.is_upcoming);
 
   if (searchQuery.trim()) {
     const query = searchQuery.toLowerCase().trim();
     filtered = filtered.filter(
-      (v) =>
-        v.title.toLowerCase().includes(query) ||
-        v.volume_number.toLowerCase().includes(query),
+      (v) => v.title.toLowerCase().includes(query) || v.volume_number.toLowerCase().includes(query),
     );
   }
 
@@ -1380,12 +1379,7 @@ function attachVolumeClickListeners() {
 }
 
 function handleVolumeClick(e) {
-  if (
-    e.target.closest("button") ||
-    e.target.closest("a") ||
-    e.target.closest("select")
-  )
-    return;
+  if (e.target.closest("button") || e.target.closest("a") || e.target.closest("select")) return;
   const card = e.currentTarget;
   const id = parseInt(card.dataset.volumeId);
   if (id) toggleVolume(id);
@@ -1430,7 +1424,7 @@ function handleSearchInput(e) {
   }
 }
 
-function handleSearchClear(e) {
+function handleSearchClear(_e) {
   const searchInput = document.getElementById("volumeSearchInput");
   if (searchInput) {
     searchInput.value = "";
@@ -1588,7 +1582,7 @@ function initNavScroll() {
   navListenersAttached = true;
 
   document.querySelectorAll(".stats-nav-item").forEach((btn) => {
-    btn.addEventListener("click", function (e) {
+    btn.addEventListener("click", function (_e) {
       const sectionId = this.dataset.section;
       scrollToSection(sectionId);
     });
@@ -1633,28 +1627,21 @@ let currentLang = (() => {
 const menuVer = Math.floor(Date.now() / 86400000);
 fetch("/src/components/menu.html?v=" + menuVer)
   .then((response) => {
-    if (!response.ok)
-      throw new Error("Error HTTP " + response.status + " al cargar el menú");
+    if (!response.ok) throw new Error("Error HTTP " + response.status + " al cargar el menú");
     return response.text();
   })
   .then((data) => {
     data = data
       .replace(/src="\.\/(assets\/)/g, 'src="../../$1')
-      .replace(
-        /data-route="\.\.\/\.\.\/index\.html"/g,
-        'data-route="../../../index.html"',
-      );
+      .replace(/data-route="\.\.\/\.\.\/index\.html"/g, 'data-route="../../../index.html"');
     const container =
-      document.getElementById("sidebar-container") ||
-      document.getElementById("menu-container");
+      document.getElementById("sidebar-container") || document.getElementById("menu-container");
     if (!container) return;
     container.innerHTML = data;
 
     container.querySelectorAll("script").forEach((oldScript) => {
       const s = document.createElement("script");
-      Array.from(oldScript.attributes).forEach((a) =>
-        s.setAttribute(a.name, a.value),
-      );
+      Array.from(oldScript.attributes).forEach((a) => s.setAttribute(a.name, a.value));
       s.appendChild(document.createTextNode(oldScript.innerHTML));
       oldScript.parentNode.replaceChild(s, oldScript);
     });

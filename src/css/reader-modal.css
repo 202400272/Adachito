@@ -200,11 +200,7 @@
   overflow-x: hidden;
   padding: 20px 16px 30px;
   scroll-behavior: smooth;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(20, 12, 36, 0.3),
-    rgba(8, 5, 16, 0.6)
-  );
+  background: radial-gradient(ellipse at center, rgba(20, 12, 36, 0.3), rgba(8, 5, 16, 0.6));
 }
 
 .reader-pages-wrap::-webkit-scrollbar {

@@ -1,113 +1,113 @@
 /* ---------- chapter list inside volume card ---------- */
 .volume-chapters {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    flex-shrink: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
 }
 
 .volume-card.expanded .volume-chapters {
-    max-height: 400px;
-    overflow-y: auto;
-    border-top: 1px solid rgba(209, 163, 198, 0.06);
+  max-height: 400px;
+  overflow-y: auto;
+  border-top: 1px solid rgba(209, 163, 198, 0.06);
 }
 
 .volume-chapters::-webkit-scrollbar {
-    width: 3px;
+  width: 3px;
 }
 
 .volume-chapters::-webkit-scrollbar-thumb {
-    background: rgba(209, 163, 198, 0.3);
-    border-radius: 10px;
+  background: rgba(209, 163, 198, 0.3);
+  border-radius: 10px;
 }
 
 .chapter-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.5rem 0.75rem;
-    border-bottom: 1px solid rgba(209, 163, 198, 0.04);
-    transition: background 0.2s ease;
-    gap: 0.4rem;
-    min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid rgba(209, 163, 198, 0.04);
+  transition: background 0.2s ease;
+  gap: 0.4rem;
+  min-height: 44px;
 }
 
 .chapter-row:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .chapter-row:hover {
-    background: rgba(209, 163, 198, 0.04);
+  background: rgba(209, 163, 198, 0.04);
 }
 
 .chapter-row .chapter-info {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.05rem;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
 }
 
 .chapter-row .chapter-title {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #4a3b52;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4a3b52;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .chapter-row .chapter-subtitle {
-    font-size: 0.65rem;
-    color: rgba(92, 58, 107, 0.4);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 0.65rem;
+  color: rgba(92, 58, 107, 0.4);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .chapter-row .chapter-actions {
-    display: flex;
-    gap: 3px;
-    flex-shrink: 0;
+  display: flex;
+  gap: 3px;
+  flex-shrink: 0;
 }
 
 .chapter-row .chapter-btn {
-    padding: 3px 10px;
-    font-size: 0.65rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    font-family: var(--font-primary);
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    height: 28px;
-    white-space: nowrap;
+  padding: 3px 10px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: var(--font-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  white-space: nowrap;
 }
 
 .chapter-row .chapter-btn.read-btn {
-    background: linear-gradient(135deg, var(--rose), var(--rose-dark));
-    color: white;
-    box-shadow: 0 2px 8px rgba(209, 163, 198, 0.2);
+  background: linear-gradient(135deg, var(--rose), var(--rose-dark));
+  color: white;
+  box-shadow: 0 2px 8px rgba(209, 163, 198, 0.2);
 }
 
 .chapter-row .chapter-btn.read-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(209, 163, 198, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(209, 163, 198, 0.35);
 }
 
 .chapter-row .chapter-btn.read-btn:active {
-    transform: translateY(0px) scale(0.96);
+  transform: translateY(0px) scale(0.96);
 }
 
 .chapter-row .chapter-btn.download-btn {
-    background: rgba(209, 163, 198, 0.1);
-    color: rgba(92, 58, 107, 0.5);
+  background: rgba(209, 163, 198, 0.1);
+  color: rgba(92, 58, 107, 0.5);
 }
 
 .chapter-row .chapter-btn.download-btn:hover {
-    background: rgba(209, 163, 198, 0.2);
-    color: #5c3a6b;
+  background: rgba(209, 163, 198, 0.2);
+  color: #5c3a6b;
 }

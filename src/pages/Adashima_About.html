@@ -11,10 +11,7 @@
       name="description"
       content="Learn about AdashimaVerse, the fan archive of Adachi and Shimamura, including history, lore, and curated series content."
     />
-    <link
-      rel="canonical"
-      href="https://adashimaverse.com/Adashima_About"
-    />
+    <link rel="canonical" href="https://adashimaverse.com/Adashima_About" />
     <meta name="theme-color" content="#000000" />
 
     <meta property="og:type" content="website" />
@@ -24,19 +21,16 @@
       property="og:description"
       content="Learn about AdashimaVerse, the fan archive of Adachi and Shimamura, including history, lore, and curated series content."
     />
-    <meta
-      property="og:url"
-      content="https://adashimaverse.com/Adashima_About"
-    />
+    <meta property="og:url" content="https://adashimaverse.com/Adashima_About" />
     <meta
       property="og:image"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
     <meta
       property="og:image:secure_url"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:type" content="image/webp" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="AdashimaVerse - About" />
@@ -49,7 +43,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
     <meta name="twitter:image:alt" content="AdashimaVerse - About" />
 
@@ -66,6 +60,7 @@
     <!-- Iconify -->
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js?v=20260812"></script>
     <link rel="stylesheet" href="/src/components/styles/menu.css?v=20260812" />
+    <link rel="stylesheet" href="/src/components/styles/time-theme-pages.css" />
     <link rel="stylesheet" href="/src/css/about/main.css?v=20260812" />
     <style>
       /* Time-based palette: keep the existing light palette for morning/afternoon,
@@ -127,12 +122,16 @@
       body.time-morning .about-hero-title,
       body.time-afternoon .about-hero-title,
       body.time-morning .about-section-title,
-      body.time-afternoon .about-section-title { color: #d73778 !important; }
+      body.time-afternoon .about-section-title {
+        color: #d73778 !important;
+      }
 
       body.time-morning .about-hero-title .iconify,
       body.time-afternoon .about-hero-title .iconify,
       body.time-morning .about-section-title .iconify,
-      body.time-afternoon .about-section-title .iconify { color: #ef7aa8 !important; }
+      body.time-afternoon .about-section-title .iconify {
+        color: #ef7aa8 !important;
+      }
 
       body.time-morning .about-hero-subtitle,
       body.time-afternoon .about-hero-subtitle,
@@ -197,7 +196,9 @@
       body.time-night,
       body.time-night .about-shell,
       body.time-night .about-main {
-        --page-bg: radial-gradient(circle at 72% 10%, rgba(132, 83, 153, 0.14), transparent 28%), linear-gradient(165deg, #17121e 0%, #211827 46%, #171d2a 100%);
+        --page-bg:
+          radial-gradient(circle at 72% 10%, rgba(132, 83, 153, 0.14), transparent 28%),
+          linear-gradient(165deg, #17121e 0%, #211827 46%, #171d2a 100%);
         --page-text: #f2eaf5;
         --surface: #2b2133;
         --surface-hover: #403048;
@@ -219,7 +220,7 @@
         --color-mid: #d7add0;
         --color-blush: #e0a3bf;
         --color-text: #f2eaf5;
-        --glass-bg: rgba(34, 26, 43, 0.90);
+        --glass-bg: rgba(34, 26, 43, 0.9);
         --glass-border: rgba(221, 190, 226, 0.12);
         --plum: #f2eaf5;
         --dusty-rose: #d39bc6;
@@ -235,9 +236,13 @@
       }
 
       body.time-night .about-hero-title,
-      body.time-night .about-section-title { color: #f2d8ed !important; }
+      body.time-night .about-section-title {
+        color: #f2d8ed !important;
+      }
       body.time-night .about-hero-title .iconify,
-      body.time-night .about-section-title .iconify { color: #e0a3bf !important; }
+      body.time-night .about-section-title .iconify {
+        color: #e0a3bf !important;
+      }
       body.time-night .about-hero-subtitle,
       body.time-night .about-section-subtitle,
       body.time-night .translator-info h4,
@@ -261,65 +266,80 @@
       body.time-night .translator-role,
       body.time-night .translator-desc,
       body.time-night .material-date,
-      body.time-night .changelog-nav-item-date { color: #c8b9cf !important; }
+      body.time-night .changelog-nav-item-date {
+        color: #c8b9cf !important;
+      }
       body.time-night .changelog-nav-header,
       body.time-night .materials-empty,
-      body.time-night .view-materials-btn .material-count { color: #cbbbd2 !important; }
+      body.time-night .view-materials-btn .material-count {
+        color: #cbbbd2 !important;
+      }
       body.time-night .materials-empty .iconify,
       body.time-night .translator-materials-close:hover,
       body.time-night .translator-link .link-icon .iconify,
-      body.time-night .translator-card:hover .translator-icon { color: #e0a3bf !important; }
+      body.time-night .translator-card:hover .translator-icon {
+        color: #e0a3bf !important;
+      }
 
       /* The materials modal contains a few legacy hard-coded light colors. */
-      body.time-night .translator-materials-header { border-bottom-color: rgba(221, 190, 226, 0.12); }
-      body.time-night .translator-materials-close { color: #cfc1d6; }
-      body.time-night .translator-materials-close:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
-      body.time-night .materials-group-header { border-bottom-color: rgba(211, 155, 198, 0.22); }
-      body.time-night .materials-count { background: rgba(211, 155, 198, 0.14); }
-      body.time-night .material-item { background: #33263b; border-color: rgba(221, 190, 226, 0.08); }
-      body.time-night .material-item:hover { background: #403048; border-color: rgba(211, 155, 198, 0.22); }
-      body.time-night .material-title { color: #f1e8f4 !important; }
-      body.time-night .material-date { color: #bfaec7 !important; }
-      body.time-night .materials-empty .iconify { color: #8f7b98 !important; }
-      body.time-night .material-status.status-complete { background: #24452f; color: #b9e8c5 !important; }
-      body.time-night .material-status.status-in-progress { background: #4b3a20; color: #f3d99b !important; }
-      body.time-night .material-status.status-in-review { background: #203b54; color: #b8dcf8 !important; }
-      body.time-night .material-status.status-pending { background: #3b3540; color: #d2c7d8 !important; }
+      body.time-night .translator-materials-header {
+        border-bottom-color: rgba(221, 190, 226, 0.12);
+      }
+      body.time-night .translator-materials-close {
+        color: #cfc1d6;
+      }
+      body.time-night .translator-materials-close:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+      }
+      body.time-night .materials-group-header {
+        border-bottom-color: rgba(211, 155, 198, 0.22);
+      }
+      body.time-night .materials-count {
+        background: rgba(211, 155, 198, 0.14);
+      }
+      body.time-night .material-item {
+        background: #33263b;
+        border-color: rgba(221, 190, 226, 0.08);
+      }
+      body.time-night .material-item:hover {
+        background: #403048;
+        border-color: rgba(211, 155, 198, 0.22);
+      }
+      body.time-night .material-title {
+        color: #f1e8f4 !important;
+      }
+      body.time-night .material-date {
+        color: #bfaec7 !important;
+      }
+      body.time-night .materials-empty .iconify {
+        color: #8f7b98 !important;
+      }
+      body.time-night .material-status.status-complete {
+        background: #24452f;
+        color: #b9e8c5 !important;
+      }
+      body.time-night .material-status.status-in-progress {
+        background: #4b3a20;
+        color: #f3d99b !important;
+      }
+      body.time-night .material-status.status-in-review {
+        background: #203b54;
+        color: #b8dcf8 !important;
+      }
+      body.time-night .material-status.status-pending {
+        background: #3b3540;
+        color: #d2c7d8 !important;
+      }
     </style>
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="/assets/Imagenes/favicon.ico"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/assets/Imagenes/apple-touch-icon.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/assets/Imagenes/favicon-32x32.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/assets/Imagenes/favicon-16x16.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="/assets/Imagenes/icon-192x192.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="512x512"
-      href="/assets/Imagenes/icon-512x512.webp"
-    />
+    <link rel="icon" type="image/x-icon" href="/assets/Imagenes/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/Imagenes/apple-touch-icon.webp" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/Imagenes/favicon-32x32.webp" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/Imagenes/favicon-16x16.webp" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/Imagenes/icon-192x192.webp" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/Imagenes/icon-512x512.webp" />
+    <link rel="stylesheet" href="/src/components/styles/footer.css" />
+    <link rel="stylesheet" href="/src/components/styles/feedback.css" />
   </head>
   <body>
     <div class="about-shell">
@@ -327,8 +347,7 @@
       <main class="about-main">
         <!-- Header with Language Controls -->
         <div class="about-header">
-          <div class="header-top-controls">
-          </div>
+          <div class="header-top-controls"></div>
         </div>
 
         <!-- Hero -->
@@ -340,8 +359,8 @@
               <span class="iconify" data-icon="mdi:heart-outline"></span>
             </h1>
             <p class="about-hero-subtitle" id="heroSubtitle">
-              A fan-made archive dedicated to preserving, documenting, and
-              celebrating the Adachi to Shimamura series.
+              A fan-made archive dedicated to preserving, documenting, and celebrating the Adachi to
+              Shimamura series.
             </p>
             <div class="about-hero-badges">
               <span class="hero-badge"
@@ -380,10 +399,7 @@
             <!-- Statistics row -->
             <div class="translator-stats" id="translatorStats">
               <div class="stat-item">
-                <span
-                  class="iconify"
-                  data-icon="mdi:account-group-outline"
-                ></span>
+                <span class="iconify" data-icon="mdi:account-group-outline"></span>
                 <span id="statContributors">0</span>
                 <span class="stat-label">Contributors</span>
               </div>
@@ -415,10 +431,7 @@
         <section class="about-section">
           <div class="about-card glass-card track-card">
             <h2 class="about-section-title">
-              <span
-                class="iconify"
-                data-icon="mdi:chart-timeline-variant"
-              ></span>
+              <span class="iconify" data-icon="mdi:chart-timeline-variant"></span>
               <span id="trackTitle">Track the Series</span>
             </h2>
             <p class="about-section-subtitle" id="trackSubtitle">
@@ -471,7 +484,8 @@
         </section>
 
         <!-- Footer -->
-        <footer class="about-footer" id="aboutFooter"></footer>
+        <div id="footer-container"></div>
+        <script type="module" src="/src/components/js/footer.js"></script>
       </main>
     </div>
 
@@ -498,10 +512,7 @@
             <div class="changelog-nav-list" id="changelogNavList"></div>
           </div>
           <div class="changelog-details" id="changelogDetails">
-            <div
-              class="changelog-details-content"
-              id="changelogDetailsContent"
-            ></div>
+            <div class="changelog-details-content" id="changelogDetailsContent"></div>
           </div>
         </div>
       </div>
@@ -530,5 +541,6 @@
     <!-- Import JS -->
     <script src="/src/js/language-switch.js?v=20260812"></script>
     <script src="/src/js/about.js?v=20260812"></script>
+    <script type="module" src="/src/components/js/feedback.js"></script>
   </body>
 </html>

@@ -1,0 +1,25 @@
+{
+  "name": "AdashimaVerse",
+  "short_name": "AdashimaVerse",
+  "description": "The most complete site about Adachi and Shimamura. Read the novels, explore the manga, anime, characters, short stories, official material, and much more.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "/assets/Imagenes/icon-192x192.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/Imagenes/icon-512x512.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any"
+    }
+  ]
+}

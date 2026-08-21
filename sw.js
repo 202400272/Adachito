@@ -1,4 +1,4 @@
-const KILL_SWITCH_ID = "20260816-CLEAR-CACHES";
+// Kill switch: 20260816-CLEAR-CACHES
 const isLocalHost =
   self.location.hostname === "localhost" ||
   self.location.hostname === "127.0.0.1" ||
@@ -11,7 +11,9 @@ if (isLocalHost) {
         try {
           const cacheNames = await caches.keys();
           await Promise.all(cacheNames.map((name) => caches.delete(name)));
-        } catch (e) {}
+        } catch {
+          /* ignored */
+        }
 
         self.skipWaiting();
       })(),
@@ -24,11 +26,15 @@ if (isLocalHost) {
         try {
           const cacheNames = await caches.keys();
           await Promise.all(cacheNames.map((name) => caches.delete(name)));
-        } catch (e) {}
+        } catch {
+          /* ignored */
+        }
 
         try {
           await self.registration.unregister();
-        } catch (e) {}
+        } catch {
+          /* ignored */
+        }
 
         await self.clients.claim();
       })(),
@@ -49,7 +55,9 @@ if (isLocalHost) {
         try {
           const cacheNames = await caches.keys();
           await Promise.all(cacheNames.map((name) => caches.delete(name)));
-        } catch (e) {}
+        } catch {
+          /* ignored */
+        }
 
         self.skipWaiting();
       })(),
@@ -62,13 +70,17 @@ if (isLocalHost) {
         try {
           const cacheNames = await caches.keys();
           await Promise.all(cacheNames.map((name) => caches.delete(name)));
-        } catch (e) {}
+        } catch {
+          /* ignored */
+        }
 
         await self.clients.claim();
 
         try {
           await self.registration.unregister();
-        } catch (e) {}
+        } catch {
+          /* ignored */
+        }
 
         const allClients = await self.clients.matchAll({
           type: "window",
@@ -89,9 +101,7 @@ if (isLocalHost) {
     if (request.method !== "GET") return;
 
     if (request.mode === "navigate" || request.destination === "document") {
-      event.respondWith(
-        fetch(request, { cache: "no-store" }).catch(() => caches.match(request)),
-      );
+      event.respondWith(fetch(request, { cache: "no-store" }).catch(() => caches.match(request)));
     }
   });
 }

@@ -11,10 +11,7 @@
       name="description"
       content="Explore other AdashimaVerse content such as extras, spin-offs, and fan resources."
     />
-    <link
-      rel="canonical"
-      href="https://adashimaverse.com/Adashima_Otros"
-    />
+    <link rel="canonical" href="https://adashimaverse.com/Adashima_Otros" />
     <meta name="theme-color" content="#000000" />
 
     <meta property="og:type" content="website" />
@@ -24,19 +21,16 @@
       property="og:description"
       content="Explore other AdashimaVerse content such as extras, spin-offs, and fan resources."
     />
-    <meta
-      property="og:url"
-      content="https://adashimaverse.com/Adashima_Otros"
-    />
+    <meta property="og:url" content="https://adashimaverse.com/Adashima_Otros" />
     <meta
       property="og:image"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
     <meta
       property="og:image:secure_url"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:type" content="image/webp" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="AdashimaVerse - Adashima - Otros" />
@@ -49,7 +43,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
     <meta name="twitter:image:alt" content="AdashimaVerse - Adashima - Otros" />
 
@@ -60,82 +54,41 @@
     <link rel="stylesheet" href="/src/css/otros.css?v=20260812" />
     <link rel="stylesheet" href="/src/css/lang-switch.css?v=20260812" />
     <link rel="stylesheet" href="/src/components/styles/menu.css?v=20260812" />
+    <link rel="stylesheet" href="/src/components/styles/time-theme-pages.css" />
 
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="/assets/Imagenes/favicon.ico"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/assets/Imagenes/apple-touch-icon.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/assets/Imagenes/favicon-32x32.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/assets/Imagenes/favicon-16x16.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="/assets/Imagenes/icon-192x192.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="512x512"
-      href="/assets/Imagenes/icon-512x512.webp"
-    />
+    <link rel="icon" type="image/x-icon" href="/assets/Imagenes/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/Imagenes/apple-touch-icon.webp" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/Imagenes/favicon-32x32.webp" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/Imagenes/favicon-16x16.webp" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/Imagenes/icon-192x192.webp" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/Imagenes/icon-512x512.webp" />
+    <link rel="stylesheet" href="/src/components/styles/footer.css" />
+    <link rel="stylesheet" href="/src/components/styles/feedback.css" />
   </head>
   <body>
     <div class="particles" id="particles"></div>
 
     <div class="floating-decor decor-1">
-      <img
-        src="/assets/Imagenes/D_1.png"
-        alt="Decor"
-        onerror="this.style.display = 'none'"
-      />
+      <img src="/assets/Imagenes/D_1.png" alt="Decor" onerror="this.style.display = 'none'" />
     </div>
     <div class="floating-decor decor-2">
-      <img
-        src="/assets/Imagenes/D_2.png"
-        alt="Decor"
-        onerror="this.style.display = 'none'"
-      />
+      <img src="/assets/Imagenes/D_2.png" alt="Decor" onerror="this.style.display = 'none'" />
     </div>
     <div class="floating-decor decor-3">
-      <img
-        src="/assets/Imagenes/D_3.png"
-        alt="Decor"
-        onerror="this.style.display = 'none'"
-      />
+      <img src="/assets/Imagenes/D_3.png" alt="Decor" onerror="this.style.display = 'none'" />
     </div>
 
     <div id="menu-container"></div>
 
     <div class="main-content">
       <div class="header-container">
-        
         <h1 class="update-title" id="headerTitle">Otros</h1>
       </div>
 
       <div class="documents-wrapper" id="documentsWrapper"></div>
 
-      <div class="footer" id="footerContent">
-        Fan site no oficial de Adachi to Shimamura.<br />
-        Creado por fans, sin fines de lucro.<br />
-        Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma.
-      </div>
+      <div id="footer-container"></div>
+      <script type="module" src="/src/components/js/footer.js"></script>
 
       <a
         href="/Juego"
@@ -160,6 +113,7 @@
 
     <!-- Import JS -->
     <script src="/src/js/language-switch.js?v=20260812"></script>
-    <script src="/src/js/otros.js?v=20260812"></script>
+    <script src="/src/js/otros.js?v=20260820"></script>
+    <script type="module" src="/src/components/js/feedback.js"></script>
   </body>
 </html>

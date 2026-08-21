@@ -56,7 +56,7 @@ function loadProgress() {
   try {
     const stored = localStorage.getItem(PROGRESS_KEY);
     if (stored) playbackProgress = JSON.parse(stored);
-  } catch (e) {
+  } catch {
     playbackProgress = {};
   }
 }
@@ -64,7 +64,9 @@ function loadProgress() {
 function saveProgress() {
   try {
     localStorage.setItem(PROGRESS_KEY, JSON.stringify(playbackProgress));
-  } catch (e) {}
+  } catch {
+    /* ignored */
+  }
 }
 
 function getEpisodeProgress(index) {
@@ -79,8 +81,7 @@ function updateEpisodeProgress(index, time, duration) {
     playbackProgress[index] = { time: 0, watched: false, duration: 0 };
   }
   playbackProgress[index].time = time;
-  playbackProgress[index].duration =
-    duration || playbackProgress[index].duration;
+  playbackProgress[index].duration = duration || playbackProgress[index].duration;
   if (duration > 0 && time / duration >= 0.95) {
     playbackProgress[index].watched = true;
   }
@@ -106,7 +107,7 @@ function loadFolderStates() {
   try {
     const stored = localStorage.getItem(FOLDER_STATE_KEY);
     if (stored) folderStates = JSON.parse(stored);
-  } catch (e) {
+  } catch {
     folderStates = {};
   }
 }
@@ -114,7 +115,9 @@ function loadFolderStates() {
 function saveFolderStates() {
   try {
     localStorage.setItem(FOLDER_STATE_KEY, JSON.stringify(folderStates));
-  } catch (e) {}
+  } catch {
+    /* ignored */
+  }
 }
 
 // ----- DOM refs -----
@@ -126,7 +129,7 @@ const noSignal = document.getElementById("noSignal");
 const noSignalText = document.getElementById("noSignalText");
 const powerPrompt = document.getElementById("powerPrompt");
 const powerBtn = document.getElementById("powerBtn");
-const menuBtn = document.getElementById("menuBtn");
+const episodeMenuBtn = document.getElementById("episodeMenuBtn");
 const playPauseBtn = document.getElementById("playPauseBtn");
 const screenGlow = document.getElementById("screenGlow");
 const staticOverlay = document.getElementById("staticOverlay");
@@ -164,7 +167,6 @@ const osdFooter = document.getElementById("osdFooter");
 const tvLed = document.getElementById("tvLed");
 const statusLed = document.getElementById("statusLed");
 const statusText = document.getElementById("statusText");
-const footerContent = document.getElementById("footer-content");
 const osdOriginalParent = crtScreen;
 const guideFolders = document.getElementById("guideFolders");
 const guideTitle = document.getElementById("guideTitle");
@@ -188,11 +190,6 @@ const nowPlayingSub = document.getElementById("nowPlayingSub");
 const nowEpisodeBadge = document.getElementById("nowEpisodeBadge");
 const crtStageGlow = document.getElementById("crtStageGlow");
 const heroArtworkImg = document.getElementById("heroArtworkImg");
-
-// Language dropdown
-const langDropdown = document.getElementById("langDropdown");
-const langToggle = document.getElementById("langToggle");
-const langMenu = document.getElementById("langMenu");
 
 // Overlay controls
 const overlayPlayPause = document.getElementById("overlayPlayPause");
@@ -228,8 +225,7 @@ function buildChannels(data, miniData) {
     data.channels.forEach((ch, index) => {
       const epNum = index + 1;
 
-      const isMini =
-        ch.season === "mini" || ch.label?.toLowerCase().includes("mini");
+      const isMini = ch.season === "mini" || ch.label?.toLowerCase().includes("mini");
 
       if (isMini) {
         const fileName = ch.file || `adashima chibi ${epNum} subs.mp4`;
@@ -268,8 +264,7 @@ function buildChannels(data, miniData) {
       const exists = channels.some(
         (c) =>
           c.season === "mini" &&
-          (c.file === ch.file ||
-            (c.label === ch.label && c.title === ch.title)),
+          (c.file === ch.file || (c.label === ch.label && c.title === ch.title)),
       );
       if (!exists) {
         const fileName = ch.file || `adashima chibi ${index + 1} subs.mp4`;
@@ -295,10 +290,9 @@ function buildChannels(data, miniData) {
 async function loadContent(lang) {
   try {
     console.log(`🔄 Loading ${lang}.json...`);
-    const response = await fetch(
-      `/src/data/anime/${lang}.json?v=${Date.now()}`,
-      { cache: "no-store" },
-    );
+    const response = await fetch(`/src/data/anime/${lang}.json?v=${Date.now()}`, {
+      cache: "no-store",
+    });
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     const data = await response.json();
 
@@ -314,10 +308,9 @@ async function loadContent(lang) {
     if (lang === "es") {
       try {
         console.warn("🔄 Falling back to English for Spanish");
-        const fallbackResponse = await fetch(
-          `/src/data/anime/en.json?v=${Date.now()}`,
-          { cache: "no-store" },
-        );
+        const fallbackResponse = await fetch(`/src/data/anime/en.json?v=${Date.now()}`, {
+          cache: "no-store",
+        });
         if (!fallbackResponse.ok) throw new Error("Fallback failed");
         const fallbackData = await fallbackResponse.json();
         console.log(
@@ -346,15 +339,12 @@ async function loadMiniAnime(lang) {
 
   try {
     console.log(`🔄 Loading mini_anime/${lang}.json...`);
-    const response = await fetch(
-      `/src/data/mini_anime/${lang}.json?v=${Date.now()}`,
-      { cache: "no-store" },
-    );
+    const response = await fetch(`/src/data/mini_anime/${lang}.json?v=${Date.now()}`, {
+      cache: "no-store",
+    });
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     const data = await response.json();
-    console.log(
-      `✅ Loaded mini_anime/${lang}.json with ${data.channels?.length || 0} channels`,
-    );
+    console.log(`✅ Loaded mini_anime/${lang}.json with ${data.channels?.length || 0} channels`);
     return data;
   } catch (e) {
     console.warn(`⚠️ Failed to load mini_anime/${lang}.json:`, e.message);
@@ -366,8 +356,7 @@ async function loadMiniAnime(lang) {
 function getString(key, ...args) {
   if (!contentData) return key;
   const str = contentData[key];
-  if (typeof str === "string" && str.includes("{count}"))
-    return str.replace("{count}", args[0]);
+  if (typeof str === "string" && str.includes("{count}")) return str.replace("{count}", args[0]);
   return str || key;
 }
 
@@ -406,10 +395,7 @@ function showChannelIndicator(text) {
   channelIndicator.textContent = text;
   channelIndicator.classList.add("show");
   clearTimeout(channelIndicator._timer);
-  channelIndicator._timer = setTimeout(
-    () => channelIndicator.classList.remove("show"),
-    2200,
-  );
+  channelIndicator._timer = setTimeout(() => channelIndicator.classList.remove("show"), 2200);
 }
 
 function setStaticIntensity(level) {
@@ -432,8 +418,26 @@ async function playInterference(duration = 400) {
 let osdNotifTimer = null;
 
 function showOSDNotification(mainText, subText = "") {
-  osdNotifMain.textContent = mainText;
-  osdNotifSub.textContent = subText || "";
+  const labels = {
+    ERROR: "errorLabel",
+    "POWER ON": "powerOnLabel",
+    "POWER OFF": "powerOffLabel",
+    PLAY: "playLabel",
+    PAUSE: "pauseLabel",
+    REPLAY: "replayLabel",
+    BUFFERING: "bufferingLabel",
+    VOL: "volumeShortLabel",
+    BRIGHTNESS: "brightnessShortLabel",
+    BRT: "brightnessShortLabel",
+    MUTE: "muteLabel",
+    UNMUTE: "unmuteLabel",
+    "CINEMA MODE": "cinemaModeLabel",
+    "EXIT CINEMA": "exitCinemaLabel",
+    RESUME: "resumeLabelShort",
+  };
+  osdNotifMain.textContent = getString(labels[mainText] || mainText);
+  osdNotifSub.textContent =
+    subText === "RECEIVING SIGNAL..." ? getString("receivingSignalLabel") : subText || "";
   osdNotif.classList.add("show");
   clearTimeout(osdNotifTimer);
   osdNotifTimer = setTimeout(() => {
@@ -446,30 +450,26 @@ function updateStatusDisplay() {
   if (state.powered) {
     statusLed.className = "status-led on";
     if (state.playing) {
-      statusText.textContent = "ON AIR";
+      statusText.textContent = getString("onAirLabel");
     } else if (state.currentChannel >= 0) {
-      statusText.textContent = "PAUSED";
+      statusText.textContent = getString("pausedLabel");
     } else {
-      statusText.textContent = "STANDBY";
+      statusText.textContent = getString("standbyLabel");
     }
   } else {
     statusLed.className = "status-led";
-    statusText.textContent = "OFF";
+    statusText.textContent = getString("offLabel");
   }
 }
 
 // ----- Update play/pause button -----
 function updatePlayPauseBtn() {
   const icon = state.playing ? "mdi:pause" : "mdi:play";
-  if (state.playing) {
-    playPauseBtn.classList.add("playing");
-  } else {
-    playPauseBtn.classList.remove("playing");
-  }
+  playPauseBtn.classList.toggle("playing", state.playing);
   const overlayIcon = overlayPlayPause.querySelector(".iconify");
-  if (overlayIcon) {
-    overlayIcon.setAttribute("data-icon", icon);
-  }
+  if (overlayIcon) overlayIcon.setAttribute("data-icon", icon);
+  const toolbarIcon = playPauseBtn.querySelector(".iconify");
+  if (toolbarIcon) toolbarIcon.setAttribute("data-icon", icon);
 }
 
 // ----- Update overlay controls -----
@@ -498,10 +498,9 @@ function updateOverlayControls() {
 // ----- Update physical buttons -----
 function updateButtons() {
   const powered = state.powered;
-  const hasChannel =
-    state.currentChannel >= 0 && state.currentChannel < CHANNELS.length;
+  const hasChannel = state.currentChannel >= 0 && state.currentChannel < CHANNELS.length;
 
-  menuBtn.disabled = !powered;
+  episodeMenuBtn.disabled = !powered;
   playPauseBtn.disabled = !powered || !hasChannel;
   seekBackBtn.disabled = !powered || !hasChannel;
   seekFwdBtn.disabled = !powered || !hasChannel;
@@ -522,7 +521,7 @@ function updateEpisodeInfoPanel(ch) {
     jpTitle.textContent = "";
     metaDuration.textContent = "—";
     metaRelease.textContent = "—";
-    metaAudio.textContent = "JAPANESE";
+    metaAudio.textContent = getString("audioDefault");
     progressFill.style.width = "0%";
     progressTime.textContent = "00:00 / 00:00";
     progressState.textContent = "—";
@@ -533,22 +532,18 @@ function updateEpisodeInfoPanel(ch) {
   }
 
   const idx = CHANNELS.indexOf(ch);
-  const prog = getEpisodeProgress(idx);
+  const _prog = getEpisodeProgress(idx);
 
   if (episodeNumber)
-    episodeNumber.textContent =
-      ch.badge || `CH ${String(idx + 1).padStart(2, "0")}`;
+    episodeNumber.textContent = ch.badge || `CH ${String(idx + 1).padStart(2, "0")}`;
   if (nowPlayingSub)
-    nowPlayingSub.textContent =
-      ch.badge || `CH ${String(idx + 1).padStart(2, "0")}`;
+    nowPlayingSub.textContent = ch.badge || `CH ${String(idx + 1).padStart(2, "0")}`;
   if (nowEpisodeBadge)
-    nowEpisodeBadge.textContent =
-      ch.badge || `CH ${String(idx + 1).padStart(2, "0")}`;
+    nowEpisodeBadge.textContent = ch.badge || `CH ${String(idx + 1).padStart(2, "0")}`;
 
   channelTitle.textContent = ch.title;
   channelDesc.textContent = ch.desc;
-  episodeBadge.textContent =
-    ch.badge || `CH ${String(idx + 1).padStart(2, "0")}`;
+  episodeBadge.textContent = ch.badge || `CH ${String(idx + 1).padStart(2, "0")}`;
 
   if (ch.title_jp) {
     jpTitle.textContent = ch.title_jp;
@@ -577,13 +572,13 @@ function updateProgress(ch) {
   progressTime.textContent = `${formatTime(current)} / ${formatTime(duration)}`;
 
   if (prog.watched) {
-    progressState.textContent = "WATCHED ✓";
+    progressState.textContent = getString("watchedLabel");
     progressState.style.color = "#8c5a96";
   } else if (current > 5 && pct < 95) {
-    progressState.textContent = "CONTINUE";
+    progressState.textContent = getString("continueLabelShort");
     progressState.style.color = "#8c5a96";
   } else if (current > 0) {
-    progressState.textContent = "NOW";
+    progressState.textContent = getString("nowLabel");
     progressState.style.color = "#d1a3c6";
   } else {
     progressState.textContent = "—";
@@ -595,7 +590,7 @@ function updateProgress(ch) {
 function updateGuideProgress() {
   const total = CHANNELS.length;
   const watched = getWatchedCount();
-  guideProgressText.textContent = `${watched} / ${total} WATCHED`;
+  guideProgressText.textContent = `${watched} / ${total} ${getString("watchedLabel")}`;
   const pct = total > 0 ? (watched / total) * 100 : 0;
   guideProgressFill.style.width = pct + "%";
 }
@@ -650,9 +645,7 @@ function renderFolders() {
   });
 
   const seasonOrder = ["main", "mini"];
-  const otherSeasons = Object.keys(seasons).filter(
-    (s) => !seasonOrder.includes(s),
-  );
+  const otherSeasons = Object.keys(seasons).filter((s) => !seasonOrder.includes(s));
   const orderedSeasons = [
     ...seasonOrder.filter((s) => seasons[s]),
     ...otherSeasons.filter((s) => seasons[s]),
@@ -665,8 +658,7 @@ function renderFolders() {
     const progress = getFolderProgress(season);
     const currentEp = getFolderCurrentEpisode(season);
     const isOpen = folderStates[season] || false;
-    const watchedPct =
-      progress.total > 0 ? (progress.watched / progress.total) * 100 : 0;
+    const watchedPct = progress.total > 0 ? (progress.watched / progress.total) * 100 : 0;
 
     const folder = document.createElement("div");
     folder.className = `guide-folder${isOpen ? " open" : ""}`;
@@ -674,7 +666,7 @@ function renderFolders() {
 
     const tab = document.createElement("div");
     tab.className = "folder-tab";
-    tab.textContent = "ARCHIVE";
+    tab.textContent = getString("archiveLabel");
     folder.appendChild(tab);
 
     const header = document.createElement("div");
@@ -694,15 +686,15 @@ function renderFolders() {
             <div class="folder-meta">
               ${subtext ? `<span>${subtext}</span>` : ""}
               ${subtext ? `<span class="fm-dot">·</span>` : ""}
-              <span>${progress.total} EPISODES</span>
-              ${progress.inProgress > 0 ? `<span class="fm-dot">·</span><span>${progress.inProgress} IN PROGRESS</span>` : ""}
+              <span>${progress.total} ${getString("episodesCountLabel")}</span>
+              ${progress.inProgress > 0 ? `<span class="fm-dot">·</span><span>${progress.inProgress} ${getString("inProgressLabel")}</span>` : ""}
             </div>
           </div>
           <div class="folder-status">
-            ${currentEp ? `<span class="folder-now"><span class="dot"></span> NOW ON AIR · ${currentEp.label || "CH " + String(CHANNELS.indexOf(currentEp) + 1).padStart(2, "0")}</span>` : ""}
-            ${!currentEp && progress.inProgress > 0 ? `<span class="folder-in-progress">▶ ${progress.inProgress} IN PROGRESS</span>` : ""}
+            ${currentEp ? `<span class="folder-now"><span class="dot"></span> ${getString("nowOnAirLabel")} · ${currentEp.label || "CH " + String(CHANNELS.indexOf(currentEp) + 1).padStart(2, "0")}</span>` : ""}
+            ${!currentEp && progress.inProgress > 0 ? `<span class="folder-in-progress">▶ ${progress.inProgress} ${getString("inProgressLabel")}</span>` : ""}
             <div class="folder-progress">
-              <span class="fp-text">${progress.watched} / ${progress.total} WATCHED</span>
+              <span class="fp-text">${progress.watched} / ${progress.total} ${getString("watchedLabel")}</span>
               <div class="fp-bar"><div class="fp-fill" style="width:${watchedPct}%"></div></div>
             </div>
             <span class="folder-toggle">${isOpen ? "−" : "+"}</span>
@@ -738,13 +730,13 @@ function renderFolders() {
       let stateText = "";
       let stateClass = "";
       if (isPlaying) {
-        stateText = "NOW";
+        stateText = getString("nowLabel");
         stateClass = "now";
       } else if (prog.watched) {
-        stateText = "WATCHED ✓";
+        stateText = getString("watchedLabel");
         stateClass = "watched";
       } else if (prog.time > 5 && pct < 95) {
-        stateText = "CONTINUE";
+        stateText = getString("continueLabelShort");
         stateClass = "continue";
       }
 
@@ -796,7 +788,7 @@ function renderFolders() {
               `
                   : ""
               }
-              ${prog.time > 5 && pct < 95 ? `<div class="ec-resume">RESUME →</div>` : ""}
+              ${prog.time > 5 && pct < 95 ? `<div class="ec-resume">${getString("resumeLabelShort")}</div>` : ""}
             `;
       }
 
@@ -829,9 +821,7 @@ function toggleFolder(season) {
   folderStates[season] = !folderStates[season];
   saveFolderStates();
 
-  const folder = guideFolders.querySelector(
-    `.guide-folder[data-season="${season}"]`,
-  );
+  const folder = guideFolders.querySelector(`.guide-folder[data-season="${season}"]`);
   if (folder) {
     folder.classList.toggle("open", folderStates[season]);
     const header = folder.querySelector(".folder-header");
@@ -852,17 +842,16 @@ function updateFolderStates() {
       const progress = getFolderProgress(season);
       const fpText = folder.querySelector(".fp-text");
       const fpFill = folder.querySelector(".fp-fill");
-      const watchedPct =
-        progress.total > 0 ? (progress.watched / progress.total) * 100 : 0;
+      const watchedPct = progress.total > 0 ? (progress.watched / progress.total) * 100 : 0;
       if (fpText)
-        fpText.textContent = `${progress.watched} / ${progress.total} WATCHED`;
+        fpText.textContent = `${progress.watched} / ${progress.total} ${getString("watchedLabel")}`;
       if (fpFill) fpFill.style.width = watchedPct + "%";
 
       const inProgressSpan = folder.querySelector(".folder-in-progress");
       const currentEp = getFolderCurrentEpisode(season);
       if (inProgressSpan) {
         if (!currentEp && progress.inProgress > 0) {
-          inProgressSpan.textContent = `▶ ${progress.inProgress} IN PROGRESS`;
+          inProgressSpan.textContent = `▶ ${progress.inProgress} ${getString("inProgressLabel")}`;
           inProgressSpan.style.display = "inline-block";
         } else {
           inProgressSpan.style.display = "none";
@@ -872,7 +861,7 @@ function updateFolderStates() {
       const nowSpan = folder.querySelector(".folder-now");
       if (nowSpan) {
         if (currentEp) {
-          nowSpan.innerHTML = `<span class="dot"></span> NOW ON AIR · ${currentEp.label || "CH " + String(CHANNELS.indexOf(currentEp) + 1).padStart(2, "0")}`;
+          nowSpan.innerHTML = `<span class="dot"></span> ${getString("nowOnAirLabel")} · ${currentEp.label || "CH " + String(CHANNELS.indexOf(currentEp) + 1).padStart(2, "0")}`;
           nowSpan.style.display = "inline-flex";
         } else {
           nowSpan.style.display = "none";
@@ -882,9 +871,7 @@ function updateFolderStates() {
       const cards = folder.querySelectorAll(".episode-card");
       cards.forEach((card) => {
         const chLabel = card.querySelector(".ec-ch")?.textContent;
-        const globalIdx = CHANNELS.findIndex(
-          (ch) => ch.label === chLabel || ch.label === chLabel,
-        );
+        const globalIdx = CHANNELS.findIndex((ch) => ch.label === chLabel || ch.label === chLabel);
         if (globalIdx >= 0) {
           const prog = getEpisodeProgress(globalIdx);
           const pct = prog.duration > 0 ? (prog.time / prog.duration) * 100 : 0;
@@ -894,13 +881,13 @@ function updateFolderStates() {
           let stateText = "";
           let stateClass = "";
           if (isActive && state.playing) {
-            stateText = "NOW";
+            stateText = getString("nowLabel");
             stateClass = "now";
           } else if (prog.watched) {
-            stateText = "WATCHED ✓";
+            stateText = getString("watchedLabel");
             stateClass = "watched";
           } else if (prog.time > 5 && pct < 95) {
-            stateText = "CONTINUE";
+            stateText = getString("continueLabelShort");
             stateClass = "continue";
           }
           if (stateEl) {
@@ -919,8 +906,7 @@ function updateFolderStates() {
 
           const resumeEl = card.querySelector(".ec-resume");
           if (resumeEl) {
-            resumeEl.style.display =
-              prog.time > 5 && pct < 95 ? "block" : "none";
+            resumeEl.style.display = prog.time > 5 && pct < 95 ? "block" : "none";
           }
         }
       });
@@ -942,18 +928,17 @@ function buildOsdMenu() {
     let stateText = "";
     let stateClass = "";
     if (i === state.currentChannel && state.powered) {
-      stateText = "NOW";
+      stateText = getString("nowLabel");
       stateClass = "active";
     } else if (prog.watched) {
-      stateText = "WATCHED ✓";
+      stateText = getString("watchedLabel");
       stateClass = "watched";
     } else if (prog.time > 5) {
-      stateText = "CONTINUE";
+      stateText = getString("continueLabelShort");
       stateClass = "active";
     }
 
-    const progressPct =
-      prog.duration > 0 ? (prog.time / prog.duration) * 100 : 0;
+    const progressPct = prog.duration > 0 ? (prog.time / prog.duration) * 100 : 0;
 
     item.innerHTML = `
           <div class="osd-ch-num">${ch.label || "CH " + (i + 1)}</div>
@@ -991,13 +976,13 @@ function updateOsdActiveChannel() {
     if (stateEl) {
       const prog = getEpisodeProgress(i);
       if (i === state.currentChannel && state.powered) {
-        stateEl.textContent = "NOW";
+        stateEl.textContent = getString("nowLabel");
         stateEl.className = "osd-ch-state active";
       } else if (prog.watched) {
-        stateEl.textContent = "WATCHED ✓";
+        stateEl.textContent = getString("watchedLabel");
         stateEl.className = "osd-ch-state watched";
       } else if (prog.time > 5) {
-        stateEl.textContent = "CONTINUE";
+        stateEl.textContent = getString("continueLabelShort");
         stateEl.className = "osd-ch-state active";
       } else {
         stateEl.textContent = "";
@@ -1031,9 +1016,51 @@ async function renderApp() {
     }
   }
 
-  footerContent.innerHTML = getString("footerText");
+  // Footer is now the shared component (src/components/js/footer.js),
+  // which handles its own translation.
+  document.getElementById("animeBrandLabel").textContent = getString("pageTitle");
+  document.getElementById("heroEyebrow").textContent = getString("heroEyebrow");
+  document.getElementById("watchNowLabel").textContent = getString("watchNow");
+  document.getElementById("episodesLinkLabel").textContent = getString("episodesLabel");
+  document.getElementById("nowPlayingLabel").textContent = getString("nowPlaying");
+  document.getElementById("upNextLabel").textContent = getString("upNext");
+  document.getElementById("volumeLabel").textContent = getString("volumeLabel");
+  document.getElementById("brightnessLabel").textContent = getString("brightnessLabel");
+  document.getElementById("libraryLabel").textContent = getString("libraryLabel");
+  document.getElementById("episodeDetailsPlaceholder").textContent = getString("selectChannel");
+  document.getElementById("shortcutsLabel").textContent = getString("shortcutsLabel");
+  document.getElementById("keyboardControlsLabel").textContent = getString("keyboardControls");
+  document.getElementById("shortcutPlayPause").textContent = getString("shortcutPlayPause");
+  document.getElementById("shortcutBack").textContent = getString("shortcutBack");
+  document.getElementById("shortcutForward").textContent = getString("shortcutForward");
+  document.getElementById("shortcutMute").textContent = getString("shortcutMute");
+  document.getElementById("shortcutFullscreen").textContent = getString("shortcutFullscreen");
+  document.getElementById("shortcutCinema").textContent = getString("shortcutCinema");
+  document.getElementById("shortcutHelp").textContent = getString("shortcutHelp");
+  document.getElementById("shortcutClose").textContent = getString("shortcutClose");
+  document.querySelector(".hero-tags span:nth-child(3)").textContent =
+    `12 ${getString("episodesCountLabel")}`;
+  statusText.textContent = getString("readyLabel");
+  document.getElementById("overlayTitle").textContent = getString("episodeTitle");
+  upNextTitle.textContent = getString("episodeTitle");
+  eolTitle.textContent = getString("episodeTitle");
+  document.getElementById("osdTitle").textContent = getString("osdTitle");
+  document.getElementById("osdFooter").textContent = getString("osdFooter");
+  document.getElementById("keyboardVolumeLabel")?.replaceChildren(getString("keyboardVolume"));
+  document
+    .getElementById("keyboardEpisodeMenuLabel")
+    ?.replaceChildren(getString("keyboardEpisodeMenu"));
+  episodeMenuBtn.setAttribute("aria-label", getString("browseEpisodes"));
+  keyboardHelpBtn.setAttribute("aria-label", getString("keyboardShortcuts"));
+  document.getElementById("guideSearchInput").setAttribute("aria-label", getString("searchEpisodes"));
+  document.getElementById("overlayPrev").setAttribute("aria-label", getString("previousEpisode"));
+  document.getElementById("overlayNext").setAttribute("aria-label", getString("nextEpisode"));
+  document.getElementById("overlayFullscreen").setAttribute("aria-label", getString("shortcutFullscreen"));
+  document.getElementById("osdMenu").setAttribute("aria-label", getString("episodeSelector"));
+  document.getElementById("volKnobCircle").setAttribute("aria-label", getString("volumeLabel"));
+  document.getElementById("brtKnobCircle").setAttribute("aria-label", getString("brightnessLabel"));
   powerBtn.title = getString("powerBtnTitle");
-  menuBtn.title = getString("menuBtnTitle");
+  episodeMenuBtn.title = getString("browseEpisodes");
   playPauseBtn.title = getString("playPauseBtnTitle");
   downloadBtn.title = getString("downloadBtnTitle");
   fullscreenBtn.title = getString("fullscreenBtnTitle");
@@ -1046,49 +1073,38 @@ async function renderApp() {
   osdFooter.textContent = getString("osdFooter");
   downloadModalCancel.textContent = getString("cancelLabel");
   downloadModalConfirm.textContent = getString("continueLabel");
-  document.getElementById("downloadModalTitleText").textContent =
-    getString("downloadAllTitle");
+  document.getElementById("downloadModalTitleText").textContent = getString("downloadAllTitle");
   loadingText.textContent = getString("loadingText");
   noSignalText.textContent = getString("noSignal");
-  powerPrompt.textContent = getString("powerPrompt") || "PRESS PWR TO START";
-  actionHint.textContent =
-    getString("actionHint") || "Download your favorite episodes";
+  powerPrompt.textContent = getString("powerPrompt");
+  actionHint.textContent = getString("actionHint") || "Download your favorite episodes";
   guideTitle.textContent = getString("guideTitle") || "Episodes";
-  guideSub.textContent = getString("guideSub") || "CHANNEL GUIDE · 12 EPISODES";
+  guideSub.textContent = getString("guideSub") || getString("browseArchive");
 
-  keyboardHelpBtn.title =
-    getString("keyboardHelpTitle") || "Keyboard shortcuts";
+  keyboardHelpBtn.title = getString("keyboardShortcuts");
 
   const guideSearchInput = document.getElementById("guideSearchInput");
   if (guideSearchInput) {
-    guideSearchInput.placeholder =
-      getString("guideSearchPlaceholder") || "Search episodes...";
+    guideSearchInput.placeholder = getString("guideSearchPlaceholder") || getString("searchEpisodes");
   }
   const expandAllBtn = document.getElementById("guideExpandAll");
   const collapseAllBtn = document.getElementById("guideCollapseAll");
-  if (expandAllBtn)
-    expandAllBtn.textContent = getString("guideExpandAll") || "Expand";
-  if (collapseAllBtn)
-    collapseAllBtn.textContent = getString("guideCollapseAll") || "Collapse";
+  if (expandAllBtn) expandAllBtn.textContent = getString("guideExpandAll") || "Expand";
+  if (collapseAllBtn) collapseAllBtn.textContent = getString("guideCollapseAll") || "Collapse";
 
   eolLabel.textContent = getString("eolLabel") || "TRANSMISSION COMPLETE";
-  document.getElementById("eolReplayLabel").textContent =
-    getString("eolReplay") || "REPLAY";
-  document.getElementById("eolNextLabel").textContent =
-    getString("eolNext") || "NEXT CHANNEL";
+  document.getElementById("eolReplayLabel").textContent = getString("eolReplay") || "REPLAY";
+  document.getElementById("eolNextLabel").textContent = getString("eolNext") || "NEXT CHANNEL";
   document.getElementById("heroSynopsis").textContent =
     getString("synopsis") ||
     "High school students Adachi and Shimamura share a bond that goes beyond friendship. A tender story of connection, growth, and the quiet moments that define a relationship.";
 
   CHANNELS = buildChannels(contentData, miniAnimeData);
+  downloadModalText.textContent = getString("downloadAllText").replace("{count}", CHANNELS.length);
   buildOsdMenu();
   if (!state.powered) updateEpisodeInfoPanel(null);
 
-  if (
-    state.currentChannel >= 0 &&
-    state.currentChannel < CHANNELS.length &&
-    state.powered
-  ) {
+  if (state.currentChannel >= 0 && state.currentChannel < CHANNELS.length && state.powered) {
     const ch = CHANNELS[state.currentChannel];
     updateEpisodeInfoPanel(ch);
     if (crtVideo.src !== ch.src) {
@@ -1148,9 +1164,7 @@ async function renderApp() {
         const view = this.dataset.view;
         currentView = view;
         localStorage.setItem("episodeView", view);
-        viewToggle
-          .querySelectorAll("button")
-          .forEach((b) => b.classList.remove("active"));
+        viewToggle.querySelectorAll("button").forEach((b) => b.classList.remove("active"));
         this.classList.add("active");
         renderFolders();
         updateFolderStates();
@@ -1176,9 +1190,7 @@ async function renderApp() {
     };
   }
 
-  console.log(
-    `✅ App rendered with ${CHANNELS.length} channels in ${currentLang}`,
-  );
+  console.log(`✅ App rendered with ${CHANNELS.length} channels in ${currentLang}`);
 }
 
 // ===== SEARCH / FILTER =====
@@ -1293,7 +1305,7 @@ async function powerOn() {
   crtBody.classList.add("powered-on");
   state.powered = true;
   state.switching = false;
-  menuBtn.disabled = false;
+  episodeMenuBtn.disabled = false;
   playPauseBtn.disabled = true;
   await wait(700);
   crtScreen.classList.remove("powered-on");
@@ -1334,8 +1346,8 @@ async function powerOff() {
   state.playing = false;
   state.powered = false;
   state.switching = false;
-  menuBtn.disabled = true;
-  menuBtn.classList.remove("active");
+  episodeMenuBtn.disabled = true;
+  episodeMenuBtn.classList.remove("active");
   playPauseBtn.disabled = true;
   updatePlayPauseBtn();
 
@@ -1384,7 +1396,7 @@ async function switchChannel(index, restoreTime = null) {
   }
 
   loadingInd.classList.add("show");
-  loadingText.textContent = "TUNING " + label + "...";
+  loadingText.textContent = `${getString("tuningLabel")} ${label}...`;
 
   const videoUrl = ch.src;
 
@@ -1423,11 +1435,7 @@ async function switchChannel(index, restoreTime = null) {
 
   crtVideo.volume = state.muted ? 0 : state.volume;
 
-  if (
-    restoreTime !== null &&
-    restoreTime > 0 &&
-    restoreTime < crtVideo.duration - 2
-  ) {
+  if (restoreTime !== null && restoreTime > 0 && restoreTime < crtVideo.duration - 2) {
     crtVideo.currentTime = restoreTime;
     showOSDNotification("RESUME", formatTime(restoreTime));
   }
@@ -1478,18 +1486,17 @@ function openMenu() {
   buildOsdMenu();
   updateOsdActiveChannel();
   osdMenu.classList.add("visible");
-  menuBtn.classList.add("active");
+  episodeMenuBtn.classList.add("active");
   if (isMobile()) document.body.style.overflow = "hidden";
   if (state.currentChannel >= 0) {
     const activeItem = osdChannelList.children[state.currentChannel];
-    if (activeItem)
-      activeItem.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    if (activeItem) activeItem.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
 }
 function closeMenu() {
   state.menuOpen = false;
   osdMenu.classList.remove("visible");
-  menuBtn.classList.remove("active");
+  episodeMenuBtn.classList.remove("active");
   document.body.style.overflow = "";
 }
 function toggleMenu() {
@@ -1526,10 +1533,7 @@ function prevEpisode() {
   if (state.currentChannel > 0 && state.powered) {
     const prev = state.currentChannel - 1;
     const prog = getEpisodeProgress(prev);
-    const restoreTime =
-      prog.time > 5 && prog.time / (prog.duration || 1) < 0.95
-        ? prog.time
-        : null;
+    const restoreTime = prog.time > 5 && prog.time / (prog.duration || 1) < 0.95 ? prog.time : null;
     switchChannel(prev, restoreTime);
   }
 }
@@ -1538,10 +1542,7 @@ function nextEpisode() {
   if (state.currentChannel < CHANNELS.length - 1 && state.powered) {
     const next = state.currentChannel + 1;
     const prog = getEpisodeProgress(next);
-    const restoreTime =
-      prog.time > 5 && prog.time / (prog.duration || 1) < 0.95
-        ? prog.time
-        : null;
+    const restoreTime = prog.time > 5 && prog.time / (prog.duration || 1) < 0.95 ? prog.time : null;
     switchChannel(next, restoreTime);
   }
 }
@@ -1549,8 +1550,7 @@ function nextEpisode() {
 // ===== DOWNLOAD =====
 async function forceDownload(url, fileName, onProgress) {
   const response = await fetch(url);
-  if (!response.ok || !response.body)
-    throw new Error("Network response was not ok");
+  if (!response.ok || !response.body) throw new Error("Network response was not ok");
   const total = Number(response.headers.get("Content-Length")) || 0;
   const reader = response.body.getReader();
   const chunks = [];
@@ -1560,8 +1560,7 @@ async function forceDownload(url, fileName, onProgress) {
     if (done) break;
     chunks.push(value);
     received += value.length;
-    if (onProgress)
-      onProgress(total ? Math.round((received / total) * 100) : null);
+    if (onProgress) onProgress(total ? Math.round((received / total) * 100) : null);
   }
   const blob = new Blob(chunks);
   const blobUrl = window.URL.createObjectURL(blob);
@@ -1611,9 +1610,7 @@ function showDownloadModal(message) {
 async function downloadAllEpisodes() {
   if (!CHANNELS.length) return;
   const count = CHANNELS.length;
-  const confirmed = await showDownloadModal(
-    getString("downloadAllText", count),
-  );
+  const confirmed = await showDownloadModal(getString("downloadAllText", count));
   if (!confirmed) return;
   const originalHtml = downloadAllBtn.innerHTML;
   downloadAllBtn.disabled = true;
@@ -1642,8 +1639,7 @@ function toggleFullscreen() {
   if (!document.fullscreenElement && !document.webkitFullscreenElement) {
     crtVideo.controls = false;
     crtScreen.style.filter = "none";
-    const req =
-      crtScreen.requestFullscreen || crtScreen.webkitRequestFullscreen;
+    const req = crtScreen.requestFullscreen || crtScreen.webkitRequestFullscreen;
     if (req) req.call(crtScreen).catch(() => {});
     fullscreenBtn.innerHTML =
       '<span class="iconify" data-icon="mdi:fullscreen-exit" data-inline="false"></span>';
@@ -1653,9 +1649,7 @@ function toggleFullscreen() {
   }
 }
 function onFullscreenChange() {
-  const isFs = !!(
-    document.fullscreenElement || document.webkitFullscreenElement
-  );
+  const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
   fullscreenBtn.innerHTML = isFs
     ? '<span class="iconify" data-icon="mdi:fullscreen-exit" data-inline="false"></span>'
     : '<span class="iconify" data-icon="mdi:fullscreen" data-inline="false"></span>';
@@ -1667,184 +1661,31 @@ function onFullscreenChange() {
 document.addEventListener("fullscreenchange", onFullscreenChange);
 document.addEventListener("webkitfullscreenchange", onFullscreenChange);
 
-// ===== KNOBS =====
-const ARC_CX = 27,
-  ARC_CY = 27,
-  ARC_R = 24;
-const ARC_START_DEG = 225,
-  ARC_TOTAL_DEG = 270;
-function degToRad(d) {
-  return (d * Math.PI) / 180;
-}
-function arcPoint(angleDeg) {
-  const rad = degToRad(angleDeg - 90);
-  return {
-    x: ARC_CX + ARC_R * Math.cos(rad),
-    y: ARC_CY + ARC_R * Math.sin(rad),
-  };
-}
-function buildArcPath(startDeg, sweepDeg) {
-  if (Math.abs(sweepDeg) < 0.5) return "";
-  const large = sweepDeg > 180 ? 1 : 0;
-  const p1 = arcPoint(startDeg);
-  const p2 = arcPoint(startDeg + sweepDeg);
-  return `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} A ${ARC_R} ${ARC_R} 0 ${large} 1 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`;
-}
-
-function createKnob({
-  knobEl,
-  indicatorEl,
-  tipEl,
-  knobWrapper,
-  arcBgEl,
-  arcFillEl,
-  osdValueEl,
-  osdBarEl,
-  min,
-  max,
-  initial,
-  step,
-  formatTip,
-  onChange,
-  storageKey,
-}) {
+// ===== MODERN PLAYER CONTROLS =====
+function createRangeControl(input, { min, max, initial, storageKey, onChange, format }) {
   let value = initial;
-  const KNOB_ANGLE_MIN = -135,
-    KNOB_ANGLE_MAX = 135;
-
-  if (storageKey) {
+  try {
+    const saved = localStorage.getItem(storageKey);
+    if (saved !== null) value = Number(saved);
+  } catch {
+    /* ignored */
+  }
+  const apply = (next, notify = false) => {
+    value = Math.max(min, Math.min(max, Number(next)));
+    input.value = value;
+    if (input.nextElementSibling) input.nextElementSibling.value = format(value);
+    onChange(value, notify);
     try {
-      const saved = localStorage.getItem(storageKey);
-      if (saved !== null) value = parseFloat(saved);
-    } catch (e) {}
-  }
-
-  function valueToKnobAngle(v) {
-    const t = (v - min) / (max - min);
-    return KNOB_ANGLE_MIN + t * (KNOB_ANGLE_MAX - KNOB_ANGLE_MIN);
-  }
-  function clamp(v) {
-    return Math.max(min, Math.min(max, v));
-  }
-  function updateArc(v) {
-    const t = (v - min) / (max - min);
-    const sweepTotal = ARC_TOTAL_DEG;
-    arcBgEl.setAttribute("d", buildArcPath(ARC_START_DEG, sweepTotal));
-    const sweepFill = t * sweepTotal;
-    arcFillEl.setAttribute(
-      "d",
-      sweepFill > 0.5 ? buildArcPath(ARC_START_DEG, sweepFill) : "",
-    );
-    const hue = 300 - t * 60;
-    arcFillEl.style.stroke = `hsla(${hue},50%,72%,0.55)`;
-  }
-  function applyValue(v, isDragging) {
-    value = clamp(v);
-    const angle = valueToKnobAngle(value);
-    indicatorEl.style.transform = `translateX(-50%) rotate(${angle}deg)`;
-    indicatorEl.style.transformOrigin = "bottom center";
-    updateArc(value);
-    const txt = formatTip(value);
-    tipEl.textContent = txt;
-    if (osdValueEl) osdValueEl.textContent = txt;
-    if (osdBarEl) {
-      const pct = ((value - min) / (max - min)) * 100;
-      osdBarEl.style.width = pct + "%";
+      localStorage.setItem(storageKey, value);
+    } catch {
+      /* ignored */
     }
-    const pct = ((value - min) / (max - min)) * 100;
-    knobEl.setAttribute("aria-valuenow", Math.round(pct));
-    onChange(value, isDragging);
-    if (storageKey) {
-      try {
-        localStorage.setItem(storageKey, value);
-      } catch (e) {}
-    }
-  }
-  applyValue(value, false);
-
-  let dragStartY = null,
-    dragStartVal = null;
-  knobEl.addEventListener("mousedown", (e) => {
-    dragStartY = e.clientY;
-    dragStartVal = value;
-    knobWrapper.classList.add("dragging");
-    e.preventDefault();
-    knobEl.focus();
-  });
-  document.addEventListener("mousemove", (e) => {
-    if (dragStartY === null) return;
-    const delta = (dragStartY - e.clientY) * step;
-    applyValue(dragStartVal + delta, true);
-  });
-  document.addEventListener("mouseup", () => {
-    if (dragStartY !== null) {
-      dragStartY = null;
-      knobWrapper.classList.remove("dragging");
-    }
-  });
-  let touchStartY = null,
-    touchStartVal = null;
-  knobEl.addEventListener(
-    "touchstart",
-    (e) => {
-      touchStartY = e.touches[0].clientY;
-      touchStartVal = value;
-      knobWrapper.classList.add("dragging");
-      e.preventDefault();
-    },
-    { passive: false },
-  );
-  knobEl.addEventListener(
-    "touchmove",
-    (e) => {
-      if (touchStartY === null) return;
-      const delta = (touchStartY - e.touches[0].clientY) * step;
-      applyValue(touchStartVal + delta, true);
-      e.preventDefault();
-    },
-    { passive: false },
-  );
-  knobEl.addEventListener("touchend", () => {
-    touchStartY = null;
-    knobWrapper.classList.remove("dragging");
-  });
-  knobEl.addEventListener(
-    "wheel",
-    (e) => {
-      e.preventDefault();
-      const dir = e.deltaY < 0 ? 1 : -1;
-      applyValue(value + dir * step * 18, true);
-      knobWrapper.classList.add("dragging");
-      clearTimeout(knobWrapper._scrollTimer);
-      knobWrapper._scrollTimer = setTimeout(
-        () => knobWrapper.classList.remove("dragging"),
-        800,
-      );
-    },
-    { passive: false },
-  );
-
-  knobEl.addEventListener("keydown", (e) => {
-    let delta = 0;
-    if (e.key === "ArrowUp" || e.key === "ArrowRight") delta = step * 20;
-    else if (e.key === "ArrowDown" || e.key === "ArrowLeft") delta = -step * 20;
-    else if (e.key === "Home") delta = -1;
-    else if (e.key === "End") delta = 1;
-    if (delta !== 0) {
-      e.preventDefault();
-      applyValue(value + delta, true);
-      knobWrapper.classList.add("dragging");
-      clearTimeout(knobWrapper._keyTimer);
-      knobWrapper._keyTimer = setTimeout(
-        () => knobWrapper.classList.remove("dragging"),
-        800,
-      );
-    }
-  });
-
+  };
+  input.addEventListener("input", () => apply(input.value, true));
+  apply(value, false);
   return {
     reset() {
-      applyValue(initial, false);
+      apply(initial, false);
     },
     getValue() {
       return value;
@@ -1852,67 +1693,43 @@ function createKnob({
   };
 }
 
-const volKnobCtrl = createKnob({
-  knobEl: document.getElementById("volKnobCircle"),
-  indicatorEl: document.getElementById("volIndicator"),
-  tipEl: document.getElementById("volTip"),
-  knobWrapper: document.getElementById("volKnob"),
-  arcBgEl: document.getElementById("volArcBg"),
-  arcFillEl: document.getElementById("volArcFill"),
-  osdValueEl: document.getElementById("volOsdValue"),
-  osdBarEl: document.getElementById("volOsdBar"),
+const volKnobCtrl = createRangeControl(document.getElementById("volKnobCircle"), {
   min: 0,
   max: 1,
   initial: 1,
-  step: 0.008,
-  formatTip: (v) => Math.round(v * 100) + "%",
   storageKey: VOLUME_KEY,
+  format: (v) => Math.round(v * 100) + "%",
   onChange: (v) => {
     state.volume = v;
     crtVideo.volume = state.muted ? 0 : v;
-    if (!document.querySelector(".tv-knob.dragging")) {
-      showOSDNotification("VOL", Math.round(v * 100) + "%");
-    }
+    if (state.powered) showOSDNotification("VOL", Math.round(v * 100) + "%");
   },
 });
 
-const brtKnobCtrl = createKnob({
-  knobEl: document.getElementById("brtKnobCircle"),
-  indicatorEl: document.getElementById("brtIndicator"),
-  tipEl: document.getElementById("brtTip"),
-  knobWrapper: document.getElementById("brtKnob"),
-  arcBgEl: document.getElementById("brtArcBg"),
-  arcFillEl: document.getElementById("brtArcFill"),
-  osdValueEl: document.getElementById("brtOsdValue"),
-  osdBarEl: document.getElementById("brtOsdBar"),
+const brtKnobCtrl = createRangeControl(document.getElementById("brtKnobCircle"), {
   min: 0.3,
   max: 1.6,
-  initial: 1.0,
-  step: 0.01,
-  formatTip: (v) => Math.round(((v - 0.3) / 1.3) * 100) + "%",
+  initial: 1,
   storageKey: BRIGHTNESS_KEY,
+  format: (v) => Math.round(((v - 0.3) / 1.3) * 100) + "%",
   onChange: (v) => {
     state.brightness = v;
     if (!document.fullscreenElement && !document.webkitFullscreenElement) {
       crtScreen.style.filter = `brightness(${v})`;
     }
-    if (!document.querySelector(".tv-knob.dragging")) {
-      showOSDNotification("BRT", Math.round(((v - 0.3) / 1.3) * 100) + "%");
-    }
+    if (state.powered) showOSDNotification("BRIGHTNESS", Math.round(((v - 0.3) / 1.3) * 100) + "%");
   },
 });
 
 // ================================================================
 // FIXED LANGUAGE SWITCH - Delegates to LanguageSwitch
 // ================================================================
+// eslint-disable-next-line no-unused-vars -- may be invoked from an inline onclick handler in HTML
 async function switchLanguage(lang) {
   if (isSwitching || currentLang === lang) return;
 
   // Delegate to LanguageSwitch if available
-  if (
-    window.LanguageSwitch &&
-    typeof window.LanguageSwitch.setLanguage === "function"
-  ) {
+  if (window.LanguageSwitch && typeof window.LanguageSwitch.setLanguage === "function") {
     window.LanguageSwitch.setLanguage(lang);
     return;
   }
@@ -1950,24 +1767,22 @@ async function switchLanguage(lang) {
 }
 
 function updateLangDropdownLabel() {
-  const selectedOption = document.querySelector(
-    `.lang-option[data-lang="${currentLang}"]`,
-  );
+  const selectedOption = document.querySelector(`.lang-option[data-lang="${currentLang}"]`);
   const labelEl = document.getElementById("langSelectedLabel");
   if (selectedOption && labelEl) {
     labelEl.textContent = selectedOption.getAttribute("data-label");
-    document
-      .querySelectorAll(".lang-option")
-      .forEach((opt) => opt.classList.remove("selected"));
+    document.querySelectorAll(".lang-option").forEach((opt) => opt.classList.remove("selected"));
     selectedOption.classList.add("selected");
   }
 }
 
 // ===== EVENT LISTENERS =====
-powerBtn.addEventListener("click", () => {
-  state.powered ? powerOff() : powerOn();
+powerBtn.addEventListener("click", () => powerOn());
+document.getElementById("drawerClose")?.addEventListener("click", closeMenu);
+episodeMenuBtn.addEventListener("click", () => {
+  document.body.dataset.animeMenuOpened = "true";
+  toggleMenu();
 });
-menuBtn.addEventListener("click", toggleMenu);
 playPauseBtn.addEventListener("click", togglePlayPause);
 downloadAllBtn.addEventListener("click", downloadAllEpisodes);
 fullscreenBtn.addEventListener("click", toggleFullscreen);
@@ -2046,57 +1861,6 @@ downloadBtn.addEventListener("click", (e) => {
   }
 });
 
-// Language dropdown
-if (langDropdown && langToggle) {
-  langToggle.addEventListener("click", function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-    if (this.disabled) return;
-
-    const isOpen = langDropdown.classList.toggle("open");
-    this.setAttribute("aria-expanded", isOpen ? "true" : "false");
-
-    if (langMenu) {
-      langMenu.style.display = isOpen ? "block" : "none";
-    }
-  });
-
-  document.querySelectorAll(".lang-option").forEach((option) => {
-    option.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-
-      const lang = this.getAttribute("data-lang");
-      console.log("Language selected:", lang);
-
-      langDropdown.classList.remove("open");
-      if (langToggle) langToggle.setAttribute("aria-expanded", "false");
-      if (langMenu) langMenu.style.display = "none";
-
-      switchLanguage(lang);
-    });
-  });
-
-  document.addEventListener("click", function (e) {
-    if (
-      langDropdown.classList.contains("open") &&
-      !langDropdown.contains(e.target)
-    ) {
-      langDropdown.classList.remove("open");
-      if (langToggle) langToggle.setAttribute("aria-expanded", "false");
-      if (langMenu) langMenu.style.display = "none";
-    }
-  });
-
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && langDropdown.classList.contains("open")) {
-      langDropdown.classList.remove("open");
-      if (langToggle) langToggle.setAttribute("aria-expanded", "false");
-      if (langMenu) langMenu.style.display = "none";
-    }
-  });
-}
-
 // ===== VIDEO EVENTS =====
 crtVideo.addEventListener("play", () => {
   state.playing = true;
@@ -2164,8 +1928,7 @@ crtVideo.addEventListener("ended", () => {
     updateGuideProgress();
 
     eolTitle.textContent = ch.title;
-    eolSub.textContent =
-      ch.label || "CH " + String(state.currentChannel + 1).padStart(2, "0");
+    eolSub.textContent = ch.label || "CH " + String(state.currentChannel + 1).padStart(2, "0");
     if (state.currentChannel < CHANNELS.length - 1) {
       eolNextBtn.style.display = "inline-flex";
     } else {
@@ -2178,11 +1941,7 @@ crtVideo.addEventListener("ended", () => {
 
 // ===== KEYBOARD SHORTCUTS =====
 document.addEventListener("keydown", (e) => {
-  if (
-    e.target.tagName === "INPUT" ||
-    e.target.tagName === "TEXTAREA" ||
-    e.target.isContentEditable
-  )
+  if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable)
     return;
 
   if (e.key === "Escape") {
@@ -2275,28 +2034,21 @@ document.addEventListener("keydown", (e) => {
 // ===== LOAD MENU WITH TRANSLATION SUPPORT =====
 fetch("/src/components/menu.html?v=20260818-1", { cache: "no-store" })
   .then((response) => {
-    if (!response.ok)
-      throw new Error("HTTP error " + response.status + " loading menu");
+    if (!response.ok) throw new Error("HTTP error " + response.status + " loading menu");
     return response.text();
   })
   .then((data) => {
     data = data
       .replace(/src="\.\/(assets\/)/g, 'src="../../$1')
-      .replace(
-        /data-route="\.\.\/\.\.\/index\.html"/g,
-        'data-route="../../../index.html"',
-      );
+      .replace(/data-route="\.\.\/\.\.\/index\.html"/g, 'data-route="../../../index.html"');
     const container =
-      document.getElementById("sidebar-container") ||
-      document.getElementById("menu-container");
+      document.getElementById("sidebar-container") || document.getElementById("menu-container");
     if (!container) return;
     container.innerHTML = data;
 
     container.querySelectorAll("script").forEach((oldScript) => {
       const s = document.createElement("script");
-      Array.from(oldScript.attributes).forEach((a) =>
-        s.setAttribute(a.name, a.value),
-      );
+      Array.from(oldScript.attributes).forEach((a) => s.setAttribute(a.name, a.value));
       s.appendChild(document.createTextNode(oldScript.innerHTML));
       oldScript.parentNode.replaceChild(s, oldScript);
     });
@@ -2312,132 +2064,6 @@ document.addEventListener("menuLoaded", function () {
     window.translateMenu(currentLang);
   }
 });
-
-// ===== FORCE MENU LAYOUT (bypasses any stylesheet load-order / cache issue) =====
-// menu.html loads its own copy of menu.css asynchronously, which can win the
-// CSS cascade over this page's rules regardless of load order or the phone's
-// HTTP cache. Setting these properties directly via JS with "important"
-// priority always wins over any stylesheet, so the layout is deterministic.
-function enforceMenuLayout() {
-  const wrapper = document.getElementById("menu-component-wrapper");
-  const sidebar = document.getElementById("sideMenu");
-  const toggle = document.getElementById("menu-toggle-btn");
-  const container = document.getElementById("sidebar-container");
-  const mainContent = document.querySelector(".main-content");
-  if (!wrapper || !sidebar) return;
-
-  const isDesktop = window.innerWidth >= 901;
-  const isActive = sidebar.classList.contains("active");
-
-  const set = (el, prop, val) => {
-    if (el) el.style.setProperty(prop, val, "important");
-  };
-
-  if (container) {
-    set(container, "display", isDesktop ? "block" : "block");
-    set(container, "pointer-events", "none");
-    set(container, "position", isDesktop ? "fixed" : "static");
-    set(container, "top", isDesktop ? "0" : "auto");
-    set(container, "left", isDesktop ? "0" : "auto");
-    set(container, "width", isDesktop ? "300px" : "auto");
-    set(container, "height", isDesktop ? "100vh" : "auto");
-    set(container, "z-index", isDesktop ? "1" : "auto");
-  }
-
-  if (mainContent) {
-    set(mainContent, "margin-left", isDesktop ? "300px" : "0");
-    set(mainContent, "width", isDesktop ? "calc(100% - 300px)" : "100%");
-    set(mainContent, "max-width", isDesktop ? "calc(100% - 300px)" : "1400px");
-    set(mainContent, "position", "relative");
-    set(mainContent, "z-index", "10");
-    set(mainContent, "pointer-events", "auto");
-    set(mainContent, "padding-left", isDesktop ? "16px" : "8px");
-  }
-
-  const tvStage = document.querySelector(".crt-stage");
-  if (tvStage) {
-    set(tvStage, "position", "relative");
-    set(tvStage, "z-index", "12");
-  }
-
-  const powerButton = document.getElementById("powerBtn");
-  if (powerButton) {
-    set(powerButton, "position", "relative");
-    set(powerButton, "z-index", "12");
-  }
-
-  if (isDesktop) {
-    set(wrapper, "position", "fixed");
-    set(wrapper, "top", "0");
-    set(wrapper, "left", "0");
-    set(wrapper, "width", "300px");
-    set(wrapper, "height", "100vh");
-    set(wrapper, "z-index", "1");
-    set(wrapper, "pointer-events", "auto");
-
-    set(sidebar, "position", "fixed");
-    set(sidebar, "top", "0");
-    set(sidebar, "left", "0");
-    set(sidebar, "right", "auto");
-    set(sidebar, "width", "300px");
-    set(sidebar, "height", "100vh");
-    set(sidebar, "overflow-y", "auto");
-    set(sidebar, "transform", "none");
-    set(sidebar, "pointer-events", "auto");
-    set(sidebar, "z-index", "1");
-    set(toggle, "display", "none");
-  } else {
-    set(sidebar, "position", "fixed");
-    set(sidebar, "top", "0");
-    set(sidebar, "left", "0");
-    set(sidebar, "right", "auto");
-    set(sidebar, "height", "100vh");
-    set(sidebar, "overflow-y", "auto");
-    set(sidebar, "transform", isActive ? "translateX(0)" : "translateX(-105%)");
-    set(sidebar, "pointer-events", "auto");
-
-    // Respect the shared burger-menu preference. The Anime page has its own
-    // layout enforcement with !important styles, so it must explicitly check
-    // the same setting instead of always forcing the toggle back to flex.
-    let hideBurger = false;
-    try {
-      const hideOnOtherPages =
-        localStorage.getItem("adashima_hide_burger_other_pages") === "true";
-      const path = window.location.pathname.replace(/\/+$/, "").toLowerCase();
-      const isHome = path === "" || path === "/index.html" || path === "/index";
-      hideBurger = hideOnOtherPages && !isHome;
-    } catch (e) {
-      hideBurger = false;
-    }
-
-    set(toggle, "display", hideBurger ? "none" : "flex");
-    if (hideBurger) {
-      toggle.style.setProperty("display", "none", "important");
-      toggle.style.setProperty("visibility", "hidden", "important");
-      toggle.style.setProperty("pointer-events", "none", "important");
-    } else {
-      toggle.style.removeProperty("visibility");
-      toggle.style.removeProperty("pointer-events");
-    }
-    set(toggle, "left", "auto");
-    set(toggle, "right", "14px");
-  }
-}
-
-document.addEventListener("menuLoaded", enforceMenuLayout);
-window.addEventListener("resize", enforceMenuLayout);
-window.addEventListener("orientationchange", enforceMenuLayout);
-
-// ===== PARTICLES =====
-const particlesContainer = document.getElementById("particles");
-for (let i = 0; i < 18; i++) {
-  let star = document.createElement("div");
-  star.className = "star";
-  star.style.left = Math.random() * 100 + "vw";
-  star.style.animationDelay = Math.random() * 12 + "s";
-  star.style.animationDuration = 10 + Math.random() * 6 + "s";
-  particlesContainer.appendChild(star);
-}
 
 // ===== LISTEN FOR LANGUAGE CHANGES FROM LanguageSwitch =====
 document.addEventListener("languageChanged", function (e) {
@@ -2490,51 +2116,24 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.error("Failed to load initial content");
   }
 
+  // The modern player is ready immediately; selecting an episode loads it without a power-on ceremony.
+  state.powered = true;
+  updateButtons();
   const urlEpisode = parseURL();
-  if (urlEpisode >= 0 && urlEpisode < CHANNELS.length) {
-    const prog = getEpisodeProgress(urlEpisode);
-    if (CHANNELS.length > 0) {
-      powerOn().then(() => {
-        setTimeout(() => {
-          if (prog.time > 5 && prog.time / (prog.duration || 1) < 0.95) {
-            switchChannel(urlEpisode, prog.time);
-          } else {
-            switchChannel(urlEpisode, 0);
-          }
-        }, 1000);
-      });
-    }
-  } else {
-    const savedChannel = localStorage.getItem("adashima_last_channel");
-    if (
-      savedChannel !== null &&
-      parseInt(savedChannel) >= 0 &&
-      parseInt(savedChannel) < CHANNELS.length
-    ) {
-      const idx = parseInt(savedChannel);
-      const prog = getEpisodeProgress(idx);
-      if (CHANNELS.length > 0) {
-        powerOn().then(() => {
-          setTimeout(() => {
-            if (prog.time > 5 && prog.time / (prog.duration || 1) < 0.95) {
-              switchChannel(idx, prog.time);
-            } else {
-              switchChannel(idx, 0);
-            }
-          }, 1000);
-        });
-      }
-    }
+  const savedChannel = localStorage.getItem("adashima_last_channel");
+  const initialEpisode =
+    urlEpisode >= 0 ? urlEpisode : savedChannel !== null ? parseInt(savedChannel) : -1;
+  if (initialEpisode >= 0 && initialEpisode < CHANNELS.length) {
+    const prog = getEpisodeProgress(initialEpisode);
+    const restore = prog.time > 5 && prog.time / (prog.duration || 1) < 0.95 ? prog.time : 0;
+    switchChannel(initialEpisode, restore);
   }
 
-  window.addEventListener("popstate", (e) => {
+  window.addEventListener("popstate", (_e) => {
     const idx = parseURL();
     if (idx >= 0 && idx < CHANNELS.length && idx !== state.currentChannel) {
       if (state.powered) {
-        switchChannel(
-          idx,
-          getEpisodeProgress(idx).time > 5 ? getEpisodeProgress(idx).time : 0,
-        );
+        switchChannel(idx, getEpisodeProgress(idx).time > 5 ? getEpisodeProgress(idx).time : 0);
       }
     }
   });

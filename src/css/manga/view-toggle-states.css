@@ -1,26 +1,26 @@
 /* ---------- default states (both hidden) ---------- */
 .volumes-grid {
-    display: none;
+  display: none;
 }
 
 .manga-item {
-    display: none;
+  display: none;
 }
 
 /* ---------- GRID VIEW ---------- */
 .update-box.view-grid .volumes-grid {
-    display: grid !important;
+  display: grid !important;
 }
 
 .update-box.view-grid .manga-item {
-    display: none !important;
+  display: none !important;
 }
 
 /* ---------- LIST VIEW ---------- */
 .update-box.view-list .manga-item {
-    display: block !important;
+  display: block !important;
 }
 
 .update-box.view-list .volumes-grid {
-    display: none !important;
+  display: none !important;
 }

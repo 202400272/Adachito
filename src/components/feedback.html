@@ -12,58 +12,126 @@
     <button
       class="feedback-close"
       id="feedbackClose"
-      aria-label="Close feedback form"
+      aria-label="Cerrar formulario de comentarios"
+      data-es-aria-label="Cerrar formulario de comentarios"
+      data-en-aria-label="Close feedback form"
+      data-tg-aria-label="Isara ang feedback form"
     >
       <i class="fas fa-times"></i>
     </button>
 
     <div class="feedback-header">
-      <h2 id="feedbackTitle">Send Feedback</h2>
-      <p class="feedback-subtitle">
-        Found a bug, typo, missing content, or have a suggestion? I'd love to
-        hear from you.
+      <h2
+        id="feedbackTitle"
+        data-es="Enviar comentarios"
+        data-en="Send Feedback"
+        data-tg="Magpadala ng Feedback"
+      >
+        Send Feedback
+      </h2>
+      <p
+        class="feedback-subtitle"
+        data-es="¿Encontraste un error, contenido faltante o tienes una sugerencia? Me encantaría saber tu opinión."
+        data-en="Found a bug, typo, missing content, or have a suggestion? I'd love to hear from you."
+        data-tg="May nakita ka bang bug, typo, kulang na content, o may mungkahi ka? Gusto kong marinig ito."
+      >
+        Found a bug, typo, missing content, or have a suggestion? I'd love to hear from you.
       </p>
     </div>
 
     <form id="feedbackForm" novalidate>
-      <!-- Honeypot -->
-      <div
-        class="honeypot"
-        style="position: absolute; left: -9999px; top: -9999px"
-      >
-        <label for="honeypotField">Leave this field empty</label>
-        <input
-          type="text"
-          id="honeypotField"
-          name="honeypot"
-          tabindex="-1"
-          autocomplete="off"
-        />
+      <div class="honeypot" style="position: absolute; left: -9999px; top: -9999px">
+        <label
+          for="honeypotField"
+          data-es="Deja este campo vacío"
+          data-en="Leave this field empty"
+          data-tg="Iwanang walang laman ang field na ito"
+          >Leave this field empty</label
+        >
+        <input type="text" id="honeypotField" name="honeypot" tabindex="-1" autocomplete="off" />
       </div>
 
       <div class="feedback-field">
-        <label for="feedbackType"
-          >Feedback Type <span class="required">*</span></label
-        >
+        <label for="feedbackType">
+          <span data-es="Tipo de comentario" data-en="Feedback Type" data-tg="Uri ng Feedback"
+            >Feedback Type</span
+          >
+          <span class="required">*</span>
+        </label>
         <select id="feedbackType" name="feedbackType" required>
-          <option value="">Select a type...</option>
-          <option value="bug">🐞 Bug Report</option>
-          <option value="translation">📝 Translation Correction</option>
-          <option value="missing">📚 Missing Content</option>
-          <option value="broken">🔗 Broken Link</option>
-          <option value="feature">💡 Feature Request</option>
-          <option value="general">⭐ General Feedback</option>
+          <option
+            value=""
+            data-es="Selecciona un tipo..."
+            data-en="Select a type..."
+            data-tg="Pumili ng uri..."
+          >
+            Select a type...
+          </option>
+          <option
+            value="bug"
+            data-es="🐞 Reporte de error"
+            data-en="🐞 Bug Report"
+            data-tg="🐞 Ulat ng Bug"
+          >
+            🐞 Bug Report
+          </option>
+          <option
+            value="translation"
+            data-es="📝 Corrección de traducción"
+            data-en="📝 Translation Correction"
+            data-tg="📝 Pagwawasto ng Translation"
+          >
+            📝 Translation Correction
+          </option>
+          <option
+            value="missing"
+            data-es="📚 Contenido faltante"
+            data-en="📚 Missing Content"
+            data-tg="📚 Kulang na Content"
+          >
+            📚 Missing Content
+          </option>
+          <option
+            value="broken"
+            data-es="🔗 Enlace roto"
+            data-en="🔗 Broken Link"
+            data-tg="🔗 Sirang Link"
+          >
+            🔗 Broken Link
+          </option>
+          <option
+            value="feature"
+            data-es="💡 Solicitud de función"
+            data-en="💡 Feature Request"
+            data-tg="💡 Kahilingan para sa Feature"
+          >
+            💡 Feature Request
+          </option>
+          <option
+            value="general"
+            data-es="⭐ Comentario general"
+            data-en="⭐ General Feedback"
+            data-tg="⭐ Pangkalahatang Feedback"
+          >
+            ⭐ General Feedback
+          </option>
         </select>
         <span class="field-error" id="feedbackTypeError"></span>
       </div>
 
       <div class="feedback-field">
-        <label for="feedbackTitle">Title <span class="required">*</span></label>
+        <label for="feedbackTitleInput">
+          <span data-es="Título" data-en="Title" data-tg="Pamagat">Title</span>
+          <span class="required">*</span>
+        </label>
         <input
           type="text"
           id="feedbackTitleInput"
           name="feedbackTitle"
           placeholder="Brief summary of your feedback"
+          data-es-placeholder="Resumen breve de tu comentario"
+          data-en-placeholder="Brief summary of your feedback"
+          data-tg-placeholder="Maikling buod ng iyong feedback"
           maxlength="100"
           required
         />
@@ -72,13 +140,19 @@
       </div>
 
       <div class="feedback-field">
-        <label for="feedbackDescription"
-          >Description <span class="required">*</span></label
-        >
+        <label for="feedbackDescription">
+          <span data-es="Descripción" data-en="Description" data-tg="Paglalarawan"
+            >Description</span
+          >
+          <span class="required">*</span>
+        </label>
         <textarea
           id="feedbackDescription"
           name="feedbackDescription"
           placeholder="Please provide details about your feedback..."
+          data-es-placeholder="Proporciona detalles sobre tu comentario..."
+          data-en-placeholder="Please provide details about your feedback..."
+          data-tg-placeholder="Magbigay ng mga detalye tungkol sa iyong feedback..."
           maxlength="3000"
           rows="6"
           required
@@ -88,37 +162,54 @@
       </div>
 
       <div class="feedback-field">
-        <label for="feedbackEmail"
-          >Email <span class="optional">(optional)</span></label
-        >
-        <input
-          type="email"
-          id="feedbackEmail"
-          name="feedbackEmail"
-          placeholder="your@email.com"
-        />
-        <span class="field-hint"
+        <label for="feedbackEmail">
+          <span data-es="Correo electrónico" data-en="Email" data-tg="Email">Email</span>
+          <span class="optional" data-es="(opcional)" data-en="(optional)" data-tg="(opsyonal)"
+            >(optional)</span
+          >
+        </label>
+        <input type="email" id="feedbackEmail" name="feedbackEmail" placeholder="your@email.com" />
+        <span
+          class="field-hint"
+          data-es="Solo lo usaremos para contactarte si es necesario."
+          data-en="We'll only use this to follow up if needed."
+          data-tg="Gagamitin lang namin ito para makipag-ugnayan kung kinakailangan."
           >We'll only use this to follow up if needed.</span
         >
       </div>
 
       <div class="feedback-actions">
         <button type="button" class="feedback-cancel" id="feedbackCancel">
-          Cancel
+          <span data-es="Cancelar" data-en="Cancel" data-tg="Kanselahin">Cancel</span>
         </button>
         <button type="submit" class="feedback-submit" id="feedbackSubmit">
-          <span class="submit-text">Send Feedback</span>
-          <span class="submit-spinner" style="display: none"
-            ><i class="fas fa-spinner fa-spin"></i> Sending...</span
+          <span
+            class="submit-text"
+            data-es="Enviar comentarios"
+            data-en="Send Feedback"
+            data-tg="Magpadala ng Feedback"
+            >Send Feedback</span
           >
+          <span class="submit-spinner" style="display: none">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span data-es="Enviando..." data-en="Sending..." data-tg="Ipinapadala..."
+              >Sending...</span
+            >
+          </span>
         </button>
       </div>
     </form>
 
     <div class="feedback-success" id="feedbackSuccess" style="display: none">
       <div class="success-icon">✓</div>
-      <h3>Thank You!</h3>
-      <p>Your feedback has been sent successfully.</p>
+      <h3 data-es="¡Gracias!" data-en="Thank You!" data-tg="Salamat!">Thank You!</h3>
+      <p
+        data-es="Tu comentario se ha enviado correctamente."
+        data-en="Your feedback has been sent successfully."
+        data-tg="Matagumpay na naipadala ang iyong feedback."
+      >
+        Your feedback has been sent successfully.
+      </p>
     </div>
   </div>
 </div>

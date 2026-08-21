@@ -28,10 +28,10 @@
       "description": "How the archive is organized"
     },
     {
-      "id": "stats-guide",
-      "icon": "fa-chart-simple",
-      "title": "Understanding Stats",
-      "description": "What the numbers mean"
+      "id": "translations",
+      "icon": "fa-language",
+      "title": "Translations & official releases",
+      "description": "Languages, sources & official releases"
     },
     {
       "id": "reading",
@@ -52,6 +52,30 @@
       "description": "Language & appearance"
     },
     {
+      "id": "stats-guide",
+      "icon": "fa-chart-simple",
+      "title": "Understanding Stats",
+      "description": "What the numbers mean"
+    },
+    {
+      "id": "constellation",
+      "icon": "fa-star",
+      "title": "Constellation & unlocks",
+      "description": "Rewards and profiles"
+    },
+    {
+      "id": "gallery",
+      "icon": "fa-images",
+      "title": "Gallery",
+      "description": "Illustrations by volume"
+    },
+    {
+      "id": "minigame",
+      "icon": "fa-gamepad",
+      "title": "Yashiro mini-game",
+      "description": "Extra content"
+    },
+    {
       "id": "troubleshooting",
       "icon": "fa-wrench",
       "title": "Troubleshooting",
@@ -62,6 +86,12 @@
       "icon": "fa-message",
       "title": "Feedback",
       "description": "Report issues & corrections"
+    },
+    {
+      "id": "dmca",
+      "icon": "fa-scale-balanced",
+      "title": "DMCA & Copyright",
+      "description": "Requesting removals & rights info"
     }
   ],
   "sections": [
@@ -69,35 +99,27 @@
       "id": "new-fan-guide",
       "icon": "fa-route",
       "eyebrow": "START HERE",
-      "title": "New fan guide: what should I consume first?",
+      "title": "New Fan Guide: Where Should I Start?",
       "items": [
         {
-          "question": "The short answer: start with the light novels.",
-          "answer": "The <strong>light novels are the source material</strong> for <em>Adachi to Shimamura</em>. If you want the fullest version of the story and the best place to understand the characters, start with <strong>Volume 1</strong> and read the novels in publication order."
+          "question": "If you want the full story",
+          "answer": "Start with the <strong>light novels</strong>. They are the original source and give you the most complete version of Adachi and Shimamura, including inner thoughts, narration, conversations, and details that adaptations may condense or omit.<br><br>Begin with <strong>Volume 1</strong> and read in order. You do not need to learn the site’s extras or release history before starting."
         },
         {
-          "question": "1. Light novels — the main source material",
-          "answer": "Start with <strong>Light Novels → Volume 1</strong>, then continue through the numbered volumes in order. The novels are the foundation of the story, so this is the recommended route if you are completely new or want the most complete experience."
+          "question": "If you prefer manga",
+          "answer": "There are <strong>two manga adaptations</strong>. The <strong>2016 Mani version</strong> is short and covers the early part of the story, while the <strong>2019 Moke Yuzuhara version</strong> is the longer-running adaptation and is officially available in English.<br><br>They are separate adaptations of the same light-novel source, so neither is required before reading the other."
         },
         {
-          "question": "2. Manga — adaptations and alternate presentations",
-          "answer": "The manga are <strong>adaptations of the story</strong>, not the primary source. They are great if you prefer visual storytelling, want to revisit familiar scenes, or want to see how the manga versions interpret the characters and moments."
+          "question": "If you prefer anime",
+          "answer": "The <strong>2020 anime</strong> is a good visual introduction, especially if you prefer animation, voice acting, and music. It adapts only part of the novels, so it is not a substitute for the full source material.<br><br>If you discover the series through the anime and want the complete story, go back to <strong>Volume 1</strong> rather than treating the anime as the starting point for the novels."
         },
         {
-          "question": "3. Anime — a visual adaptation",
-          "answer": "The anime is another adaptation of the light novels. It is an easy entry point if you discovered Adachi and Shimamura through animation, but it does not replace the novels. If you start with the anime and want the fuller story afterward, going back to <strong>Light Novels → Volume 1</strong> is the safest way to experience everything from the beginning."
+          "question": "What about 99.9 and Extra Stories?",
+          "answer": "You can ignore the extras when you first start. For the main novel sequence, read <strong>Volumes 1–9 → Volume 99.9 → Volume 10 onward</strong>. Volume 99.9 collects the Special Novels originally released with the Japanese Blu-ray editions of the anime and fits between Volumes 9 and 10.<br><br><strong>Extra Stories</strong> are separate supplementary pieces. Read them after the volume, event, or release they are associated with so you have the intended context."
         },
         {
-          "question": "4. Extra stories and special novels",
-          "answer": "Once you are familiar with the main story, explore <strong>Extra Stories</strong> and the special novel material. These are best treated as supplemental reading rather than your starting point. When an extra is clearly tied to a particular volume or release, reading the corresponding main material first can help avoid spoilers or missing context."
-        },
-        {
-          "question": "5. Drama CDs, music, gallery, and other material",
-          "answer": "These are complementary parts of the archive. Enjoy <strong>Drama CDs</strong> and <strong>Music</strong> when you want more audio material, and browse the <strong>Gallery</strong>, <strong>Timeline</strong>, and <strong>Constellation</strong> sections when you want references, visual material, or ways to explore the series outside the main narrative."
-        },
-        {
-          "question": "Already watched the anime?",
-          "answer": "If you are coming from the anime, you can continue the story from approximately chapter 26 of the manga, which corresponds to the point right after volume 4 of the light novel. If you prefer to continue directly with the light novels, you can start with volume 5.<br><br>However, if you want to enjoy the story with greater depth and experience the original narrative, we recommend reading the light novels from volume 1. This way, you can discover the monologues, the characters' inner thoughts, and scene details that were omitted in the adaptations."
+          "question": "Finished the anime and want to continue?",
+          "answer": "For a continuation-only route, you can pick up the <strong>manga around Chapter 26</strong> or start the <strong>light novels with Volume 5</strong>.<br><br>For the fullest experience, however, we still recommend reading the novels from <strong>Volume 1</strong>. The continuation points are meant for readers who simply want to move forward from the adaptation."
         }
       ]
     },
@@ -126,6 +148,10 @@
         {
           "question": "Can I use AdaShimaverse on my phone?",
           "answer": "Yes. The site is designed to work on smaller screens. On mobile, use the floating menu button to open navigation and settings. If you prefer not to see that button on other pages, it can be disabled in the menu settings."
+        },
+        {
+          "question": "Is there an app?",
+          "answer": "There is no separate app in an app store, but AdaShimaverse can be installed as an app on desktop and mobile. On Android and desktop Chrome/Edge, look for an <strong>Install</strong> option in the browser's address bar or menu. On iOS, open the site in Safari, tap <strong>Share</strong>, then <strong>Add to Home Screen</strong>. Once installed, it opens in its own window with an icon on your home screen or desktop."
         }
       ]
     },
@@ -185,7 +211,7 @@
         },
         {
           "question": "Where are the original-work links?",
-          "answer": "The menu includes an <strong>Support the Original Work</strong> area with links to the official light novel, manga, and the author's web novel/blog resources. These links are external and open outside AdaShimaverse."
+          "answer": "The menu includes a <strong>Support the Original Work</strong> area with links to the official light novel, manga, and the author's web novel/blog resources. These links are external and open outside AdaShimaverse."
         },
         {
           "question": "What are Timeline and Constellation for?",
@@ -254,6 +280,50 @@
       ]
     },
     {
+      "id": "translations",
+      "icon": "fa-language",
+      "eyebrow": "TRANSLATIONS & SOURCES",
+      "title": "Translations, sources & official releases",
+      "items": [
+        {
+          "question": "Are the novels, manga, and other book-format works officially translated?",
+          "answer": "<strong>No.</strong> The English-language novels, manga, and other book-format works available through AdaShimaverse are <strong>fan translations, not official translations</strong>. The archive uses fan-translated versions of material rather than presenting them as licensed English editions. Where an official English release exists, that edition remains the authoritative licensed publication."
+        },
+        {
+          "question": "Why does AdaShimaverse use fan translations?",
+          "answer": "The archive aims to make the wider series easier to explore, including material that may not have an official English release. Fan translations can provide access to works that would otherwise be unavailable in English, while the archive clearly distinguishes them from officially licensed editions."
+        },
+        {
+          "question": "Does changing the site language translate the novels or manga?",
+          "answer": "<strong>No.</strong> The site's interface language and the language of its archived material are separate. Changing the interface to English, Spanish, or Tagalog changes menus and other site text; it does not automatically translate a novel, manga, or other source document."
+        },
+        {
+          "question": "Are all works in the archive available in English?",
+          "answer": "No. Language availability depends on the individual work and the source material available to the archive. Some items may have an English fan translation, an official English edition, another language, or no English version at all."
+        },
+        {
+          "question": "Why might a fan translation differ from another English version?",
+          "answer": "Different translations can make different choices for wording, tone, names, terminology, and dialogue. A fan translation should therefore be treated as <strong>a translation of the original text</strong>, not as an identical copy of another English edition. When comparing versions, differences do not necessarily mean that one version is automatically incorrect."
+        },
+        {
+          "question": "Is a fan translation the same as an official English edition?",
+          "answer": "No. An official edition is published or licensed by the rights holders and follows the publisher's editorial and translation process. A fan translation is produced independently and does not carry the same official status, even when it covers the same Japanese material."
+        },
+        {
+          "question": "Should I support the official English releases?",
+          "answer": "<strong>Yes, whenever an official release is available.</strong> Purchasing licensed editions supports the creators, translators, publishers, and rights holders involved with the series. Fan translations in the archive are intended to improve access to the broader material, not to replace officially licensed publications."
+        },
+        {
+          "question": "Where can I find the official releases?",
+          "answer": "Use the site's <strong>Support the Original Work</strong> links when available. They point readers toward official sources for the light novels, manga, and other licensed material. For publisher-specific availability, always rely on the linked official source rather than treating the fan archive as the authority."
+        },
+        {
+          "question": "Can I report a problem with a translation?",
+          "answer": "Yes. If you notice a suspected mistranslation, missing passage, inconsistent terminology, or other issue in archived translated material, use <strong>Send Feedback</strong> and identify the exact work, volume, chapter or page, and the part that appears incorrect. When possible, explain what you expected to see so the issue can be investigated."
+        }
+      ]
+    },
+    {
       "id": "stats-guide",
       "icon": "fa-chart-simple",
       "eyebrow": "STATISTICS",
@@ -282,6 +352,78 @@
         {
           "question": "What is the best way to use the Charts section?",
           "answer": "Use the charts for comparisons rather than absolute conclusions. <strong>Pages per Volume</strong> and <strong>Chapters per Volume</strong> compare structure; <strong>Cumulative Pages</strong> shows the running size of the released collection; and <strong>Translation Delay</strong> shows how the recorded JP-to-EN interval varies between entries."
+        }
+      ]
+    },
+    {
+      "id": "constellation",
+      "icon": "fa-star",
+      "eyebrow": "CONSTELLATION",
+      "title": "Constellation & unlocks",
+      "items": [
+        {
+          "question": "What is the Constellation page?",
+          "answer": "Constellation is an interactive section where you <strong>connect stars to complete constellations</strong>. Each completed constellation can unlock a reward, such as a mini-story or other archive content."
+        },
+        {
+          "question": "How do rewards unlock?",
+          "answer": "Each reward is tied to a <strong>specific number of completed constellations</strong>. Reaching that number automatically opens a window with the matching reward, which can include a <strong>mini-story PDF</strong> or other special content."
+        },
+        {
+          "question": "What are the Adachi and Shimamura profiles?",
+          "answer": "These are locked sections that unlock at certain milestones: the <strong>Shimamura profile unlocks after completing 3 constellations</strong>, and the <strong>Adachi profile, along with full access to all stories, unlocks after completing 10</strong>."
+        },
+        {
+          "question": "Does my progress save? Does it sync across devices?",
+          "answer": "Progress is saved <strong>locally in your browser</strong>, not to an account. That means it will not sync across devices, and clearing your browser's site data will reset your constellations and unlocks."
+        },
+        {
+          "question": "What is the novel status badge in the sidebar?",
+          "answer": "It's a quick indicator showing the <strong>light novel's current status</strong> (for example, ongoing or finished) right from the sidebar, without needing to visit the Novels section."
+        }
+      ]
+    },
+    {
+      "id": "gallery",
+      "icon": "fa-images",
+      "eyebrow": "GALLERY",
+      "title": "Browsing the Gallery",
+      "items": [
+        {
+          "question": "What's in the Gallery?",
+          "answer": "The Gallery brings together <strong>official illustrations</strong> pulled from the light novels and other visual material, organized by volume and by artist when that information is available."
+        },
+        {
+          "question": "How is it organized?",
+          "answer": "Artworks are grouped by <strong>volume</strong> (Volume 01, Volume 02, and so on), and you can also <strong>filter by collection</strong> using the filters at the top of the page."
+        },
+        {
+          "question": "Can I view an image at full size?",
+          "answer": "Yes. Selecting an artwork opens an <strong>enlarged view</strong> with details like the title, artist, and source publication."
+        },
+        {
+          "question": "A volume shows no illustrations. Is that normal?",
+          "answer": "Yes, that can happen while the archive keeps expanding. If you think content is missing that should be there, you can report it through <strong>Send Feedback</strong>."
+        }
+      ]
+    },
+    {
+      "id": "minigame",
+      "icon": "fa-gamepad",
+      "eyebrow": "YASHIRO GAME",
+      "title": "About the Yashiro mini-game",
+      "items": [
+        {
+          "question": "What is the Yashiro mini-game?",
+          "answer": "It's a small standalone game inspired by the character <strong>Yashiro</strong>, meant as light extra content in the archive, without a direct connection to the main story."
+        },
+        {
+          "question": "Does my game progress save to an account?",
+          "answer": "There are no accounts on AdaShimaverse. If the game saves any preference or score, it does so <strong>locally in your browser</strong>, the same as the rest of the site."
+        },
+        {
+          "question": "Where do I find it?",
+          "answer": "You can reach it from its link in the site's navigation menu."
         }
       ]
     },
@@ -342,6 +484,34 @@
         {
           "question": "Who owns the original series?",
           "answer": "<em>Adachi and Shimamura</em> and its original characters, artwork, and related works belong to their respective rights holders. AdaShimaverse is an unofficial fan project and does not claim ownership of the original work."
+        }
+      ]
+    },
+    {
+      "id": "dmca",
+      "icon": "fa-scale-balanced",
+      "eyebrow": "DMCA & COPYRIGHT",
+      "title": "DMCA & Copyright",
+      "items": [
+        {
+          "question": "What is AdaShimaverse's stance on copyright?",
+          "answer": "AdaShimaverse is an unofficial, non-profit fan archive. <em>Adachi and Shimamura</em>, its characters, artwork, and related works belong to their respective rights holders. We do not claim ownership of any original material referenced or hosted on the site, and we respect the rights of creators and publishers."
+        },
+        {
+          "question": "How do I request that something be removed?",
+          "answer": "If you're a rights holder (or represent one) and would like something on AdaShimaverse taken down, just reach out through <strong>Send Feedback</strong> or the contact details in the <strong>About</strong> section. Let us know it's a copyright request so we can prioritize it."
+        },
+        {
+          "question": "What should I include in my request?",
+          "answer": "It helps to include: what the material is, where it appears on the site (a link or page name), and a way to contact you if we have questions. That's usually enough for us to look into it."
+        },
+        {
+          "question": "How long does it take?",
+          "answer": "We review requests as soon as we can and remove or disable content that shouldn't be up. Since this is a small fan-run project, response times can vary, so thanks for your patience."
+        },
+        {
+          "question": "Does removing content mean AdaShimaverse admits wrongdoing?",
+          "answer": "No. We take these requests seriously and would rather err on the side of caution and take something down than leave up something we shouldn't. AdaShimaverse is a fan-run, non-profit project made out of love for the series."
         }
       ]
     }

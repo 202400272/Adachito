@@ -52,8 +52,8 @@ body {
   flex: 1;
   min-width: 0;
   position: relative;
-  padding: var(--space-xl) clamp(var(--space-md), 4vw, var(--space-xxl))
-    var(--space-xxl) clamp(var(--space-md), 4vw, var(--space-xxl));
+  padding: var(--space-xl) clamp(var(--space-md), 4vw, var(--space-xxl)) var(--space-xxl)
+    clamp(var(--space-md), 4vw, var(--space-xxl));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -416,8 +416,8 @@ body {
 
 .search-wrapper-large input {
   width: 100%;
-  padding: clamp(0.5rem, 1.2vw, 0.9rem) clamp(0.8rem, 1.5vw, 1.2rem)
-    clamp(0.5rem, 1.2vw, 0.9rem) clamp(2.2rem, 4vw, 3.5rem);
+  padding: clamp(0.5rem, 1.2vw, 0.9rem) clamp(0.8rem, 1.5vw, 1.2rem) clamp(0.5rem, 1.2vw, 0.9rem)
+    clamp(2.2rem, 4vw, 3.5rem);
   border-radius: var(--radius-xl);
   border: 2px solid rgba(209, 163, 198, 0.15);
   background: rgba(255, 255, 255, 0.94);
@@ -1023,8 +1023,7 @@ body {
 }
 .modal-body {
   flex: 1;
-  padding: clamp(12px, 2vw, 24px) clamp(12px, 2.5vw, 28px)
-    clamp(12px, 2vw, 28px);
+  padding: clamp(12px, 2vw, 24px) clamp(12px, 2.5vw, 28px) clamp(12px, 2vw, 28px);
   overflow-y: auto;
   min-width: 0;
   -webkit-overflow-scrolling: touch;
@@ -1512,20 +1511,14 @@ body {
   .main-content {
     padding-left: max(var(--space-md), env(safe-area-inset-left));
     padding-right: max(var(--space-md), env(safe-area-inset-right));
-    padding-bottom: max(
-      var(--space-xxl),
-      calc(env(safe-area-inset-bottom) + var(--space-md))
-    );
+    padding-bottom: max(var(--space-xxl), calc(env(safe-area-inset-bottom) + var(--space-md)));
   }
   .lang-controls {
     top: max(clamp(8px, 2vw, 20px), env(safe-area-inset-top));
     right: max(clamp(10px, 2.5vw, 32px), env(safe-area-inset-right));
   }
   .toast-message {
-    bottom: max(
-      clamp(16px, 3vw, 32px),
-      calc(env(safe-area-inset-bottom) + 16px)
-    );
+    bottom: max(clamp(16px, 3vw, 32px), calc(env(safe-area-inset-bottom) + 16px));
   }
 }
 
@@ -1635,4 +1628,455 @@ body {
     overflow-y: auto;
     z-index: 9999 !important;
   }
+}
+
+/* ======================================================================
+   TIME-BASED THEME + READABILITY
+   ====================================================================== */
+body.time-morning .main-content {
+  background: linear-gradient(135deg, #eaf3fb 0%, #edf0fa 58%, #f3ebf7 100%) !important;
+  color: #40566b !important;
+}
+body.time-afternoon .main-content {
+  background: linear-gradient(135deg, #f8e9ef 0%, #f2e3ed 55%, #f8ecd8 100%) !important;
+  color: #46364b !important;
+}
+body.time-night .main-content {
+  background: linear-gradient(135deg, #17121e 0%, #211827 55%, #171d2a 100%) !important;
+  color: #f1e8f5 !important;
+}
+
+body.time-morning .hero-content,
+body.time-morning .archive-stats,
+body.time-morning .search-wrapper-large input,
+body.time-morning .filter-pill,
+body.time-morning .filter-select,
+body.time-morning .empty-state,
+body.time-morning .archive-card {
+  background: rgba(247, 250, 253, 0.94) !important;
+  color: #40566b !important;
+  border-color: rgba(95, 134, 170, 0.2) !important;
+}
+body.time-afternoon .hero-content,
+body.time-afternoon .archive-stats,
+body.time-afternoon .search-wrapper-large input,
+body.time-afternoon .filter-pill,
+body.time-afternoon .filter-select,
+body.time-afternoon .empty-state,
+body.time-afternoon .archive-card {
+  background: rgba(255, 248, 244, 0.94) !important;
+  color: #46364b !important;
+  border-color: rgba(140, 90, 150, 0.18) !important;
+}
+body.time-night .hero-content,
+body.time-night .archive-stats,
+body.time-night .search-wrapper-large input,
+body.time-night .filter-pill,
+body.time-night .filter-select,
+body.time-night .empty-state,
+body.time-night .archive-card {
+  background: rgba(43, 33, 51, 0.96) !important;
+  color: #f1e8f5 !important;
+  border-color: rgba(221, 190, 226, 0.14) !important;
+}
+
+body.time-morning .hero-title,
+body.time-morning .stat-number,
+body.time-morning .card-title,
+body.time-morning .empty-state h3 {
+  color: #456985 !important;
+}
+body.time-afternoon .hero-title,
+body.time-afternoon .stat-number,
+body.time-afternoon .card-title,
+body.time-afternoon .empty-state h3 {
+  color: #714b78 !important;
+}
+body.time-night .hero-title,
+body.time-night .stat-number,
+body.time-night .card-title,
+body.time-night .empty-state h3 {
+  color: #f2e5f4 !important;
+}
+
+body.time-morning .hero-subtitle,
+body.time-morning .stat-label,
+body.time-morning .card-date,
+body.time-morning .card-language,
+body.time-morning .card-summary,
+body.time-morning .card-footer,
+body.time-morning .filter-label {
+  color: #60758a !important;
+}
+body.time-afternoon .hero-subtitle,
+body.time-afternoon .stat-label,
+body.time-afternoon .card-date,
+body.time-afternoon .card-language,
+body.time-afternoon .card-summary,
+body.time-afternoon .card-footer,
+body.time-afternoon .filter-label {
+  color: #725f77 !important;
+}
+body.time-night .hero-subtitle,
+body.time-night .stat-label,
+body.time-night .card-date,
+body.time-night .card-language,
+body.time-night .card-summary,
+body.time-night .card-footer,
+body.time-night .filter-label {
+  color: #cfc1d5 !important;
+}
+
+body.time-morning .search-wrapper-large input,
+body.time-morning .search-wrapper-large input::placeholder {
+  color: #40566b !important;
+}
+body.time-afternoon .search-wrapper-large input,
+body.time-afternoon .search-wrapper-large input::placeholder {
+  color: #46364b !important;
+}
+body.time-night .search-wrapper-large input,
+body.time-night .search-wrapper-large input::placeholder {
+  color: #f1e8f5 !important;
+}
+body.time-night .search-wrapper-large input::placeholder {
+  color: #b9aabd !important;
+}
+body.time-night .search-wrapper-large .search-icon {
+  color: #d39bc6 !important;
+}
+
+/* Article reader: never let the backdrop make the actual article text unreadable. */
+body.time-morning .modal-content,
+body.time-morning .modal-header,
+body.time-morning .modal-body,
+body.time-morning .reference-panel {
+  background: #f7fafd !important;
+  color: #3f5060 !important;
+}
+body.time-afternoon .modal-content,
+body.time-afternoon .modal-header,
+body.time-afternoon .modal-body,
+body.time-afternoon .reference-panel {
+  background: #fff8f4 !important;
+  color: #44364a !important;
+}
+body.time-night .modal-content,
+body.time-night .modal-header,
+body.time-night .modal-body,
+body.time-night .reference-panel {
+  background: #2b2133 !important;
+  color: #f0e6f3 !important;
+}
+
+body.time-morning .modal-content-body,
+body.time-morning .modal-content-body p,
+body.time-morning .modal-content-body li {
+  color: #40566b !important;
+}
+body.time-afternoon .modal-content-body,
+body.time-afternoon .modal-content-body p,
+body.time-afternoon .modal-content-body li {
+  color: #46364b !important;
+}
+body.time-night .modal-content-body,
+body.time-night .modal-content-body p,
+body.time-night .modal-content-body li {
+  color: #e5d8e9 !important;
+}
+
+body.time-morning .modal-title,
+body.time-morning .reference-panel-header {
+  color: #456985 !important;
+}
+body.time-afternoon .modal-title,
+body.time-afternoon .reference-panel-header {
+  color: #714b78 !important;
+}
+body.time-night .modal-title,
+body.time-night .reference-panel-header {
+  color: #f0d9ef !important;
+}
+
+body.time-morning .modal-meta,
+body.time-morning .modal-date,
+body.time-morning .reference-item,
+body.time-morning .reference-item-title,
+body.time-morning .reference-item-meta {
+  color: #60758a !important;
+}
+body.time-afternoon .modal-meta,
+body.time-afternoon .modal-date,
+body.time-afternoon .reference-item,
+body.time-afternoon .reference-item-title,
+body.time-afternoon .reference-item-meta {
+  color: #725f77 !important;
+}
+body.time-night .modal-meta,
+body.time-night .modal-date,
+body.time-night .reference-item,
+body.time-night .reference-item-title,
+body.time-night .reference-item-meta {
+  color: #cfc1d5 !important;
+}
+
+body.time-morning .reference-panel {
+  border-left-color: rgba(95, 134, 170, 0.18) !important;
+}
+body.time-afternoon .reference-panel {
+  border-left-color: rgba(140, 90, 150, 0.18) !important;
+}
+body.time-night .reference-panel {
+  border-left-color: rgba(221, 190, 226, 0.14) !important;
+}
+
+body.time-night .modal-close {
+  background: rgba(211, 155, 198, 0.14) !important;
+  color: #e3bfdc !important;
+}
+body.time-morning .modal-close {
+  background: rgba(95, 134, 170, 0.1) !important;
+  color: #5f86aa !important;
+}
+body.time-afternoon .modal-close {
+  background: rgba(140, 90, 150, 0.1) !important;
+  color: #8c5a96 !important;
+}
+
+/* Fix: .pill-count keeps its light-theme colors (dark text on a faint dark
+   badge) even after .filter-pill is re-themed for night mode, making the
+   article counts unreadable. Give the badge its own themed contrast. */
+body.time-night .filter-pill .pill-count {
+  background: rgba(255, 255, 255, 0.16) !important;
+  color: rgba(242, 234, 245, 0.9) !important;
+}
+body.time-night .filter-pill.active .pill-count {
+  background: rgba(255, 255, 255, 0.26) !important;
+  color: #ffffff !important;
+}
+
+@media (max-width: 900px) {
+  body.time-morning .main-content,
+  body.time-afternoon .main-content,
+  body.time-night .main-content {
+    min-height: 100dvh;
+  }
+}
+
+/* Final visual cleanup: keep Author Archive fully time-themed and avoid the
+   legacy light overlay/background bleeding through the themed surface. */
+.main-content {
+  background-image: none !important;
+}
+
+.main-content::before {
+  display: none !important;
+}
+
+body.time-morning .main-content {
+  background:
+    radial-gradient(circle at 15% 10%, rgba(178, 208, 231, 0.28), transparent 32%),
+    radial-gradient(circle at 85% 18%, rgba(220, 196, 226, 0.24), transparent 30%),
+    linear-gradient(135deg, #eaf3fb 0%, #edf0fa 58%, #f3ebf7 100%) !important;
+}
+
+body.time-afternoon .main-content {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(231, 181, 201, 0.22), transparent 30%),
+    radial-gradient(circle at 84% 18%, rgba(244, 205, 164, 0.22), transparent 32%),
+    linear-gradient(135deg, #f8e9ef 0%, #f2e3ed 55%, #f8ecd8 100%) !important;
+}
+
+body.time-night .main-content {
+  background:
+    radial-gradient(circle at 18% 8%, rgba(117, 67, 129, 0.18), transparent 32%),
+    radial-gradient(circle at 84% 18%, rgba(63, 77, 113, 0.18), transparent 30%),
+    linear-gradient(135deg, #17121e 0%, #211827 55%, #171d2a 100%) !important;
+}
+
+/* Make the archive controls feel like one coherent surface. */
+body.time-morning .search-wrapper-large input,
+body.time-morning .filter-pill:not(.active),
+body.time-morning .filter-select {
+  background: rgba(247, 250, 253, 0.72) !important;
+}
+
+body.time-afternoon .search-wrapper-large input,
+body.time-afternoon .filter-pill:not(.active),
+body.time-afternoon .filter-select {
+  background: rgba(255, 248, 244, 0.72) !important;
+}
+
+body.time-night .search-wrapper-large input,
+body.time-night .filter-pill:not(.active),
+body.time-night .filter-select {
+  background: rgba(43, 33, 51, 0.72) !important;
+}
+
+body.time-night .search-wrapper-large input {
+  border-color: rgba(221, 190, 226, 0.16) !important;
+}
+
+body.time-night .filter-pill:not(.active),
+body.time-night .filter-select {
+  border-color: rgba(221, 190, 226, 0.14) !important;
+}
+
+/* ===== THEME SURFACE CLEANUP =====
+   Keep the body background seamless; hero/cards are the intentional surfaces. */
+body.time-morning,
+body.time-afternoon,
+body.time-night {
+  background: var(--page-bg) !important;
+}
+body.time-morning .main-content,
+body.time-afternoon .main-content,
+body.time-night .main-content {
+  background: transparent !important;
+}
+
+.hero-content {
+  border-radius: 28px;
+  box-shadow: 0 12px 32px rgba(76, 46, 76, 0.08);
+}
+
+.archive-stats {
+  border-radius: 18px;
+  box-shadow: 0 10px 28px rgba(76, 46, 76, 0.1);
+  overflow: hidden;
+}
+
+.search-wrapper-large input {
+  border-radius: 18px;
+  box-shadow: 0 8px 22px rgba(76, 46, 76, 0.1);
+}
+
+.filter-section {
+  padding: 1rem;
+  border: 1px solid rgba(105, 70, 105, 0.2);
+  border-radius: 22px;
+  background: rgba(255, 250, 247, 0.38);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    0 12px 32px rgba(76, 46, 76, 0.08);
+}
+
+.filter-pill,
+.filter-select {
+  border-radius: 12px;
+}
+
+.archive-grid {
+  padding: 1.25rem;
+  border: 1px solid rgba(105, 70, 105, 0.2);
+  border-radius: 28px;
+  background: rgba(255, 250, 247, 0.38);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    0 12px 32px rgba(76, 46, 76, 0.08);
+}
+
+.archive-card {
+  border-radius: 20px;
+  border-color: rgba(105, 70, 105, 0.24);
+  box-shadow: 0 10px 28px rgba(76, 46, 76, 0.1);
+}
+
+.archive-card:hover {
+  border-color: rgba(105, 70, 105, 0.34);
+  box-shadow: 0 14px 34px rgba(76, 46, 76, 0.14);
+}
+
+body.time-morning .filter-section,
+body.time-morning .archive-grid {
+  background: rgba(247, 250, 253, 0.42) !important;
+  border-color: rgba(95, 134, 170, 0.2) !important;
+}
+
+body.time-night .filter-section,
+body.time-night .archive-grid {
+  background: rgba(43, 33, 51, 0.42) !important;
+  border-color: rgba(221, 190, 226, 0.15) !important;
+}
+
+body.time-afternoon .filter-section,
+body.time-afternoon .archive-grid {
+  background: rgba(255, 250, 247, 0.38) !important;
+  border-color: rgba(105, 70, 105, 0.2) !important;
+}
+
+body.time-afternoon .footer {
+  margin-top: 52px;
+  padding: 30px 24px 18px;
+  color: #49334f;
+  background: rgba(255, 249, 247, 0.78);
+  border: 1px solid rgba(92, 58, 89, 0.28);
+  border-radius: 18px;
+  box-shadow: 0 -10px 28px rgba(82, 50, 78, 0.1);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.72);
+}
+
+body.time-afternoon .footer-tagline,
+body.time-afternoon .footer-description,
+body.time-afternoon .footer-feedback-copy,
+body.time-afternoon .footer-bottom {
+  color: #49334f;
+}
+
+body.time-afternoon .footer-eyebrow,
+body.time-afternoon .footer-column-title {
+  color: #754d70;
+}
+
+body.time-afternoon .footer-bottom {
+  border-top-color: rgba(92, 58, 89, 0.2);
+}
+
+body.time-afternoon .feedback-footer-btn {
+  color: #634363;
+  text-decoration-color: rgba(99, 67, 99, 0.4);
+}
+
+body.time-afternoon .hero-content,
+body.time-afternoon .search-section {
+  border-radius: 28px;
+}
+
+body.time-afternoon .hero-section,
+body.time-afternoon .hero-content,
+body.time-afternoon .search-section,
+body.time-afternoon .search-wrapper-large {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+body.time-afternoon .hero-content {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.time-afternoon .search-section {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0;
+}
+
+body.time-afternoon .search-wrapper-large {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+body.time-afternoon .search-wrapper-large input {
+  border-radius: 999px !important;
+  border-color: rgba(105, 70, 105, 0.24) !important;
+  background: rgba(255, 250, 247, 0.9) !important;
+  box-shadow: 0 10px 28px rgba(76, 46, 76, 0.1);
 }

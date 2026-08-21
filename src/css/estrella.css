@@ -62,11 +62,7 @@ body {
   position: sticky;
   top: 0;
   overflow-y: auto;
-  background: linear-gradient(
-    135deg,
-    rgba(252, 228, 236, 0.72),
-    rgba(227, 242, 253, 0.72)
-  );
+  background: linear-gradient(135deg, rgba(252, 228, 236, 0.72), rgba(227, 242, 253, 0.72));
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-right: 1px solid var(--glass-border);
@@ -308,11 +304,7 @@ body {
 
 /* ---------- progress card ---------- */
 .progress-card {
-  background: linear-gradient(
-    135deg,
-    rgba(20, 10, 40, 0.85),
-    rgba(40, 20, 70, 0.85)
-  );
+  background: linear-gradient(135deg, rgba(20, 10, 40, 0.85), rgba(40, 20, 70, 0.85));
   border: 1px solid rgba(255, 180, 220, 0.3);
   border-radius: 20px;
   padding: 18px;
@@ -356,11 +348,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.9),
-    rgba(232, 200, 223, 0.72)
-  );
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(232, 200, 223, 0.72));
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border: 1.5px solid rgba(209, 163, 198, 0.55);
@@ -462,11 +450,7 @@ body {
   min-width: 170px;
   margin: 0;
   list-style: none;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.96),
-    rgba(232, 200, 223, 0.9)
-  );
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(232, 200, 223, 0.9));
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1.5px solid rgba(209, 163, 198, 0.55);
@@ -726,8 +710,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("../../assets/Imagenes/Fondo_Estrellado.webp") center/cover
-    no-repeat;
+  background: linear-gradient(145deg, #f8f6fb, #eee8f5, #eaf1f8);
   z-index: 0;
 }
 .sky-overlay {
@@ -736,11 +719,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(10, 5, 30, 0.3) 0%,
-    rgba(5, 0, 20, 0.7) 100%
-  );
+  background: radial-gradient(ellipse at center, rgba(10, 5, 30, 0.3) 0%, rgba(5, 0, 20, 0.7) 100%);
   z-index: 1;
 }
 
@@ -993,19 +972,8 @@ body {
 .binder-page {
   background-color: var(--cream-white);
   background-image:
-    linear-gradient(
-      90deg,
-      transparent 58px,
-      #abced4 58px,
-      #abced4 60px,
-      transparent 60px
-    ),
-    repeating-linear-gradient(
-      transparent,
-      transparent 34px,
-      #e1e8ed 34px,
-      #e1e8ed 35px
-    );
+    linear-gradient(90deg, transparent 58px, #abced4 58px, #abced4 60px, transparent 60px),
+    repeating-linear-gradient(transparent, transparent 34px, #e1e8ed 34px, #e1e8ed 35px);
   width: 100%;
   max-width: 700px;
   border-radius: 15px 35px 35px 15px;
@@ -1155,11 +1123,7 @@ body {
 
 /* ---------- reward modal ---------- */
 .reward-modal-content {
-  background: linear-gradient(
-    135deg,
-    rgba(15, 8, 35, 0.97),
-    rgba(30, 15, 55, 0.97)
-  );
+  background: linear-gradient(135deg, rgba(15, 8, 35, 0.97), rgba(30, 15, 55, 0.97));
   border: 1px solid rgba(255, 180, 220, 0.3);
   border-radius: 24px;
   padding: 40px 30px;
@@ -1179,11 +1143,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(240, 98, 146, 0.1) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(ellipse at center, rgba(240, 98, 146, 0.1) 0%, transparent 70%);
   pointer-events: none;
 }
 .reward-modal-content h2 {
@@ -1240,11 +1200,7 @@ body {
 }
 
 #instructionsModal .reward-modal-content::before {
-  background: radial-gradient(
-    ellipse at top,
-    rgba(100, 181, 246, 0.14) 0%,
-    transparent 62%
-  );
+  background: radial-gradient(ellipse at top, rgba(100, 181, 246, 0.14) 0%, transparent 62%);
 }
 
 #instructionsModal .reward-modal-content h2 {
@@ -1271,15 +1227,11 @@ body {
   color: #ffe8f6;
 }
 
-#instructionsModal
-  .reward-modal-content
-  p#instructions-body::-webkit-scrollbar {
+#instructionsModal .reward-modal-content p#instructions-body::-webkit-scrollbar {
   width: 6px;
 }
 
-#instructionsModal
-  .reward-modal-content
-  p#instructions-body::-webkit-scrollbar-thumb {
+#instructionsModal .reward-modal-content p#instructions-body::-webkit-scrollbar-thumb {
   background: rgba(240, 98, 146, 0.4);
   border-radius: 10px;
 }
@@ -1440,11 +1392,7 @@ body {
 }
 .final-close-btn {
   margin-top: 20px;
-  background: linear-gradient(
-    135deg,
-    rgba(240, 98, 146, 0.8),
-    rgba(100, 181, 246, 0.8)
-  );
+  background: linear-gradient(135deg, rgba(240, 98, 146, 0.8), rgba(100, 181, 246, 0.8));
   color: white;
   border: none;
   padding: 12px 30px;
@@ -1462,11 +1410,7 @@ body {
 }
 
 .btn-all-stories {
-  background: linear-gradient(
-    90deg,
-    rgba(240, 98, 146, 0.8),
-    rgba(100, 181, 246, 0.8)
-  );
+  background: linear-gradient(90deg, rgba(240, 98, 146, 0.8), rgba(100, 181, 246, 0.8));
   color: white;
   border: 1px solid rgba(255, 180, 220, 0.4);
   padding: 12px 24px;
@@ -1636,11 +1580,7 @@ body {
   align-items: center;
   gap: 8px;
   margin-top: 14px;
-  background: linear-gradient(
-    135deg,
-    rgba(252, 228, 236, 0.9),
-    rgba(227, 242, 253, 0.9)
-  );
+  background: linear-gradient(135deg, rgba(252, 228, 236, 0.9), rgba(227, 242, 253, 0.9));
   color: var(--sakura-dark);
   border: 2px solid transparent;
   background-clip: padding-box;
@@ -1711,11 +1651,7 @@ body {
 .reset-confirm .reset-card {
   min-width: 320px;
   max-width: 420px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.95),
-    rgba(250, 240, 250, 0.9)
-  );
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(250, 240, 250, 0.9));
   border-radius: 14px;
   padding: 14px 16px;
   box-shadow: 0 12px 40px rgba(30, 10, 30, 0.18);
@@ -2002,4 +1938,9 @@ body {
   .scanlines-overlay {
     display: none;
   }
+}
+
+/* Restore the original constellation star-field background. */
+.sky-bg {
+  background: url("../../assets/Imagenes/Fondo_Estrellado.webp") center/cover no-repeat !important;
 }

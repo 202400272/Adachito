@@ -26,7 +26,7 @@
 }
 
 .entrance-label {
-  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-family: "Helvetica Neue", "Arial", sans-serif;
   font-size: 0.6rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -37,7 +37,7 @@
 }
 
 .entrance-title {
-  font-family: 'Georgia', 'Times New Roman', serif;
+  font-family: "Georgia", "Times New Roman", serif;
   font-size: clamp(2.8rem, 6vw, 5.5rem);
   font-weight: 700;
   line-height: 1.05;
@@ -53,7 +53,7 @@
 }
 
 .entrance-subtitle {
-  font-family: 'Georgia', 'Times New Roman', serif;
+  font-family: "Georgia", "Times New Roman", serif;
   font-size: clamp(0.95rem, 1.2vw, 1.15rem);
   font-weight: 400;
   color: rgba(255, 255, 255, 0.4);
@@ -79,7 +79,7 @@
 }
 
 .entrance-stat {
-  font-family: 'Georgia', 'Times New Roman', serif;
+  font-family: "Georgia", "Times New Roman", serif;
   font-size: clamp(1.6rem, 2.5vw, 2.4rem);
   font-weight: 700;
   color: rgba(255, 255, 255, 0.95);
@@ -88,7 +88,7 @@
 }
 
 .entrance-stat-label {
-  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-family: "Helvetica Neue", "Arial", sans-serif;
   font-size: 0.55rem;
   font-weight: 500;
   text-transform: uppercase;
@@ -125,7 +125,7 @@
 }
 
 .scroll-line::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -148,7 +148,7 @@
 }
 
 .scroll-label {
-  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-family: "Helvetica Neue", "Arial", sans-serif;
   font-size: 0.5rem;
   font-weight: 500;
   text-transform: uppercase;
@@ -173,7 +173,7 @@
 
 /* ---- Premium Museum Frame ---- */
 .entrance-artwork::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 16px;
   border: 1px solid rgba(255, 255, 255, 0.04);
@@ -204,7 +204,7 @@
 
 /* ---- Premium Glow Effect ---- */
 .entrance-artwork::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 60px;
   background: radial-gradient(ellipse at center, rgba(212, 160, 192, 0.05) 0%, transparent 70%);
@@ -227,9 +227,10 @@
   position: relative;
   z-index: 1;
   filter: saturate(1.05) contrast(1.02) brightness(1.02);
-  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-              filter 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              opacity 0.8s ease;
+  transition:
+    transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    filter 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    opacity 0.8s ease;
   transform: scale(0.98);
   opacity: 0.92;
 }
@@ -294,7 +295,7 @@
 
 /* ---- Plaque Decorative Line (Top) ---- */
 .entrance-artwork-credit .plaque-inner::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   right: 0;
@@ -311,7 +312,7 @@
 
 /* ---- Plaque Decorative Line (Bottom) ---- */
 .entrance-artwork-credit .plaque-inner::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -329,7 +330,7 @@
 /* ---- Plaque Title ---- */
 .entrance-artwork-title {
   display: block;
-  font-family: 'Georgia', 'Times New Roman', serif;
+  font-family: "Georgia", "Times New Roman", serif;
   font-size: clamp(0.95rem, 1.2vw, 1.2rem);
   font-weight: 600;
   color: rgba(255, 255, 255, 0.95);
@@ -341,7 +342,7 @@
 /* ---- Plaque Artist ---- */
 .entrance-artwork-artist {
   display: block;
-  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-family: "Helvetica Neue", "Arial", sans-serif;
   font-size: 0.7rem;
   font-weight: 400;
   color: rgba(212, 160, 192, 0.6);
@@ -372,7 +373,7 @@
 /* ---- Plaque Collection ---- */
 .entrance-artwork-collection {
   display: block;
-  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-family: "Helvetica Neue", "Arial", sans-serif;
   font-size: 0.5rem;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.2);
@@ -389,7 +390,7 @@
 /* ---- Plaque Year ---- */
 .entrance-artwork-year {
   display: block;
-  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-family: "Helvetica Neue", "Arial", sans-serif;
   font-size: 0.5rem;
   font-weight: 300;
   color: rgba(255, 255, 255, 0.12);
@@ -412,7 +413,7 @@
   position: absolute;
   bottom: 8px;
   right: 12px;
-  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-family: "Helvetica Neue", "Arial", sans-serif;
   font-size: 0.4rem;
   font-weight: 300;
   color: rgba(255, 255, 255, 0.04);
@@ -430,7 +431,7 @@
   top: 40px;
   right: 40px;
   z-index: 3;
-  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-family: "Helvetica Neue", "Arial", sans-serif;
   font-size: 0.55rem;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.1);
@@ -463,7 +464,7 @@
 }
 
 .slideshow-dot::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: -6px;
   border-radius: 50%;

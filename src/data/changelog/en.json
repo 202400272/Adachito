@@ -1,29 +1,75 @@
 [
-    {
-    "version": "2.3.2",
-    "build": "20260819",
-    "date": "August 17, 2026",
-    "subtitle": "News Updates and Homepage Refinements",
+  {
+    "version": "2.3.3",
+    "build": "20260820",
+    "date": "August 20, 2026",
+    "subtitle": "Visual refinements, Vite migration, build optimization, and localization fixes",
     "changes": {
       "new": [
-        "Added a visual indicator to the News section to show when a new news entry is available.",
-        "Added a new background image to complement the homepage interface."
+        "Added a DMCA & Copyright section to the Help Center.",
+        "Added links to audiobooks in the About page.",
+        "Migrated the project build system to Vite for a faster development workflow and a more modern production build pipeline.",
+        "Added support for installing AdaShimaverse as an app on desktop and mobile via the browser's install prompt."
       ],
       "improvements": [
-        "Updated the News JSON files to incorporate and organize new entries.",
-        "Adjusted the Index interface to improve the layout and presentation of its different sections.",
-        "Refined the News section to make recent content more noticeable."
+        "Completely redesigned the Anime page with an updated visual layout.",
+        "Refined the containers and surfaces across Manga, Novels, Extra Stories, CD Drama, Other, and the Author Archive for a cleaner and more cohesive presentation.",
+        "Improved the integration of time-based backgrounds to prevent containers from appearing as disconnected visual blocks.",
+        "Improved footer visibility in Afternoon mode across Manga, Novels, Extra Stories, CD Drama, Other, the Author Archive, and About.",
+        "Adjusted footer styling to maintain proper contrast against the backgrounds and visual effects used by Afternoon mode.",
+        "Improved the overall appearance of backgrounds and visual effects across the updated sections to maintain a more consistent visual experience with the rest of the site.",
+        "Cleaned up the project's ESLint configuration and resolved outstanding code quality issues across the codebase for improved long-term maintainability.",
+        "Added Vite-based multi-page development and production builds with support for the site's existing clean URL structure.",
+        "Added Vite preview routing so clean page URLs work correctly when using npm run preview.",
+        "Improved production build optimization by minifying HTML, CSS, and JavaScript output, including legacy scripts that are kept outside Vite's module graph.",
+        "Improved the time-based theme system so Afternoon uses a darker pink/rose palette with better contrast.",
+        "Prevented the default theme from briefly appearing before the selected theme is applied when reloading or opening pages directly."
       ],
-      "fixes": [],
+      "fixes": [
+        "Fixed localization issues that prevented the footer from correctly displaying the selected language on certain views.",
+        "Fixed minor visual details on the homepage.",
+        "Fixed the ESLint configuration incorrectly parsing build scripts and other ES module files as classic scripts, which caused false parsing errors during linting.",
+        "Fixed empty catch blocks and other empty block statements flagged by linting across several page scripts and the service worker.",
+        "Fixed unused variables and function parameters flagged by linting across several page scripts.",
+        "Fixed Afternoon mode using an overly bright color palette.",
+        "Fixed theme initialization occurring after the first paint, causing a brief flash of the default theme during navigation and reloads.",
+        "Fixed production builds failing on existing CSS by using a more compatible CSS minification path and correcting invalid CSS import and selector ordering."
+      ],
       "notes": [
-        "This release mainly focuses on updating the News system and making small visual refinements to the Index."
+        "The visual refinements keep the styles within each page's existing stylesheets, avoiding unnecessary reliance on external theme overrides.",
+        "Afternoon footer appearance improvements are limited to the affected views and do not alter the other appearance modes.",
+        "The Anime page has been redesigned as part of this release, refreshing its overall look.",
+        "This release also includes internal linting and code quality fixes with no effect on site functionality or appearance.",
+        "Vite is now the project's primary build and development tool; Cloudflare Pages tooling remains available for local Pages-compatible testing.",
+        "Production assets are optimized during npm run build while runtime data and components that require their original structure remain unchanged."
+      ]
+    }
+  },
+  {
+    "version": "2.3.2",
+    "build": "20260819",
+    "date": "August 19, 2026",
+    "subtitle": "Theme Cleanup & Archive Visual Refinements",
+    "changes": {
+      "new": [
+        "Added consistent time-based Morning, Afternoon, and Night styling directly to each page stylesheet for Manga, Novels, Drama CD, Others, and the Author Archive."
+      ],
+      "improvements": [
+        "Cleaned up page surfaces so time-based backgrounds flow seamlessly behind content instead of appearing as rectangular layout blocks.",
+        "Refined the Novels, Manga, Drama CD, Others, and Author Archive controls and surfaces for a cleaner, more consistent presentation."
+      ],
+      "fixes": [
+        "Fixed visual mismatches caused by page wrappers and theme overrides using competing background colors."
+      ],
+      "notes": [
+        "Time-based styling is now maintained locally within each page stylesheet; the shared time-theme override stylesheet is no longer required."
       ]
     }
   },
   {
     "version": "2.3.1",
     "build": "20260818",
-    "date": "August 17, 2026",
+    "date": "August 18, 2026",
     "subtitle": "Performance, Mobile Menu & Visual Refinements",
     "changes": {
       "new": [
@@ -172,9 +218,7 @@
         "Improved theme transitions and appearance changes on mobile Chrome.",
         "Refined mobile theme-switching behavior for a smoother and more consistent experience."
       ],
-      "fixes": [
-        "Fixed minor theme-switching inconsistencies affecting Chrome on mobile devices."
-      ],
+      "fixes": ["Fixed minor theme-switching inconsistencies affecting Chrome on mobile devices."],
       "notes": [
         "Tagalog is now available as a UI language, but the localization is currently considered a prototype.",
         "The Tagalog rollout is primarily intended to test and validate the site's ability to support additional languages in the future.",
@@ -772,9 +816,7 @@
         "Improved project organization and maintainability."
       ],
       "fixes": [],
-      "notes": [
-        "Internal refactor with no major user-facing changes."
-      ]
+      "notes": ["Internal refactor with no major user-facing changes."]
     }
   }
 ]

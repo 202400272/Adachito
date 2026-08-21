@@ -1,0 +1,19 @@
+# AdashimaVerse
+
+AdashimaVerse is an unofficial fan archive for *Adachi to Shimamura*, covering the light novels, manga adaptations, anime, extra stories, music, gallery, timeline, and related reference material.
+
+## Main sections
+
+- [Home](https://adashimaverse.com/)
+- [Light Novels](https://adashimaverse.com/Adashima_Novelas)
+- [Manga](https://adashimaverse.com/Adashima_Manga)
+- [Anime](https://adashimaverse.com/Adashima_Anime)
+- [Extra Stories](https://adashimaverse.com/Adashima_Extra_Stories)
+- [Music](https://adashimaverse.com/Adashima_Music)
+- [Gallery](https://adashimaverse.com/Adashima_Gallery)
+- [Timeline](https://adashimaverse.com/Adashima_Linea)
+- [About](https://adashimaverse.com/Adashima_About)
+
+## Content
+
+The site provides fan-maintained bibliographic information, series news, development updates, reading resources, and navigation to official sources. Official rights remain with their respective creators and publishers.

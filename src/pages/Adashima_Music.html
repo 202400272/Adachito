@@ -9,20 +9,14 @@
 
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent"
-    />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="version" content="v4.1.0" />
     <title>Adashimaverse · Music</title>
     <meta
       name="description"
       content="Listen to the music section of AdashimaVerse with soundtracks, themes, and audio collections."
     />
-    <link
-      rel="canonical"
-      href="https://adashimaverse.com/Adashima_Music"
-    />
+    <link rel="canonical" href="https://adashimaverse.com/Adashima_Music" />
     <meta name="theme-color" content="#000000" />
 
     <meta property="og:type" content="website" />
@@ -32,25 +26,19 @@
       property="og:description"
       content="Listen to the music section of AdashimaVerse with soundtracks, themes, and audio collections."
     />
-    <meta
-      property="og:url"
-      content="https://adashimaverse.com/Adashima_Music"
-    />
+    <meta property="og:url" content="https://adashimaverse.com/Adashima_Music" />
     <meta
       property="og:image"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
     <meta
       property="og:image:secure_url"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:type" content="image/webp" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="AdashimaVerse - Adashimaverse · Music"
-    />
+    <meta property="og:image:alt" content="AdashimaVerse - Adashimaverse · Music" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Adashimaverse · Music" />
@@ -60,12 +48,9 @@
     />
     <meta
       name="twitter:image"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
-    <meta
-      name="twitter:image:alt"
-      content="AdashimaVerse - Adashimaverse · Music"
-    />
+    <meta name="twitter:image:alt" content="AdashimaVerse - Adashimaverse · Music" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -84,40 +69,14 @@
     <link rel="stylesheet" href="/src/css/lang-switch.css" />
     <link rel="stylesheet" href="/src/components/styles/menu.css" />
 
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="/assets/Imagenes/favicon.ico"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/assets/Imagenes/apple-touch-icon.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/assets/Imagenes/favicon-32x32.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/assets/Imagenes/favicon-16x16.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="/assets/Imagenes/icon-192x192.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="512x512"
-      href="/assets/Imagenes/icon-512x512.webp"
-    />
+    <link rel="icon" type="image/x-icon" href="/assets/Imagenes/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/Imagenes/apple-touch-icon.webp" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/Imagenes/favicon-32x32.webp" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/Imagenes/favicon-16x16.webp" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/Imagenes/icon-192x192.webp" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/Imagenes/icon-512x512.webp" />
+    <link rel="stylesheet" href="/src/components/styles/footer.css" />
+    <link rel="stylesheet" href="/src/components/styles/feedback.css" />
   </head>
   <body class="music-page">
     <div class="stars-bg"></div>
@@ -154,22 +113,14 @@
     <div id="menu-container"></div>
 
     <div class="main-content" id="mainContent">
-      
-
       <div class="music-page-container">
         <div class="music-library-view" id="musicLibraryView">
           <div class="music-header">
             <h1 class="music-page-title">
-              <span
-                class="iconify"
-                data-icon="mdi:music"
-                data-inline="false"
-              ></span>
+              <span class="iconify" data-icon="mdi:music" data-inline="false"></span>
               <span>Music</span>
             </h1>
-            <p class="music-page-subtitle" id="musicPageSubtitle">
-              Original Soundtracks
-            </p>
+            <p class="music-page-subtitle" id="musicPageSubtitle">Original Soundtracks</p>
           </div>
 
           <div class="album-grid" id="albumGrid"></div>
@@ -177,55 +128,50 @@
 
         <div class="favorites-view" id="favoritesView" style="display: none">
           <div class="favorites-header">
-            <button
-              class="back-to-library-btn"
-              id="backFromFavoritesBtn"
-              aria-label="Back"
-            >
+            <button class="back-to-library-btn" id="backFromFavoritesBtn" aria-label="Back">
+              <span class="iconify" data-icon="mdi:keyboard-backspace" data-inline="false"></span>
               <span
-                class="iconify"
-                data-icon="mdi:keyboard-backspace"
-                data-inline="false"
-              ></span>
-              <span id="backFromFavoritesLabel"
+                id="backFromFavoritesLabel"
                 data-es="Volver a la Música"
                 data-en="Back to Music"
                 data-tg="Bumalik sa Musika"
-              >Back to Music</span>
+                >Back to Music</span
+              >
             </button>
-            <h2 id="favoritesHeading"
+            <h2
+              id="favoritesHeading"
               data-es="Favoritos"
               data-en="Favorites"
               data-tg="Mga Paborito"
-            >Favorites</h2>
+            >
+              Favorites
+            </h2>
           </div>
           <div class="favorites-list" id="favoritesList"></div>
           <div class="empty-state" id="favoritesEmpty" style="display: none">
             <div class="empty-state-icon">
-              <span
-                class="iconify"
-                data-icon="mdi:heart-broken"
-                data-inline="false"
-              ></span>
+              <span class="iconify" data-icon="mdi:heart-broken" data-inline="false"></span>
             </div>
-            <h3 id="favoritesEmptyTitle"
+            <h3
+              id="favoritesEmptyTitle"
               data-es="Aún no hay favoritos"
               data-en="No favorites yet"
               data-tg="Wala pang mga paborito"
-            >No favorites yet</h3>
-            <p id="favoritesEmptyDesc"
+            >
+              No favorites yet
+            </h3>
+            <p
+              id="favoritesEmptyDesc"
               data-es="Marca pistas con Me encanta para verlas aquí."
               data-en="Mark tracks with Like to see them here."
               data-tg="Markahan ang mga track ng Like para makita sila dito."
-            >Mark tracks with "Like" to see them here.</p>
+            >
+              Mark tracks with "Like" to see them here.
+            </p>
           </div>
         </div>
 
-        <div
-          class="album-detail-view"
-          id="albumDetailView"
-          style="display: none"
-        >
+        <div class="album-detail-view" id="albumDetailView" style="display: none">
           <div class="album-detail-header">
             <div class="album-hero">
               <div class="album-hero-artwork">
@@ -240,12 +186,8 @@
                 </div>
               </div>
               <div class="album-hero-info">
-                <div class="album-hero-badge" id="albumDetailBadge">
-                  ORIGINAL SOUNDTRACK
-                </div>
-                <h2 class="album-hero-title" id="albumDetailTitle">
-                  Album Title
-                </h2>
+                <div class="album-hero-badge" id="albumDetailBadge">ORIGINAL SOUNDTRACK</div>
+                <h2 class="album-hero-title" id="albumDetailTitle">Album Title</h2>
                 <div class="album-hero-title-jp" id="albumDetailTitleJp"></div>
                 <div class="album-hero-meta">
                   <span id="albumDetailArtist">Various Artists</span>
@@ -257,73 +199,54 @@
                   <span id="albumDetailDuration">0:00</span>
                 </div>
                 <div class="album-hero-actions">
-                  <button
-                    class="btn btn-primary btn-hero-play"
-                    id="playAlbumBtn"
-                  >
+                  <button class="btn btn-primary btn-hero-play" id="playAlbumBtn">
+                    <span class="iconify" data-icon="mdi:play" data-inline="false"></span>
                     <span
-                      class="iconify"
-                      data-icon="mdi:play"
-                      data-inline="false"
-                    ></span>
-                    <span id="playAlbumLabel"
+                      id="playAlbumLabel"
                       data-es="Reproducir Álbum"
                       data-en="Play Album"
                       data-tg="Patugtugin ang Album"
-                    >Play Album</span>
+                      >Play Album</span
+                    >
                   </button>
                   <button
                     class="btn btn-outline btn-hero-action"
                     id="shuffleAlbumBtn"
                     aria-label="Shuffle"
                   >
-                    <span
-                      class="iconify"
-                      data-icon="mdi:shuffle"
-                      data-inline="false"
-                    ></span>
+                    <span class="iconify" data-icon="mdi:shuffle" data-inline="false"></span>
                   </button>
                 </div>
               </div>
             </div>
 
-            <button
-              class="back-to-library-btn"
-              id="backToLibraryBtn"
-              aria-label="Back to library"
-            >
+            <button class="back-to-library-btn" id="backToLibraryBtn" aria-label="Back to library">
+              <span class="iconify" data-icon="mdi:keyboard-backspace" data-inline="false"></span>
               <span
-                class="iconify"
-                data-icon="mdi:keyboard-backspace"
-                data-inline="false"
-              ></span>
-              <span id="backToLibraryLabel"
+                id="backToLibraryLabel"
                 data-es="Volver a la Música"
                 data-en="Back to Music"
                 data-tg="Bumalik sa Musika"
-              >Back to Music</span>
+                >Back to Music</span
+              >
             </button>
 
             <div class="tracklist-toolbar">
               <div class="tracklist-toolbar-left">
                 <h3>
-                  <span id="albumTracksHeading"
+                  <span
+                    id="albumTracksHeading"
                     data-es="Pistas"
                     data-en="Tracks"
                     data-tg="Mga Track"
-                  >Tracks</span>
+                    >Tracks</span
+                  >
                 </h3>
-                <span class="track-count-badge" id="albumResultCount"
-                  >0 tracks</span
-                >
+                <span class="track-count-badge" id="albumResultCount">0 tracks</span>
               </div>
               <div class="tracklist-toolbar-right">
                 <div class="search-wrap">
-                  <span
-                    class="iconify"
-                    data-icon="mdi:search"
-                    data-inline="false"
-                  ></span>
+                  <span class="iconify" data-icon="mdi:search" data-inline="false"></span>
                   <input
                     type="text"
                     id="albumSearchInput"
@@ -338,11 +261,7 @@
                     aria-label="Standard view"
                     title="Standard view"
                   >
-                    <span
-                      class="iconify"
-                      data-icon="mdi:view-agenda"
-                      data-inline="false"
-                    ></span>
+                    <span class="iconify" data-icon="mdi:view-agenda" data-inline="false"></span>
                   </button>
                   <button
                     class="view-toggle-btn"
@@ -350,11 +269,7 @@
                     aria-label="Compact view"
                     title="Compact view"
                   >
-                    <span
-                      class="iconify"
-                      data-icon="mdi:view-list"
-                      data-inline="false"
-                    ></span>
+                    <span class="iconify" data-icon="mdi:view-list" data-inline="false"></span>
                   </button>
                 </div>
               </div>
@@ -365,17 +280,11 @@
             <div class="track-table">
               <div class="track-table-header" id="trackTableHeader">
                 <span class="th-number">#</span>
-                <span class="th-title"
-                  data-es="TÍTULO"
-                  data-en="TITLE"
-                  data-tg="PAMAGAT"
-                >TITLE</span>
+                <span class="th-title" data-es="TÍTULO" data-en="TITLE" data-tg="PAMAGAT"
+                  >TITLE</span
+                >
                 <span class="th-time">
-                  <span
-                    class="iconify"
-                    data-icon="mdi:clock-outline"
-                    data-inline="false"
-                  ></span>
+                  <span class="iconify" data-icon="mdi:clock-outline" data-inline="false"></span>
                 </span>
                 <span class="th-dl"></span>
                 <span class="th-fav"></span>
@@ -384,34 +293,16 @@
             </div>
           </div>
 
-          <div
-            class="compact-view-container"
-            id="compactViewContainer"
-            style="display: none"
-          >
+          <div class="compact-view-container" id="compactViewContainer" style="display: none">
             <div class="compact-table-header">
               <span class="ch-number">#</span>
-              <span class="ch-title"
-                data-es="TÍTULO"
-                data-en="TITLE"
-                data-tg="PAMAGAT"
-              >TITLE</span>
-              <span class="ch-artist"
-                data-es="ARTISTA"
-                data-en="ARTIST"
-                data-tg="ARTISTA"
-              >ARTIST</span>
-              <span class="ch-album"
-                data-es="ÁLBUM"
-                data-en="ALBUM"
-                data-tg="ALBUM"
-              >ALBUM</span>
+              <span class="ch-title" data-es="TÍTULO" data-en="TITLE" data-tg="PAMAGAT">TITLE</span>
+              <span class="ch-artist" data-es="ARTISTA" data-en="ARTIST" data-tg="ARTISTA"
+                >ARTIST</span
+              >
+              <span class="ch-album" data-es="ÁLBUM" data-en="ALBUM" data-tg="ALBUM">ALBUM</span>
               <span class="ch-time">
-                <span
-                  class="iconify"
-                  data-icon="mdi:clock-outline"
-                  data-inline="false"
-                ></span>
+                <span class="iconify" data-icon="mdi:clock-outline" data-inline="false"></span>
               </span>
               <span class="ch-dl"></span>
             </div>
@@ -420,22 +311,24 @@
 
           <div class="empty-state" id="albumEmptyState" style="display: none">
             <div class="empty-state-icon">
-              <span
-                class="iconify"
-                data-icon="mdi:music-off"
-                data-inline="false"
-              ></span>
+              <span class="iconify" data-icon="mdi:music-off" data-inline="false"></span>
             </div>
-            <h3 id="albumEmptyTitle"
+            <h3
+              id="albumEmptyTitle"
               data-es="No se encontraron pistas"
               data-en="No tracks found"
               data-tg="Walang nakitang mga track"
-            >No tracks found</h3>
-            <p id="albumEmptyDesc"
+            >
+              No tracks found
+            </h3>
+            <p
+              id="albumEmptyDesc"
               data-es="Intenta ajustar tu búsqueda."
               data-en="Try adjusting your search."
               data-tg="Subukang ayusin ang iyong paghahanap."
-            >Try adjusting your search.</p>
+            >
+              Try adjusting your search.
+            </p>
           </div>
 
           <div class="album-credits-footer" id="albumCreditsFooter">
@@ -446,29 +339,11 @@
         </div>
       </div>
 
-      <footer class="footer" id="footer">
-        <div class="footer-content">
-          <div
-            class="footer-text"
-            id="footerText"
-            data-es="Fan site no oficial de Adachi to Shimamura.<br />Creado por fans, sin fines de lucro.<br />Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma."
-            data-en="Unofficial Adachi to Shimamura fan site.<br />Created by fans, non-profit.<br />Adachi to Shimamura and all rights belong to Hitoma Iruma."
-            data-tg="Hindi opisyal na fan site ng Adachi to Shimamura.<br />Ginawa ng mga fan, hindi kumikita.<br />Ang Adachi to Shimamura at lahat ng karapatan ay pag-aari ni Hitoma Iruma."
-          >
-            Fan site no oficial de Adachi to Shimamura.<br />Creado por fans,
-            sin fines de lucro.<br />Adachi to Shimamura y todos sus derechos
-            pertenecen a Hitoma Iruma.
-          </div>
-        </div>
-      </footer>
+      <div id="footer-container"></div>
+      <script type="module" src="/src/components/js/footer.js"></script>
     </div>
 
-    <div
-      class="player-bar"
-      id="playerBar"
-      role="toolbar"
-      aria-label="Music player"
-    >
+    <div class="player-bar" id="playerBar" role="toolbar" aria-label="Music player">
       <div class="player-bar-inner">
         <div class="player-bar-left">
           <div class="player-bar-thumb" id="playerThumb">
@@ -496,40 +371,16 @@
               aria-label="Shuffle"
               data-mobile-hide
             >
-              <span
-                class="iconify"
-                data-icon="mdi:shuffle"
-                data-inline="false"
-              ></span>
+              <span class="iconify" data-icon="mdi:shuffle" data-inline="false"></span>
             </button>
-            <button
-              class="ctrl-btn ctrl-prev"
-              id="prevBtn"
-              aria-label="Previous"
-            >
-              <span
-                class="iconify"
-                data-icon="mdi:skip-previous"
-                data-inline="false"
-              ></span>
+            <button class="ctrl-btn ctrl-prev" id="prevBtn" aria-label="Previous">
+              <span class="iconify" data-icon="mdi:skip-previous" data-inline="false"></span>
             </button>
-            <button
-              class="ctrl-btn ctrl-play"
-              id="playBtn"
-              aria-label="Play / Pause"
-            >
-              <span
-                class="iconify"
-                data-icon="mdi:play"
-                data-inline="false"
-              ></span>
+            <button class="ctrl-btn ctrl-play" id="playBtn" aria-label="Play / Pause">
+              <span class="iconify" data-icon="mdi:play" data-inline="false"></span>
             </button>
             <button class="ctrl-btn ctrl-next" id="nextBtn" aria-label="Next">
-              <span
-                class="iconify"
-                data-icon="mdi:skip-next"
-                data-inline="false"
-              ></span>
+              <span class="iconify" data-icon="mdi:skip-next" data-inline="false"></span>
             </button>
             <button
               class="ctrl-btn ctrl-repeat"
@@ -537,11 +388,7 @@
               aria-label="Repeat"
               data-mobile-hide
             >
-              <span
-                class="iconify"
-                data-icon="mdi:repeat"
-                data-inline="false"
-              ></span>
+              <span class="iconify" data-icon="mdi:repeat" data-inline="false"></span>
             </button>
           </div>
           <div class="player-bar-progress">
@@ -565,42 +412,17 @@
             aria-label="Toggle favorite"
             data-mobile-hide
           >
-            <span
-              class="iconify"
-              data-icon="mdi:heart-outline"
-              data-inline="false"
-            ></span>
+            <span class="iconify" data-icon="mdi:heart-outline" data-inline="false"></span>
           </button>
-          <button
-            class="ctrl-btn ctrl-queue"
-            id="queueToggle"
-            aria-label="Queue"
-            data-mobile-hide
-          >
-            <span
-              class="iconify"
-              data-icon="mdi:format-list-bulleted"
-              data-inline="false"
-            ></span>
+          <button class="ctrl-btn ctrl-queue" id="queueToggle" aria-label="Queue" data-mobile-hide>
+            <span class="iconify" data-icon="mdi:format-list-bulleted" data-inline="false"></span>
           </button>
-          <button
-            class="ctrl-btn ctrl-expand"
-            id="expandPlayerBtn"
-            aria-label="Expand player"
-          >
-            <span
-              class="iconify"
-              data-icon="mdi:arrow-expand"
-              data-inline="false"
-            ></span>
+          <button class="ctrl-btn ctrl-expand" id="expandPlayerBtn" aria-label="Expand player">
+            <span class="iconify" data-icon="mdi:arrow-expand" data-inline="false"></span>
           </button>
           <div class="player-bar-volume" data-mobile-hide>
             <button class="ctrl-btn ctrl-mute" id="muteBtn" aria-label="Mute">
-              <span
-                class="iconify"
-                data-icon="mdi:volume-high"
-                data-inline="false"
-              ></span>
+              <span class="iconify" data-icon="mdi:volume-high" data-inline="false"></span>
             </button>
             <input
               type="range"
@@ -619,33 +441,31 @@
     <div class="queue-overlay" id="queueOverlay"></div>
     <div class="queue-drawer" id="queueDrawer" role="dialog" aria-label="Queue">
       <div class="queue-header">
-        <h4 id="queueDrawerTitle"
-          data-es="Cola"
-          data-en="Queue"
-          data-tg="Pila"
-        >Queue</h4>
+        <h4 id="queueDrawerTitle" data-es="Cola" data-en="Queue" data-tg="Pila">Queue</h4>
         <button class="queue-close" id="queueClose" aria-label="Close queue">
-          <span
-            class="iconify"
-            data-icon="mdi:close"
-            data-inline="false"
-          ></span>
+          <span class="iconify" data-icon="mdi:close" data-inline="false"></span>
         </button>
       </div>
       <div class="queue-current" id="queueCurrent">
-        <span class="queue-current-label" id="queueNowPlayingLabel"
+        <span
+          class="queue-current-label"
+          id="queueNowPlayingLabel"
           data-es="Reproduciendo ahora"
           data-en="Now Playing"
           data-tg="Kasalukuyang Pinapatugtog"
-        >Now Playing</span>
+          >Now Playing</span
+        >
         <div id="queueCurrentTrack"></div>
       </div>
       <div class="queue-list-wrap">
-        <span class="queue-next-label" id="queueNextUpLabel"
+        <span
+          class="queue-next-label"
+          id="queueNextUpLabel"
           data-es="Siguiente"
           data-en="Next Up"
           data-tg="Susunod"
-        >Next Up</span>
+          >Next Up</span
+        >
         <div id="queueList"></div>
       </div>
     </div>
@@ -659,28 +479,14 @@
             id="expandedPlayerClose"
             aria-label="Close expanded player"
           >
-            <span
-              class="iconify"
-              data-icon="mdi:chevron-down"
-              data-inline="false"
-            ></span>
+            <span class="iconify" data-icon="mdi:chevron-down" data-inline="false"></span>
           </button>
           <div class="expanded-player-heading">
             <span class="expanded-player-eyebrow">Now Playing</span>
-            <span class="expanded-player-heading-title" id="expandedAlbum"
-              >—</span
-            >
+            <span class="expanded-player-heading-title" id="expandedAlbum">—</span>
           </div>
-          <button
-            class="expanded-queue-toggle"
-            id="expandedQueueToggle"
-            aria-label="Open queue"
-          >
-            <span
-              class="iconify"
-              data-icon="mdi:playlist-music"
-              data-inline="false"
-            ></span>
+          <button class="expanded-queue-toggle" id="expandedQueueToggle" aria-label="Open queue">
+            <span class="iconify" data-icon="mdi:playlist-music" data-inline="false"></span>
           </button>
         </div>
 
@@ -698,9 +504,7 @@
             </div>
 
             <div class="expanded-track-info">
-              <div class="expanded-track-title" id="expandedTitle">
-                Select a track
-              </div>
+              <div class="expanded-track-title" id="expandedTitle">Select a track</div>
               <div class="expanded-track-artist" id="expandedArtist">—</div>
             </div>
 
@@ -720,78 +524,36 @@
             </div>
 
             <div class="expanded-controls">
-              <button
-                class="ctrl-btn ctrl-shuffle"
-                id="expandedShuffle"
-                aria-label="Shuffle"
-              >
-                <span
-                  class="iconify"
-                  data-icon="mdi:shuffle"
-                  data-inline="false"
-                ></span>
+              <button class="ctrl-btn ctrl-shuffle" id="expandedShuffle" aria-label="Shuffle">
+                <span class="iconify" data-icon="mdi:shuffle" data-inline="false"></span>
               </button>
-              <button
-                class="ctrl-btn ctrl-prev"
-                id="expandedPrev"
-                aria-label="Previous"
-              >
-                <span
-                  class="iconify"
-                  data-icon="mdi:skip-previous"
-                  data-inline="false"
-                ></span>
+              <button class="ctrl-btn ctrl-prev" id="expandedPrev" aria-label="Previous">
+                <span class="iconify" data-icon="mdi:skip-previous" data-inline="false"></span>
               </button>
-              <button
-                class="ctrl-btn ctrl-play-large"
-                id="expandedPlay"
-                aria-label="Play / Pause"
-              >
-                <span
-                  class="iconify"
-                  data-icon="mdi:play"
-                  data-inline="false"
-                ></span>
+              <button class="ctrl-btn ctrl-play-large" id="expandedPlay" aria-label="Play / Pause">
+                <span class="iconify" data-icon="mdi:play" data-inline="false"></span>
               </button>
-              <button
-                class="ctrl-btn ctrl-next"
-                id="expandedNext"
-                aria-label="Next"
-              >
-                <span
-                  class="iconify"
-                  data-icon="mdi:skip-next"
-                  data-inline="false"
-                ></span>
+              <button class="ctrl-btn ctrl-next" id="expandedNext" aria-label="Next">
+                <span class="iconify" data-icon="mdi:skip-next" data-inline="false"></span>
               </button>
-              <button
-                class="ctrl-btn ctrl-repeat"
-                id="expandedRepeat"
-                aria-label="Repeat"
-              >
-                <span
-                  class="iconify"
-                  data-icon="mdi:repeat"
-                  data-inline="false"
-                ></span>
+              <button class="ctrl-btn ctrl-repeat" id="expandedRepeat" aria-label="Repeat">
+                <span class="iconify" data-icon="mdi:repeat" data-inline="false"></span>
               </button>
             </div>
           </div>
 
-          <div
-            class="expanded-player-right"
-            id="expandedPlayerRight"
-          >
+          <div class="expanded-player-right" id="expandedPlayerRight">
             <div class="expanded-queue-panel">
               <div class="expanded-queue-header">
-                <span class="expanded-queue-title" id="expandedQueueTitle"
+                <span
+                  class="expanded-queue-title"
+                  id="expandedQueueTitle"
                   data-es="Siguiente"
                   data-en="Up Next"
                   data-tg="Susunod"
-                >Up Next</span>
-                <span class="expanded-queue-count" id="expandedQueueCount"
-                  >0 songs</span
+                  >Up Next</span
                 >
+                <span class="expanded-queue-count" id="expandedQueueCount">0 songs</span>
               </div>
               <div class="expanded-queue-list" id="expandedQueueList"></div>
             </div>
@@ -808,7 +570,6 @@
     <script src="/src/js/language-switch.js"></script>
     <script src="/src/js/music.js"></script>
     <script>
-
       (function () {
         var overlay = document.getElementById("expandedPlayerOverlay");
         var grid = document.querySelector(".expanded-player-grid");
@@ -816,9 +577,7 @@
         var dotsWrap = document.getElementById("expandedPageDots");
         if (!grid || !dotsWrap) return;
 
-        var dots = Array.prototype.slice.call(
-          dotsWrap.querySelectorAll(".expanded-page-dot")
-        );
+        var dots = Array.prototype.slice.call(dotsWrap.querySelectorAll(".expanded-page-dot"));
         var mq = window.matchMedia("(max-width: 768px)");
 
         function updateActiveDot() {
@@ -848,7 +607,7 @@
               rafPending = false;
             });
           },
-          { passive: true }
+          { passive: true },
         );
 
         dots.forEach(function (dot, i) {
@@ -909,5 +668,6 @@
         window.setInterval(paint, 250);
       })();
     </script>
+    <script type="module" src="/src/components/js/feedback.js"></script>
   </body>
 </html>

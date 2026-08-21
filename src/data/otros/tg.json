@@ -28,7 +28,7 @@
       "icon": "fa-archive",
       "title": "Mga Artikulo",
       "description": "Isang piniling koleksiyon ng mga panayam, komentaryo, afterword, at mga tampok na artikulo sa magazine mula kay Hitoma Iruma.",
-      "url": "/Author_Archive",
+      "url": "/otros/Author_Archive",
       "isDriveLink": false,
       "isInternal": true
     }

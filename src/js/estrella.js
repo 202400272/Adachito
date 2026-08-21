@@ -20,7 +20,7 @@ let currentLang = (() => {
   return "es";
 })();
 
-let isSwitching = false;
+let _isSwitching = false;
 let isInitialized = false;
 let contentData = null;
 let rewardsData = null;
@@ -39,22 +39,16 @@ let soundEnabled = false;
 let dragging = null;
 let dragOffX = 0,
   dragOffY = 0;
-let mouseX = 0,
-  mouseY = 0;
+let _mouseX = 0,
+  _mouseY = 0;
 let audioCtx = null;
 
 function getEstrellaDataFolderUrl(folder, lang) {
-  if (
-    window.LanguageSwitch &&
-    typeof window.LanguageSwitch.getDataFolderUrl === "function"
-  ) {
+  if (window.LanguageSwitch && typeof window.LanguageSwitch.getDataFolderUrl === "function") {
     return window.LanguageSwitch.getDataFolderUrl(folder);
   }
 
-  if (
-    window.LanguageSwitch &&
-    typeof window.LanguageSwitch.getDataUrl === "function"
-  ) {
+  if (window.LanguageSwitch && typeof window.LanguageSwitch.getDataUrl === "function") {
     const url = new URL(window.LanguageSwitch.getDataUrl(folder, lang), window.location.href);
     url.search = "";
     url.hash = "";
@@ -95,7 +89,9 @@ async function loadContent(lang) {
             return fallbackData;
           }
         }
-      } catch (fallbackError) {}
+      } catch {
+        /* ignored */
+      }
     }
     if (lang === "es") {
       try {
@@ -113,7 +109,9 @@ async function loadContent(lang) {
             return fallbackData;
           }
         }
-      } catch (fallbackError) {}
+      } catch {
+        /* ignored */
+      }
     }
     console.warn("Failed to load language file:", e.message);
     return null;
@@ -123,22 +121,22 @@ async function loadContent(lang) {
 async function loadRewards(lang) {
   try {
     const folderUrl = getEstrellaDataFolderUrl("estrella", lang);
-    const response = await fetch(
-      `${folderUrl}rewards-${lang}.json?v=${APP_VERSION}`,
-      { cache: "no-store" },
-    );
+    const response = await fetch(`${folderUrl}rewards-${lang}.json?v=${APP_VERSION}`, {
+      cache: "no-store",
+    });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.json();
   } catch (e) {
     if (lang !== "es") {
       try {
         const folderUrl = getEstrellaDataFolderUrl("estrella", lang);
-        const fallback = await fetch(
-          `${folderUrl}rewards-es.json?v=${APP_VERSION}`,
-          { cache: "no-store" },
-        );
+        const fallback = await fetch(`${folderUrl}rewards-es.json?v=${APP_VERSION}`, {
+          cache: "no-store",
+        });
         if (fallback.ok) return await fallback.json();
-      } catch (fallbackError) {}
+      } catch {
+        /* ignored */
+      }
     }
     console.warn("Failed to load rewards file:", e.message);
     return null;
@@ -148,22 +146,22 @@ async function loadRewards(lang) {
 async function loadConstellations(lang) {
   try {
     const folderUrl = getEstrellaDataFolderUrl("estrella", lang);
-    const response = await fetch(
-      `${folderUrl}constellations-${lang}.json?v=${APP_VERSION}`,
-      { cache: "no-store" },
-    );
+    const response = await fetch(`${folderUrl}constellations-${lang}.json?v=${APP_VERSION}`, {
+      cache: "no-store",
+    });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.json();
   } catch (e) {
     if (lang !== "es") {
       try {
         const folderUrl = getEstrellaDataFolderUrl("estrella", lang);
-        const fallback = await fetch(
-          `${folderUrl}constellations-es.json?v=${APP_VERSION}`,
-          { cache: "no-store" },
-        );
+        const fallback = await fetch(`${folderUrl}constellations-es.json?v=${APP_VERSION}`, {
+          cache: "no-store",
+        });
         if (fallback.ok) return await fallback.json();
-      } catch (fallbackError) {}
+      } catch {
+        /* ignored */
+      }
     }
     console.warn("Failed to load constellations file:", e.message);
     return null;
@@ -171,21 +169,16 @@ async function loadConstellations(lang) {
 }
 
 async function loadAllData(lang) {
-  const [langDataResult, rewardsDataResult, constellationsDataResult] =
-    await Promise.allSettled([
-      loadContent(lang),
-      loadRewards(lang),
-      loadConstellations(lang),
-    ]);
+  const [langDataResult, rewardsDataResult, constellationsDataResult] = await Promise.allSettled([
+    loadContent(lang),
+    loadRewards(lang),
+    loadConstellations(lang),
+  ]);
 
-  contentData =
-    langDataResult.status === "fulfilled" ? langDataResult.value : null;
-  rewardsData =
-    rewardsDataResult.status === "fulfilled" ? rewardsDataResult.value : null;
+  contentData = langDataResult.status === "fulfilled" ? langDataResult.value : null;
+  rewardsData = rewardsDataResult.status === "fulfilled" ? rewardsDataResult.value : null;
   constellationsData =
-    constellationsDataResult.status === "fulfilled"
-      ? constellationsDataResult.value
-      : null;
+    constellationsDataResult.status === "fulfilled" ? constellationsDataResult.value : null;
 
   if (constellationsData) {
     CONSTELLATIONS = constellationsData.constellations || [];
@@ -213,8 +206,7 @@ function renderUI() {
   if (!contentData) return;
 
   document.getElementById("page-title").textContent = getString("pageTitle");
-  document.getElementById("page-subtitle").textContent =
-    getString("pageSubtitle");
+  document.getElementById("page-subtitle").textContent = getString("pageSubtitle");
 
   const logoSubEl = document.getElementById("sidebar-logo-sub");
   if (contentData.sidebarLogo) {
@@ -224,215 +216,123 @@ function renderUI() {
     logoSubEl.textContent = "";
     logoSubEl.style.display = "none";
   }
-  document.getElementById("sidebar-fb-text").textContent =
-    getString("sidebarFacebook");
+  document.getElementById("sidebar-fb-text").textContent = getString("sidebarFacebook");
   document.getElementById("sidebar-constellations-label").textContent =
     getString("sidebarConstellations");
-  document.getElementById("sidebar-unlocks-label").textContent =
-    getString("sidebarUnlocks");
-  document.getElementById("sidebar-profiles-label").textContent =
-    getString("sidebarProfiles");
-  document.getElementById("sidebar-novel-status").textContent =
-    getString("sidebarNovelStatus");
-  document.getElementById("sidebar-novel-badge").textContent =
-    getString("sidebarNovelBadge");
-  document.getElementById("sidebar-support-label").textContent =
-    getString("sidebarSupport");
-  document.getElementById("sidebar-link-novel").textContent =
-    getString("sidebarLinkNovel");
-  document.getElementById("sidebar-link-manga").textContent =
-    getString("sidebarLinkManga");
-  document.getElementById("sidebar-link-blog").textContent =
-    getString("sidebarLinkBlog");
-  document.getElementById("sidebar-back-text").textContent =
-    getString("sidebarBackHome");
-  document.getElementById("sidebar-unlocks-empty").textContent = getString(
-    "sidebarUnlocksEmpty",
-  );
-  document.getElementById("reset-message").textContent =
-    getString("resetConfirm");
-  document.getElementById("reset-cancel").textContent =
-    getString("resetCancel");
-  document.getElementById("reset-confirm-btn").textContent =
-    getString("resetConfirmBtn");
+  document.getElementById("sidebar-unlocks-label").textContent = getString("sidebarUnlocks");
+  document.getElementById("sidebar-profiles-label").textContent = getString("sidebarProfiles");
+  document.getElementById("sidebar-novel-status").textContent = getString("sidebarNovelStatus");
+  document.getElementById("sidebar-novel-badge").textContent = getString("sidebarNovelBadge");
+  document.getElementById("sidebar-support-label").textContent = getString("sidebarSupport");
+  document.getElementById("sidebar-link-novel").textContent = getString("sidebarLinkNovel");
+  document.getElementById("sidebar-link-manga").textContent = getString("sidebarLinkManga");
+  document.getElementById("sidebar-link-blog").textContent = getString("sidebarLinkBlog");
+  document.getElementById("sidebar-back-text").textContent = getString("sidebarBackHome");
+  document.getElementById("sidebar-unlocks-empty").textContent = getString("sidebarUnlocksEmpty");
+  document.getElementById("reset-message").textContent = getString("resetConfirm");
+  document.getElementById("reset-cancel").textContent = getString("resetCancel");
+  document.getElementById("reset-confirm-btn").textContent = getString("resetConfirmBtn");
 
   document.getElementById("hud-help").textContent = getString("hudHelp");
   document.getElementById("hud-reset").textContent = getString("hudReset");
   document.getElementById("sound-btn").title = getString("soundTitle");
 
   updateDownloadSummaryText();
-  document.getElementById("final-download-btn").textContent =
-    getString("downloadAllStories");
+  document.getElementById("final-download-btn").textContent = getString("downloadAllStories");
   document.getElementById("final-title").innerHTML = getString("finalTitle");
-  document.getElementById("final-close-btn").textContent =
-    getString("finalClose");
+  document.getElementById("final-close-btn").textContent = getString("finalClose");
 
-  document.getElementById("reward-title").textContent =
-    getString("rewardTitle");
-  document.getElementById("reward-continue-btn").textContent =
-    getString("continueButton");
-  document.getElementById("reward-pdf-label").textContent =
-    getString("downloadStoryPdf");
+  document.getElementById("reward-title").textContent = getString("rewardTitle");
+  document.getElementById("reward-continue-btn").textContent = getString("continueButton");
+  document.getElementById("reward-pdf-label").textContent = getString("downloadStoryPdf");
 
-  document.getElementById("instructions-title").textContent =
-    getString("helpTitle");
-  document.getElementById("instructions-body").innerHTML =
-    getString("helpText");
-  document.getElementById("instructions-btn").textContent =
-    getString("helpButton");
+  document.getElementById("instructions-title").textContent = getString("helpTitle");
+  document.getElementById("instructions-body").innerHTML = getString("helpText");
+  document.getElementById("instructions-btn").textContent = getString("helpButton");
 
-  document.getElementById("profile-adachi-title").textContent =
-    getString("profileAdachiTitle");
-  document.getElementById("profile-adachi-name").innerHTML =
-    getString("profileAdachiName");
-  document.getElementById("profile-adachi-food").textContent =
-    getString("profileAdachiFood");
-  document.getElementById("profile-adachi-color").textContent =
-    getString("profileAdachiColor");
-  document.getElementById("profile-adachi-genre").textContent =
-    getString("profileAdachiGenre");
-  document.getElementById("profile-adachi-person").textContent = getString(
-    "profileAdachiPerson",
-  );
-  document.getElementById("profile-adachi-reborn").textContent = getString(
-    "profileAdachiReborn",
-  );
-  document.getElementById("profile-adachi-vacation").textContent = getString(
-    "profileAdachiVacation",
-  );
-  document.getElementById("profile-adachi-type").textContent =
-    getString("profileAdachiLike");
-  document.getElementById("profile-adachi-call").textContent =
-    getString("profileAdachiCall");
-  document.getElementById("profile-adachi-heart").textContent =
-    getString("profileAdachiHeart");
-  document.getElementById("profile-adachi-date").textContent =
-    getString("profileAdachiDate");
+  document.getElementById("profile-adachi-title").textContent = getString("profileAdachiTitle");
+  document.getElementById("profile-adachi-name").innerHTML = getString("profileAdachiName");
+  document.getElementById("profile-adachi-food").textContent = getString("profileAdachiFood");
+  document.getElementById("profile-adachi-color").textContent = getString("profileAdachiColor");
+  document.getElementById("profile-adachi-genre").textContent = getString("profileAdachiGenre");
+  document.getElementById("profile-adachi-person").textContent = getString("profileAdachiPerson");
+  document.getElementById("profile-adachi-reborn").textContent = getString("profileAdachiReborn");
+  document.getElementById("profile-adachi-vacation").textContent =
+    getString("profileAdachiVacation");
+  document.getElementById("profile-adachi-type").textContent = getString("profileAdachiLike");
+  document.getElementById("profile-adachi-call").textContent = getString("profileAdachiCall");
+  document.getElementById("profile-adachi-heart").textContent = getString("profileAdachiHeart");
+  document.getElementById("profile-adachi-date").textContent = getString("profileAdachiDate");
 
-  document.getElementById("profile-shimamura-title").textContent = getString(
-    "profileShimamuraTitle",
-  );
-  document.getElementById("profile-shimamura-name").innerHTML = getString(
-    "profileShimamuraName",
-  );
-  document.getElementById("profile-shimamura-food").textContent = getString(
-    "profileShimamuraFood",
-  );
-  document.getElementById("profile-shimamura-color").textContent = getString(
-    "profileShimamuraColor",
-  );
-  document.getElementById("profile-shimamura-genre").textContent = getString(
-    "profileShimamuraGenre",
-  );
-  document.getElementById("profile-shimamura-person").textContent = getString(
-    "profileShimamuraPerson",
-  );
-  document.getElementById("profile-shimamura-reborn").textContent = getString(
-    "profileShimamuraReborn",
-  );
+  document.getElementById("profile-shimamura-title").textContent =
+    getString("profileShimamuraTitle");
+  document.getElementById("profile-shimamura-name").innerHTML = getString("profileShimamuraName");
+  document.getElementById("profile-shimamura-food").textContent = getString("profileShimamuraFood");
+  document.getElementById("profile-shimamura-color").textContent =
+    getString("profileShimamuraColor");
+  document.getElementById("profile-shimamura-genre").textContent =
+    getString("profileShimamuraGenre");
+  document.getElementById("profile-shimamura-person").textContent =
+    getString("profileShimamuraPerson");
+  document.getElementById("profile-shimamura-reborn").textContent =
+    getString("profileShimamuraReborn");
   document.getElementById("profile-shimamura-vacation").textContent = getString(
     "profileShimamuraVacation",
   );
-  document.getElementById("profile-shimamura-type").textContent = getString(
-    "profileShimamuraLike",
-  );
-  document.getElementById("profile-shimamura-call").textContent = getString(
-    "profileShimamuraCall",
-  );
-  document.getElementById("profile-shimamura-heart").textContent = getString(
-    "profileShimamuraHeart",
-  );
-  document.getElementById("profile-shimamura-date").textContent = getString(
-    "profileShimamuraDate",
-  );
+  document.getElementById("profile-shimamura-type").textContent = getString("profileShimamuraLike");
+  document.getElementById("profile-shimamura-call").textContent = getString("profileShimamuraCall");
+  document.getElementById("profile-shimamura-heart").textContent =
+    getString("profileShimamuraHeart");
+  document.getElementById("profile-shimamura-date").textContent = getString("profileShimamuraDate");
 
-  document.getElementById("profile-favorite-label").textContent =
-    getString("profileFavorite");
-  document.getElementById("profile-favorite-label2").textContent =
-    getString("profileFavorite");
-  document.getElementById("profile-whatif-label").textContent =
-    getString("profileWhatIf");
-  document.getElementById("profile-whatif-label2").textContent =
-    getString("profileWhatIf");
-  document.getElementById("profile-love-label").textContent =
-    getString("profileLove");
-  document.getElementById("profile-love-label2").textContent =
-    getString("profileLove");
+  document.getElementById("profile-favorite-label").textContent = getString("profileFavorite");
+  document.getElementById("profile-favorite-label2").textContent = getString("profileFavorite");
+  document.getElementById("profile-whatif-label").textContent = getString("profileWhatIf");
+  document.getElementById("profile-whatif-label2").textContent = getString("profileWhatIf");
+  document.getElementById("profile-love-label").textContent = getString("profileLove");
+  document.getElementById("profile-love-label2").textContent = getString("profileLove");
 
-  document.getElementById("profile-label-food").textContent =
-    getString("profileLabelFood");
-  document.getElementById("profile-label-food2").textContent =
-    getString("profileLabelFood");
-  document.getElementById("profile-label-color").textContent =
-    getString("profileLabelColor");
-  document.getElementById("profile-label-color2").textContent =
-    getString("profileLabelColor");
-  document.getElementById("profile-label-genre").textContent =
-    getString("profileLabelGenre");
-  document.getElementById("profile-label-genre2").textContent =
-    getString("profileLabelGenre");
-  document.getElementById("profile-label-person").textContent =
-    getString("profileLabelPerson");
-  document.getElementById("profile-label-person2").textContent =
-    getString("profileLabelPerson");
-  document.getElementById("profile-label-reborn").textContent =
-    getString("profileLabelReborn");
-  document.getElementById("profile-label-reborn2").textContent =
-    getString("profileLabelReborn");
-  document.getElementById("profile-label-vacation").textContent = getString(
-    "profileLabelVacation",
-  );
-  document.getElementById("profile-label-vacation2").textContent = getString(
-    "profileLabelVacation",
-  );
-  document.getElementById("profile-label-like").textContent =
-    getString("profileLabelLike");
-  document.getElementById("profile-label-like2").textContent =
-    getString("profileLabelLike");
-  document.getElementById("profile-label-confessed").textContent = getString(
-    "profileLabelConfessed",
-  );
-  document.getElementById("profile-label-confessed2").textContent = getString(
-    "profileLabelConfessed",
-  );
-  document.getElementById("profile-label-type").textContent =
-    getString("profileLabelType");
-  document.getElementById("profile-label-type2").textContent =
-    getString("profileLabelType");
-  document.getElementById("profile-label-call").textContent =
-    getString("profileLabelCall");
-  document.getElementById("profile-label-call2").textContent =
-    getString("profileLabelCall");
-  document.getElementById("profile-label-heart").textContent =
-    getString("profileLabelHeart");
-  document.getElementById("profile-label-heart2").textContent =
-    getString("profileLabelHeart");
-  document.getElementById("profile-label-date").textContent =
-    getString("profileLabelDate");
-  document.getElementById("profile-label-date2").textContent =
-    getString("profileLabelDate");
+  document.getElementById("profile-label-food").textContent = getString("profileLabelFood");
+  document.getElementById("profile-label-food2").textContent = getString("profileLabelFood");
+  document.getElementById("profile-label-color").textContent = getString("profileLabelColor");
+  document.getElementById("profile-label-color2").textContent = getString("profileLabelColor");
+  document.getElementById("profile-label-genre").textContent = getString("profileLabelGenre");
+  document.getElementById("profile-label-genre2").textContent = getString("profileLabelGenre");
+  document.getElementById("profile-label-person").textContent = getString("profileLabelPerson");
+  document.getElementById("profile-label-person2").textContent = getString("profileLabelPerson");
+  document.getElementById("profile-label-reborn").textContent = getString("profileLabelReborn");
+  document.getElementById("profile-label-reborn2").textContent = getString("profileLabelReborn");
+  document.getElementById("profile-label-vacation").textContent = getString("profileLabelVacation");
+  document.getElementById("profile-label-vacation2").textContent =
+    getString("profileLabelVacation");
+  document.getElementById("profile-label-like").textContent = getString("profileLabelLike");
+  document.getElementById("profile-label-like2").textContent = getString("profileLabelLike");
+  document.getElementById("profile-label-confessed").textContent =
+    getString("profileLabelConfessed");
+  document.getElementById("profile-label-confessed2").textContent =
+    getString("profileLabelConfessed");
+  document.getElementById("profile-label-type").textContent = getString("profileLabelType");
+  document.getElementById("profile-label-type2").textContent = getString("profileLabelType");
+  document.getElementById("profile-label-call").textContent = getString("profileLabelCall");
+  document.getElementById("profile-label-call2").textContent = getString("profileLabelCall");
+  document.getElementById("profile-label-heart").textContent = getString("profileLabelHeart");
+  document.getElementById("profile-label-heart2").textContent = getString("profileLabelHeart");
+  document.getElementById("profile-label-date").textContent = getString("profileLabelDate");
+  document.getElementById("profile-label-date2").textContent = getString("profileLabelDate");
 
-  document
-    .querySelectorAll("#yes-label, #yes-label2, #yes-label3, #yes-label4")
-    .forEach((el) => {
-      el.textContent = getString("yes");
-    });
-  document
-    .querySelectorAll("#no-label, #no-label2, #no-label3, #no-label4")
-    .forEach((el) => {
-      el.textContent = getString("no");
-    });
+  document.querySelectorAll("#yes-label, #yes-label2, #yes-label3, #yes-label4").forEach((el) => {
+    el.textContent = getString("yes");
+  });
+  document.querySelectorAll("#no-label, #no-label2, #no-label3, #no-label4").forEach((el) => {
+    el.textContent = getString("no");
+  });
 
-  document
-    .querySelectorAll("#profile-download-label, #profile-download-label2")
-    .forEach((el) => {
-      el.textContent = getString("downloadProfile");
-    });
-  document
-    .querySelectorAll("#profile-close-label, #profile-close-label2")
-    .forEach((el) => {
-      el.textContent = getString("closeButton");
-    });
+  document.querySelectorAll("#profile-download-label, #profile-download-label2").forEach((el) => {
+    el.textContent = getString("downloadProfile");
+  });
+  document.querySelectorAll("#profile-close-label, #profile-close-label2").forEach((el) => {
+    el.textContent = getString("closeButton");
+  });
 
   document.documentElement.lang = currentLang;
 }
@@ -447,158 +347,89 @@ function updateDownloadSummaryText() {
 function updateProfileContent() {
   if (!contentData) return;
 
-  document.getElementById("profile-adachi-title").textContent =
-    getString("profileAdachiTitle");
-  document.getElementById("profile-adachi-name").innerHTML =
-    getString("profileAdachiName");
-  document.getElementById("profile-adachi-food").textContent =
-    getString("profileAdachiFood");
-  document.getElementById("profile-adachi-color").textContent =
-    getString("profileAdachiColor");
-  document.getElementById("profile-adachi-genre").textContent =
-    getString("profileAdachiGenre");
-  document.getElementById("profile-adachi-person").textContent = getString(
-    "profileAdachiPerson",
-  );
-  document.getElementById("profile-adachi-reborn").textContent = getString(
-    "profileAdachiReborn",
-  );
-  document.getElementById("profile-adachi-vacation").textContent = getString(
-    "profileAdachiVacation",
-  );
-  document.getElementById("profile-adachi-type").textContent =
-    getString("profileAdachiLike");
-  document.getElementById("profile-adachi-call").textContent =
-    getString("profileAdachiCall");
-  document.getElementById("profile-adachi-heart").textContent =
-    getString("profileAdachiHeart");
-  document.getElementById("profile-adachi-date").textContent =
-    getString("profileAdachiDate");
+  document.getElementById("profile-adachi-title").textContent = getString("profileAdachiTitle");
+  document.getElementById("profile-adachi-name").innerHTML = getString("profileAdachiName");
+  document.getElementById("profile-adachi-food").textContent = getString("profileAdachiFood");
+  document.getElementById("profile-adachi-color").textContent = getString("profileAdachiColor");
+  document.getElementById("profile-adachi-genre").textContent = getString("profileAdachiGenre");
+  document.getElementById("profile-adachi-person").textContent = getString("profileAdachiPerson");
+  document.getElementById("profile-adachi-reborn").textContent = getString("profileAdachiReborn");
+  document.getElementById("profile-adachi-vacation").textContent =
+    getString("profileAdachiVacation");
+  document.getElementById("profile-adachi-type").textContent = getString("profileAdachiLike");
+  document.getElementById("profile-adachi-call").textContent = getString("profileAdachiCall");
+  document.getElementById("profile-adachi-heart").textContent = getString("profileAdachiHeart");
+  document.getElementById("profile-adachi-date").textContent = getString("profileAdachiDate");
 
-  document.getElementById("profile-shimamura-title").textContent = getString(
-    "profileShimamuraTitle",
-  );
-  document.getElementById("profile-shimamura-name").innerHTML = getString(
-    "profileShimamuraName",
-  );
-  document.getElementById("profile-shimamura-food").textContent = getString(
-    "profileShimamuraFood",
-  );
-  document.getElementById("profile-shimamura-color").textContent = getString(
-    "profileShimamuraColor",
-  );
-  document.getElementById("profile-shimamura-genre").textContent = getString(
-    "profileShimamuraGenre",
-  );
-  document.getElementById("profile-shimamura-person").textContent = getString(
-    "profileShimamuraPerson",
-  );
-  document.getElementById("profile-shimamura-reborn").textContent = getString(
-    "profileShimamuraReborn",
-  );
+  document.getElementById("profile-shimamura-title").textContent =
+    getString("profileShimamuraTitle");
+  document.getElementById("profile-shimamura-name").innerHTML = getString("profileShimamuraName");
+  document.getElementById("profile-shimamura-food").textContent = getString("profileShimamuraFood");
+  document.getElementById("profile-shimamura-color").textContent =
+    getString("profileShimamuraColor");
+  document.getElementById("profile-shimamura-genre").textContent =
+    getString("profileShimamuraGenre");
+  document.getElementById("profile-shimamura-person").textContent =
+    getString("profileShimamuraPerson");
+  document.getElementById("profile-shimamura-reborn").textContent =
+    getString("profileShimamuraReborn");
   document.getElementById("profile-shimamura-vacation").textContent = getString(
     "profileShimamuraVacation",
   );
-  document.getElementById("profile-shimamura-type").textContent = getString(
-    "profileShimamuraLike",
-  );
-  document.getElementById("profile-shimamura-call").textContent = getString(
-    "profileShimamuraCall",
-  );
-  document.getElementById("profile-shimamura-heart").textContent = getString(
-    "profileShimamuraHeart",
-  );
-  document.getElementById("profile-shimamura-date").textContent = getString(
-    "profileShimamuraDate",
-  );
+  document.getElementById("profile-shimamura-type").textContent = getString("profileShimamuraLike");
+  document.getElementById("profile-shimamura-call").textContent = getString("profileShimamuraCall");
+  document.getElementById("profile-shimamura-heart").textContent =
+    getString("profileShimamuraHeart");
+  document.getElementById("profile-shimamura-date").textContent = getString("profileShimamuraDate");
 
-  document.getElementById("profile-favorite-label").textContent =
-    getString("profileFavorite");
-  document.getElementById("profile-favorite-label2").textContent =
-    getString("profileFavorite");
-  document.getElementById("profile-whatif-label").textContent =
-    getString("profileWhatIf");
-  document.getElementById("profile-whatif-label2").textContent =
-    getString("profileWhatIf");
-  document.getElementById("profile-love-label").textContent =
-    getString("profileLove");
-  document.getElementById("profile-love-label2").textContent =
-    getString("profileLove");
+  document.getElementById("profile-favorite-label").textContent = getString("profileFavorite");
+  document.getElementById("profile-favorite-label2").textContent = getString("profileFavorite");
+  document.getElementById("profile-whatif-label").textContent = getString("profileWhatIf");
+  document.getElementById("profile-whatif-label2").textContent = getString("profileWhatIf");
+  document.getElementById("profile-love-label").textContent = getString("profileLove");
+  document.getElementById("profile-love-label2").textContent = getString("profileLove");
 
-  document.getElementById("profile-label-food").textContent =
-    getString("profileLabelFood");
-  document.getElementById("profile-label-food2").textContent =
-    getString("profileLabelFood");
-  document.getElementById("profile-label-color").textContent =
-    getString("profileLabelColor");
-  document.getElementById("profile-label-color2").textContent =
-    getString("profileLabelColor");
-  document.getElementById("profile-label-genre").textContent =
-    getString("profileLabelGenre");
-  document.getElementById("profile-label-genre2").textContent =
-    getString("profileLabelGenre");
-  document.getElementById("profile-label-person").textContent =
-    getString("profileLabelPerson");
-  document.getElementById("profile-label-person2").textContent =
-    getString("profileLabelPerson");
-  document.getElementById("profile-label-reborn").textContent =
-    getString("profileLabelReborn");
-  document.getElementById("profile-label-reborn2").textContent =
-    getString("profileLabelReborn");
-  document.getElementById("profile-label-vacation").textContent = getString(
-    "profileLabelVacation",
-  );
-  document.getElementById("profile-label-vacation2").textContent = getString(
-    "profileLabelVacation",
-  );
-  document.getElementById("profile-label-like").textContent =
-    getString("profileLabelLike");
-  document.getElementById("profile-label-like2").textContent =
-    getString("profileLabelLike");
-  document.getElementById("profile-label-confessed").textContent = getString(
-    "profileLabelConfessed",
-  );
-  document.getElementById("profile-label-confessed2").textContent = getString(
-    "profileLabelConfessed",
-  );
-  document.getElementById("profile-label-type").textContent =
-    getString("profileLabelType");
-  document.getElementById("profile-label-type2").textContent =
-    getString("profileLabelType");
-  document.getElementById("profile-label-call").textContent =
-    getString("profileLabelCall");
-  document.getElementById("profile-label-call2").textContent =
-    getString("profileLabelCall");
-  document.getElementById("profile-label-heart").textContent =
-    getString("profileLabelHeart");
-  document.getElementById("profile-label-heart2").textContent =
-    getString("profileLabelHeart");
-  document.getElementById("profile-label-date").textContent =
-    getString("profileLabelDate");
-  document.getElementById("profile-label-date2").textContent =
-    getString("profileLabelDate");
+  document.getElementById("profile-label-food").textContent = getString("profileLabelFood");
+  document.getElementById("profile-label-food2").textContent = getString("profileLabelFood");
+  document.getElementById("profile-label-color").textContent = getString("profileLabelColor");
+  document.getElementById("profile-label-color2").textContent = getString("profileLabelColor");
+  document.getElementById("profile-label-genre").textContent = getString("profileLabelGenre");
+  document.getElementById("profile-label-genre2").textContent = getString("profileLabelGenre");
+  document.getElementById("profile-label-person").textContent = getString("profileLabelPerson");
+  document.getElementById("profile-label-person2").textContent = getString("profileLabelPerson");
+  document.getElementById("profile-label-reborn").textContent = getString("profileLabelReborn");
+  document.getElementById("profile-label-reborn2").textContent = getString("profileLabelReborn");
+  document.getElementById("profile-label-vacation").textContent = getString("profileLabelVacation");
+  document.getElementById("profile-label-vacation2").textContent =
+    getString("profileLabelVacation");
+  document.getElementById("profile-label-like").textContent = getString("profileLabelLike");
+  document.getElementById("profile-label-like2").textContent = getString("profileLabelLike");
+  document.getElementById("profile-label-confessed").textContent =
+    getString("profileLabelConfessed");
+  document.getElementById("profile-label-confessed2").textContent =
+    getString("profileLabelConfessed");
+  document.getElementById("profile-label-type").textContent = getString("profileLabelType");
+  document.getElementById("profile-label-type2").textContent = getString("profileLabelType");
+  document.getElementById("profile-label-call").textContent = getString("profileLabelCall");
+  document.getElementById("profile-label-call2").textContent = getString("profileLabelCall");
+  document.getElementById("profile-label-heart").textContent = getString("profileLabelHeart");
+  document.getElementById("profile-label-heart2").textContent = getString("profileLabelHeart");
+  document.getElementById("profile-label-date").textContent = getString("profileLabelDate");
+  document.getElementById("profile-label-date2").textContent = getString("profileLabelDate");
 
-  document
-    .querySelectorAll("#yes-label, #yes-label2, #yes-label3, #yes-label4")
-    .forEach((el) => {
-      el.textContent = getString("yes");
-    });
-  document
-    .querySelectorAll("#no-label, #no-label2, #no-label3, #no-label4")
-    .forEach((el) => {
-      el.textContent = getString("no");
-    });
+  document.querySelectorAll("#yes-label, #yes-label2, #yes-label3, #yes-label4").forEach((el) => {
+    el.textContent = getString("yes");
+  });
+  document.querySelectorAll("#no-label, #no-label2, #no-label3, #no-label4").forEach((el) => {
+    el.textContent = getString("no");
+  });
 
-  document
-    .querySelectorAll("#profile-download-label, #profile-download-label2")
-    .forEach((el) => {
-      el.textContent = getString("downloadProfile");
-    });
-  document
-    .querySelectorAll("#profile-close-label, #profile-close-label2")
-    .forEach((el) => {
-      el.textContent = getString("closeButton");
-    });
+  document.querySelectorAll("#profile-download-label, #profile-download-label2").forEach((el) => {
+    el.textContent = getString("downloadProfile");
+  });
+  document.querySelectorAll("#profile-close-label, #profile-close-label2").forEach((el) => {
+    el.textContent = getString("closeButton");
+  });
 }
 
 function refreshUnlockedLocalizedContent() {
@@ -655,7 +486,9 @@ function saveProgress() {
       })),
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  } catch (e) {}
+  } catch {
+    /* ignored */
+  }
 }
 
 function loadProgress() {
@@ -663,7 +496,7 @@ function loadProgress() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
     return JSON.parse(raw);
-  } catch (e) {
+  } catch {
     return null;
   }
 }
@@ -703,9 +536,7 @@ function restoreProgress() {
     updateConstellationChip(ci);
   });
 
-  const sortedRewards = REWARDS.filter((r) => r.at <= completedCount).sort(
-    (a, b) => a.at - b.at,
-  );
+  const sortedRewards = REWARDS.filter((r) => r.at <= completedCount).sort((a, b) => a.at - b.at);
   if (sortedRewards.length > 0) {
     document.getElementById("unlocks-list").innerHTML = "";
     sortedRewards.forEach((r) => addUnlockToSidebar(r, true));
@@ -814,26 +645,14 @@ function drawLoop() {
   stars.forEach((s) => {
     const twinkle = 0.6 + 0.4 * Math.sin(t * 1.5 + s.twinkleOffset);
     const completed =
-      s.snapped &&
-      s.snappedConstId !== null &&
-      completedConsts.has(s.snappedConstId);
+      s.snapped && s.snappedConstId !== null && completedConsts.has(s.snappedConstId);
     drawStar(s, twinkle, completed, t);
   });
 
   requestAnimationFrame(drawLoop);
 }
 
-function drawStarShape(
-  cx,
-  cy,
-  outerR,
-  innerR,
-  points,
-  color,
-  alpha,
-  glowSize,
-  twinkle,
-) {
+function drawStarShape(cx, cy, outerR, innerR, points, color, alpha, glowSize, twinkle) {
   const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, glowSize * twinkle);
   grad.addColorStop(0, `rgba(255,240,255,${alpha * 0.8})`);
   grad.addColorStop(0.5, `rgba(255,220,240,${alpha * 0.4})`);
@@ -870,17 +689,7 @@ function drawStar(s, twinkle, completed, t) {
       ? "#ffffff"
       : "#fffaff";
 
-  drawStarShape(
-    s.x,
-    s.y,
-    s.baseR,
-    s.baseR * 0.42,
-    5,
-    color,
-    alpha,
-    glowSize,
-    twinkle,
-  );
+  drawStarShape(s.x, s.y, s.baseR, s.baseR * 0.42, 5, color, alpha, glowSize, twinkle);
 
   if (completed) {
     ctx.save();
@@ -913,7 +722,7 @@ function getConstellationCenter(c) {
   return { cx, cy, size };
 }
 
-function drawConstellationGuide(c, ci, t) {
+function drawConstellationGuide(c, _ci, _t) {
   const { cx, cy, size } = getConstellationCenter(c);
   const pts = c.stars.map(([rx, ry]) => ({
     x: cx + (rx - 0.5) * size,
@@ -942,10 +751,7 @@ function drawConstellationGuide(c, ci, t) {
     ctx.stroke();
   });
 
-  const snapR = Math.min(
-    70,
-    ((Math.min(canvas.width, canvas.height) * 0.65) / 2) * 0.38,
-  );
+  const snapR = Math.min(70, ((Math.min(canvas.width, canvas.height) * 0.65) / 2) * 0.38);
   pts.forEach((p) => {
     ctx.beginPath();
     ctx.arc(p.x, p.y, snapR, 0, Math.PI * 2);
@@ -994,12 +800,10 @@ function drawConstellationLines(c, ci, t) {
   ctx.restore();
 }
 
-function drawActiveConnections(t) {
+function drawActiveConnections(_t) {
   CONSTELLATIONS.forEach((c, ci) => {
     if (completedConsts.has(ci)) return;
-    const snappedStars = stars.filter(
-      (s) => s.snapped && s.snappedConstId === ci,
-    );
+    const snappedStars = stars.filter((s) => s.snapped && s.snappedConstId === ci);
     if (snappedStars.length < 2) return;
 
     const positions = new Array(c.stars.length).fill(null);
@@ -1041,11 +845,7 @@ function checkSnap(star) {
 
     c.stars.forEach(([rx, ry], pi) => {
       const slotTaken = stars.some(
-        (s) =>
-          s !== star &&
-          s.snapped &&
-          s.snappedConstId === ci &&
-          s.snappedPointIdx === pi,
+        (s) => s !== star && s.snapped && s.snappedConstId === ci && s.snappedPointIdx === pi,
       );
       if (slotTaken) return;
 
@@ -1094,9 +894,7 @@ function checkConstellationComplete(ci) {
   if (completedConsts.has(ci)) return;
   const c = CONSTELLATIONS[ci];
   const needed = c.stars.length;
-  const snappedStars = stars.filter(
-    (s) => s.snapped && s.snappedConstId === ci,
-  );
+  const snappedStars = stars.filter((s) => s.snapped && s.snappedConstId === ci);
   if (snappedStars.length < needed) return;
 
   const { cx, cy, size } = getConstellationCenter(c);
@@ -1125,9 +923,7 @@ function checkConstellationComplete(ci) {
   stars.forEach((s) => {
     const twinkle = 0.8 + 0.2 * Math.sin(t * 1.5 + s.twinkleOffset);
     const completed =
-      s.snapped &&
-      s.snappedConstId !== null &&
-      completedConsts.has(s.snappedConstId);
+      s.snapped && s.snappedConstId !== null && completedConsts.has(s.snappedConstId);
     drawStar(s, twinkle, completed, t);
   });
 
@@ -1199,6 +995,7 @@ function spawnRewardStars() {
   }
 }
 
+// eslint-disable-next-line no-unused-vars -- may be invoked from an inline onclick handler in HTML
 function closeRewardModal() {
   closeModal("rewardModal");
 }
@@ -1283,6 +1080,7 @@ function unlockAllStoriesButton() {
   updateDownloadSummaryText();
 }
 
+// eslint-disable-next-line no-unused-vars -- may be invoked from an inline onclick handler in HTML
 function closeFinalEvent() {
   const overlay = document.getElementById("final-event-overlay");
   overlay.classList.remove("show");
@@ -1293,8 +1091,7 @@ function closeFinalEvent() {
 }
 
 function getAudioCtx() {
-  if (!audioCtx)
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   return audioCtx;
 }
 
@@ -1316,7 +1113,9 @@ function playCompletionSound() {
       osc.start(ac.currentTime + i * 0.12);
       osc.stop(ac.currentTime + i * 0.12 + 0.4);
     });
-  } catch (e) {}
+  } catch {
+    /* ignored */
+  }
 }
 
 function playFinalSound() {
@@ -1337,9 +1136,12 @@ function playFinalSound() {
       osc.start(ac.currentTime + i * 0.08);
       osc.stop(ac.currentTime + i * 0.08 + 2.5);
     });
-  } catch (e) {}
+  } catch {
+    /* ignored */
+  }
 }
 
+// eslint-disable-next-line no-unused-vars -- may be invoked from an inline onclick handler in HTML
 function toggleSound() {
   soundEnabled = !soundEnabled;
   const icon = document.getElementById("sound-icon");
@@ -1347,7 +1149,9 @@ function toggleSound() {
   if (soundEnabled) {
     try {
       getAudioCtx().resume();
-    } catch (e) {}
+    } catch {
+      /* ignored */
+    }
     playCompletionSound();
   }
 }
@@ -1385,12 +1189,7 @@ function getPos(e) {
 function findStarAt(x, y) {
   for (let i = stars.length - 1; i >= 0; i--) {
     const s = stars[i];
-    if (
-      s.snapped &&
-      s.snappedConstId !== null &&
-      completedConsts.has(s.snappedConstId)
-    )
-      continue;
+    if (s.snapped && s.snappedConstId !== null && completedConsts.has(s.snappedConstId)) continue;
     if (Math.hypot(x - s.x, y - s.y) < Math.max(s.baseR + 10, 18)) return s;
   }
   return null;
@@ -1433,8 +1232,8 @@ function onPointerDown(e) {
 
 function onPointerMove(e) {
   const pos = getPos(e);
-  mouseX = pos.x;
-  mouseY = pos.y;
+  _mouseX = pos.x;
+  _mouseY = pos.y;
 
   if (!dragging) return;
   e.preventDefault();
@@ -1444,7 +1243,7 @@ function onPointerMove(e) {
   dragging.y = Math.max(70, Math.min(canvas.height - 40, dragging.y));
 }
 
-function onPointerUp(e) {
+function onPointerUp(_e) {
   if (dragging) {
     checkSnap(dragging);
     dragging = null;
@@ -1462,6 +1261,7 @@ function setupEventListeners() {
   canvas.addEventListener("touchend", onPointerUp);
 }
 
+// eslint-disable-next-line no-unused-vars -- may be invoked from an inline onclick handler in HTML
 function resetStars() {
   if (completedCount >= TOTAL_CONSTELLATIONS) return;
   showResetConfirmation().then((confirmed) => {
@@ -1484,9 +1284,7 @@ function openModal(id) {
   const m = document.getElementById(id);
   if (!m) return;
   m.style.display = "flex";
-  requestAnimationFrame(() =>
-    requestAnimationFrame(() => m.classList.add("show")),
-  );
+  requestAnimationFrame(() => requestAnimationFrame(() => m.classList.add("show")));
   document.body.style.overflow = "hidden";
 }
 
@@ -1500,27 +1298,24 @@ function closeModal(id) {
   }, 400);
 }
 
+// eslint-disable-next-line no-unused-vars -- may be invoked from an inline onclick handler in HTML
 function openProfileModal(id) {
-  const btn = document.getElementById(
-    "btn-" + id.replace("Modal", "").toLowerCase(),
-  );
+  const btn = document.getElementById("btn-" + id.replace("Modal", "").toLowerCase());
   if (btn && btn.disabled) return;
   updateProfileContent();
   openModal(id);
 }
 
+// eslint-disable-next-line no-unused-vars -- may be invoked from an inline onclick handler in HTML
 function showInstructions() {
   openModal("instructionsModal");
 }
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
-    [
-      "adachiModal",
-      "shimamuraModal",
-      "rewardModal",
-      "instructionsModal",
-    ].forEach((id) => closeModal(id));
+    ["adachiModal", "shimamuraModal", "rewardModal", "instructionsModal"].forEach((id) =>
+      closeModal(id),
+    );
   }
 });
 
@@ -1603,15 +1398,13 @@ document.addEventListener("keydown", (e) => {
     let pointerDownWasOutside = false;
     document.addEventListener("pointerdown", (e) => {
       const modalEl = getOpenProfileModal();
-      pointerDownWasOutside =
-        !!modalEl && !isInsideDialog(modalEl, e.clientX, e.clientY);
+      pointerDownWasOutside = !!modalEl && !isInsideDialog(modalEl, e.clientX, e.clientY);
     });
     document.addEventListener("pointerup", (e) => {
       if (e.pointerType === "mouse") return;
       const modalEl = getOpenProfileModal();
       if (!modalEl || !pointerDownWasOutside) return;
-      if (!isInsideDialog(modalEl, e.clientX, e.clientY))
-        closeModal(modalEl.id);
+      if (!isInsideDialog(modalEl, e.clientX, e.clientY)) closeModal(modalEl.id);
       pointerDownWasOutside = false;
     });
   }
@@ -1647,10 +1440,7 @@ function setMenuHandlers() {
   if (closeBtn) closeBtn.addEventListener("click", closeMenu);
   if (menuButton) menuButton.addEventListener("click", window.toggleMenu);
   document.addEventListener("keydown", function (event) {
-    if (
-      event.key === "Escape" &&
-      document.body.classList.contains("menu-open")
-    ) {
+    if (event.key === "Escape" && document.body.classList.contains("menu-open")) {
       closeMenu();
     }
   });
@@ -1662,6 +1452,7 @@ if (document.readyState === "loading") {
   setMenuHandlers();
 }
 
+// eslint-disable-next-line no-unused-vars -- may be invoked from an inline onclick handler in HTML
 function downloadProfile(modalId) {
   const profileDownloads = {
     adachiModal: {
@@ -1732,6 +1523,7 @@ async function forceDownload(url, fileName) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars -- may be invoked from an inline onclick handler in HTML
 async function downloadStoryPDF() {
   const reward = window._currentReward;
   if (!reward || !reward.pdf) return;
@@ -1756,9 +1548,9 @@ const MINI_STORIES_DOWNLOADS = {
   },
 };
 
+// eslint-disable-next-line no-unused-vars -- may be invoked from an inline onclick handler in HTML
 async function downloadAllMiniStories() {
-  const downloadConfig =
-    MINI_STORIES_DOWNLOADS[currentLang] || MINI_STORIES_DOWNLOADS.es;
+  const downloadConfig = MINI_STORIES_DOWNLOADS[currentLang] || MINI_STORIES_DOWNLOADS.es;
   const bustUrl = downloadConfig.archiveUrl;
   const downloadName = downloadConfig.archiveFileName;
   try {
@@ -1829,14 +1621,14 @@ function showResetConfirmation() {
       message.textContent = getString("resetConfirm");
     }
 
-    let finished = false;
+    let _finished = false;
     function cleanup() {
       el.classList.remove("show");
       el.setAttribute("aria-hidden", "true");
       btnConfirm.removeEventListener("click", onConfirm);
       btnCancel.removeEventListener("click", onCancel);
       document.removeEventListener("keydown", onKey);
-      finished = true;
+      _finished = true;
     }
     function onConfirm() {
       cleanup();
@@ -1875,20 +1667,15 @@ function flashToast(text, dur = 1800) {
 document.addEventListener("DOMContentLoaded", function () {
   fetch("/src/components/menu.html?v=" + APP_VERSION)
     .then((response) => {
-      if (!response.ok)
-        throw new Error("Error HTTP " + response.status + " al cargar el menú");
+      if (!response.ok) throw new Error("Error HTTP " + response.status + " al cargar el menú");
       return response.text();
     })
     .then((data) => {
       data = data
         .replace(/src="\.\/(assets\/)/g, 'src="../$1')
-        .replace(
-          /data-route="\.\.\/\.\.\/index\.html"/g,
-          'data-route="../../../index.html"',
-        );
+        .replace(/data-route="\.\.\/\.\.\/index\.html"/g, 'data-route="../../../index.html"');
       const container =
-        document.getElementById("sidebar-container") ||
-        document.getElementById("menu-container");
+        document.getElementById("sidebar-container") || document.getElementById("menu-container");
       if (!container) return;
       container.innerHTML = data;
       const scripts = container.querySelectorAll("script");
@@ -1905,9 +1692,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.dispatchEvent(new CustomEvent("menuLoaded"));
       }, 100);
     })
-    .catch((error) =>
-      console.error("Error cargando menu.html:", error.message),
-    );
+    .catch((error) => console.error("Error cargando menu.html:", error.message));
 });
 
 document.addEventListener("menuLoaded", function () {

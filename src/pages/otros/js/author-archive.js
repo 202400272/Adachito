@@ -44,8 +44,7 @@ const I18N = {
     statCommentaries: "Commentaries",
     statMagazine: "Magazine",
     statYears: "Years",
-    searchPlaceholder:
-      "Search articles by title, publication, year, or topic...",
+    searchPlaceholder: "Search articles by title, publication, year, or topic...",
     pillAll: "All",
     pillInterview: "Interview",
     pillCommentary: "Commentary",
@@ -77,8 +76,7 @@ const I18N = {
     noReferences: "No references for this article",
     viewOriginalSource: "View Original Source",
     contentNotAvailable: "<p>Content not available.</p>",
-    failedArticleContent:
-      "<p>Failed to load article content. Please try again later.</p>",
+    failedArticleContent: "<p>Failed to load article content. Please try again later.</p>",
     types: {
       interview: "Interview",
       commentary: "Commentary",
@@ -120,11 +118,9 @@ const I18N = {
     loadingArchive: "Cargando archivo...",
     loadingArchiveWait: "Por favor espera mientras cargamos los artículos.",
     failedArchiveTitle: "Error al cargar el archivo",
-    failedArchiveText:
-      "Por favor actualiza la página o intenta de nuevo más tarde.",
+    failedArchiveText: "Por favor actualiza la página o intenta de nuevo más tarde.",
     refresh: "Actualizar",
-    failedArchiveToast:
-      "Error al cargar los datos del archivo. Por favor actualiza la página.",
+    failedArchiveToast: "Error al cargar los datos del archivo. Por favor actualiza la página.",
     noArticlesTitle: "No se encontraron artículos",
     noArticlesText: "Intenta ajustar tus filtros o términos de búsqueda",
     resetFilters: "Restablecer Filtros",
@@ -157,19 +153,15 @@ function applyUITranslations(lang) {
   document.getElementById("heroTitleText").textContent = dict.heroTitle;
   document.getElementById("heroSubtitleText").innerHTML = dict.heroSubtitle;
   document.getElementById("statLabelTotal").textContent = dict.statTotal;
-  document.getElementById("statLabelInterviews").textContent =
-    dict.statInterviews;
-  document.getElementById("statLabelAfterwords").textContent =
-    dict.statAfterwords;
-  document.getElementById("statLabelCommentaries").textContent =
-    dict.statCommentaries;
+  document.getElementById("statLabelInterviews").textContent = dict.statInterviews;
+  document.getElementById("statLabelAfterwords").textContent = dict.statAfterwords;
+  document.getElementById("statLabelCommentaries").textContent = dict.statCommentaries;
   document.getElementById("statLabelMagazine").textContent = dict.statMagazine;
   document.getElementById("statLabelYears").textContent = dict.statYears;
   document.getElementById("archiveSearch").placeholder = dict.searchPlaceholder;
   document.getElementById("pillTextAll").textContent = dict.pillAll;
   document.getElementById("pillTextInterview").textContent = dict.pillInterview;
-  document.getElementById("pillTextCommentary").textContent =
-    dict.pillCommentary;
+  document.getElementById("pillTextCommentary").textContent = dict.pillCommentary;
   document.getElementById("pillTextAfterword").textContent = dict.pillAfterword;
   document.getElementById("pillTextMagazine").textContent = dict.pillMagazine;
   document.getElementById("pillTextBlog").textContent = dict.pillBlog;
@@ -181,9 +173,9 @@ function applyUITranslations(lang) {
   document.getElementById("sortNewestOption").textContent = dict.sortNewest;
   document.getElementById("sortOldestOption").textContent = dict.sortOldest;
   document.getElementById("sortTitleOption").textContent = dict.sortTitle;
-  document.getElementById("footerText").innerHTML = dict.footer;
-  document.getElementById("referencePanelTitle").textContent =
-    dict.referencePanelTitle;
+  // Footer is now the shared component (src/components/js/footer.js),
+  // which handles its own translation.
+  document.getElementById("referencePanelTitle").textContent = dict.referencePanelTitle;
 }
 
 function getTypeLabel(type) {
@@ -305,10 +297,7 @@ async function loadArticleContent(article) {
           if (section.heading) {
             html += `<h3>${section.heading}</h3>`;
           }
-          html += processContentWithNotes(
-            section.content || "",
-            articleReferences,
-          );
+          html += processContentWithNotes(section.content || "", articleReferences);
           return html;
         })
         .join("");
@@ -321,7 +310,7 @@ async function loadArticleContent(article) {
     article.references = articleReferences;
     articleContentCache[article.id] = content;
     return content;
-  } catch (error) {
+  } catch {
     return t("failedArticleContent");
   }
 }
@@ -352,9 +341,7 @@ function toggleNote(refId) {
   if (!article || !article.references) return;
   const ref = article.references.find((r) => r.id === refId);
   if (!ref || !ref.note) return;
-  const marker = document.querySelector(
-    `.reference-marker[data-ref="${refId}"]`,
-  );
+  const marker = document.querySelector(`.reference-marker[data-ref="${refId}"]`);
   if (marker) {
     const noteEl = document.createElement("div");
     noteEl.className = "reference-note visible";
@@ -428,7 +415,7 @@ async function loadArchiveData() {
     populateYearFilter(archiveData);
     updateFilterCounts(archiveData);
     filterAndRender();
-  } catch (error) {
+  } catch {
     showToast(t("failedArchiveToast"));
     document.getElementById("archiveGrid").innerHTML = `
             <div class="empty-state">
@@ -455,9 +442,7 @@ function updateFilterCounts(items) {
     event: items.filter((i) => i.type === "event").length,
   };
   Object.keys(counts).forEach((key) => {
-    const el = document.getElementById(
-      `count${key.charAt(0).toUpperCase() + key.slice(1)}`,
-    );
+    const el = document.getElementById(`count${key.charAt(0).toUpperCase() + key.slice(1)}`);
     if (el) el.textContent = counts[key];
   });
 }
@@ -506,8 +491,7 @@ function populateYearFilter(items) {
 function filterAndRender() {
   const filtered = archiveData.filter((item) => {
     if (currentFilter !== "all" && item.type !== currentFilter) return false;
-    if (currentYear !== "all" && getYear(item.date).toString() !== currentYear)
-      return false;
+    if (currentYear !== "all" && getYear(item.date).toString() !== currentYear) return false;
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       const searchable = [
@@ -597,12 +581,8 @@ function resetFilters() {
   document.getElementById("archiveSearch").value = "";
   document.getElementById("searchClearBtn").classList.remove("visible");
   document.getElementById("yearFilter").value = "all";
-  document
-    .querySelectorAll(".filter-pill")
-    .forEach((p) => p.classList.remove("active"));
-  document
-    .querySelector('.filter-pill[data-filter="all"]')
-    .classList.add("active");
+  document.querySelectorAll(".filter-pill").forEach((p) => p.classList.remove("active"));
+  document.querySelector('.filter-pill[data-filter="all"]').classList.add("active");
   filterAndRender();
   showToast(t("filtersResetToast"));
 }
@@ -658,10 +638,7 @@ function closeArticle() {
 
 function toggleArticle(id) {
   const modal = document.getElementById("articleModal");
-  if (
-    modal.classList.contains("open") &&
-    Number(modal.dataset.articleId) === Number(id)
-  ) {
+  if (modal.classList.contains("open") && Number(modal.dataset.articleId) === Number(id)) {
     closeArticle();
   } else {
     openArticle(id);
@@ -693,7 +670,9 @@ async function loadSidebar() {
       }
       document.dispatchEvent(new CustomEvent("menuLoaded"));
     }, 100);
-  } catch (error) {}
+  } catch {
+    /* ignored */
+  }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -784,9 +763,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.querySelectorAll(".filter-pill").forEach((pill) => {
     pill.addEventListener("click", function () {
-      document
-        .querySelectorAll(".filter-pill")
-        .forEach((p) => p.classList.remove("active"));
+      document.querySelectorAll(".filter-pill").forEach((p) => p.classList.remove("active"));
       this.classList.add("active");
       currentFilter = this.dataset.filter;
       filterAndRender();

@@ -1,0 +1,481 @@
+{
+  "version": 11,
+  "timestamp": "2026-08-21T11:45:58+0800",
+  "health": 76,
+  "runtime_seconds": 216.87,
+  "summary": {
+    "checks": 43,
+    "things_checked": 563,
+    "passed": 32,
+    "failed": 10,
+    "warnings": 1,
+    "skipped": 0
+  },
+  "results": [
+    {
+      "category": "Build",
+      "name": "Build",
+      "status": "PASS",
+      "summary": "Production build completed.",
+      "details": [],
+      "count": 1,
+      "duration": 5.072912900000119,
+      "severity": "normal"
+    },
+    {
+      "category": "Data",
+      "name": "Content files",
+      "status": "PASS",
+      "summary": "139 files checked \u00b7 0 unreadable",
+      "details": [],
+      "count": 139,
+      "duration": 0.06798600000001898,
+      "severity": "normal"
+    },
+    {
+      "category": "Data",
+      "name": "Translations",
+      "status": "PASS",
+      "summary": "1 language groups compared \u00b7 0 differences",
+      "details": [],
+      "count": 1,
+      "duration": 0.02496939999946335,
+      "severity": "normal"
+    },
+    {
+      "category": "Music",
+      "name": "Music data",
+      "status": "PASS",
+      "summary": "3 locale files \u00b7 147 track entries checked \u00b7 0 issues",
+      "details": [],
+      "count": 147,
+      "duration": 0.0025482999999439926,
+      "severity": "normal"
+    },
+    {
+      "category": "Pages",
+      "name": "Expected pages",
+      "status": "PASS",
+      "summary": "16 expected \u00b7 0 missing",
+      "details": [],
+      "count": 16,
+      "duration": 0.000568800000110059,
+      "severity": "normal"
+    },
+    {
+      "category": "Links",
+      "name": "Links",
+      "status": "PASS",
+      "summary": "16 pages \u00b7 0 broken",
+      "details": [],
+      "count": 0,
+      "duration": 0.09120399999937945,
+      "severity": "normal"
+    },
+    {
+      "category": "Links",
+      "name": "Missing files",
+      "status": "FAIL",
+      "summary": "16 pages \u00b7 10 missing local files",
+      "details": [
+        "src\\pages\\Adashima_Drama.html \u2192 Imagenes/FondoCD.png",
+        "src\\pages\\Adashima_Estrella.html \u2192 /assets/Imagenes/Carta adachi.png",
+        "src\\pages\\Adashima_Estrella.html \u2192 /assets/Imagenes/Carta shimamura.png",
+        "src\\pages\\Adashima_Extra_Stories.html \u2192 /assets/Imagenes/astronauta.png",
+        "src\\pages\\Adashima_Manga.html \u2192 /assets/Imagenes/astronauta.png",
+        "src\\pages\\Adashima_Otros.html \u2192 /assets/Imagenes/D_1.png",
+        "src\\pages\\Adashima_Otros.html \u2192 /assets/Imagenes/D_2.png",
+        "src\\pages\\Adashima_Otros.html \u2192 /assets/Imagenes/D_3.png"
+      ],
+      "count": 10,
+      "duration": 0.08661209999991115,
+      "severity": "normal"
+    },
+    {
+      "category": "Accessibility",
+      "name": "Image descriptions",
+      "status": "PASS",
+      "summary": "16 pages \u00b7 0 images without descriptions",
+      "details": [],
+      "count": 0,
+      "duration": 0.08845409999958065,
+      "severity": "normal"
+    },
+    {
+      "category": "Links",
+      "name": "Duplicate IDs",
+      "status": "PASS",
+      "summary": "16 pages \u00b7 0 duplicates",
+      "details": [],
+      "count": 0,
+      "duration": 0.08952179999960208,
+      "severity": "normal"
+    },
+    {
+      "category": "Links",
+      "name": "Page anchors",
+      "status": "PASS",
+      "summary": "3 local anchors checked",
+      "details": [],
+      "count": 3,
+      "duration": 0.08652339999935066,
+      "severity": "normal"
+    },
+    {
+      "category": "Pages",
+      "name": "Page basics",
+      "status": "PASS",
+      "summary": "16 pages \u00b7 0 issues",
+      "details": [],
+      "count": 16,
+      "duration": 0.009051600000020699,
+      "severity": "normal"
+    },
+    {
+      "category": "Accessibility",
+      "name": "Basic accessibility",
+      "status": "WARN",
+      "summary": "16 pages inspected \u00b7 18 things to review",
+      "details": [
+        "src\\pages\\Adashima_About.html: button #closeChangelogBtn may need an accessible name",
+        "src\\pages\\Adashima_About.html: button #closeMaterialsBtn may need an accessible name",
+        "src\\pages\\Adashima_Anime.html: button #eolNextBtn may need an accessible name",
+        "src\\pages\\Adashima_Anime.html: button #prevEpBtn may need an accessible name",
+        "src\\pages\\Adashima_Anime.html: button #nextEpBtn may need an accessible name",
+        "src\\pages\\Adashima_Anime.html: button #khClose may need an accessible name",
+        "src\\pages\\Adashima_Estrella.html: button #btn-shimamura may need an accessible name",
+        "src\\pages\\Adashima_Estrella.html: button #btn-adachi may need an accessible name"
+      ],
+      "count": 16,
+      "duration": 0.07299669999974867,
+      "severity": "normal"
+    },
+    {
+      "category": "Links",
+      "name": "Large files",
+      "status": "PASS",
+      "summary": "84 files \u00b7 0 are 5 MiB or larger",
+      "details": [],
+      "count": 84,
+      "duration": 0.004740499999570602,
+      "severity": "normal"
+    },
+    {
+      "category": "JavaScript",
+      "name": "JavaScript syntax",
+      "status": "PASS",
+      "summary": "22 files checked \u00b7 0 errors",
+      "details": [],
+      "count": 22,
+      "duration": 2.229713300000185,
+      "severity": "normal"
+    },
+    {
+      "category": "Preview",
+      "name": "Production preview",
+      "status": "PASS",
+      "summary": "Site is ready at http://127.0.0.1:54723/",
+      "details": [],
+      "count": 1,
+      "duration": 0.0,
+      "severity": "normal"
+    },
+    {
+      "category": "Browser",
+      "name": "Desktop site",
+      "status": "FAIL",
+      "summary": "16/16 pages opened \u00b7 1 problems",
+      "details": [
+        "JavaScript error: Cannot read properties of null (reading 'querySelectorAll')"
+      ],
+      "count": 16,
+      "duration": 0.0,
+      "severity": "normal"
+    },
+    {
+      "category": "Browser",
+      "name": "Follow a few links",
+      "status": "PASS",
+      "summary": "11 real links checked \u00b7 0 failed",
+      "details": [],
+      "count": 11,
+      "duration": 0.0,
+      "severity": "normal"
+    },
+    {
+      "category": "Browser",
+      "name": "Homepage explanation",
+      "status": "FAIL",
+      "summary": "The expandable section did not open and close correctly.",
+      "details": [
+        "Expected it to open after the first click and close after the second."
+      ],
+      "count": 1,
+      "duration": 0.0,
+      "severity": "normal"
+    },
+    {
+      "category": "Browser",
+      "name": "Gallery search",
+      "status": "PASS",
+      "summary": "Typing into the search box changed the visible page.",
+      "details": [],
+      "count": 1,
+      "duration": 0.0,
+      "severity": "normal"
+    },
+    {
+      "category": "Browser",
+      "name": "Extra Stories search",
+      "status": "FAIL",
+      "summary": "Search could not be used: Locator.fill: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"#searchInput\").first\n    - locator resolved to <input type=\"text\" id=\"searchInput\" placeholder=\"Buscar...\" aria-label=\"Search stories\"/>\n    - fill(\"Adachi\")\n  - attempting fill action\n    2 \u00d7 waiting for element to be visible, enabled and editable\n      - element is not visible\n    - retrying fill action\n    - waiting 20ms\n    2 \u00d7 waiting for element to be visible, enabled and editable\n      - element is not visible\n    - retrying fill action\n      - waiting 100ms\n    58 \u00d7 waiting for element to be visible, enabled and editable\n       - element is not visible\n     - retrying fill action\n       - waiting 500ms\n",
+      "details": [],
+      "count": 0,
+      "duration": 0.0,
+      "severity": "normal"
+    },
+    {
+      "category": "Browser",
+      "name": "Anime search",
+      "status": "PASS",
+      "summary": "Typing into the search box changed the visible page.",
+      "details": [],
+      "count": 1,
+      "duration": 0.0,
+      "severity": "normal"
+    },
+    {
+      "category": "Browser",
+      "name": "Help search",
+      "status": "PASS",
+      "summary": "Typing into the search box changed the visible page.",
+      "details": [],
+      "count": 1,
+      "duration": 0.0,
+      "severity": "normal"
+    },
+    {
+      "category": "Browser",
+      "name": "Novel search",
+      "status": "PASS",
+      "summary": "Typing into the search box changed the visible page.",
+      "details": [],
+      "count": 1,
+      "duration": 0.0,
+      "severity": "normal"
+    },
+    {
+      "category": "Browser",
+      "name": "Manga search",
+      "status": "PASS",
+      "summary": "Typing into the search box changed the visible page.",
+      "details": [],
+      "count": 1,
+      "duration": 0.0,
+      "severity": "normal"
+    },
+    {
+      "category": "Browser",
+      "name": "Author archive search",
+      "status": "PASS",
+      "summary": "Typing into the search box changed the visible page.",
+      "details": [],
+      "count": 1,
+      "duration": 0.0,
+      "severity": "normal"
+    },
+    {
+      "category": "Browser",
+      "name": "Novel reader",
+      "status": "PASS",
+      "summary": "Reader container loaded.",
+      "details": [],
+      "count": 1,
+      "duration": 0.0,
+      "severity": "normal"
+    },
+    {
+      "category": "Browser",
+      "name": "Manga reader",
+      "status": "PASS",
+      "summary": "Reader container loaded.",
+      "details": [],
+      "count": 1,
+      "duration": 0.0,
+      "severity": "normal"
+    },
+    {
+      "category": "Music",
+      "name": "Music \u00b7 ES library",
+      "status": "PASS",
+      "summary": "Music library rendered 3 album cards.",
+      "details": [],
+      "count": 3,
+      "duration": 0.6602136999999857,
+      "severity": "normal"
+    },
+    {
+      "category": "Music",
+      "name": "Music \u00b7 EN library",
+      "status": "PASS",
+      "summary": "Music library rendered 3 album cards.",
+      "details": [],
+      "count": 3,
+      "duration": 0.6644527999997081,
+      "severity": "normal"
+    },
+    {
+      "category": "Music",
+      "name": "Music \u00b7 TG library",
+      "status": "PASS",
+      "summary": "Music library rendered 3 album cards.",
+      "details": [],
+      "count": 3,
+      "duration": 0.6486240000003818,
+      "severity": "normal"
+    },
+    {
+      "category": "Music",
+      "name": "Music \u00b7 Open album",
+      "status": "PASS",
+      "summary": "Album 'ost' opened with 35 visible track rows.",
+      "details": [],
+      "count": 35,
+      "duration": 1.1815485999995872,
+      "severity": "normal"
+    },
+    {
+      "category": "Music",
+      "name": "Music \u00b7 Track search",
+      "status": "PASS",
+      "summary": "Search changed 35 tracks to 1, then restored 35.",
+      "details": [],
+      "count": 1,
+      "duration": 0.6732569999994666,
+      "severity": "normal"
+    },
+    {
+      "category": "Music",
+      "name": "Music \u00b7 View toggle",
+      "status": "PASS",
+      "summary": "Standard and compact track views toggle correctly.",
+      "details": [],
+      "count": 1,
+      "duration": 0.9516561999998885,
+      "severity": "normal"
+    },
+    {
+      "category": "Music",
+      "name": "Music \u00b7 Playback request",
+      "status": "FAIL",
+      "summary": "Playback could not be exercised.",
+      "details": [
+        "Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"#albumTrackTable .track-row\").first.locator(\".col-play-btn\")\n    - locator resolved to <button class=\"col-play-btn\" aria-label=\"Play track \u5c45\u5834\u6240\">\u2026</button>\n  - attem"
+      ],
+      "count": 1,
+      "duration": 30.008404899999732,
+      "severity": "normal"
+    },
+    {
+      "category": "Music",
+      "name": "Music \u00b7 Player controls",
+      "status": "FAIL",
+      "summary": "Player controls could not be fully exercised.",
+      "details": [
+        "Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"#playBtn\")\n    - locator resolved to <button id=\"playBtn\" aria-label=\"Play / Pause\" class=\"ctrl-btn ctrl-play\">\u2026</button>\n  - attempting click action\n    2 \u00d7 waitin"
+      ],
+      "count": 1,
+      "duration": 30.03683960000035,
+      "severity": "normal"
+    },
+    {
+      "category": "Music",
+      "name": "Music \u00b7 Favorites",
+      "status": "FAIL",
+      "summary": "Favorite control could not be exercised.",
+      "details": [
+        "Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"#favBtn\")\n    - locator resolved to <button id=\"favBtn\" data-mobile-hide=\"\" class=\"ctrl-btn ctrl-fav\" aria-label=\"Toggle favorite\">\u2026</button>\n  - attempting click a"
+      ],
+      "count": 1,
+      "duration": 30.014408000000003,
+      "severity": "normal"
+    },
+    {
+      "category": "Music",
+      "name": "Music \u00b7 Queue",
+      "status": "FAIL",
+      "summary": "Queue control could not be exercised.",
+      "details": [
+        "Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"#queueToggle\")\n    - locator resolved to <button id=\"queueToggle\" aria-label=\"Queue\" data-mobile-hide=\"\" class=\"ctrl-btn ctrl-queue\">\u2026</button>\n  - attempting click"
+      ],
+      "count": 1,
+      "duration": 30.014596199999687,
+      "severity": "normal"
+    },
+    {
+      "category": "Music",
+      "name": "Music \u00b7 Expanded player",
+      "status": "FAIL",
+      "summary": "Expanded player could not be exercised.",
+      "details": [
+        "Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"#expandPlayerBtn\")\n    - locator resolved to <button id=\"expandPlayerBtn\" aria-label=\"Expand player\" class=\"ctrl-btn ctrl-expand\">\u2026</button>\n  - attempting click ac"
+      ],
+      "count": 1,
+      "duration": 30.0110308000003,
+      "severity": "normal"
+    },
+    {
+      "category": "Music",
+      "name": "Music \u00b7 Album navigation",
+      "status": "PASS",
+      "summary": "Back to Music restores the library view.",
+      "details": [],
+      "count": 1,
+      "duration": 0.5681414000000586,
+      "severity": "normal"
+    },
+    {
+      "category": "Browser",
+      "name": "Mobile site",
+      "status": "FAIL",
+      "summary": "16/16 pages opened \u00b7 2 problems",
+      "details": [
+        "JavaScript error: Cannot read properties of null (reading 'querySelectorAll')",
+        "Failed request: GET https://media.adashimaverse.com/assets/hero/adachi_shimamura_keyart.jpg"
+      ],
+      "count": 16,
+      "duration": 0.0,
+      "severity": "normal"
+    },
+    {
+      "category": "Browser",
+      "name": "Mobile menu",
+      "status": "PASS",
+      "summary": "Menu opened and closed correctly.",
+      "details": [],
+      "count": 1,
+      "duration": 0.0,
+      "severity": "normal"
+    },
+    {
+      "category": "Speed",
+      "name": "Homepage speed",
+      "status": "PASS",
+      "summary": "First content unavailable \u00b7 page load 307ms \u00b7 transfer 6 KiB",
+      "details": [],
+      "count": 1,
+      "duration": 0.0,
+      "severity": "normal"
+    },
+    {
+      "category": "Preview",
+      "name": "Clean up",
+      "status": "PASS",
+      "summary": "Preview server was stopped.",
+      "details": [],
+      "count": 1,
+      "duration": 0.0,
+      "severity": "normal"
+    }
+  ]
+}

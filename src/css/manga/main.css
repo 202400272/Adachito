@@ -7,12 +7,10 @@
 @import url("particles.css");
 @import url("floating-decorations.css");
 
-
 /* ===== LAYOUT ===== */
 @import url("main-content.css");
 @import url("sticky-controls.css");
 @import url("footer.css");
-
 
 /* ===== LIBRARY CONTROLS ===== */
 @import url("library-controls.css");
@@ -23,35 +21,34 @@
 @import url("download-all.css");
 @import url("empty-states.css");
 
-
 /* ===== VOLUMES & MANGA ITEMS ===== */
 @import url("volumes-grid.css");
 @import url("volume-card.css");
 @import url("volume-chapters.css");
 @import url("manga-item.css");
 
-
 /* ===== READER VIEWS ===== */
 @import url("cascade-reader.css");
 @import url("paged-reader.css");
 @import url("paged-navigation.css");
 
-
 /* ===== PDF STYLES ===== */
 @import url("pdf-styles.css");
-
 
 /* ===== FULLSCREEN & MODALS ===== */
 @import url("fullscreen.css");
 @import url("zoom-toast.css");
 
-
 /* ===== UTILITIES ===== */
 @import url("language-position.css");
 
-
 /* ===== RESPONSIVE ===== */
 @import url("responsive.css");
+
+.pdf-modal:not(.open) {
+  display: none !important;
+  pointer-events: none !important;
+}
 
 /* ===== MOBILE INTERACTION ===== */
 
@@ -75,4 +72,314 @@ a:focus-visible,
   outline-offset: 2px;
 }
 
+/* ===== LOCAL TIME-OF-DAY THEME ===== */
+body.time-morning {
+  --page-bg: linear-gradient(135deg, #eaf3fb 0%, #edf0fa 58%, #f3ebf7 100%);
+  --page-surface: rgba(247, 250, 253, 0.92);
+  --page-text: #4f5f73;
+  --page-accent: #5f86aa;
+  --page-accent-soft: rgba(95, 134, 170, 0.12);
+  --page-border: rgba(95, 134, 170, 0.2);
+}
+body.time-afternoon {
+  --page-bg: linear-gradient(135deg, #f3e6ee 0%, #e8cdd4 55%, #f6e8d3 100%);
+  --page-surface: rgba(255, 248, 244, 0.94);
+  --page-text: #4a3b52;
+  --page-accent: #8c5a96;
+  --page-accent-soft: rgba(140, 90, 150, 0.12);
+  --page-border: rgba(140, 90, 150, 0.18);
+}
+body.time-night {
+  --page-bg: linear-gradient(135deg, #17121e 0%, #211827 55%, #171d2a 100%);
+  --page-surface: rgba(43, 33, 51, 0.96);
+  --page-text: #f2eaf5;
+  --page-accent: #d39bc6;
+  --page-accent-soft: rgba(211, 155, 198, 0.13);
+  --page-border: rgba(221, 190, 226, 0.15);
+}
+body.time-morning .main-content,
+body.time-afternoon .main-content,
+body.time-night .main-content {
+  background: var(--page-bg) !important;
+  color: var(--page-text) !important;
+}
+body.time-morning .library-controls,
+body.time-morning .library-controls-sticky,
+body.time-morning .search-wrapper,
+body.time-morning .view-toggle-group,
+body.time-morning .version-toggle-group,
+body.time-morning .update-box,
+body.time-morning .volume-card,
+body.time-morning .volume-chapters,
+body.time-morning .manga-item {
+  background: var(--page-surface) !important;
+  border-color: var(--page-border) !important;
+  color: var(--page-text) !important;
+}
+body.time-afternoon .library-controls,
+body.time-afternoon .library-controls-sticky,
+body.time-afternoon .search-wrapper,
+body.time-afternoon .view-toggle-group,
+body.time-afternoon .version-toggle-group,
+body.time-afternoon .update-box,
+body.time-afternoon .volume-card,
+body.time-afternoon .volume-chapters,
+body.time-afternoon .manga-item {
+  background: var(--page-surface) !important;
+  border-color: var(--page-border) !important;
+  color: var(--page-text) !important;
+}
+body.time-night .library-controls,
+body.time-night .library-controls-sticky,
+body.time-night .search-wrapper,
+body.time-night .view-toggle-group,
+body.time-night .version-toggle-group,
+body.time-night .update-box,
+body.time-night .volume-card,
+body.time-night .volume-chapters,
+body.time-night .manga-item {
+  background: var(--page-surface) !important;
+  border-color: var(--page-border) !important;
+  color: var(--page-text) !important;
+}
+body.time-morning .search-wrapper input,
+body.time-morning .search-wrapper input::placeholder,
+body.time-morning .view-toggle-btn,
+body.time-morning .view-label,
+body.time-morning .volume-card h3,
+body.time-morning .volume-card p,
+body.time-morning .manga-item h3,
+body.time-morning .manga-item p,
+body.time-afternoon .search-wrapper input,
+body.time-afternoon .search-wrapper input::placeholder,
+body.time-afternoon .view-toggle-btn,
+body.time-afternoon .view-label,
+body.time-afternoon .volume-card h3,
+body.time-afternoon .volume-card p,
+body.time-afternoon .manga-item h3,
+body.time-afternoon .manga-item p,
+body.time-night .search-wrapper input,
+body.time-night .search-wrapper input::placeholder,
+body.time-night .view-toggle-btn,
+body.time-night .view-label,
+body.time-night .volume-card h3,
+body.time-night .volume-card p,
+body.time-night .manga-item h3,
+body.time-night .manga-item p {
+  color: var(--page-text) !important;
+}
+body.time-night .volume-card .card-title,
+body.time-night .volume-card .card-meta,
+body.time-night .volume-card .card-desc,
+body.time-night .volume-card .card-expand-btn,
+body.time-night .chapter-row .chapter-title,
+body.time-night .chapter-row .chapter-subtitle,
+body.time-night summary.manga-summary,
+body.time-night .summary-page-count,
+body.time-night .summary-desc-preview,
+body.time-night .manga-description,
+body.time-night .manga-description p {
+  color: var(--page-text) !important;
+}
+body.time-night .summary-volume-badge {
+  color: var(--page-accent) !important;
+}
+body.time-morning .view-toggle-btn.active,
+body.time-morning .version-toggle-btn.active {
+  background: var(--page-accent) !important;
+  color: #fff !important;
+}
+body.time-afternoon .view-toggle-btn.active,
+body.time-afternoon .version-toggle-btn.active {
+  background: #b77aa1 !important;
+  color: #fff !important;
+}
+body.time-night .view-toggle-btn.active,
+body.time-night .version-toggle-btn.active {
+  background: var(--page-accent) !important;
+  color: #241827 !important;
+}
+body.time-morning .search-wrapper:focus-within,
+body.time-afternoon .search-wrapper:focus-within,
+body.time-night .search-wrapper:focus-within {
+  border-color: var(--page-accent) !important;
+  box-shadow: 0 0 0 3px var(--page-accent-soft) !important;
+}
 
+/* ===== THEME SURFACE CLEANUP =====
+   Keep the time-based theme on the page itself; library wrappers stay transparent. */
+body.time-morning,
+body.time-afternoon,
+body.time-night {
+  background: var(--page-bg) !important;
+  color: var(--page-text) !important;
+}
+body.time-morning .main-content,
+body.time-afternoon .main-content,
+body.time-night .main-content {
+  background: transparent !important;
+}
+body.time-morning .library-controls,
+body.time-morning .library-controls-sticky,
+body.time-afternoon .library-controls,
+body.time-afternoon .library-controls-sticky,
+body.time-night .library-controls,
+body.time-night .library-controls-sticky {
+  background: transparent !important;
+}
+
+body.time-afternoon {
+  --page-bg: linear-gradient(145deg, #ead8df 0%, #d9c9dc 48%, #e9dccb 100%);
+  --page-surface: rgba(255, 250, 247, 0.9);
+  --page-text: #3f3048;
+  --page-accent: #89577d;
+  --page-accent-soft: rgba(137, 87, 125, 0.16);
+  --page-border: rgba(105, 70, 105, 0.24);
+  background: var(--page-bg) !important;
+}
+
+body.time-afternoon .main-content {
+  background:
+    radial-gradient(circle at 82% 8%, rgba(255, 255, 255, 0.28), transparent 30%),
+    radial-gradient(circle at 8% 76%, rgba(160, 123, 165, 0.16), transparent 34%), var(--page-bg) !important;
+}
+
+body.time-afternoon .main-content::before {
+  background: rgba(255, 248, 248, 0.22);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+body.time-afternoon .library-controls,
+body.time-afternoon .library-controls-sticky,
+body.time-afternoon .search-wrapper,
+body.time-afternoon .view-toggle-group,
+body.time-afternoon .version-toggle-group,
+body.time-afternoon .update-box,
+body.time-afternoon .volume-card,
+body.time-afternoon .volume-chapters,
+body.time-afternoon .manga-item {
+  background: var(--page-surface) !important;
+  border-color: var(--page-border) !important;
+  box-shadow: 0 10px 28px rgba(76, 46, 76, 0.1);
+}
+
+body.time-afternoon .library-controls-sticky {
+  border-radius: 22px;
+}
+
+body.time-afternoon .library-controls,
+body.time-afternoon .search-wrapper,
+body.time-afternoon .view-toggle-group,
+body.time-afternoon .version-toggle-group {
+  border-radius: 18px;
+}
+
+body.time-afternoon .update-box.view-list,
+body.time-afternoon .volume-card,
+body.time-afternoon .manga-item {
+  border-radius: 20px;
+}
+
+body.time-afternoon .update-box.view-grid {
+  padding: 1.25rem !important;
+  border: 1px solid rgba(105, 70, 105, 0.2) !important;
+  border-radius: 28px;
+  background: rgba(255, 250, 247, 0.38) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    0 12px 32px rgba(76, 46, 76, 0.08) !important;
+}
+
+body.time-afternoon .update-box.view-grid .volumes-grid {
+  padding: 0.25rem;
+}
+
+body.time-afternoon .volume-card,
+body.time-afternoon .manga-item {
+  overflow: hidden;
+}
+
+body.time-afternoon .volume-card:hover,
+body.time-afternoon .manga-item:hover,
+body.time-afternoon details[open].manga-item {
+  border-color: rgba(105, 70, 105, 0.3) !important;
+  box-shadow: 0 14px 34px rgba(76, 46, 76, 0.14);
+}
+
+body.time-afternoon .volume-chapters {
+  border-radius: 14px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+body.time-morning .library-controls-sticky,
+body.time-night .library-controls-sticky {
+  border-radius: 22px;
+}
+
+body.time-morning .library-controls,
+body.time-morning .search-wrapper,
+body.time-morning .view-toggle-group,
+body.time-morning .version-toggle-group,
+body.time-night .library-controls,
+body.time-night .search-wrapper,
+body.time-night .view-toggle-group,
+body.time-night .version-toggle-group {
+  border-radius: 18px;
+}
+
+body.time-morning .update-box.view-list,
+body.time-morning .volume-card,
+body.time-morning .manga-item,
+body.time-night .update-box.view-list,
+body.time-night .volume-card,
+body.time-night .manga-item {
+  border-radius: 20px;
+}
+
+body.time-morning .update-box.view-grid,
+body.time-night .update-box.view-grid {
+  padding: 1.25rem !important;
+  border: 1px solid var(--page-border) !important;
+  border-radius: 28px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    0 12px 32px rgba(30, 20, 40, 0.08) !important;
+}
+
+body.time-morning .update-box.view-grid {
+  background: rgba(247, 250, 253, 0.42) !important;
+}
+
+body.time-night .update-box.view-grid {
+  background: rgba(43, 33, 51, 0.42) !important;
+}
+
+body.time-morning .update-box.view-grid .volumes-grid,
+body.time-night .update-box.view-grid .volumes-grid {
+  padding: 0.25rem;
+}
+
+body.time-morning .volume-card,
+body.time-morning .manga-item,
+body.time-night .volume-card,
+body.time-night .manga-item {
+  overflow: hidden;
+}
+
+body.time-morning .volume-chapters,
+body.time-night .volume-chapters {
+  border-radius: 14px;
+}
+
+body.time-afternoon .update-title {
+  color: #573b5f;
+  text-shadow: 0 2px 12px rgba(255, 255, 255, 0.72);
+}
+
+body.time-afternoon .view-toggle-btn.active,
+body.time-afternoon .version-toggle-btn.active,
+body.time-afternoon .view-toggle-slider,
+body.time-afternoon .version-toggle-slider {
+  background: linear-gradient(135deg, #a86688, #765b91) !important;
+}

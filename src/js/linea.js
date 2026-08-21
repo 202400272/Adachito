@@ -21,8 +21,8 @@ let currentLang = (() => {
 })();
 
 let _lastCard = null;
-let isSwitching = false;
-let contentData = null;
+let _isSwitching = false;
+let _contentData = null;
 
 const YEAR_ICONS = {
   year1: "fa-seedling",
@@ -35,8 +35,7 @@ const FALLBACK_CONTENT = {
   es: {
     header: {
       title: "Línea del Tiempo",
-      subtitle:
-        "Adachi to Shimamura — Historia de su tiempo en la preparatoria",
+      subtitle: "Adachi to Shimamura — Historia de su tiempo en la preparatoria",
     },
     filters: {
       all: "Toda la historia",
@@ -92,17 +91,14 @@ async function loadContent(lang) {
     }
     return await response.json();
   } catch (e) {
-    console.warn(
-      "Failed to load language file, using fallback content:",
-      e.message,
-    );
+    console.warn("Failed to load language file, using fallback content:", e.message);
     return FALLBACK_CONTENT[lang] || FALLBACK_CONTENT.es;
   }
 }
 
 function buildTimelineHTML(data) {
   let html = "";
-  const years = ["year1", "year2", "year3"];
+  const _years = ["year1", "year2", "year3"];
   let currentYear = null;
 
   if (!data.events || data.events.length === 0) {
@@ -158,12 +154,11 @@ function buildMultiverseHTML(data) {
   const levels = Array.isArray(m.levels) ? m.levels : [];
   const itemById = new Map(m.items.map((item) => [Number(item.id), item]));
 
-  const levelCards = levels.map((level, index) => {
-    const items = (level.ids || [])
-      .map((id) => itemById.get(Number(id)))
-      .filter(Boolean);
+  const levelCards = levels
+    .map((level, index) => {
+      const items = (level.ids || []).map((id) => itemById.get(Number(id))).filter(Boolean);
 
-    return `
+      return `
       <section class="mv-level mv-level-${level.id}" aria-labelledby="mv-level-${level.id}">
         <div class="mv-level-branch-point" aria-hidden="true"><span></span></div>
         <div class="mv-level-body">
@@ -179,7 +174,9 @@ function buildMultiverseHTML(data) {
           </header>
 
           <div class="mv-level-branches">
-            ${items.map((item) => `
+            ${items
+              .map(
+                (item) => `
               <article class="mv-branch-card" data-branch="${item.id}">
                 <div class="mv-branch-connector" aria-hidden="true"><span></span></div>
                 <div class="mv-branch-card-inner">
@@ -192,12 +189,15 @@ function buildMultiverseHTML(data) {
                   </div>
                 </div>
               </article>
-            `).join("")}
+            `,
+              )
+              .join("")}
           </div>
         </div>
       </section>
     `;
-  }).join("");
+    })
+    .join("");
 
   return `
     <section class="multiverse-chart" aria-labelledby="multiverse-title">
@@ -250,14 +250,12 @@ function renderApp(data) {
   const yearFilters = document.getElementById("year-filters");
   const timelineContent = document.getElementById("timeline-content");
   const multiverseContent = document.getElementById("multiverse-content");
-  const footer = document.getElementById("footer");
 
   if (headerTitle) headerTitle.textContent = data.header.title;
   if (headerSubtitle) headerSubtitle.textContent = data.header.subtitle;
   if (yearFilters) yearFilters.innerHTML = buildYearFiltersHTML(data);
   if (timelineContent) timelineContent.innerHTML = buildTimelineHTML(data);
   if (multiverseContent) multiverseContent.innerHTML = buildMultiverseHTML(data);
-  if (footer) footer.innerHTML = data.footer;
 
   initYearFilterControls();
 
@@ -267,6 +265,7 @@ function renderApp(data) {
   updateTimelineProgress();
 }
 
+// eslint-disable-next-line no-unused-vars -- may be invoked from an inline onclick handler in HTML
 function openBubbleModal(card) {
   const contentEl = card.querySelector(".bubble-content");
   const coverImg = card.querySelector(".bubble-cover img");
@@ -275,12 +274,7 @@ function openBubbleModal(card) {
   const modalContent = document.getElementById("modalContent");
   const modalCircle = document.getElementById("modalImgCircle");
 
-  if (
-    coverImg &&
-    coverImg.src &&
-    coverImg.complete &&
-    coverImg.naturalWidth > 0
-  ) {
+  if (coverImg && coverImg.src && coverImg.complete && coverImg.naturalWidth > 0) {
     modalCircle.innerHTML = `<img src="${coverImg.src}" alt="preview">`;
     modalCircle.style.display = "block";
   } else {
@@ -337,8 +331,7 @@ document.addEventListener("keydown", (e) => {
 });
 window.addEventListener("resize", () => {
   const modal = document.getElementById("bubbleModal");
-  if (modal.classList.contains("active") && _lastCard)
-    _positionModal(modal, _lastCard);
+  if (modal.classList.contains("active") && _lastCard) _positionModal(modal, _lastCard);
 });
 
 function filterYear(year, btn) {
@@ -466,8 +459,7 @@ function initSakuraRain() {
     },
   ];
   const rnd = (a, b) => Math.random() * (b - a) + a;
-  const pick = (i) =>
-    i % 5 === 0 ? layers[2] : i % 2 === 0 ? layers[1] : layers[0];
+  const pick = (i) => (i % 5 === 0 ? layers[2] : i % 2 === 0 ? layers[1] : layers[0]);
 
   for (let i = 0; i < total; i++) {
     const l = pick(i);
@@ -482,18 +474,9 @@ function initSakuraRain() {
     p.style.animationDelay = rnd(-dur, 0) + "s";
     p.style.setProperty("--fall-duration", dur + "s");
     p.style.setProperty("--petal-opacity", rnd(l.op[0], l.op[1]).toFixed(2));
-    p.style.setProperty(
-      "--x-drift",
-      rnd(l.drift[0], l.drift[1]).toFixed(2) + "vw",
-    );
-    p.style.setProperty(
-      "--x-sway",
-      rnd(l.sway[0], l.sway[1]).toFixed(2) + "vw",
-    );
-    p.style.setProperty(
-      "--petal-blur",
-      rnd(l.blur[0], l.blur[1]).toFixed(2) + "px",
-    );
+    p.style.setProperty("--x-drift", rnd(l.drift[0], l.drift[1]).toFixed(2) + "vw");
+    p.style.setProperty("--x-sway", rnd(l.sway[0], l.sway[1]).toFixed(2) + "vw");
+    p.style.setProperty("--petal-blur", rnd(l.blur[0], l.blur[1]).toFixed(2) + "px");
     p.style.setProperty(
       "--spin",
       (rnd(420, 900) * (Math.random() > 0.5 ? 1 : -1)).toFixed(0) + "deg",
@@ -598,29 +581,22 @@ window.addEventListener("resize", () => {
 const menuVer = Math.floor(Date.now() / 86400000);
 fetch("/src/components/menu.html?v=" + menuVer)
   .then((response) => {
-    if (!response.ok)
-      throw new Error("Error HTTP " + response.status + " al cargar el menú");
+    if (!response.ok) throw new Error("Error HTTP " + response.status + " al cargar el menú");
     return response.text();
   })
   .then((data) => {
     data = data
       .replace(/src="\.\/(assets\/)/g, 'src="../../$1')
-      .replace(
-        /data-route="\.\.\/\.\.\/index\.html"/g,
-        'data-route="../../../index.html"',
-      );
+      .replace(/data-route="\.\.\/\.\.\/index\.html"/g, 'data-route="../../../index.html"');
     const container =
-      document.getElementById("sidebar-container") ||
-      document.getElementById("menu-container");
+      document.getElementById("sidebar-container") || document.getElementById("menu-container");
     if (!container) return;
     container.innerHTML = data;
 
     // Extract and execute scripts
     container.querySelectorAll("script").forEach((oldScript) => {
       const s = document.createElement("script");
-      Array.from(oldScript.attributes).forEach((a) =>
-        s.setAttribute(a.name, a.value),
-      );
+      Array.from(oldScript.attributes).forEach((a) => s.setAttribute(a.name, a.value));
       s.appendChild(document.createTextNode(oldScript.innerHTML));
       oldScript.parentNode.replaceChild(s, oldScript);
     });
@@ -643,6 +619,6 @@ document.addEventListener("menuLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", async () => {
   const data = await loadContent(currentLang);
-  contentData = data;
+  _contentData = data;
   renderApp(data);
 });

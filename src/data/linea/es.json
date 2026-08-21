@@ -105,9 +105,7 @@
       "desc": "Durante las vacaciones de verano, Adachi trabaja en un puesto durante un festival y ve que Shimamura está allí con una chica desconocida. La imagen la consume durante días, hasta que todo estalla en una llamada con Shimamura. Más tarde reúne el valor para volver a llamarla y acuerdan verse al día siguiente. La reconciliación llega con flores y un \"volvemos a ser amigas\", dejando a Adachi satisfecha e insatisfecha a la vez. Después, cumplen juntas la lista que Adachi había escrito.",
       "img": "../../assets/Imagenes/burbuja7.webp",
       "vol": "Volumen 5",
-      "quotes": [
-        "\"Creo que esta podría ser la primera vez que recibo flores.\" (Volumen 5)"
-      ]
+      "quotes": ["\"Creo que esta podría ser la primera vez que recibo flores.\" (Volumen 5)"]
     },
     {
       "year": "year2",
@@ -366,29 +364,19 @@
         "id": "minor",
         "title": "Divergencia menor",
         "desc": "La premisa cambia solo una pequeña parte de la línea temporal o de las circunstancias establecidas.",
-        "ids": [
-          2,
-          3,
-          7
-        ]
+        "ids": [2, 3, 7]
       },
       {
         "id": "moderate",
         "title": "Divergencia moderada",
         "desc": "La historia se desarrolla en una versión notablemente distinta de los acontecimientos, las vidas o las circunstancias.",
-        "ids": [
-          1,
-          5,
-          6
-        ]
+        "ids": [1, 5, 6]
       },
       {
         "id": "major",
         "title": "Divergencia mayor",
         "desc": "La premisa cambia fundamentalmente el mundo, las identidades o las condiciones de la historia.",
-        "ids": [
-          4
-        ]
+        "ids": [4]
       }
     ]
   }

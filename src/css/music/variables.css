@@ -24,7 +24,14 @@
   --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.08);
   --shadow-xl: 0 16px 60px rgba(0, 0, 0, 0.12);
 
-  --page-bg: linear-gradient(165deg, #f3e6ee 0%, #ecd9e2 25%, #e8cdd4 55%, #efd9c8 85%, #f6e8d3 100%);
+  --page-bg: linear-gradient(
+    165deg,
+    #f3e6ee 0%,
+    #ecd9e2 25%,
+    #e8cdd4 55%,
+    #efd9c8 85%,
+    #f6e8d3 100%
+  );
   --page-text: #3a2a42;
   --page-overlay: rgba(255, 248, 244, 0.38);
   --page-overlay-soft: rgba(255, 248, 244, 0.16);
@@ -40,18 +47,18 @@
 
   /* Component surfaces — every page component should use these rather than hard-coded white. */
   --surface: rgba(255, 255, 255, 0.58);
-  --surface-soft: rgba(255, 255, 255, 0.40);
+  --surface-soft: rgba(255, 255, 255, 0.4);
   --surface-strong: rgba(255, 255, 255, 0.82);
   --surface-bright: rgba(255, 255, 255, 0.94);
-  --surface-hover: rgba(255, 255, 255, 0.90);
+  --surface-hover: rgba(255, 255, 255, 0.9);
   --surface-border: rgba(140, 90, 150, 0.14);
-  --surface-highlight: rgba(255, 255, 255, 0.50);
+  --surface-highlight: rgba(255, 255, 255, 0.5);
   --surface-text: #3d234d;
   --surface-muted: #7f6389;
   --text-jp: rgba(92, 58, 107, 0.62);
   --text-faint: rgba(92, 58, 107, 0.48);
   --text-micro: rgba(92, 58, 107, 0.42);
-  --border-subtle: rgba(140, 90, 150, 0.10);
+  --border-subtle: rgba(140, 90, 150, 0.1);
 }
 
 body.time-morning {
@@ -89,11 +96,20 @@ body.time-morning {
 }
 
 body.time-afternoon {
-  --page-bg: linear-gradient(165deg, #f3e6ee 0%, #ecd9e2 25%, #e8cdd4 55%, #efd9c8 85%, #f6e8d3 100%);
+  --page-bg: linear-gradient(
+    165deg,
+    #f3e6ee 0%,
+    #ecd9e2 25%,
+    #e8cdd4 55%,
+    #efd9c8 85%,
+    #f6e8d3 100%
+  );
 }
 
 body.time-night {
-  --page-bg: radial-gradient(circle at 72% 10%, rgba(132, 83, 153, 0.14), transparent 28%), linear-gradient(165deg, #17121e 0%, #211827 46%, #171d2a 100%);
+  --page-bg:
+    radial-gradient(circle at 72% 10%, rgba(132, 83, 153, 0.14), transparent 28%),
+    linear-gradient(165deg, #17121e 0%, #211827 46%, #171d2a 100%);
   --page-text: #f2eaf5;
   --page-overlay: rgba(20, 15, 27, 0.62);
   --page-overlay-soft: rgba(255, 255, 255, 0.025);
@@ -106,7 +122,7 @@ body.time-night {
   --muted-text: #c8b9cf;
   --icon-text: #d7add0;
   --shadow-color: rgba(4, 2, 8, 0.48);
-  --glass-bg: rgba(34, 26, 43, 0.90);
+  --glass-bg: rgba(34, 26, 43, 0.9);
   --glass-border: rgba(221, 190, 226, 0.12);
   --glass-shadow: 0 12px 40px rgba(3, 2, 7, 0.28);
   --text-plum: #f2eaf5;
@@ -125,6 +141,6 @@ body.time-night {
   --surface-muted: #bfaec7;
   --text-jp: #cfc1d6;
   --text-faint: #b9a9c2;
-  --text-micro: #aF9db8;
+  --text-micro: #af9db8;
   --border-subtle: rgba(221, 190, 226, 0.18);
 }

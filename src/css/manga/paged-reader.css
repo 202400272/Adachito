@@ -1,107 +1,121 @@
 /* ---------- paged reader ---------- */
 .paged-reader {
-    display: none;
-    flex-direction: column;
-    background: var(--bg-img-area);
-    position: relative;
-    user-select: none;
-    touch-action: pan-y pinch-zoom;
-    height: calc(100vh - 110px);
-    min-height: 400px;
-    overflow: hidden;
+  display: none;
+  flex-direction: column;
+  background: var(--bg-img-area);
+  position: relative;
+  user-select: none;
+  touch-action: pan-y pinch-zoom;
+  height: calc(100vh - 110px);
+  min-height: 400px;
+  overflow: hidden;
 }
 
 .paged-reader.active {
-    display: flex;
+  display: flex;
 }
 
 .paged-img-area {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    min-height: 0;
-    overflow: auto;
-    position: relative;
-    cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  position: relative;
+  cursor: grab;
 }
 
 .paged-img-area.dragging {
-    cursor: grabbing;
+  cursor: grabbing;
 }
 
 .paged-img-area::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+  width: 6px;
+  height: 6px;
 }
 
 .paged-img-area::-webkit-scrollbar-track {
-    background: #0d0d14;
+  background: #0d0d14;
 }
 
 .paged-img-area::-webkit-scrollbar-thumb {
-    background: linear-gradient(var(--rose), var(--purple));
-    border-radius: 10px;
+  background: linear-gradient(var(--rose), var(--purple));
+  border-radius: 10px;
 }
 
 .paged-img-viewport {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: visible;
-    flex-shrink: 0;
-    position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  flex-shrink: 0;
+  position: relative;
 }
 
 .paged-page-img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    display: block;
-    transition: opacity 0.3s ease, transform 0.2s ease;
-    transform-origin: center center;
-    user-select: none;
-    -webkit-user-drag: none;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  transition:
+    opacity 0.3s ease,
+    transform 0.2s ease;
+  transform-origin: center center;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .paged-page-img.hidden {
-    opacity: 0;
+  opacity: 0;
 }
 
 .paged-page-img.slide-left {
-    animation: slide-in-left 0.22s ease forwards;
+  animation: slide-in-left 0.22s ease forwards;
 }
 
 .paged-page-img.slide-right {
-    animation: slide-in-right 0.22s ease forwards;
+  animation: slide-in-right 0.22s ease forwards;
 }
 
 @keyframes slide-in-left {
-    from { opacity: 0; transform: translateX(24px); }
-    to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes slide-in-right {
-    from { opacity: 0; transform: translateX(-24px); }
-    to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .paged-skeleton {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .paged-skeleton-inner {
-    width: 400px;
-    max-width: 90%;
-    height: 560px;
-    background: linear-gradient(90deg, #1a1a22 25%, #222230 50%, #1a1a22 75%);
-    background-size: 200% 100%;
-    animation: skeleton-shine 1.6s infinite;
-    border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  height: 560px;
+  background: linear-gradient(90deg, #1a1a22 25%, #222230 50%, #1a1a22 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shine 1.6s infinite;
+  border-radius: 8px;
 }

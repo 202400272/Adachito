@@ -1,11 +1,6 @@
 // language-switch.js
 (function (window, document) {
-  const STORAGE_KEYS = [
-    "lang",
-    "preferredLanguage",
-    "language",
-    "adashima_manga_lang",
-  ];
+  const STORAGE_KEYS = ["lang", "preferredLanguage", "language", "adashima_manga_lang"];
 
   const DEFAULT_LANGUAGE = "es";
 
@@ -29,7 +24,7 @@
   function safeSetItem(key, value) {
     try {
       localStorage.setItem(key, value);
-    } catch (error) {
+    } catch {
       // Ignore storage errors.
     }
   }
@@ -42,7 +37,7 @@
         if (stored) {
           return normalizeLanguage(stored);
         }
-      } catch (error) {
+      } catch {
         continue;
       }
     }
@@ -76,10 +71,7 @@
   function getDataUrl(folder, lang) {
     const base = getBasePath();
 
-    const url = new URL(
-      `${base}src/data/${folder}/${lang}.json`,
-      window.location.href,
-    );
+    const url = new URL(`${base}src/data/${folder}/${lang}.json`, window.location.href);
 
     return url.href + "?v=" + Date.now();
   }
@@ -97,10 +89,7 @@
   function getMenuDataUrl(lang) {
     const base = getBasePath();
 
-    const url = new URL(
-      `${base}src/data/menu/${lang}.json`,
-      window.location.href,
-    );
+    const url = new URL(`${base}src/data/menu/${lang}.json`, window.location.href);
 
     return url.href + "?v=" + Date.now();
   }
@@ -120,22 +109,20 @@
   function updateLanguageUI(root = document) {
     const selectedLang = currentLanguage;
 
-    root
-      .querySelectorAll(".lang-option, .menu-lang-option")
-      .forEach((option) => {
-        const isActive = option.dataset.lang === selectedLang;
+    root.querySelectorAll(".lang-option, .menu-lang-option").forEach((option) => {
+      const isActive = option.dataset.lang === selectedLang;
 
-        option.classList.toggle("active", isActive);
+      option.classList.toggle("active", isActive);
 
-        option.setAttribute("aria-pressed", isActive ? "true" : "false");
+      option.setAttribute("aria-pressed", isActive ? "true" : "false");
 
-        if (isActive && option.closest(".language-selector")) {
-          const parent = option.closest(".language-selector");
-          if (parent) {
-            parent.dataset.currentLang = selectedLang;
-          }
+      if (isActive && option.closest(".language-selector")) {
+        const parent = option.closest(".language-selector");
+        if (parent) {
+          parent.dataset.currentLang = selectedLang;
         }
-      });
+      }
+    });
 
     const dropdowns = root.querySelectorAll(".lang-dropdown");
 
@@ -144,9 +131,7 @@
 
       if (!toggle) return;
 
-      const labelEl =
-        toggle.querySelector("#langSelectedLabel") ||
-        toggle.querySelector("span");
+      const labelEl = toggle.querySelector("#langSelectedLabel") || toggle.querySelector("span");
 
       if (!labelEl) return;
 
@@ -155,8 +140,7 @@
       );
 
       if (selectedOption) {
-        labelEl.textContent =
-          selectedOption.dataset.label || selectedOption.textContent;
+        labelEl.textContent = selectedOption.dataset.label || selectedOption.textContent;
       } else {
         labelEl.textContent = getLanguageLabel(selectedLang);
       }
@@ -164,9 +148,7 @@
   }
 
   function updateI18nElements(lang) {
-    const elements = document.querySelectorAll(
-      "[data-i18n-es], [data-i18n-en], [data-i18n-tg]",
-    );
+    const elements = document.querySelectorAll("[data-i18n-es], [data-i18n-en], [data-i18n-tg]");
 
     elements.forEach((element) => {
       const translation =
@@ -226,9 +208,7 @@
 
       const toggle = dropdown.querySelector(".lang-dropdown-toggle");
 
-      const options = dropdown.querySelectorAll(
-        ".lang-option, .menu-lang-option",
-      );
+      const options = dropdown.querySelectorAll(".lang-option, .menu-lang-option");
 
       if (!toggle || options.length === 0) {
         return;
@@ -245,35 +225,31 @@
       });
     });
 
-    root
-      .querySelectorAll(".lang-option, .menu-lang-option")
-      .forEach((option) => {
-        if (option.dataset.languageSwitchAttached === "true") {
-          return;
+    root.querySelectorAll(".lang-option, .menu-lang-option").forEach((option) => {
+      if (option.dataset.languageSwitchAttached === "true") {
+        return;
+      }
+
+      option.dataset.languageSwitchAttached = "true";
+
+      option.addEventListener("click", () => {
+        const selectedLang = normalizeLanguage(option.dataset.lang);
+
+        const parentDropdown = option.closest(".lang-dropdown");
+
+        if (parentDropdown) {
+          parentDropdown.classList.remove("open");
+
+          const toggle = parentDropdown.querySelector(".lang-dropdown-toggle");
+
+          if (toggle) {
+            toggle.setAttribute("aria-expanded", "false");
+          }
         }
 
-        option.dataset.languageSwitchAttached = "true";
-
-        option.addEventListener("click", () => {
-          const selectedLang = normalizeLanguage(option.dataset.lang);
-
-          const parentDropdown = option.closest(".lang-dropdown");
-
-          if (parentDropdown) {
-            parentDropdown.classList.remove("open");
-
-            const toggle = parentDropdown.querySelector(
-              ".lang-dropdown-toggle",
-            );
-
-            if (toggle) {
-              toggle.setAttribute("aria-expanded", "false");
-            }
-          }
-
-          setLanguage(selectedLang);
-        });
+        setLanguage(selectedLang);
       });
+    });
   }
 
   function dispatchLanguageChanged(lang) {
@@ -313,8 +289,8 @@
 
     dispatchLanguageChanged(normalized);
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-    
+    await new Promise((resolve) => setTimeout(resolve, 50));
+
     window.location.reload();
   }
 
@@ -348,7 +324,7 @@
     initialized = true;
 
     currentLanguage = loadStoredLanguage();
-    
+
     if (typeof window.currentLang !== "undefined") {
       window.currentLang = currentLanguage;
     }
@@ -377,11 +353,11 @@
 
     document.addEventListener("menuLoaded", () => {
       currentLanguage = loadStoredLanguage();
-      
+
       if (typeof window.currentLang !== "undefined") {
         window.currentLang = currentLanguage;
       }
-      
+
       attachLanguageControls();
 
       updateLanguageUI();

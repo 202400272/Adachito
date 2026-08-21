@@ -2,12 +2,14 @@ const PDFJS_VERSION = "2.16.105";
 const PDFJS_CDN = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDFJS_VERSION}`;
 try {
   pdfjsLib.GlobalWorkerOptions.workerSrc = `${PDFJS_CDN}/pdf.worker.min.js`;
-} catch (e) {}
+} catch {
+  /* ignored */
+}
 
 let modalPdfDoc = null;
 let modalPageNum = 1;
 let modalScale = 1.0;
-let modalCurrentId = null;
+let _modalCurrentId = null;
 let modalCurrentUrl = null;
 let modalAbortController = new AbortController();
 let modalRenderTask = null;
@@ -45,41 +47,28 @@ function showToast(message) {
 function updatePdfUITranslations() {
   const modeCascadeBtn = document.getElementById("pdfModeCascade");
   if (modeCascadeBtn)
-    modeCascadeBtn.title =
-      getPdfText("pdfControls.modeCascade") || "Cascade reading";
+    modeCascadeBtn.title = getPdfText("pdfControls.modeCascade") || "Cascade reading";
   const prevBtn = document.getElementById("pdfPrevModal");
-  if (prevBtn)
-    prevBtn.title = getPdfText("pdfControls.prevPage") || "Previous page (←)";
+  if (prevBtn) prevBtn.title = getPdfText("pdfControls.prevPage") || "Previous page (←)";
   const nextBtn = document.getElementById("pdfNextModal");
-  if (nextBtn)
-    nextBtn.title = getPdfText("pdfControls.nextPage") || "Next page (→)";
+  if (nextBtn) nextBtn.title = getPdfText("pdfControls.nextPage") || "Next page (→)";
   const zoomOutBtn = document.getElementById("pdfZoomOutModal");
-  if (zoomOutBtn)
-    zoomOutBtn.title = getPdfText("pdfControls.zoomOut") || "Zoom out (-)";
+  if (zoomOutBtn) zoomOutBtn.title = getPdfText("pdfControls.zoomOut") || "Zoom out (-)";
   const zoomInBtn = document.getElementById("pdfZoomInModal");
-  if (zoomInBtn)
-    zoomInBtn.title = getPdfText("pdfControls.zoomIn") || "Zoom in (+)";
+  if (zoomInBtn) zoomInBtn.title = getPdfText("pdfControls.zoomIn") || "Zoom in (+)";
   const zoomResetBtn = document.getElementById("pdfZoomResetModal");
-  if (zoomResetBtn)
-    zoomResetBtn.title =
-      getPdfText("pdfControls.zoomReset") || "Reset zoom (0)";
+  if (zoomResetBtn) zoomResetBtn.title = getPdfText("pdfControls.zoomReset") || "Reset zoom (0)";
   const fullscreenBtn = document.getElementById("pdfFullscreenModal");
-  if (fullscreenBtn)
-    fullscreenBtn.title =
-      getPdfText("pdfControls.fullscreen") || "Fullscreen (F)";
+  if (fullscreenBtn) fullscreenBtn.title = getPdfText("pdfControls.fullscreen") || "Fullscreen (F)";
   const downloadBtn = document.getElementById("pdfDownloadModal");
-  if (downloadBtn)
-    downloadBtn.title = getPdfText("pdfControls.downloadPDF") || "Download PDF";
+  if (downloadBtn) downloadBtn.title = getPdfText("pdfControls.downloadPDF") || "Download PDF";
   const closeBtn = document.getElementById("pdfModalClose");
   if (closeBtn)
-    closeBtn.setAttribute(
-      "aria-label",
-      getPdfText("modal.closeReader") || "Close reader",
-    );
+    closeBtn.setAttribute("aria-label", getPdfText("modal.closeReader") || "Close reader");
 }
 
 function openPdfModal(chapterId, url) {
-  modalCurrentId = chapterId;
+  _modalCurrentId = chapterId;
   modalCurrentUrl = url;
 
   if (modalRenderTask) {
@@ -208,8 +197,7 @@ function applyReadingModeUI() {
   if (singleBtn) singleBtn.classList.toggle("active", !isCascade);
   if (cascadeBtn) cascadeBtn.classList.toggle("active", isCascade);
   if (canvasWrapper) canvasWrapper.style.display = isCascade ? "none" : "flex";
-  if (cascadeContainer)
-    cascadeContainer.style.display = isCascade ? "block" : "none";
+  if (cascadeContainer) cascadeContainer.style.display = isCascade ? "block" : "none";
 }
 
 function setReadingMode(mode) {
@@ -250,10 +238,8 @@ async function loadPdfFromUrl(url) {
       useSystemFonts: true,
     }).promise;
 
-    document.getElementById("pageCountModal").textContent =
-      modalPdfDoc.numPages;
-    document.getElementById("mobilePageCountModal").textContent =
-      modalPdfDoc.numPages;
+    document.getElementById("pageCountModal").textContent = modalPdfDoc.numPages;
+    document.getElementById("mobilePageCountModal").textContent = modalPdfDoc.numPages;
     loadingEl.classList.remove("visible");
     canvas.style.display = modalReadingMode === "cascade" ? "none" : "block";
 
@@ -267,8 +253,7 @@ async function loadPdfFromUrl(url) {
     if (error.name !== "AbortError") {
       errorEl.style.display = "flex";
       document.getElementById("pdfErrorMsgModal").textContent =
-        getPdfText("toastMessages.documentNotAvailable") ||
-        "Document not available.";
+        getPdfText("toastMessages.documentNotAvailable") || "Document not available.";
     }
   }
 }
@@ -496,6 +481,7 @@ function renderCascadeView() {
   updatePdfPageIndicators();
 }
 
+// eslint-disable-next-line no-unused-vars -- may be invoked from an inline onclick handler in HTML
 async function renderCascadePage(pageNum) {
   const pdfDoc = modalPdfDoc;
   if (!pdfDoc) return;
@@ -506,8 +492,7 @@ async function renderCascadePage(pageNum) {
 // initial rootMargin prefetch doesn't fire off a dozen simultaneous
 // pdf.js render tasks and stall the main thread.
 function scheduleCascadeRender(pdfDoc, pageNum) {
-  if (cascadeRenderedPages.has(pageNum) || cascadeRendering.has(pageNum))
-    return;
+  if (cascadeRenderedPages.has(pageNum) || cascadeRendering.has(pageNum)) return;
   if (cascadeRenderQueue.includes(pageNum)) return;
   cascadeRenderQueue.push(pageNum);
   pumpCascadeRenderQueue(pdfDoc);
@@ -518,10 +503,7 @@ function pumpCascadeRenderQueue(pdfDoc) {
     cascadeRenderQueue = [];
     return;
   }
-  while (
-    cascadeActiveRenders < CASCADE_MAX_CONCURRENT_RENDERS &&
-    cascadeRenderQueue.length
-  ) {
+  while (cascadeActiveRenders < CASCADE_MAX_CONCURRENT_RENDERS && cascadeRenderQueue.length) {
     const pageNum = cascadeRenderQueue.shift();
     cascadeActiveRenders++;
     renderCascadePageForDoc(pdfDoc, pageNum).finally(() => {
@@ -532,8 +514,7 @@ function pumpCascadeRenderQueue(pdfDoc) {
 }
 
 async function renderCascadePageForDoc(pdfDoc, pageNum) {
-  if (cascadeRenderedPages.has(pageNum) || cascadeRendering.has(pageNum))
-    return;
+  if (cascadeRenderedPages.has(pageNum) || cascadeRendering.has(pageNum)) return;
   if (!pdfDoc || modalPdfDoc !== pdfDoc) return;
   cascadeRendering.add(pageNum);
 
@@ -637,15 +618,12 @@ function unloadCascadePage(pdfDoc, pageNum) {
 function rerenderCascadeVisible() {
   const pdfDoc = modalPdfDoc;
   if (modalReadingMode !== "cascade" || !cascadeBuilt || !pdfDoc) return;
-  const containerRect = document
-    .getElementById("canvasContainerModal")
-    .getBoundingClientRect();
+  const containerRect = document.getElementById("canvasContainerModal").getBoundingClientRect();
 
   cascadePageEls.forEach(({ wrapper }, pageNum) => {
     const rect = wrapper.getBoundingClientRect();
     const nearViewport =
-      rect.bottom > containerRect.top - 600 &&
-      rect.top < containerRect.bottom + 600;
+      rect.bottom > containerRect.top - 600 && rect.top < containerRect.bottom + 600;
 
     if (nearViewport) {
       // Force a fresh render at the new scale, even if already rendered.
@@ -660,7 +638,7 @@ function rerenderCascadeVisible() {
   });
 }
 
-let pdfRenderQueue = Promise.resolve();
+let _pdfRenderQueue = Promise.resolve();
 
 async function renderPdfPage() {
   const pdfDoc = modalPdfDoc;
@@ -692,11 +670,9 @@ async function renderPdfPage() {
     // current size instead of the real available space.
     const wrapperStyle = getComputedStyle(wrapperEl);
     const padX =
-      (parseFloat(wrapperStyle.paddingLeft) || 0) +
-      (parseFloat(wrapperStyle.paddingRight) || 0);
+      (parseFloat(wrapperStyle.paddingLeft) || 0) + (parseFloat(wrapperStyle.paddingRight) || 0);
     const padY =
-      (parseFloat(wrapperStyle.paddingTop) || 0) +
-      (parseFloat(wrapperStyle.paddingBottom) || 0);
+      (parseFloat(wrapperStyle.paddingTop) || 0) + (parseFloat(wrapperStyle.paddingBottom) || 0);
     const containerWidth = outerContainer.clientWidth - padX;
     const containerHeight = outerContainer.clientHeight - padY;
 
@@ -741,10 +717,7 @@ async function renderPdfPage() {
 
     updatePdfThumbnailSelection();
   } catch (error) {
-    if (
-      error.name !== "AbortError" &&
-      error.name !== "RenderingCancelledException"
-    ) {
+    if (error.name !== "AbortError" && error.name !== "RenderingCancelledException") {
       console.error("Error rendering page:", error);
       const canvas = document.getElementById("pdfRenderModal");
       canvas.style.opacity = "0.3";
@@ -775,10 +748,8 @@ function applyZoomPreview(anchorClientPoint) {
   canvas.style.transform = `scale(${ratio})`;
   if (anchorClientPoint) {
     const rect = canvas.getBoundingClientRect();
-    const originX =
-      ((anchorClientPoint.clientX - rect.left) / rect.width) * 100;
-    const originY =
-      ((anchorClientPoint.clientY - rect.top) / rect.height) * 100;
+    const originX = ((anchorClientPoint.clientX - rect.left) / rect.width) * 100;
+    const originY = ((anchorClientPoint.clientY - rect.top) / rect.height) * 100;
     canvas.style.transformOrigin = `${originX}% ${originY}%`;
   } else {
     canvas.style.transformOrigin = "center center";
@@ -850,12 +821,8 @@ function commitCascadeZoomRender() {
 }
 
 function initPdfEvents() {
-  document
-    .getElementById("pdfModalClose")
-    .addEventListener("click", closePdfModal);
-  document
-    .getElementById("pdfModalBackdrop")
-    .addEventListener("click", closePdfModal);
+  document.getElementById("pdfModalClose").addEventListener("click", closePdfModal);
+  document.getElementById("pdfModalBackdrop").addEventListener("click", closePdfModal);
 
   document.getElementById("pdfPrevModal").addEventListener("click", () => {
     if (modalPageNum > 1 && !document.getElementById("pdfPrevModal").disabled) {
@@ -882,8 +849,7 @@ function initPdfEvents() {
   });
 
   function updatePdfZoomDisplay() {
-    document.getElementById("zoomDisplayModal").textContent =
-      Math.round(modalScale * 100) + "%";
+    document.getElementById("zoomDisplayModal").textContent = Math.round(modalScale * 100) + "%";
   }
 
   // Shared by the toolbar buttons, keyboard shortcuts, and wheel/trackpad
@@ -917,69 +883,59 @@ function initPdfEvents() {
     applyZoomChange();
   });
 
-  document
-    .getElementById("pdfFullscreenModal")
-    .addEventListener("click", () => {
-      const elem = document.getElementById("pdfViewerModal");
-      if (!document.fullscreenElement) {
-        if (elem.requestFullscreen) elem.requestFullscreen();
-        else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
-        else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
-        document
-          .getElementById("fsIconModal")
-          .classList.replace("fa-expand", "fa-compress");
-      } else {
-        if (document.exitFullscreen) document.exitFullscreen();
-        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-        else if (document.msExitFullscreen) document.msExitFullscreen();
-        document
-          .getElementById("fsIconModal")
-          .classList.replace("fa-compress", "fa-expand");
-      }
-    });
+  document.getElementById("pdfFullscreenModal").addEventListener("click", () => {
+    const elem = document.getElementById("pdfViewerModal");
+    if (!document.fullscreenElement) {
+      if (elem.requestFullscreen) elem.requestFullscreen();
+      else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+      else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
+      document.getElementById("fsIconModal").classList.replace("fa-expand", "fa-compress");
+    } else {
+      if (document.exitFullscreen) document.exitFullscreen();
+      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      else if (document.msExitFullscreen) document.msExitFullscreen();
+      document.getElementById("fsIconModal").classList.replace("fa-compress", "fa-expand");
+    }
+  });
 
-  document
-    .getElementById("pdfDownloadModal")
-    .addEventListener("click", async () => {
-      if (!modalCurrentUrl) return;
-      const filename =
-        decodeURIComponent(modalCurrentUrl.split("/").pop()) || "document.pdf";
-      try {
-        const response = await fetch(modalCurrentUrl);
-        if (!response.ok || !response.body)
-          throw new Error("Download request failed");
-        const reader = response.body.getReader();
-        const chunks = [];
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          chunks.push(value);
-        }
-        const blob = new Blob(chunks);
-        const blobUrl = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.style.display = "none";
-        a.href = blobUrl;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(blobUrl);
-        a.remove();
-      } catch (err) {
-        const a = document.createElement("a");
-        a.style.display = "none";
-        a.href = modalCurrentUrl;
-        a.download = filename;
-        a.target = "_blank";
-        a.rel = "noopener";
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        showToast(
-          "⚠️ Your browser or ad blocker prevented direct download. The file opened in a new tab; save it from there.",
-        );
+  document.getElementById("pdfDownloadModal").addEventListener("click", async () => {
+    if (!modalCurrentUrl) return;
+    const filename = decodeURIComponent(modalCurrentUrl.split("/").pop()) || "document.pdf";
+    try {
+      const response = await fetch(modalCurrentUrl);
+      if (!response.ok || !response.body) throw new Error("Download request failed");
+      const reader = response.body.getReader();
+      const chunks = [];
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        chunks.push(value);
       }
-    });
+      const blob = new Blob(chunks);
+      const blobUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.style.display = "none";
+      a.href = blobUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(blobUrl);
+      a.remove();
+    } catch {
+      const a = document.createElement("a");
+      a.style.display = "none";
+      a.href = modalCurrentUrl;
+      a.download = filename;
+      a.target = "_blank";
+      a.rel = "noopener";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      showToast(
+        "⚠️ Your browser or ad blocker prevented direct download. The file opened in a new tab; save it from there.",
+      );
+    }
+  });
 
   document.getElementById("pdfRetryModal").addEventListener("click", () => {
     if (modalCurrentUrl) {
@@ -987,15 +943,11 @@ function initPdfEvents() {
     }
   });
 
-  document
-    .getElementById("pdfThumbnailToggle")
-    .addEventListener("click", togglePdfThumbnails);
-  document
-    .getElementById("pdfThumbnailsClose")
-    .addEventListener("click", () => {
-      document.getElementById("pdfThumbnailsSidebar").classList.remove("open");
-      modalThumbnailsVisible = false;
-    });
+  document.getElementById("pdfThumbnailToggle").addEventListener("click", togglePdfThumbnails);
+  document.getElementById("pdfThumbnailsClose").addEventListener("click", () => {
+    document.getElementById("pdfThumbnailsSidebar").classList.remove("open");
+    modalThumbnailsVisible = false;
+  });
 
   document
     .getElementById("pdfModeSingle")
@@ -1108,8 +1060,7 @@ function initPdfEvents() {
   canvasContainer.addEventListener("mousedown", (e) => {
     if (modalReadingMode === "cascade") return;
     if (modalScale <= 1.02) return;
-    if (e.target.closest(".pdf-toolbar") || e.target.closest("button"))
-      return;
+    if (e.target.closest(".pdf-toolbar") || e.target.closest("button")) return;
     isPanning = true;
     panStartX = e.clientX;
     panStartY = e.clientY;
@@ -1130,10 +1081,7 @@ function initPdfEvents() {
   });
 
   const getTouchDistance = (firstTouch, secondTouch) =>
-    Math.hypot(
-      firstTouch.clientX - secondTouch.clientX,
-      firstTouch.clientY - secondTouch.clientY,
-    );
+    Math.hypot(firstTouch.clientX - secondTouch.clientX, firstTouch.clientY - secondTouch.clientY);
   const getTouchMidpoint = (firstTouch, secondTouch) => ({
     clientX: (firstTouch.clientX + secondTouch.clientX) / 2,
     clientY: (firstTouch.clientY + secondTouch.clientY) / 2,
@@ -1195,14 +1143,12 @@ function initPdfEvents() {
         0.3,
         Math.min(
           3.0,
-          pinchStartScale *
-            (getTouchDistance(e.touches[0], e.touches[1]) / pinchStartDistance),
+          pinchStartScale * (getTouchDistance(e.touches[0], e.touches[1]) / pinchStartDistance),
         ),
       );
       if (Math.abs(nextScale - modalScale) < 0.01) return;
       modalScale = nextScale;
-      document.getElementById("zoomDisplayModal").textContent =
-        Math.round(modalScale * 100) + "%";
+      document.getElementById("zoomDisplayModal").textContent = Math.round(modalScale * 100) + "%";
       // Instant CSS-transform preview during the gesture — the real,
       // expensive re-render is debounced until the pinch settles, so a
       // fast pinch never queues up a stack of overlapping pdf.js
@@ -1255,9 +1201,7 @@ function initPdfEvents() {
       )
         return;
       if (modalReadingMode === "cascade") return;
-      const rect = document
-        .getElementById("canvasContainerModal")
-        .getBoundingClientRect();
+      const rect = document.getElementById("canvasContainerModal").getBoundingClientRect();
 
       // Double-tap to zoom, matching native photo/PDF viewer behavior.
       // Toggles between fit scale and 2x, anchored to the tap point.
@@ -1305,10 +1249,7 @@ function initPdfEvents() {
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-      if (
-        modalPdfDoc &&
-        document.getElementById("pdfModal").classList.contains("open")
-      ) {
+      if (modalPdfDoc && document.getElementById("pdfModal").classList.contains("open")) {
         if (modalReadingMode === "cascade") rerenderCascadeVisible();
         else renderPdfPage();
       }
@@ -1349,7 +1290,7 @@ let currentLang = (() => {
 
   return "es";
 })();
-let isSwitching = false;
+let _isSwitching = false;
 let translations = null;
 
 // ===== SUPPORTED LANGUAGES =====
@@ -1420,8 +1361,7 @@ const MANGA_CONFIG = {
   getPdfUrl(chapter) {
     const path = getPathForVersion(currentVersion);
     const pdfMap = translations?.chapterPdfMap || {};
-    let fileName =
-      pdfMap[`${currentVersion}:${chapter}`] || pdfMap[String(chapter)];
+    let fileName = pdfMap[`${currentVersion}:${chapter}`] || pdfMap[String(chapter)];
     if (!fileName) {
       fileName = `Ch. ${chapter}.pdf`;
     }
@@ -1446,10 +1386,7 @@ const MANGA_CONFIG = {
 
   getVersionLabel() {
     const data = getVersionData(currentVersion);
-    return (
-      data?.label ||
-      currentVersion.charAt(0).toUpperCase() + currentVersion.slice(1)
-    );
+    return data?.label || currentVersion.charAt(0).toUpperCase() + currentVersion.slice(1);
   },
 
   isVersionAvailable() {
@@ -1466,11 +1403,10 @@ const MANGA_CONFIG = {
 async function loadTranslations(lang) {
   // Normalize the language code
   lang = normalizeLanguage(lang, "en");
-  
+
   try {
     const url =
-      window.LanguageSwitch &&
-      typeof window.LanguageSwitch.getDataUrl === "function"
+      window.LanguageSwitch && typeof window.LanguageSwitch.getDataUrl === "function"
         ? window.LanguageSwitch.getDataUrl("manga", lang)
         : (() => {
             // Fallback path resolution
@@ -1527,8 +1463,7 @@ function applyUITranslations() {
 
   const searchInput = document.getElementById("searchInput");
   if (searchInput) {
-    searchInput.placeholder =
-      getText("searchPlaceholder") || "Search by chapter, volume...";
+    searchInput.placeholder = getText("searchPlaceholder") || "Search by chapter, volume...";
   }
 
   document.querySelectorAll(".view-label").forEach((el) => {
@@ -1541,24 +1476,17 @@ function applyUITranslations() {
 
   const versionMokeLabel = document.getElementById("versionMokeLabel");
   const versionManiLabel = document.getElementById("versionManiLabel");
-  const versionAnthologyLabel = document.getElementById(
-    "versionAnthologyLabel",
-  );
-  if (versionMokeLabel)
-    versionMokeLabel.textContent = getText("versionMoke") || "Moke";
-  if (versionManiLabel)
-    versionManiLabel.textContent = getText("versionMani") || "Mani";
+  const versionAnthologyLabel = document.getElementById("versionAnthologyLabel");
+  if (versionMokeLabel) versionMokeLabel.textContent = getText("versionMoke") || "Moke";
+  if (versionManiLabel) versionManiLabel.textContent = getText("versionMani") || "Mani";
   if (versionAnthologyLabel)
-    versionAnthologyLabel.textContent =
-      getText("versionAnthology") || "Anthology";
+    versionAnthologyLabel.textContent = getText("versionAnthology") || "Anthology";
 
   const versionManiBtn = document.getElementById("versionManiBtn");
-  if (versionManiBtn)
-    versionManiBtn.style.display = currentLang === "es" ? "none" : "";
+  if (versionManiBtn) versionManiBtn.style.display = currentLang === "es" ? "none" : "";
 
   // Set initial version toggle state
-  const activeIndex =
-    currentVersion === "moke" ? 0 : currentVersion === "mani" ? 1 : 2;
+  const activeIndex = currentVersion === "moke" ? 0 : currentVersion === "mani" ? 1 : 2;
   document.querySelectorAll(".version-toggle-btn").forEach((btn, i) => {
     btn.classList.toggle("active", i === activeIndex);
   });
@@ -1570,17 +1498,12 @@ function applyUITranslations() {
   const downloadBtn = document.querySelector(".download-all-btn");
   if (downloadBtn) {
     const btnText = document.getElementById("downloadBtnText");
-    if (btnText)
-      btnText.textContent =
-        getText("downloadButton") || "Download All Chapters";
+    if (btnText) btnText.textContent = getText("downloadButton") || "Download All Chapters";
     downloadBtn.style.display = "none";
   }
 
-  const footer = document.querySelector(".footer");
-  if (footer)
-    footer.innerHTML =
-      getText("footer") ||
-      "Unofficial Adachi to Shimamura fan site.<br>Created by fans, non-profit.<br>Adachi to Shimamura and all rights belong to Hitoma Iruma.";
+  // Footer is now the shared component (src/components/js/footer.js),
+  // which handles its own translation — nothing to do here.
 }
 
 function openPdfReader(chapterId) {
@@ -1633,9 +1556,7 @@ function setVersion(version) {
   // Check if version has chapters
   const chapters = getChaptersForVersion(version);
   if (Object.keys(chapters).length === 0) {
-    showToast(
-      getText("versionNotAvailable") || "This version is not available yet.",
-    );
+    showToast(getText("versionNotAvailable") || "This version is not available yet.");
     return;
   }
 
@@ -1647,8 +1568,7 @@ function setVersion(version) {
 
   if (mokeBtn) mokeBtn.classList.toggle("active", version === "moke");
   if (maniBtn) maniBtn.classList.toggle("active", version === "mani");
-  if (anthologyBtn)
-    anthologyBtn.classList.toggle("active", version === "anthology");
+  if (anthologyBtn) anthologyBtn.classList.toggle("active", version === "anthology");
 
   // Update slider position
   const slider = document.getElementById("versionToggleSlider");
@@ -1765,10 +1685,7 @@ function buildListVolumeHTML(volume, chapters) {
     chaptersHtml += buildListChapterHTML(ch);
   }
 
-  const desc =
-    chapters.length > 0
-      ? MANGA_CONFIG.getDescription(chapters[0].id) || ""
-      : "";
+  const desc = chapters.length > 0 ? MANGA_CONFIG.getDescription(chapters[0].id) || "" : "";
 
   return `<details class="manga-item" data-volume="${volume}">
             <summary class="manga-summary">
@@ -1817,10 +1734,7 @@ function buildGridVolumeHTML(volume, chapters) {
     chaptersHtml += buildGridChapterHTML(ch);
   }
 
-  const desc =
-    chapters.length > 0
-      ? MANGA_CONFIG.getDescription(chapters[0].id) || ""
-      : "";
+  const desc = chapters.length > 0 ? MANGA_CONFIG.getDescription(chapters[0].id) || "" : "";
 
   let thumbUrl = MANGA_CONFIG.getVolumeThumbnail(volume);
   let thumbAlt = displayTitle;
@@ -1875,9 +1789,7 @@ function toggleVolumeExpand(btn) {
 }
 
 function attachAccordionListeners() {
-  document
-    .querySelectorAll("details.manga-item")
-    .forEach((d) => attachSingleListener(d));
+  document.querySelectorAll("details.manga-item").forEach((d) => attachSingleListener(d));
 }
 
 function attachChapterActionListeners(container) {
@@ -1982,11 +1894,7 @@ function initAllChapters() {
 document.addEventListener("DOMContentLoaded", async function () {
   // Load saved version preference
   const savedVersion = localStorage.getItem("adashima_manga_version");
-  if (
-    savedVersion === "mani" ||
-    savedVersion === "anthology" ||
-    savedVersion === "moke"
-  ) {
+  if (savedVersion === "mani" || savedVersion === "anthology" || savedVersion === "moke") {
     currentVersion = savedVersion;
   }
 
@@ -2057,26 +1965,20 @@ document.addEventListener("DOMContentLoaded", async function () {
     },
   })
     .then((response) => {
-      if (!response.ok)
-        throw new Error("Error HTTP " + response.status + " loading menu");
+      if (!response.ok) throw new Error("Error HTTP " + response.status + " loading menu");
       return response.text();
     })
     .then((data) => {
       data = data
         .replace(/src="\.\/(assets\/)/g, 'src="../../$1')
-        .replace(
-          /data-route="\.\.\/\.\.\/index\.html"/g,
-          'data-route="../../../index.html"',
-        );
+        .replace(/data-route="\.\.\/\.\.\/index\.html"/g, 'data-route="../../../index.html"');
       const container = document.getElementById("menu-container");
       if (!container) return;
       container.innerHTML = data;
 
       container.querySelectorAll("script").forEach((oldScript) => {
         const s = document.createElement("script");
-        Array.from(oldScript.attributes).forEach((a) =>
-          s.setAttribute(a.name, a.value),
-        );
+        Array.from(oldScript.attributes).forEach((a) => s.setAttribute(a.name, a.value));
         s.appendChild(document.createTextNode(oldScript.innerHTML));
         oldScript.parentNode.replaceChild(s, oldScript);
       });
@@ -2215,7 +2117,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           scrollTicking = false;
         });
       },
-      { passive: true }
+      { passive: true },
     );
   }
 

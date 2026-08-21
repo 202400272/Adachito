@@ -1,46 +1,69 @@
 <!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AdaShimaverse Help Center — guides and answers for navigating the archive and using its reading features.">
-  <title>Help Center — AdaShimaverse</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="/src/components/styles/menu.css">
-  <link rel="stylesheet" href="/src/css/help.css">
-  <link rel="icon" href="/assets/Imagenes/favicon.ico">
-</head>
-<body data-page="help">
-  <div class="help-shell">
-    <div id="sidebar-container"></div>
-    <main class="help-main">
-      <header class="help-hero">
-        <div class="help-hero-orb"></div>
-        <div class="help-hero-content">
-          <span class="help-kicker"><i class="fa-regular fa-circle-question"></i> <span data-i18n="hero.kicker">Help Center</span></span>
-          <h1 data-i18n="hero.title">Find your way around AdaShimaverse</h1>
-          <p data-i18n="hero.subtitle">Quick answers for reading, browsing the archive, using the reader, changing settings, and reporting problems.</p>
-          <label class="help-search">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input id="helpSearch" type="search" autocomplete="off" data-i18n-placeholder="hero.search" placeholder="Search help topics...">
-            <kbd data-i18n="hero.searchHint">/</kbd>
-          </label>
-        </div>
-      </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="AdaShimaverse Help Center — guides and answers for navigating the archive and using its reading features."
+    />
+    <title>Help Center — AdaShimaverse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Quicksand:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/src/components/styles/menu.css" />
+    <link rel="stylesheet" href="/src/css/help.css" />
+    <link rel="icon" href="/assets/Imagenes/favicon.ico" />
+    <link rel="stylesheet" href="/src/components/styles/footer.css" />
+    <link rel="stylesheet" href="/src/components/styles/feedback.css" />
+  </head>
+  <body data-page="help">
+    <div class="help-shell">
+      <div id="sidebar-container"></div>
+      <main class="help-main">
+        <header class="help-hero">
+          <div class="help-hero-orb"></div>
+          <div class="help-hero-content">
+            <span class="help-kicker"
+              ><i class="fa-regular fa-circle-question"></i>
+              <span data-i18n="hero.kicker">Help Center</span></span
+            >
+            <h1 data-i18n="hero.title">Find your way around AdaShimaverse</h1>
+            <p data-i18n="hero.subtitle">
+              Quick answers for reading, browsing the archive, using the reader, changing settings,
+              and reporting problems.
+            </p>
+            <label class="help-search">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input
+                id="helpSearch"
+                type="search"
+                autocomplete="off"
+                data-i18n-placeholder="hero.search"
+                placeholder="Search help topics..."
+              />
+              <kbd data-i18n="hero.searchHint">/</kbd>
+            </label>
+          </div>
+        </header>
 
-      <div class="help-content">
-        <nav id="helpCategories" class="help-category-grid" aria-label="Help categories"></nav>
-        <div id="helpSections"></div>
-        <p class="help-no-results" hidden></p>
-        <footer class="help-footer">
-          <div class="footer-text" data-i18n="footer">Fan site no oficial de Adachi to Shimamura.<br />Creado por fans, sin fines de lucro.<br />Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma.</div>
-        </footer>
-      </div>
-    </main>
-  </div>
-  <script src="/src/js/help.js"></script>
-</body>
+        <div class="help-content">
+          <nav id="helpCategories" class="help-category-grid" aria-label="Help categories"></nav>
+          <div id="helpSections"></div>
+          <p class="help-no-results" hidden></p>
+          <div id="footer-container"></div>
+          <script type="module" src="/src/components/js/footer.js"></script>
+        </div>
+      </main>
+    </div>
+    <script src="/src/js/help.js"></script>
+    <script type="module" src="/src/components/js/feedback.js"></script>
+  </body>
 </html>

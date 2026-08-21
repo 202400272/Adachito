@@ -23,18 +23,18 @@ This separation makes the archive easy to maintain, deploy, and update without r
 
 ### Core
 
-| Technology | Role |
-|---|---|
-| **HTML5** | Page structure and semantic markup |
-| **CSS3** | Layout, visual system, responsive design, animations, and themes |
-| **JavaScript (ES6+)** | Client-side rendering, filtering, navigation, search, statistics, and UI interactions |
-| **JSON** | Primary content/data source for catalogue metadata |
-| **SVG** | Icons and scalable interface graphics |
-| **Vite** | Local dev server (`npm run dev`) and preview server (`npm run preview`) |
-| **Node scripts** | Production build (`npm run build`) — see [Build Pipeline](#build-pipeline) below |
-| **Cloudflare Pages / Wrangler** | Hosting and local Pages-environment testing |
+| Technology                      | Role                                                                                      |
+| ------------------------------- | ----------------------------------------------------------------------------------------- |
+| **HTML5**                       | Page structure and semantic markup                                                        |
+| **CSS3**                        | Layout, visual system, responsive design, animations, and themes                          |
+| **JavaScript (ES6+)**           | Client-side rendering, filtering, navigation, search, statistics, and UI interactions     |
+| **JSON**                        | Primary content/data source for catalogue metadata                                        |
+| **SVG**                         | Icons and scalable interface graphics                                                     |
+| **Vite**                        | Development server, multi-page production build, asset processing, and production preview |
+| **Cloudflare Pages / Wrangler** | Hosting and local Pages-environment testing                                               |
+| **Cloudflare Pages / Wrangler** | Hosting and local Pages-environment testing                                               |
 
-The site intentionally avoids a large frontend framework. Most functionality is implemented with **native browser APIs and modular vanilla JavaScript**.
+The site intentionally avoids a large frontend framework. Most functionality is implemented with **native browser APIs and modular vanilla JavaScript**. Vite provides the development/build tooling without changing that architecture.
 
 ### Styling
 
@@ -87,6 +87,14 @@ Typical responsibilities include:
 The application uses browser-native APIs wherever practical instead of introducing a framework dependency.
 
 ---
+
+### Why Vite?
+
+AdaShimaverse is a multi-page static site, so it benefits from Vite without needing a frontend framework. Vite treats HTML files as first-class entry points and supports multi-page builds, which fits the project's one-HTML-page-per-section architecture. Its development server also provides fast Hot Module Replacement (HMR), so CSS and JavaScript changes can be reflected quickly while working locally.
+
+For production, `npm run build` runs Vite's production build and generates the deployable `dist/` directory. Vite processes the HTML entry points and referenced assets, while the project's Vite configuration copies runtime-loaded JSON, HTML fragments, assets, service-worker files, and Cloudflare Pages metadata that are intentionally outside the normal module graph.
+
+Vite therefore gives the project a consistent development → build → preview workflow while keeping the actual website framework-free.
 
 ## Data Architecture
 
@@ -370,7 +378,7 @@ Use the `dist` variant before any deploy — it's the only way to catch routing 
 
 The repo also contains two other build-related scripts that are **not** currently wired into `npm run build`:
 
-- **`scripts/copy-static.js`** — designed to run *after* `vite build`. It copies runtime-`fetch()`-loaded assets (JSON data, CSS/JS referenced by static string paths rather than `<link>`/`<script>` tags Vite can see) into `dist/`, and appends a `?v=<build-id>` cache-busting query to internal `src`/`href` attributes in the built HTML.
+- **`scripts/copy-static.js`** — designed to run _after_ `vite build`. It copies runtime-`fetch()`-loaded assets (JSON data, CSS/JS referenced by static string paths rather than `<link>`/`<script>` tags Vite can see) into `dist/`, and appends a `?v=<build-id>` cache-busting query to internal `src`/`href` attributes in the built HTML.
 - **`scripts/build-pages.js`** — copies every HTML file out of `src/pages/` to the project root, so pages exist at root-level filenames matching what `_redirects` expects.
 
 In other words, `vite.config.js`'s `rollupOptions` (which defines a Vite entry point per page) is currently only exercised by `npm run dev` / `npm run preview` — the actual deployed `dist/` is produced by the plain-copy script, not by `vite build`. If you're picking up work here, it's worth confirming with the rest of the team whether the Vite-based pipeline (`vite build` + `copy-static.js`) is the intended direction and `build.js` is a stopgap, or the reverse — the two scripts currently disagree on how assets should be built, and only one of them runs by default.
@@ -571,6 +579,8 @@ The project code and original site design are separate from the copyrighted work
 
 Do not interpret inclusion in the archive as ownership of the underlying copyrighted material.
 
+The repository license is provided in `LICENSE`. It covers only original project materials and does not grant rights to third-party intellectual property or hosted media.
+
 ---
 
 ## Maintenance Notes
@@ -591,3 +601,35 @@ Small visual changes do not require README changes.
 ## Status
 
 AdaShimaverse is an actively maintained archive project. Its architecture is intentionally modular so additional series information, catalogue sections, statistics, documentation, and visual collections can be added without replacing the underlying platform.
+
+---
+
+## Documentation
+
+Detailed project documentation is split by topic in [`docs/`](docs/):
+
+- [Architecture](docs/ARCHITECTURE.md)
+- [Data and JSON](docs/DATA.md)
+- [Frontend](docs/FRONTEND.md)
+- [Development and Build](docs/BUILD.md)
+- [Content and Archive Policy](docs/CONTENT.md)
+- [Contributing](docs/CONTRIBUTING.md)
+
+## License and Third-Party Content
+
+The original source code of this project is licensed under the **MIT License**;
+see [`LICENSE`](LICENSE).
+
+The MIT License applies **only to original code and other original software
+components authored for this project**. It does not license third-party
+copyrighted or trademarked material referenced, displayed, embedded, or linked
+by the website.
+
+This includes, for example, characters, story material, manga/light-novel
+content, artwork, covers, screenshots, promotional material, logos, music,
+audio, video, quotations, and other intellectual property belonging to their
+respective rights holders.
+
+Third-party material remains subject to the rights and licenses of its
+respective owners. The presence of such material in the website does not mean
+it is covered by this project's MIT License.

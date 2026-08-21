@@ -1,46 +1,92 @@
 [
-    {
-    "version": "2.3.2",
-    "build": "20260819",
-    "date": "17 de agosto de 2026",
-    "subtitle": "Actualización de Novedades y refinamientos del Index",
+  {
+    "version": "2.3.3",
+    "build": "20260820",
+    "date": "20 de agosto de 2026",
+    "subtitle": "Mejoras visuales, migración a Vite, optimización de compilación y correcciones de localización",
     "changes": {
       "new": [
-        "Se añadió un marcador visual en la sección de Novedades para indicar cuando hay una noticia nueva.",
-        "Se añadió una nueva imagen de fondo para complementar la interfaz de la página de inicio."
+        "Se añadió una sección de DMCA y derechos de autor al Centro de ayuda.",
+        "Se añadieron enlaces a audiolibros en la página Acerca de.",
+        "Se migró el sistema de compilación del proyecto a Vite para ofrecer un flujo de desarrollo más rápido y una canalización de producción más moderna.",
+        "Se añadió la posibilidad de instalar AdaShimaverse como una aplicación en escritorio y móvil desde el aviso de instalación del navegador."
       ],
       "improvements": [
-        "Se actualizaron los archivos JSON de Novedades para incorporar y organizar las nuevas entradas.",
-        "Se ajustó la interfaz del Index para mejorar la distribución y presentación.",
-        "Se refinó la sección de Novedades para hacer más visible el contenido reciente."
+        "Se rediseñó por completo la página de Anime con un nuevo diseño visual.",
+        "Se refinaron los contenedores y superficies en Manga, Novelas, Historias adicionales, CD Drama, Otros y el Archivo del Autor para una presentación más limpia y coherente.",
+        "Se mejoró la integración de los fondos según la hora del día para evitar que los contenedores se vean como bloques visuales desconectados.",
+        "Se mejoró la visibilidad del pie de página en el modo Tarde en Manga, Novelas, Historias adicionales, CD Drama, Otros, el Archivo del Autor y Acerca de.",
+        "Se ajustó el estilo del pie de página para mantener un contraste adecuado frente a los fondos y efectos visuales del modo Tarde.",
+        "Se mejoró la apariencia general de los fondos y efectos visuales en las secciones actualizadas para mantener una experiencia visual más consistente con el resto del sitio.",
+        "Se limpió la configuración de ESLint del proyecto y se resolvieron problemas de calidad de código pendientes en todo el código base, mejorando su mantenibilidad a largo plazo.",
+        "Se añadieron compilaciones multipágina basadas en Vite para desarrollo y producción, manteniendo la estructura existente de URLs limpias del sitio.",
+        "Se añadió compatibilidad de enrutamiento en la vista previa de Vite para que las URLs limpias funcionen correctamente al usar npm run preview.",
+        "Se mejoró la optimización de las compilaciones de producción mediante la minificación de HTML, CSS y JavaScript, incluidos los scripts heredados que se mantienen fuera del grafo de módulos de Vite.",
+        "Se mejoró el sistema de temas según la hora del día para que Tarde utilice una paleta rosa/malva más oscura y con mejor contraste.",
+        "Se evitó que el tema predeterminado aparezca brevemente antes de aplicar el tema seleccionado al recargar o abrir páginas directamente."
       ],
-      "fixes": [],
+      "fixes": [
+        "Se corrigieron problemas de localización que impedían que el pie de página mostrara correctamente el idioma seleccionado en ciertas vistas.",
+        "Se corrigieron pequeños detalles visuales en la página de inicio.",
+        "Se corrigió la configuración de ESLint que interpretaba incorrectamente los scripts de compilación y otros archivos de módulos ES como scripts clásicos, lo que generaba errores de análisis falsos durante el linting.",
+        "Se corrigieron bloques catch vacíos y otras declaraciones de bloque vacías detectadas por el linter en varios scripts de página y en el service worker.",
+        "Se corrigieron variables y parámetros de función sin usar detectados por el linter en varios scripts de página.",
+        "Se corrigió que el modo Tarde utilizara una paleta de colores demasiado brillante.",
+        "Se corrigió la inicialización tardía del tema, que provocaba un breve destello del tema predeterminado durante la navegación y las recargas.",
+        "Se corrigieron fallos de compilación causados por CSS existente mediante una ruta de minificación CSS más compatible y la corrección del orden de imports y selectores CSS inválidos."
+      ],
       "notes": [
-        "Esta versión se centra principalmente en actualizar el sistema de Novedades y realizar pequeños refinamientos visuales en el Index."
+        "Las mejoras visuales mantienen los estilos dentro de las hojas de estilo propias de cada página, evitando depender innecesariamente de anulaciones de tema externas.",
+        "Las mejoras en la apariencia del pie de página en modo Tarde se limitan a las vistas afectadas y no alteran los demás modos de apariencia.",
+        "La página de Anime fue rediseñada como parte de esta versión, renovando su apariencia general.",
+        "Esta versión también incluye correcciones internas de linting y calidad de código, sin efecto en la funcionalidad o apariencia del sitio.",
+        "Vite es ahora la herramienta principal de desarrollo y compilación del proyecto; las herramientas de Cloudflare Pages siguen disponibles para pruebas locales compatibles con Pages.",
+        "Los recursos de producción se optimizan durante npm run build, mientras que los datos y componentes en tiempo de ejecución que requieren su estructura original permanecen sin cambios."
+      ]
+    }
+  },
+  {
+    "version": "2.3.2",
+    "build": "20260819",
+    "date": "19 de agosto de 2026",
+    "subtitle": "Limpieza del tema y refinamientos visuales del archivo",
+    "changes": {
+      "new": [
+        "Se añadió un estilo coherente basado en la hora del día —Mañana, Tarde y Noche— directamente en las hojas de estilo de Manga, Novelas, CD Drama, Otros y el Archivo del Autor."
+      ],
+      "improvements": [
+        "Se limpiaron las superficies de las páginas para que los fondos basados en la hora fluyan de forma continua detrás del contenido en lugar de aparecer como bloques rectangulares.",
+        "Se refinaron los controles y superficies de Novelas, Manga, CD Drama, Otros y el Archivo del Autor para lograr una presentación más limpia y coherente."
+      ],
+      "fixes": [
+        "Se corrigieron diferencias visuales causadas por contenedores de página y sobrescrituras del tema que utilizaban colores de fondo en conflicto."
+      ],
+      "notes": [
+        "El estilo basado en la hora ahora se mantiene localmente dentro de la hoja de estilo de cada página; ya no es necesario el archivo de sobrescritura de tema compartido."
       ]
     }
   },
   {
     "version": "2.3.1",
     "build": "20260818",
-    "date": "17 de agosto de 2026",
+    "date": "August 18, 2026",
     "subtitle": "Rendimiento, menú móvil y refinamientos visuales",
     "changes": {
       "new": [
-        "Se restauraron los estilos de los temas basados en la hora (Mañana, Tarde y Noche) en Música, Ayuda, Acerca de, materiales de traducción y Estadísticas.",
-        "Se refinaron las tarjetas de Explora Adachi & Shimamura con iconos de Lucide integrados y un diseño editorial más limpio."
+        "Restored time-based Morning, Afternoon, and Night theme styling across Music, Help, About, translator materials, and Stats.",
+        "Refined the Explore Adachi & Shimamura cards with integrated Lucide icons and a cleaner editorial layout."
       ],
       "improvements": [
-        "Se rediseñó el menú de hamburguesa móvil con un control más pequeño y compacto, además de un estilo de navegación más limpio.",
-        "Se mejoró la preferencia del menú móvil para que ocultar el menú de hamburguesa en otras páginas se respete correctamente, incluida la página de Anime.",
-        "Se redujeron las dependencias innecesarias de tipografías del menú y se continuaron las optimizaciones de la ruta de renderizado crítica de la página de inicio."
+        "Redesigned the mobile burger menu with a smaller, more compact control and cleaner navigation styling.",
+        "Improved the mobile menu preference so hiding the burger menu on other pages is reliably respected, including on Anime.",
+        "Reduced unnecessary menu typography dependencies and continued homepage critical-rendering-path optimizations."
       ],
       "fixes": [
-        "Se corrigió un problema en el que el CSS específico de la página podía sobrescribir la preferencia de ocultar el menú de hamburguesa en Anime.",
-        "Se corrigió un problema por el que la barra del reproductor de Música, la cola, el reproductor ampliado, Ayuda, Acerca de, el modal de materiales de traducción y Estadísticas perdían sus estilos de tema basados en la hora."
+        "Fixed page-specific CSS from overriding the hidden burger menu preference on Anime.",
+        "Fixed Music player bar, queue, expanded player, Help, About, translator materials modal, and Stats components losing their time-based theme styles."
       ],
       "notes": [
-        "Esta versión es principalmente una actualización de refinamiento posterior al reciente rediseño de la página de inicio y el menú. Se centra en recuperar la consistencia del sistema visual, mejorar el comportamiento móvil y continuar optimizando el rendimiento."
+        "This release is primarily a refinement pass following the recent homepage and menu redesign. It focuses on making the visual system consistent again while tightening mobile behavior and performance."
       ]
     }
   },
@@ -772,9 +818,7 @@
         "Se mejoró la organización y facilidad de mantenimiento del proyecto."
       ],
       "fixes": [],
-      "notes": [
-        "Refactorización interna sin cambios importantes visibles para los usuarios."
-      ]
+      "notes": ["Refactorización interna sin cambios importantes visibles para los usuarios."]
     }
   }
 ]

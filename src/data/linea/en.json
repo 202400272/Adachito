@@ -105,9 +105,7 @@
       "desc": "During summer vacation, Adachi works at a festival booth and sees Shimamura there with an unknown girl. The image consumes her for days until everything explodes in a call with Shimamura. Later, she gathers the courage to call back and they agree to meet the next day. The reconciliation comes with flowers and a \"let's be friends again\", leaving Adachi both satisfied and unsatisfied at once. Afterward, they complete the list Adachi had written together.",
       "img": "../../assets/Imagenes/burbuja7.webp",
       "vol": "Volume 5",
-      "quotes": [
-        "\"I think this might be the first time I’ve ever received flowers.\" (Volume 5)"
-      ]
+      "quotes": ["\"I think this might be the first time I’ve ever received flowers.\" (Volume 5)"]
     },
     {
       "year": "year2",
@@ -366,29 +364,19 @@
         "id": "minor",
         "title": "Minor Divergence",
         "desc": "The premise changes only a small part of the established timeline or circumstances.",
-        "ids": [
-          2,
-          3,
-          7
-        ]
+        "ids": [2, 3, 7]
       },
       {
         "id": "moderate",
         "title": "Moderate Divergence",
         "desc": "The story moves into a noticeably different version of events, lives, or circumstances.",
-        "ids": [
-          1,
-          5,
-          6
-        ]
+        "ids": [1, 5, 6]
       },
       {
         "id": "major",
         "title": "Major Divergence",
         "desc": "The premise fundamentally changes the world, identities, or conditions of the story.",
-        "ids": [
-          4
-        ]
+        "ids": [4]
       }
     ]
   }

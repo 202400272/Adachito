@@ -5,9 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Menu - AdashimaVerse</title>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* Keep the deferred CDN icon font from blocking visible menu content. */
+      @font-face {
+        font-family: "Font Awesome 6 Free";
+        font-style: normal;
+        font-weight: 900;
+        font-display: swap;
+        src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2")
+          format("woff2");
+      }
+      @font-face {
+        font-family: "Font Awesome 6 Brands";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2")
+          format("woff2");
+      }
+    </style>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Chewy&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Chewy&display=swap"
+      rel="stylesheet"
+    />
     <style>
       /* ============================================================
          REDUCED MOTION
@@ -36,7 +63,11 @@
         --glass-bg: rgba(255, 255, 255, 0.8) !important;
         --glass-border: rgba(255, 255, 255, 0.8) !important;
         --glass-shadow: 0 8px 32px 0 rgba(135, 107, 145, 0.15) !important;
-        --nav-bg: linear-gradient(135deg, rgba(255, 245, 247, 0.98), rgba(234, 244, 255, 0.98)) !important;
+        --nav-bg: linear-gradient(
+          135deg,
+          rgba(255, 245, 247, 0.98),
+          rgba(234, 244, 255, 0.98)
+        ) !important;
         --nav-border: rgba(255, 255, 255, 0.8) !important;
         --nav-text: #5c4b51 !important;
         --nav-shadow: 0 8px 32px 0 rgba(135, 107, 145, 0.15) !important;
@@ -55,7 +86,11 @@
         height: 100vh !important;
         z-index: 1 !important;
         pointer-events: auto !important;
-        background: linear-gradient(135deg, rgba(255, 245, 247, 0.98), rgba(234, 244, 255, 0.98)) !important;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 245, 247, 0.98),
+          rgba(234, 244, 255, 0.98)
+        ) !important;
         transition: color 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
       }
 
@@ -79,7 +114,11 @@
          TIME-OF-DAY THEME OVERRIDES
          ============================================================ */
       body.time-morning #menu-component-wrapper {
-        --nav-bg: linear-gradient(135deg, rgba(230, 240, 252, 0.8), rgba(245, 232, 248, 0.7)) !important;
+        --nav-bg: linear-gradient(
+          135deg,
+          rgba(230, 240, 252, 0.8),
+          rgba(245, 232, 248, 0.7)
+        ) !important;
         --nav-border: rgba(200, 215, 235, 0.7) !important;
         --nav-text: #837896 !important;
         --nav-shadow: 0 8px 32px 0 rgba(130, 150, 180, 0.12) !important;
@@ -89,10 +128,18 @@
         --surface-border: rgba(168, 200, 232, 0.4) !important;
         --accent-primary: #4a7fa8 !important;
         --accent-soft: rgba(74, 127, 168, 0.12) !important;
-        background: linear-gradient(135deg, rgba(230, 240, 252, 0.8), rgba(245, 232, 248, 0.7)) !important;
+        background: linear-gradient(
+          135deg,
+          rgba(230, 240, 252, 0.8),
+          rgba(245, 232, 248, 0.7)
+        ) !important;
       }
       body.time-afternoon #menu-component-wrapper {
-        --nav-bg: linear-gradient(180deg, rgba(250, 214, 227, 0.96), rgba(232, 216, 247, 0.97)) !important;
+        --nav-bg: linear-gradient(
+          180deg,
+          rgba(250, 214, 227, 0.96),
+          rgba(232, 216, 247, 0.97)
+        ) !important;
         --nav-border: rgba(255, 255, 255, 0.42) !important;
         --nav-text: #4a2f57 !important;
         --nav-shadow: 0 12px 28px 0 rgba(120, 82, 139, 0.16) !important;
@@ -102,7 +149,11 @@
         --surface-border: rgba(255, 255, 255, 0.38) !important;
         --accent-primary: #d56796 !important;
         --accent-soft: rgba(214, 103, 150, 0.14) !important;
-        background: linear-gradient(180deg, rgba(250, 214, 227, 0.96), rgba(232, 216, 247, 0.97)) !important;
+        background: linear-gradient(
+          180deg,
+          rgba(250, 214, 227, 0.96),
+          rgba(232, 216, 247, 0.97)
+        ) !important;
       }
       body.time-night #menu-component-wrapper {
         --nav-bg: linear-gradient(180deg, #2d183e 0%, #201330 100%) !important;
@@ -137,9 +188,10 @@
         justify-content: center;
         font-size: 0.95rem;
         cursor: pointer;
-        transition: background-color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transition:
+          background-color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+          color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+          transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
       #menu-component-wrapper .drawer-close-btn:hover {
         background: var(--accent-soft) !important;
@@ -175,11 +227,12 @@
         box-shadow: var(--glass-shadow) !important;
         padding: 0.8rem;
         touch-action: manipulation;
-        transition: background-color 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
-                    border-color 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
-                    box-shadow 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
-                    color 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
-                    transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
+        transition:
+          background-color 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
+          border-color 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
+          box-shadow 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
+          color 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
+          transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
       }
       #menu-component-wrapper .mobile-toggle:hover {
         transform: scale(1.1);
@@ -207,15 +260,16 @@
         box-shadow: var(--nav-shadow) !important;
         z-index: 1 !important;
         transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        background-image: radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
-                          radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.5) 0%, transparent 50%),
-                          radial-gradient(1.5px 1.5px at 20% 12%, rgba(255, 255, 255, 0.9) 50%, transparent 100%),
-                          radial-gradient(1px 1px at 68% 6%, rgba(255, 255, 255, 0.7) 50%, transparent 100%),
-                          radial-gradient(1.5px 1.5px at 42% 22%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
-                          radial-gradient(1px 1px at 88% 40%, rgba(255, 255, 255, 0.6) 50%, transparent 100%),
-                          radial-gradient(1.5px 1.5px at 22% 62%, rgba(255, 255, 255, 0.7) 50%, transparent 100%),
-                          radial-gradient(1px 1px at 58% 78%, rgba(255, 255, 255, 0.5) 50%, transparent 100%),
-                          radial-gradient(1.5px 1.5px at 90% 88%, rgba(255, 255, 255, 0.6) 50%, transparent 100%);
+        background-image:
+          radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+          radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.5) 0%, transparent 50%),
+          radial-gradient(1.5px 1.5px at 20% 12%, rgba(255, 255, 255, 0.9) 50%, transparent 100%),
+          radial-gradient(1px 1px at 68% 6%, rgba(255, 255, 255, 0.7) 50%, transparent 100%),
+          radial-gradient(1.5px 1.5px at 42% 22%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
+          radial-gradient(1px 1px at 88% 40%, rgba(255, 255, 255, 0.6) 50%, transparent 100%),
+          radial-gradient(1.5px 1.5px at 22% 62%, rgba(255, 255, 255, 0.7) 50%, transparent 100%),
+          radial-gradient(1px 1px at 58% 78%, rgba(255, 255, 255, 0.5) 50%, transparent 100%),
+          radial-gradient(1.5px 1.5px at 90% 88%, rgba(255, 255, 255, 0.6) 50%, transparent 100%);
         background-repeat: no-repeat;
         transition: background-image 0.6s ease;
       }
@@ -223,18 +277,23 @@
          plus two soft color blobs (pink + blue) standing in for its glow orbs. */
       body.time-night #menu-component-wrapper .sidebar {
         background: rgb(45, 24, 62) var(--nav-bg) !important;
-        background-image: radial-gradient(circle at 20% 20%, rgba(240, 98, 146, 0.1) 0%, transparent 45%),
-                          radial-gradient(circle at 85% 75%, rgba(100, 130, 220, 0.12) 0%, transparent 45%),
-                          radial-gradient(1.5px 1.5px at 20% 12%, rgba(255, 255, 255, 0.85) 50%, transparent 100%),
-                          radial-gradient(1px 1px at 68% 6%, rgba(255, 255, 255, 0.6) 50%, transparent 100%),
-                          radial-gradient(1.5px 1.5px at 42% 22%, rgba(255, 255, 255, 0.75) 50%, transparent 100%),
-                          radial-gradient(1px 1px at 88% 40%, rgba(255, 255, 255, 0.55) 50%, transparent 100%),
-                          radial-gradient(1.5px 1.5px at 22% 62%, rgba(255, 255, 255, 0.65) 50%, transparent 100%),
-                          radial-gradient(1px 1px at 58% 78%, rgba(255, 255, 255, 0.45) 50%, transparent 100%),
-                          radial-gradient(1.5px 1.5px at 90% 88%, rgba(255, 255, 255, 0.55) 50%, transparent 100%) !important;
+        background-image:
+          radial-gradient(circle at 20% 20%, rgba(240, 98, 146, 0.1) 0%, transparent 45%),
+          radial-gradient(circle at 85% 75%, rgba(100, 130, 220, 0.12) 0%, transparent 45%),
+          radial-gradient(1.5px 1.5px at 20% 12%, rgba(255, 255, 255, 0.85) 50%, transparent 100%),
+          radial-gradient(1px 1px at 68% 6%, rgba(255, 255, 255, 0.6) 50%, transparent 100%),
+          radial-gradient(1.5px 1.5px at 42% 22%, rgba(255, 255, 255, 0.75) 50%, transparent 100%),
+          radial-gradient(1px 1px at 88% 40%, rgba(255, 255, 255, 0.55) 50%, transparent 100%),
+          radial-gradient(1.5px 1.5px at 22% 62%, rgba(255, 255, 255, 0.65) 50%, transparent 100%),
+          radial-gradient(1px 1px at 58% 78%, rgba(255, 255, 255, 0.45) 50%, transparent 100%),
+          radial-gradient(1.5px 1.5px at 90% 88%, rgba(255, 255, 255, 0.55) 50%, transparent 100%) !important;
       }
-      #menu-component-wrapper .sidebar::-webkit-scrollbar { width: 6px; }
-      #menu-component-wrapper .sidebar::-webkit-scrollbar-track { background: transparent; }
+      #menu-component-wrapper .sidebar::-webkit-scrollbar {
+        width: 6px;
+      }
+      #menu-component-wrapper .sidebar::-webkit-scrollbar-track {
+        background: transparent;
+      }
       #menu-component-wrapper .sidebar::-webkit-scrollbar-thumb {
         background: rgba(240, 98, 146, 0.3);
         border-radius: 10px;
@@ -301,22 +360,42 @@
         line-height: 1.1;
         z-index: 10;
         width: 100%;
-        text-shadow: -4px -4px 0 #fff, 4px -4px 0 #fff, -4px 4px 0 #fff, 4px 4px 0 #fff,
-                     -4px 0px 0 #fff, 4px 0px 0 #fff, 0px -4px 0 #fff, 0px 4px 0 #fff;
-        transition: color 2.5s ease, text-shadow 2.5s ease;
+        text-shadow:
+          -4px -4px 0 #fff,
+          4px -4px 0 #fff,
+          -4px 4px 0 #fff,
+          4px 4px 0 #fff,
+          -4px 0px 0 #fff,
+          4px 0px 0 #fff,
+          0px -4px 0 #fff,
+          0px 4px 0 #fff;
+        transition:
+          color 2.5s ease,
+          text-shadow 2.5s ease;
       }
       body.time-night #menu-component-wrapper .branding-area .logo-label {
         color: #d8c8e0 !important;
-        text-shadow: -4px -4px 0 rgba(20, 12, 32, 0.5), 4px -4px 0 rgba(20, 12, 32, 0.5),
-                     -4px 4px 0 rgba(20, 12, 32, 0.5), 4px 4px 0 rgba(20, 12, 32, 0.5) !important;
+        text-shadow:
+          -4px -4px 0 rgba(20, 12, 32, 0.5),
+          4px -4px 0 rgba(20, 12, 32, 0.5),
+          -4px 4px 0 rgba(20, 12, 32, 0.5),
+          4px 4px 0 rgba(20, 12, 32, 0.5) !important;
       }
-      body.time-morning #menu-component-wrapper .branding-area .logo-label { color: #3a6ea5 !important; }
-      body.time-afternoon #menu-component-wrapper .branding-area .logo-label { color: #e91e78 !important; }
+      body.time-morning #menu-component-wrapper .branding-area .logo-label {
+        color: #3a6ea5 !important;
+      }
+      body.time-afternoon #menu-component-wrapper .branding-area .logo-label {
+        color: #e91e78 !important;
+      }
 
       /* ============================================================
          SIDEBAR SECTION LABELS (BRAND / NAVIGATION / COMMUNITY / etc.)
          ============================================================ */
-      #menu-component-wrapper .nav-section { display: flex; flex-direction: column; gap: 2px; }
+      #menu-component-wrapper .nav-section {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
       #menu-component-wrapper .nav-section-label {
         display: block;
         font-size: 0.62rem;
@@ -357,43 +436,44 @@
         font-size: 0.68rem;
         color: var(--text-muted) !important;
         opacity: 0.6;
-        transition: transform 0.3s ease, color 2.5s ease;
+        transition:
+          transform 0.3s ease,
+          color 2.5s ease;
       }
       #menu-component-wrapper .nav-section-toggle[aria-expanded="true"] .nav-section-chevron {
         transform: rotate(180deg);
       }
 
-      
-/* Categorized navigation groups */
-#menu-component-wrapper .nav-subsection {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-#menu-component-wrapper .nav-subsection + .nav-subsection {
-  margin-top: 10px;
-}
-#menu-component-wrapper .nav-subsection-label {
-  display: block;
-  padding: 4px 8px 3px;
-  font-size: 0.58rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--text-secondary);
-  opacity: 0.42;
-  line-height: 1.2;
-}
-#menu-component-wrapper .nav-subsection-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-#menu-component-wrapper .nav-subsection-list .nav-item {
-  min-height: 44px;
-}
+      /* Categorized navigation groups */
+      #menu-component-wrapper .nav-subsection {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      #menu-component-wrapper .nav-subsection + .nav-subsection {
+        margin-top: 10px;
+      }
+      #menu-component-wrapper .nav-subsection-label {
+        display: block;
+        padding: 4px 8px 3px;
+        font-size: 0.58rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--text-secondary);
+        opacity: 0.42;
+        line-height: 1.2;
+      }
+      #menu-component-wrapper .nav-subsection-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      #menu-component-wrapper .nav-subsection-list .nav-item {
+        min-height: 44px;
+      }
 
-/* ============================================================
+      /* ============================================================
          PRIMARY NAVIGATION (unified list — strongest interaction styling)
          ============================================================ */
       #menu-component-wrapper .nav-list {
@@ -401,7 +481,9 @@
         flex-direction: column;
         gap: 2px;
       }
-      #menu-component-wrapper .nav-list.collapsible { display: none; }
+      #menu-component-wrapper .nav-list.collapsible {
+        display: none;
+      }
       #menu-component-wrapper .nav-list.collapsible.open {
         display: flex;
         animation: appearanceFadeIn 0.25s ease;
@@ -425,10 +507,11 @@
         box-sizing: border-box;
         cursor: pointer;
         text-align: left;
-        transition: background-color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    box-shadow 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transition:
+          background-color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+          color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+          box-shadow 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+          transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
       #menu-component-wrapper .nav-item::before {
         content: "";
@@ -453,17 +536,22 @@
         color: var(--hougetsu-dark) !important;
         background: var(--surface-glass) !important;
         border-radius: 10px;
-        transition: color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    background-color 2.5s ease;
+        transition:
+          color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+          background-color 2.5s ease;
       }
-      #menu-component-wrapper .nav-item .nav-item-label { flex: 1; line-height: 1.25; }
+      #menu-component-wrapper .nav-item .nav-item-label {
+        flex: 1;
+        line-height: 1.25;
+      }
       #menu-component-wrapper .nav-item .nav-item-arrow {
         font-size: 0.75rem;
         opacity: 0;
         transform: translateX(-3px);
         color: var(--accent-primary) !important;
-        transition: opacity 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transition:
+          opacity 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+          transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
       #menu-component-wrapper .nav-item:hover,
       #menu-component-wrapper .nav-item:focus-visible {
@@ -477,7 +565,9 @@
         transform: translateX(0);
       }
       #menu-component-wrapper .nav-item:hover .nav-item-icon,
-      #menu-component-wrapper .nav-item:focus-visible .nav-item-icon { color: var(--sakura-dark) !important; }
+      #menu-component-wrapper .nav-item:focus-visible .nav-item-icon {
+        color: var(--sakura-dark) !important;
+      }
       #menu-component-wrapper .nav-item:focus-visible {
         outline: 2px solid var(--accent-primary) !important;
         outline-offset: 2px;
@@ -488,8 +578,12 @@
         color: var(--accent-primary) !important;
         box-shadow: 0 4px 16px var(--accent-soft);
       }
-      #menu-component-wrapper .nav-item.active::before { height: 60%; }
-      #menu-component-wrapper .nav-item.active .nav-item-icon { color: var(--accent-primary) !important; }
+      #menu-component-wrapper .nav-item.active::before {
+        height: 60%;
+      }
+      #menu-component-wrapper .nav-item.active .nav-item-icon {
+        color: var(--accent-primary) !important;
+      }
 
       /* ============================================================
          SECONDARY NAVIGATION (external links: Community / Original Work)
@@ -503,7 +597,9 @@
         color: var(--text-secondary) !important;
         opacity: 0.85;
       }
-      #menu-component-wrapper .nav-item.secondary::before { display: none; }
+      #menu-component-wrapper .nav-item.secondary::before {
+        display: none;
+      }
       #menu-component-wrapper .nav-item.secondary .nav-item-icon {
         font-size: 0.85rem;
         width: 18px;
@@ -524,9 +620,13 @@
         color: var(--accent-primary) !important;
       }
       #menu-component-wrapper .nav-item.secondary:hover .nav-item-icon,
-      #menu-component-wrapper .nav-item.secondary:focus-visible .nav-item-icon { color: var(--accent-primary) !important; }
+      #menu-component-wrapper .nav-item.secondary:focus-visible .nav-item-icon {
+        color: var(--accent-primary) !important;
+      }
       #menu-component-wrapper .nav-item.secondary:hover .nav-item-arrow,
-      #menu-component-wrapper .nav-item.secondary:focus-visible .nav-item-arrow { opacity: 0.8; }
+      #menu-component-wrapper .nav-item.secondary:focus-visible .nav-item-arrow {
+        opacity: 0.8;
+      }
       /* Facebook keeps its brand color on hover as a small, intentional exception */
       #menu-component-wrapper .nav-item.secondary.fb-item:hover,
       #menu-component-wrapper .nav-item.secondary.fb-item:focus-visible {
@@ -534,14 +634,22 @@
         color: #1877f2 !important;
       }
       #menu-component-wrapper .nav-item.secondary.fb-item:hover .nav-item-icon,
-      #menu-component-wrapper .nav-item.secondary.fb-item:focus-visible .nav-item-icon { color: #1877f2 !important; }
+      #menu-component-wrapper .nav-item.secondary.fb-item:focus-visible .nav-item-icon {
+        color: #1877f2 !important;
+      }
 
       /* ============================================================
          DIVIDER
          ============================================================ */
       #menu-component-wrapper .sidebar-divider {
         height: 1px;
-        background: linear-gradient(90deg, transparent, var(--surface-border) 20%, var(--surface-border) 80%, transparent) !important;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--surface-border) 20%,
+          var(--surface-border) 80%,
+          transparent
+        ) !important;
         margin: 4px 0 8px 0;
         transition: background-color 2.5s ease;
       }
@@ -581,7 +689,9 @@
         font-weight: 700;
         font-size: 0.72rem;
         color: var(--accent-primary) !important;
-        transition: background-color 2.5s ease, color 2.5s ease;
+        transition:
+          background-color 2.5s ease,
+          color 2.5s ease;
       }
 
       /* ============================================================
@@ -593,7 +703,9 @@
         border-radius: 18px;
         padding: 14px 16px 16px;
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-        transition: background-color 2.5s ease, border-color 2.5s ease;
+        transition:
+          background-color 2.5s ease,
+          border-color 2.5s ease;
       }
       #menu-component-wrapper .settings-body-inner {
         display: flex;
@@ -625,7 +737,9 @@
         padding-bottom: 6px;
         border-bottom: 1px solid var(--surface-border) !important;
         border-radius: 10px 10px 0 0;
-        transition: background-color 0.2s ease, border-color 2.5s ease;
+        transition:
+          background-color 0.2s ease,
+          border-color 2.5s ease;
       }
       #menu-component-wrapper .settings-header-icon {
         display: flex;
@@ -656,16 +770,26 @@
         letter-spacing: 0.02em;
         transition: color 2.5s ease;
       }
-      #menu-component-wrapper .settings-body { padding: 0 4px; }
+      #menu-component-wrapper .settings-body {
+        padding: 0 4px;
+      }
       #menu-component-wrapper .settings-body {
         display: none;
         margin-top: 6px;
         animation: appearanceFadeIn 0.25s ease;
       }
-      #menu-component-wrapper .settings-body.open { display: block; }
+      #menu-component-wrapper .settings-body.open {
+        display: block;
+      }
       @keyframes appearanceFadeIn {
-        from { opacity: 0; transform: translateY(-6px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(-6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       /* ============================================================
@@ -732,7 +856,9 @@
         border-radius: 14px;
         border: 1px solid var(--surface-border) !important;
         overflow: hidden;
-        transition: border-color 2.5s ease, background-color 2.5s ease;
+        transition:
+          border-color 2.5s ease,
+          background-color 2.5s ease;
         margin-top: 8px;
       }
       #menu-component-wrapper .lang-option,
@@ -751,11 +877,14 @@
         cursor: pointer;
         font-family: "Nunito", sans-serif;
         border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-        transition: background-color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transition:
+          background-color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+          color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
       #menu-component-wrapper .lang-option:last-child,
-      #menu-component-wrapper .appearance-option:last-child { border-bottom: none; }
+      #menu-component-wrapper .appearance-option:last-child {
+        border-bottom: none;
+      }
       body.time-night #menu-component-wrapper .lang-option,
       body.time-night #menu-component-wrapper .appearance-option {
         border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
@@ -791,16 +920,23 @@
         flex-shrink: 0;
         width: 18px;
         height: 18px;
-        transition: opacity 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-                    color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transition:
+          opacity 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+          transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+          color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
       #menu-component-wrapper .lang-option:hover,
-      #menu-component-wrapper .appearance-option:hover { background: var(--accent-soft) !important; }
+      #menu-component-wrapper .appearance-option:hover {
+        background: var(--accent-soft) !important;
+      }
       #menu-component-wrapper .lang-option.active,
-      #menu-component-wrapper .appearance-option.active { background: var(--accent-soft) !important; }
+      #menu-component-wrapper .appearance-option.active {
+        background: var(--accent-soft) !important;
+      }
       #menu-component-wrapper .lang-option.active .lang-name,
-      #menu-component-wrapper .appearance-option.active .appearance-name { color: var(--accent-primary) !important; }
+      #menu-component-wrapper .appearance-option.active .appearance-name {
+        color: var(--accent-primary) !important;
+      }
       #menu-component-wrapper .lang-option.active .lang-check,
       #menu-component-wrapper .appearance-option.active .appearance-check {
         opacity: 1;
@@ -839,8 +975,9 @@
         background: var(--surface-border) !important;
         border-radius: 26px;
         border: 1px solid rgba(0, 0, 0, 0.06);
-        transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                    border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        transition:
+          background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+          border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       }
       #menu-component-wrapper .toggle-slider::before {
         content: "";
@@ -869,7 +1006,9 @@
         background: var(--accent-primary) !important;
         border-color: var(--accent-primary) !important;
       }
-      body.time-night #menu-component-wrapper .toggle-slider::before { background: #d8c8e0 !important; }
+      body.time-night #menu-component-wrapper .toggle-slider::before {
+        background: #d8c8e0 !important;
+      }
 
       /* ============================================================
          HOMEPAGE NOTICE (contextual hint under the mobile burger setting)
@@ -885,14 +1024,21 @@
         opacity: 0.6;
         transition: color 2.5s ease;
       }
-      #menu-component-wrapper .homepage-notice i { margin-top: 1px; flex-shrink: 0; }
+      #menu-component-wrapper .homepage-notice i {
+        margin-top: 1px;
+        flex-shrink: 0;
+      }
 
       /* ============================================================
          RESPONSIVE BREAKPOINTS
          ============================================================ */
       @media (max-width: 900px) {
-        #menu-component-wrapper .mobile-toggle { display: flex !important; }
-        #menu-component-wrapper .drawer-close-btn { display: flex; }
+        #menu-component-wrapper .mobile-toggle {
+          display: flex !important;
+        }
+        #menu-component-wrapper .drawer-close-btn {
+          display: flex;
+        }
         #menu-component-wrapper .sidebar {
           position: fixed;
           top: 0;
@@ -908,10 +1054,14 @@
           width: 85%;
           max-width: 360px;
         }
-        #menu-component-wrapper .sidebar.active { transform: translateX(0); }
+        #menu-component-wrapper .sidebar.active {
+          transform: translateX(0);
+        }
       }
       @media (min-width: 901px) {
-        #menu-component-wrapper .mobile-only-section { display: none !important; }
+        #menu-component-wrapper .mobile-only-section {
+          display: none !important;
+        }
       }
       @media (max-width: 600px) {
         #menu-component-wrapper .mobile-toggle {
@@ -927,47 +1077,161 @@
           border-radius: 0;
           transform: translateX(100%);
         }
-        #menu-component-wrapper .sidebar-inner { padding: 22px; gap: 14px; }
-        #menu-component-wrapper .branding-area img { max-height: 140px; }
-        #menu-component-wrapper .branding-area .logo-label { font-size: 1.6rem; }
+        #menu-component-wrapper .sidebar-inner {
+          padding: 22px;
+          gap: 14px;
+        }
+        #menu-component-wrapper .branding-area img {
+          max-height: 140px;
+        }
+        #menu-component-wrapper .branding-area .logo-label {
+          font-size: 1.6rem;
+        }
       }
-    
 
       /* ============================================================
          MOBILE MENU — FINAL COMPACT DRAWER (late overrides)
          ============================================================ */
       @media (max-width: 900px) {
-        #menu-component-wrapper { width:0 !important; height:0 !important; pointer-events:none !important; z-index:12000 !important; background:transparent !important; }
+        #menu-component-wrapper {
+          position: fixed !important;
+          inset: 0 !important;
+          width: 100vw !important;
+          height: 100dvh !important;
+          pointer-events: none !important;
+          z-index: 12000 !important;
+          background: transparent !important;
+        }
         #menu-component-wrapper .mobile-toggle {
-          position:fixed !important; top:14px !important; right:14px !important;
-          width:42px !important; height:42px !important; min-width:42px !important; min-height:42px !important;
-          padding:0 !important; border-radius:13px !important; z-index:12002 !important;
-          display:inline-flex !important; align-items:center !important; justify-content:center !important;
-          background:rgba(255,248,252,.90) !important; color:#e45f9a !important;
-          border:1px solid rgba(255,255,255,.42) !important; box-shadow:0 8px 26px rgba(38,18,48,.20) !important;
-          backdrop-filter:blur(16px) saturate(125%) !important; -webkit-backdrop-filter:blur(16px) saturate(125%) !important;
+          position: fixed !important;
+          top: 14px !important;
+          right: 14px !important;
+          width: 42px !important;
+          height: 42px !important;
+          min-width: 42px !important;
+          min-height: 42px !important;
+          padding: 0 !important;
+          border-radius: 13px !important;
+          z-index: 12002 !important;
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          background: rgba(255, 248, 252, 0.9) !important;
+          color: #e45f9a !important;
+          border: 1px solid rgba(255, 255, 255, 0.42) !important;
+          box-shadow: 0 8px 26px rgba(38, 18, 48, 0.2) !important;
+          backdrop-filter: blur(16px) saturate(125%) !important;
+          -webkit-backdrop-filter: blur(16px) saturate(125%) !important;
         }
         #menu-component-wrapper .sidebar {
-          position:fixed !important; top:0 !important; left:0 !important; right:auto !important;
-          width:min(318px,86vw) !important; max-width:318px !important; height:100dvh !important; max-height:100dvh !important;
-          border-radius:0 24px 24px 0 !important; border-left:0 !important; overflow:hidden auto !important;
-          transform:translateX(-105%) !important; opacity:0 !important; visibility:hidden !important;
-          pointer-events:none !important; z-index:12001 !important;
-          transition:transform .28s cubic-bezier(.22,.61,.36,1),opacity .20s ease,visibility 0s linear .28s !important;
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: auto !important;
+          width: min(318px, 86vw) !important;
+          max-width: 318px !important;
+          height: 100dvh !important;
+          max-height: 100dvh !important;
+          border-radius: 0 24px 24px 0 !important;
+          border-left: 0 !important;
+          overflow: hidden auto !important;
+          transform: translateX(-105%) !important;
+          opacity: 0 !important;
+          visibility: hidden !important;
+          pointer-events: none !important;
+          z-index: 12001 !important;
+          transition:
+            transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1),
+            opacity 0.2s ease,
+            visibility 0s linear 0.28s !important;
         }
-        #menu-component-wrapper .sidebar.active { transform:translateX(0) !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important; transition-delay:0s !important; }
-        #menu-component-wrapper .sidebar-inner { min-height:100% !important; box-sizing:border-box !important; padding:18px 16px 24px !important; gap:10px !important; }
-        #menu-component-wrapper .branding-area { grid-template-columns:58px 1fr auto !important; gap:11px !important; padding:2px 42px 16px 4px !important; align-items:center !important; }
-        #menu-component-wrapper .branding-area img { width:58px !important; height:48px !important; max-width:58px !important; max-height:48px !important; object-fit:contain !important; border-radius:12px !important; }
-        #menu-component-wrapper .branding-area .logo-label { margin:0 !important; font-size:.98rem !important; line-height:1.15 !important; }
-        #menu-component-wrapper .drawer-close-btn { display:inline-flex !important; position:absolute !important; top:16px !important; right:14px !important; width:34px !important; height:34px !important; border-radius:11px !important; z-index:10 !important; }
-        #menu-component-wrapper .nav-item { min-height:46px !important; padding:7px 9px !important; border-radius:12px !important; }
-        #menu-component-wrapper .nav-item-icon { width:32px !important; height:32px !important; flex-basis:32px !important; border-radius:10px !important; }
+        #menu-component-wrapper .sidebar.active {
+          transform: translateX(0) !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+          pointer-events: auto !important;
+          transition-delay: 0s !important;
+        }
+        #menu-component-wrapper .sidebar-inner {
+          min-height: 100% !important;
+          box-sizing: border-box !important;
+          padding: 18px 16px 24px !important;
+          gap: 10px !important;
+        }
+        #menu-component-wrapper .branding-area {
+          grid-template-columns: 58px 1fr auto !important;
+          gap: 11px !important;
+          padding: 2px 42px 16px 4px !important;
+          align-items: center !important;
+        }
+        #menu-component-wrapper .branding-area img {
+          width: 58px !important;
+          height: 48px !important;
+          max-width: 58px !important;
+          max-height: 48px !important;
+          object-fit: contain !important;
+          border-radius: 12px !important;
+        }
+        #menu-component-wrapper .branding-area .logo-label {
+          margin: 0 !important;
+          font-size: 0.98rem !important;
+          line-height: 1.15 !important;
+        }
+        #menu-component-wrapper .drawer-close-btn {
+          display: inline-flex !important;
+          position: absolute !important;
+          top: 16px !important;
+          right: 14px !important;
+          width: 34px !important;
+          height: 34px !important;
+          border-radius: 11px !important;
+          z-index: 10 !important;
+        }
+        #menu-component-wrapper .nav-item {
+          min-height: 46px !important;
+          padding: 7px 9px !important;
+          border-radius: 12px !important;
+        }
+        #menu-component-wrapper .nav-item-icon {
+          width: 32px !important;
+          height: 32px !important;
+          flex-basis: 32px !important;
+          border-radius: 10px !important;
+        }
         #menu-component-wrapper.mobile-toggle-hidden .mobile-toggle,
-        #menu-component-wrapper.mobile-toggle-hidden #menu-toggle-btn { display:none !important; visibility:hidden !important; opacity:0 !important; pointer-events:none !important; }
-        #menu-component-wrapper.mobile-toggle-hidden .sidebar { transform:translateX(-105%) !important; opacity:0 !important; visibility:hidden !important; pointer-events:none !important; }
-        #menu-component-wrapper::after { content:""; position:fixed; inset:0; z-index:12000; background:rgba(22,12,30,.38); opacity:0; visibility:hidden; pointer-events:none; transition:opacity .22s ease,visibility 0s linear .22s; backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px); }
-        #menu-component-wrapper:has(.sidebar.active)::after { opacity:1; visibility:visible; pointer-events:auto; transition-delay:0s; }
+        #menu-component-wrapper.mobile-toggle-hidden #menu-toggle-btn {
+          display: none !important;
+          visibility: hidden !important;
+          opacity: 0 !important;
+          pointer-events: none !important;
+        }
+        #menu-component-wrapper.mobile-toggle-hidden .sidebar {
+          transform: translateX(-105%) !important;
+          opacity: 0 !important;
+          visibility: hidden !important;
+          pointer-events: none !important;
+        }
+        #menu-component-wrapper::after {
+          content: "";
+          position: fixed;
+          inset: 0;
+          z-index: 12000;
+          background: rgba(22, 12, 30, 0.38);
+          opacity: 0;
+          visibility: hidden;
+          pointer-events: none;
+          transition:
+            opacity 0.22s ease,
+            visibility 0s linear 0.22s;
+          backdrop-filter: blur(2px);
+          -webkit-backdrop-filter: blur(2px);
+        }
+        #menu-component-wrapper:has(.sidebar.active)::after {
+          opacity: 1;
+          visibility: visible;
+          pointer-events: auto;
+          transition-delay: 0s;
+        }
       }
 
       /* Desktop is a persistent sidebar. The hide-burger preference is mobile-only. */
@@ -1005,14 +1269,13 @@
           display: none !important;
         }
       }
-</style>
+    </style>
   </head>
   <body>
     <!-- ============================================================
          MENU COMPONENT WRAPPER
          ============================================================ -->
     <div id="menu-component-wrapper">
-
       <!-- ==========================================================
            MOBILE TOGGLE BUTTON
            ========================================================== -->
@@ -1030,22 +1293,25 @@
            SIDEBAR / NAVIGATION PANEL
            ========================================================== -->
       <nav class="sidebar" id="sideMenu" aria-label="Sidebar">
-        <button
-          type="button"
-          class="drawer-close-btn"
-          id="menu-close-btn"
-          aria-label="Close menu"
-        >
+        <button type="button" class="drawer-close-btn" id="menu-close-btn" aria-label="Close menu">
           <i class="fas fa-xmark" aria-hidden="true"></i>
         </button>
         <div class="sidebar-inner">
-
           <!-- 1. BRANDING (strongest visual) -->
           <div class="branding-area">
-            <img src="/assets/Imagenes/Adashim_Menu.webp" alt="AdashimaVerse" width="250" height="177" onerror="this.src='https://via.placeholder.com/250x150/transparent/f06292?text=Adachi+to+Shimamura'" />
+            <img
+              src="/assets/Imagenes/Adashim_Menu.webp"
+              alt="AdashimaVerse"
+              width="250"
+              height="177"
+              onerror="
+                this.src =
+                  'https://via.placeholder.com/250x150/transparent/f06292?text=Adachi+to+Shimamura'
+              "
+            />
             <div class="logo-label" id="menu-logo-label">
               AdashimaVerse
-              <span class="sub-text" id="menu-logo-sub" style="display:none;"></span>
+              <span class="sub-text" id="menu-logo-sub" style="display: none"></span>
             </div>
           </div>
 
@@ -1055,103 +1321,176 @@
                runtime for the homepage's own nav grid — extend translateMenu() below
                if you want the sidebar to pull from that same source instead. -->
           <div class="nav-section">
-            <button type="button" class="nav-section-toggle" id="navSectionToggle" aria-expanded="true" aria-controls="navList">
+            <button
+              type="button"
+              class="nav-section-toggle"
+              id="navSectionToggle"
+              aria-expanded="true"
+              aria-controls="navList"
+            >
               <span class="nav-section-label" id="menu-nav-label">NAVIGATION</span>
-              <i class="fas fa-chevron-down nav-section-chevron" id="navSectionChevron" aria-hidden="true"></i>
+              <i
+                class="fas fa-chevron-down nav-section-chevron"
+                id="navSectionChevron"
+                aria-hidden="true"
+              ></i>
             </button>
             <div class="nav-list collapsible open" id="navList" role="navigation" aria-label="Main">
               <div class="nav-subsection" aria-label="Main">
                 <span class="nav-subsection-label" id="menu-main-label">MAIN</span>
                 <div class="nav-subsection-list">
-              <a href="#" onclick="return false;" data-route="" data-page="home" class="nav-item" id="menu-back-home">
-                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-house"></i></span>
-                <span class="nav-item-label" id="menu-back-text">Inicio</span>
-                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
-              </a>
+                  <a
+                    href="#"
+                    onclick="return false;"
+                    data-route=""
+                    data-page="home"
+                    class="nav-item"
+                    id="menu-back-home"
+                  >
+                    <span class="nav-item-icon" aria-hidden="true"
+                      ><i class="fas fa-house"></i
+                    ></span>
+                    <span class="nav-item-label" id="menu-back-text">Inicio</span>
+                    <span class="nav-item-arrow" aria-hidden="true"
+                      ><i class="fas fa-chevron-right"></i
+                    ></span>
+                  </a>
                 </div>
               </div>
               <div class="nav-subsection" aria-label="Library">
                 <span class="nav-subsection-label" id="menu-library-label">LIBRARY</span>
                 <div class="nav-subsection-list">
-              <a href="/Adashima_Anime" data-page="anime" class="nav-item">
-                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-clapperboard"></i></span>
-                <span class="nav-item-label" id="menu-nav-anime">Anime</span>
-                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
-              </a>
-              <a href="/Adashima_Manga" data-page="manga" class="nav-item">
-                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-book-open"></i></span>
-                <span class="nav-item-label" id="menu-nav-manga">Manga</span>
-                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
-              </a>
-              <a href="/Adashima_Novelas" data-page="novels" class="nav-item">
-                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-book"></i></span>
-                <span class="nav-item-label" id="menu-nav-novels">Novels</span>
-                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
-              </a>
-              <a href="/Adashima_Extra_Stories" data-page="extraStories" class="nav-item">
-                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-scroll"></i></span>
-                <span class="nav-item-label" id="menu-nav-extra">Extra Stories</span>
-                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
-              </a>
+                  <a href="/Adashima_Anime" data-page="anime" class="nav-item">
+                    <span class="nav-item-icon" aria-hidden="true"
+                      ><i class="fas fa-clapperboard"></i
+                    ></span>
+                    <span class="nav-item-label" id="menu-nav-anime">Anime</span>
+                    <span class="nav-item-arrow" aria-hidden="true"
+                      ><i class="fas fa-chevron-right"></i
+                    ></span>
+                  </a>
+                  <a href="/Adashima_Manga" data-page="manga" class="nav-item">
+                    <span class="nav-item-icon" aria-hidden="true"
+                      ><i class="fas fa-book-open"></i
+                    ></span>
+                    <span class="nav-item-label" id="menu-nav-manga">Manga</span>
+                    <span class="nav-item-arrow" aria-hidden="true"
+                      ><i class="fas fa-chevron-right"></i
+                    ></span>
+                  </a>
+                  <a href="/Adashima_Novelas" data-page="novels" class="nav-item">
+                    <span class="nav-item-icon" aria-hidden="true"
+                      ><i class="fas fa-book"></i
+                    ></span>
+                    <span class="nav-item-label" id="menu-nav-novels">Novels</span>
+                    <span class="nav-item-arrow" aria-hidden="true"
+                      ><i class="fas fa-chevron-right"></i
+                    ></span>
+                  </a>
+                  <a href="/Adashima_Extra_Stories" data-page="extraStories" class="nav-item">
+                    <span class="nav-item-icon" aria-hidden="true"
+                      ><i class="fas fa-scroll"></i
+                    ></span>
+                    <span class="nav-item-label" id="menu-nav-extra">Extra Stories</span>
+                    <span class="nav-item-arrow" aria-hidden="true"
+                      ><i class="fas fa-chevron-right"></i
+                    ></span>
+                  </a>
                 </div>
               </div>
               <div class="nav-subsection" aria-label="Media">
                 <span class="nav-subsection-label" id="menu-media-label">MEDIA</span>
                 <div class="nav-subsection-list">
-              <a href="/Adashima_Drama" data-page="drama" class="nav-item">
-                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-masks-theater"></i></span>
-                <span class="nav-item-label" id="menu-nav-drama">Drama CD</span>
-                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
-              </a>
-              <a href="/Adashima_Music" data-page="music" class="nav-item">
-                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-music"></i></span>
-                <span class="nav-item-label" id="menu-nav-music">Music</span>
-                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
-              </a>
-              <a href="/Adashima_Gallery" data-page="gallery" class="nav-item">
-                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-images"></i></span>
-                <span class="nav-item-label" id="menu-nav-gallery">Gallery</span>
-                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
-              </a>
+                  <a href="/Adashima_Drama" data-page="drama" class="nav-item">
+                    <span class="nav-item-icon" aria-hidden="true"
+                      ><i class="fas fa-masks-theater"></i
+                    ></span>
+                    <span class="nav-item-label" id="menu-nav-drama">Drama CD</span>
+                    <span class="nav-item-arrow" aria-hidden="true"
+                      ><i class="fas fa-chevron-right"></i
+                    ></span>
+                  </a>
+                  <a href="/Adashima_Music" data-page="music" class="nav-item">
+                    <span class="nav-item-icon" aria-hidden="true"
+                      ><i class="fas fa-music"></i
+                    ></span>
+                    <span class="nav-item-label" id="menu-nav-music">Music</span>
+                    <span class="nav-item-arrow" aria-hidden="true"
+                      ><i class="fas fa-chevron-right"></i
+                    ></span>
+                  </a>
+                  <a href="/Adashima_Gallery" data-page="gallery" class="nav-item">
+                    <span class="nav-item-icon" aria-hidden="true"
+                      ><i class="fas fa-images"></i
+                    ></span>
+                    <span class="nav-item-label" id="menu-nav-gallery">Gallery</span>
+                    <span class="nav-item-arrow" aria-hidden="true"
+                      ><i class="fas fa-chevron-right"></i
+                    ></span>
+                  </a>
                 </div>
               </div>
               <div class="nav-subsection" aria-label="Explore">
                 <span class="nav-subsection-label" id="menu-explore-label">EXPLORE</span>
                 <div class="nav-subsection-list">
-              <a href="/Adashima_Linea" data-page="timeline" class="nav-item">
-                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-clock-rotate-left"></i></span>
-                <span class="nav-item-label" id="menu-nav-timeline">Timeline</span>
-                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
-              </a>
-              <a href="/Adashima_Estrella" data-page="constellation" class="nav-item">
-                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-star"></i></span>
-                <span class="nav-item-label" id="menu-nav-constellation">Constellation</span>
-                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
-              </a>
-              <a href="/Adashima_Stats" data-page="stats" class="nav-item" id="menu-stats-item">
-                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-chart-column"></i></span>
-                <span class="nav-item-label" id="menu-nav-stats">Stats</span>
-                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
-              </a>
-              <a href="/Adashima_Otros" data-page="others" class="nav-item">
-                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-shapes"></i></span>
-                <span class="nav-item-label" id="menu-nav-others">Others</span>
-                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
-              </a>
+                  <a href="/Adashima_Linea" data-page="timeline" class="nav-item">
+                    <span class="nav-item-icon" aria-hidden="true"
+                      ><i class="fas fa-clock-rotate-left"></i
+                    ></span>
+                    <span class="nav-item-label" id="menu-nav-timeline">Timeline</span>
+                    <span class="nav-item-arrow" aria-hidden="true"
+                      ><i class="fas fa-chevron-right"></i
+                    ></span>
+                  </a>
+                  <a href="/Adashima_Estrella" data-page="constellation" class="nav-item">
+                    <span class="nav-item-icon" aria-hidden="true"
+                      ><i class="fas fa-star"></i
+                    ></span>
+                    <span class="nav-item-label" id="menu-nav-constellation">Constellation</span>
+                    <span class="nav-item-arrow" aria-hidden="true"
+                      ><i class="fas fa-chevron-right"></i
+                    ></span>
+                  </a>
+                  <a href="/Adashima_Stats" data-page="stats" class="nav-item" id="menu-stats-item">
+                    <span class="nav-item-icon" aria-hidden="true"
+                      ><i class="fas fa-chart-column"></i
+                    ></span>
+                    <span class="nav-item-label" id="menu-nav-stats">Stats</span>
+                    <span class="nav-item-arrow" aria-hidden="true"
+                      ><i class="fas fa-chevron-right"></i
+                    ></span>
+                  </a>
+                  <a href="/Adashima_Otros" data-page="others" class="nav-item">
+                    <span class="nav-item-icon" aria-hidden="true"
+                      ><i class="fas fa-shapes"></i
+                    ></span>
+                    <span class="nav-item-label" id="menu-nav-others">Others</span>
+                    <span class="nav-item-arrow" aria-hidden="true"
+                      ><i class="fas fa-chevron-right"></i
+                    ></span>
+                  </a>
                 </div>
               </div>
               <div class="nav-subsection" aria-label="Info">
                 <span class="nav-subsection-label" id="menu-info-label">INFO</span>
                 <div class="nav-subsection-list">
-              <a href="/Adashima_About" data-page="about" class="nav-item">
-                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-circle-info"></i></span>
-                <span class="nav-item-label" id="menu-nav-about">About</span>
-                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
-              </a>
+                  <a href="/Adashima_About" data-page="about" class="nav-item">
+                    <span class="nav-item-icon" aria-hidden="true"
+                      ><i class="fas fa-circle-info"></i
+                    ></span>
+                    <span class="nav-item-label" id="menu-nav-about">About</span>
+                    <span class="nav-item-arrow" aria-hidden="true"
+                      ><i class="fas fa-chevron-right"></i
+                    ></span>
+                  </a>
                   <a href="/Adashima_Help" data-page="help" class="nav-item" id="menu-nav-help">
-                    <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-circle-question"></i></span>
+                    <span class="nav-item-icon" aria-hidden="true"
+                      ><i class="fas fa-circle-question"></i
+                    ></span>
                     <span class="nav-item-label" id="menu-help-text">Help Center</span>
-                    <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+                    <span class="nav-item-arrow" aria-hidden="true"
+                      ><i class="fas fa-chevron-right"></i
+                    ></span>
                   </a>
                 </div>
               </div>
@@ -1164,10 +1503,20 @@
           <div class="nav-section">
             <span class="nav-section-label" id="menu-community-label">COMMUNITY</span>
             <div class="nav-list">
-              <a href="https://www.facebook.com/p/Adachi-to-Shimamura-Latinoam%C3%A9rica-61551058385796/" target="_blank" rel="noopener" class="nav-item secondary fb-item" id="menu-fb-btn">
-                <span class="nav-item-icon" aria-hidden="true"><i class="fab fa-facebook-f"></i></span>
+              <a
+                href="https://www.facebook.com/p/Adachi-to-Shimamura-Latinoam%C3%A9rica-61551058385796/"
+                target="_blank"
+                rel="noopener"
+                class="nav-item secondary fb-item"
+                id="menu-fb-btn"
+              >
+                <span class="nav-item-icon" aria-hidden="true"
+                  ><i class="fab fa-facebook-f"></i
+                ></span>
                 <span class="nav-item-label" id="menu-fb-text">Visítanos en Facebook</span>
-                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-external-link-alt"></i></span>
+                <span class="nav-item-arrow" aria-hidden="true"
+                  ><i class="fas fa-external-link-alt"></i
+                ></span>
               </a>
             </div>
           </div>
@@ -1176,20 +1525,41 @@
           <div class="nav-section">
             <span class="nav-section-label" id="menu-support-title">Apoya la Obra Original</span>
             <div class="nav-list">
-              <a href="https://dengekibunko.jp/product/adashima/" target="_blank" rel="noopener" class="nav-item secondary">
+              <a
+                href="https://dengekibunko.jp/product/adashima/"
+                target="_blank"
+                rel="noopener"
+                class="nav-item secondary"
+              >
                 <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-book"></i></span>
                 <span class="nav-item-label" id="menu-link-novel">Novela Ligera</span>
-                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-external-link-alt"></i></span>
+                <span class="nav-item-arrow" aria-hidden="true"
+                  ><i class="fas fa-external-link-alt"></i
+                ></span>
               </a>
-              <a href="https://comic-walker.com/detail/KC_004197_S?episodeType=first" target="_blank" rel="noopener" class="nav-item secondary">
+              <a
+                href="https://comic-walker.com/detail/KC_004197_S?episodeType=first"
+                target="_blank"
+                rel="noopener"
+                class="nav-item secondary"
+              >
                 <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-images"></i></span>
                 <span class="nav-item-label" id="menu-link-manga">Manga</span>
-                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-external-link-alt"></i></span>
+                <span class="nav-item-arrow" aria-hidden="true"
+                  ><i class="fas fa-external-link-alt"></i
+                ></span>
               </a>
-              <a href="https://kakuyomu.jp/works/1177354054897444952" target="_blank" rel="noopener" class="nav-item secondary">
+              <a
+                href="https://kakuyomu.jp/works/1177354054897444952"
+                target="_blank"
+                rel="noopener"
+                class="nav-item secondary"
+              >
                 <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-pen-nib"></i></span>
                 <span class="nav-item-label" id="menu-link-blog">Blog del Autor</span>
-                <span class="nav-item-arrow" aria-hidden="true"><i class="fas fa-external-link-alt"></i></span>
+                <span class="nav-item-arrow" aria-hidden="true"
+                  ><i class="fas fa-external-link-alt"></i
+                ></span>
               </a>
             </div>
           </div>
@@ -1200,7 +1570,9 @@
           <div class="nav-section">
             <span class="nav-section-label" id="menu-status-label">STATUS</span>
             <div class="info-card">
-              <h4 id="menu-status-title"><i class="fas fa-book-reader" aria-hidden="true"></i> Estado de la Novela</h4>
+              <h4 id="menu-status-title">
+                <i class="fas fa-book-reader" aria-hidden="true"></i> Estado de la Novela
+              </h4>
               <span class="status-badge" id="menu-status-badge">En Publicación</span>
             </div>
           </div>
@@ -1209,13 +1581,23 @@
 
           <!-- 4. SETTINGS (compact, collapsible) -->
           <div class="settings-card" id="settingsCard">
-            <div class="settings-header" id="settingsToggle" role="button" tabindex="0" aria-expanded="false">
+            <div
+              class="settings-header"
+              id="settingsToggle"
+              role="button"
+              tabindex="0"
+              aria-expanded="false"
+            >
               <div class="settings-header-icon"><i class="fas fa-sliders-h"></i></div>
               <div class="settings-header-content">
                 <h3 id="menu-settings-title">Configuración</h3>
                 <p id="menu-settings-subtitle">Personaliza tu experiencia</p>
               </div>
-              <i class="fas fa-chevron-down" style="margin-left:auto; color:var(--text-muted); transition:transform 0.3s ease;" id="settingsChevron"></i>
+              <i
+                class="fas fa-chevron-down"
+                style="margin-left: auto; color: var(--text-muted); transition: transform 0.3s ease"
+                id="settingsChevron"
+              ></i>
             </div>
             <div class="settings-body" id="settingsBody">
               <!-- LANGUAGE -->
@@ -1223,20 +1605,40 @@
                 <div class="settings-section-label" id="menu-preferences-label">PREFERENCIAS</div>
                 <div class="setting-label">
                   <span class="settings-subsection-label" id="menu-language-label">IDIOMA</span>
-                  <span class="settings-subsection-desc" id="menu-language-desc">Elige tu idioma preferido</span>
+                  <span class="settings-subsection-desc" id="menu-language-desc"
+                    >Elige tu idioma preferido</span
+                  >
                 </div>
                 <div class="language-selector" role="group" aria-label="Language options">
-                  <button type="button" class="lang-option" data-lang="es" data-label="Español" aria-pressed="false">
+                  <button
+                    type="button"
+                    class="lang-option"
+                    data-lang="es"
+                    data-label="Español"
+                    aria-pressed="false"
+                  >
                     <span class="lang-icon" aria-hidden="true">🇪🇸</span>
                     <span class="lang-name">Español</span>
                     <span class="lang-check"><i class="fas fa-check"></i></span>
                   </button>
-                  <button type="button" class="lang-option" data-lang="en" data-label="English" aria-pressed="false">
+                  <button
+                    type="button"
+                    class="lang-option"
+                    data-lang="en"
+                    data-label="English"
+                    aria-pressed="false"
+                  >
                     <span class="lang-icon" aria-hidden="true">🇬🇧</span>
                     <span class="lang-name">English</span>
                     <span class="lang-check"><i class="fas fa-check"></i></span>
                   </button>
-                  <button type="button" class="lang-option" data-lang="tg" data-label="Tagalog" aria-pressed="false">
+                  <button
+                    type="button"
+                    class="lang-option"
+                    data-lang="tg"
+                    data-label="Tagalog"
+                    aria-pressed="false"
+                  >
                     <span class="lang-icon" aria-hidden="true">🇵🇭</span>
                     <span class="lang-name">Tagalog</span>
                     <span class="lang-check"><i class="fas fa-check"></i></span>
@@ -1244,7 +1646,7 @@
                 </div>
               </div>
 
-              <div class="sidebar-divider" style="margin:12px 0;"></div>
+              <div class="sidebar-divider" style="margin: 12px 0"></div>
 
               <!-- APPEARANCE -->
               <div class="settings-section">
@@ -1252,42 +1654,107 @@
                 <div class="setting-group">
                   <div class="setting-label">
                     <span id="menu-appearance-toggle-text">Apariencia basada en la hora</span>
-                    <span class="setting-description" id="menu-appearance-toggle-sub">Adapta automáticamente la apariencia según la hora del día.</span>
+                    <span class="setting-description" id="menu-appearance-toggle-sub"
+                      >Adapta automáticamente la apariencia según la hora del día.</span
+                    >
                   </div>
                   <label class="toggle-switch">
                     <input type="checkbox" id="appearance-toggle-checkbox" checked />
                     <span class="toggle-slider"></span>
                   </label>
                 </div>
-                <div class="appearance-selector-wrapper" id="appearanceSelectorWrapper" style="display:none; margin-top:6px;">
-                  <div class="settings-subsection-label" id="menu-appearance-selector-label">Apariencia</div>
+                <div
+                  class="appearance-selector-wrapper"
+                  id="appearanceSelectorWrapper"
+                  style="display: none; margin-top: 6px"
+                >
+                  <div class="settings-subsection-label" id="menu-appearance-selector-label">
+                    Apariencia
+                  </div>
                   <div class="appearance-selector" role="group" aria-label="Opciones de apariencia">
-                    <button type="button" class="appearance-option" data-theme="morning" data-label="Mañana" aria-pressed="false">
+                    <button
+                      type="button"
+                      class="appearance-option"
+                      data-theme="morning"
+                      data-label="Mañana"
+                      aria-pressed="false"
+                    >
                       <span class="appearance-icon" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-                          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-                          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <circle cx="12" cy="12" r="5" />
+                          <line x1="12" y1="1" x2="12" y2="3" />
+                          <line x1="12" y1="21" x2="12" y2="23" />
+                          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                          <line x1="1" y1="12" x2="3" y2="12" />
+                          <line x1="21" y1="12" x2="23" y2="12" />
+                          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
                         </svg>
                       </span>
                       <span class="appearance-name">Mañana</span>
                       <span class="appearance-check"><i class="fas fa-check"></i></span>
                     </button>
-                    <button type="button" class="appearance-option" data-theme="afternoon" data-label="Tarde" aria-pressed="false">
+                    <button
+                      type="button"
+                      class="appearance-option"
+                      data-theme="afternoon"
+                      data-label="Tarde"
+                      aria-pressed="false"
+                    >
                       <span class="appearance-icon" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M12 2v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="M20 12h2"/><path d="m19.07 4.93-1.41 1.41"/>
-                          <path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"/><path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"/>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M12 2v2" />
+                          <path d="m4.93 4.93 1.41 1.41" />
+                          <path d="M20 12h2" />
+                          <path d="m19.07 4.93-1.41 1.41" />
+                          <path d="M15.947 12.65a4 4 0 0 0-5.925-4.128" />
+                          <path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z" />
                         </svg>
                       </span>
                       <span class="appearance-name">Tarde</span>
                       <span class="appearance-check"><i class="fas fa-check"></i></span>
                     </button>
-                    <button type="button" class="appearance-option" data-theme="night" data-label="Noche" aria-pressed="false">
+                    <button
+                      type="button"
+                      class="appearance-option"
+                      data-theme="night"
+                      data-label="Noche"
+                      aria-pressed="false"
+                    >
                       <span class="appearance-icon" aria-hidden="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                         </svg>
                       </span>
                       <span class="appearance-name">Noche</span>
@@ -1298,13 +1765,15 @@
               </div>
 
               <!-- MOBILE-ONLY: Burger menu visibility -->
-              <div class="sidebar-divider mobile-only-section" style="margin:12px 0;"></div>
+              <div class="sidebar-divider mobile-only-section" style="margin: 12px 0"></div>
               <div class="settings-section mobile-only-section">
                 <div class="settings-section-label" id="menu-nav-settings-label">NAVEGACIÓN</div>
                 <div class="setting-group">
                   <div class="setting-label">
                     <span id="menu-hide-burger-text">Ocultar menú en otras páginas</span>
-                    <span class="setting-description" id="menu-hide-burger-desc">Oculta el botón del menú en páginas distintas a la de inicio.</span>
+                    <span class="setting-description" id="menu-hide-burger-desc"
+                      >Oculta el botón del menú en páginas distintas a la de inicio.</span
+                    >
                   </div>
                   <label class="toggle-switch">
                     <input type="checkbox" id="hide-burger-toggle-checkbox" />
@@ -1314,12 +1783,13 @@
                 <!-- shown only on the homepage, explaining the exception -->
                 <div class="homepage-notice" id="homepage-notice">
                   <i class="fas fa-info-circle" aria-hidden="true"></i>
-                  <span id="menu-homepage-notice-text">El botón siempre está visible en la página de inicio</span>
+                  <span id="menu-homepage-notice-text"
+                    >El botón siempre está visible en la página de inicio</span
+                  >
                 </div>
               </div>
             </div>
           </div>
-
         </div>
       </nav>
     </div>
@@ -1331,7 +1801,7 @@
       // ============================================================
       // TIME THEME DETECTION
       // ============================================================
-      (function() {
+      (function () {
         const APPEARANCE_STORAGE_KEY = "adashima_time_based_appearance";
         const MANUAL_THEME_STORAGE_KEY = "adashima_manual_appearance";
         const VALID_THEMES = ["morning", "afternoon", "night"];
@@ -1444,7 +1914,7 @@
         window.updateTimeTheme = updateTimeTheme;
         window.getTimePeriod = getTimePeriod;
         window.getActiveTheme = getActiveTheme;
-        window.setAppearanceTheme = function(theme, useAutoMode) {
+        window.setAppearanceTheme = function (theme, useAutoMode) {
           ensureStoredThemeState();
           const nextTheme = normalizeTheme(theme);
 
@@ -1464,10 +1934,10 @@
         updateTimeTheme();
         syncAppearanceUI();
         setInterval(updateTimeTheme, 60000);
-        document.addEventListener("visibilitychange", function() {
+        document.addEventListener("visibilitychange", function () {
           if (!document.hidden) updateTimeTheme();
         });
-        window.addEventListener("storage", function(event) {
+        window.addEventListener("storage", function (event) {
           if (event.key === APPEARANCE_STORAGE_KEY || event.key === MANUAL_THEME_STORAGE_KEY) {
             updateTimeTheme();
             syncAppearanceUI();
@@ -1478,7 +1948,7 @@
       // ============================================================
       // MENU TOGGLE (open/close)
       // ============================================================
-      (function() {
+      (function () {
         function setSidebarState(isOpen) {
           const sidebar = document.getElementById("sideMenu");
           const btn = document.getElementById("menu-toggle-btn");
@@ -1509,7 +1979,7 @@
 
         const mobileToggleBtn = document.getElementById("menu-toggle-btn");
         if (mobileToggleBtn) {
-          mobileToggleBtn.addEventListener("click", function(e) {
+          mobileToggleBtn.addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
             adashimaMenuToggle();
@@ -1518,7 +1988,7 @@
 
         const drawerCloseBtn = document.getElementById("menu-close-btn");
         if (drawerCloseBtn) {
-          drawerCloseBtn.addEventListener("click", function(e) {
+          drawerCloseBtn.addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
             adashimaCloseMenu();
@@ -1535,7 +2005,7 @@
         }
         window.syncLanguageSpecificMenuItems = syncLanguageSpecificMenuItems;
 
-        document.addEventListener("click", function(e) {
+        document.addEventListener("click", function (e) {
           const sidebar = document.getElementById("sideMenu");
           const btn = document.getElementById("menu-toggle-btn");
           if (!sidebar || !sidebar.classList.contains("active")) return;
@@ -1544,7 +2014,7 @@
           }
         });
 
-        document.addEventListener("keydown", function(e) {
+        document.addEventListener("keydown", function (e) {
           if (e.key !== "Escape") return;
           const sidebar = document.getElementById("sideMenu");
           if (!sidebar || !sidebar.classList.contains("active")) return;
@@ -1553,13 +2023,13 @@
       })();
 
       // ============================================================
-      (function() {
+      (function () {
         const card = document.getElementById("settingsCard");
         const toggle = document.getElementById("settingsToggle");
         const body = document.getElementById("settingsBody");
         const chevron = document.getElementById("settingsChevron");
         if (toggle && body) {
-          toggle.addEventListener("click", function() {
+          toggle.addEventListener("click", function () {
             const isOpen = body.classList.toggle("open");
             if (card) card.classList.toggle("open", isOpen);
             toggle.setAttribute("aria-expanded", isOpen);
@@ -1567,7 +2037,7 @@
               chevron.style.transform = isOpen ? "rotate(180deg)" : "rotate(0deg)";
             }
           });
-          toggle.addEventListener("keydown", function(e) {
+          toggle.addEventListener("keydown", function (e) {
             if (e.key === "Enter" || e.key === " ") {
               e.preventDefault();
               toggle.click();
@@ -1579,7 +2049,7 @@
       // ============================================================
       // NAVIGATION COLLAPSE (collapsible primary nav list)
       // ============================================================
-      (function() {
+      (function () {
         const STORAGE_KEY = "adashima_nav_expanded";
         const toggle = document.getElementById("navSectionToggle");
         const list = document.getElementById("navList");
@@ -1607,12 +2077,12 @@
           toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
         }
 
-        toggle.addEventListener("click", function() {
+        toggle.addEventListener("click", function () {
           const isOpen = !list.classList.contains("open");
           setOpen(isOpen);
           saveState(isOpen);
         });
-        toggle.addEventListener("keydown", function(e) {
+        toggle.addEventListener("keydown", function (e) {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
             toggle.click();
@@ -1645,22 +2115,24 @@
       function syncActiveNavItem() {
         const current = getCurrentPage();
         const path = window.location.pathname.replace(/\/+$/, "");
-        document.querySelectorAll("#menu-component-wrapper .nav-list .nav-item[data-page]").forEach((item) => {
-          const page = item.getAttribute("data-page");
-          let active = false;
-          if (current) {
-            active = page === current;
-          } else {
-            const href = item.getAttribute("href");
-            active = !!href && href !== "#" && path.endsWith(href.replace(/\/+$/, ""));
-          }
-          item.classList.toggle("active", active);
-          if (active) {
-            item.setAttribute("aria-current", "page");
-          } else {
-            item.removeAttribute("aria-current");
-          }
-        });
+        document
+          .querySelectorAll("#menu-component-wrapper .nav-list .nav-item[data-page]")
+          .forEach((item) => {
+            const page = item.getAttribute("data-page");
+            let active = false;
+            if (current) {
+              active = page === current;
+            } else {
+              const href = item.getAttribute("href");
+              active = !!href && href !== "#" && path.endsWith(href.replace(/\/+$/, ""));
+            }
+            item.classList.toggle("active", active);
+            if (active) {
+              item.setAttribute("aria-current", "page");
+            } else {
+              item.removeAttribute("aria-current");
+            }
+          });
       }
       window.syncActiveNavItem = syncActiveNavItem;
       syncActiveNavItem();
@@ -1668,7 +2140,7 @@
       // ============================================================
       // HIDE BURGER MENU IN OTHER PAGES (mobile-only setting)
       // ============================================================
-      (function() {
+      (function () {
         const STORAGE_KEY = "adashima_hide_burger_other_pages";
         const wrapper = document.getElementById("menu-component-wrapper");
         const checkbox = document.getElementById("hide-burger-toggle-checkbox");
@@ -1722,13 +2194,13 @@
 
         if (checkbox) {
           checkbox.checked = getSetting();
-          checkbox.addEventListener("change", function() {
+          checkbox.addEventListener("change", function () {
             saveSetting(this.checked);
             applyBurgerVisibility();
           });
         }
 
-        window.addEventListener("storage", function(event) {
+        window.addEventListener("storage", function (event) {
           if (event.key === STORAGE_KEY) {
             if (checkbox) checkbox.checked = getSetting();
             applyBurgerVisibility();
@@ -1741,19 +2213,19 @@
       // ============================================================
       // LANGUAGE SELECTOR
       // ============================================================
-      (function() {
+      (function () {
         const langOptions = document.querySelectorAll(".lang-option");
         const stored = localStorage.getItem("lang") || "es";
-        langOptions.forEach(btn => {
+        langOptions.forEach((btn) => {
           if (btn.dataset.lang === stored) {
             btn.classList.add("active");
             btn.setAttribute("aria-pressed", "true");
           }
         });
-        langOptions.forEach(btn => {
-          btn.addEventListener("click", function() {
+        langOptions.forEach((btn) => {
+          btn.addEventListener("click", function () {
             const lang = this.dataset.lang;
-            langOptions.forEach(b => {
+            langOptions.forEach((b) => {
               b.classList.remove("active");
               b.setAttribute("aria-pressed", "false");
             });
@@ -1777,18 +2249,18 @@
       // ============================================================
       // APPEARANCE CONTROLS (instant — no reload)
       // ============================================================
-      (function() {
+      (function () {
         const checkbox = document.getElementById("appearance-toggle-checkbox");
         const themeOptions = document.querySelectorAll(".appearance-option");
 
         if (checkbox) {
-          checkbox.addEventListener("change", function() {
+          checkbox.addEventListener("change", function () {
             window.setAppearanceTheme(null, this.checked);
           });
         }
 
         themeOptions.forEach((btn) => {
-          btn.addEventListener("click", function() {
+          btn.addEventListener("click", function () {
             const theme = this.dataset.theme;
             if (!theme) return;
             window.setAppearanceTheme(theme, false);
@@ -1799,7 +2271,7 @@
       // ============================================================
       // BACK TO HOME
       // ============================================================
-      document.getElementById("menu-back-home").addEventListener("click", function(e) {
+      document.getElementById("menu-back-home").addEventListener("click", function (e) {
         e.preventDefault();
         const route = this.getAttribute("data-route") || "/index.html";
         window.location.href = route;
@@ -1808,7 +2280,7 @@
       // ============================================================
       // TRANSLATION SYSTEM (simplified fallback)
       // ============================================================
-      (function() {
+      (function () {
         const fallbacks = {
           es: {
             backText: "Inicio",
@@ -1953,10 +2425,10 @@
             mobileSettingsLabel: "MOBILE",
             hideBurgerText: "Itago ang burger menu sa ibang pahina",
             hideBurgerDesc: "Itago ang button ng menu sa mga pahinang hindi homepage.",
-          }
+          },
         };
 
-        window.translateMenu = function(lang) {
+        window.translateMenu = function (lang) {
           lang = lang || localStorage.getItem("lang") || "es";
           const t = fallbacks[lang] || fallbacks.es;
 
@@ -2003,7 +2475,7 @@
             "menu-hide-burger-text": t.hideBurgerText,
             "menu-hide-burger-desc": t.hideBurgerDesc,
           };
-          Object.keys(map).forEach(id => {
+          Object.keys(map).forEach((id) => {
             const el = document.getElementById(id);
             if (el) el.textContent = map[id];
           });

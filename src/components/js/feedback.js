@@ -1,5 +1,35 @@
 import { FEEDBACK_CONFIG } from "../config/feedback-config.js";
 
+const FEEDBACK_TRANSLATIONS = {
+  es: {
+    selectType: "Selecciona un tipo de comentario.",
+    enterTitle: "Introduce un título.",
+    titleLimit: "El título debe tener 100 caracteres o menos.",
+    enterDescription: "Introduce una descripción.",
+    descriptionLimit: "La descripción debe tener 3000 caracteres o menos.",
+    blocked: "Envío bloqueado. Inténtalo de nuevo.",
+    sendFailed: "No se pudieron enviar los comentarios. Inténtalo de nuevo.",
+  },
+  en: {
+    selectType: "Please select a feedback type.",
+    enterTitle: "Please enter a title.",
+    titleLimit: "Title must be 100 characters or less.",
+    enterDescription: "Please enter a description.",
+    descriptionLimit: "Description must be 3000 characters or less.",
+    blocked: "Submission blocked. Please try again.",
+    sendFailed: "Failed to send feedback. Please try again.",
+  },
+  tg: {
+    selectType: "Pumili ng uri ng feedback.",
+    enterTitle: "Maglagay ng pamagat.",
+    titleLimit: "Dapat ay 100 character o mas kaunti ang pamagat.",
+    enterDescription: "Maglagay ng paglalarawan.",
+    descriptionLimit: "Dapat ay 3000 character o mas kaunti ang paglalarawan.",
+    blocked: "Na-block ang pagpapadala. Subukan muli.",
+    sendFailed: "Hindi naipadala ang feedback. Subukan muli.",
+  },
+};
+
 class FeedbackManager {
   constructor() {
     this.isSending = false;
@@ -15,6 +45,10 @@ class FeedbackManager {
     this.lastFocusable = null;
     this.previouslyFocused = null;
 
+    document.addEventListener("languageChanged", (event) => {
+      this.applyTranslation(event.detail?.lang);
+    });
+
     // Initialize EmailJS
     this.initEmailJS();
   }
@@ -23,8 +57,7 @@ class FeedbackManager {
     // Load EmailJS from CDN if not already loaded
     if (typeof emailjs === "undefined") {
       const script = document.createElement("script");
-      script.src =
-        "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
+      script.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
       script.onload = () => {
         emailjs.init(FEEDBACK_CONFIG.PUBLIC_KEY);
         console.log("[Feedback] EmailJS initialized");
@@ -39,6 +72,9 @@ class FeedbackManager {
     // Create modal if it doesn't exist
     if (!document.getElementById("feedbackModal")) {
       this.injectModal();
+      // injectModal() fetches the modal HTML and calls init() again once
+      // it's in the DOM — nothing below this can run yet.
+      return;
     }
 
     this.modal = document.getElementById("feedbackModal");
@@ -49,16 +85,22 @@ class FeedbackManager {
     this.closeBtn = document.getElementById("feedbackClose");
     this.overlay = this.modal.querySelector(".feedback-overlay");
 
+    this.applyTranslation();
+
     // Bind events
     this.bindEvents();
 
-    // Add feedback button to footer
+    // Add feedback button to footer. The footer itself may still be
+    // loading asynchronously (src/components/js/footer.js fetches it in),
+    // so wire up immediately if it's already there, and also listen for
+    // the footerLoaded event in case it lands after this runs.
     this.addFooterButton();
+    document.addEventListener("footerLoaded", () => this.addFooterButton());
   }
 
   injectModal() {
-    // Load modal HTML
-    fetch("./feedback.html")
+    // Load modal HTML (absolute path so this works from any page depth)
+    fetch("/src/components/feedback.html")
       .then((res) => res.text())
       .then((html) => {
         const container = document.createElement("div");
@@ -142,12 +184,57 @@ class FeedbackManager {
     this.init();
   }
 
+  getLanguage() {
+    const language = window.LanguageSwitch?.getCurrentLanguage?.();
+    if (FEEDBACK_TRANSLATIONS[language]) return language;
+
+    const documentLanguage = document.documentElement?.lang;
+    if (FEEDBACK_TRANSLATIONS[documentLanguage]) return documentLanguage;
+
+    return "es";
+  }
+
+  applyTranslation(language = this.getLanguage()) {
+    if (!this.modal || !FEEDBACK_TRANSLATIONS[language]) return;
+
+    this.modal.querySelectorAll("[data-es], [data-en], [data-tg]").forEach((element) => {
+      const translated = element.getAttribute(`data-${language}`);
+      if (translated !== null) element.innerHTML = translated;
+    });
+
+    this.modal
+      .querySelectorAll("[data-es-placeholder], [data-en-placeholder], [data-tg-placeholder]")
+      .forEach((element) => {
+        const translated = element.getAttribute(`data-${language}-placeholder`);
+        if (translated !== null) element.setAttribute("placeholder", translated);
+      });
+
+    Array.from(
+      this.modal.querySelectorAll(
+        "[data-es-aria-label], [data-en-aria-label], [data-tg-aria-label]",
+      ),
+    ).forEach((element) => {
+      const translated = element.getAttribute(`data-${language}-aria-label`);
+      if (translated !== null) element.setAttribute("aria-label", translated);
+    });
+  }
+
+  translate(key) {
+    const language = this.getLanguage();
+    return FEEDBACK_TRANSLATIONS[language][key] || FEEDBACK_TRANSLATIONS.es[key];
+  }
+
   addFooterButton() {
     const footer = document.getElementById("footer");
     if (!footer) return;
 
-    // Check if button already exists
-    if (footer.querySelector(".feedback-footer-btn")) return;
+    // If the footer markup already ships its own feedback button (e.g. the
+    // standard site footer), just wire it up instead of adding a duplicate.
+    const existingBtn = footer.querySelector(".feedback-footer-btn");
+    if (existingBtn) {
+      existingBtn.addEventListener("click", () => this.openModal());
+      return;
+    }
 
     const btn = document.createElement("button");
     btn.className = "feedback-footer-btn";
@@ -218,11 +305,7 @@ class FeedbackManager {
     });
 
     // Real-time validation feedback
-    const fields = [
-      "feedbackType",
-      "feedbackTitleInput",
-      "feedbackDescription",
-    ];
+    const fields = ["feedbackType", "feedbackTitleInput", "feedbackDescription"];
     fields.forEach((id) => {
       const el = document.getElementById(id);
       el?.addEventListener("blur", () => this.validateField(id));
@@ -256,25 +339,25 @@ class FeedbackManager {
     switch (fieldId) {
       case "feedbackType":
         if (!value) {
-          message = "Please select a feedback type.";
+          message = this.translate("selectType");
           isValid = false;
         }
         break;
       case "feedbackTitleInput":
         if (!value) {
-          message = "Please enter a title.";
+          message = this.translate("enterTitle");
           isValid = false;
         } else if (value.length > 100) {
-          message = "Title must be 100 characters or less.";
+          message = this.translate("titleLimit");
           isValid = false;
         }
         break;
       case "feedbackDescription":
         if (!value) {
-          message = "Please enter a description.";
+          message = this.translate("enterDescription");
           isValid = false;
         } else if (value.length > 3000) {
-          message = "Description must be 3000 characters or less.";
+          message = this.translate("descriptionLimit");
           isValid = false;
         }
         break;
@@ -286,11 +369,7 @@ class FeedbackManager {
   }
 
   validateForm() {
-    const fields = [
-      "feedbackType",
-      "feedbackTitleInput",
-      "feedbackDescription",
-    ];
+    const fields = ["feedbackType", "feedbackTitleInput", "feedbackDescription"];
     let allValid = true;
     fields.forEach((id) => {
       if (!this.validateField(id)) allValid = false;
@@ -305,7 +384,7 @@ class FeedbackManager {
     const honeypot = document.getElementById("honeypotField");
     if (honeypot && honeypot.value.length > 0) {
       console.warn("[Feedback] Honeypot triggered — submission blocked");
-      this.showError("Submission blocked. Please try again.");
+      this.showError(this.translate("blocked"));
       return;
     }
 
@@ -357,7 +436,7 @@ class FeedbackManager {
       this.showSuccess();
     } catch (error) {
       console.error("[Feedback] Send failed:", error);
-      this.showError("Failed to send feedback. Please try again.");
+      this.showError(this.translate("sendFailed"));
       this.setSubmitState(false);
       this.isSending = false;
     }
@@ -367,8 +446,7 @@ class FeedbackManager {
     return {
       type: document.getElementById("feedbackType")?.value || "",
       title: document.getElementById("feedbackTitleInput")?.value.trim() || "",
-      description:
-        document.getElementById("feedbackDescription")?.value.trim() || "",
+      description: document.getElementById("feedbackDescription")?.value.trim() || "",
       email: document.getElementById("feedbackEmail")?.value.trim() || "",
     };
   }
@@ -407,9 +485,7 @@ class FeedbackManager {
 
   showError(message) {
     // Show error at top of form
-    const errorContainer = this.form?.querySelector(
-      ".feedback-field:first-child",
-    );
+    const errorContainer = this.form?.querySelector(".feedback-field:first-child");
     if (errorContainer) {
       // Remove existing error
       const existing = errorContainer.querySelector(".form-error-message");
@@ -418,10 +494,7 @@ class FeedbackManager {
       const errorMsg = document.createElement("span");
       errorMsg.className = "form-error-message field-error";
       errorMsg.textContent = "❌ " + message;
-      errorContainer.parentNode?.insertBefore(
-        errorMsg,
-        errorContainer.nextSibling,
-      );
+      errorContainer.parentNode?.insertBefore(errorMsg, errorContainer.nextSibling);
 
       // Auto-remove after 5 seconds
       setTimeout(() => errorMsg.remove(), 5000);
@@ -437,27 +510,19 @@ class FeedbackManager {
 
     // Reset form
     this.form?.reset();
-    this.form?.style.display = "block";
+    if (this.form) this.form.style.display = "block";
     if (this.successEl) this.successEl.style.display = "none";
     this.setSubmitState(false);
     this.isSending = false;
 
     // Clear errors
-    document
-      .querySelectorAll(".field-error")
-      .forEach((el) => (el.textContent = ""));
-    document
-      .querySelectorAll(".has-error")
-      .forEach((el) => el.classList.remove("has-error"));
-    document
-      .querySelectorAll(".form-error-message")
-      .forEach((el) => el.remove());
+    document.querySelectorAll(".field-error").forEach((el) => (el.textContent = ""));
+    document.querySelectorAll(".has-error").forEach((el) => el.classList.remove("has-error"));
+    document.querySelectorAll(".form-error-message").forEach((el) => el.remove());
 
     // Focus first input
     setTimeout(() => {
-      const firstInput = this.modal.querySelector(
-        'select, input:not([type="hidden"]), textarea',
-      );
+      const firstInput = this.modal.querySelector('select, input:not([type="hidden"]), textarea');
       if (firstInput) firstInput.focus();
     }, 100);
 
@@ -485,8 +550,7 @@ class FeedbackManager {
       'button:not([disabled]), [href], input:not([type="hidden"]):not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
     );
     this.firstFocusable = this.focusableElements[0];
-    this.lastFocusable =
-      this.focusableElements[this.focusableElements.length - 1];
+    this.lastFocusable = this.focusableElements[this.focusableElements.length - 1];
   }
 
   trapFocus(e) {

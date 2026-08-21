@@ -53,7 +53,7 @@
         fitWidth: state.fitWidth,
       };
       localStorage.setItem(key, JSON.stringify(data));
-    } catch (_) {
+    } catch {
       /* ignore */
     }
   }
@@ -64,7 +64,7 @@
       const raw = localStorage.getItem(key);
       if (!raw) return null;
       return JSON.parse(raw);
-    } catch (_) {
+    } catch {
       return null;
     }
   }
@@ -72,7 +72,7 @@
   // ========================================
   // HTML Generation
   // ========================================
-  function buildHTML(title) {
+  function buildHTML(_title) {
     return `
       <div class="pdf-toolbar">
         <div class="pdf-toolbar-left">
@@ -378,14 +378,10 @@
     const container = state.container;
 
     // Previous - use passive: false for mousewheel but not needed here
-    container
-      .querySelector(".pdf-prev-btn")
-      .addEventListener("click", prevPage);
+    container.querySelector(".pdf-prev-btn").addEventListener("click", prevPage);
 
     // Next
-    container
-      .querySelector(".pdf-next-btn")
-      .addEventListener("click", nextPage);
+    container.querySelector(".pdf-next-btn").addEventListener("click", nextPage);
 
     // Page input
     state.pageInput.addEventListener("change", function () {
@@ -404,14 +400,10 @@
     container.querySelector(".pdf-zoom-out").addEventListener("click", zoomOut);
 
     // Fit Width
-    container
-      .querySelector(".pdf-fit-width")
-      .addEventListener("click", fitWidth);
+    container.querySelector(".pdf-fit-width").addEventListener("click", fitWidth);
 
     // Fullscreen
-    container
-      .querySelector(".pdf-fullscreen")
-      .addEventListener("click", toggleFullscreen);
+    container.querySelector(".pdf-fullscreen").addEventListener("click", toggleFullscreen);
 
     // Keyboard shortcuts with throttling
     let keyTimeout = null;
@@ -419,19 +411,14 @@
       if (!state.container || !state.container.isConnected) return;
 
       // Check if we're in an input
-      if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")
-        return;
+      if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
 
       clearTimeout(keyTimeout);
       keyTimeout = setTimeout(() => {
         if (e.key === "ArrowLeft" || e.key === "PageUp") {
           e.preventDefault();
           prevPage();
-        } else if (
-          e.key === "ArrowRight" ||
-          e.key === "PageDown" ||
-          e.key === " "
-        ) {
+        } else if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
           e.preventDefault();
           nextPage();
         } else if (e.key === "f" || e.key === "F") {

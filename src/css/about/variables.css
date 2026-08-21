@@ -25,7 +25,7 @@
   --accent-border-strong: rgba(209, 163, 198, 0.38);
 
   --muted-text: #5f4b6b;
-  --shadow-color: rgba(92, 58, 107, 0.10);
+  --shadow-color: rgba(92, 58, 107, 0.1);
   --shadow-color-strong: rgba(92, 58, 107, 0.18);
   --shadow-soft: var(--shadow-color);
   --shadow-glow: rgba(209, 163, 198, 0.25);
@@ -52,7 +52,7 @@ body.time-morning {
   --accent-border: rgba(138, 170, 200, 0.24);
   --accent-border-strong: rgba(138, 170, 200, 0.42);
   --muted-text: #667185;
-  --shadow-color: rgba(75, 103, 133, 0.10);
+  --shadow-color: rgba(75, 103, 133, 0.1);
   --shadow-color-strong: rgba(75, 103, 133, 0.18);
   --plum: #557b9f;
   --dusty-rose: #8aaac8;

@@ -306,8 +306,7 @@
 }
 
 .reader-title {
-  font-family:
-    "Noto Serif JP", "Source Serif 4", "Cormorant Garamond", Georgia, serif;
+  font-family: "Noto Serif JP", "Source Serif 4", "Cormorant Garamond", Georgia, serif;
   font-size: 2.4rem;
   font-weight: 700;
   color: #2b2b2b;
@@ -379,9 +378,7 @@
 }
 
 .reader-text {
-  font-family:
-    "Source Serif 4", "Cormorant Garamond", "EB Garamond", "Noto Serif",
-    Georgia, serif;
+  font-family: "Source Serif 4", "Cormorant Garamond", "EB Garamond", "Noto Serif", Georgia, serif;
   font-size: 1.2rem;
   line-height: 2;
   color: #2b2b2b;
@@ -428,9 +425,7 @@
 }
 
 .reader-translator-note p {
-  font-family:
-    "Source Serif 4", "Cormorant Garamond", "EB Garamond", "Noto Serif",
-    Georgia, serif;
+  font-family: "Source Serif 4", "Cormorant Garamond", "EB Garamond", "Noto Serif", Georgia, serif;
   font-size: 1rem;
   line-height: 1.8;
   color: #4a4a4a;
@@ -438,4 +433,113 @@
   letter-spacing: 0.01em;
   margin: 0;
   text-align: left;
+}
+
+/* Drop caps toggle */
+.reader-text.drop-caps-enabled p:first-of-type::first-letter {
+  float: left;
+  margin: 0.02em 0.08em 0 0;
+  font-family: "Cormorant Garamond", "Noto Serif JP", Georgia, serif;
+  font-size: 3.4em;
+  line-height: 0.75;
+  font-weight: 700;
+  color: inherit;
+}
+
+/* Resume-where-you-left-off highlight */
+.reader-body.resume-highlight {
+  animation: resume-flash 1.6s ease;
+}
+
+@keyframes resume-flash {
+  0% {
+    box-shadow: inset 0 0 0 9999px rgba(154, 100, 127, 0.1);
+  }
+  100% {
+    box-shadow: inset 0 0 0 9999px rgba(154, 100, 127, 0);
+  }
+}
+
+/* Next story prompt at the end of a story */
+.reader-next-prompt {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+  margin-top: 2.5rem;
+  padding: 1.1rem 1.4rem;
+  border: 1px solid #e8e4de;
+  border-left: 3px solid #2b2b2b;
+  background: rgba(43, 43, 43, 0.02);
+  cursor: pointer;
+  text-align: left;
+  font-family: "Quicksand", sans-serif;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.reader-next-prompt:hover {
+  background: rgba(43, 43, 43, 0.05);
+}
+
+.reader-next-prompt-label {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9a9a9a;
+}
+
+.reader-next-prompt-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  font-family: "Noto Serif JP", "Cormorant Garamond", Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #2b2b2b;
+}
+
+.reader-next-prompt-title i {
+  font-size: 0.8rem;
+  color: #6b6b6b;
+}
+
+/* ============================================================
+   MOBILE FULLSCREEN READER
+   On small screens the reader should behave like a native
+   fullscreen view instead of a small floating card.
+   ============================================================ */
+@media (max-width: 768px) {
+  .reader-overlay {
+    padding: 0;
+  }
+
+  .reader-modal {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    max-height: 100dvh;
+    border-radius: 0;
+  }
+
+  .reader-overlay.active .reader-modal {
+    transform: none;
+  }
+
+  .reader-body {
+    padding: 1.25rem 1.25rem max(3rem, env(safe-area-inset-bottom));
+  }
+
+  .reader-title {
+    font-size: 1.7rem;
+  }
+
+  .reader-controls-sticky {
+    padding: 0.7rem 0.9rem;
+    padding-top: max(0.7rem, env(safe-area-inset-top));
+  }
 }

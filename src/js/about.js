@@ -24,9 +24,9 @@ let currentLang = (() => {
 })();
 
 let translations = null;
-let isSwitching = false;
-let changelogData = [];
-let selectedVersion = null;
+let _isSwitching = false;
+let _changelogData = [];
+let _selectedVersion = null;
 
 // ========================================
 // TOAST MESSAGE
@@ -90,8 +90,8 @@ function openMaterialsModal(translatorIndex) {
 
   const translator = translators[translatorIndex];
 
-  document.getElementById('materialsModalTitle').textContent =
-      `${getText('materialsModal.titlePrefix') || 'Translated Materials'} - ${translator.name}`;
+  document.getElementById("materialsModalTitle").textContent =
+    `${getText("materialsModal.titlePrefix") || "Translated Materials"} - ${translator.name}`;
 
   const works = translator.works || [];
 
@@ -99,23 +99,23 @@ function openMaterialsModal(translatorIndex) {
     materialsBody.innerHTML = `
           <div class="materials-empty">
             <span class="iconify" data-icon="mdi:bookshelf"></span>
-            <p>${getText('materialsModal.empty') || "This translator hasn't shared any materials yet."}</p>
+            <p>${getText("materialsModal.empty") || "This translator hasn't shared any materials yet."}</p>
           </div>
         `;
   } else {
     const grouped = {};
-    const novelItems = ['Vol.', 'SS', '99.9', 'BD Specials'];
-    const mangaItems = ['Manga', 'Ch.', 'Cap.'];
-    const extraItems = ['Extra'];
+    const novelItems = ["Vol.", "SS", "99.9", "BD Specials"];
+    const mangaItems = ["Manga", "Ch.", "Cap."];
+    const extraItems = ["Extra"];
 
-    works.forEach(work => {
-      let type = getText('materialsModal.types.general') || 'General';
-      if (mangaItems.some(item => work.includes(item))) {
-        type = getText('materialsModal.types.manga') || 'Manga';
-      } else if (novelItems.some(item => work.includes(item))) {
-        type = getText('materialsModal.types.novel') || 'Light Novel';
-      } else if (extraItems.some(item => work.includes(item))) {
-        type = getText('materialsModal.types.extras') || 'Extras';
+    works.forEach((work) => {
+      let type = getText("materialsModal.types.general") || "General";
+      if (mangaItems.some((item) => work.includes(item))) {
+        type = getText("materialsModal.types.manga") || "Manga";
+      } else if (novelItems.some((item) => work.includes(item))) {
+        type = getText("materialsModal.types.novel") || "Light Novel";
+      } else if (extraItems.some((item) => work.includes(item))) {
+        type = getText("materialsModal.types.extras") || "Extras";
       }
 
       if (!grouped[type]) grouped[type] = [];
@@ -139,7 +139,7 @@ function openMaterialsModal(translatorIndex) {
                     <div class="material-info">
                       <span class="material-title">${work}</span>
                     </div>
-                    <span class="material-status status-complete">${getText('materialsModal.complete') || 'Complete'}</span>
+                    <span class="material-status status-complete">${getText("materialsModal.complete") || "Complete"}</span>
                   </div>
                 `,
                   )
@@ -185,15 +185,13 @@ function renderPage(data) {
     return;
   }
 
-  document.getElementById('heroTitle').innerHTML = getText('heroTitle') || 'About';
-  document.getElementById('heroSubtitle').textContent = getText('heroSubtitle') || '';
-  document.getElementById('badgeSince').textContent = getText('badgeSince') || 'Since 2026';
+  document.getElementById("heroTitle").innerHTML = getText("heroTitle") || "About";
+  document.getElementById("heroSubtitle").textContent = getText("heroSubtitle") || "";
+  document.getElementById("badgeSince").textContent = getText("badgeSince") || "Since 2026";
 
   // Project
-  document.getElementById("projectTitle").textContent =
-    getText("projectTitle") || "";
-  document.getElementById("projectSubtitle").textContent =
-    getText("projectSubtitle") || "";
+  document.getElementById("projectTitle").textContent = getText("projectTitle") || "";
+  document.getElementById("projectSubtitle").textContent = getText("projectSubtitle") || "";
   const pf = document.getElementById("projectFeatures");
   if (pf) {
     const features = getText("projectFeatures");
@@ -212,10 +210,8 @@ function renderPage(data) {
   }
 
   // Translation Credits
-  document.getElementById("translationTitle").textContent =
-    getText("translatorTitle") || "";
-  document.getElementById("translationSubtitle").textContent =
-    getText("translatorSubtitle") || "";
+  document.getElementById("translationTitle").textContent = getText("translatorTitle") || "";
+  document.getElementById("translationSubtitle").textContent = getText("translatorSubtitle") || "";
   const tc = document.getElementById("translatorCards");
   if (tc) {
     const translators = getText("translators");
@@ -243,7 +239,7 @@ function renderPage(data) {
                       ? `
                     <button class="view-materials-btn" data-translator-index="${index}">
                       <span class="iconify" data-icon="mdi:bookshelf"></span>
-                      ${getText('materialsModal.viewButton') || 'View Translated Materials'} (${t.works.length})
+                      ${getText("materialsModal.viewButton") || "View Translated Materials"} (${t.works.length})
                     </button>
                   `
                       : ""
@@ -269,14 +265,11 @@ function renderPage(data) {
     contributors: 0,
     languages: "English / Spanish",
   };
-  document.getElementById("statContributors").textContent =
-    stats.contributors || 0;
-  document.getElementById("statLanguages").textContent =
-    stats.languages || "English / Spanish";
+  document.getElementById("statContributors").textContent = stats.contributors || 0;
+  document.getElementById("statLanguages").textContent = stats.languages || "English / Spanish";
 
   // Version Information
-  document.getElementById("versionTitle").textContent =
-    getText("versionTitle") || "";
+  document.getElementById("versionTitle").textContent = getText("versionTitle") || "";
   const vg = document.getElementById("versionGrid");
   if (vg) {
     const versionItems = getText("versionItems");
@@ -298,26 +291,17 @@ function renderPage(data) {
   document.getElementById("changelogBtnLabel").textContent =
     getText("changelogBtn") || "View Changelog";
 
-  // Footer
-  const af = document.getElementById("aboutFooter");
-  if (af) {
-    af.innerHTML = `
-          <p>${getText("footer") || ""}</p>
-          <p class="footer-sub">${getText("footerSub") || ""}</p>
-          <p class="footer-sub">${getText("footerSub2") || ""}</p>
-        `;
-  }
+  // Footer is now the shared component (src/components/js/footer.js),
+  // which handles its own translation.
 
   // Modal title
   const modalTitle = document.getElementById("modalChangelogTitle");
   if (modalTitle)
-    modalTitle.textContent =
-      getText("modal.changelogTitle") || getText("changelogBtn");
+    modalTitle.textContent = getText("modal.changelogTitle") || getText("changelogBtn");
 
   // Nav versions label
   const navLabel = document.getElementById("navVersionsLabel");
-  if (navLabel)
-    navLabel.textContent = getText("navVersionsLabel") || "Versions";
+  if (navLabel) navLabel.textContent = getText("navVersionsLabel") || "Versions";
 
   // Support the Original Work
   renderSupportSection();
@@ -348,10 +332,8 @@ function renderPage(data) {
 // RENDER SUPPORT SECTION
 // ========================================
 function renderSupportSection() {
-  document.getElementById("supportTitle").textContent =
-    getText("supportTitle") || "";
-  document.getElementById("supportSubtitle").textContent =
-    getText("supportSubtitle") || "";
+  document.getElementById("supportTitle").textContent = getText("supportTitle") || "";
+  document.getElementById("supportSubtitle").textContent = getText("supportSubtitle") || "";
 
   const supportGrid = document.getElementById("supportGrid");
   if (!supportGrid) return;
@@ -425,10 +407,8 @@ function renderSupportSection() {
 // RENDER TRACK SECTION
 // ========================================
 function renderTrackSection() {
-  document.getElementById("trackTitle").textContent =
-    getText("trackTitle") || "";
-  document.getElementById("trackSubtitle").textContent =
-    getText("trackSubtitle") || "";
+  document.getElementById("trackTitle").textContent = getText("trackTitle") || "";
+  document.getElementById("trackSubtitle").textContent = getText("trackSubtitle") || "";
 
   const trackGrid = document.getElementById("trackGrid");
   if (!trackGrid) return;
@@ -466,8 +446,7 @@ function renderTrackSection() {
 // RENDER LEGAL SECTION
 // ========================================
 function renderLegalSection() {
-  document.getElementById("legalTitle").textContent =
-    getText("legalTitle") || "";
+  document.getElementById("legalTitle").textContent = getText("legalTitle") || "";
   const lc = document.getElementById("legalContent");
   if (lc) {
     const legalItems = getText("legalItems");
@@ -487,8 +466,7 @@ function renderLegalSection() {
 // RENDER DISCLAIMER SECTION
 // ========================================
 function renderDisclaimerSection() {
-  document.getElementById("disclaimerTitle").textContent =
-    getText("disclaimerTitle") || "";
+  document.getElementById("disclaimerTitle").textContent = getText("disclaimerTitle") || "";
   const dc = document.getElementById("disclaimerContent");
   if (dc) {
     const disclaimerItems = getText("disclaimerItems");
@@ -576,9 +554,7 @@ class ChangelogManager {
       })
       .join("");
 
-    const selectedEl = this.navList.querySelector(
-      ".changelog-nav-item.selected",
-    );
+    const selectedEl = this.navList.querySelector(".changelog-nav-item.selected");
     if (selectedEl) {
       selectedEl.scrollIntoView({ block: "nearest", behavior: "smooth" });
     }
@@ -710,9 +686,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     },
     { threshold: 0.05, rootMargin: "0px 0px -20px 0px" },
   );
-  document
-    .querySelectorAll(".about-card, .translator-card")
-    .forEach((el) => observer.observe(el));
+  document.querySelectorAll(".about-card, .translator-card").forEach((el) => observer.observe(el));
 
   const changelog = new ChangelogManager(currentLang);
   changelog.init();
@@ -721,21 +695,16 @@ document.addEventListener("DOMContentLoaded", async function () {
   const menuVer = Math.floor(Date.now() / 86400000);
   fetch("/src/components/menu.html?v=" + menuVer)
     .then((response) => {
-      if (!response.ok)
-        throw new Error("Error HTTP " + response.status + " al cargar el menú");
+      if (!response.ok) throw new Error("Error HTTP " + response.status + " al cargar el menú");
       return response.text();
     })
     .then((data) => {
       const container =
-        document.getElementById("sidebar-container") ||
-        document.getElementById("menu-container");
+        document.getElementById("sidebar-container") || document.getElementById("menu-container");
       if (!container) return;
       const normalizedData = data
         .replace(/src="\.\/(assets\/)/g, 'src="../../$1')
-        .replace(
-          /data-route="\.\.\/\.\.\/index\.html"/g,
-          'data-route="../../../index.html"',
-        );
+        .replace(/data-route="\.\.\/\.\.\/index\.html"/g, 'data-route="../../../index.html"');
       const doc = new DOMParser().parseFromString(normalizedData, "text/html");
       const frag = document.createDocumentFragment();
       [...doc.head.childNodes, ...doc.body.childNodes].forEach((node) => {

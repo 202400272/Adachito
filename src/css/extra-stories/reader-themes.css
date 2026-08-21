@@ -62,7 +62,9 @@
 .theme-light .settings-theme-btn,
 .theme-light .settings-size-btn,
 .theme-light .settings-lh-btn,
-.theme-light .settings-width-btn {
+.theme-light .settings-width-btn,
+.theme-light .settings-align-btn,
+.theme-light .settings-ps-btn {
   border-color: #e8e4de;
   color: #6b6b6b;
 }
@@ -85,9 +87,21 @@
 
 .theme-light .settings-theme-btn.active,
 .theme-light .settings-lh-btn.active,
-.theme-light .settings-width-btn.active {
+.theme-light .settings-width-btn.active,
+.theme-light .settings-align-btn.active,
+.theme-light .settings-ps-btn.active {
   border-color: #2b2b2b;
   background: rgba(43, 43, 43, 0.04);
+  color: #2b2b2b;
+}
+
+.theme-light .reader-next-prompt {
+  border-color: #e8e4de;
+  border-left-color: #2b2b2b;
+  background: rgba(43, 43, 43, 0.02);
+}
+
+.theme-light .reader-next-prompt-title {
   color: #2b2b2b;
 }
 
@@ -151,7 +165,9 @@
 .theme-sepia .settings-theme-btn,
 .theme-sepia .settings-size-btn,
 .theme-sepia .settings-lh-btn,
-.theme-sepia .settings-width-btn {
+.theme-sepia .settings-width-btn,
+.theme-sepia .settings-align-btn,
+.theme-sepia .settings-ps-btn {
   border-color: #dcd0bc;
   color: #6a5a4a;
 }
@@ -174,9 +190,21 @@
 
 .theme-sepia .settings-theme-btn.active,
 .theme-sepia .settings-lh-btn.active,
-.theme-sepia .settings-width-btn.active {
+.theme-sepia .settings-width-btn.active,
+.theme-sepia .settings-align-btn.active,
+.theme-sepia .settings-ps-btn.active {
   border-color: #3c3024;
   background: rgba(60, 48, 36, 0.06);
+  color: #3c3024;
+}
+
+.theme-sepia .reader-next-prompt {
+  border-color: #dcd0bc;
+  border-left-color: #3c3024;
+  background: rgba(60, 48, 36, 0.03);
+}
+
+.theme-sepia .reader-next-prompt-title {
   color: #3c3024;
 }
 
@@ -245,7 +273,9 @@
 .theme-dark .settings-theme-btn,
 .theme-dark .settings-size-btn,
 .theme-dark .settings-lh-btn,
-.theme-dark .settings-width-btn {
+.theme-dark .settings-width-btn,
+.theme-dark .settings-align-btn,
+.theme-dark .settings-ps-btn {
   border-color: #2a2a2a;
   color: #8a8a8a;
 }
@@ -273,16 +303,36 @@
 .theme-dark .settings-theme-btn:hover,
 .theme-dark .settings-size-btn:hover,
 .theme-dark .settings-lh-btn:hover,
-.theme-dark .settings-width-btn:hover {
+.theme-dark .settings-width-btn:hover,
+.theme-dark .settings-align-btn:hover,
+.theme-dark .settings-ps-btn:hover {
   background: rgba(232, 228, 221, 0.04);
 }
 
 .theme-dark .settings-theme-btn.active,
 .theme-dark .settings-lh-btn.active,
-.theme-dark .settings-width-btn.active {
+.theme-dark .settings-width-btn.active,
+.theme-dark .settings-align-btn.active,
+.theme-dark .settings-ps-btn.active {
   border-color: #e8e4dd;
   background: rgba(232, 228, 221, 0.06);
   color: #e8e4dd;
+}
+
+.theme-dark .reader-next-prompt {
+  border-color: #2a2a2a;
+  border-left-color: #e8e4dd;
+  background: rgba(232, 228, 221, 0.03);
+}
+
+.theme-dark .reader-next-prompt-label {
+  color: #7a7a7a;
+}
+.theme-dark .reader-next-prompt-title {
+  color: #e8e4dd;
+}
+.theme-dark .reader-next-prompt-title i {
+  color: #8a8a8a;
 }
 
 .theme-dark .reader-settings-panel {

@@ -284,10 +284,22 @@
   },
   "versionTitle": "Version Information",
   "versionItems": [
-    { "label": "Website Version", "value": "v2.3.1" },
-    { "label": "Build Number", "value": "#20260817" },
-    { "label": "Last Updated", "value": "August 17, 2026" },
-    { "label": "Translation Progress", "value": "92%" }
+    {
+      "label": "Website Version",
+      "value": "v2.3.3"
+    },
+    {
+      "label": "Build Number",
+      "value": "#20260820"
+    },
+    {
+      "label": "Last Updated",
+      "value": "August 20, 2026"
+    },
+    {
+      "label": "Translation Progress",
+      "value": "92%"
+    }
   ],
   "changelogBtn": "View Changelog",
   "supportTitle": "Support the Original Work",
@@ -309,17 +321,17 @@
             {
               "label": "Amazon Japan",
               "url": "https://www.amazon.co.jp/-/en/dp/B075LFSD5L?binding=kindle_edition",
-              "icon": "mdi:amazon"
+              "icon": "simple-icons:amazon"
             },
             {
               "label": "BookWalker JP",
               "url": "https://bookwalker.jp/series/17875/list/",
-              "icon": "mdi:book"
+              "icon": "mdi:book-open-page-variant"
             },
             {
               "label": "Rakuten Books",
               "url": "https://books.rakuten.co.jp/series/BW0018AQO0/",
-              "icon": "mdi:cart"
+              "icon": "simple-icons:rakuten"
             }
           ]
         },
@@ -334,22 +346,75 @@
             {
               "label": "Amazon",
               "url": "https://www.amazon.com/dp/B08BWY8VMH",
-              "icon": "mdi:amazon"
+              "icon": "simple-icons:amazon"
             },
             {
               "label": "BookWalker Global",
               "url": "https://bookwalker.com/series/182107KDXMK0/adachi-and-shimamura",
-              "icon": "mdi:book"
+              "icon": "mdi:book-open-page-variant"
             },
             {
               "label": "Kobo",
               "url": "https://www.kobo.com/us/en/series/adachi-and-shimamura-light-novel",
-              "icon": "mdi:book-open-page-variant"
+              "icon": "simple-icons:rakutenkobo"
             },
             {
               "label": "Barnes & Noble",
               "url": "https://www.barnesandnoble.com/search?attributes.mfield_bnb__seriesTitle=Adachi%20and%20Shimamura%20(Light%20Novel)%20Series",
-              "icon": "mdi:book-open"
+              "icon": "mdi:store-outline"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "audiobooks",
+      "icon": "mdi:headphones",
+      "title": "Audiobooks",
+      "description": "Official audiobook editions and digital audiobook retailers.",
+      "regions": [
+        {
+          "label": "🌎 English Sources",
+          "buttons": [
+            {
+              "label": "Audible",
+              "url": "https://www.audible.com/series/Adachi-and-Shimamura-Audiobooks/B0F81978KW?ref_pageloadid=not_applicable&pf_rd_p=ab633c2e-8d2c-45fb-a450-f371cc1a8dfc&pf_rd_r=JKSKXT1QA84MC496S5TF&plink=Tb9g8T8ATvYqgxh6&pageLoadId=2Kqm4s0aqK1yzAtr&creativeId=0e5797a6-2dec-4ca4-a423-727d8382d5c3&ref=a_pd_Adachi_psu_series_1",
+              "icon": "mdi:headphones"
+            },
+            {
+              "label": "Audiobooks.com",
+              "url": "https://www.audiobooks.com/browse/books-in-series/115461615/adachi-and-shimamura-light-novel",
+              "icon": "mdi:headphones"
+            },
+            {
+              "label": "BookWalker Global",
+              "url": "https://bookwalker.com/series/1YE9NQPK92ZG/adachi-and-shimamura",
+              "icon": "mdi:book-open-page-variant"
+            },
+            {
+              "label": "Google Play",
+              "url": "https://play.google.com/store/audiobooks/series?id=A4x1HAAAABh3mM",
+              "icon": "mdi:google-play"
+            },
+            {
+              "label": "Kobo",
+              "url": "https://www.kobo.com/us/en/series/adachi-and-shimamura-light-novel-1",
+              "icon": "simple-icons:rakutenkobo"
+            }
+          ]
+        },
+        {
+          "label": "🇯🇵 Japanese Sources",
+          "buttons": [
+            {
+              "label": "Audible Japan",
+              "url": "https://www.audible.co.jp/series/%E5%AE%89%E9%81%94%E3%81%A8%E3%81%97%E3%81%BE%E3%82%80%E3%82%89%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/B0856QJ9MN",
+              "icon": "mdi:headphones"
+            },
+            {
+              "label": "Amazon Japan",
+              "url": "https://www.amazon.co.jp/%E5%AE%89%E9%81%94%E3%81%A8%E3%81%97%E3%81%BE%E3%82%80%E3%82%89/dp/B082PLZ97W",
+              "icon": "simple-icons:amazon"
             }
           ]
         }
@@ -371,12 +436,12 @@
             {
               "label": "BookWalker JP",
               "url": "https://bookwalker.jp/series/227797/list/",
-              "icon": "mdi:book"
+              "icon": "mdi:book-open-page-variant"
             },
             {
               "label": "Amazon Japan",
               "url": "https://www.amazon.co.jp/dp/B08KDDJHNL",
-              "icon": "mdi:amazon"
+              "icon": "simple-icons:amazon"
             }
           ]
         },
@@ -391,17 +456,17 @@
             {
               "label": "Amazon",
               "url": "https://www.amazon.com/dp/B08G46L3NR",
-              "icon": "mdi:amazon"
+              "icon": "simple-icons:amazon"
             },
             {
               "label": "BookWalker Global",
               "url": "https://bookwalker.com/series/0XAMHXQPB6VG/adachi-and-shimamura",
-              "icon": "mdi:book"
+              "icon": "mdi:book-open-page-variant"
             },
             {
               "label": "Kobo",
               "url": "https://www.kobo.com/us/en/series/adachi-and-shimamura-manga",
-              "icon": "mdi:book-open-page-variant"
+              "icon": "simple-icons:rakutenkobo"
             }
           ]
         }
@@ -416,7 +481,7 @@
         {
           "label": "Author's Blog (Kakuyomu)",
           "url": "https://kakuyomu.jp/works/1177354054897444952",
-          "icon": "mdi:blog"
+          "icon": "mdi:blog-outline"
         }
       ]
     }
@@ -430,22 +495,22 @@
         {
           "label": "AniList",
           "url": "https://anilist.co/manga/92550/Adachi-to-Shimamura/",
-          "icon": "mdi:star"
+          "icon": "simple-icons:anilist"
         },
         {
           "label": "MyAnimeList",
           "url": "https://myanimelist.net/manga/77597/Adachi_to_Shimamura",
-          "icon": "mdi:heart"
+          "icon": "simple-icons:myanimelist"
         },
         {
           "label": "MangaUpdates",
           "url": "https://www.mangaupdates.com/series/sintmu7/adachi-to-shimamura-novel",
-          "icon": "mdi:book-open"
+          "icon": "simple-icons:mangaupdates"
         },
         {
           "label": "Anime-Planet",
           "url": "https://www.anime-planet.com/manga/adachi-and-shimamura-light-novel",
-          "icon": "mdi:earth"
+          "icon": "mdi:earth-outline"
         },
         {
           "label": "NovelUpdates",
@@ -455,7 +520,7 @@
         {
           "label": "Kitsu",
           "url": "https://kitsu.app/manga/adachi-to-shimamura",
-          "icon": "mdi:paw"
+          "icon": "simple-icons:kitsu"
         }
       ]
     },
@@ -465,22 +530,22 @@
         {
           "label": "AniList",
           "url": "https://anilist.co/anime/109287/Adachi-to-Shimamura",
-          "icon": "mdi:star"
+          "icon": "simple-icons:anilist"
         },
         {
           "label": "MyAnimeList",
           "url": "https://myanimelist.net/anime/39790/Adachi_to_Shimamura",
-          "icon": "mdi:heart"
+          "icon": "simple-icons:myanimelist"
         },
         {
           "label": "Anime-Planet",
           "url": "https://www.anime-planet.com/anime/adachi-and-shimamura",
-          "icon": "mdi:earth"
+          "icon": "mdi:earth-outline"
         },
         {
           "label": "Kitsu",
           "url": "https://kitsu.app/anime/adachi-to-shimamura",
-          "icon": "mdi:paw"
+          "icon": "simple-icons:kitsu"
         }
       ]
     },
@@ -490,27 +555,27 @@
         {
           "label": "AniList",
           "url": "https://anilist.co/manga/109302/Adachi-to-Shimamura/",
-          "icon": "mdi:star"
+          "icon": "simple-icons:anilist"
         },
         {
           "label": "MyAnimeList",
           "url": "https://myanimelist.net/manga/120071/Adachi_to_Shimamura",
-          "icon": "mdi:heart"
+          "icon": "simple-icons:myanimelist"
         },
         {
           "label": "MangaUpdates",
           "url": "https://www.mangaupdates.com/series/u4avteh/adachi-to-shimamura-yuzuhara-moke",
-          "icon": "mdi:book-open"
+          "icon": "simple-icons:mangaupdates"
         },
         {
           "label": "Anime-Planet",
           "url": "https://www.anime-planet.com/manga/adachi-and-shimamura",
-          "icon": "mdi:earth"
+          "icon": "mdi:earth-outline"
         },
         {
           "label": "Kitsu",
           "url": "https://kitsu.app/manga/adachi-to-shimamura-2019",
-          "icon": "mdi:paw"
+          "icon": "simple-icons:kitsu"
         }
       ]
     }

@@ -8,10 +8,7 @@
       name="description"
       content="Discover the light novel library for Adachi and Shimamura with summaries, volumes, and story details."
     />
-    <link
-      rel="canonical"
-      href="https://adashimaverse.com/Adashima_Novelas"
-    />
+    <link rel="canonical" href="https://adashimaverse.com/Adashima_Novelas" />
     <meta name="theme-color" content="#000000" />
 
     <meta property="og:type" content="website" />
@@ -21,25 +18,19 @@
       property="og:description"
       content="Discover the light novel library for Adachi and Shimamura with summaries, volumes, and story details."
     />
-    <meta
-      property="og:url"
-      content="https://adashimaverse.com/Adashima_Novelas"
-    />
+    <meta property="og:url" content="https://adashimaverse.com/Adashima_Novelas" />
     <meta
       property="og:image"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
     <meta
       property="og:image:secure_url"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:type" content="image/webp" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="AdashimaVerse - Adashima · Novelas Ligeras"
-    />
+    <meta property="og:image:alt" content="AdashimaVerse - Adashima · Novelas Ligeras" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Adashima · Novelas Ligeras" />
@@ -49,57 +40,29 @@
     />
     <meta
       name="twitter:image"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
-    <meta
-      name="twitter:image:alt"
-      content="AdashimaVerse - Adashima · Novelas Ligeras"
-    />
+    <meta name="twitter:image:alt" content="AdashimaVerse - Adashima · Novelas Ligeras" />
 
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="stylesheet" href="/src/components/styles/menu.css" />
+    <link rel="stylesheet" href="/src/components/styles/time-theme-pages.css" />
     <link rel="stylesheet" href="/src/css/lang-switch.css" />
     <link rel="stylesheet" href="/src/components/styles/pdf-reader.css" />
     <link rel="stylesheet" href="/src/css/novels/main.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="/assets/Imagenes/favicon.ico"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/assets/Imagenes/apple-touch-icon.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/assets/Imagenes/favicon-32x32.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/assets/Imagenes/favicon-16x16.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="/assets/Imagenes/icon-192x192.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="512x512"
-      href="/assets/Imagenes/icon-512x512.webp"
-    />
+    <link rel="icon" type="image/x-icon" href="/assets/Imagenes/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/Imagenes/apple-touch-icon.webp" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/Imagenes/favicon-32x32.webp" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/Imagenes/favicon-16x16.webp" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/Imagenes/icon-192x192.webp" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/Imagenes/icon-512x512.webp" />
+    <link rel="stylesheet" href="/src/components/styles/footer.css" />
+    <link rel="stylesheet" href="/src/components/styles/feedback.css" />
   </head>
   <body>
     <div class="particles" id="particles"></div>
@@ -107,48 +70,45 @@
 
     <div class="main-content">
       <div class="header-container">
-        <div class="header-top-controls">
-          
-        </div>
-        <h1 class="update-title" id="page-title" 
-            data-i18n-es="Novelas Ligeras"
-            data-i18n-en="Light Novels"
-            data-i18n-tg="Mga Light Novel">Novelas Ligeras</h1>
+        <div class="header-top-controls"></div>
+        <h1
+          class="update-title"
+          id="page-title"
+          data-i18n-es="Novelas Ligeras"
+          data-i18n-en="Light Novels"
+          data-i18n-tg="Mga Light Novel"
+        >
+          Novelas Ligeras
+        </h1>
       </div>
 
       <div class="library-controls-sticky" id="libraryControlsSticky">
-      <div class="library-controls" id="libraryControls">
-        <div class="search-wrapper">
-          <i class="fas fa-search"></i>
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="Buscar por título, descripción, volumen..."
-            aria-label="Buscar novelas"
-            data-i18n-es="Buscar por título, descripción, volumen..."
-            data-i18n-en="Search by title, description, volume..."
-            data-i18n-tg="Maghanap ayon sa pamagat, paglalarawan, volume..."
-          />
+        <div class="library-controls" id="libraryControls">
+          <div class="search-wrapper">
+            <i class="fas fa-search"></i>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Buscar por título, descripción, volumen..."
+              aria-label="Buscar novelas"
+              data-i18n-es="Buscar por título, descripción, volumen..."
+              data-i18n-en="Search by title, description, volume..."
+              data-i18n-tg="Maghanap ayon sa pamagat, paglalarawan, volume..."
+            />
+          </div>
+          <div class="view-toggle-group" role="group" aria-label="Vista de novelas">
+            <button class="view-toggle-btn active" data-view="list" id="viewListBtn">
+              <i class="fas fa-list-ul"></i>
+              <span data-i18n-es="Lista" data-i18n-en="List" data-i18n-tg="Listahan">Lista</span>
+            </button>
+            <button class="view-toggle-btn" data-view="grid" id="viewGridBtn">
+              <i class="fas fa-th"></i>
+              <span data-i18n-es="Cuadrícula" data-i18n-en="Grid" data-i18n-tg="Grid"
+                >Cuadrícula</span
+              >
+            </button>
+          </div>
         </div>
-        <div
-          class="view-toggle-group"
-          role="group"
-          aria-label="Vista de novelas"
-        >
-          <button
-            class="view-toggle-btn active"
-            data-view="list"
-            id="viewListBtn"
-          >
-            <i class="fas fa-list-ul"></i> 
-            <span data-i18n-es="Lista" data-i18n-en="List" data-i18n-tg="Listahan">Lista</span>
-          </button>
-          <button class="view-toggle-btn" data-view="grid" id="viewGridBtn">
-            <i class="fas fa-th"></i> 
-            <span data-i18n-es="Cuadrícula" data-i18n-en="Grid" data-i18n-tg="Grid">Cuadrícula</span>
-          </button>
-        </div>
-      </div>
       </div>
 
       <div class="update-box" id="novels-container">
@@ -171,29 +131,19 @@
         />
       </a>
 
-      <div class="footer" id="footer-content"
-           data-i18n-es="Fan site no oficial de Adachi to Shimamura.<br />Creado por fans, sin fines de lucro.<br />Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma."
-           data-i18n-en="Unofficial Adachi to Shimamura fan site.<br />Created by fans, non-profit.<br />Adachi to Shimamura and all rights belong to Hitoma Iruma."
-           data-i18n-tg="Hindi opisyal na fan site ng Adachi to Shimamura.<br />Ginawa ng mga tagahanga, walang kita.<br />Ang Adachi to Shimamura at lahat ng karapatan ay pagmamay-ari ni Hitoma Iruma.">
-        Fan site no oficial de Adachi to Shimamura.<br />
-        Creado por fans, sin fines de lucro.<br />
-        Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma.
-      </div>
+      <div id="footer-container"></div>
+      <script type="module" src="/src/components/js/footer.js"></script>
     </div>
 
     <!-- PDF Modal (shared, rendered once) - Updated with language-aware elements -->
-    <div
-      class="pdf-modal"
-      id="pdfModal"
-      role="dialog"
-      aria-modal="true"
-      aria-label="PDF Viewer"
-    >
+    <div class="pdf-modal" id="pdfModal" role="dialog" aria-modal="true" aria-label="PDF Viewer">
       <div class="pdf-modal-backdrop" id="pdfModalBackdrop"></div>
       <div class="pdf-modal-content">
         <div class="pdf-modal-header">
           <h2 class="pdf-modal-title" id="pdfModalTitle">
-            <span data-i18n-es="Leyendo:" data-i18n-en="Reading:" data-i18n-tg="Binabasa:">Leyendo:</span> 
+            <span data-i18n-es="Leyendo:" data-i18n-en="Reading:" data-i18n-tg="Binabasa:"
+              >Leyendo:</span
+            >
             <span id="pdfVolumeTitle">Volumen</span>
           </h2>
           <!-- Toolbar merged into header: primary controls stay visible, secondary
@@ -211,10 +161,9 @@
                 <i class="fas fa-chevron-left"></i>
               </button>
               <span class="pdf-page-info" id="pdfPageInfo"
-                ><span id="pdfPageLabel"
-                  data-i18n-es="Pág."
-                  data-i18n-en="Pg."
-                  data-i18n-tg="Pah.">Pág.</span>
+                ><span id="pdfPageLabel" data-i18n-es="Pág." data-i18n-en="Pg." data-i18n-tg="Pah."
+                  >Pág.</span
+                >
                 <span id="pageNumModal">-</span> / <span id="pageCountModal">-</span></span
               >
               <button
@@ -240,19 +189,25 @@
 
               <span class="pdf-toolbar-divider"></span>
 
-              <button class="pdf-btn" id="pdfZoomOutModal" 
+              <button
+                class="pdf-btn"
+                id="pdfZoomOutModal"
                 title="Alejar (-)"
                 data-i18n-title-es="Alejar (-)"
                 data-i18n-title-en="Zoom out (-)"
-                data-i18n-title-tg="Mag-zoom out (-)">
+                data-i18n-title-tg="Mag-zoom out (-)"
+              >
                 <i class="fas fa-search-minus"></i>
               </button>
               <span class="pdf-zoom-display" id="zoomDisplayModal">100%</span>
-              <button class="pdf-btn" id="pdfZoomInModal" 
+              <button
+                class="pdf-btn"
+                id="pdfZoomInModal"
                 title="Acercar (+)"
                 data-i18n-title-es="Acercar (+)"
                 data-i18n-title-en="Zoom in (+)"
-                data-i18n-title-tg="Mag-zoom in (+)">
+                data-i18n-title-tg="Mag-zoom in (+)"
+              >
                 <i class="fas fa-search-plus"></i>
               </button>
 
@@ -281,10 +236,13 @@
                 data-i18n-title-tg="Cascade mode (tuloy-tuloy na scroll)"
               >
                 <i class="fas fa-grip-lines"></i>
-                <span class="pdf-btn-label" 
+                <span
+                  class="pdf-btn-label"
                   data-i18n-es="Cascada"
                   data-i18n-en="Cascade"
-                  data-i18n-tg="Cascade">Cascada</span>
+                  data-i18n-tg="Cascade"
+                  >Cascada</span
+                >
               </button>
               <button
                 class="pdf-btn pdf-btn-thumbnails"
@@ -295,10 +253,13 @@
                 data-i18n-title-tg="Mga thumbnail"
               >
                 <i class="fas fa-th"></i>
-                <span class="pdf-btn-label" 
+                <span
+                  class="pdf-btn-label"
                   data-i18n-es="Miniaturas"
                   data-i18n-en="Thumbnails"
-                  data-i18n-tg="Thumbnail">Miniaturas</span>
+                  data-i18n-tg="Thumbnail"
+                  >Miniaturas</span
+                >
               </button>
               <button
                 class="pdf-btn pdf-btn-reset"
@@ -309,10 +270,13 @@
                 data-i18n-title-tg="I-reset ang zoom (0)"
               >
                 <i class="fas fa-sync-alt"></i>
-                <span class="pdf-btn-label" 
+                <span
+                  class="pdf-btn-label"
                   data-i18n-es="Ajustar"
                   data-i18n-en="Adjust"
-                  data-i18n-tg="Ayusin">Ajustar</span>
+                  data-i18n-tg="Ayusin"
+                  >Ajustar</span
+                >
               </button>
               <button
                 class="pdf-btn"
@@ -323,10 +287,13 @@
                 data-i18n-title-tg="Buong screen (F)"
               >
                 <i class="fas fa-expand" id="fsIconModal"></i>
-                <span class="pdf-btn-label" 
+                <span
+                  class="pdf-btn-label"
                   data-i18n-es="Pantalla completa"
                   data-i18n-en="Fullscreen"
-                  data-i18n-tg="Buong screen">Pantalla completa</span>
+                  data-i18n-tg="Buong screen"
+                  >Pantalla completa</span
+                >
               </button>
               <button
                 class="pdf-btn"
@@ -337,10 +304,13 @@
                 data-i18n-title-tg="I-download ang PDF"
               >
                 <i class="fas fa-download"></i>
-                <span class="pdf-btn-label" 
+                <span
+                  class="pdf-btn-label"
                   data-i18n-es="Descargar"
                   data-i18n-en="Download"
-                  data-i18n-tg="I-download">Descargar</span>
+                  data-i18n-tg="I-download"
+                  >Descargar</span
+                >
               </button>
               <button
                 class="pdf-btn"
@@ -352,10 +322,13 @@
                 data-i18n-title-tg="I-download ang EPUB"
               >
                 <i class="fas fa-book"></i>
-                <span class="pdf-btn-label" 
+                <span
+                  class="pdf-btn-label"
                   data-i18n-es="EPUB"
                   data-i18n-en="EPUB"
-                  data-i18n-tg="EPUB">EPUB</span>
+                  data-i18n-tg="EPUB"
+                  >EPUB</span
+                >
               </button>
             </div>
           </div>
@@ -376,18 +349,18 @@
             <!-- Loading Overlay -->
             <div class="pdf-loading-overlay" id="pdfLoadingModal">
               <div class="pdf-spinner"></div>
-              <span class="pdf-loading-text" id="pdfLoadingTextModal"
+              <span
+                class="pdf-loading-text"
+                id="pdfLoadingTextModal"
                 data-i18n-es="Cargando documento..."
                 data-i18n-en="Loading document..."
-                data-i18n-tg="Naglo-load ng dokumento...">Cargando documento...</span>
+                data-i18n-tg="Naglo-load ng dokumento..."
+                >Cargando documento...</span
+              >
             </div>
 
             <div class="pdf-progress-wrap">
-              <div
-                class="pdf-progress-fill"
-                id="pdfProgressModal"
-                style="width: 0%"
-              ></div>
+              <div class="pdf-progress-fill" id="pdfProgressModal" style="width: 0%"></div>
             </div>
 
             <!-- Main Body with Thumbnails Sidebar -->
@@ -395,14 +368,14 @@
               <!-- Thumbnails Sidebar -->
               <div class="pdf-thumbnails-sidebar" id="pdfThumbnailsSidebar">
                 <div class="pdf-thumbnails-header">
-                  <span id="pdfThumbnailsTitle"
+                  <span
+                    id="pdfThumbnailsTitle"
                     data-i18n-es="Miniaturas"
                     data-i18n-en="Thumbnails"
-                    data-i18n-tg="Mga thumbnail">Miniaturas</span>
-                  <button
-                    class="pdf-btn pdf-thumbnails-close"
-                    id="pdfThumbnailsClose"
+                    data-i18n-tg="Mga thumbnail"
+                    >Miniaturas</span
                   >
+                  <button class="pdf-btn pdf-thumbnails-close" id="pdfThumbnailsClose">
                     <i class="fas fa-times"></i>
                   </button>
                 </div>
@@ -419,20 +392,23 @@
                   </div>
                   <div class="pdf-error-state" id="pdfErrorModal">
                     <i class="fas fa-exclamation-triangle"></i>
-                    <p id="pdfErrorMsgModal"
+                    <p
+                      id="pdfErrorMsgModal"
                       data-i18n-es="Documento no disponible."
                       data-i18n-en="Document not available."
-                      data-i18n-tg="Hindi available ang dokumento.">Documento no disponible.</p>
-                    <button
-                      class="btn"
-                      id="pdfRetryModal"
-                      style="margin-top: 8px"
+                      data-i18n-tg="Hindi available ang dokumento."
                     >
+                      Documento no disponible.
+                    </p>
+                    <button class="btn" id="pdfRetryModal" style="margin-top: 8px">
                       <i class="fas fa-redo"></i>
-                      <span id="pdfRetryText"
+                      <span
+                        id="pdfRetryText"
                         data-i18n-es="Reintentar"
                         data-i18n-en="Retry"
-                        data-i18n-tg="Subukan muli">Reintentar</span>
+                        data-i18n-tg="Subukan muli"
+                        >Reintentar</span
+                      >
                     </button>
                   </div>
                 </div>
@@ -482,5 +458,6 @@
     <!-- Import JS -->
     <script src="/src/js/language-switch.js"></script>
     <script src="/src/js/novelas.js"></script>
+    <script type="module" src="/src/components/js/feedback.js"></script>
   </body>
 </html>

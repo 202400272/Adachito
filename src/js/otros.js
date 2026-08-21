@@ -20,7 +20,7 @@ let currentLang = (() => {
   return "es";
 })();
 
-let isSwitching = false;
+let _isSwitching = false;
 let translations = null;
 
 // Fallback translations
@@ -83,9 +83,8 @@ function renderApp() {
   const headerTitle = document.getElementById("headerTitle");
   if (headerTitle) headerTitle.textContent = getText("headerTitle");
 
-  // Update footer
-  const footer = document.getElementById("footerContent");
-  if (footer) footer.innerHTML = getText("footer");
+  // Footer is now the shared component (src/components/js/footer.js),
+  // which handles its own translation.
 
   // Update floating link
   const floatingLink = document.getElementById("floatingLink");
@@ -114,13 +113,11 @@ function buildDocumentCards() {
     .map((doc) => {
       const normalizedUrl = doc.url.replace(
         /^(?:\.\/)?(?:otros\/)?Author_Archive(?:\.html)?$/i,
-        "/Author_Archive",
+        "/otros/Author_Archive",
       );
       const isInternal =
-        !!doc.isInternal || /^\/?Author_Archive(?:\.html)?$/i.test(normalizedUrl);
-      const linkAttrs = isInternal
-        ? ""
-        : 'target="_blank" rel="noopener noreferrer"';
+        !!doc.isInternal || /^\/(?:otros\/)?Author_Archive(?:\.html)?$/i.test(normalizedUrl);
+      const linkAttrs = isInternal ? "" : 'target="_blank" rel="noopener noreferrer"';
       return `
             <a href="${normalizedUrl}" ${linkAttrs} class="document-card" data-doc-id="${doc.id}">
                 <div class="document-icon"><i class="fas ${doc.icon}"></i></div>
@@ -166,7 +163,7 @@ function attachDownloadHandlers() {
         a.click();
         a.remove();
         URL.revokeObjectURL(url);
-      } catch (err) {
+      } catch {
         const win = window.open(href, "_blank");
         if (!win) location.href = href;
       } finally {
@@ -183,20 +180,15 @@ function loadMenu() {
   const menuVer = Math.floor(Date.now() / 86400000);
   fetch("/src/components/menu.html?v=" + menuVer)
     .then((response) => {
-      if (!response.ok)
-        throw new Error("Error HTTP " + response.status + " al cargar el menú");
+      if (!response.ok) throw new Error("Error HTTP " + response.status + " al cargar el menú");
       return response.text();
     })
     .then((data) => {
       data = data
         .replace(/src="\.\/(assets\/)/g, 'src="../../$1')
-        .replace(
-          /data-route="\.\.\/\.\.\/index\.html"/g,
-          'data-route="../../../index.html"',
-        );
+        .replace(/data-route="\.\.\/\.\.\/index\.html"/g, 'data-route="../../../index.html"');
       const container =
-        document.getElementById("sidebar-container") ||
-        document.getElementById("menu-container");
+        document.getElementById("sidebar-container") || document.getElementById("menu-container");
       if (!container) return;
       container.innerHTML = data;
 

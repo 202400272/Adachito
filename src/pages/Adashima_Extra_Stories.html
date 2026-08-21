@@ -8,10 +8,7 @@
       name="description"
       content="Read extra stories, bonus chapters, and side content from the Adachi to Shimamura series."
     />
-    <link
-      rel="canonical"
-      href="https://adashimaverse.com/Adashima_Extra_Stories"
-    />
+    <link rel="canonical" href="https://adashimaverse.com/Adashima_Extra_Stories" />
     <meta name="theme-color" content="#000000" />
 
     <meta property="og:type" content="website" />
@@ -21,25 +18,19 @@
       property="og:description"
       content="Read extra stories, bonus chapters, and side content from the Adachi to Shimamura series."
     />
-    <meta
-      property="og:url"
-      content="https://adashimaverse.com/Adashima_Extra_Stories"
-    />
+    <meta property="og:url" content="https://adashimaverse.com/Adashima_Extra_Stories" />
     <meta
       property="og:image"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
     <meta
       property="og:image:secure_url"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:type" content="image/webp" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="AdashimaVerse - Extra Stories · Adachi to Shimamura"
-    />
+    <meta property="og:image:alt" content="AdashimaVerse - Extra Stories · Adachi to Shimamura" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Extra Stories · Adachi to Shimamura" />
@@ -49,12 +40,9 @@
     />
     <meta
       name="twitter:image"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
-    <meta
-      name="twitter:image:alt"
-      content="AdashimaVerse - Extra Stories · Adachi to Shimamura"
-    />
+    <meta name="twitter:image:alt" content="AdashimaVerse - Extra Stories · Adachi to Shimamura" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -68,7 +56,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Quicksand:wght@300;400;500;600;700&family=Special+Elite&display=swap"
       rel="stylesheet"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="preload"
@@ -79,7 +67,7 @@
       href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=EB+Garamond:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Serif:wght@400;600;700&display=swap"
       rel="stylesheet"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="preload"
@@ -90,7 +78,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <noscript>
       <link
@@ -111,12 +99,12 @@
     <link rel="stylesheet" href="/src/components/styles/menu.css" />
 
     <link rel="stylesheet" href="/src/css/extra-stories/main.css" />
-    </head>
+    <link rel="stylesheet" href="/src/components/styles/footer.css" />
+    <link rel="stylesheet" href="/src/components/styles/feedback.css" />
+  </head>
   <body>
     <div id="sidebar-container"></div>
     <div class="particles" id="particles"></div>
-
-    
 
     <main class="extra-main">
       <section class="extra-hero">
@@ -126,11 +114,13 @@
             <span id="pageTitle">Extra Stories</span>
           </h1>
           <p class="extra-hero-subtitle" id="pageSubtitle">
-            A collection of official side stories, bonus chapters, and special
-            content from the Adachi to Shimamura series.
+            A collection of official side stories, bonus chapters, and special content from the
+            Adachi to Shimamura series.
           </p>
         </div>
       </section>
+
+      <div class="continue-reading" id="continueReadingShelf" style="display: none"></div>
 
       <div class="extra-stats" id="statsBar">
         <div class="stat-item">
@@ -173,12 +163,7 @@
 
       <div class="extra-controls">
         <div class="search-wrapper">
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="Search..."
-            aria-label="Search stories"
-          />
+          <input type="text" id="searchInput" placeholder="Search..." aria-label="Search stories" />
           <i class="fas fa-search"></i>
         </div>
       </div>
@@ -194,49 +179,31 @@
             </h2>
             <span class="sources-badge" id="sourcesCount">0</span>
           </div>
-          <button
-            class="sources-toggle-btn"
-            id="sourcesToggleBtn"
-            aria-expanded="false"
-          >
+          <button class="sources-toggle-btn" id="sourcesToggleBtn" aria-expanded="false">
             <i class="fas fa-chevron-down"></i>
           </button>
         </div>
 
         <div class="sources-body" id="sourcesBody">
           <p class="sources-description" id="sourcesDescription">
-            A complete archive of all extra stories, bonus chapters, and special
-            content from the Adachi to Shimamura series, organized by their
-            original source.
+            A complete archive of all extra stories, bonus chapters, and special content from the
+            Adachi to Shimamura series, organized by their original source.
           </p>
 
           <div class="sources-filter" id="sourcesFilter">
-            <button class="source-filter-btn active" data-filter="all">
-              All
-            </button>
+            <button class="source-filter-btn active" data-filter="all">All</button>
             <button class="source-filter-btn" data-filter="manga">Manga</button>
-            <button class="source-filter-btn" data-filter="light_novel">
-              LN
-            </button>
-            <button class="source-filter-btn" data-filter="miscellaneous">
-              Misc.
-            </button>
-            <button class="source-filter-btn" data-filter="kakuyomu">
-              Kakuyomu
-            </button>
+            <button class="source-filter-btn" data-filter="light_novel">LN</button>
+            <button class="source-filter-btn" data-filter="miscellaneous">Misc.</button>
+            <button class="source-filter-btn" data-filter="kakuyomu">Kakuyomu</button>
           </div>
 
           <div id="sourcesContainer"></div>
         </div>
       </section>
 
-      <footer class="extra-footer" id="footerContent">
-        <p>Unofficial Adachi to Shimamura fan site.</p>
-        <p class="footer-sub">Created by fans, non-profit.</p>
-        <p class="footer-sub">
-          Adachi to Shimamura and all rights belong to Hitoma Iruma.
-        </p>
-      </footer>
+      <div id="footer-container"></div>
+      <script type="module" src="/src/components/js/footer.js"></script>
     </main>
 
     <div class="floating-adashima">
@@ -263,31 +230,19 @@
 
         <!-- Progress bar - sticky at top -->
         <div class="reader-progress-wrap">
-          <div
-            class="reader-progress-fill"
-            id="readerProgress"
-            style="width: 0%"
-          ></div>
+          <div class="reader-progress-fill" id="readerProgress" style="width: 0%"></div>
         </div>
 
         <!-- Sticky controls -->
         <div class="reader-controls-sticky" id="readerControls">
           <div class="reader-header-left">
-            <button
-              class="reader-close"
-              id="readerClose"
-              aria-label="Close reader"
-            >
+            <button class="reader-close" id="readerClose" aria-label="Close reader">
               <i class="fas fa-arrow-left"></i>
               <span id="readerBackLabel">Back</span>
             </button>
           </div>
           <div class="reader-header-right">
-            <button
-              class="reader-mark-read"
-              id="readerMarkRead"
-              aria-label="Mark as read"
-            >
+            <button class="reader-mark-read" id="readerMarkRead" aria-label="Mark as read">
               <i class="fas fa-check-circle"></i>
               <span id="readerMarkLabel">Read</span>
             </button>
@@ -307,18 +262,10 @@
               <i class="fas fa-sliders-h"></i>
             </button>
             <div class="reader-nav">
-              <button
-                class="reader-nav-btn"
-                id="readerPrev"
-                aria-label="Previous story"
-              >
+              <button class="reader-nav-btn" id="readerPrev" aria-label="Previous story">
                 <i class="fas fa-chevron-left"></i>
               </button>
-              <button
-                class="reader-nav-btn"
-                id="readerNext"
-                aria-label="Next story"
-              >
+              <button class="reader-nav-btn" id="readerNext" aria-label="Next story">
                 <i class="fas fa-chevron-right"></i>
               </button>
             </div>
@@ -336,11 +283,7 @@
         <div class="reader-settings-panel" id="readerSettingsPanel">
           <div class="settings-header">
             <span class="settings-title">Settings</span>
-            <button
-              class="settings-close"
-              id="settingsClose"
-              aria-label="Close settings"
-            >
+            <button class="settings-close" id="settingsClose" aria-label="Close settings">
               <i class="fas fa-times"></i>
             </button>
           </div>
@@ -376,15 +319,9 @@
             <div class="settings-group">
               <label class="settings-label">Font</label>
               <select id="fontFamilySelect" class="settings-select">
-                <option value="'Source Serif 4', Georgia, serif">
-                  Source Serif 4
-                </option>
-                <option value="'EB Garamond', Georgia, serif">
-                  EB Garamond
-                </option>
-                <option value="'Cormorant Garamond', Georgia, serif">
-                  Cormorant
-                </option>
+                <option value="'Source Serif 4', Georgia, serif">Source Serif 4</option>
+                <option value="'EB Garamond', Georgia, serif">EB Garamond</option>
+                <option value="'Cormorant Garamond', Georgia, serif">Cormorant</option>
                 <option value="'Noto Serif', Georgia, serif">Noto Serif</option>
                 <option value="Georgia, serif">Georgia</option>
               </select>
@@ -394,9 +331,7 @@
               <label class="settings-label">Line Height</label>
               <div class="settings-line-height">
                 <button class="settings-lh-btn" data-lh="1.7">Compact</button>
-                <button class="settings-lh-btn active" data-lh="1.9">
-                  Comfortable
-                </button>
+                <button class="settings-lh-btn active" data-lh="1.9">Comfortable</button>
                 <button class="settings-lh-btn" data-lh="2.1">Relaxed</button>
               </div>
             </div>
@@ -404,31 +339,41 @@
             <div class="settings-group">
               <label class="settings-label">Width</label>
               <div class="settings-width">
-                <button class="settings-width-btn" data-width="620">
-                  Narrow
-                </button>
-                <button class="settings-width-btn active" data-width="700">
-                  Medium
-                </button>
-                <button class="settings-width-btn" data-width="780">
-                  Wide
-                </button>
+                <button class="settings-width-btn" data-width="620">Narrow</button>
+                <button class="settings-width-btn active" data-width="700">Medium</button>
+                <button class="settings-width-btn" data-width="780">Wide</button>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <label class="settings-label">Alignment</label>
+              <div class="settings-align">
+                <button class="settings-align-btn active" data-align="left">Left</button>
+                <button class="settings-align-btn" data-align="justify">Justify</button>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <label class="settings-label">Paragraph Spacing</label>
+              <div class="settings-paragraph-spacing">
+                <button class="settings-ps-btn" data-ps="1.0">Compact</button>
+                <button class="settings-ps-btn active" data-ps="1.4">Comfortable</button>
+                <button class="settings-ps-btn" data-ps="1.8">Relaxed</button>
               </div>
             </div>
 
             <div class="settings-group">
               <label class="settings-label">Accessibility</label>
-              <button
-                class="settings-toggle-btn"
-                id="dyslexiaToggle"
-                aria-pressed="false"
-              >
-                <span class="settings-toggle-icon"
-                  ><i class="fas fa-font"></i
+              <button class="settings-toggle-btn" id="dropCapsToggle" aria-pressed="false">
+                <span class="settings-toggle-icon"><i class="fas fa-paragraph"></i></span>
+                <span class="settings-toggle-text">Drop Caps</span>
+                <span class="settings-toggle-switch"
+                  ><span class="settings-toggle-knob"></span
                 ></span>
-                <span class="settings-toggle-text"
-                  >Dyslexia-Friendly Font</span
-                >
+              </button>
+              <button class="settings-toggle-btn" id="dyslexiaToggle" aria-pressed="false">
+                <span class="settings-toggle-icon"><i class="fas fa-font"></i></span>
+                <span class="settings-toggle-text">Dyslexia-Friendly Font</span>
                 <span class="settings-toggle-switch"
                   ><span class="settings-toggle-knob"></span
                 ></span>
@@ -450,5 +395,6 @@
     <!-- Import JS -->
     <script src="/src/js/language-switch.js"></script>
     <script src="/src/js/extra-stories.js"></script>
+    <script type="module" src="/src/components/js/feedback.js"></script>
   </body>
 </html>

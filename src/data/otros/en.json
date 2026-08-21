@@ -26,7 +26,7 @@
       "icon": "fa-archive",
       "title": "Articles",
       "description": "A curated collection of interviews, commentaries, afterwords, and magazine features from Hitoma Iruma.",
-      "url": "/Author_Archive",
+      "url": "/otros/Author_Archive",
       "isDriveLink": false,
       "isInternal": true
     }

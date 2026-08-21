@@ -1,0 +1,258 @@
+/* ==========================================================================
+   Shared site footer
+   Mirrors the footer styling from index.css so every page's footer looks
+   and behaves the same as the homepage footer.
+   Relies on the following custom properties already defined by each page's
+   own variables.css: --text-light, --accent-primary, --surface-border
+   ========================================================================== */
+
+.footer {
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 48px;
+  margin-inline: auto;
+  padding: 34px 0 18px;
+  color: var(--text-light, rgba(255, 255, 255, 0.9));
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.7;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  position: relative;
+  z-index: 10;
+  border-top: 1px solid var(--surface-border, rgba(255, 255, 255, 0.6));
+  transition:
+    color 2.5s ease,
+    border-color 2.5s ease;
+}
+
+body.time-morning .footer {
+  color: #837896;
+}
+
+body.time-night .footer {
+  color: #c8b8d8;
+  border-top-color: rgba(180, 150, 200, 0.15);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.footer-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(120px, 0.7fr) minmax(220px, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.footer-brand {
+  max-width: 460px;
+}
+
+.footer-eyebrow,
+.footer-column-title {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--accent-primary, #f06292);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+}
+
+.footer-tagline {
+  margin: 0;
+  color: var(--text-light, rgba(255, 255, 255, 0.9));
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.footer-tagline em {
+  font-style: italic;
+}
+
+.footer-description {
+  max-width: 440px;
+  margin: 8px 0 0;
+  opacity: 0.78;
+  font-size: 0.78rem;
+  line-height: 1.7;
+}
+
+.footer-column {
+  min-width: 0;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.footer-link {
+  position: relative;
+  display: inline-block;
+  color: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.footer-link::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.3;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.footer-link:hover {
+  color: var(--accent-primary, #f06292);
+  transform: translateX(3px);
+}
+
+.footer-link:hover::after {
+  transform: scaleX(1);
+}
+
+.footer-feedback-copy {
+  max-width: 250px;
+  margin: 0 0 10px;
+  font-size: 0.76rem;
+  line-height: 1.6;
+  opacity: 0.78;
+}
+
+.feedback-footer-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font-family: "Quicksand", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.35);
+  text-underline-offset: 4px;
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease,
+    text-decoration-color 0.25s ease;
+}
+
+body.time-morning .feedback-footer-btn {
+  color: #837896;
+}
+
+body.time-night .feedback-footer-btn {
+  color: #e8d8f0;
+}
+
+.feedback-footer-btn:hover {
+  color: var(--accent-primary, #f06292);
+  background: transparent;
+  transform: translateX(3px);
+  box-shadow: none;
+  text-decoration-color: currentColor;
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 24px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: 0.68rem;
+  opacity: 0.72;
+}
+
+body.time-night .footer-bottom {
+  border-top-color: rgba(180, 150, 200, 0.14);
+}
+
+.footer-disclaimer {
+  max-width: 760px;
+  margin: 0;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 768px) {
+  .footer {
+    font-size: 0.78rem;
+    padding: 26px 0 12px;
+    line-height: 1.6;
+    margin-top: 34px;
+  }
+
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+    gap: 26px 30px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+    max-width: 620px;
+  }
+
+  .footer-feedback-copy {
+    max-width: 220px;
+  }
+
+  .footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .footer-brand {
+    grid-column: auto;
+  }
+
+  .footer-description {
+    max-width: none;
+  }
+
+  .footer-links {
+    gap: 4px;
+  }
+
+  .footer-bottom {
+    padding-top: 14px;
+  }
+
+  .footer {
+    font-size: 0.7rem;
+  }
+
+  .feedback-footer-btn {
+    font-size: 0.7rem;
+    padding: 6px 14px;
+    gap: 6px;
+  }
+}

@@ -18,7 +18,9 @@
   background: var(--surface-hover);
   border-radius: 50%;
   box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.3);
-  animation: float-up 14s linear infinite, twinkle 5s ease-in-out infinite;
+  animation:
+    float-up 14s linear infinite,
+    twinkle 5s ease-in-out infinite;
   opacity: 0;
 }
 
@@ -36,12 +38,31 @@
   height: auto;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.08));
 }
-.decor-1 { top: 10%; left: 5%; width: 60px; animation-delay: 0s; }
-.decor-2 { top: 40%; right: 3%; width: 80px; animation-delay: -3s; animation-duration: 12s; }
-.decor-3 { bottom: 15%; left: 4%; width: 50px; animation-delay: -5s; animation-duration: 9s; }
+.decor-1 {
+  top: 10%;
+  left: 5%;
+  width: 60px;
+  animation-delay: 0s;
+}
+.decor-2 {
+  top: 40%;
+  right: 3%;
+  width: 80px;
+  animation-delay: -3s;
+  animation-duration: 12s;
+}
+.decor-3 {
+  bottom: 15%;
+  left: 4%;
+  width: 50px;
+  animation-delay: -5s;
+  animation-duration: 9s;
+}
 
 @media (max-width: 992px) {
-  .floating-decor { display: none; }
+  .floating-decor {
+    display: none;
+  }
 }
 
 .stars-bg {
@@ -79,29 +100,44 @@
 }
 
 .cloud-1 {
-  width: 900px; height: 140px; top: 6%; left: -18%;
+  width: 900px;
+  height: 140px;
+  top: 6%;
+  left: -18%;
   background: linear-gradient(90deg, rgba(220, 130, 170, 0.3), rgba(255, 255, 255, 0.08));
   animation-duration: 60s;
 }
 .cloud-2 {
-  width: 1100px; height: 180px; top: 28%; right: -24%;
+  width: 1100px;
+  height: 180px;
+  top: 28%;
+  right: -24%;
   background: linear-gradient(-90deg, rgba(253, 200, 160, 0.22), rgba(255, 255, 255, 0.08));
   animation-duration: 72s;
   animation-direction: alternate-reverse;
 }
 .cloud-3 {
-  width: 800px; height: 120px; bottom: 30%; left: -14%;
+  width: 800px;
+  height: 120px;
+  bottom: 30%;
+  left: -14%;
   background: linear-gradient(90deg, rgba(154, 104, 152, 0.22), rgba(255, 255, 255, 0.06));
   animation-duration: 66s;
 }
 .cloud-4 {
-  width: 950px; height: 150px; bottom: 8%; right: -16%;
+  width: 950px;
+  height: 150px;
+  bottom: 8%;
+  right: -16%;
   background: linear-gradient(-90deg, rgba(209, 135, 162, 0.22), rgba(255, 255, 255, 0.06));
   animation-duration: 80s;
   animation-direction: alternate-reverse;
 }
 .cloud-5 {
-  width: 700px; height: 110px; top: 55%; left: 30%;
+  width: 700px;
+  height: 110px;
+  top: 55%;
+  left: 30%;
   background: linear-gradient(90deg, rgba(240, 220, 200, 0.2), rgba(255, 255, 255, 0.05));
   animation-duration: 68s;
 }
@@ -123,12 +159,36 @@
   animation: sparkle-twinkle 4.5s ease-in-out infinite;
   opacity: 0;
 }
-.sparkle:nth-child(1) { top: 12%; left: 18%; animation-delay: 0s; }
-.sparkle:nth-child(2) { top: 22%; left: 68%; animation-delay: 0.7s; }
-.sparkle:nth-child(3) { top: 48%; left: 8%; animation-delay: 1.4s; }
-.sparkle:nth-child(4) { top: 62%; left: 82%; animation-delay: 2.1s; }
-.sparkle:nth-child(5) { top: 78%; left: 40%; animation-delay: 2.8s; }
-.sparkle:nth-child(6) { top: 35%; left: 90%; animation-delay: 3.5s; }
+.sparkle:nth-child(1) {
+  top: 12%;
+  left: 18%;
+  animation-delay: 0s;
+}
+.sparkle:nth-child(2) {
+  top: 22%;
+  left: 68%;
+  animation-delay: 0.7s;
+}
+.sparkle:nth-child(3) {
+  top: 48%;
+  left: 8%;
+  animation-delay: 1.4s;
+}
+.sparkle:nth-child(4) {
+  top: 62%;
+  left: 82%;
+  animation-delay: 2.1s;
+}
+.sparkle:nth-child(5) {
+  top: 78%;
+  left: 40%;
+  animation-delay: 2.8s;
+}
+.sparkle:nth-child(6) {
+  top: 35%;
+  left: 90%;
+  animation-delay: 3.5s;
+}
 
 .shooting-star {
   position: fixed;
@@ -143,8 +203,14 @@
   opacity: 0;
   animation: shooting-fall 9s linear infinite;
 }
-.shooting-star:nth-of-type(2) { animation-delay: 3s; left: 55%; }
-.shooting-star:nth-of-type(3) { animation-delay: 6s; left: 25%; }
+.shooting-star:nth-of-type(2) {
+  animation-delay: 3s;
+  left: 55%;
+}
+.shooting-star:nth-of-type(3) {
+  animation-delay: 6s;
+  left: 25%;
+}
 
 .orb {
   position: fixed;
@@ -152,62 +218,134 @@
   pointer-events: none;
   z-index: 0;
   filter: blur(2px);
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.05) 70%);
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.05) 70%
+  );
   border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow: inset 0 10px 20px rgba(255, 255, 255, 0.4), 0 8px 30px rgba(92, 58, 107, 0.12);
+  box-shadow:
+    inset 0 10px 20px rgba(255, 255, 255, 0.4),
+    0 8px 30px rgba(92, 58, 107, 0.12);
   animation: orb-float 9s ease-in-out infinite;
 }
 
 .orb-purple {
-  width: 240px; height: 240px; top: -60px; right: -40px;
-  background: radial-gradient(circle at 30% 30%, rgba(154, 104, 152, 0.35), rgba(255, 255, 255, 0.05) 70%);
+  width: 240px;
+  height: 240px;
+  top: -60px;
+  right: -40px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(154, 104, 152, 0.35),
+    rgba(255, 255, 255, 0.05) 70%
+  );
   animation-duration: 10s;
 }
 .orb-purple-small {
-  width: 90px; height: 90px; top: 10%; right: 6%;
-  animation-duration: 7s; animation-delay: 0.5s;
+  width: 90px;
+  height: 90px;
+  top: 10%;
+  right: 6%;
+  animation-duration: 7s;
+  animation-delay: 0.5s;
 }
 .orb-yellow {
-  width: 130px; height: 130px; bottom: 12%; left: 4%;
-  background: radial-gradient(circle at 30% 30%, rgba(237, 210, 164, 0.4), rgba(255, 255, 255, 0.05) 70%);
+  width: 130px;
+  height: 130px;
+  bottom: 12%;
+  left: 4%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(237, 210, 164, 0.4),
+    rgba(255, 255, 255, 0.05) 70%
+  );
   animation-duration: 11s;
 }
 .orb-blue {
-  width: 100px; height: 100px; top: 40%; left: 2%;
-  background: radial-gradient(circle at 30% 30%, rgba(170, 220, 255, 0.35), rgba(255, 255, 255, 0.05) 70%);
+  width: 100px;
+  height: 100px;
+  top: 40%;
+  left: 2%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(170, 220, 255, 0.35),
+    rgba(255, 255, 255, 0.05) 70%
+  );
   animation-duration: 8s;
 }
 .orb-blue-large {
-  width: 200px; height: 200px; bottom: -50px; right: 8%;
-  background: radial-gradient(circle at 30% 30%, rgba(170, 220, 255, 0.3), rgba(255, 255, 255, 0.05) 70%);
+  width: 200px;
+  height: 200px;
+  bottom: -50px;
+  right: 8%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(170, 220, 255, 0.3),
+    rgba(255, 255, 255, 0.05) 70%
+  );
   animation-duration: 12s;
 }
 .orb-pink {
-  width: 110px; height: 110px; bottom: 20%; right: 20%;
-  background: radial-gradient(circle at 30% 30%, rgba(209, 135, 162, 0.4), rgba(255, 255, 255, 0.05) 70%);
+  width: 110px;
+  height: 110px;
+  bottom: 20%;
+  right: 20%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(209, 135, 162, 0.4),
+    rgba(255, 255, 255, 0.05) 70%
+  );
   animation-duration: 9s;
 }
 .orb-pink-top {
-  width: 70px; height: 70px; top: 6%; left: 40%;
-  background: radial-gradient(circle at 30% 30%, rgba(209, 135, 162, 0.35), rgba(255, 255, 255, 0.05) 70%);
+  width: 70px;
+  height: 70px;
+  top: 6%;
+  left: 40%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(209, 135, 162, 0.35),
+    rgba(255, 255, 255, 0.05) 70%
+  );
   animation-duration: 6.5s;
 }
 .orb-green {
-  width: 80px; height: 80px; top: 65%; right: 3%;
-  background: radial-gradient(circle at 30% 30%, rgba(184, 212, 200, 0.4), rgba(255, 255, 255, 0.05) 70%);
+  width: 80px;
+  height: 80px;
+  top: 65%;
+  right: 3%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(184, 212, 200, 0.4),
+    rgba(255, 255, 255, 0.05) 70%
+  );
   animation-duration: 10.5s;
 }
 .orb-orange {
-  width: 60px; height: 60px; bottom: 6%; left: 46%;
-  background: radial-gradient(circle at 30% 30%, rgba(230, 170, 130, 0.4), rgba(255, 255, 255, 0.05) 70%);
+  width: 60px;
+  height: 60px;
+  bottom: 6%;
+  left: 46%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(230, 170, 130, 0.4),
+    rgba(255, 255, 255, 0.05) 70%
+  );
   animation-duration: 7.5s;
 }
 
 @media (max-width: 700px) {
-  .orb-purple-small, .orb-blue-large, .orb-pink-top, .orb-green, .orb-orange {
+  .orb-purple-small,
+  .orb-blue-large,
+  .orb-pink-top,
+  .orb-green,
+  .orb-orange {
     display: none;
   }
-  .cloud-3, .cloud-4, .cloud-5 {
+  .cloud-3,
+  .cloud-4,
+  .cloud-5 {
     display: none;
   }
 }

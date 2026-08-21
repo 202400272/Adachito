@@ -3,10 +3,9 @@
   position: fixed;
   inset: 0;
   z-index: 0;
-  background-image: url("../../assets/Imagenes/about.webp");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  opacity: 0.12;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(213, 103, 150, 0.1), transparent 28%),
+    radial-gradient(circle at 12% 78%, rgba(100, 138, 183, 0.08), transparent 30%),
+    linear-gradient(135deg, #f8f6fb 0%, #f4eef8 52%, #eef4fa 100%);
   pointer-events: none;
 }

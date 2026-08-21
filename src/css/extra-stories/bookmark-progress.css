@@ -1,68 +1,31 @@
-/* ============================================================
-   BOOKMARK & READING PROGRESS
-   ============================================================ */
-
 .story-bookmark-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  width: 32px;
+  height: 32px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid var(--page-border);
+  border-radius: 0;
   background: transparent;
-  border: none;
-  color: rgba(107, 76, 122, 0.3);
-  font-size: 1rem;
+  color: var(--page-muted);
   cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
+  transition: 0.2s ease;
 }
-
 .story-bookmark-btn:hover {
-  color: rgba(107, 76, 122, 0.6);
-  background: rgba(107, 76, 122, 0.05);
+  color: var(--page-accent);
+  border-color: var(--page-accent);
 }
-
 .story-bookmark-btn.bookmarked {
-  color: var(--dusty-rose);
+  color: var(--page-accent);
+  background: var(--page-soft);
 }
-
-.story-bookmark-btn.bookmarked:hover {
-  color: #c48bb8;
-}
-
-.story-bookmark-btn i {
-  font-size: 1.1rem;
-}
-
 .story-bookmark-btn:disabled {
   opacity: 0.35;
   cursor: not-allowed;
-  pointer-events: none;
 }
 
-.story-progress-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-size: 0.6rem;
-  font-weight: 600;
-  color: var(--page-muted);
-  opacity: 0.5;
-  padding: 0.1rem 0.5rem;
-  border-radius: 12px;
-  background: rgba(209, 163, 198, 0.1);
+.story-card.read {
+  opacity: 0.68;
 }
-
-.story-progress-badge i {
-  font-size: 0.5rem;
-  color: var(--dusty-rose);
-}
-
-.story-progress-badge.complete {
-  opacity: 0.8;
-  color: #4a7a5a;
-  background: rgba(74, 122, 90, 0.1);
-}
-
-.story-progress-badge.complete i {
-  color: #4a7a5a;
+.story-card.bookmarked {
+  --card-accent: var(--page-accent);
 }

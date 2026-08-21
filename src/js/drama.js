@@ -20,7 +20,7 @@ let currentLang = (() => {
   return "es";
 })();
 
-let isSwitching = false;
+let _isSwitching = false;
 let contentData = null;
 let CHANNELS = [];
 
@@ -59,11 +59,10 @@ const channelBadge = document.getElementById("channelBadge");
 const osdMenu = document.getElementById("osdMenu");
 const osdChannelList = document.getElementById("osdChannelList");
 const osdTitle = document.getElementById("osdTitle");
-const osdSubtitle = document.getElementById("osdSubtitle");
+const _osdSubtitle = document.getElementById("osdSubtitle");
 const osdFooter = document.getElementById("osdFooter");
 const tvLed = document.getElementById("tvLed");
 const pageTitle = document.getElementById("page-title");
-const footerContent = document.getElementById("footer-content");
 const floatingLink = document.getElementById("floating-link");
 
 // ----- load content from JSON -----
@@ -79,9 +78,7 @@ async function loadContent(lang) {
     // Fallback: try the other language
     try {
       const fallbackLang = lang === "es" ? "en" : "es";
-      const response = await fetch(
-        `/src/data/drama/${fallbackLang}.json?v=${Date.now()}`,
-      );
+      const response = await fetch(`/src/data/drama/${fallbackLang}.json?v=${Date.now()}`);
       if (!response.ok) throw new Error("Fallback failed");
       return await response.json();
     } catch (fallbackError) {
@@ -111,7 +108,8 @@ function renderApp() {
   if (!contentData) return;
 
   pageTitle.textContent = getString("pageTitle");
-  footerContent.innerHTML = getString("footerText");
+  // Footer is now the shared component (src/components/js/footer.js),
+  // which handles its own translation.
   floatingLink.title = getString("floatingLinkTitle");
   powerBtn.title = getString("powerBtnTitle");
   menuBtn.title = getString("menuBtnTitle");
@@ -183,8 +181,7 @@ function wait(ms) {
 
 async function forceDownload(url, fileName, onProgress) {
   const response = await fetch(url);
-  if (!response.ok || !response.body)
-    throw new Error("Network response was not ok");
+  if (!response.ok || !response.body) throw new Error("Network response was not ok");
   const total = Number(response.headers.get("Content-Length")) || 0;
   const reader = response.body.getReader();
   const chunks = [];
@@ -194,8 +191,7 @@ async function forceDownload(url, fileName, onProgress) {
     if (done) break;
     chunks.push(value);
     received += value.length;
-    if (onProgress)
-      onProgress(total ? Math.round((received / total) * 100) : null);
+    if (onProgress) onProgress(total ? Math.round((received / total) * 100) : null);
   }
   const blob = new Blob(chunks);
   const blobUrl = window.URL.createObjectURL(blob);
@@ -450,9 +446,7 @@ async function switchChannel(index) {
 
     forceDownload(ch.src, ch.download || "", (pct) => {
       downloadLabel.textContent =
-        pct !== null && pct !== undefined
-          ? `${pct}%`
-          : getString("downloadingLabel");
+        pct !== null && pct !== undefined ? `${pct}%` : getString("downloadingLabel");
     })
       .catch((error) => {
         console.error("Error forzando la descarga:", error);
@@ -512,9 +506,7 @@ function exitFullscreen() {
 }
 
 function onFullscreenChange() {
-  const isFs = !!(
-    document.fullscreenElement || document.webkitFullscreenElement
-  );
+  const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
   if (isFs) {
     fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
   } else {
@@ -588,10 +580,7 @@ function createKnob({
     const sweepTotal = ARC_TOTAL_DEG;
     arcBgEl.setAttribute("d", buildArcPath(ARC_START_DEG, sweepTotal));
     const sweepFill = t * sweepTotal;
-    arcFillEl.setAttribute(
-      "d",
-      sweepFill > 0.5 ? buildArcPath(ARC_START_DEG, sweepFill) : "",
-    );
+    arcFillEl.setAttribute("d", sweepFill > 0.5 ? buildArcPath(ARC_START_DEG, sweepFill) : "");
     const hue = 300 - t * 60;
     arcFillEl.style.stroke = `hsla(${hue},50%,72%,0.65)`;
   }
@@ -769,13 +758,9 @@ async function loadMenu() {
     let data = await response.text();
     data = data
       .replace(/src="\.\/(assets\/)/g, 'src="../../$1')
-      .replace(
-        /data-route="\.\.\/\.\.\/index\.html"/g,
-        'data-route="../../../index.html"',
-      );
+      .replace(/data-route="\.\.\/\.\.\/index\.html"/g, 'data-route="../../../index.html"');
     const container =
-      document.getElementById("sidebar-container") ||
-      document.getElementById("menu-container");
+      document.getElementById("sidebar-container") || document.getElementById("menu-container");
     if (!container) return;
     container.innerHTML = data;
     const scripts = container.querySelectorAll("script");

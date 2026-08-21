@@ -21,13 +21,31 @@
   background: var(--surface-soft);
 }
 
-.ch-number { text-align: center; }
-.ch-title { padding-left: 0.25rem; }
-.ch-artist { padding-left: 0.25rem; }
-.ch-album { padding-left: 0.25rem; }
-.ch-time { text-align: right; display: flex; align-items: center; justify-content: flex-end; gap: 0.25rem; }
-.ch-dl { text-align: center; }
-.ch-time .iconify { font-size: 0.6rem; }
+.ch-number {
+  text-align: center;
+}
+.ch-title {
+  padding-left: 0.25rem;
+}
+.ch-artist {
+  padding-left: 0.25rem;
+}
+.ch-album {
+  padding-left: 0.25rem;
+}
+.ch-time {
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem;
+}
+.ch-dl {
+  text-align: center;
+}
+.ch-time .iconify {
+  font-size: 0.6rem;
+}
 
 .compact-track-table {
   display: flex;
@@ -46,8 +64,12 @@
   font-size: 0.7rem;
 }
 
-.compact-track-row:last-child { border-bottom: none; }
-.compact-track-row:hover { background: rgba(215, 190, 225, 0.06); }
+.compact-track-row:last-child {
+  border-bottom: none;
+}
+.compact-track-row:hover {
+  background: rgba(215, 190, 225, 0.06);
+}
 .compact-track-row.active {
   background: rgba(200, 170, 220, 0.08);
   border-left: 2px solid var(--accent);
@@ -79,7 +101,9 @@
   text-overflow: ellipsis;
 }
 
-.compact-track-row.active .cr-title-jp { color: var(--accent); }
+.compact-track-row.active .cr-title-jp {
+  color: var(--accent);
+}
 
 .cr-title-en {
   font-family: "Inter", sans-serif;

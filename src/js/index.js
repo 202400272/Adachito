@@ -17,9 +17,7 @@ if (
 // ===== LOADING SCREEN =====
 (function initLoadingScreen() {
   const loadingScreen = document.getElementById("loadingScreen");
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
+  const _prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (!loadingScreen) return;
 
@@ -106,14 +104,12 @@ const FEEDBACK_CONFIG = {
     return {
       url: window.location.href,
       pageTitle: document.title,
-      version:
-        document.querySelector('meta[name="version"]')?.content || "v1.5.0",
+      version: document.querySelector('meta[name="version"]')?.content || "v1.5.0",
       browser: this.getBrowserInfo(),
       os: this.getOSInfo(),
       screenResolution: window.screen.width + " × " + window.screen.height,
       viewport: window.innerWidth + " × " + window.innerHeight,
-      language:
-        document.documentElement.lang || navigator.language || "unknown",
+      language: document.documentElement.lang || navigator.language || "unknown",
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       timestamp: new Date().toISOString().replace("T", " ").slice(0, 19),
       userAgent: navigator.userAgent,
@@ -122,14 +118,11 @@ const FEEDBACK_CONFIG = {
 
   getBrowserInfo: function () {
     const ua = navigator.userAgent;
-    if (ua.includes("Chrome"))
-      return "Chrome " + (ua.match(/Chrome\/(\d+)/)?.[1] || "?");
-    if (ua.includes("Firefox"))
-      return "Firefox " + (ua.match(/Firefox\/(\d+)/)?.[1] || "?");
+    if (ua.includes("Chrome")) return "Chrome " + (ua.match(/Chrome\/(\d+)/)?.[1] || "?");
+    if (ua.includes("Firefox")) return "Firefox " + (ua.match(/Firefox\/(\d+)/)?.[1] || "?");
     if (ua.includes("Safari") && !ua.includes("Chrome"))
       return "Safari " + (ua.match(/Version\/(\d+)/)?.[1] || "?");
-    if (ua.includes("Edge"))
-      return "Edge " + (ua.match(/Edg\/(\d+)/)?.[1] || "?");
+    if (ua.includes("Edge")) return "Edge " + (ua.match(/Edg\/(\d+)/)?.[1] || "?");
     return "Unknown Browser";
   },
 
@@ -139,38 +132,10 @@ const FEEDBACK_CONFIG = {
     if (ua.includes("Mac OS")) return "macOS";
     if (ua.includes("Linux")) return "Linux";
     if (ua.includes("Android")) return "Android";
-    if (ua.includes("iOS") || ua.includes("iPhone") || ua.includes("iPad"))
-      return "iOS";
+    if (ua.includes("iOS") || ua.includes("iPhone") || ua.includes("iPad")) return "iOS";
     return "Unknown OS";
   },
 };
-
-(function () {
-  let emailjsLoadPromise = null;
-  window.loadEmailJs = function () {
-    if (emailjsLoadPromise) return emailjsLoadPromise;
-    emailjsLoadPromise = new Promise((resolve, reject) => {
-      if (typeof emailjs !== "undefined") {
-        resolve(emailjs);
-        return;
-      }
-      const script = document.createElement("script");
-      script.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
-      script.onload = () => {
-        try {
-          emailjs.init(FEEDBACK_CONFIG.PUBLIC_KEY);
-          console.log("[EmailJS] Initialized");
-        } catch (e) {
-          console.warn("[EmailJS] Init error:", e);
-        }
-        resolve(emailjs);
-      };
-      script.onerror = reject;
-      document.head.appendChild(script);
-    });
-    return emailjsLoadPromise;
-  };
-})();
 
 (function () {
   const modal = document.getElementById("feedbackModal");
@@ -196,9 +161,7 @@ const FEEDBACK_CONFIG = {
   let typeActiveIndex = -1;
 
   function getTypeOptionEls() {
-    return Array.from(
-      typeListbox?.querySelectorAll(".feedback-select-option") || [],
-    );
+    return Array.from(typeListbox?.querySelectorAll(".feedback-select-option") || []);
   }
 
   function renderFeedbackTypeOptions() {
@@ -210,8 +173,7 @@ const FEEDBACK_CONFIG = {
       li.id = "fbTypeOpt_" + (opt.id || opt.value || "empty");
       li.dataset.value = opt.value;
       li.textContent = opt.textContent;
-      li.className =
-        "feedback-select-option" + (opt.value === "" ? " is-placeholder" : "");
+      li.className = "feedback-select-option" + (opt.value === "" ? " is-placeholder" : "");
       const isSelected = opt.value === typeSelect.value;
       li.setAttribute("aria-selected", isSelected ? "true" : "false");
       if (isSelected) li.classList.add("is-active");
@@ -219,9 +181,7 @@ const FEEDBACK_CONFIG = {
       typeListbox.appendChild(li);
     });
     const selectedOption = typeSelect.options[typeSelect.selectedIndex];
-    typeTriggerLabel.textContent = selectedOption
-      ? selectedOption.textContent
-      : "";
+    typeTriggerLabel.textContent = selectedOption ? selectedOption.textContent : "";
     typeTrigger.classList.toggle("has-value", !!typeSelect.value);
   }
 
@@ -229,9 +189,7 @@ const FEEDBACK_CONFIG = {
     const opts = getTypeOptionEls();
     if (!opts.length) return;
     typeActiveIndex = Math.max(0, Math.min(idx, opts.length - 1));
-    opts.forEach((el, i) =>
-      el.classList.toggle("is-active", i === typeActiveIndex),
-    );
+    opts.forEach((el, i) => el.classList.toggle("is-active", i === typeActiveIndex));
     typeListbox.setAttribute("aria-activedescendant", opts[typeActiveIndex].id);
     opts[typeActiveIndex].scrollIntoView({ block: "nearest" });
   }
@@ -242,9 +200,7 @@ const FEEDBACK_CONFIG = {
     typeTrigger.setAttribute("aria-expanded", "true");
     typeWrap?.classList.add("is-open");
     const opts = getTypeOptionEls();
-    const currentIdx = opts.findIndex(
-      (el) => el.dataset.value === typeSelect.value,
-    );
+    const currentIdx = opts.findIndex((el) => el.dataset.value === typeSelect.value);
     setTypeActiveIndex(currentIdx >= 0 ? currentIdx : 0);
     typeListbox.focus();
   }
@@ -300,8 +256,7 @@ const FEEDBACK_CONFIG = {
       case "Enter":
       case " ":
         e.preventDefault();
-        if (typeActiveIndex >= 0)
-          selectFeedbackType(opts[typeActiveIndex].dataset.value);
+        if (typeActiveIndex >= 0) selectFeedbackType(opts[typeActiveIndex].dataset.value);
         break;
       case "Escape":
         e.preventDefault();
@@ -345,18 +300,14 @@ const FEEDBACK_CONFIG = {
   function saveDraft() {
     const data = readDraftFields();
     const isEmpty =
-      !data.type && !data.title.trim() && !data.description.trim() &&
-      !data.email.trim();
+      !data.type && !data.title.trim() && !data.description.trim() && !data.email.trim();
     if (isEmpty) {
       clearDraft();
       return;
     }
     try {
-      localStorage.setItem(
-        DRAFT_KEY,
-        JSON.stringify({ ...data, savedAt: Date.now() }),
-      );
-    } catch (e) {
+      localStorage.setItem(DRAFT_KEY, JSON.stringify({ ...data, savedAt: Date.now() }));
+    } catch {
       /* localStorage unavailable (private mode, quota, etc.) — skip silently */
     }
   }
@@ -370,7 +321,7 @@ const FEEDBACK_CONFIG = {
     try {
       const raw = localStorage.getItem(DRAFT_KEY);
       return raw ? JSON.parse(raw) : null;
-    } catch (e) {
+    } catch {
       return null;
     }
   }
@@ -378,7 +329,7 @@ const FEEDBACK_CONFIG = {
   function clearDraft() {
     try {
       localStorage.removeItem(DRAFT_KEY);
-    } catch (e) {
+    } catch {
       /* ignore */
     }
     if (draftNotice) draftNotice.style.display = "none";
@@ -408,21 +359,14 @@ const FEEDBACK_CONFIG = {
 
   function openModal() {
     if (!modal) return;
-    window.loadEmailJs?.();
     modal.style.display = "flex";
     document.body.style.overflow = "hidden";
     form.reset();
     form.style.display = "block";
     successEl.style.display = "none";
-    document
-      .querySelectorAll(".field-error")
-      .forEach((el) => (el.textContent = ""));
-    document
-      .querySelectorAll(".has-error")
-      .forEach((el) => el.classList.remove("has-error"));
-    document
-      .querySelectorAll(".form-error-message")
-      .forEach((el) => el.remove());
+    document.querySelectorAll(".field-error").forEach((el) => (el.textContent = ""));
+    document.querySelectorAll(".has-error").forEach((el) => el.classList.remove("has-error"));
+    document.querySelectorAll(".form-error-message").forEach((el) => el.remove());
     submitBtn.disabled = false;
     submitBtn.querySelector(".submit-text").style.display = "inline";
     submitBtn.querySelector(".submit-spinner").style.display = "none";
@@ -495,11 +439,7 @@ const FEEDBACK_CONFIG = {
   }
 
   function validateForm() {
-    const fields = [
-      "feedbackType",
-      "feedbackTitleInput",
-      "feedbackDescription",
-    ];
+    const fields = ["feedbackType", "feedbackTitleInput", "feedbackDescription"];
     let allValid = true;
     fields.forEach((id) => {
       if (!validateField(id)) allValid = false;
@@ -508,9 +448,7 @@ const FEEDBACK_CONFIG = {
   }
 
   function showError(message) {
-    document
-      .querySelectorAll(".form-error-message")
-      .forEach((el) => el.remove());
+    document.querySelectorAll(".form-error-message").forEach((el) => el.remove());
     const actions = document.querySelector(".feedback-actions");
     if (actions) {
       const errorMsg = document.createElement("div");
@@ -521,7 +459,7 @@ const FEEDBACK_CONFIG = {
     }
   }
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
     if (isSending) return;
 
@@ -539,9 +477,7 @@ const FEEDBACK_CONFIG = {
       return;
     }
 
-    try {
-      await window.loadEmailJs();
-    } catch (err) {
+    if (typeof emailjs === "undefined") {
       showError("Email service not available. Please try again later.");
       return;
     }
@@ -554,8 +490,7 @@ const FEEDBACK_CONFIG = {
     const formData = {
       type: document.getElementById("feedbackType")?.value || "",
       title: document.getElementById("feedbackTitleInput")?.value.trim() || "",
-      description:
-        document.getElementById("feedbackDescription")?.value.trim() || "",
+      description: document.getElementById("feedbackDescription")?.value.trim() || "",
       email: document.getElementById("feedbackEmail")?.value.trim() || "",
     };
 
@@ -582,11 +517,7 @@ const FEEDBACK_CONFIG = {
     console.log("[Feedback] Sending...");
 
     emailjs
-      .send(
-        FEEDBACK_CONFIG.SERVICE_ID,
-        FEEDBACK_CONFIG.TEMPLATE_ID,
-        templateParams,
-      )
+      .send(FEEDBACK_CONFIG.SERVICE_ID, FEEDBACK_CONFIG.TEMPLATE_ID, templateParams)
       .then((response) => {
         console.log("[Feedback] Success:", response);
         clearDraft();
@@ -598,8 +529,7 @@ const FEEDBACK_CONFIG = {
         console.error("[Feedback] Send failed:", error);
         let errorMsg = "Failed to send feedback. ";
         if (error.status === 400) {
-          errorMsg +=
-            "Please check your EmailJS template variables. Make sure they match exactly.";
+          errorMsg += "Please check your EmailJS template variables. Make sure they match exactly.";
         } else if (error.status === 401) {
           errorMsg += "Authentication failed. Please check your Public Key.";
         } else if (error.status === 404) {
@@ -639,40 +569,31 @@ const FEEDBACK_CONFIG = {
     }
   });
 
-  document
-    .getElementById("feedbackTitleInput")
-    ?.addEventListener("input", function () {
-      updateCharCounter("titleCount", this.value.length, 100);
-      scheduleDraftSave();
-    });
-  document
-    .getElementById("feedbackDescription")
-    ?.addEventListener("input", function () {
-      updateCharCounter("descCount", this.value.length, 3000);
-      scheduleDraftSave();
-    });
+  document.getElementById("feedbackTitleInput")?.addEventListener("input", function () {
+    updateCharCounter("titleCount", this.value.length, 100);
+    scheduleDraftSave();
+  });
+  document.getElementById("feedbackDescription")?.addEventListener("input", function () {
+    updateCharCounter("descCount", this.value.length, 3000);
+    scheduleDraftSave();
+  });
 
-  ["feedbackType", "feedbackTitleInput", "feedbackDescription"].forEach(
-    (id) => {
-      const el = document.getElementById(id);
-      el?.addEventListener("blur", () => validateField(id));
-      el?.addEventListener("input", () => {
-        const errorEl = document.getElementById(id + "Error");
-        if (errorEl) errorEl.textContent = "";
-        el.closest(".feedback-field")?.classList.remove("has-error");
-      });
-    },
-  );
+  ["feedbackType", "feedbackTitleInput", "feedbackDescription"].forEach((id) => {
+    const el = document.getElementById(id);
+    el?.addEventListener("blur", () => validateField(id));
+    el?.addEventListener("input", () => {
+      const errorEl = document.getElementById(id + "Error");
+      if (errorEl) errorEl.textContent = "";
+      el.closest(".feedback-field")?.classList.remove("has-error");
+    });
+  });
 
   console.log("[Feedback] Modal initialized");
 })();
 
-let currentLang =
-  localStorage.getItem("lang") ||
-  localStorage.getItem("preferredLanguage") ||
-  "es";
-let isSwitching = false;
-let newsVisible = false;
+let currentLang = localStorage.getItem("lang") || localStorage.getItem("preferredLanguage") || "es";
+let _isSwitching = false;
+let _newsVisible = false;
 let contentData = null;
 let rawNewsData = null;
 
@@ -693,7 +614,7 @@ const navHrefs = {
   constellation: "/Adashima_Estrella",
   anime: "/Adashima_Anime",
   others: "/Adashima_Otros",
-  authorArchive: "/Author_Archive",
+  authorArchive: "/otros/Author_Archive",
   stats: "/Adashima_Stats",
   about: "/Adashima_About",
   help: "/Adashima_Help",
@@ -707,15 +628,11 @@ async function loadContent(lang) {
 }
 
 function updateLangLabel() {
-  const sel = document.querySelector(
-    `.lang-option[data-lang="${currentLang}"]`,
-  );
+  const sel = document.querySelector(`.lang-option[data-lang="${currentLang}"]`);
   const label = document.getElementById("langSelectedLabel");
   if (sel && label) {
     label.textContent = sel.getAttribute("data-label");
-    document
-      .querySelectorAll(".lang-option")
-      .forEach((o) => o.classList.remove("selected"));
+    document.querySelectorAll(".lang-option").forEach((o) => o.classList.remove("selected"));
     sel.classList.add("selected");
   }
 }
@@ -767,26 +684,47 @@ function renderNav(data) {
 
   const navItems = Array.isArray(data?.nav?.items) ? data.nav.items : [];
   const featuredKeys = ["novels", "manga", "anime"];
-  const moreKeys = ["extraStories", "drama", "music", "gallery", "constellation", "timeline", "others", "authorArchive", "about", "help"];
+  const moreKeys = [
+    "extraStories",
+    "drama",
+    "music",
+    "gallery",
+    "constellation",
+    "timeline",
+    "others",
+    "authorArchive",
+    "about",
+    "help",
+  ];
 
   const storyKickers = {
-    novels: currentLang === "en" ? "ORIGINAL NOVELS" : currentLang === "tg" ? "ORIHINAL NA NOVELS" : "NOVELAS ORIGINALES",
-    manga: currentLang === "en" ? "MANGA ADAPTATION" : currentLang === "tg" ? "MANGA ADAPTATION" : "ADAPTACIÓN AL MANGA",
-    anime: currentLang === "en" ? "ANIME ADAPTATION" : currentLang === "tg" ? "ANIME ADAPTATION" : "ADAPTACIÓN AL ANIME",
+    novels:
+      currentLang === "en"
+        ? "ORIGINAL NOVELS"
+        : currentLang === "tg"
+          ? "ORIHINAL NA NOVELS"
+          : "NOVELAS ORIGINALES",
+    manga:
+      currentLang === "en"
+        ? "MANGA ADAPTATION"
+        : currentLang === "tg"
+          ? "MANGA ADAPTATION"
+          : "ADAPTACIÓN AL MANGA",
+    anime:
+      currentLang === "en"
+        ? "ANIME ADAPTATION"
+        : currentLang === "tg"
+          ? "ANIME ADAPTATION"
+          : "ADAPTACIÓN AL ANIME",
   };
 
   // Per-card icon (Lucide) used in the "Explore the Story" grid. The
   // featured (novels) card gets a large decorative background icon
   // instead of a corner badge, matching the reference layout.
   const storyIcons = {
-    novels: "library",
-    manga: "images",
-    anime: "clapperboard",
-  };
-
-  const storyActionLabel = {
-    en: "Explore",
-    tg: "Tuklasin",
+    novels: "library-big",
+    manga: "panels-top-left",
+    anime: "film",
   };
 
   function buildCard(item, variant = "story", index = 0) {
@@ -807,19 +745,42 @@ function renderNav(data) {
       return card;
     }
 
+    const isFeatured = index === 0;
+    const kicker = storyKickers[item.key] || "";
     const iconName = storyIcons[item.key] || faToLucide(item.icon);
-    const actionLabel = storyActionLabel[currentLang] || "Explorar";
 
-    card.className = `nav-card nav-card-story explore-card explore-card-${item.key || ""}`;
-    card.style.setProperty("--explore-i", index);
+    card.className = `nav-card nav-card-story ${isFeatured ? "nav-card-featured" : "nav-card-side"} nav-card-${item.key || ""}`;
 
-    card.innerHTML = `
-      <span class="explore-card-glow" aria-hidden="true"></span>
-      <span class="explore-card-icon" aria-hidden="true"><i data-lucide="${iconName}"></i></span>
-      <h3 class="explore-card-title">${item.title || ""}</h3>
-      ${item.desc ? `<p class="explore-card-desc">${item.desc}</p>` : ""}
-      <span class="explore-card-action" data-label="${actionLabel}" aria-hidden="true"><i data-lucide="arrow-right"></i></span>
-    `;
+    if (isFeatured) {
+      card.innerHTML = `
+        <span class="story-card-kicker">
+          <span class="story-card-kicker-line" aria-hidden="true"></span>
+          <span class="story-card-kicker-text">${kicker}</span>
+        </span>
+        <h3 class="story-card-title">${item.title || ""}</h3>
+        <span class="story-card-underline" aria-hidden="true"></span>
+        ${item.desc ? `<p class="story-card-desc">${item.desc}</p>` : ""}
+        <span class="story-card-action">
+          <span class="story-card-action-line" aria-hidden="true"></span>
+          <span class="story-card-action-btn" aria-hidden="true"><i data-lucide="arrow-right"></i></span>
+        </span>
+        <span class="story-card-decor" aria-hidden="true"><i data-lucide="${iconName}"></i></span>
+      `;
+    } else {
+      card.innerHTML = `
+        <span class="story-card-kicker">
+          <span class="story-card-kicker-line" aria-hidden="true"></span>
+          <span class="story-card-kicker-text">${kicker}</span>
+        </span>
+        <span class="story-card-side-text">
+          <h3 class="story-card-title">${item.title || ""}</h3>
+          <span class="story-card-underline" aria-hidden="true"></span>
+          ${item.desc ? `<p class="story-card-desc">${item.desc}</p>` : ""}
+        </span>
+        <span class="story-card-decor story-card-decor-side" aria-hidden="true"><i data-lucide="${iconName}"></i></span>
+        <span class="story-card-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></span>
+      `;
+    }
     return card;
   }
 
@@ -856,10 +817,8 @@ function renderGallery(data) {
   }
 
   if (gallerySection) gallerySection.style.display = "block";
-  if (galleryTitle && data.gallery.title)
-    galleryTitle.textContent = data.gallery.title;
-  if (gallerySubtitle && data.gallery.subtitle)
-    gallerySubtitle.textContent = data.gallery.subtitle;
+  if (galleryTitle && data.gallery.title) galleryTitle.textContent = data.gallery.title;
+  if (gallerySubtitle && data.gallery.subtitle) gallerySubtitle.textContent = data.gallery.subtitle;
 
   galleryGrid.innerHTML = "";
 
@@ -878,9 +837,7 @@ function renderGallery(data) {
         `;
 
     const img = col.querySelector(".gallery-item");
-    img?.addEventListener("click", () =>
-      openLightbox(item, data.gallery.items),
-    );
+    img?.addEventListener("click", () => openLightbox(item, data.gallery.items));
 
     galleryGrid.appendChild(col);
   });
@@ -954,19 +911,15 @@ function applyFeedbackI18n() {
     window.syncFeedbackTypeCustomUI();
   }
   if (t.draftNoticeText) {
-    document.getElementById("feedbackDraftNoticeText").textContent =
-      t.draftNoticeText;
+    document.getElementById("feedbackDraftNoticeText").textContent = t.draftNoticeText;
   }
   if (t.draftClear) {
-    document.getElementById("feedbackDraftClearLabel").textContent =
-      t.draftClear;
+    document.getElementById("feedbackDraftClearLabel").textContent = t.draftClear;
   }
   document.getElementById("feedbackTitleLabel").textContent = t.titleLabel;
-  document.getElementById("feedbackTitleInput").placeholder =
-    t.titlePlaceholder;
+  document.getElementById("feedbackTitleInput").placeholder = t.titlePlaceholder;
   document.getElementById("feedbackDescLabel").textContent = t.descLabel;
-  document.getElementById("feedbackDescription").placeholder =
-    t.descPlaceholder;
+  document.getElementById("feedbackDescription").placeholder = t.descPlaceholder;
   document.getElementById("feedbackEmailLabel").textContent = t.emailLabel;
   document.getElementById("feedbackEmailHint").textContent = t.emailHint;
   document.getElementById("fbCancelLabel").textContent = t.cancel;
@@ -976,48 +929,98 @@ function applyFeedbackI18n() {
   document.getElementById("feedbackFooterLabel").textContent = t.footerBtn;
 }
 
-function applyHomepageCopy() {
-  const copy = currentLang === "en"
-    ? {
-        infoEyebrow: "THE SERIES",
-        infoSub: "An introduction for new readers",
-        exploreEyebrow: "THE STORY",
-        exploreTitle: "Explore Adachi & Shimamura",
-        exploreSub: "Novels, manga, anime, and other stories from the series.",
-        updatesEyebrow: "SERIES NEWS",
-        updatesTitle: "What's New",
-        updatesSub: "News, announcements, and recent developments from the world of Adachi & Shimamura.",
-        discoverEyebrow: "THE ARCHIVE",
-        discoverTitle: "More from the Archive",
-        discoverSub: "Additional stories, media, artwork, and discoveries.",
-      }
-    : currentLang === "tg"
+function applyHomepageFooterI18n(data) {
+  const footer = document.getElementById("footer");
+  if (!footer) return;
+
+  const copy =
+    currentLang === "en"
       ? {
-          infoEyebrow: "ANG SERYE",
-          infoSub: "Panimula para sa mga bagong mambabasa",
-          exploreEyebrow: "ANG KUWENTO",
-          exploreTitle: "Tuklasin sina Adachi at Shimamura",
-          exploreSub: "Mga nobela, manga, anime, at iba pang kuwento mula sa serye.",
-          updatesEyebrow: "BALITA NG SERYE",
-          updatesTitle: "Ano ang Bago",
-          updatesSub: "Mga balita, anunsyo, at mga bagong kaganapan tungkol sa Adachi at Shimamura.",
-          discoverEyebrow: "ANG ARCHIVE",
-          discoverTitle: "Higit pa sa Archive",
-          discoverSub: "Mga dagdag na kuwento, media, artwork, at iba pang tuklas.",
+          tagline: "An unofficial fan archive dedicated to <em>Adachi to Shimamura</em>.",
+          description:
+            "A place to read, explore, and keep track of the stories, adaptations, and little details that make Adachi and Shimamura worth revisiting.",
+          community: "COMMUNITY",
+          help: "HELP KEEP IT BETTER",
+          feedback: "Found a typo, missing content, or something that could be improved?",
         }
-      : {
-          infoEyebrow: "LA SERIE",
-          infoSub: "Una introducción para nuevos lectores",
-          exploreEyebrow: "LA HISTORIA",
-          exploreTitle: "Explora Adachi & Shimamura",
-          exploreSub: "Novelas, manga, anime y otras historias de la serie.",
-          updatesEyebrow: "NOTICIAS DE LA SERIE",
-          updatesTitle: "Novedades",
-          updatesSub: "Noticias, anuncios y novedades recientes de Adachi & Shimamura.",
-          discoverEyebrow: "EL ARCHIVO",
-          discoverTitle: "Más del archivo",
-          discoverSub: "Historias adicionales, medios, ilustraciones y descubrimientos.",
-        };
+      : currentLang === "tg"
+        ? {
+            tagline:
+              "Isang hindi opisyal na fan archive na nakatuon sa <em>Adachi to Shimamura</em>.",
+            description:
+              "Isang lugar para magbasa, mag-explore, at subaybayan ang mga kuwento, adaptation, at maliliit na detalyeng nagpapahalagang balikan sina Adachi at Shimamura.",
+            community: "KOMUNIDAD",
+            help: "TULUNGANG PAGANDAHIN ITO",
+            feedback: "May nakita ka bang typo, kulang na content, o bagay na maaaring pagandahin?",
+          }
+        : {
+            tagline: "Un archivo de fans no oficial dedicado a <em>Adachi to Shimamura</em>.",
+            description:
+              "Un lugar para leer, explorar y seguir las historias, adaptaciones y pequeños detalles que hacen que Adachi y Shimamura merezcan ser revisitadas.",
+            community: "COMUNIDAD",
+            help: "AYUDA A MEJORARLO",
+            feedback: "¿Encontraste un error, contenido faltante o algo que podría mejorarse?",
+          };
+
+  const tagline = footer.querySelector(".footer-tagline");
+  const description = footer.querySelector(".footer-description");
+  const columnTitles = footer.querySelectorAll(".footer-column-title");
+  const feedbackCopy = footer.querySelector(".footer-feedback-copy");
+  const disclaimer = footer.querySelector(".footer-disclaimer");
+
+  if (tagline) tagline.innerHTML = copy.tagline;
+  if (description) description.textContent = copy.description;
+  if (columnTitles[0]) columnTitles[0].textContent = copy.community;
+  if (columnTitles[1]) columnTitles[1].textContent = copy.help;
+  if (feedbackCopy) feedbackCopy.textContent = copy.feedback;
+  if (disclaimer && data?.footer) disclaimer.innerHTML = data.footer;
+}
+
+function applyHomepageCopy() {
+  const copy =
+    currentLang === "en"
+      ? {
+          infoEyebrow: "THE SERIES",
+          infoSub: "An introduction for new readers",
+          exploreEyebrow: "THE STORY",
+          exploreTitle: "Explore Adachi & Shimamura",
+          exploreSub: "Novels, manga, anime, and other stories from the series.",
+          updatesEyebrow: "SERIES NEWS",
+          updatesTitle: "What's New",
+          updatesSub:
+            "News, announcements, and recent developments from the world of Adachi & Shimamura.",
+          discoverEyebrow: "THE ARCHIVE",
+          discoverTitle: "More from the Archive",
+          discoverSub: "Additional stories, media, artwork, and discoveries.",
+        }
+      : currentLang === "tg"
+        ? {
+            infoEyebrow: "ANG SERYE",
+            infoSub: "Panimula para sa mga bagong mambabasa",
+            exploreEyebrow: "ANG KUWENTO",
+            exploreTitle: "Tuklasin sina Adachi at Shimamura",
+            exploreSub: "Mga nobela, manga, anime, at iba pang kuwento mula sa serye.",
+            updatesEyebrow: "BALITA NG SERYE",
+            updatesTitle: "Ano ang Bago",
+            updatesSub:
+              "Mga balita, anunsyo, at mga bagong kaganapan tungkol sa Adachi at Shimamura.",
+            discoverEyebrow: "ANG ARCHIVE",
+            discoverTitle: "Higit pa sa Archive",
+            discoverSub: "Mga dagdag na kuwento, media, artwork, at iba pang tuklas.",
+          }
+        : {
+            infoEyebrow: "LA SERIE",
+            infoSub: "Una introducción para nuevos lectores",
+            exploreEyebrow: "LA HISTORIA",
+            exploreTitle: "Explora Adachi & Shimamura",
+            exploreSub: "Novelas, manga, anime y otras historias de la serie.",
+            updatesEyebrow: "NOTICIAS DE LA SERIE",
+            updatesTitle: "Novedades",
+            updatesSub: "Noticias, anuncios y novedades recientes de Adachi & Shimamura.",
+            discoverEyebrow: "EL ARCHIVO",
+            discoverTitle: "Más del archivo",
+            discoverSub: "Historias adicionales, medios, ilustraciones y descubrimientos.",
+          };
 
   const map = {
     infoEyebrow: copy.infoEyebrow,
@@ -1040,11 +1043,12 @@ function applyHomepageCopy() {
 
   const infoTitle = document.getElementById("infoTitle");
   if (infoTitle) {
-    infoTitle.textContent = currentLang === "en"
-      ? "What is Adachi to Shimamura?"
-      : currentLang === "tg"
-        ? "Ano ang Adachi to Shimamura?"
-        : "¿Qué es Adachi to Shimamura?";
+    infoTitle.textContent =
+      currentLang === "en"
+        ? "What is Adachi to Shimamura?"
+        : currentLang === "tg"
+          ? "Ano ang Adachi to Shimamura?"
+          : "¿Qué es Adachi to Shimamura?";
   }
 }
 
@@ -1070,14 +1074,7 @@ function sanitizeNewsMessage(message) {
 
 function getLocalizedUpdateText(update) {
   if (!update) return null;
-
-  const preferredKeys = [currentLang, "en", "es", "tg", "tl"];
-  for (const key of preferredKeys) {
-    const value = update[key];
-    if (value && typeof value === "object") return value;
-  }
-
-  return update;
+  return update[currentLang] || update.en || update.es || update.tg || null;
 }
 
 // Returns a comparable number for an id like "1", "2", "news_series-3", etc.
@@ -1176,12 +1173,10 @@ function getBulletinUpdates() {
       const isSeriesNews = String(type).toUpperCase() === "SERIES NEWS";
 
       const rawBody = localized.body || update.body || [];
-      const body = Array.isArray(rawBody)
-        ? rawBody.map(sanitizeNewsMessage).filter(Boolean)
-        : [];
+      const body = Array.isArray(rawBody) ? rawBody.map(sanitizeNewsMessage).filter(Boolean) : [];
 
       const text = sanitizeNewsMessage(
-        localized.text || localized.summary || update.text || update.summary || body[0] || ""
+        localized.text || localized.summary || update.text || update.summary || body[0] || "",
       );
 
       registerUpdate({
@@ -1191,7 +1186,19 @@ function getBulletinUpdates() {
         title,
         text,
         body,
-        sourceUrl: update.sourceUrl || localized.sourceUrl || fallback.sourceUrl || "",
+        sourceUrl: isSeriesNews
+          ? update.sourceUrl || localized.sourceUrl || fallback.sourceUrl || ""
+          : "",
+        sources: isSeriesNews
+          ? Array.isArray(update.sources || localized.sources)
+            ? (update.sources || localized.sources)
+                .map((source) => (typeof source === "string" ? { url: source, label: "" } : source))
+                .filter((source) => source?.url)
+            : []
+          : [],
+        author: !isSeriesNews
+          ? String(update.author || localized.author || fallback.author || "").trim()
+          : "",
         isSeriesNews,
         featured: Boolean(update.featured || fallback.featured),
       });
@@ -1228,55 +1235,8 @@ function getBulletinUpdates() {
   return updates.sort(compareBulletinRecency);
 }
 
-let bulletinExpanded = false;
-let bulletinRefreshInterval = null;
-const BULLETIN_REFRESH_MS = 5000;
-
-// ---------------------------------------------------------------
-// "New" indicator: remembers which bulletin entries the visitor has
-// already opened, so unopened/new entries can show a small animated
-// badge. The badge disappears the moment that entry is opened.
-// ---------------------------------------------------------------
-const BULLETIN_SEEN_KEY = "adashima_bulletin_seen_ids";
-
-function getSeenBulletinIds() {
-  try {
-    const raw = localStorage.getItem(BULLETIN_SEEN_KEY);
-    if (raw === null) return null; // never initialized (first-ever visit)
-    const parsed = JSON.parse(raw);
-    return new Set(Array.isArray(parsed) ? parsed : []);
-  } catch (error) {
-    return null;
-  }
-}
-
-function saveSeenBulletinIds(set) {
-  try {
-    localStorage.setItem(BULLETIN_SEEN_KEY, JSON.stringify(Array.from(set)));
-  } catch (error) {
-    // Storage unavailable (private mode, etc.) — fail silently, the
-    // badge system just won't persist across reloads.
-  }
-}
-
-function markBulletinIdSeen(id) {
-  if (!id) return;
-  let seen = getSeenBulletinIds();
-  if (!seen) seen = new Set();
-  if (seen.has(id)) return;
-  seen.add(id);
-  saveSeenBulletinIds(seen);
-
-  // Instantly clear the badge wherever this entry is currently shown,
-  // without waiting for a full re-render.
-  document
-    .querySelectorAll(`[data-bulletin-id="${CSS.escape(id)}"]`)
-    .forEach((el) => {
-      el.classList.remove("is-new");
-      el.querySelectorAll(".bulletin-new-badge").forEach((badge) => badge.remove());
-    });
-}
-let activeBulletinUpdate = null;
+let bulletinFilter = "all";
+let _activeBulletinUpdate = null;
 let lastBulletinTrigger = null;
 
 // Cached result of the last getBulletinUpdates() call used to render the
@@ -1287,9 +1247,19 @@ let lastBulletinTrigger = null;
 let bulletinUpdatesCache = [];
 
 const BULLETIN_MODAL_COPY = {
-  en: { close: "Close update", read: "Read full update", source: "Source" },
-  es: { close: "Cerrar actualización", read: "Leer actualización completa", source: "Fuente" },
-  tg: { close: "Isara ang update", read: "Basahin ang buong update", source: "Pinagmulan" },
+  en: { close: "Close update", read: "Read full update", source: "Sources", author: "By" },
+  es: {
+    close: "Cerrar actualización",
+    read: "Leer actualización completa",
+    source: "Fuentes",
+    author: "Por",
+  },
+  tg: {
+    close: "Isara ang update",
+    read: "Basahin ang buong update",
+    source: "Mga source",
+    author: "Ni",
+  },
 };
 
 const BULLETIN_SECTION_COPY = {
@@ -1299,10 +1269,8 @@ const BULLETIN_SECTION_COPY = {
     emptyType: "LATEST",
     emptyTitle: "Adachi to Shimamura",
     emptyText: "News and announcements about the series will appear here.",
-    source: "Source",
-    showMore: "Show older updates",
-    showLess: "Show fewer updates",
-    newBadge: "New",
+    source: "Sources",
+    author: "By",
   },
   es: {
     archiveKicker: "ARCHIVO",
@@ -1310,10 +1278,8 @@ const BULLETIN_SECTION_COPY = {
     emptyType: "ÚLTIMO",
     emptyTitle: "Adachi to Shimamura",
     emptyText: "Aquí aparecerán las noticias y anuncios sobre la serie.",
-    source: "Fuente",
-    showMore: "Mostrar novedades anteriores",
-    showLess: "Mostrar menos novedades",
-    newBadge: "Nuevo",
+    source: "Fuentes",
+    author: "Por",
   },
   tg: {
     archiveKicker: "ARCHIVE",
@@ -1321,10 +1287,8 @@ const BULLETIN_SECTION_COPY = {
     emptyType: "PINAKABAGO",
     emptyTitle: "Adachi to Shimamura",
     emptyText: "Dito lalabas ang mga balita at anunsyo tungkol sa serye.",
-    source: "Pinagmulan",
-    showMore: "Ipakita ang mga lumang update",
-    showLess: "Ipakita ang mas kaunti",
-    newBadge: "Bago",
+    source: "Mga source",
+    author: "Ni",
   },
 };
 
@@ -1342,7 +1306,8 @@ function openBulletinModal(update, trigger = null) {
   const date = document.getElementById("bulletinModalDate");
   const title = document.getElementById("bulletinModalTitle");
   const body = document.getElementById("bulletinModalBody");
-  const source = document.getElementById("bulletinModalSource");
+  const sources = document.getElementById("bulletinModalSources");
+  const author = document.getElementById("bulletinModalAuthor");
   const number = document.getElementById("bulletinModalNumber");
   if (!modal || !update) return;
 
@@ -1355,19 +1320,19 @@ function openBulletinModal(update, trigger = null) {
   const normalizedTitle = String(update.title || "").trim();
   const normalizedDate = update.date || "";
   const normalizedText = String(update.text || "").trim();
-  const normalizedBody = Array.isArray(update.body) && update.body.length
-    ? update.body.filter(Boolean)
-    : normalizedText
-      ? [normalizedText]
-      : [];
+  const normalizedBody =
+    Array.isArray(update.body) && update.body.length
+      ? update.body.filter(Boolean)
+      : normalizedText
+        ? [normalizedText]
+        : [];
 
   if (!normalizedTitle) {
     console.error("[Bulletin] openBulletinModal called with an item missing a title.", update);
   }
 
-  activeBulletinUpdate = update;
+  _activeBulletinUpdate = update;
   lastBulletinTrigger = trigger;
-  markBulletinIdSeen(update.id);
 
   type.textContent = normalizedType;
   date.textContent = formatBulletinDate(normalizedDate);
@@ -1387,13 +1352,19 @@ function openBulletinModal(update, trigger = null) {
   const closeButton = document.getElementById("bulletinModalClose");
   if (closeButton) closeButton.setAttribute("aria-label", copy.close);
 
-  const sourceUrl = update.sourceUrl || "";
-  source.hidden = true;
-  source.removeAttribute("href");
-  if (sourceUrl) {
-    source.href = sourceUrl;
-    source.hidden = false;
-    source.querySelector("span").textContent = copy.source;
+  author.hidden = true;
+  author.textContent = "";
+  if (!update.isSeriesNews && update.author) {
+    author.textContent = `${copy.author} ${update.author}`;
+    author.hidden = false;
+  }
+
+  sources.hidden = true;
+  sources.replaceChildren();
+  const sourceControl = createBulletinSources(update, copy);
+  if (sourceControl) {
+    sources.appendChild(sourceControl);
+    sources.hidden = false;
   }
 
   modal.classList.add("is-open");
@@ -1422,7 +1393,7 @@ function closeBulletinModal() {
   modal.classList.remove("is-open");
   modal.setAttribute("aria-hidden", "true");
   unlockBulletinScroll();
-  activeBulletinUpdate = null;
+  _activeBulletinUpdate = null;
   lastBulletinTrigger?.focus?.();
   lastBulletinTrigger = null;
 }
@@ -1443,7 +1414,9 @@ function closeBulletinModal() {
   }
 
   document.getElementById("bulletinModalClose")?.addEventListener("click", closeBulletinModal);
-  modal.querySelectorAll("[data-bulletin-close]").forEach((el) => el.addEventListener("click", closeBulletinModal));
+  modal
+    .querySelectorAll("[data-bulletin-close]")
+    .forEach((el) => el.addEventListener("click", closeBulletinModal));
   document.addEventListener("keydown", (event) => {
     if (!modal.classList.contains("is-open")) return;
     if (event.key === "Escape") {
@@ -1453,171 +1426,209 @@ function closeBulletinModal() {
   });
 })();
 
+function getBulletinFilterLabel(filter) {
+  const labels = {
+    en: { all: "All", series: "Series News", dev: "Dev Updates" },
+    es: { all: "Todo", series: "Noticias de la serie", dev: "Actualizaciones de desarrollo" },
+    tg: { all: "Lahat", series: "Balita ng Serye", dev: "Dev Updates" },
+  };
+  return labels[currentLang]?.[filter] || labels.en[filter];
+}
+
+function getFilteredBulletinUpdates(updates) {
+  if (bulletinFilter === "series") return updates.filter((item) => item.isSeriesNews);
+  if (bulletinFilter === "dev") return updates.filter((item) => !item.isSeriesNews);
+  return updates;
+}
+
+function normalizeBulletinSources(update) {
+  if (!update?.isSeriesNews) return [];
+  const sources = Array.isArray(update.sources) ? update.sources : [];
+  return sources.length
+    ? sources.filter((source) => source?.url)
+    : update.sourceUrl
+      ? [{ url: update.sourceUrl, label: "" }]
+      : [];
+}
+
+function createBulletinSources(update, copy) {
+  const sources = normalizeBulletinSources(update);
+  if (!sources.length) return null;
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "bulletin-sources";
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "bulletin-source";
+  button.setAttribute("aria-expanded", "false");
+  button.setAttribute("aria-haspopup", "true");
+  button.innerHTML = `<i data-lucide="link-2" aria-hidden="true"></i><span>${copy.source}${sources.length > 1 ? ` · ${sources.length}` : ""}</span><i class="bulletin-source-chevron" data-lucide="chevron-down" aria-hidden="true"></i>`;
+
+  const menu = document.createElement("div");
+  menu.className = "bulletin-source-menu";
+  menu.hidden = true;
+  sources.forEach((source, index) => {
+    const link = document.createElement("a");
+    link.href = source.url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.className = "bulletin-source-option";
+    let hostname = source.url;
+    try {
+      hostname = new URL(source.url, window.location.href).hostname;
+    } catch {
+      /* ignored */
+    }
+    link.innerHTML = `<span class="bulletin-source-option-index">${String(index + 1).padStart(2, "0")}</span><span class="bulletin-source-option-label">${source.label || hostname}</span><i data-lucide="external-link" aria-hidden="true"></i>`;
+    menu.appendChild(link);
+  });
+
+  button.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const shouldOpen = menu.hidden;
+    document.querySelectorAll(".bulletin-source-menu:not([hidden])").forEach((other) => {
+      other.hidden = true;
+      other.previousElementSibling?.setAttribute("aria-expanded", "false");
+    });
+    menu.hidden = !shouldOpen;
+    button.setAttribute("aria-expanded", String(shouldOpen));
+  });
+  menu.addEventListener("click", (event) => event.stopPropagation());
+  wrapper.append(button, menu);
+  return wrapper;
+}
+
 function renderBulletin() {
   const feature = document.getElementById("bulletinFeature");
   const featureType = document.getElementById("bulletinFeatureType");
   const featureDate = document.getElementById("bulletinFeatureDate");
   const featureTitle = document.getElementById("bulletinFeatureTitle");
   const featureText = document.getElementById("bulletinFeatureText");
-  const featureLink = document.getElementById("bulletinFeatureLink");
+  const featureSources = document.getElementById("bulletinFeatureSources");
   const list = document.getElementById("bulletinList");
-  const listTitle = document.getElementById("bulletinListTitle");
-  const archiveKicker = document.querySelector(".bulletin-list-kicker");
   const count = document.getElementById("bulletinCount");
-  const more = document.getElementById("bulletinMore");
-  const moreLabel = document.getElementById("bulletinMoreLabel");
-
+  const filters = document.getElementById("bulletinFilters");
   if (!feature || !list) return;
 
   const updates = getBulletinUpdates();
   bulletinUpdatesCache = updates;
+  const visibleUpdates = getFilteredBulletinUpdates(updates);
   const sectionCopy = getBulletinSectionCopy();
 
-  // First-ever visit: nothing should read as "new" yet — seed the seen
-  // list with everything currently published, so only entries added
-  // *after* this point will ever show the badge.
-  let seenIds = getSeenBulletinIds();
-  if (seenIds === null) {
-    seenIds = new Set(updates.map((item) => item.id));
-    saveSeenBulletinIds(seenIds);
-  }
+  filters?.querySelectorAll(".bulletin-filter").forEach((button) => {
+    const active = button.dataset.bulletinFilter === bulletinFilter;
+    button.textContent = getBulletinFilterLabel(button.dataset.bulletinFilter);
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
 
-  if (archiveKicker) archiveKicker.textContent = sectionCopy.archiveKicker;
-  if (listTitle) listTitle.textContent = sectionCopy.listTitle;
-
-  if (!updates.length) {
+  const featured = pickLatestSeriesNews(updates);
+  if (!featured) {
     featureType.textContent = sectionCopy.emptyType;
     featureDate.textContent = "";
     featureTitle.textContent = sectionCopy.emptyTitle;
     featureText.textContent = sectionCopy.emptyText;
-    featureLink.hidden = true;
-    list.replaceChildren();
-    count.textContent = "0";
-    more.hidden = true;
-    return;
-  }
-
-  // The feature card always shows the latest Series News entry — falling
-  // back to an explicitly-flagged item, then to the newest update overall,
-  // only for the (unusual) case where no Series News exists yet.
-  const featured = pickLatestSeriesNews(updates)
-    || updates.find((item) => item.featured)
-    || updates[0];
-  const others = updates.filter((item) => item.id !== featured.id);
-
-  feature.dataset.bulletinId = featured.id;
-  feature.classList.toggle("is-new", !seenIds.has(featured.id));
-  const existingFeatureBadge = feature.querySelector(".bulletin-new-badge");
-  if (existingFeatureBadge) existingFeatureBadge.remove();
-  if (!seenIds.has(featured.id)) {
-    const featureBadge = document.createElement("span");
-    featureBadge.className = "bulletin-new-badge bulletin-new-badge--feature";
-    featureBadge.innerHTML = `<i data-lucide="sparkle" aria-hidden="true"></i><span>${sectionCopy.newBadge || "New"}</span>`;
-    feature.querySelector(".bulletin-feature-top")?.appendChild(featureBadge);
-  }
-
-  featureType.textContent = featured.type;
-  featureDate.textContent = formatBulletinDate(feature.date);
-  featureTitle.textContent = featured.title;
-  featureText.textContent = featured.text || featured.body[0] || "";
-
-  if (featured.sourceUrl) {
-    featureLink.href = featured.sourceUrl;
-    featureLink.hidden = false;
-    featureLink.querySelector("span").textContent = sectionCopy.source;
+    featureSources.hidden = true;
+    featureSources.replaceChildren();
   } else {
-    featureLink.hidden = true;
+    featureType.textContent = featured.type;
+    featureDate.textContent = formatBulletinDate(featured.date);
+    featureTitle.textContent = featured.title;
+    featureText.textContent = featured.text || featured.body[0] || "";
+    featureSources.replaceChildren();
+    const sourceControl = createBulletinSources(featured, sectionCopy);
+    if (sourceControl) {
+      featureSources.appendChild(sourceControl);
+      featureSources.hidden = false;
+    } else {
+      featureSources.hidden = true;
+    }
+    const featureRead = document.getElementById("bulletinFeatureRead");
+    if (featureRead) {
+      featureRead.hidden = false;
+      featureRead.querySelector("span").textContent = getBulletinModalCopy().read;
+      featureRead.onclick = () => openBulletinModal(featured, featureRead);
+    }
   }
 
-  const featureRead = document.getElementById("bulletinFeatureRead");
-  if (featureRead) {
-    featureRead.hidden = false;
-    featureRead.querySelector("span").textContent = getBulletinModalCopy().read;
-    // openBulletinModal(update, trigger) — this previously passed the
-    // arguments swapped (the DOM node as `update`, the data object as
-    // `trigger`), which is exactly how the modal ended up with no title or
-    // content: it had no real data object to read from at all.
-    featureRead.onclick = () => openBulletinModal(featured, featureRead);
-  }
-
-  const collapsedCount = 5;
-  const visible = bulletinExpanded ? others : others.slice(0, collapsedCount);
   list.replaceChildren();
-
-  visible.forEach((item) => {
+  visibleUpdates.forEach((item, visibleIndex) => {
     const row = document.createElement("article");
     row.className = "bulletin-item";
-    row.dataset.type = String(item.type || "news").toLowerCase().replace(/\s+/g, "-");
-    row.dataset.bulletinId = item.id;
-    const isNew = !seenIds.has(item.id);
-    row.classList.toggle("is-new", isNew);
-    row.tabIndex = 0;
-    row.setAttribute("role", "button");
-    row.setAttribute("aria-label", `${getBulletinModalCopy().read}: ${item.title}`);
-    row.addEventListener("click", (event) => {
-      if (event.target.closest("a")) return;
-      openBulletinModal(item, row);
-    });
-    row.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        openBulletinModal(item, row);
-      }
-    });
 
-    const title = document.createElement("h4");
-    title.textContent = item.title;
+    const marker = document.createElement("span");
+    marker.className = "bulletin-item-index";
+    marker.textContent = String(visibleIndex + 1).padStart(2, "0");
+    marker.setAttribute("aria-hidden", "true");
+
+    const content = document.createElement("div");
+    content.className = "bulletin-item-content";
 
     const meta = document.createElement("div");
     meta.className = "bulletin-item-meta";
     meta.innerHTML = `<span>${item.type}</span><time>${formatBulletinDate(item.date)}</time>`;
-    if (isNew) {
-      const badge = document.createElement("span");
-      badge.className = "bulletin-new-badge";
-      badge.innerHTML = `<i data-lucide="sparkle" aria-hidden="true"></i><span>${sectionCopy.newBadge || "New"}</span>`;
-      meta.appendChild(badge);
-    }
+
+    const title = document.createElement("h4");
+    const titleButton = document.createElement("button");
+    titleButton.type = "button";
+    titleButton.className = "bulletin-item-title";
+    titleButton.textContent = item.title;
+    titleButton.setAttribute("aria-label", `${getBulletinModalCopy().read}: ${item.title}`);
+    titleButton.addEventListener("click", () => openBulletinModal(item, titleButton));
+    title.appendChild(titleButton);
 
     const summary = document.createElement("p");
     summary.textContent = item.text || item.body[0] || "";
-
-    const content = document.createElement("div");
-    content.className = "bulletin-item-content";
     content.append(meta, title, summary);
 
-    if (item.sourceUrl) {
-      const link = document.createElement("a");
-      link.className = "bulletin-item-link";
-      link.href = item.sourceUrl;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.setAttribute("aria-label", `${item.title} — source`);
-      link.innerHTML = '<i data-lucide="external-link" aria-hidden="true"></i>';
-      content.appendChild(link);
+    if (!item.isSeriesNews && item.author) {
+      const author = document.createElement("div");
+      author.className = "bulletin-item-author";
+      author.innerHTML = `<i data-lucide="pen-line" aria-hidden="true"></i><span>${getBulletinModalCopy().author} ${item.author}</span>`;
+      content.appendChild(author);
     }
-
-    const marker = document.createElement("span");
-    marker.className = "bulletin-item-index";
-    const globalIndex = updates.findIndex((entry) => entry.id === item.id);
-    marker.textContent = String(globalIndex + 1).padStart(2, "0");
-    marker.setAttribute("aria-hidden", "true");
+    if (item.isSeriesNews) {
+      const sourceControl = createBulletinSources(item, sectionCopy);
+      if (sourceControl) {
+        sourceControl.classList.add("bulletin-item-sources");
+        content.appendChild(sourceControl);
+      }
+    }
 
     row.append(marker, content);
     list.appendChild(row);
   });
 
-  count.textContent = String(updates.length).padStart(2, "0");
-  const hasOlder = others.length > collapsedCount;
-  more.hidden = !hasOlder;
-  more.setAttribute("aria-expanded", String(bulletinExpanded));
-  moreLabel.textContent = bulletinExpanded ? sectionCopy.showLess : sectionCopy.showMore;
-  more.querySelector(".bulletin-more-chevron")?.classList.toggle("is-open", bulletinExpanded);
+  if (!visibleUpdates.length) {
+    const empty = document.createElement("p");
+    empty.className = "bulletin-filter-empty";
+    empty.textContent =
+      currentLang === "es"
+        ? "No hay actualizaciones en esta categoría."
+        : currentLang === "tg"
+          ? "Walang update sa kategoryang ito."
+          : "No updates in this category yet.";
+    list.appendChild(empty);
+  }
+
+  count.textContent = String(visibleUpdates.length).padStart(2, "0");
   refreshLucideIcons();
 }
 
-document.getElementById("bulletinMore")?.addEventListener("click", () => {
-  bulletinExpanded = !bulletinExpanded;
+document.getElementById("bulletinFilters")?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-bulletin-filter]");
+  if (!button) return;
+  bulletinFilter = button.dataset.bulletinFilter || "all";
   renderBulletin();
+});
+
+document.addEventListener("click", (event) => {
+  if (!event.target.closest(".bulletin-sources")) {
+    document.querySelectorAll(".bulletin-source-menu:not([hidden])").forEach((menu) => {
+      menu.hidden = true;
+      menu.previousElementSibling?.setAttribute("aria-expanded", "false");
+    });
+  }
 });
 
 function renderApp(data) {
@@ -1667,8 +1678,7 @@ function renderApp(data) {
   renderGallery(data);
 
   const updateBadge = document.getElementById("updateBadge");
-  if (updateBadge)
-    updateBadge.innerHTML = `<i data-lucide="clock"></i> ${data.release.lastUpdate}`;
+  if (updateBadge) updateBadge.innerHTML = `<i data-lucide="clock"></i> ${data.release.lastUpdate}`;
 
   const updateDetails = document.getElementById("updateDetails");
   if (updateDetails) {
@@ -1695,20 +1705,11 @@ function renderApp(data) {
   renderBulletin();
   refreshLucideIcons();
 
-  if (document.visibilityState === "visible") {
-    startBulletinRefreshLoop();
-  }
-
-  const footer = document.getElementById("footer");
-  if (footer) {
-    const footerText = footer.querySelector(".footer-text");
-    if (footerText && data.footer) footerText.innerHTML = data.footer;
-  }
+  applyHomepageFooterI18n(data);
 
   document.documentElement.lang = currentLang;
   applyFeedbackI18n();
 }
-
 
 function getNewsDataUrl() {
   const currentScript = document.currentScript?.src;
@@ -1726,7 +1727,7 @@ function getNewsFolderUrl(folder, lang) {
 }
 
 async function fetchNewsFolder(folder, lang) {
-  const response = await fetch(`${getNewsFolderUrl(folder, lang)}?v=${Date.now()}`, {
+  const response = await fetch(`${getNewsFolderUrl(folder, lang)}?v=1.0.0`, {
     cache: "no-store",
   });
   if (!response.ok) throw new Error(`${folder}: HTTP ${response.status}`);
@@ -1750,16 +1751,15 @@ function normalizeNewsFolder(folder, payload, lang) {
   return source.flatMap((entry, index) => {
     if (!entry || typeof entry !== "object") return [];
 
-    const localized = entry[lang] && typeof entry[lang] === "object"
-      ? entry[lang]
-      : entry.en && typeof entry.en === "object"
-        ? entry.en
-        : entry.es && typeof entry.es === "object"
-          ? entry.es
-          : entry.tg && typeof entry.tg === "object"
-            ? entry.tg
-            : entry.tl && typeof entry.tl === "object"
-              ? entry.tl
+    const localized =
+      entry[lang] && typeof entry[lang] === "object"
+        ? entry[lang]
+        : entry.en && typeof entry.en === "object"
+          ? entry.en
+          : entry.es && typeof entry.es === "object"
+            ? entry.es
+            : entry.tg && typeof entry.tg === "object"
+              ? entry.tg
               : entry;
 
     // Flatten the localized content into the canonical shape used by the
@@ -1776,11 +1776,12 @@ function normalizeNewsFolder(folder, payload, lang) {
         : [];
 
     const text = sanitizeNewsMessage(
-      localized.text || localized.summary || entry.text || entry.summary || body[0] || ""
+      localized.text || localized.summary || entry.text || entry.summary || body[0] || "",
     );
 
     const date = entry.date || entry.publishDate || localized.date || localized.publishDate || "";
-    const type = entry.type || localized.type || (folder === "news_series" ? "SERIES NEWS" : "DEV UPDATE");
+    const type =
+      entry.type || localized.type || (folder === "news_series" ? "SERIES NEWS" : "DEV UPDATE");
 
     // The folder an entry came from is the single source of truth for whether
     // it's Series News — not a string match against a free-text `type` field.
@@ -1789,22 +1790,39 @@ function normalizeNewsFolder(folder, payload, lang) {
     // downstream renderer has to remember the rule.
     const isSeriesNews = folder === "news_series";
     const sourceUrl = entry.sourceUrl || localized.sourceUrl || "";
+    const rawSources =
+      localized.sources ?? entry.sources ?? localized.sourceUrls ?? entry.sourceUrls ?? [];
+    const sourceList = Array.isArray(rawSources)
+      ? rawSources
+          .map((source) => {
+            if (typeof source === "string") return { url: source, label: "" };
+            if (!source || typeof source !== "object" || !source.url) return null;
+            return {
+              url: String(source.url).trim(),
+              label: String(source.label || source.name || "").trim(),
+            };
+          })
+          .filter(Boolean)
+      : [];
+    if (sourceUrl && !sourceList.some((source) => source.url === sourceUrl)) {
+      sourceList.unshift({ url: sourceUrl, label: "" });
+    }
 
-    return [{
-      id: entry.id || `${folder}-${date}-${index}-${title}`,
-      date,
-      type,
-      title,
-      text,
-      body,
-      sourceUrl,
-      isSeriesNews,
-      // Only an explicit `featured` flag in the data marks an item as
-      // featured. Previously every Series News entry was force-featured,
-      // which silently pulled the wrong item onto the feature card and
-      // dropped it out of the archive list.
-      featured: Boolean(entry.featured || localized.featured),
-    }];
+    return [
+      {
+        id: entry.id || `${folder}-${date}-${index}-${title}`,
+        date,
+        type,
+        title,
+        text,
+        body,
+        sourceUrl: isSeriesNews ? sourceList[0]?.url || "" : "",
+        sources: isSeriesNews ? sourceList : [],
+        author: !isSeriesNews ? String(localized.author || entry.author || "").trim() : "",
+        isSeriesNews,
+        featured: Boolean(entry.featured || localized.featured),
+      },
+    ];
   });
 }
 
@@ -1852,31 +1870,6 @@ async function loadNewsContent() {
   }
 }
 
-function stopBulletinRefreshLoop() {
-  if (bulletinRefreshInterval) {
-    clearInterval(bulletinRefreshInterval);
-    bulletinRefreshInterval = null;
-  }
-}
-
-function startBulletinRefreshLoop() {
-  if (bulletinRefreshInterval) return;
-  if (document.visibilityState !== "visible") return;
-
-  bulletinRefreshInterval = setInterval(() => {
-    if (document.visibilityState !== "visible") return;
-    loadNewsContent();
-  }, BULLETIN_REFRESH_MS);
-}
-
-document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "visible") {
-    startBulletinRefreshLoop();
-  } else {
-    stopBulletinRefreshLoop();
-  }
-});
-
 function applyNewsLanguage() {
   if (!rawNewsData) return;
   const langData = rawNewsData[currentLang] || rawNewsData.es;
@@ -1903,34 +1896,23 @@ function setInfoExpanded(expanded) {
 
   if (isExpanded) {
     content.hidden = false;
-    content.style.maxHeight = "0px";
-    // Measure after the element is visible, then animate to its natural height.
-    requestAnimationFrame(() => {
-      content.style.maxHeight = `${content.scrollHeight}px`;
-    });
+    content.classList.add("open");
+    content.style.maxHeight = `${content.scrollHeight}px`;
   } else {
-    // If already closed, keep it closed without creating another transition.
-    if (content.hidden && !content.classList.contains("open")) {
-      content.style.maxHeight = "0px";
-      return;
-    }
-
-    requestAnimationFrame(() => {
-      content.style.maxHeight = `${content.scrollHeight}px`;
-      requestAnimationFrame(() => {
-        content.style.maxHeight = "0px";
-      });
-    });
-
-    const onEnd = (event) => {
-      if (event.propertyName !== "max-height") return;
-      if (toggle.getAttribute("aria-expanded") === "true") return;
-      content.hidden = true;
-      content.removeEventListener("transitionend", onEnd);
-    };
-    content.addEventListener("transitionend", onEnd);
+    content.classList.remove("open");
+    content.style.maxHeight = "0px";
+    content.hidden = true;
   }
 }
+
+window.addEventListener("resize", () => {
+  const toggle = document.getElementById("infoToggle");
+  const content = document.getElementById("infoContent");
+
+  if (toggle?.getAttribute("aria-expanded") === "true" && content) {
+    content.style.maxHeight = `${content.scrollHeight}px`;
+  }
+});
 
 document.getElementById("infoToggle")?.addEventListener("click", (event) => {
   event.preventDefault();
@@ -1939,6 +1921,7 @@ document.getElementById("infoToggle")?.addEventListener("click", (event) => {
   setInfoExpanded(!currentlyExpanded);
 });
 
+// eslint-disable-next-line no-unused-vars -- may be invoked from an inline onclick handler in HTML
 function toggleInfo() {
   const toggle = document.getElementById("infoToggle");
   setInfoExpanded(toggle?.getAttribute("aria-expanded") !== "true");
@@ -1946,15 +1929,9 @@ function toggleInfo() {
 
 // Lightbox event listeners
 document.addEventListener("DOMContentLoaded", function () {
-  document
-    .getElementById("lightboxClose")
-    ?.addEventListener("click", closeLightbox);
-  document
-    .getElementById("lightboxPrev")
-    ?.addEventListener("click", () => navigateLightbox(-1));
-  document
-    .getElementById("lightboxNext")
-    ?.addEventListener("click", () => navigateLightbox(1));
+  document.getElementById("lightboxClose")?.addEventListener("click", closeLightbox);
+  document.getElementById("lightboxPrev")?.addEventListener("click", () => navigateLightbox(-1));
+  document.getElementById("lightboxNext")?.addEventListener("click", () => navigateLightbox(1));
 
   document.addEventListener("keydown", (e) => {
     const lightbox = document.getElementById("lightbox");
@@ -1971,6 +1948,13 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", async function () {
+  try {
+    emailjs.init(FEEDBACK_CONFIG.PUBLIC_KEY);
+    console.log("[EmailJS] Initialized");
+  } catch (e) {
+    console.warn("[EmailJS] Init error:", e);
+  }
+
   updateLangLabel();
   setInfoExpanded(false);
 
@@ -2000,27 +1984,18 @@ document.addEventListener("DOMContentLoaded", async function () {
     })
     .then((html) => {
       const container =
-        document.getElementById("sidebar-container") ||
-        document.getElementById("menu-container");
+        document.getElementById("sidebar-container") || document.getElementById("menu-container");
       if (!container) return;
-      html = html.replace(
-        /data-route="\.\.\/\.\.\/index\.html"/g,
-        'data-route="/index.html"',
-      );
+      html = html.replace(/data-route="\.\.\/\.\.\/index\.html"/g, 'data-route="/index.html"');
       container.innerHTML = html;
       const scripts = container.querySelectorAll("script");
       scripts.forEach((old) => {
         const neu = document.createElement("script");
-        Array.from(old.attributes).forEach((a) =>
-          neu.setAttribute(a.name, a.value),
-        );
+        Array.from(old.attributes).forEach((a) => neu.setAttribute(a.name, a.value));
         neu.appendChild(document.createTextNode(old.innerHTML));
         old.parentNode.replaceChild(neu, old);
       });
-      setTimeout(
-        () => document.dispatchEvent(new CustomEvent("menuLoaded")),
-        100,
-      );
+      setTimeout(() => document.dispatchEvent(new CustomEvent("menuLoaded")), 100);
     })
     .catch((err) => console.error("Error cargando menu:", err.message));
 });
@@ -2055,7 +2030,7 @@ document.addEventListener("menuLoaded", function () {
       const value = localStorage.getItem(APPEARANCE_STORAGE_KEY);
       if (value === null) return true;
       return value === "true";
-    } catch (e) {
+    } catch {
       return true;
     }
   }
@@ -2063,7 +2038,7 @@ document.addEventListener("menuLoaded", function () {
   function setTimeBasedPreference(value) {
     try {
       localStorage.setItem(APPEARANCE_STORAGE_KEY, String(value));
-    } catch (e) {
+    } catch {
       // Ignore storage issues.
     }
   }
@@ -2072,7 +2047,7 @@ document.addEventListener("menuLoaded", function () {
     try {
       const value = localStorage.getItem(MANUAL_THEME_STORAGE_KEY);
       return normalizeTheme(value);
-    } catch (e) {
+    } catch {
       return getTimePeriod();
     }
   }
@@ -2080,7 +2055,7 @@ document.addEventListener("menuLoaded", function () {
   function setStoredManualTheme(theme) {
     try {
       localStorage.setItem(MANUAL_THEME_STORAGE_KEY, normalizeTheme(theme));
-    } catch (e) {
+    } catch {
       // Ignore storage issues.
     }
   }

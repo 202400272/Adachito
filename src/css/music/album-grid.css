@@ -126,9 +126,12 @@
   margin-top: 0.12rem;
 }
 
-.album-card.playing, .album-card.playing-paused {
+.album-card.playing,
+.album-card.playing-paused {
   border-color: var(--text-jp);
-  box-shadow: 0 0 0 2px rgba(140, 90, 150, 0.25), var(--shadow-lg);
+  box-shadow:
+    0 0 0 2px rgba(140, 90, 150, 0.25),
+    var(--shadow-lg);
 }
 
 .album-card-playing-badge {

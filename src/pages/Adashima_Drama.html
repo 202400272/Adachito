@@ -11,10 +11,7 @@
       name="description"
       content="Discover the CD drama collection for Adachi and Shimamura, including audio releases, track lists, and episode notes."
     />
-    <link
-      rel="canonical"
-      href="https://adashimaverse.com/Adashima_Drama"
-    />
+    <link rel="canonical" href="https://adashimaverse.com/Adashima_Drama" />
     <meta name="theme-color" content="#000000" />
 
     <meta property="og:type" content="website" />
@@ -24,25 +21,19 @@
       property="og:description"
       content="Discover the CD drama collection for Adachi and Shimamura, including audio releases, track lists, and episode notes."
     />
-    <meta
-      property="og:url"
-      content="https://adashimaverse.com/Adashima_Drama"
-    />
+    <meta property="og:url" content="https://adashimaverse.com/Adashima_Drama" />
     <meta
       property="og:image"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
     <meta
       property="og:image:secure_url"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:type" content="image/webp" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="AdashimaVerse - Adashima - CD Dramas"
-    />
+    <meta property="og:image:alt" content="AdashimaVerse - Adashima - CD Dramas" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Adashima - CD Dramas" />
@@ -52,12 +43,9 @@
     />
     <meta
       name="twitter:image"
-      content="https://adashimaverse.com/Imagenes/Social_Card.png"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
     />
-    <meta
-      name="twitter:image:alt"
-      content="AdashimaVerse - Adashima - CD Dramas"
-    />
+    <meta name="twitter:image:alt" content="AdashimaVerse - Adashima - CD Dramas" />
 
     <link
       rel="stylesheet"
@@ -66,41 +54,16 @@
     <link rel="stylesheet" href="/src/css/drama.css?v=20260812" />
     <link rel="stylesheet" href="/src/css/lang-switch.css?v=20260812" />
     <link rel="stylesheet" href="/src/components/styles/menu.css?v=20260812" />
+    <link rel="stylesheet" href="/src/components/styles/time-theme-pages.css" />
 
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="/assets/Imagenes/favicon.ico"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/assets/Imagenes/apple-touch-icon.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/assets/Imagenes/favicon-32x32.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/assets/Imagenes/favicon-16x16.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="/assets/Imagenes/icon-192x192.webp"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="512x512"
-      href="/assets/Imagenes/icon-512x512.webp"
-    />
+    <link rel="icon" type="image/x-icon" href="/assets/Imagenes/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/Imagenes/apple-touch-icon.webp" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/Imagenes/favicon-32x32.webp" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/Imagenes/favicon-16x16.webp" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/Imagenes/icon-192x192.webp" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/Imagenes/icon-512x512.webp" />
+    <link rel="stylesheet" href="/src/components/styles/footer.css" />
+    <link rel="stylesheet" href="/src/components/styles/feedback.css" />
   </head>
   <body>
     <div class="particles" id="particles"></div>
@@ -113,9 +76,7 @@
 
     <div class="main-content">
       <div class="header-container">
-        <div class="header-top-controls">
-          
-        </div>
+        <div class="header-top-controls"></div>
         <h1 class="update-title" id="page-title">CD Dramas</h1>
       </div>
 
@@ -178,29 +139,18 @@
               <div class="power-flash" id="powerFlash"></div>
 
               <div class="loading-indicator" id="loadingIndicator">
-                <div class="loading-dots">
-                  <span></span><span></span><span></span>
-                </div>
-                <div class="loading-text" id="loadingText">
-                  Sintonizando canal...
-                </div>
+                <div class="loading-dots"><span></span><span></span><span></span></div>
+                <div class="loading-text" id="loadingText">Sintonizando canal...</div>
               </div>
 
-              <div
-                class="osd-menu"
-                id="osdMenu"
-                role="dialog"
-                aria-label="Selección de canal"
-              >
+              <div class="osd-menu" id="osdMenu" role="dialog" aria-label="Selección de canal">
                 <div class="osd-box">
                   <div class="osd-title" id="osdTitle">
                     YASHONY CHANNELS
                     <span id="osdSubtitle">SELECCIONAR CANAL</span>
                   </div>
                   <div class="osd-channel-list" id="osdChannelList"></div>
-                  <div class="osd-footer" id="osdFooter">
-                    [ MENU ] PARA CERRAR
-                  </div>
+                  <div class="osd-footer" id="osdFooter">[ MENU ] PARA CERRAR</div>
                 </div>
               </div>
             </div>
@@ -208,11 +158,7 @@
           <div class="tv-controls-row">
             <div class="tv-controls-left">
               <div class="btn-labeled">
-                <button
-                  class="power-btn"
-                  id="powerBtn"
-                  title="Encender / Apagar"
-                >
+                <button class="power-btn" id="powerBtn" title="Encender / Apagar">
                   <i class="fas fa-power-off"></i>
                 </button>
                 <span class="btn-label-text">PWR</span>
@@ -221,14 +167,7 @@
               <div class="ctrl-separator"></div>
 
               <div class="btn-labeled">
-                <button
-                  class="menu-btn"
-                  id="menuBtn"
-                  title="Menú de canales"
-                  disabled
-                >
-                  MENU
-                </button>
+                <button class="menu-btn" id="menuBtn" title="Menú de canales" disabled>MENU</button>
                 <span class="btn-label-text">CH</span>
               </div>
 
@@ -246,11 +185,7 @@
             </div>
 
             <div class="tv-controls-right">
-              <div
-                class="tv-knob"
-                id="volKnob"
-                title="Volumen — arrastra arriba/abajo"
-              >
+              <div class="tv-knob" id="volKnob" title="Volumen — arrastra arriba/abajo">
                 <div class="knob-label">VOL</div>
                 <div class="knob-ring-wrap">
                   <svg class="knob-arc-svg" viewBox="0 0 54 54">
@@ -270,22 +205,14 @@
                     <div class="knob-osd-label">VOL</div>
                     <div class="knob-osd-value" id="volOsdValue">100%</div>
                     <div class="knob-osd-bar-wrap">
-                      <div
-                        class="knob-osd-bar-fill"
-                        id="volOsdBar"
-                        style="width: 100%"
-                      ></div>
+                      <div class="knob-osd-bar-fill" id="volOsdBar" style="width: 100%"></div>
                     </div>
                   </div>
                 </div>
                 <div class="knob-value-tip" id="volTip">100%</div>
               </div>
 
-              <div
-                class="tv-knob"
-                id="brtKnob"
-                title="Brillo — arrastra arriba/abajo"
-              >
+              <div class="tv-knob" id="brtKnob" title="Brillo — arrastra arriba/abajo">
                 <div class="knob-label">BRT</div>
                 <div class="knob-ring-wrap">
                   <svg class="knob-arc-svg" viewBox="0 0 54 54">
@@ -305,11 +232,7 @@
                     <div class="knob-osd-label">BRT</div>
                     <div class="knob-osd-value" id="brtOsdValue">100%</div>
                     <div class="knob-osd-bar-wrap">
-                      <div
-                        class="knob-osd-bar-fill"
-                        id="brtOsdBar"
-                        style="width: 100%"
-                      ></div>
+                      <div class="knob-osd-bar-fill" id="brtOsdBar" style="width: 100%"></div>
                     </div>
                   </div>
                 </div>
@@ -326,11 +249,7 @@
                 <span id="downloadLabel">Descargar</span>
               </a>
 
-              <button
-                class="fullscreen-btn"
-                id="fullscreenBtn"
-                title="Pantalla completa"
-              >
+              <button class="fullscreen-btn" id="fullscreenBtn" title="Pantalla completa">
                 <i class="fas fa-expand"></i>
               </button>
             </div>
@@ -353,8 +272,7 @@
         <div class="channel-info-text">
           <h3 id="channelTitle">Selecciona un canal</h3>
           <p id="channelDesc">
-            Enciende la televisión y elige un canal para comenzar a disfrutar
-            los CD Dramas.
+            Enciende la televisión y elige un canal para comenzar a disfrutar los CD Dramas.
           </p>
         </div>
         <div class="channel-badge" id="channelBadge">— / —</div>
@@ -366,21 +284,16 @@
         title="¡Clickea para ir al mini-juego!"
         id="floating-link"
       >
-        <img
-          src="/assets/Imagenes/Flotante_manga-Photoroom.webp"
-          alt="Adashima Chibi Floating"
-        />
+        <img src="/assets/Imagenes/Flotante_manga-Photoroom.webp" alt="Adashima Chibi Floating" />
       </a>
 
-      <div class="footer" id="footer-content">
-        Fan site no oficial de Adachi to Shimamura.<br />
-        Creado por fans, sin fines de lucro.<br />
-        Adachi to Shimamura y todos sus derechos pertenecen a Hitoma Iruma.
-      </div>
+      <div id="footer-container"></div>
+      <script type="module" src="/src/components/js/footer.js"></script>
     </div>
 
     <!-- Import JS -->
     <script src="/src/js/language-switch.js?v=20260812"></script>
     <script src="/src/js/drama.js?v=20260812"></script>
+    <script type="module" src="/src/components/js/feedback.js"></script>
   </body>
 </html>

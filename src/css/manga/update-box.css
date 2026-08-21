@@ -1,28 +1,28 @@
 /* ---------- update box ---------- */
 .update-box {
-    width: 100%;
-    max-width: 1100px;
-    flex: 1;
+  width: 100%;
+  max-width: 1100px;
+  flex: 1;
 }
 
 .update-box.view-list {
-    background: rgba(255, 255, 255, 0.76);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: var(--radius-lg);
-    border: 2px solid rgba(209, 163, 198, 0.45);
-    padding: 28px;
-    box-shadow: var(--shadow-lg);
-    max-height: 70vh;
-    overflow-y: auto;
+  background: rgba(255, 255, 255, 0.76);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius-lg);
+  border: 2px solid rgba(209, 163, 198, 0.45);
+  padding: 28px;
+  box-shadow: var(--shadow-lg);
+  max-height: 70vh;
+  overflow-y: auto;
 }
 
 .update-box.view-grid {
-    background: transparent !important;
-    backdrop-filter: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    max-height: none !important;
-    overflow: visible !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
 }
