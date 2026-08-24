@@ -850,7 +850,12 @@ body.decor-paused .lang-wrapper i {
 
 /* Fewer simultaneous animated layers on phones — same density feel at
    phone viewport sizes with roughly half the concurrent GPU work. */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  body.time-morning .stars-bg,
+  body.time-afternoon .stars-bg {
+    opacity: 0.35;
+  }
+
   .sparkle:nth-child(even),
   .shooting-star:nth-child(n + 3),
   .orb-purple-small,
@@ -2806,15 +2811,19 @@ body.time-night .footer-bottom {
 
   /* Footer Mobile */
   .footer {
+    box-sizing: border-box;
     font-size: 0.78rem;
     padding: 26px 0 12px;
+    padding-inline: 20px;
     line-height: 1.6;
     margin-top: 34px;
+    text-align: center;
   }
 
   .footer-main {
     grid-template-columns: 1fr 1fr;
     gap: 26px 30px;
+    justify-items: center;
   }
 
   .footer-brand {
@@ -2824,17 +2833,16 @@ body.time-night .footer-bottom {
 
   .footer-feedback-copy {
     max-width: 220px;
+    margin-inline: auto;
   }
 
   .footer-bottom {
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
     gap: 6px;
   }
 
   /* Hide decorative elements on mobile */
-  .sparkle,
-  .shooting-star,
   .orb {
     display: none;
   }
@@ -2935,6 +2943,7 @@ body.time-night .footer-bottom {
   }
 
   .footer-links {
+    align-items: center;
     gap: 4px;
   }
 
@@ -2985,6 +2994,7 @@ body.time-night .footer-bottom {
   }
 
   .feedback-footer-btn {
+    justify-content: center;
     font-size: 0.7rem;
     padding: 6px 14px;
     gap: 6px;
@@ -7102,6 +7112,23 @@ body.time-night .story-grid .nav-card {
   border-color: color-mix(in srgb, var(--accent-primary) 38%, var(--surface-border));
   background: color-mix(in srgb, var(--accent-primary) 16%, transparent);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+.bulletin-content-filter.has-unread {
+  border-color: color-mix(in srgb, #ff3d81 64%, var(--surface-border));
+  color: #ff3d81;
+  box-shadow: 0 0 0 1px rgba(255, 61, 129, 0.24), 0 0 18px rgba(255, 61, 129, 0.42);
+  animation: bulletinContentPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes bulletinContentPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 1px rgba(255, 61, 129, 0.2), 0 0 12px rgba(255, 61, 129, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 1px rgba(255, 61, 129, 0.42), 0 0 24px rgba(255, 61, 129, 0.62);
+  }
 }
 
 .bulletin-filter:focus-visible {

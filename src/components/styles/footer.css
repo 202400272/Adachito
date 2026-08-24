@@ -197,15 +197,19 @@ body.time-night .footer-bottom {
 /* ---------- responsive ---------- */
 @media (max-width: 768px) {
   .footer {
+    box-sizing: border-box;
     font-size: 0.78rem;
     padding: 26px 0 12px;
+    padding-inline: 20px;
     line-height: 1.6;
     margin-top: 34px;
+    text-align: center;
   }
 
   .footer-main {
     grid-template-columns: 1fr 1fr;
     gap: 26px 30px;
+    justify-items: center;
   }
 
   .footer-brand {
@@ -215,10 +219,11 @@ body.time-night .footer-bottom {
 
   .footer-feedback-copy {
     max-width: 220px;
+    margin-inline: auto;
   }
 
   .footer-bottom {
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
     gap: 6px;
   }
@@ -239,6 +244,7 @@ body.time-night .footer-bottom {
   }
 
   .footer-links {
+    align-items: center;
     gap: 4px;
   }
 
@@ -251,6 +257,7 @@ body.time-night .footer-bottom {
   }
 
   .feedback-footer-btn {
+    justify-content: center;
     font-size: 0.7rem;
     padding: 6px 14px;
     gap: 6px;

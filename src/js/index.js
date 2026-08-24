@@ -1238,6 +1238,7 @@ function getBulletinUpdates() {
 let bulletinFilter = "all";
 let _activeBulletinUpdate = null;
 let lastBulletinTrigger = null;
+const BULLETIN_CONTENT_SEEN_KEY = "adashima_bulletin_content_seen";
 
 // Cached result of the last getBulletinUpdates() call used to render the
 // bulletin. The archive list and the modal must render from the exact same
@@ -1269,6 +1270,7 @@ const BULLETIN_SECTION_COPY = {
     emptyType: "LATEST",
     emptyTitle: "Adachi to Shimamura",
     emptyText: "News and announcements about the series will appear here.",
+    contentEmpty: "No content updates are available in this language yet.",
     source: "Sources",
     author: "By",
   },
@@ -1278,6 +1280,7 @@ const BULLETIN_SECTION_COPY = {
     emptyType: "ÚLTIMO",
     emptyTitle: "Adachi to Shimamura",
     emptyText: "Aquí aparecerán las noticias y anuncios sobre la serie.",
+    contentEmpty: "Por el momento no hay novedades de contenido disponibles en este idioma.",
     source: "Fuentes",
     author: "Por",
   },
@@ -1287,6 +1290,7 @@ const BULLETIN_SECTION_COPY = {
     emptyType: "PINAKABAGO",
     emptyTitle: "Adachi to Shimamura",
     emptyText: "Dito lalabas ang mga balita at anunsyo tungkol sa serye.",
+    contentEmpty: "Wala pang available na content updates sa wikang ito sa ngayon.",
     source: "Mga source",
     author: "Ni",
   },
@@ -1428,17 +1432,63 @@ function closeBulletinModal() {
 
 function getBulletinFilterLabel(filter) {
   const labels = {
-    en: { all: "All", series: "Series News", dev: "Dev Updates" },
-    es: { all: "Todo", series: "Noticias de la serie", dev: "Actualizaciones de desarrollo" },
-    tg: { all: "Lahat", series: "Balita ng Serye", dev: "Dev Updates" },
+    en: {
+      all: "All",
+      series: "Series News",
+      dev: "Dev Updates",
+      content: "Content Updates",
+    },
+    es: {
+      all: "Todo",
+      series: "Noticias de la serie",
+      dev: "Actualizaciones de desarrollo",
+      content: "Novedades de contenido",
+    },
+    tg: {
+      all: "Lahat",
+      series: "Balita ng Serye",
+      dev: "Dev Updates",
+      content: "Mga bagong content",
+    },
   };
   return labels[currentLang]?.[filter] || labels.en[filter];
 }
 
 function getFilteredBulletinUpdates(updates) {
   if (bulletinFilter === "series") return updates.filter((item) => item.isSeriesNews);
-  if (bulletinFilter === "dev") return updates.filter((item) => !item.isSeriesNews);
+  if (bulletinFilter === "dev") {
+    return updates.filter((item) => !item.isSeriesNews && !item.isContentNews);
+  }
+  if (bulletinFilter === "content") return updates.filter((item) => item.isContentNews);
   return updates;
+}
+
+function getContentBulletinSignature(updates) {
+  return updates
+    .filter((item) => item.isContentNews)
+    .map((item) => [item.id, item.date, item.title, item.text, ...(item.body || [])].join("|"))
+    .sort()
+    .join("||");
+}
+
+function hasUnseenContentBulletins(updates) {
+  const signature = getContentBulletinSignature(updates);
+  if (!signature) return false;
+  try {
+    return localStorage.getItem(BULLETIN_CONTENT_SEEN_KEY) !== signature;
+  } catch {
+    return true;
+  }
+}
+
+function markContentBulletinsSeen(updates) {
+  const signature = getContentBulletinSignature(updates);
+  if (!signature) return;
+  try {
+    localStorage.setItem(BULLETIN_CONTENT_SEEN_KEY, signature);
+  } catch {
+    return;
+  }
 }
 
 function normalizeBulletinSources(update) {
@@ -1514,12 +1564,20 @@ function renderBulletin() {
   bulletinUpdatesCache = updates;
   const visibleUpdates = getFilteredBulletinUpdates(updates);
   const sectionCopy = getBulletinSectionCopy();
+  const archiveKicker = document.querySelector(".bulletin-list-kicker");
+  const listTitle = document.getElementById("bulletinListTitle");
+
+  if (archiveKicker) archiveKicker.textContent = sectionCopy.archiveKicker;
+  if (listTitle) listTitle.textContent = sectionCopy.listTitle;
 
   filters?.querySelectorAll(".bulletin-filter").forEach((button) => {
     const active = button.dataset.bulletinFilter === bulletinFilter;
     button.textContent = getBulletinFilterLabel(button.dataset.bulletinFilter);
     button.classList.toggle("is-active", active);
     button.setAttribute("aria-pressed", String(active));
+    if (button.dataset.bulletinFilter === "content") {
+      button.classList.toggle("has-unread", hasUnseenContentBulletins(updates));
+    }
   });
 
   const featured = pickLatestSeriesNews(updates);
@@ -1603,11 +1661,13 @@ function renderBulletin() {
     const empty = document.createElement("p");
     empty.className = "bulletin-filter-empty";
     empty.textContent =
-      currentLang === "es"
-        ? "No hay actualizaciones en esta categoría."
-        : currentLang === "tg"
-          ? "Walang update sa kategoryang ito."
-          : "No updates in this category yet.";
+      bulletinFilter === "content"
+        ? sectionCopy.contentEmpty
+        : currentLang === "es"
+          ? "No hay actualizaciones en esta categoría."
+          : currentLang === "tg"
+            ? "Walang update sa kategoryang ito."
+            : "No updates in this category yet.";
     list.appendChild(empty);
   }
 
@@ -1619,6 +1679,7 @@ document.getElementById("bulletinFilters")?.addEventListener("click", (event) =>
   const button = event.target.closest("[data-bulletin-filter]");
   if (!button) return;
   bulletinFilter = button.dataset.bulletinFilter || "all";
+  if (bulletinFilter === "content") markContentBulletinsSeen(bulletinUpdatesCache);
   renderBulletin();
 });
 
@@ -1789,6 +1850,7 @@ function normalizeNewsFolder(folder, payload, lang) {
     // sourceUrl/source field lying around; we strip it right here so no
     // downstream renderer has to remember the rule.
     const isSeriesNews = folder === "news_series";
+    const isContentNews = folder === "news_content";
     const sourceUrl = entry.sourceUrl || localized.sourceUrl || "";
     const rawSources =
       localized.sources ?? entry.sources ?? localized.sourceUrls ?? entry.sourceUrls ?? [];
@@ -1818,8 +1880,10 @@ function normalizeNewsFolder(folder, payload, lang) {
         body,
         sourceUrl: isSeriesNews ? sourceList[0]?.url || "" : "",
         sources: isSeriesNews ? sourceList : [],
-        author: !isSeriesNews ? String(localized.author || entry.author || "").trim() : "",
+        author:
+          !isSeriesNews && !isContentNews ? String(localized.author || entry.author || "").trim() : "",
         isSeriesNews,
+        isContentNews,
         featured: Boolean(entry.featured || localized.featured),
       },
     ];
@@ -1830,9 +1894,10 @@ async function loadNewsContent() {
   // Prefer the dedicated bulletin folders. This prevents the same update from
   // being read once from noticia.json and once from a news folder.
   try {
-    const [seriesResult, devResult] = await Promise.allSettled([
+    const [seriesResult, devResult, contentResult] = await Promise.allSettled([
       fetchNewsFolder("news_series", currentLang),
       fetchNewsFolder("news_dev", currentLang),
+      fetchNewsFolder("news_content", currentLang),
     ]);
 
     const folderUpdates = [];
@@ -1841,6 +1906,9 @@ async function loadNewsContent() {
     }
     if (devResult.status === "fulfilled") {
       folderUpdates.push(...normalizeNewsFolder("news_dev", devResult.value, currentLang));
+    }
+    if (contentResult.status === "fulfilled") {
+      folderUpdates.push(...normalizeNewsFolder("news_content", contentResult.value, currentLang));
     }
 
     if (folderUpdates.length) {

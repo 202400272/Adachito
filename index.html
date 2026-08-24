@@ -257,17 +257,12 @@
           <div class="bike-glow"></div>
           <picture>
             <source
-              type="image/avif"
-              srcset="/assets/Imagenes/Ada_bici-Photoroom-600w.avif 600w"
-              sizes="(max-width: 800px) 90vw, 595px"
-            />
-            <source
               type="image/webp"
-              srcset="/assets/Imagenes/Ada_bici-Photoroom-600w.webp 600w"
+              srcset="/assets/Imagenes/Ada_bici-Photoroom.webp"
               sizes="(max-width: 800px) 90vw, 595px"
             />
             <img
-              src="/assets/Imagenes/Ada_bici-Photoroom-600w.webp"
+              src="/assets/Imagenes/Ada_bici-Photoroom.webp"
               alt="Bicicleta Adachi"
               class="floating-bike"
               loading="eager"
@@ -447,6 +442,14 @@
                 aria-pressed="false"
               >
                 Dev Updates
+              </button>
+              <button
+                type="button"
+                class="bulletin-filter bulletin-content-filter"
+                data-bulletin-filter="content"
+                aria-pressed="false"
+              >
+                Novedades de contenido
               </button>
             </div>
             <div class="bulletin-list" id="bulletinList" aria-live="polite"></div>
