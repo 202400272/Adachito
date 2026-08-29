@@ -6,6 +6,10 @@ DIST = ROOT / "dist"
 ASSETS = ROOT / "assets"
 REPORT_DIR = ROOT / ".qa"
 
+CRITICAL_ROUTES = ["/", "/Adashima_Novelas", "/Adashima_Manga", "/Adashima_Music", "/Adashima_Gallery"]
+
+VISUAL_ROUTES = CRITICAL_ROUTES
+
 ROUTES = [
     "/", "/Adashima_About", "/Adashima_Help", "/Adashima_Anime",
     "/Adashima_Drama", "/Adashima_Estrella", "/Adashima_Extra_Stories",
@@ -38,5 +42,8 @@ FRIENDLY = {
     "JavaScript": ("Code health", "Checks JavaScript for obvious syntax errors."),
     "Preview": ("Preview server", "Starts the production-style preview used for browser tests."),
     "Music": ("Music player", "Checks the music library, playback, search, favorites, queue, and player controls."),
+    "Visual": ("Visual changes", "Compares important pages against approved screenshots."),
+    "Intelligence": ("Content intelligence", "Checks translation parity, schema health, and duplicate content."),
+    "Structure": ("Site structure", "Finds generated pages that are not linked from the site."),
     "Regression": ("Changes since last run", "Highlights problems that appeared or got worse compared with a saved baseline."),
 }

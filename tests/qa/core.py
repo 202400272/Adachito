@@ -10,8 +10,16 @@ IGNORE = {"http","https","mailto","tel","javascript","data","blob"}
 
 def run_check(category, name, fn):
     start=time.perf_counter()
-    try: r=fn()
-    except Exception as e: r=Result(category,name,"FAIL",f"The check crashed: {e}",severity="critical")
+    try:
+        r = fn()
+        if isinstance(r, tuple):
+            if len(r) == 4:
+                status, summary, details, count = r
+                r = Result(category, name, status, summary, details, count)
+            else:
+                raise TypeError(f"check returned unsupported tuple length {len(r)}")
+    except Exception as e:
+        r=Result(category,name,"FAIL",f"The check crashed: {e}",severity="critical")
     r.category=category; r.name=name; r.duration=time.perf_counter()-start
     return r
 

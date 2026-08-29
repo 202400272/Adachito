@@ -9,10 +9,17 @@ from .compare import compare
 
 
 def score(rs):
-    if not rs:return 0
-    weights={'PASS':1,'WARN':.7,'SKIP':.9,'FAIL':0}
-    return round(sum(weights.get(r.status,1) for r in rs)/len(rs)*100)
+    executed = [r for r in rs if r.status != 'SKIP']
+    if not executed:
+        return 0
+    weights = {'PASS': 1.0, 'WARN': 0.7, 'FAIL': 0.0}
+    return round(sum(weights.get(r.status, 0) for r in executed) / len(executed) * 100)
 
+
+def coverage(rs):
+    if not rs:
+        return 0
+    return round(sum(r.status != 'SKIP' for r in rs) / len(rs) * 100)
 
 def icon(s):return {'PASS':'[green]✓[/green]','FAIL':'[red]✗[/red]','WARN':'[yellow]![/yellow]','SKIP':'[dim]–[/dim]'}[s]
 
@@ -24,7 +31,7 @@ def payload(rs,elapsed):
 
 def print_report(rs,elapsed):
     c=Console(); data=payload(rs,elapsed); p=data['summary']['passed'];f=data['summary']['failed'];w=data['summary']['warnings'];s=data['summary']['skipped'];things=data['summary']['things_checked']
-    c.print(Panel.fit('[bold cyan]ADASHIMAVERSE QA v11[/bold cyan]\n[dim]Checks the site like a visitor, then explains what needs attention.[/dim]',border_style='cyan'))
+    c.print(Panel.fit('[bold cyan]ADASHIMAVERSE QA v12[/bold cyan]\n[dim]Checks the site like a visitor, then explains what needs attention.[/dim]',border_style='cyan'))
     current=None
     for r in rs:
         heading,desc=FRIENDLY.get(r.category,(r.category,''))

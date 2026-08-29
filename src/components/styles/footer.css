@@ -197,19 +197,15 @@ body.time-night .footer-bottom {
 /* ---------- responsive ---------- */
 @media (max-width: 768px) {
   .footer {
-    box-sizing: border-box;
     font-size: 0.78rem;
     padding: 26px 0 12px;
-    padding-inline: 20px;
     line-height: 1.6;
     margin-top: 34px;
-    text-align: center;
   }
 
   .footer-main {
     grid-template-columns: 1fr 1fr;
     gap: 26px 30px;
-    justify-items: center;
   }
 
   .footer-brand {
@@ -219,11 +215,10 @@ body.time-night .footer-bottom {
 
   .footer-feedback-copy {
     max-width: 220px;
-    margin-inline: auto;
   }
 
   .footer-bottom {
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
     gap: 6px;
   }
@@ -244,7 +239,6 @@ body.time-night .footer-bottom {
   }
 
   .footer-links {
-    align-items: center;
     gap: 4px;
   }
 
@@ -257,9 +251,35 @@ body.time-night .footer-bottom {
   }
 
   .feedback-footer-btn {
-    justify-content: center;
     font-size: 0.7rem;
     padding: 6px 14px;
     gap: 6px;
+  }
+}
+
+.footer-legal-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 14px auto 0;
+  font-size: 0.76rem;
+}
+.footer-legal-links a {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.82;
+}
+.footer-legal-links a:hover {
+  text-decoration: underline;
+  opacity: 1;
+}
+.footer-legal-links span {
+  opacity: 0.45;
+}
+@media (max-width: 600px) {
+  .footer-legal-links {
+    flex-wrap: wrap;
+    line-height: 1.5;
   }
 }

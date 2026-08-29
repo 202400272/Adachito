@@ -692,7 +692,7 @@ function renderNav(data) {
     "constellation",
     "timeline",
     "others",
-    "authorArchive",
+    "stats",
     "about",
     "help",
   ];
@@ -754,7 +754,6 @@ function renderNav(data) {
     if (isFeatured) {
       card.innerHTML = `
         <span class="story-card-kicker">
-          <span class="story-card-kicker-line" aria-hidden="true"></span>
           <span class="story-card-kicker-text">${kicker}</span>
         </span>
         <h3 class="story-card-title">${item.title || ""}</h3>
@@ -769,7 +768,6 @@ function renderNav(data) {
     } else {
       card.innerHTML = `
         <span class="story-card-kicker">
-          <span class="story-card-kicker-line" aria-hidden="true"></span>
           <span class="story-card-kicker-text">${kicker}</span>
         </span>
         <span class="story-card-side-text">
@@ -967,6 +965,7 @@ function applyHomepageFooterI18n(data) {
   const columnTitles = footer.querySelectorAll(".footer-column-title");
   const feedbackCopy = footer.querySelector(".footer-feedback-copy");
   const disclaimer = footer.querySelector(".footer-disclaimer");
+  const legalLinks = footer.querySelectorAll(".footer-legal-link");
 
   if (tagline) tagline.innerHTML = copy.tagline;
   if (description) description.textContent = copy.description;
@@ -974,7 +973,15 @@ function applyHomepageFooterI18n(data) {
   if (columnTitles[1]) columnTitles[1].textContent = copy.help;
   if (feedbackCopy) feedbackCopy.textContent = copy.feedback;
   if (disclaimer && data?.footer) disclaimer.innerHTML = data.footer;
+  legalLinks.forEach((link) => {
+    const translated = link.getAttribute(`data-${currentLang}`);
+    if (translated) link.innerHTML = translated;
+  });
 }
+
+document.addEventListener("footerLoaded", () => {
+  applyHomepageFooterI18n(contentData);
+});
 
 function applyHomepageCopy() {
   const copy =
@@ -1675,6 +1682,114 @@ function renderBulletin() {
   refreshLucideIcons();
 }
 
+const NOTIFICATION_STORAGE_PREFIX = "adashima_content_notification_seen_";
+
+function getNotificationFileCode(lang) {
+  const key = String(lang || "es").toLowerCase();
+  if (key === "es") return "es";
+  if (key === "en") return "en";
+  if (key === "tg") return "tg";
+  return "es";
+}
+
+function readContentNotificationPayload(payload) {
+  if (!payload) return null;
+  if (Array.isArray(payload)) return payload[0] || null;
+  if (Array.isArray(payload.items)) return payload.items[0] || null;
+  return payload;
+}
+
+function getContentNotificationText(payload) {
+  const item = readContentNotificationPayload(payload);
+  if (!item) return "";
+  return String(item.text || item.message || item.news || "").trim();
+}
+
+function getContentNotificationSignature(payload) {
+  return JSON.stringify(payload || {});
+}
+
+async function showContentNotification() {
+  const targetLang = getNotificationFileCode(currentLang);
+  const notificationUrl = new URL(`src/data/Notificaciones/${targetLang}.json`, window.location.href).toString();
+
+  try {
+    const response = await fetch(`${notificationUrl}?v=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) return;
+    const payload = await response.json();
+    const text = getContentNotificationText(payload);
+    if (!text) return;
+
+    const signature = getContentNotificationSignature(payload);
+    const storageKey = `${NOTIFICATION_STORAGE_PREFIX}${targetLang}`;
+
+    try {
+      const seenSignature = localStorage.getItem(storageKey);
+      if (seenSignature === signature) return;
+    } catch {
+      return;
+    }
+
+    const existing = document.getElementById("contentNotificationBubble");
+    if (existing) existing.remove();
+
+    const bubble = document.createElement("div");
+    bubble.id = "contentNotificationBubble";
+    bubble.className = "content-notification-bubble";
+    bubble.setAttribute("role", "status");
+    bubble.setAttribute("aria-live", "polite");
+
+    const closeButton = document.createElement("button");
+    closeButton.type = "button";
+    closeButton.className = "content-notification-close";
+    closeButton.setAttribute("aria-label", "Close notification");
+    closeButton.textContent = "×";
+
+    const inner = document.createElement("div");
+    inner.className = "content-notification-inner";
+
+    const image = document.createElement("img");
+    image.src = "/assets/Imagenes/yashironoticia.webp";
+    image.alt = "Yashiro";
+    image.className = "content-notification-image";
+
+    const copy = document.createElement("div");
+    copy.className = "content-notification-copy";
+
+    const message = document.createElement("span");
+    message.className = "content-notification-text";
+    message.textContent = text;
+
+    copy.appendChild(message);
+    inner.append(image, copy);
+    bubble.append(closeButton, inner);
+
+    const closeNotification = () => {
+      try {
+        localStorage.setItem(storageKey, signature);
+      } catch {
+        /* ignored */
+      }
+      bubble.classList.remove("is-visible");
+      setTimeout(() => bubble.remove(), 220);
+    };
+
+    closeButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      closeNotification();
+    });
+    bubble.addEventListener("click", (event) => {
+      if (event.target.closest(".content-notification-close")) return;
+      closeNotification();
+    });
+
+    document.body.appendChild(bubble);
+    requestAnimationFrame(() => bubble.classList.add("is-visible"));
+  } catch {
+    return;
+  }
+}
+
 document.getElementById("bulletinFilters")?.addEventListener("click", (event) => {
   const button = event.target.closest("[data-bulletin-filter]");
   if (!button) return;
@@ -1881,7 +1996,9 @@ function normalizeNewsFolder(folder, payload, lang) {
         sourceUrl: isSeriesNews ? sourceList[0]?.url || "" : "",
         sources: isSeriesNews ? sourceList : [],
         author:
-          !isSeriesNews && !isContentNews ? String(localized.author || entry.author || "").trim() : "",
+          !isSeriesNews && !isContentNews
+            ? String(localized.author || entry.author || "").trim()
+            : "",
         isSeriesNews,
         isContentNews,
         featured: Boolean(entry.featured || localized.featured),
@@ -1982,12 +2099,19 @@ window.addEventListener("resize", () => {
   }
 });
 
-document.getElementById("infoToggle")?.addEventListener("click", (event) => {
-  event.preventDefault();
-  const toggle = event.currentTarget;
-  const currentlyExpanded = toggle.getAttribute("aria-expanded") === "true";
-  setInfoExpanded(!currentlyExpanded);
-});
+function bindInfoToggle() {
+  const toggle = document.getElementById("infoToggle");
+  if (!toggle || toggle.dataset.bound === "true") return;
+
+  toggle.dataset.bound = "true";
+  toggle.addEventListener("click", (event) => {
+    event.preventDefault();
+    const currentlyExpanded = toggle.getAttribute("aria-expanded") === "true";
+    setInfoExpanded(!currentlyExpanded);
+  });
+}
+
+bindInfoToggle();
 
 // eslint-disable-next-line no-unused-vars -- may be invoked from an inline onclick handler in HTML
 function toggleInfo() {
@@ -2024,6 +2148,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   updateLangLabel();
+  bindInfoToggle();
   setInfoExpanded(false);
 
   try {
@@ -2043,6 +2168,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   loadNewsContent();
+  showContentNotification();
 
   const menuVer = Math.floor(Date.now() / 86400000);
   fetch("/src/components/menu.html?v=" + menuVer)
@@ -2194,13 +2320,6 @@ document.addEventListener("menuLoaded", function () {
   });
 });
 
-// .stars-bg, .sparkle-container, .shooting-star and .clouds-container run
-// infinite CSS animations across the whole viewport. Left unmanaged they
-// keep animating (and heating up the device) even while the tab is
-// backgrounded or the phone screen is off. This pauses them via a single
-// class toggle whenever the page isn't visible, and resumes them the
-// moment it's visible again. See the matching `.decor-paused` rules in
-// index.css.
 (function initDecorPause() {
   function syncDecorPauseState() {
     document.body.classList.toggle("decor-paused", document.hidden);

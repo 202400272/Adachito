@@ -221,7 +221,7 @@
 }
 
 .col-play-btn {
-  display: none;
+  display: flex;
   background: none;
   border: none;
   color: var(--accent);
@@ -248,6 +248,13 @@
   display: flex;
 }
 .track-row:hover .col-number {
+  opacity: 0;
+}
+.track-row:not(.active) .col-play-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+.track-row:not(.active) .col-number {
   opacity: 0;
 }
 .track-row.active .col-number {

@@ -84,6 +84,10 @@ function loadFooter() {
     .then((html) => {
       container.innerHTML = html;
 
+      if (container.hasAttribute("data-hide-feedback")) {
+        container.querySelector(".footer-feedback-column")?.remove();
+      }
+
       const footerEl = container.querySelector("#footer");
       if (footerEl) {
         applyFooterTranslation(footerEl, detectFooterLanguage());

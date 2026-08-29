@@ -2,7 +2,7 @@ from __future__ import annotations
 from .music import run_music_suite
 from .models import Result
 from .config import REPORT_DIR
-from .workflows.browser import smoke, accordion, mobile_menu, search_suite, reader_controls, navigation_smoke
+from .workflows.browser import smoke, accordion, mobile_menu, search_suite, reader_controls, navigation_smoke, user_journeys
 
 
 def _notify(callback, label, status, done, total, elapsed=0):
@@ -56,6 +56,10 @@ def run(url, screenshots=False, progress_callback=None):
                         _notify(progress_callback,name,'RUN',done,browser_steps)
                         result=reader_controls(page,url,route,label_text); out.append(result); done += 1
                         _notify(progress_callback,name,result.status,done,browser_steps)
+
+                    for result in user_journeys(page, url):
+                        out.append(result); done += 1
+                        _notify(progress_callback,result.name,result.status,done,browser_steps)
 
                     _notify(progress_callback,'Desktop: Music page suite','RUN',done,browser_steps)
                     music_results = run_music_suite(page,url)

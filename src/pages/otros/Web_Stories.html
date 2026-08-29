@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta
+      name="description"
+      content="Directory of published Adachi and Shimamura web stories, including Japanese and English titles, publication status, notes, and alternate-universe chapters."
+    />
+    <link rel="canonical" href="https://adashimaverse.com/otros/Web_Stories" />
+    <meta name="theme-color" content="#000000" />
+    <title>Adashima - Published Web Stories</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AdashimaVerse" />
+    <meta property="og:title" content="Adashima - Published Web Stories" />
+    <meta
+      property="og:description"
+      content="Directory of published Adachi and Shimamura web stories."
+    />
+    <meta property="og:url" content="https://adashimaverse.com/otros/Web_Stories" />
+    <meta
+      property="og:image"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Adashima - Published Web Stories" />
+    <meta
+      name="twitter:description"
+      content="Directory of published Adachi and Shimamura web stories."
+    />
+    <meta
+      name="twitter:image"
+      content="https://adashimaverse.com/assets/Imagenes/Social_Card.webp"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=20260812"
+    />
+    <link rel="stylesheet" href="/src/pages/otros/css/web-stories.css?v=20260824" />
+    <link rel="stylesheet" href="/src/css/lang-switch.css?v=20260812" />
+    <link rel="stylesheet" href="/src/components/styles/menu.css?v=20260812" />
+    <link rel="stylesheet" href="/src/components/styles/time-theme-pages.css?v=20260819" />
+    <link rel="stylesheet" href="/src/components/styles/footer.css?v=20260812" />
+    <link rel="stylesheet" href="/src/components/styles/feedback.css?v=20260812" />
+    <link rel="icon" type="image/x-icon" href="/assets/Imagenes/favicon.ico" />
+  </head>
+  <body>
+    <div class="particles" id="particles" aria-hidden="true"></div>
+    <div id="menu-container"></div>
+    <main class="main-content">
+      <header class="page-header">
+        <div class="eyebrow">
+          <i class="fa-solid fa-book-open" aria-hidden="true"></i
+          ><span id="eyebrowText">WEB STORIES</span>
+        </div>
+        <h1 id="pageTitle">Published Web Stories</h1>
+        <p id="pageIntro">
+          A directory of web-published stories and related material, with Japanese titles, English
+          titles, publication status, and notes.
+        </p>
+      </header>
+      <section class="stats-strip" id="statsStrip" aria-label="Directory statistics">
+        <div class="stat">
+          <strong id="storyCount">0</strong><span id="storyCountLabel">Stories</span>
+        </div>
+        <div class="stat">
+          <strong id="featuredCount">0</strong
+          ><span id="featuredCountLabel">Featured in volumes</span>
+        </div>
+        <div class="stat">
+          <strong id="auCount">0</strong><span id="auCountLabel">AU chapters</span>
+        </div>
+        <div class="stat">
+          <strong id="auWeight">7.53%</strong
+          ><span id="auWeightLabel">Share of series chapters</span>
+        </div>
+      </section>
+      <section class="controls" aria-label="Directory controls">
+        <label class="search-box"
+          ><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i
+          ><input
+            id="search"
+            type="search"
+            autocomplete="off"
+            placeholder="Search Japanese or English titles..."
+            aria-label="Search web stories" /><button
+            id="clearSearch"
+            type="button"
+            aria-label="Clear search"
+          >
+            <i class="fa-solid fa-xmark"></i></button
+        ></label>
+        <div class="filter-row" id="filterRow" role="group" aria-label="Filter stories">
+          <button class="filter active" data-filter="all" type="button">
+            <span id="filterAll">All</span><b id="countAll">0</b></button
+          ><button class="filter" data-filter="featured" type="button">
+            <span id="filterFeatured">Featured</span><b id="countFeatured">0</b></button
+          ><button class="filter" data-filter="not-featured" type="button">
+            <span id="filterNotFeatured">Not featured</span><b id="countNotFeatured">0</b></button
+          ><button class="filter" data-filter="au" type="button">
+            <span id="filterAU">AU</span><b id="countAU">0</b></button
+          ><button class="filter" data-filter="crossover" type="button">
+            <span id="filterCrossover">Crossover</span><b id="countCrossover">0</b>
+          </button>
+        </div>
+      </section>
+      <section class="directory-card" aria-labelledby="directoryHeading">
+        <div class="directory-heading">
+          <div>
+            <span class="section-kicker" id="directoryKicker">DIRECTORY</span>
+            <h2 id="directoryHeading">Published web stories</h2>
+          </div>
+          <span class="result-count" id="resultCount">0 stories</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th id="thJpTitle">JP Title</th>
+                <th id="thEnTitle">EN Title</th>
+                <th id="thSource">Source</th>
+                <th id="thType">Type</th>
+                <th id="thStatus">Status</th>
+                <th id="thTranslator">ENG TL</th>
+                <th id="thNotes">Notes</th>
+              </tr>
+            </thead>
+            <tbody id="storyRows"></tbody>
+          </table>
+        </div>
+        <div class="mobile-list" id="mobileList"></div>
+      </section>
+      <section class="au-section" aria-labelledby="auHeading">
+        <button
+          class="section-toggle"
+          id="auToggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="auPanel"
+        >
+          <span
+            ><span class="section-kicker" id="auKicker">REFERENCE</span
+            ><strong id="auHeading">Alternate Universe chapters</strong></span
+          ><i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+        </button>
+        <div class="collapsible" id="auPanel" hidden>
+          <p id="auIntro"></p>
+          <div class="au-grid" id="auGrid"></div>
+        </div>
+      </section>
+      <section class="notes-section" aria-labelledby="notesHeading">
+        <button
+          class="section-toggle"
+          id="notesToggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="notesPanel"
+        >
+          <span
+            ><span class="section-kicker" id="notesKicker">REFERENCE</span
+            ><strong id="notesHeading">Miscellaneous Notes</strong></span
+          ><i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+        </button>
+        <div class="collapsible" id="notesPanel" hidden>
+          <div class="notes-content" id="notesContent"></div>
+        </div>
+      </section>
+      <div id="footer-container"></div>
+    </main>
+    <script src="/src/pages/otros/js/web-stories.js" defer></script>
+    <script type="module" src="/src/components/js/footer.js"></script>
+    <script type="module" src="/src/components/js/feedback.js"></script>
+  </body>
+</html>

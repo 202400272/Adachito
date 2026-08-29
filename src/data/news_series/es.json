@@ -28,5 +28,20 @@
         }
       ]
     }
+  },
+  {
+    "id": "3",
+    "publishDate": "2026-08-28",
+    "type": "SERIES NEWS",
+    "es": {
+      "title": "¡Anunciado el volumen 9 del manga de Adachi y Shimamura!",
+      "text": "El volumen 9 de la adaptación al manga de Adachi y Shimamura, ilustrado por Moke Yuzuhara y basado en la historia original de Hitoma Iruma, con diseños de personajes de Non, saldrá a la venta en Japón el 27 de octubre de 2026.",
+      "sources": [
+        {
+          "label": "Kadokawa",
+          "url": "https://www.kadokawa.co.jp/product/322607000765/"
+        }
+      ]
+    }
   }
 ]

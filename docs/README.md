@@ -9,6 +9,7 @@ This directory contains the project documentation for developers and contributor
 - [Frontend](FRONTEND.md) — HTML, CSS, vanilla JavaScript, themes, accessibility, and performance.
 - [Build & Deployment](BUILD.md) — local development, the actual build pipeline, Cloudflare Pages, routing, and cache-busting.
 - [Content & Rights](CONTENT.md) — catalogue accuracy, translations, sources, copyright, and DMCA handling.
+- [QA Tester](QA.md) — tester architecture, result philosophy, localization completeness, and troubleshooting.
 - [Contributing](CONTRIBUTING.md) — coding, content, documentation, testing, and pull-request guidelines.
 - [Development Notes](DEV-NOTES.md) — short operational notes and repository gotchas that are easy to miss.
 

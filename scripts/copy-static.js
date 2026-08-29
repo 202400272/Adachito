@@ -58,8 +58,10 @@ const ITEMS = [
   ["src/components/menu.html", "src/components/menu.html"], // fetch()'d fragment
   ["src/components/feedback.html", "src/components/feedback.html"], // fetch()'d fragment
   ["_redirects", "_redirects"], // Cloudflare Pages reads this from the output dir
-  ["manifest.json", "manifest.json"], 
-  ["sw.js", "sw.js"], 
+  ["robots.txt", "robots.txt"], // Crawler rules + sitemap pointer
+  ["sitemap.xml", "sitemap.xml"], // Full URL list for search engines
+  ["manifest.json", "manifest.json"],
+  ["sw.js", "sw.js"],
   ["src/js", "src/js"],
   ["src/pages/otros/js", "src/pages/otros/js"],
 ];

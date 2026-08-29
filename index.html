@@ -147,6 +147,118 @@
         letter-spacing: 0.3px;
         margin-top: 4px;
       }
+      .content-notification-bubble {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        z-index: 2000;
+        width: min(620px, calc(100vw - 24px));
+        max-width: 620px;
+        background: var(--surface-glass, rgba(27, 17, 35, 0.9));
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.18));
+        border-radius: 22px;
+        box-shadow: var(--glass-shadow, 0 20px 45px rgba(0, 0, 0, 0.28));
+        transform: translateY(20px) scale(0.98);
+        opacity: 0;
+        transition:
+          transform 0.22s ease,
+          opacity 0.22s ease,
+          background 1.5s ease,
+          border-color 1.5s ease;
+        pointer-events: auto;
+        overflow: hidden;
+        cursor: pointer;
+      }
+      .content-notification-bubble.is-visible {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      .content-notification-inner {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        padding: 26px;
+      }
+      .content-notification-image {
+        position: relative;
+        flex-shrink: 0;
+        width: 120px;
+        height: 120px;
+        margin: 0;
+        border-radius: 0;
+        background: transparent;
+        object-fit: contain;
+        box-shadow: none;
+      }
+      .content-notification-copy {
+        position: relative;
+        flex: 1 1 auto;
+        min-width: 0;
+        padding-right: 32px;
+      }
+      .content-notification-text {
+        display: block;
+        font-family: "Quicksand", sans-serif;
+        color: var(--text-main, rgba(255, 255, 255, 0.95));
+        font-size: 1.15rem;
+        line-height: 1.5;
+        font-weight: 600;
+        transition: color 1.5s ease;
+        word-break: break-word;
+      }
+      .content-notification-close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 34px;
+        height: 34px;
+        border: 0;
+        border-radius: 50%;
+        background: var(--glass-bg, rgba(255, 255, 255, 0.12));
+        color: var(--text-main, white);
+        font-size: 1.3rem;
+        line-height: 1;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 1.5s ease, color 1.5s ease;
+      }
+      body.time-morning .content-notification-bubble {
+        box-shadow: 0 20px 45px rgba(130, 150, 180, 0.22);
+      }
+      @media (max-width: 600px) {
+        .content-notification-bubble {
+          right: 12px;
+          left: 12px;
+          bottom: 12px;
+          width: auto;
+          max-width: none;
+        }
+        .content-notification-inner {
+          gap: 12px;
+          padding: 14px;
+        }
+        .content-notification-image {
+          width: 56px;
+          height: 56px;
+        }
+        .content-notification-copy {
+          padding-right: 22px;
+        }
+        .content-notification-text {
+          font-size: 0.85rem;
+          line-height: 1.4;
+        }
+        .content-notification-close {
+          width: 26px;
+          height: 26px;
+          font-size: 1.05rem;
+        }
+      }
     </style>
     <link rel="preload" as="style" href="/src/css/index.css?v=1.5.3" />
     <link
@@ -548,6 +660,25 @@
           </div>
 
           <div class="footer-bottom">
+            <nav class="footer-legal-links" aria-label="Legal links">
+              <a
+                href="/privacy"
+                class="footer-legal-link"
+                data-es="Política de Privacidad"
+                data-en="Privacy Policy"
+                data-tg="Patakaran sa Privacy"
+                >Privacy Policy</a
+              >
+              <span aria-hidden="true">·</span>
+              <a
+                href="/terms"
+                class="footer-legal-link"
+                data-es="Términos y Descargo"
+                data-en="Terms & Disclaimer"
+                data-tg="Mga Tuntunin at Disclaimer"
+                >Terms &amp; Disclaimer</a
+              >
+            </nav>
             <p class="footer-disclaimer">
               AdashimaVerse is an unofficial, non-profit fan project. <em>Adachi to Shimamura</em>
               is written by Hitoma Iruma and illustrated by Non. All rights to the original work

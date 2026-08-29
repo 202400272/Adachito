@@ -1,2 +1,5 @@
 playwright>=1.62,<2
 rich>=13,<15
+
+Pillow>=10,<12
+beautifulsoup4>=4.12

@@ -1,5 +1,46 @@
 [
   {
+    "version": "2.3.5",
+    "build": "20260828",
+    "date": "August 28, 2026",
+    "subtitle": "QA fixes, asset corrections, and Author Archive content",
+    "changes": {
+      "new": [
+        "Added 6 new English articles to the Author Archive, expanding the collection of translated author material."
+      ],
+      "improvements": [
+        "Improved the Music player state handling when switching languages and reloading the music library.",
+        "Improved Music player volume control compatibility with the site controls."
+      ],
+      "fixes": [
+        "Fixed the homepage expandable explanation so it opens and closes correctly.",
+        "Fixed broken Privacy Policy and Terms of Service links.",
+        "Fixed missing local image assets used by Extra Stories, Stats, Drama, and Manga.",
+        "Fixed the Anime hero image request that was pointing to an unavailable external asset.",
+        "Fixed the Author Archive scrollbar stylesheet path.",
+        "Fixed Music exhaustive-track verification getting stuck on an invisible album card.",
+        "Fixed Music player volume input handling."
+      ],
+      "notes": []
+    }
+  },
+  {
+    "version": "2.3.4",
+    "build": "20260824",
+    "date": "August 24, 2026",
+    "subtitle": "Content updates, legal pages, and Web Stories",
+    "changes": {
+      "new": [
+        "Added a new \"Content Updates\" section to the News page for highlighting recent additions and changes to the site.",
+        "Added dedicated Privacy Policy and Terms of Service pages.",
+        "Added a Web Stories directory for browsing the site's Web Stories collection."
+      ],
+      "improvements": [],
+      "fixes": [],
+      "notes": []
+    }
+  },
+  {
     "version": "2.3.3",
     "build": "20260820",
     "date": "August 20, 2026",

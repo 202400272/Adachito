@@ -360,6 +360,15 @@ updateFavoritesBackLabel();
       musicData = data;
       albums = data.albums || [];
 
+      // A language change/reload can happen while the previous page state is
+      // still being torn down. Always establish a clean library view before
+      // rendering the new manifest so the album cards remain actionable.
+      viewMode = "library";
+      currentAlbum = null;
+      musicLibraryView.style.display = "block";
+      albumDetailView.style.display = "none";
+      favoritesView.style.display = "none";
+
       if (albums.length === 0) {
         throw new Error("No albums found in data");
       }
@@ -1462,7 +1471,7 @@ updateFavoritesBackLabel();
   });
 
   volumeSlider.addEventListener("input", (e) => {
-    volume = parseFloat(e.target.value);
+    volume = Math.max(0, Math.min(1, parseFloat(e.target.value) / 100));
     audio.volume = isMuted ? 0 : volume;
     updateVolumeIcon();
   });
@@ -1580,7 +1589,7 @@ updateFavoritesBackLabel();
   });
 
   loadMusicData();
-  volumeSlider.value = volume;
+  volumeSlider.value = String(Math.round(volume * 100));
   audio.volume = volume;
   updateVolumeIcon();
 

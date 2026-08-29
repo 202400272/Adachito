@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /src/data/
+Disallow: /src/components/
+Disallow: /tests/
+Disallow: /.qa/
+Disallow: /docs/
+Disallow: /scripts/
+
+Sitemap: https://adashimaverse.com/sitemap.xml

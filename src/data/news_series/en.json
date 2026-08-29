@@ -28,5 +28,20 @@
         }
       ]
     }
+  },
+  {
+    "id": "3",
+    "publishDate": "2026-08-28",
+    "type": "SERIES NEWS",
+    "en": {
+      "title": "Adachi and Shimamura Manga Volume 9 Announced!",
+      "text": "The ninth volume of the Adachi and Shimamura manga adaptation, illustrated by Moke Yuzuhara and based on the original story by Hitoma Iruma, with character designs by Non, will be released in Japan on October 27, 2026.",
+      "sources": [
+        {
+          "label": "Kadokawa",
+          "url": "https://www.kadokawa.co.jp/product/322607000765/"
+        }
+      ]
+    }
   }
 ]

@@ -45,6 +45,12 @@ const state = {
   keyboardHelpOpen: false,
 };
 
+let fullscreenUiTimer = null;
+let fullscreenUiHoldTimer = null;
+let isTimelineScrubbing = false;
+let fullscreenUiInteraction = false;
+let fullscreenUiHidden = false;
+
 // ----- playback progress storage -----
 const PROGRESS_KEY = "adashima_anime_progress";
 const FOLDER_STATE_KEY = "adashima_folder_state";
@@ -483,8 +489,8 @@ function updateOverlayControls() {
     overlayChannel.textContent =
       ch.label || "CH " + String(state.currentChannel + 1).padStart(2, "0");
     const prog = getEpisodeProgress(state.currentChannel);
-    const duration = prog.duration || 0;
-    const current = prog.time || 0;
+    const duration = Number.isFinite(crtVideo.duration) ? crtVideo.duration : prog.duration || 0;
+    const current = Number.isFinite(crtVideo.currentTime) ? crtVideo.currentTime : prog.time || 0;
     const pct = duration > 0 ? (current / duration) * 100 : 0;
     overlayProgressFill.style.width = pct + "%";
     overlayProgressTime.textContent = `${formatTime(current)} / ${formatTime(duration)}`;
@@ -564,8 +570,8 @@ function updateProgress(ch) {
   if (!ch) return;
   const idx = CHANNELS.indexOf(ch);
   const prog = getEpisodeProgress(idx);
-  const duration = prog.duration || 0;
-  const current = prog.time || 0;
+  const duration = Number.isFinite(crtVideo.duration) ? crtVideo.duration : prog.duration || 0;
+  const current = Number.isFinite(crtVideo.currentTime) ? crtVideo.currentTime : prog.time || 0;
   const pct = duration > 0 ? Math.min(100, (current / duration) * 100) : 0;
 
   progressFill.style.width = pct + "%";
@@ -1052,10 +1058,14 @@ async function renderApp() {
     ?.replaceChildren(getString("keyboardEpisodeMenu"));
   episodeMenuBtn.setAttribute("aria-label", getString("browseEpisodes"));
   keyboardHelpBtn.setAttribute("aria-label", getString("keyboardShortcuts"));
-  document.getElementById("guideSearchInput").setAttribute("aria-label", getString("searchEpisodes"));
+  document
+    .getElementById("guideSearchInput")
+    .setAttribute("aria-label", getString("searchEpisodes"));
   document.getElementById("overlayPrev").setAttribute("aria-label", getString("previousEpisode"));
   document.getElementById("overlayNext").setAttribute("aria-label", getString("nextEpisode"));
-  document.getElementById("overlayFullscreen").setAttribute("aria-label", getString("shortcutFullscreen"));
+  document
+    .getElementById("overlayFullscreen")
+    .setAttribute("aria-label", getString("shortcutFullscreen"));
   document.getElementById("osdMenu").setAttribute("aria-label", getString("episodeSelector"));
   document.getElementById("volKnobCircle").setAttribute("aria-label", getString("volumeLabel"));
   document.getElementById("brtKnobCircle").setAttribute("aria-label", getString("brightnessLabel"));
@@ -1085,7 +1095,8 @@ async function renderApp() {
 
   const guideSearchInput = document.getElementById("guideSearchInput");
   if (guideSearchInput) {
-    guideSearchInput.placeholder = getString("guideSearchPlaceholder") || getString("searchEpisodes");
+    guideSearchInput.placeholder =
+      getString("guideSearchPlaceholder") || getString("searchEpisodes");
   }
   const expandAllBtn = document.getElementById("guideExpandAll");
   const collapseAllBtn = document.getElementById("guideCollapseAll");
@@ -1635,8 +1646,69 @@ async function downloadAllEpisodes() {
 }
 
 // ===== FULLSCREEN =====
+function isFullscreenMode() {
+  return !!(document.fullscreenElement || document.webkitFullscreenElement);
+}
+
+function isDesktopFullscreen() {
+  return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+}
+
+function showFullscreenUi(fromInteraction = false) {
+  if (!isFullscreenMode()) return;
+  if (isDesktopFullscreen() && fullscreenUiHidden && !fromInteraction) return;
+  crtOverlay.classList.remove("is-hidden");
+  fullscreenUiHidden = false;
+  if (fullscreenUiInteraction) {
+    return;
+  }
+  if (fullscreenUiTimer) clearTimeout(fullscreenUiTimer);
+  fullscreenUiTimer = setTimeout(() => {
+    if (isFullscreenMode() && !fullscreenUiInteraction) {
+      crtOverlay.classList.add("is-hidden");
+      fullscreenUiHidden = isDesktopFullscreen();
+    }
+  }, 2200);
+}
+
+function hideFullscreenUi() {
+  if (!isFullscreenMode()) return;
+  if (fullscreenUiTimer) clearTimeout(fullscreenUiTimer);
+  if (fullscreenUiHoldTimer) clearTimeout(fullscreenUiHoldTimer);
+  fullscreenUiTimer = null;
+  fullscreenUiHoldTimer = null;
+  fullscreenUiInteraction = false;
+  crtOverlay.classList.add("is-hidden");
+  fullscreenUiHidden = isDesktopFullscreen();
+}
+
+function beginFullscreenInteraction(event) {
+  const isTouch = !event || event.pointerType === "touch" || String(event.type).startsWith("touch");
+  if (!isTouch) {
+    fullscreenUiInteraction = false;
+    showFullscreenUi(true);
+    return;
+  }
+
+  fullscreenUiInteraction = true;
+  crtOverlay.classList.remove("is-hidden");
+  if (fullscreenUiTimer) clearTimeout(fullscreenUiTimer);
+  if (fullscreenUiHoldTimer) clearTimeout(fullscreenUiHoldTimer);
+  fullscreenUiHoldTimer = setTimeout(() => {
+    fullscreenUiInteraction = false;
+    showFullscreenUi();
+  }, 1000);
+}
+
+function endFullscreenInteraction() {
+  if (fullscreenUiHoldTimer) clearTimeout(fullscreenUiHoldTimer);
+  fullscreenUiHoldTimer = null;
+  fullscreenUiInteraction = false;
+  showFullscreenUi();
+}
+
 function toggleFullscreen() {
-  if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+  if (!isFullscreenMode()) {
     crtVideo.controls = false;
     crtScreen.style.filter = "none";
     const req = crtScreen.requestFullscreen || crtScreen.webkitRequestFullscreen;
@@ -1649,17 +1721,131 @@ function toggleFullscreen() {
   }
 }
 function onFullscreenChange() {
-  const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+  const isFs = isFullscreenMode();
   fullscreenBtn.innerHTML = isFs
     ? '<span class="iconify" data-icon="mdi:fullscreen-exit" data-inline="false"></span>'
     : '<span class="iconify" data-icon="mdi:fullscreen" data-inline="false"></span>';
   if (!isFs) {
+    if (fullscreenUiTimer) clearTimeout(fullscreenUiTimer);
+    fullscreenUiTimer = null;
+    fullscreenUiHidden = false;
+    crtOverlay.classList.remove("is-hidden");
     crtVideo.controls = false;
     crtScreen.style.filter = `brightness(${state.brightness})`;
+    return;
   }
+
+  crtOverlay.classList.remove("is-hidden");
+  fullscreenUiHidden = false;
+  showFullscreenUi();
 }
 document.addEventListener("fullscreenchange", onFullscreenChange);
 document.addEventListener("webkitfullscreenchange", onFullscreenChange);
+
+function setTimelineFromPointer(clientX, elm) {
+  if (!state.powered || state.currentChannel < 0 || !crtVideo.duration) return;
+  const rect = elm.getBoundingClientRect();
+  const clampedX = Math.max(0, Math.min(clientX - rect.left, rect.width));
+  const ratio = rect.width > 0 ? clampedX / rect.width : 0;
+  const nextTime = Math.min(crtVideo.duration, Math.max(0, ratio * crtVideo.duration));
+  crtVideo.currentTime = nextTime;
+
+  const ch = CHANNELS[state.currentChannel];
+  if (ch) {
+    updateEpisodeProgress(state.currentChannel, nextTime, crtVideo.duration);
+    updateProgress(ch);
+    updateOverlayControls();
+  }
+}
+
+function attachTimelineInteractions(elm) {
+  if (!elm) return;
+  elm.style.cursor = "pointer";
+  elm.addEventListener("pointerdown", (event) => {
+    if (!state.powered || state.currentChannel < 0 || !crtVideo.duration) return;
+    beginFullscreenInteraction(event);
+    isTimelineScrubbing = true;
+    elm.setPointerCapture?.(event.pointerId);
+    setTimelineFromPointer(event.clientX, elm);
+  });
+  elm.addEventListener("pointermove", (event) => {
+    if (!isTimelineScrubbing || !state.powered || state.currentChannel < 0) return;
+    if (event.pointerType === "touch") {
+      beginFullscreenInteraction(event);
+    }
+    showFullscreenUi();
+    setTimelineFromPointer(event.clientX, elm);
+  });
+  const stopScrubbing = () => {
+    isTimelineScrubbing = false;
+    endFullscreenInteraction();
+  };
+  elm.addEventListener("pointerup", stopScrubbing);
+  elm.addEventListener("pointerleave", () => {
+    if (!isTimelineScrubbing) return;
+    stopScrubbing();
+  });
+  elm.addEventListener("pointercancel", stopScrubbing);
+}
+
+const overlayProgressTrack = crtOverlay.querySelector(".player-progress");
+const detailProgressTrack = document.querySelector(".watch-progress-track");
+if (overlayProgressTrack) attachTimelineInteractions(overlayProgressTrack);
+if (detailProgressTrack) attachTimelineInteractions(detailProgressTrack);
+
+crtScreen.addEventListener("pointermove", (event) => {
+  if (isFullscreenMode()) {
+    if (event.pointerType === "mouse" && !(event.movementX || event.movementY)) {
+      return;
+    }
+    if (event.pointerType === "touch") {
+      beginFullscreenInteraction(event);
+    } else {
+      fullscreenUiInteraction = false;
+    }
+    showFullscreenUi(event.pointerType !== "touch");
+  }
+});
+crtScreen.addEventListener("pointerdown", (event) => {
+  if (isFullscreenMode()) {
+    beginFullscreenInteraction(event);
+    showFullscreenUi(true);
+  }
+});
+crtScreen.addEventListener(
+  "touchstart",
+  (event) => {
+    if (isFullscreenMode()) {
+      beginFullscreenInteraction(event);
+      showFullscreenUi();
+    }
+  },
+  { passive: true },
+);
+crtScreen.addEventListener(
+  "touchmove",
+  (event) => {
+    if (isFullscreenMode()) {
+      beginFullscreenInteraction(event);
+      showFullscreenUi();
+    }
+  },
+  { passive: true },
+);
+crtScreen.addEventListener("pointerleave", () => {
+  if (isFullscreenMode() && !fullscreenUiInteraction && !isTimelineScrubbing) {
+    hideFullscreenUi();
+  }
+});
+crtOverlay.addEventListener("pointerdown", (event) => beginFullscreenInteraction(event));
+crtOverlay.addEventListener("pointerup", endFullscreenInteraction);
+crtOverlay.addEventListener("pointerleave", () => {
+  if (!isTimelineScrubbing) endFullscreenInteraction();
+});
+crtOverlay.addEventListener("touchstart", (event) => beginFullscreenInteraction(event), {
+  passive: true,
+});
+crtOverlay.addEventListener("touchend", endFullscreenInteraction, { passive: true });
 
 // ===== MODERN PLAYER CONTROLS =====
 function createRangeControl(input, { min, max, initial, storageKey, onChange, format }) {

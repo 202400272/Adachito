@@ -1,5 +1,46 @@
 [
   {
+    "version": "2.3.5",
+    "build": "20260828",
+    "date": "28 de agosto de 2026",
+    "subtitle": "Correcciones de QA, recursos y contenido del Archivo del Autor",
+    "changes": {
+      "new": [
+        "Se añadieron 6 nuevos artículos en inglés al Archivo del Autor, ampliando la colección de material de autor traducido."
+      ],
+      "improvements": [
+        "Se mejoró el manejo del estado del reproductor de Música al cambiar de idioma y recargar la biblioteca musical.",
+        "Se mejoró la compatibilidad del control de volumen del reproductor de Música con los controles del sitio."
+      ],
+      "fixes": [
+        "Se corrigió la sección desplegable de la página de inicio para que se abra y cierre correctamente.",
+        "Se corrigieron los enlaces rotos de Política de Privacidad y Términos de Servicio.",
+        "Se corrigieron los recursos de imagen locales que faltaban en Historias adicionales, Estadísticas, Drama y Manga.",
+        "Se corrigió la solicitud de la imagen principal de Anime, que apuntaba a un recurso externo no disponible.",
+        "Se corrigió la ruta de la hoja de estilos de la barra de desplazamiento del Archivo del Autor.",
+        "Se corrigió el bloqueo de la verificación exhaustiva de pistas de Música causado por una tarjeta de álbum invisible.",
+        "Se corrigió el manejo del control de volumen del reproductor de Música."
+      ],
+      "notes": []
+    }
+  },
+  {
+    "version": "2.3.4",
+    "build": "20260824",
+    "date": "24 de agosto de 2026",
+    "subtitle": "Actualizaciones de contenido, páginas legales y Web Stories",
+    "changes": {
+      "new": [
+        "Se añadió una nueva sección de «Actualizaciones de contenido» a la página de Noticias para destacar las incorporaciones y cambios recientes del sitio.",
+        "Se añadieron páginas independientes de Política de Privacidad y Términos de Servicio.",
+        "Se añadió un directorio de Web Stories para explorar la colección de Web Stories del sitio."
+      ],
+      "improvements": [],
+      "fixes": [],
+      "notes": []
+    }
+  },
+  {
     "version": "2.3.3",
     "build": "20260820",
     "date": "20 de agosto de 2026",

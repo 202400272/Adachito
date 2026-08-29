@@ -29,6 +29,15 @@
       "url": "/otros/Author_Archive",
       "isDriveLink": false,
       "isInternal": true
+    },
+    {
+      "id": "web_stories",
+      "icon": "fa-book-open",
+      "title": "Historias Web",
+      "description": "Un directorio de historias web publicadas y material relacionado de Kakuyomu.",
+      "url": "/otros/Web_Stories",
+      "isDriveLink": false,
+      "isInternal": true
     }
   ]
 }

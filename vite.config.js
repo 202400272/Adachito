@@ -11,6 +11,7 @@ const page = (p) => resolve(root, p);
 const runtimeCopies = [
   ["assets", "assets"],
   ["src/data", "src/data"],
+  ["src/css/legal.css", "src/css/legal.css"],
   ["src/components/styles", "src/components/styles"],
   ["src/components/menu.html", "src/components/menu.html"],
   ["src/components/footer.html", "src/components/footer.html"],
@@ -44,6 +45,10 @@ const previewRoutes = {
   "/Adashima_Stats": "src/pages/Adashima_Stats.html",
   "/Juego": "src/pages/Juego.html",
   "/otros/Author_Archive": "src/pages/otros/Author_Archive.html",
+  "/otros/Web_Stories": "src/pages/otros/Web_Stories.html",
+  "/privacy": "src/pages/Privacy.html",
+  "/terms": "src/pages/Terms.html",
+  "/otros/Web_Stories": "src/pages/otros/Web_Stories.html",
 };
 
 function themeBootstrap() {
@@ -235,6 +240,9 @@ export default defineConfig({
         stats: page("src/pages/Adashima_Stats.html"),
         juego: page("src/pages/Juego.html"),
         "otros/Author_Archive": page("src/pages/otros/Author_Archive.html"),
+        "otros/Web_Stories": page("src/pages/otros/Web_Stories.html"),
+        privacy: page("src/pages/Privacy.html"),
+        terms: page("src/pages/Terms.html"),
       },
     },
   },
