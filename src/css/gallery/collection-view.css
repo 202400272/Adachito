@@ -13,7 +13,7 @@
 .collection-view-back {
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.72);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -44,13 +44,13 @@
   word-break: break-word;
 }
 .collection-view-count {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.64);
   font-size: 0.8rem;
   margin-bottom: 2px;
 }
 .collection-view-description {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.72);
   max-width: 500px;
   margin-top: 4px;
   font-weight: 300;
@@ -150,7 +150,7 @@
 }
 .masonry-artist {
   font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.72);
 }
 .masonry-year {
   font-size: 0.6rem;
@@ -189,7 +189,7 @@
   font-size: 0.75rem;
   line-height: 1.5;
   max-width: 95%;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.68);
 }
 .masonry-bio-count {
   font-size: 0.65rem;

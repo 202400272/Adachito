@@ -1,6 +1,4 @@
-/* ========================================
-   NOVELS PAGE - MAIN CSS
-   ======================================== */
+/* ======================================== NOVELS PAGE - MAIN CSS ======================================== */
 
 /* ----- 1. CORE / BASE ----- */
 @import url("variables.css");
@@ -43,7 +41,7 @@
 /* ----- 9. FOOTER ----- */
 @import url("footer.css");
 
-/* ===== MOBILE INTERACTION ===== */
+/* MOBILE INTERACTION ===== */
 
 /* Remove the blue tap highlight on mobile browsers */
 * {
@@ -65,7 +63,7 @@ a:focus-visible,
   outline-offset: 2px;
 }
 
-/* ===== LOCAL TIME-OF-DAY THEME ===== */
+/* LOCAL TIME-OF-DAY THEME ===== */
 body.time-morning {
   --page-bg: linear-gradient(135deg, #eaf3fb 0%, #edf0fa 58%, #f3ebf7 100%);
   --page-surface: rgba(247, 250, 253, 0.94);
@@ -160,8 +158,7 @@ body.time-night .search-wrapper:focus-within {
   box-shadow: 0 0 0 3px var(--page-accent-soft) !important;
 }
 
-/* ===== THEME SURFACE CLEANUP =====
-   The page owns the time-based background; layout wrappers remain transparent. */
+/* ===== THEME SURFACE CLEANUP ===== The page owns the time-based background; layout wrappers remain transparent. */
 body.time-morning,
 body.time-afternoon,
 body.time-night {
@@ -202,9 +199,9 @@ body.time-afternoon .main-content {
 }
 
 body.time-afternoon .main-content::before {
-  background: rgba(255, 248, 248, 0.22);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 body.time-afternoon .header-container,
@@ -332,4 +329,27 @@ body.time-morning .novel-item,
 body.time-night .novel-card,
 body.time-night .novel-item {
   overflow: hidden;
+}
+
+/* ===== GRID FRAME REMOVAL ===== Keep the archive airy in every time theme. */
+body.time-morning .update-box.view-grid,
+body.time-afternoon .update-box.view-grid,
+body.time-night .update-box.view-grid {
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+body.time-morning .update-box.view-grid .novels-grid,
+body.time-afternoon .update-box.view-grid .novels-grid,
+body.time-night .update-box.view-grid .novels-grid {
+  padding: 0 !important;
+}
+body.time-morning .novel-card,
+body.time-afternoon .novel-card,
+body.time-night .novel-card {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }

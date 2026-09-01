@@ -1,0 +1,170 @@
+/* Responsive layout */
+
+/* responsive */
+@media (min-width: 769px) {
+  .lang-controls {
+    position: fixed !important;
+    top: 24px !important;
+    right: 32px !important;
+    left: auto !important;
+    justify-content: flex-end !important;
+    width: auto !important;
+    z-index: 50;
+  }
+}
+
+@media (max-width: 768px) {
+  .tv-brand {
+    top: 4px;
+    font-size: 0.58rem;
+  }
+  body {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  .main-content {
+    padding: 30px 16px;
+  }
+  .main-content::before {
+    left: 0;
+  }
+  h1.update-title {
+    font-size: 2.2rem;
+  }
+
+  .crt-tv-body {
+    padding: 28px 18px 16px 18px;
+    border-radius: 24px 24px 14px 14px;
+  }
+  .tv-screw-tl,
+  .tv-screw-tr {
+    top: 8px;
+  }
+  .tv-screw-bl,
+  .tv-screw-br {
+    bottom: 10px;
+  }
+
+  .tv-controls-row {
+    gap: 10px;
+    justify-content: center;
+  }
+  .tv-controls-left {
+    gap: 8px;
+  }
+  .tv-controls-right {
+    gap: 8px;
+  }
+
+  .power-btn,
+  .menu-btn,
+  .playpause-btn {
+    width: 38px;
+    height: 38px;
+  }
+  .menu-btn {
+    font-size: 0.55rem;
+  }
+  .playpause-btn {
+    font-size: 0.82rem;
+  }
+  .fullscreen-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 0.88rem;
+  }
+  .download-btn-tv {
+    padding: 7px 13px;
+    font-size: 0.76rem;
+  }
+
+  .channel-info-card {
+    padding: 16px 18px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .channel-badge {
+    margin-left: 0;
+    align-self: flex-start;
+  }
+
+  .floating-adashima {
+    width: 100px;
+    bottom: 10px;
+    right: 10px;
+  }
+  .floating-decor {
+    display: none;
+  }
+  .tv-knob {
+    display: none;
+  }
+
+  .osd-box {
+    min-width: 160px;
+    padding: 16px 18px 18px;
+  }
+  .osd-ch-item {
+    padding: 8px 10px;
+    gap: 8px;
+  }
+  .osd-ch-name {
+    font-size: 0.7rem;
+  }
+
+  .static-overlay {
+    animation-duration: 0.2s;
+  }
+  .tv-speaker-grill,
+  .tv-vent-panel,
+  .tv-led {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 20px 12px;
+  }
+  h1.update-title {
+    font-size: 1.75rem;
+    margin-top: 16px;
+  }
+  .crt-tv-body {
+    padding: 14px 12px 12px 12px;
+    border-radius: 16px 16px 10px 10px;
+  }
+  .tv-controls-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .tv-controls-left,
+  .tv-controls-right {
+    width: 100%;
+    justify-content: center;
+  }
+  .download-btn-tv {
+    width: 100%;
+    justify-content: center;
+  }
+  .back-link-bottom {
+    width: 90%;
+    justify-content: center;
+    margin: 20px auto;
+  }
+  .osd-menu {
+    background: rgba(4, 2, 10, 0.88);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .static-overlay,
+  .scanlines-overlay {
+    display: none;
+  }
+}

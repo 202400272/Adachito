@@ -62,6 +62,8 @@ def candidates(v,src):
     clean=unquote(v.split("?",1)[0].split("#",1)[0])
     if not clean or external(clean): return []
     if clean in ROUTES: return [ROOT/"src/pages"/(clean.strip("/")+".html"), ROOT/"index.html"]
+    if clean == "/privacy": return [ROOT/"src/pages/Privacy.html"]
+    if clean == "/terms": return [ROOT/"src/pages/Terms.html"]
     if clean.startswith("/"): return [ROOT/clean.lstrip("/"),DIST/clean.lstrip("/")]
     return [src.parent/clean,ROOT/clean,DIST/clean.lstrip("/")]
 def exists(v,src):

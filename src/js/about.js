@@ -1,6 +1,5 @@
-// ========================================
 // MAIN LOGIC
-// ========================================
+
 let currentLang = (() => {
   const storedLang =
     window.LanguageSwitch?.getCurrentLanguage?.() ||
@@ -28,9 +27,8 @@ let _isSwitching = false;
 let _changelogData = [];
 let _selectedVersion = null;
 
-// ========================================
 // TOAST MESSAGE
-// ========================================
+
 function showMessage(msg) {
   const t = document.getElementById("toast-message");
   if (!t) return;
@@ -39,12 +37,10 @@ function showMessage(msg) {
   setTimeout(() => (t.style.display = "none"), 3000);
 }
 
-// ========================================
 // LANGUAGE DROPDOWN
-// ========================================
-// ========================================
+
 // TRANSLATIONS
-// ========================================
+
 async function loadTranslations(lang) {
   try {
     const url =
@@ -74,9 +70,8 @@ function getText(key) {
   return value || key;
 }
 
-// ========================================
 // TRANSLATOR MATERIALS MODAL
-// ========================================
+
 const materialsOverlay = document.getElementById("translatorMaterialsOverlay");
 const materialsBody = document.getElementById("translatorMaterialsBody");
 const materialsCloseBtn = document.getElementById("closeMaterialsBtn");
@@ -176,9 +171,8 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeMaterialsModal();
 });
 
-// ========================================
 // RENDER PAGE
-// ========================================
+
 function renderPage(data) {
   if (!data) {
     console.error("No translation data available");
@@ -328,9 +322,8 @@ function renderPage(data) {
   }, 100);
 }
 
-// ========================================
 // RENDER SUPPORT SECTION
-// ========================================
+
 function renderSupportSection() {
   document.getElementById("supportTitle").textContent = getText("supportTitle") || "";
   document.getElementById("supportSubtitle").textContent = getText("supportSubtitle") || "";
@@ -403,9 +396,8 @@ function renderSupportSection() {
     .join("");
 }
 
-// ========================================
 // RENDER TRACK SECTION
-// ========================================
+
 function renderTrackSection() {
   document.getElementById("trackTitle").textContent = getText("trackTitle") || "";
   document.getElementById("trackSubtitle").textContent = getText("trackSubtitle") || "";
@@ -442,9 +434,8 @@ function renderTrackSection() {
     .join("");
 }
 
-// ========================================
 // RENDER LEGAL SECTION
-// ========================================
+
 function renderLegalSection() {
   document.getElementById("legalTitle").textContent = getText("legalTitle") || "";
   const lc = document.getElementById("legalContent");
@@ -462,9 +453,8 @@ function renderLegalSection() {
   }
 }
 
-// ========================================
 // RENDER DISCLAIMER SECTION
-// ========================================
+
 function renderDisclaimerSection() {
   document.getElementById("disclaimerTitle").textContent = getText("disclaimerTitle") || "";
   const dc = document.getElementById("disclaimerContent");
@@ -480,9 +470,8 @@ function renderDisclaimerSection() {
   }
 }
 
-// ========================================
 // CHANGELOG MANAGER
-// ========================================
+
 class ChangelogManager {
   constructor(lang) {
     this.lang = lang || "es";
@@ -657,12 +646,10 @@ class ChangelogManager {
   }
 }
 
-// ========================================
 // LANGUAGE SWITCHER
-// ========================================
-// ========================================
+
 // INIT
-// ========================================
+
 document.addEventListener("DOMContentLoaded", async function () {
   const data = await loadTranslations(currentLang);
   if (data) {
@@ -691,6 +678,11 @@ document.addEventListener("DOMContentLoaded", async function () {
   const changelog = new ChangelogManager(currentLang);
   changelog.init();
   window.changelogInstance = changelog;
+
+  if (window.location.hash === "#changelog") {
+    // Allow the shared Settings shortcut to open the existing About-page modal.
+    requestAnimationFrame(() => changelog.open());
+  }
 
   const menuVer = Math.floor(Date.now() / 86400000);
   fetch("/src/components/menu.html?v=" + menuVer)

@@ -23,6 +23,7 @@
     <link rel="icon" href="/assets/Imagenes/favicon.ico" />
     <link rel="stylesheet" href="/src/components/styles/footer.css" />
     <link rel="stylesheet" href="/src/components/styles/feedback.css" />
+    <link rel="stylesheet" href="/src/components/styles/scrollbar.css" />
   </head>
   <body data-page="help">
     <div class="help-shell">
@@ -65,5 +66,60 @@
     </div>
     <script src="/src/js/help.js"></script>
     <script type="module" src="/src/components/js/feedback.js"></script>
+    <script>
+      (function () {
+        const VALID = ["morning", "afternoon", "night"];
+        const AUTO_KEY = "adashima_time_based_appearance";
+        const MANUAL_KEY = "adashima_manual_appearance";
+
+        function normalize(value) {
+          return VALID.includes(value) ? value : "night";
+        }
+
+        function getStoredTheme() {
+          try {
+            const stored = localStorage.getItem(MANUAL_KEY);
+            return normalize(stored || "night");
+          } catch {
+            return "night";
+          }
+        }
+
+        function getAutoTheme() {
+          const hour = new Date().getHours();
+          if (hour >= 5 && hour < 12) return "morning";
+          if (hour >= 12 && hour < 19) return "afternoon";
+          return "night";
+        }
+
+        function applyTheme(theme) {
+          const value = normalize(theme);
+          document.body.classList.remove("time-morning", "time-afternoon", "time-night");
+          document.body.classList.add("time-" + value);
+          document.body.dataset.theme = value;
+        }
+
+        function syncTheme() {
+          try {
+            const autoMode = localStorage.getItem(AUTO_KEY) !== "false";
+            const theme = autoMode ? getAutoTheme() : getStoredTheme();
+            applyTheme(theme);
+          } catch {
+            applyTheme("night");
+          }
+        }
+
+        syncTheme();
+        window.addEventListener("storage", function (event) {
+          if (event.key === AUTO_KEY || event.key === MANUAL_KEY) {
+            syncTheme();
+          }
+        });
+        document.addEventListener("appearanceThemeChanged", function (event) {
+          const theme = event && event.detail && event.detail.theme ? event.detail.theme : "night";
+          applyTheme(theme);
+        });
+      })();
+    </script>
   </body>
 </html>

@@ -1,59 +1,66 @@
 [
   {
-    "id": "performance-and-interface-refresh",
-    "publishDate": "2026-08-18",
-    "type": "DEV UPDATE",
-    "en": {
-      "title": "A Small Update, and Another Afternoon Gone to Optimization",
-      "messages": [
-        "It hasnt been long since the last dev update but after spending my entire afternoon again while i supposedly planned to read books....",
-        "I ended up going back through the site and fixing a few things that were bothering me after the recent redesign. This update focuses mostly on consistency, mobile behavior, and performance rather than adding another huge feature.",
-        "The mobile burger menu has been redesigned again to make it smaller, cleaner, and less intrusive. The setting that hides the burger menu on other pages has also been made more reliable, including on the Anime page where page-specific layout rules could previously bring it back.",
-        "The Explore Adachi & Shimamura section on the homepage has also been refined. The novels, manga, and anime cards now use their icons as part of the actual card composition instead of treating them like separate decorations, giving the section a much cleaner editorial feel.",
-        "The time-based Morning, Afternoon, and Night themes were also restored across the Music player, queue and expanded player, Help Center, About page and translator materials modal, and Stats. These components should now follow the same appearance setting as the rest of the site again.",
-        "I also continued working on the performance side of things. The homepage's initial rendering path has been cleaned up, unnecessary font dependencies were reduced, and the mobile hero image was tightened up. Lighthouse is still showing room for improvement, especially around the critical rendering path, but the site is getting much closer to where I want it.",
-        "And yes, I really did spend an afternoon optimizing a fan archive instead of reading the books I was supposed to read. At this point, I suppose that is part of the development process."
-      ],
-      "author": "DCI"
-    }
-  },
-  {
-    "id": "first-major-update",
+    "id": "1-dev",
     "publishDate": "2026-08-02",
     "type": "DEV UPDATE",
-    "en": {
-      "title": "The First Major Update Is Here!",
-      "messages": [
-        "After extensive work behind the scenes, the site has received its first major update.",
-        "This update marks an important milestone for the project. The entire site is now available in English, opening the archive to more readers and making it easier to explore everything the site has to offer.",
-        "Four brand-new sections have also been added: Stats, Extra Stories, Gallery, and Music. Each section provides a new way to explore and enjoy the works beyond their main stories.",
-        "Many of the existing pages have also received significant changes, new features, and improvements to make the site a more complete and enjoyable experience.",
-        "This update would not have been possible without the help of several people. A huge thank-you to Chitoshima for helping test the site and making sure everything was working properly.",
-        "We would also like to give a special thank-you to sneikkimies and Cuetie Scans for allowing us to use and host their translations. Their work has been an important part of this archive, and we are incredibly grateful for the opportunity to share it here.",
-        "Finally, our biggest thanks go to Hitoma Iruma for creating Adachi and Shimamura, a wonderful work of literature that inspired us to create this project and share it with other readers.",
-        "Thank you to everyone who has visited, supported, and followed the project along the way. This is only the first major update, and there is still much more to come. We hope you enjoy exploring everything that is new."
-      ],
-      "author": "Sicnif"
-    }
+    "title": "The First Major Update Is Here!",
+    "messages": [
+      "After a lot of work behind the scenes, the site has received its first major update.",
+      "This is an important milestone for the project. The entire site is now available in English, opening the archive to more readers and making it easier to explore everything it has to offer.",
+      "Four brand-new sections have also been added: Stats, Extra Stories, Gallery, and Music. Each one offers a different way to explore and enjoy the works beyond the main stories.",
+      "Many of the existing pages have also received significant changes, new features, and improvements, all aimed at making the site a more complete and enjoyable experience.",
+      "This update would not have been possible without the help of several people. A huge thank-you to Chitoshima for helping test the site and making sure everything was working properly.",
+      "We would also like to give special thanks to sneikkimies and Cuetie Scans for allowing us to use and host their translations. Their work has been an important part of this archive, and we are incredibly grateful for the opportunity to share it here.",
+      "And finally, our biggest thanks go to Hitoma Iruma for creating Adachi and Shimamura, a wonderful work of literature that inspired us to create this project and share it with other readers.",
+      "Thank you to everyone who has visited, supported, and followed the project along the way. This is only the first major update, and there is still much more to come. We hope you enjoy exploring everything that is new."
+    ],
+    "author": "Sicnif"
   },
   {
-    "id": "second-major-update",
+    "id": "2-dev",
     "publishDate": "2026-08-15",
     "type": "DEV UPDATE",
-    "en": {
-      "title": "The Second Major Update Is Here!",
-      "messages": [
-        "After several weeks of continued development, the site has received its second major update. This release focuses on expanding the archive, improving navigation, refining the visual experience, and optimizing the site's overall performance.",
-        "The navigation system has received a major overhaul with a clearer structure separating primary navigation, community and external links, original works, status, and settings. Mobile navigation has also been improved with a dedicated close button and additional controls for managing the mobile menu.",
-        "The visual experience has been significantly expanded. The Gallery received a complete redesign with a new featured artwork layout, automatic slideshow, improved masonry presentation, artist information, enhanced filtering, and additional artwork and cover content. The homepage has also received improvements to its information layout and overall flow.",
-        "The site now features a dynamic time-based atmosphere with Morning, Afternoon, and Night themes that adapt the site's appearance throughout the day. A dedicated loading screen has also been introduced to provide a smoother transition while the site initializes.",
-        "Language support has continued to expand. Spanish content has been added to more areas of the archive, while Tagalog has been introduced as a prototype for future localization. The language system has also been reorganized to provide more consistent language switching and persistence across the site.",
-        "The reading and listening experience has also received extensive improvements. The Manga and Novels PDF readers have been optimized for smoother navigation, improved mobile zoom behavior, lazy thumbnail loading, document caching, and reduced resource usage. The Music section has received interface improvements as well as fixes for track identification and player state.",
-        "Significant improvements have also been made behind the scenes. The CSS architecture has been reorganized into maintainable, page-specific modules, reducing reliance on the previous monolithic stylesheet. The site's build system has also been migrated to Vite, providing a faster development workflow and improved debugging.",
-        "Several other systems have received reliability improvements and fixes. Gallery filtering and search are now more complete and responsive, Constellation progress and downloadable content have improved persistence, feedback modals have been refined for better compatibility across devices, and various mobile, localization, and interface issues have been resolved.",
-        "This update represents another major step forward for the archive. While there is still more to improve and expand, we are pleased with the progress made since the first major update. Thank you to everyone who continues to visit, support, and follow the project. We hope you enjoy everything included in this second major update."
-      ],
-      "author": "DCI"
-    }
+    "title": "The Second Major Update Is Here!",
+    "messages": [
+      "After several weeks of continued development, the site has received its second major update. This release focuses on expanding the archive, improving navigation, refining the visual experience, and optimizing the site's overall performance.",
+      "The navigation system has received a major overhaul, with a clearer structure separating primary navigation, community and external links, original works, status, and settings. Mobile navigation has also been improved with a dedicated close button and additional controls for managing the mobile menu.",
+      "The visual experience has been significantly expanded. The Gallery received a complete redesign with a new featured-artwork layout, automatic slideshow, improved masonry presentation, artist information, enhanced filtering, and additional artwork and cover content. The homepage has also received improvements to its information layout and overall flow.",
+      "The site now has a dynamic, time-based atmosphere with Morning, Afternoon, and Night themes that adapt its appearance throughout the day. A dedicated loading screen has also been introduced to provide a smoother transition while the site initializes.",
+      "Language support has continued to expand. Spanish content has been added to more areas of the archive, while Tagalog has been introduced as a prototype for future localization. The language system has also been reorganized to provide more consistent language switching and persistence across the site.",
+      "The reading and listening experience has also received extensive improvements. The Manga and Novels PDF readers have been optimized for smoother navigation, improved mobile zoom behavior, lazy thumbnail loading, document caching, and reduced resource usage. The Music section has received interface improvements as well as fixes for track identification and player state.",
+      "Significant improvements have also been made behind the scenes. The CSS architecture has been reorganized into maintainable, page-specific modules, reducing reliance on the previous monolithic stylesheet. The site's build system has also been migrated to Vite, providing a faster development workflow and improved debugging.",
+      "Several other systems have received reliability improvements and fixes. Gallery filtering and search are now more complete and responsive, Constellation progress and downloadable content have improved persistence, feedback modals have been refined for better compatibility across devices, and various mobile, localization, and interface issues have been resolved.",
+      "This update represents another major step forward for the archive. There is still plenty to improve and expand, but we're happy with how far the project has come since the first major update. Thank you to everyone who continues to visit, support, and follow the project. We hope you enjoy everything included in this second major update."
+    ],
+    "author": "DCI"
+  },
+  {
+    "id": "3-dev",
+    "publishDate": "2026-08-18",
+    "type": "DEV UPDATE",
+    "title": "A Small Update, and Another Afternoon Lost to Optimization",
+    "messages": [
+      "It hasn't been long since the last dev update, but somehow I managed to spend another entire afternoon working on the site when I was supposedly going to read some books instead.",
+      "I ended up going back through the site and fixing a few things that had been bothering me since the recent redesign. This update is mostly about consistency, mobile behavior, and performance rather than adding another huge feature.",
+      "The mobile burger menu has been redesigned again to make it smaller, cleaner, and less intrusive. The setting that lets you hide the burger menu on other pages has also been made more reliable, including on the Anime page, where page-specific layout rules could previously make it reappear.",
+      "The Explore Adachi & Shimamura section on the homepage has also been refined. The novel, manga, and anime cards now incorporate their icons directly into the card design instead of treating them as separate decorations, giving the whole section a cleaner editorial feel.",
+      "The time-based Morning, Afternoon, and Night themes were also restored across the Music player, queue, and expanded player, as well as the Help Center, About page, translator materials modal, and Stats. These components should now follow the same appearance setting as the rest of the site again.",
+      "I also continued working on performance. The homepage's initial rendering path has been cleaned up, unnecessary font dependencies have been reduced, and the mobile hero image has been tightened up. Lighthouse is still showing room for improvement, especially around the critical rendering path, but the site is getting much closer to where I want it.",
+      "And yes, I really did spend an entire afternoon optimizing a fan archive instead of reading the books I was supposed to read. At this point, I suppose that's just part of the development process."
+    ],
+    "author": "DCI"
+  },
+  {
+    "id": "4-dev",
+    "publishDate": "2026-08-31",
+    "type": "DEV UPDATE",
+    "title": "Phase 3: More Refactors (This Time, CSS)",
+    "messages": [
+      "Phase 3 of something I've been planning for a long time now, which is... MORE REFACTORS! This time, it's CSS. Phases 1 and 2 combined were all about SOP and data — check the changelog for those. Now it's CSS's turn.",
+      "This phase went straight into the sidebar. It now works as an overlay on both desktop and mobile instead of permanently reserving a chunk of the page for itself. A bunch of pages — About, Anime, Drama, Manga, Novels, Timeline, Extra Stories, Author Archive, and Web Stories — were still carrying around leftover 300px offsets from the old sidebar, so those had to go too.",
+      "On the organization side, the big page stylesheets were split into more focused modules, with actual section comments so it's easier to figure out where things belong. Repeated mobile interaction and keyboard-focus rules that had been copied across multiple pages were also consolidated into shared files. Along the way, I fixed a stale CSS import chain that was causing a very exciting blank/purple screen on the homepage and got the time-based theme loading reliably again.",
+      "There's still more CSS work left before I'm completely happy with it, but this is a pretty solid chunk of the cleanup done. Phase 4 will probably be something completely different — if only so I can pretend I'm not going to spend the rest of my life refactoring CSS."
+    ],
+    "author": "DCI"
   }
 ]

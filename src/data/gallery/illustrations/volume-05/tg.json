@@ -1,0 +1,120 @@
+{
+  "artworks": [
+    {
+      "id": 1,
+      "title": "If Everyone was Little",
+      "artist": "Non",
+      "artistCaption": "Illustration by Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume5/Image%201%20Volume%205%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume 5",
+      "date": "2015-11-10",
+      "collection": "VOLUME 05",
+      "type": "illustration",
+      "tags": ["illustration", "volume-05"],
+      "featured": true
+    },
+    {
+      "id": 2,
+      "title": "Leaving Azure",
+      "artist": "Non",
+      "artistCaption": "Illustration by Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume5/Image%202%20Volume%205%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume 5",
+      "date": "2015-11-10",
+      "collection": "VOLUME 05",
+      "type": "illustration",
+      "tags": ["illustration", "volume-05"],
+      "featured": false
+    },
+    {
+      "id": 3,
+      "title": "Leaving Azure 2",
+      "artist": "Non",
+      "artistCaption": "Illustration by Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume5/Image%203%20Volume%205%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume 5",
+      "date": "2015-11-10",
+      "collection": "VOLUME 05",
+      "type": "illustration",
+      "tags": ["illustration", "volume-05"],
+      "featured": false
+    },
+    {
+      "id": 4,
+      "title": "Leaving Azure 3",
+      "artist": "Non",
+      "artistCaption": "Illustration by Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume5/Image%204%20Volume%205%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume 5",
+      "date": "2015-11-10",
+      "collection": "VOLUME 05",
+      "type": "illustration",
+      "tags": ["illustration", "volume-05"],
+      "featured": false
+    },
+    {
+      "id": 5,
+      "title": "Are Souls Shared?",
+      "artist": "Non",
+      "artistCaption": "Illustration by Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume5/Image%205%20Volume%205%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume 5",
+      "date": "2015-11-10",
+      "collection": "VOLUME 05",
+      "type": "illustration",
+      "tags": ["illustration", "volume-05"],
+      "featured": false
+    },
+    {
+      "id": 6,
+      "title": "Are Souls Shared? 2",
+      "artist": "Non",
+      "artistCaption": "Illustration by Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume5/Image%206%20Volume%205%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume 5",
+      "date": "2015-11-10",
+      "collection": "VOLUME 05",
+      "type": "illustration",
+      "tags": ["illustration", "volume-05"],
+      "featured": false
+    },
+    {
+      "id": 7,
+      "title": "Are Souls Shared? 3",
+      "artist": "Non",
+      "artistCaption": "Illustration by Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume5/Image%207%20Volume%205%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume 5",
+      "date": "2015-11-10",
+      "collection": "VOLUME 05",
+      "type": "illustration",
+      "tags": ["illustration", "volume-05"],
+      "featured": false
+    },
+    {
+      "id": 8,
+      "title": "Adachi Revival",
+      "artist": "Non",
+      "artistCaption": "Illustration by Non",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volume5/Image%208%20Volume%205%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume 5",
+      "date": "2015-11-10",
+      "collection": "VOLUME 05",
+      "type": "illustration",
+      "tags": ["illustration", "volume-05"],
+      "featured": false
+    }
+  ],
+  "uiText": {
+    "searchPlaceholder": "Search Volume 5 illustrations...",
+    "publicationLabel": "Publication",
+    "dateLabel": "Date",
+    "collectionLabel": "Collection",
+    "tagsLabel": "Tags"
+  },
+  "artists": {
+    "Non": {
+      "bio": "Non (のん) is the illustrator for the Adachi to Shimamura light novel series, known for their delicate and atmospheric style."
+    }
+  }
+}

@@ -1,0 +1,806 @@
+/* Featured and archive card refinements */
+
+/* ============================================================ FEATURED NOVEL CARD — TYPOGRAPHIC EDITORIAL TR... */
+.story-grid .nav-card-featured {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  align-items: flex-end;
+  padding: 32px;
+}
+
+.story-grid .nav-card-featured .nav-card-editorial {
+  position: absolute;
+  top: 8px;
+  right: 26px;
+  z-index: -1;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(9rem, 18vw, 15rem);
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.08em;
+  color: rgba(255, 255, 255, 0.105);
+  user-select: none;
+  pointer-events: none;
+  transform: translateY(-2%);
+}
+
+.story-grid .nav-card-featured .nav-card-content {
+  position: relative;
+  z-index: 2;
+  max-width: min(72%, 620px);
+  gap: 5px;
+}
+
+.story-grid .nav-card-featured .nav-card-kicker {
+  margin-bottom: 2px;
+  letter-spacing: 0.19em;
+}
+
+.story-grid .nav-card-featured .nav-card-title {
+  font-size: clamp(1.65rem, 3vw, 2.35rem);
+  letter-spacing: -0.01em;
+}
+
+.story-grid .nav-card-featured .nav-card-desc {
+  max-width: 500px;
+  line-height: 1.55;
+}
+
+.story-grid .nav-card-featured .nav-card-end {
+  position: relative;
+  z-index: 2;
+  align-self: flex-end;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.story-grid .nav-card-featured .nav-card-end::before {
+  content: "";
+  display: block;
+  width: clamp(42px, 7vw, 88px);
+  height: 1px;
+  background: rgba(255, 255, 255, 0.34);
+  transform-origin: right center;
+  transition:
+    width 0.35s ease,
+    background 0.35s ease;
+}
+
+.story-grid .nav-card-featured:hover .nav-card-end::before {
+  width: clamp(58px, 9vw, 112px);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.story-grid .nav-card-featured .nav-card-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 17px;
+}
+
+.story-grid .nav-card-featured .nav-card-arrow {
+  margin-left: 0;
+}
+
+@media (max-width: 768px) {
+  .story-grid .nav-card-featured {
+    min-height: 164px;
+    padding: 22px 20px;
+  }
+
+  .story-grid .nav-card-featured .nav-card-editorial {
+    top: 14px;
+    right: 12px;
+    font-size: clamp(7rem, 30vw, 10rem);
+  }
+
+  .story-grid .nav-card-featured .nav-card-content {
+    max-width: 76%;
+  }
+
+  .story-grid .nav-card-featured .nav-card-end {
+    gap: 9px;
+  }
+
+  .story-grid .nav-card-featured .nav-card-end::before {
+    width: 28px;
+  }
+
+  .story-grid .nav-card-featured .nav-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    font-size: 1rem;
+  }
+}
+
+/* ============================================================ FEATURED NOVEL CARD — LARGE ICON TREATMENT Use... */
+.story-grid .nav-card-featured {
+  --novel-icon: #e67f9d;
+  --novel-icon-bg: rgba(230, 127, 157, 0.14);
+  --novel-icon-border: rgba(230, 127, 157, 0.3);
+  --novel-icon-glow: rgba(230, 127, 157, 0.16);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  align-items: center;
+}
+
+/* Remove the previous oversized number now that the icon is the focal point. */
+.story-grid .nav-card-featured .nav-card-editorial {
+  display: none;
+}
+
+/* Soft, abstract color wash behind the icon — no image involved. */
+.story-grid .nav-card-featured::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  width: 230px;
+  height: 230px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--novel-icon-glow) 0%, transparent 68%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.story-grid .nav-card-featured .nav-card-content {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  max-width: min(62%, 560px);
+  margin-left: 155px;
+  gap: 4px;
+}
+
+.story-grid .nav-card-featured .nav-card-kicker {
+  margin-bottom: 3px;
+}
+
+.story-grid .nav-card-featured .nav-card-title {
+  font-size: clamp(1.9rem, 3.1vw, 2.55rem);
+  line-height: 1.08;
+}
+
+.story-grid .nav-card-featured .nav-card-desc {
+  max-width: 480px;
+  line-height: 1.5;
+}
+
+/* The existing icon becomes a large tilted glass tile. */
+.story-grid .nav-card-featured .nav-card-end {
+  position: static;
+  z-index: 3;
+  display: block;
+  margin: 0;
+}
+
+.story-grid .nav-card-featured .nav-card-icon {
+  position: absolute;
+  left: 38px;
+  top: 50%;
+  width: 126px;
+  height: 126px;
+  transform: translateY(-50%) rotate(-6deg);
+  border-radius: 24px;
+  border: 1px solid var(--novel-icon-border);
+  background: linear-gradient(145deg, var(--novel-icon-bg), rgba(255, 255, 255, 0.08));
+  color: var(--novel-icon);
+  box-shadow:
+    0 18px 40px rgba(70, 38, 78, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  font-size: 3.25rem;
+  transition:
+    transform 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.story-grid .nav-card-featured:hover .nav-card-icon {
+  transform: translateY(-50%) rotate(-2deg) scale(1.035);
+  background: linear-gradient(145deg, rgba(230, 127, 157, 0.2), rgba(255, 255, 255, 0.12));
+  box-shadow:
+    0 22px 46px rgba(70, 38, 78, 0.13),
+    0 0 30px rgba(230, 127, 157, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.34);
+}
+
+.story-grid .nav-card-featured .nav-card-arrow {
+  position: absolute;
+  right: 32px;
+  bottom: 32px;
+  margin: 0;
+  z-index: 4;
+}
+
+/* Give the secondary cards their own restrained accent colors. */
+.story-grid .nav-card:nth-child(2) .nav-card-icon {
+  color: #79a9d8;
+  background: rgba(121, 169, 216, 0.14);
+  border: 1px solid rgba(121, 169, 216, 0.24);
+}
+
+.story-grid .nav-card:nth-child(3) .nav-card-icon {
+  color: #e59b83;
+  background: rgba(229, 155, 131, 0.14);
+  border: 1px solid rgba(229, 155, 131, 0.24);
+}
+
+.story-grid .nav-card:nth-child(2):hover .nav-card-icon {
+  background: rgba(121, 169, 216, 0.22);
+}
+
+.story-grid .nav-card:nth-child(3):hover .nav-card-icon {
+  background: rgba(229, 155, 131, 0.22);
+}
+
+@media (max-width: 900px) {
+  .story-grid .nav-card-featured {
+    min-height: 250px;
+  }
+
+  .story-grid .nav-card-featured .nav-card-content {
+    max-width: 68%;
+    margin-left: 150px;
+  }
+
+  .story-grid .nav-card-featured .nav-card-icon {
+    left: 30px;
+    width: 112px;
+    height: 112px;
+    font-size: 2.9rem;
+  }
+
+  .story-grid .nav-card-featured .nav-card-arrow {
+    right: 26px;
+    bottom: 26px;
+  }
+}
+
+@media (max-width: 600px) {
+  .story-grid .nav-card-featured {
+    min-height: 205px;
+    padding: 22px 18px;
+  }
+
+  .story-grid .nav-card-featured::before {
+    left: -35px;
+    top: 50%;
+    width: 180px;
+    height: 180px;
+  }
+
+  .story-grid .nav-card-featured .nav-card-icon {
+    left: 20px;
+    top: 50%;
+    width: 86px;
+    height: 86px;
+    border-radius: 18px;
+    font-size: 2.15rem;
+    transform: translateY(-50%) rotate(-5deg);
+  }
+
+  .story-grid .nav-card-featured:hover .nav-card-icon {
+    transform: translateY(-50%) rotate(-2deg) scale(1.025);
+  }
+
+  .story-grid .nav-card-featured .nav-card-content {
+    max-width: none;
+    margin-left: 108px;
+    padding-right: 8px;
+    align-self: center;
+  }
+
+  .story-grid .nav-card-featured .nav-card-kicker {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+  }
+
+  .story-grid .nav-card-featured .nav-card-title {
+    font-size: 1.65rem;
+  }
+
+  .story-grid .nav-card-featured .nav-card-desc {
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .story-grid .nav-card-featured .nav-card-arrow {
+    right: 18px;
+    bottom: 18px;
+    font-size: 0.95rem;
+  }
+
+  .story-grid .nav-card:nth-child(2) .nav-card-icon,
+  .story-grid .nav-card:nth-child(3) .nav-card-icon {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-grid .nav-card-featured .nav-card-icon {
+    transition: none;
+  }
+}
+
+/* ============================================================ ARCHIVE CARDS — REFINED ICON-LED LAYOUT The ic... */
+
+.story-grid .nav-card {
+  --card-accent: #d989a6;
+  --card-accent-rgb: 217, 137, 166;
+}
+
+/* Secondary cards: move the icon to the reading side and give it presence. */
+.story-grid .nav-card:nth-child(2),
+.story-grid .nav-card:nth-child(3) {
+  padding: 22px 24px;
+  gap: 18px;
+}
+
+.story-grid .nav-card:nth-child(2) .nav-card-end,
+.story-grid .nav-card:nth-child(3) .nav-card-end {
+  order: -1;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+.story-grid .nav-card:nth-child(2) .nav-card-icon,
+.story-grid .nav-card:nth-child(3) .nav-card-icon {
+  width: 72px;
+  height: 82px;
+  border-radius: 15px;
+  font-size: 1.55rem;
+  transform: rotate(-5deg);
+  position: relative;
+  overflow: visible;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    background 0.35s ease;
+}
+
+.story-grid .nav-card:nth-child(2) .nav-card-icon::before,
+.story-grid .nav-card:nth-child(3) .nav-card-icon::before {
+  content: "";
+  position: absolute;
+  inset: 5px -6px -5px 5px;
+  border-radius: inherit;
+  border: 1px solid currentColor;
+  opacity: 0.16;
+  z-index: -1;
+}
+
+.story-grid .nav-card:nth-child(2) .nav-card-icon::after,
+.story-grid .nav-card:nth-child(3) .nav-card-icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 48%);
+  pointer-events: none;
+}
+
+.story-grid .nav-card:nth-child(2) .nav-card-arrow,
+.story-grid .nav-card:nth-child(3) .nav-card-arrow {
+  position: absolute;
+  right: 23px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease;
+}
+
+.story-grid .nav-card:nth-child(2):hover .nav-card-icon,
+.story-grid .nav-card:nth-child(3):hover .nav-card-icon {
+  transform: rotate(-1deg) translateY(-3px) scale(1.035);
+}
+
+.story-grid .nav-card:nth-child(2):hover .nav-card-arrow,
+.story-grid .nav-card:nth-child(3):hover .nav-card-arrow {
+  transform: translate(4px, -50%);
+}
+
+.story-grid .nav-card:nth-child(2) .nav-card-content,
+.story-grid .nav-card:nth-child(3) .nav-card-content {
+  padding-right: 28px;
+}
+
+/* Featured novel: taller, book-like icon tile with layered paper edges. */
+.story-grid .nav-card-featured {
+  --novel-accent: #e27f9d;
+  --novel-accent-rgb: 226, 127, 157;
+  min-height: 360px;
+  padding: 32px 34px;
+}
+
+.story-grid .nav-card-featured::before {
+  left: 0;
+  top: 50%;
+  width: 330px;
+  height: 330px;
+  transform: translate(-22%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(var(--novel-accent-rgb), 0.18) 0%,
+    rgba(var(--novel-accent-rgb), 0.07) 34%,
+    transparent 70%
+  );
+}
+
+.story-grid .nav-card-featured .nav-card-icon {
+  left: 42px;
+  top: 50%;
+  width: 126px;
+  height: 164px;
+  transform: translateY(-50%) rotate(-5deg);
+  border-radius: 18px;
+  border: 1px solid rgba(var(--novel-accent-rgb), 0.38);
+  background: linear-gradient(
+    145deg,
+    rgba(var(--novel-accent-rgb), 0.19),
+    rgba(255, 255, 255, 0.12) 62%,
+    rgba(255, 255, 255, 0.06)
+  );
+  color: var(--novel-accent);
+  box-shadow:
+    0 22px 42px rgba(70, 38, 78, 0.13),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    inset 0 -1px 0 rgba(var(--novel-accent-rgb), 0.1);
+  font-size: 3.35rem;
+  overflow: visible;
+}
+
+/* Layered "pages" behind the cover. */
+.story-grid .nav-card-featured .nav-card-icon::before {
+  content: "";
+  position: absolute;
+  inset: 6px -8px -7px 6px;
+  border-radius: 17px;
+  border: 1px solid rgba(var(--novel-accent-rgb), 0.22);
+  background: rgba(255, 255, 255, 0.035);
+  z-index: -2;
+}
+
+.story-grid .nav-card-featured .nav-card-icon::after {
+  content: "NOVELS";
+  position: absolute;
+  left: 13px;
+  right: 13px;
+  bottom: 11px;
+  padding-top: 7px;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.62);
+  font:
+    700 0.52rem/1 "Quicksand",
+    sans-serif;
+  letter-spacing: 0.2em;
+  text-align: left;
+  pointer-events: none;
+}
+
+.story-grid .nav-card-featured .nav-card-content {
+  max-width: min(64%, 570px);
+  margin-left: 176px;
+  align-self: center;
+  gap: 5px;
+}
+
+.story-grid .nav-card-featured .nav-card-kicker {
+  color: rgba(74, 47, 87, 0.62);
+  font-size: 0.7rem;
+  letter-spacing: 0.21em;
+}
+
+.story-grid .nav-card-featured .nav-card-title {
+  font-size: clamp(2rem, 3.25vw, 2.7rem);
+  letter-spacing: -0.025em;
+}
+
+.story-grid .nav-card-featured .nav-card-desc {
+  max-width: 470px;
+  font-size: 0.92rem;
+}
+
+.story-grid .nav-card-featured .nav-card-arrow {
+  right: 31px;
+  bottom: 31px;
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.story-grid .nav-card-featured:hover .nav-card-icon {
+  transform: translateY(-50%) rotate(-1.5deg) scale(1.035);
+  box-shadow:
+    0 25px 48px rgba(70, 38, 78, 0.15),
+    0 0 32px rgba(var(--novel-accent-rgb), 0.13),
+    inset 0 1px 0 rgba(255, 255, 255, 0.44);
+}
+
+.story-grid .nav-card-featured:hover .nav-card-arrow {
+  transform: translateX(4px);
+}
+
+/* Make the accent colors feel deliberate rather than decorative noise. */
+.story-grid .nav-card:nth-child(2) {
+  --card-accent: #78a9d5;
+}
+
+.story-grid .nav-card:nth-child(3) {
+  --card-accent: #df987f;
+}
+
+.story-grid .nav-card:nth-child(2) .nav-card-icon {
+  color: #78a9d5;
+  background: linear-gradient(145deg, rgba(120, 169, 213, 0.18), rgba(255, 255, 255, 0.08));
+  border-color: rgba(120, 169, 213, 0.32);
+  box-shadow:
+    0 14px 30px rgba(56, 90, 120, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.story-grid .nav-card:nth-child(3) .nav-card-icon {
+  color: #df987f;
+  background: linear-gradient(145deg, rgba(223, 152, 127, 0.18), rgba(255, 255, 255, 0.08));
+  border-color: rgba(223, 152, 127, 0.32);
+  box-shadow:
+    0 14px 30px rgba(120, 70, 56, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+@media (max-width: 900px) {
+  .story-grid .nav-card-featured {
+    min-height: 270px;
+  }
+
+  .story-grid .nav-card-featured .nav-card-icon {
+    left: 32px;
+    width: 112px;
+    height: 146px;
+  }
+
+  .story-grid .nav-card-featured .nav-card-content {
+    margin-left: 158px;
+    max-width: 68%;
+  }
+}
+
+@media (max-width: 600px) {
+  .story-grid .nav-card-featured {
+    min-height: 224px;
+    padding: 22px 18px;
+  }
+
+  .story-grid .nav-card-featured::before {
+    width: 220px;
+    height: 220px;
+    transform: translate(-25%, -50%);
+  }
+
+  .story-grid .nav-card-featured .nav-card-icon {
+    left: 20px;
+    width: 92px;
+    height: 122px;
+    border-radius: 15px;
+    font-size: 2.35rem;
+  }
+
+  .story-grid .nav-card-featured .nav-card-icon::after {
+    left: 10px;
+    right: 10px;
+    bottom: 9px;
+    font-size: 0.44rem;
+    letter-spacing: 0.15em;
+  }
+
+  .story-grid .nav-card-featured .nav-card-content {
+    margin-left: 116px;
+    max-width: none;
+    padding-right: 3px;
+  }
+
+  .story-grid .nav-card-featured .nav-card-kicker {
+    font-size: 0.6rem;
+    letter-spacing: 0.13em;
+  }
+
+  .story-grid .nav-card-featured .nav-card-title {
+    font-size: 1.55rem;
+  }
+
+  .story-grid .nav-card-featured .nav-card-desc {
+    font-size: 0.76rem;
+    line-height: 1.42;
+  }
+
+  .story-grid .nav-card-featured .nav-card-arrow {
+    right: 16px;
+    bottom: 16px;
+    font-size: 0.9rem;
+  }
+
+  .story-grid .nav-card:nth-child(2),
+  .story-grid .nav-card:nth-child(3) {
+    min-height: 116px;
+    padding: 16px 18px;
+    gap: 15px;
+  }
+
+  .story-grid .nav-card:nth-child(2) .nav-card-icon,
+  .story-grid .nav-card:nth-child(3) .nav-card-icon {
+    width: 60px;
+    height: 70px;
+    border-radius: 13px;
+    font-size: 1.25rem;
+  }
+
+  .story-grid .nav-card:nth-child(2) .nav-card-content,
+  .story-grid .nav-card:nth-child(3) .nav-card-content {
+    padding-right: 24px;
+  }
+
+  .story-grid .nav-card:nth-child(2) .nav-card-title,
+  .story-grid .nav-card:nth-child(3) .nav-card-title {
+    font-size: 1.05rem;
+  }
+
+  .story-grid .nav-card:nth-child(2) .nav-card-desc,
+  .story-grid .nav-card:nth-child(3) .nav-card-desc {
+    font-size: 0.74rem;
+    line-height: 1.4;
+  }
+
+  .story-grid .nav-card:nth-child(2) .nav-card-arrow,
+  .story-grid .nav-card:nth-child(3) .nav-card-arrow {
+    right: 15px;
+    font-size: 0.78rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-grid .nav-card-featured .nav-card-icon,
+  .story-grid .nav-card-featured .nav-card-arrow,
+  .story-grid .nav-card:nth-child(2) .nav-card-icon,
+  .story-grid .nav-card:nth-child(3) .nav-card-icon,
+  .story-grid .nav-card:nth-child(2) .nav-card-arrow,
+  .story-grid .nav-card:nth-child(3) .nav-card-arrow {
+    transition: none !important;
+  }
+}
+
+/* ============================================================ FEATURED NOVEL CARD — FINAL PASS Supersedes th... */
+.story-grid .nav-card-featured {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 16px;
+  min-height: 300px;
+  padding: 30px 34px 26px;
+}
+
+.story-grid .nav-card-featured::before {
+  left: -34px;
+  top: -34px;
+  width: 230px;
+  height: 230px;
+  transform: none;
+  background: radial-gradient(
+    circle,
+    rgba(var(--novel-accent-rgb), 0.16) 0%,
+    rgba(var(--novel-accent-rgb), 0.05) 46%,
+    transparent 70%
+  );
+}
+
+.story-grid .nav-card-featured .nav-card-icon {
+  position: relative;
+  left: auto;
+  top: auto;
+  z-index: 2;
+  width: 62px;
+  height: 78px;
+  margin: 0;
+  transform: rotate(-4deg);
+  font-size: 1.5rem;
+}
+
+.story-grid .nav-card-featured .nav-card-icon::before {
+  inset: 4px -6px -5px 4px;
+}
+
+.story-grid .nav-card-featured .nav-card-icon::after {
+  left: 8px;
+  right: 8px;
+  bottom: 6px;
+  padding-top: 5px;
+  font-size: 0.42rem;
+  letter-spacing: 0.16em;
+}
+
+.story-grid .nav-card-featured:hover .nav-card-icon {
+  transform: rotate(-1.5deg) translateY(-2px) scale(1.03);
+}
+
+.story-grid .nav-card-featured .nav-card-content {
+  position: relative;
+  z-index: 2;
+  align-self: flex-start;
+  max-width: 92%;
+  margin-left: 0;
+  gap: 7px;
+}
+
+.story-grid .nav-card-featured .nav-card-kicker {
+  color: var(--text-secondary);
+  opacity: 0.8;
+  font-size: 0.68rem;
+}
+
+.story-grid .nav-card-featured .nav-card-title {
+  font-size: clamp(1.85rem, 2.9vw, 2.5rem);
+}
+
+.story-grid .nav-card-featured .nav-card-desc {
+  max-width: 460px;
+}
+
+.story-grid .nav-card-featured .nav-card-end {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  align-self: flex-start;
+  margin: 0;
+  margin-top: auto;
+}
+
+.story-grid .nav-card-featured .nav-card-arrow {
+  position: static;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .story-grid .nav-card-featured {
+    min-height: 240px;
+    padding: 26px 28px 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .story-grid .nav-card-featured {
+    min-height: 210px;
+    padding: 22px 20px;
+    gap: 12px;
+  }
+
+  .story-grid .nav-card-featured::before {
+    width: 170px;
+    height: 170px;
+    left: -24px;
+    top: -24px;
+  }
+
+  .story-grid .nav-card-featured .nav-card-icon {
+    width: 52px;
+    height: 66px;
+    font-size: 1.25rem;
+  }
+
+  .story-grid .nav-card-featured .nav-card-content {
+    max-width: 100%;
+  }
+
+  .story-grid .nav-card-featured .nav-card-title {
+    font-size: 1.55rem;
+  }
+
+  .story-grid .nav-card-featured .nav-card-desc {
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+}

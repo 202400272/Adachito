@@ -473,8 +473,10 @@ class FeedbackManager {
       this.successEl.style.display = "block";
       // Clear form data
       this.form?.reset();
-      document.getElementById("titleCount").textContent = "0";
-      document.getElementById("descCount").textContent = "0";
+      const titleCount = document.getElementById("titleCount");
+      const descCount = document.getElementById("descCount");
+      if (titleCount) titleCount.textContent = "0";
+      if (descCount) descCount.textContent = "0";
     }
 
     // Close after 2 seconds

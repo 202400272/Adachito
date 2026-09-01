@@ -1,6 +1,4 @@
-/* ============================================================
-   TRANSLATOR MATERIALS MODAL
-   ============================================================ */
+/* ============================================================ TRANSLATOR MATERIALS MODAL ===================... */
 .translator-materials-overlay {
   position: fixed;
   top: 0;
@@ -180,6 +178,33 @@
   color: #6c757d;
 }
 
+body.time-night .translator-materials-modal {
+  background: rgba(43, 33, 51, 0.96) !important;
+}
+
+body.time-night .material-item {
+  background: rgba(39, 29, 49, 0.88) !important;
+  border-color: rgba(221, 190, 226, 0.08) !important;
+}
+
+body.time-night .material-title,
+body.time-night .material-status {
+  color: #ffffff !important;
+}
+
+body.time-night .material-status.status-complete {
+  background: rgba(124, 179, 138, 0.18) !important;
+}
+body.time-night .material-status.status-in-progress {
+  background: rgba(226, 179, 70, 0.18) !important;
+}
+body.time-night .material-status.status-in-review {
+  background: rgba(98, 156, 219, 0.18) !important;
+}
+body.time-night .material-status.status-pending {
+  background: rgba(142, 128, 151, 0.18) !important;
+}
+
 .materials-empty {
   text-align: center;
   padding: 40px 20px;
@@ -196,4 +221,32 @@
 .materials-empty p {
   margin: 0;
   font-size: 1rem;
+}
+
+/* Prevent translated-material entries from overflowing narrow modal widths. */
+.translator-materials-title {
+  min-width: 0;
+  flex: 1;
+}
+
+.translator-materials-title > span:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.translator-materials-close {
+  flex: 0 0 auto;
+}
+
+.material-item {
+  min-width: 0;
+}
+
+.material-info {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.material-title {
+  overflow-wrap: anywhere;
 }

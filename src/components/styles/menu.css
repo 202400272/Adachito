@@ -1,6 +1,4 @@
-/* ============================================================
-         REDUCED MOTION
-         ============================================================ */
+/* ============================================================ REDUCED MOTION ===============================... */
 @media (prefers-reduced-motion: reduce) {
   #menu-component-wrapper *,
   #menu-component-wrapper *::before,
@@ -10,9 +8,7 @@
   }
 }
 
-/* ============================================================
-         ROOT VARIABLES (scoped)
-         ============================================================ */
+/* ============================================================ ROOT VARIABLES (scoped) ======================... */
 #menu-component-wrapper {
   --sakura-pink: #fce4ec;
   --sakura-dark: #f06292;
@@ -38,88 +34,66 @@
   color: var(--text-main);
   display: block;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 300px;
+  inset: 0;
+  width: 0;
   height: 100vh;
-  z-index: 20;
-  pointer-events: auto;
-  background: linear-gradient(180deg, #2d183e 0%, #201330 100%);
+  z-index: 12000;
+  pointer-events: none;
+  background: transparent;
   transition: color 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+/* Keep the drawer outside page layout. */
 #menu-container,
 #sidebar-container {
   display: block !important;
-  width: 300px !important;
-  min-height: 100vh !important;
-  max-width: 300px !important;
-  position: relative !important;
+  width: 0 !important;
+  min-height: 0 !important;
+  max-width: 0 !important;
+  position: fixed !important;
+  inset: 0 auto auto 0 !important;
   z-index: 20 !important;
-  flex: 0 0 300px !important;
-  background: linear-gradient(180deg, #2d183e 0%, #201330 100%) !important;
+  flex: 0 0 0 !important;
+  background: transparent !important;
+  pointer-events: none !important;
 }
 
 #menu-container > #menu-component-wrapper,
 #sidebar-container > #menu-component-wrapper {
   display: block !important;
-  width: 100% !important;
+  width: 300px !important;
   height: 100vh !important;
   max-width: 300px !important;
-  position: relative !important;
-  background: linear-gradient(180deg, #2d183e 0%, #201330 100%);
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  background: transparent;
+  pointer-events: auto;
 }
 
-body.time-morning #menu-container,
-body.time-morning #sidebar-container,
-body.time-morning #menu-container > #menu-component-wrapper,
-body.time-morning #sidebar-container > #menu-component-wrapper,
-body.time-morning #menu-component-wrapper,
 body.time-morning #menu-component-wrapper .sidebar {
   background: rgb(245, 232, 248) linear-gradient(135deg, rgb(230, 240, 252), rgb(245, 232, 248)) !important;
 }
 
-body.time-afternoon #menu-container,
-body.time-afternoon #sidebar-container,
-body.time-afternoon #menu-container > #menu-component-wrapper,
-body.time-afternoon #sidebar-container > #menu-component-wrapper,
-body.time-afternoon #menu-component-wrapper,
 body.time-afternoon #menu-component-wrapper .sidebar {
   background: rgb(232, 216, 247) linear-gradient(180deg, rgb(250, 214, 227), rgb(232, 216, 247)) !important;
 }
 
-body.time-night #menu-container,
-body.time-night #sidebar-container,
-body.time-night #menu-container > #menu-component-wrapper,
-body.time-night #sidebar-container > #menu-component-wrapper,
-body.time-night #menu-component-wrapper,
 body.time-night #menu-component-wrapper .sidebar {
   background: rgb(45, 24, 62) linear-gradient(180deg, #2d183e 0%, #201330 100%) !important;
 }
 
 @media (max-width: 900px) {
-  #menu-container,
-  #sidebar-container {
-    display: block !important;
-    width: 0 !important;
-    min-height: 0 !important;
-    max-width: 0 !important;
-    flex-basis: 0 !important;
-    background: transparent !important;
-  }
-
+  /* The drawer keeps the same overlay model on mobile. */
   #menu-container > #menu-component-wrapper,
   #sidebar-container > #menu-component-wrapper {
-    width: 0 !important;
-    max-width: 0 !important;
-    height: 0 !important;
-    background: transparent !important;
+    width: 300px !important;
+    max-width: 300px !important;
+    height: 100vh !important;
   }
 }
 
-/* ============================================================
-         TIME-OF-DAY THEME OVERRIDES
-         ============================================================ */
+/* ============================================================ TIME-OF-DAY THEME OVERRIDES ==================... */
 body.time-morning #menu-component-wrapper {
   --nav-bg: linear-gradient(135deg, rgb(230, 240, 252), rgb(245, 232, 248));
   --nav-border: rgba(200, 215, 235, 0.7);
@@ -160,9 +134,7 @@ body.time-night #menu-component-wrapper {
   background: linear-gradient(180deg, #2d183e 0%, #201330 100%);
 }
 
-/* ============================================================
-         MOBILE DRAWER CLOSE BUTTON (X) — only inside the mobile drawer
-         ============================================================ */
+/* ============================================================ MOBILE DRAWER CLOSE BUTTON (X) — only inside t... */
 #menu-component-wrapper .drawer-close-btn {
   display: none;
   position: absolute;
@@ -194,9 +166,7 @@ body.time-night #menu-component-wrapper {
   outline-offset: 2px;
 }
 
-/* ============================================================
-         MOBILE TOGGLE BUTTON
-         ============================================================ */
+/* ============================================================ MOBILE TOGGLE BUTTON =========================... */
 #menu-component-wrapper .mobile-toggle {
   position: fixed;
   top: 15px;
@@ -235,9 +205,7 @@ body.time-night #menu-component-wrapper {
   pointer-events: none !important;
 }
 
-/* ============================================================
-         SIDEBAR / NAVIGATION PANEL
-         ============================================================ */
+/* ============================================================ SIDEBAR / NAVIGATION PANEL ===================... */
 #menu-component-wrapper .sidebar {
   width: 300px;
   flex-shrink: 0;
@@ -271,9 +239,7 @@ body.time-night #menu-component-wrapper {
   transition: background-color 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* ============================================================
-         BRANDING (non-interactive, strongest visual)
-         ============================================================ */
+/* ============================================================ BRANDING (non-interactive, strongest visual) =... */
 #menu-component-wrapper .branding-area {
   display: flex;
   flex-direction: column;
@@ -333,9 +299,7 @@ body.time-afternoon #menu-component-wrapper .branding-area .logo-label {
   color: #e91e78;
 }
 
-/* ============================================================
-         SIDEBAR SECTION LABELS (BRAND / NAVIGATION / COMMUNITY / etc.)
-         ============================================================ */
+/* ============================================================ SIDEBAR SECTION LABELS (BRAND / NAVIGATION / C... */
 #menu-component-wrapper .nav-section {
   display: flex;
   flex-direction: column;
@@ -418,9 +382,7 @@ body.time-afternoon #menu-component-wrapper .branding-area .logo-label {
   min-height: 44px;
 }
 
-/* ============================================================
-         PRIMARY NAVIGATION (unified list — strongest interaction styling)
-         ============================================================ */
+/* ============================================================ PRIMARY NAVIGATION (unified list — strongest i... */
 #menu-component-wrapper .nav-list {
   display: flex;
   flex-direction: column;
@@ -522,10 +484,7 @@ body.time-afternoon #menu-component-wrapper .branding-area .logo-label {
   color: var(--accent-primary);
 }
 
-/* ============================================================
-         SECONDARY NAVIGATION (external links: Community / Original Work)
-         Visually lighter than primary nav — no card, no accent bar
-         ============================================================ */
+/* ============================================================ SECONDARY NAVIGATION (external links: Communit... */
 #menu-component-wrapper .nav-item.secondary {
   min-height: 40px;
   padding: 8px 14px 8px 16px;
@@ -572,9 +531,7 @@ body.time-afternoon #menu-component-wrapper .branding-area .logo-label {
   color: #1877f2;
 }
 
-/* ============================================================
-         DIVIDER
-         ============================================================ */
+/* ============================================================ DIVIDER ======================================... */
 #menu-component-wrapper .sidebar-divider {
   height: 1px;
   background: var(--surface-border);
@@ -582,9 +539,7 @@ body.time-afternoon #menu-component-wrapper .branding-area .logo-label {
   transition: background-color 2.5s ease;
 }
 
-/* ============================================================
-         STATUS (informational styling — quiet, not interactive)
-         ============================================================ */
+/* ============================================================ STATUS (informational styling — quiet, not int... */
 #menu-component-wrapper .info-card {
   display: flex;
   align-items: center;
@@ -621,9 +576,7 @@ body.time-afternoon #menu-component-wrapper .branding-area .logo-label {
     color 2.5s ease;
 }
 
-/* ============================================================
-         SETTINGS (compact, collapsible)
-         ============================================================ */
+/* ============================================================ SETTINGS (compact, collapsible) ==============... */
 #menu-component-wrapper .settings-card {
   background: transparent;
   border: 1px solid var(--surface-border);
@@ -718,9 +671,7 @@ body.time-afternoon #menu-component-wrapper .branding-area .logo-label {
   }
 }
 
-/* ============================================================
-         SETTINGS SECTION LABELS
-         ============================================================ */
+/* ============================================================ SETTINGS SECTION LABELS ======================... */
 #menu-component-wrapper .settings-section-label {
   display: block;
   font-size: 0.58rem;
@@ -770,9 +721,7 @@ body.time-afternoon #menu-component-wrapper .branding-area .logo-label {
   padding: 4px 0;
 }
 
-/* ============================================================
-         LANGUAGE SELECTOR
-         ============================================================ */
+/* ============================================================ LANGUAGE SELECTOR ============================... */
 #menu-component-wrapper .language-selector,
 #menu-component-wrapper .appearance-selector {
   display: flex;
@@ -870,9 +819,7 @@ body.time-night #menu-component-wrapper .appearance-option {
   color: var(--accent-primary);
 }
 
-/* ============================================================
-         TOGGLE SWITCH
-         ============================================================ */
+/* ============================================================ TOGGLE SWITCH ================================... */
 #menu-component-wrapper .toggle-switch {
   position: relative;
   width: 40px;
@@ -936,9 +883,7 @@ body.time-night #menu-component-wrapper .toggle-slider::before {
   background: #d8c8e0;
 }
 
-/* ============================================================
-         HOMEPAGE NOTICE (contextual hint under the mobile burger setting)
-         ============================================================ */
+/* ============================================================ HOMEPAGE NOTICE (contextual hint under the mob... */
 #menu-component-wrapper .homepage-notice {
   display: flex;
   align-items: flex-start;
@@ -955,9 +900,7 @@ body.time-night #menu-component-wrapper .toggle-slider::before {
   flex-shrink: 0;
 }
 
-/* ============================================================
-         RESPONSIVE BREAKPOINTS
-         ============================================================ */
+/* ============================================================ RESPONSIVE BREAKPOINTS =======================... */
 @media (max-width: 900px) {
   #menu-component-wrapper .mobile-toggle {
     display: flex;
@@ -994,7 +937,8 @@ body.time-night #menu-component-wrapper .toggle-slider::before {
     width: 56px;
     height: 56px;
     font-size: 1.4rem;
-    right: 12px;
+    left: 12px;
+    right: auto;
     top: 12px;
   }
   #menu-component-wrapper .sidebar {
@@ -1015,9 +959,7 @@ body.time-night #menu-component-wrapper .toggle-slider::before {
   }
 }
 
-/* ============================================================
-   MENU REFRESH — compact, editorial, mobile-first
-   ============================================================ */
+/* ============================================================ MENU REFRESH — compact, editorial, mobile-firs... */
 #menu-component-wrapper {
   font-family: "Quicksand", sans-serif;
 }
@@ -1028,7 +970,8 @@ body.time-night #menu-component-wrapper .toggle-slider::before {
   min-height: 44px !important;
   padding: 0 !important;
   top: 12px !important;
-  right: 12px !important;
+  left: 12px !important;
+  right: auto !important;
   border-radius: 13px !important;
   border: 1px solid var(--nav-border) !important;
   background: color-mix(in srgb, var(--nav-bg) 82%, transparent) !important;
@@ -1159,9 +1102,7 @@ body.time-night #menu-component-wrapper .toggle-slider::before {
   }
 }
 
-/* ============================================================
-   MOBILE MENU — FINAL COMPACT DRAWER
-   ============================================================ */
+/* ============================================================ MOBILE MENU — FINAL COMPACT DRAWER ===========... */
 @media (max-width: 900px) {
   #menu-component-wrapper {
     position: fixed !important;
@@ -1176,7 +1117,8 @@ body.time-night #menu-component-wrapper .toggle-slider::before {
   #menu-component-wrapper .mobile-toggle {
     position: fixed !important;
     top: 14px !important;
-    right: 14px !important;
+    left: 14px !important;
+    right: auto !important;
     width: 42px !important;
     height: 42px !important;
     min-width: 42px !important;
@@ -1359,47 +1301,692 @@ body.time-night #menu-component-wrapper .toggle-slider::before {
   }
 }
 
-/* ============================================================
-   DESKTOP SIDEBAR — ALWAYS VISIBLE
-   The "Hide Burger Menu in Other Pages" preference is mobile-only.
-   Desktop uses the persistent sidebar navigation and must never be
-   hidden by the mobile preference state.
-   ============================================================ */
+/* Desktop uses the same hidden drawer model as mobile. */
 @media (min-width: 901px) {
-  #menu-component-wrapper,
-  #menu-component-wrapper.mobile-toggle-hidden {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    width: 300px !important;
-    height: 100vh !important;
+  #menu-component-wrapper {
     position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: auto !important;
-    pointer-events: auto !important;
-    z-index: 1000 !important;
-    background: var(--nav-bg) !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 12000 !important;
+    pointer-events: none !important;
+    background: transparent !important;
   }
 
-  #menu-component-wrapper .sidebar,
-  #menu-component-wrapper.mobile-toggle-hidden .sidebar {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    width: 300px !important;
-    height: 100vh !important;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: auto !important;
-    transform: translateX(0) !important;
-    pointer-events: auto !important;
-    z-index: 1001 !important;
-  }
-
-  /* The burger button itself remains mobile-only. */
   #menu-component-wrapper .mobile-toggle {
+    display: inline-flex !important;
+    position: fixed !important;
+    top: 22px !important;
+    left: 22px !important;
+    right: auto !important;
+    width: 46px !important;
+    height: 46px !important;
+    z-index: 12002 !important;
+    pointer-events: auto !important;
+  }
+
+  #menu-component-wrapper .sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: auto !important;
+    width: 300px !important;
+    height: 100vh !important;
+    transform: translateX(-105%) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    z-index: 12001 !important;
+    transition:
+      transform 0.32s cubic-bezier(0.22, 0.61, 0.36, 1),
+      opacity 0.22s ease,
+      visibility 0s linear 0.32s !important;
+  }
+
+  #menu-component-wrapper .sidebar.active {
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transition-delay: 0s !important;
+  }
+
+  #menu-component-wrapper .drawer-close-btn {
+    z-index: 12003 !important;
+  }
+
+  /* Dim the page only while the drawer is open. */
+  #menu-component-wrapper::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 12000;
+    background: rgba(22, 12, 30, 0.38);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity 0.22s ease,
+      visibility 0s linear 0.22s;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+
+  #menu-component-wrapper:has(.sidebar.active)::after {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+
+  #menu-component-wrapper.mobile-toggle-hidden .mobile-toggle {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}
+
+/* Standard drawer launcher position. */
+@media (min-width: 0px) {
+  #menu-component-wrapper .mobile-toggle {
+    left: 22px !important;
+    right: auto !important;
+  }
+}
+
+@media (max-width: 900px) {
+  #menu-component-wrapper .mobile-toggle {
+    left: 14px !important;
+    right: auto !important;
+  }
+}
+
+/* Final shared drawer layout: never reserve or paint page space. */
+#sidebar-container,
+#menu-container {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  pointer-events: none !important;
+  z-index: 12000 !important;
+}
+
+#sidebar-container > #menu-component-wrapper,
+#menu-container > #menu-component-wrapper {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  max-width: none !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  background: transparent !important;
+  pointer-events: none !important;
+  z-index: 12000 !important;
+}
+
+#menu-component-wrapper .mobile-toggle {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+#menu-component-wrapper .sidebar {
+  pointer-events: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  transform: translateX(-105%) !important;
+}
+
+#menu-component-wrapper .sidebar.active {
+  pointer-events: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+@media (min-width: 901px) {
+  #menu-component-wrapper .mobile-toggle {
+    top: 22px !important;
+    left: 22px !important;
+    right: auto !important;
+    display: inline-flex !important;
+  }
+  #menu-component-wrapper .sidebar {
+    width: 300px !important;
+    max-width: 300px !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+}
+
+@media (max-width: 900px) {
+  #menu-component-wrapper .mobile-toggle {
+    top: 14px !important;
+    left: 14px !important;
+    right: auto !important;
+    display: inline-flex !important;
+  }
+  #menu-component-wrapper .sidebar {
+    width: min(318px, 86vw) !important;
+    max-width: 318px !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+}
+
+@media (max-width: 600px) {
+  #menu-component-wrapper .sidebar {
+    width: 100vw !important;
+    max-width: 100vw !important;
+  }
+}
+
+/* The optional burger preference only hides the launcher on mobile. */
+@media (min-width: 901px) {
+  #menu-component-wrapper.mobile-toggle-hidden .mobile-toggle {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* Only one launcher control at a time: once the drawer is open, the
+   close (X) button inside it is the way out, so the burger launcher
+   hides instead of sitting on top of the sidebar next to it. */
+#menu-component-wrapper:has(.sidebar.active) .mobile-toggle {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+/* In-app reduced-motion override. OS preference remains respected by the
+   existing page styles; this class lets the user explicitly opt in. */
+html.adashima-reduced-motion *,
+html.adashima-reduced-motion *::before,
+html.adashima-reduced-motion *::after,
+body.adashima-reduced-motion *,
+body.adashima-reduced-motion *::before,
+body.adashima-reduced-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* ============================================================
+   v2.3.8 SIDEBAR POLISH — ICON CONSISTENCY + COMPACT MODE
+   ============================================================ */
+#menu-component-wrapper .nav-item .nav-item-icon,
+#menu-component-wrapper .nav-item .nav-item-icon svg,
+#menu-component-wrapper .nav-section-chevron,
+#menu-component-wrapper .nav-section-chevron svg,
+#menu-component-wrapper .nav-item-arrow svg,
+#menu-component-wrapper .drawer-close-btn svg,
+#menu-component-wrapper .mobile-toggle svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.9;
+}
+#menu-component-wrapper .nav-item .nav-item-icon {
+  width: 22px;
+  height: 22px;
+}
+#menu-component-wrapper .nav-item .nav-item-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+#menu-component-wrapper .mobile-toggle,
+#menu-component-wrapper .drawer-close-btn,
+#menu-component-wrapper .sidebar-compact-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+#menu-component-wrapper .sidebar-compact-btn {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  z-index: 4;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid var(--glass-border);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.42);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+#menu-component-wrapper .sidebar-compact-btn:hover,
+#menu-component-wrapper .sidebar-compact-btn:focus-visible {
+  background: var(--accent-soft);
+  color: var(--accent-primary);
+  transform: translateY(-1px);
+}
+#menu-component-wrapper .sidebar-compact-btn svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.9;
+}
+#menu-component-wrapper .sidebar.compact {
+  width: 92px !important;
+  max-width: 92px !important;
+}
+#menu-component-wrapper .sidebar.compact .sidebar-inner {
+  padding: 22px 10px;
+  align-items: stretch;
+}
+#menu-component-wrapper .sidebar.compact .branding-area {
+  padding-top: 38px;
+  margin-bottom: 8px;
+}
+#menu-component-wrapper .sidebar.compact .branding-area img {
+  max-width: 56px;
+  max-height: 56px;
+  object-fit: contain;
+}
+#menu-component-wrapper .sidebar.compact .branding-area .logo-label,
+#menu-component-wrapper .sidebar.compact .nav-section-label,
+#menu-component-wrapper .sidebar.compact .nav-subsection-label,
+#menu-component-wrapper .sidebar.compact .nav-item-label,
+#menu-component-wrapper .sidebar.compact .nav-item-arrow,
+#menu-component-wrapper .sidebar.compact .info-card,
+#menu-component-wrapper .sidebar.compact .sidebar-divider,
+#menu-component-wrapper .sidebar.compact .status-badge,
+#menu-component-wrapper .sidebar.compact .nav-section-chevron {
+  display: none !important;
+}
+#menu-component-wrapper .sidebar.compact .nav-subsection-list {
+  gap: 6px;
+}
+#menu-component-wrapper .sidebar.compact .nav-subsection + .nav-subsection {
+  margin-top: 12px;
+}
+#menu-component-wrapper .sidebar.compact .nav-item,
+#menu-component-wrapper .sidebar.compact .nav-item.secondary {
+  min-height: 44px;
+  width: 100%;
+  padding: 10px;
+  justify-content: center;
+  border-radius: 13px;
+}
+#menu-component-wrapper .sidebar.compact .nav-item .nav-item-icon,
+#menu-component-wrapper .sidebar.compact .nav-item.secondary .nav-item-icon {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  font-size: 1rem;
+}
+#menu-component-wrapper .sidebar.compact .nav-list {
+  gap: 5px;
+}
+#menu-component-wrapper .sidebar.compact .nav-section {
+  gap: 0;
+}
+#menu-component-wrapper .sidebar.compact .sidebar-compact-btn {
+  right: 27px;
+}
+@media (max-width: 900px) {
+  #menu-component-wrapper .sidebar-compact-btn {
     display: none !important;
+  }
+}
+
+/* v2.3.8 UI FIX — keep sidebar controls separated and prevent icon overlap. */
+#menu-component-wrapper .sidebar-compact-btn {
+  top: 18px !important;
+  right: 18px !important;
+  width: 36px !important;
+  height: 36px !important;
+  z-index: 12 !important;
+}
+
+#menu-component-wrapper .drawer-close-btn {
+  top: 18px !important;
+  right: 64px !important;
+  width: 36px !important;
+  height: 36px !important;
+  z-index: 12 !important;
+}
+
+/* The close control is only needed for the mobile drawer. */
+@media (min-width: 901px) {
+  #menu-component-wrapper .drawer-close-btn {
+    display: none !important;
+  }
+}
+
+/* Keep the branding clear of the top controls. */
+@media (min-width: 901px) {
+  #menu-component-wrapper .sidebar-inner {
+    padding-top: 74px !important;
+  }
+}
+
+/* Compact mode: center the single control and avoid a clipped top row. */
+#menu-component-wrapper .sidebar.compact .sidebar-inner {
+  padding-top: 74px !important;
+}
+
+#menu-component-wrapper .sidebar.compact .sidebar-compact-btn {
+  right: 50% !important;
+  transform: translateX(50%) !important;
+}
+
+#menu-component-wrapper .sidebar.compact .sidebar-compact-btn:hover,
+#menu-component-wrapper .sidebar.compact .sidebar-compact-btn:focus-visible {
+  transform: translateX(50%) translateY(-1px) !important;
+}
+
+/* Desktop compact mode expands temporarily while the compact control is hovered/focused. */
+@media (min-width: 901px) {
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:hover),
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:focus-visible) {
+    width: 300px !important;
+    max-width: 300px !important;
+  }
+
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:hover) .sidebar-inner,
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:focus-visible) .sidebar-inner {
+    padding: 74px 20px 22px !important;
+  }
+
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:hover) .branding-area,
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:focus-visible) .branding-area {
+    padding-top: 0 !important;
+    margin-bottom: 18px;
+  }
+
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:hover) .branding-area img,
+  #menu-component-wrapper
+    .sidebar.compact:has(.sidebar-compact-btn:focus-visible)
+    .branding-area
+    img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  #menu-component-wrapper
+    .sidebar.compact:has(.sidebar-compact-btn:hover)
+    .branding-area
+    .logo-label,
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:hover) .nav-section-label,
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:hover) .nav-subsection-label,
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:hover) .nav-item-label,
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:hover) .nav-item-arrow,
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:hover) .info-card,
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:hover) .sidebar-divider,
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:hover) .status-badge,
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:hover) .nav-section-chevron,
+  #menu-component-wrapper
+    .sidebar.compact:has(.sidebar-compact-btn:focus-visible)
+    .branding-area
+    .logo-label,
+  #menu-component-wrapper
+    .sidebar.compact:has(.sidebar-compact-btn:focus-visible)
+    .nav-section-label,
+  #menu-component-wrapper
+    .sidebar.compact:has(.sidebar-compact-btn:focus-visible)
+    .nav-subsection-label,
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:focus-visible) .nav-item-label,
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:focus-visible) .nav-item-arrow,
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:focus-visible) .info-card,
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:focus-visible) .sidebar-divider,
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:focus-visible) .status-badge,
+  #menu-component-wrapper
+    .sidebar.compact:has(.sidebar-compact-btn:focus-visible)
+    .nav-section-chevron {
+    display: initial !important;
+  }
+
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:hover) .nav-subsection-list,
+  #menu-component-wrapper
+    .sidebar.compact:has(.sidebar-compact-btn:focus-visible)
+    .nav-subsection-list {
+    gap: 8px;
+  }
+
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:hover) .nav-item,
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:focus-visible) .nav-item,
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:hover) .nav-item.secondary,
+  #menu-component-wrapper
+    .sidebar.compact:has(.sidebar-compact-btn:focus-visible)
+    .nav-item.secondary {
+    width: 100%;
+    padding: 10px 12px;
+    justify-content: flex-start;
+  }
+
+  #menu-component-wrapper .sidebar.compact:has(.sidebar-compact-btn:hover) .nav-item .nav-item-icon,
+  #menu-component-wrapper
+    .sidebar.compact:has(.sidebar-compact-btn:focus-visible)
+    .nav-item
+    .nav-item-icon {
+    margin-right: 10px;
+  }
+}
+
+/* Compact mode is desktop-only. Never restore a compact sidebar on mobile. */
+@media (max-width: 900px) {
+  #menu-component-wrapper .sidebar.compact {
+    width: 300px !important;
+    max-width: 300px !important;
+  }
+
+  #menu-component-wrapper .sidebar.compact .sidebar-inner {
+    padding: 74px 20px 22px !important;
+  }
+
+  #menu-component-wrapper .sidebar.compact .branding-area {
+    padding-top: 0 !important;
+    margin-bottom: 18px;
+  }
+
+  #menu-component-wrapper .sidebar.compact .branding-area .logo-label,
+  #menu-component-wrapper .sidebar.compact .nav-section-label,
+  #menu-component-wrapper .sidebar.compact .nav-subsection-label,
+  #menu-component-wrapper .sidebar.compact .nav-item-label,
+  #menu-component-wrapper .sidebar.compact .nav-item-arrow,
+  #menu-component-wrapper .sidebar.compact .info-card,
+  #menu-component-wrapper .sidebar.compact .sidebar-divider,
+  #menu-component-wrapper .sidebar.compact .status-badge,
+  #menu-component-wrapper .sidebar.compact .nav-section-chevron {
+    display: initial !important;
+  }
+
+  #menu-component-wrapper .sidebar.compact .nav-item,
+  #menu-component-wrapper .sidebar.compact .nav-item.secondary {
+    width: 100%;
+    padding: 10px 12px;
+    justify-content: flex-start;
+  }
+
+  #menu-component-wrapper .sidebar.compact .nav-item .nav-item-icon,
+  #menu-component-wrapper .sidebar.compact .nav-item.secondary .nav-item-icon {
+    margin-right: 10px;
+  }
+}
+
+/* Consistent Lucide sizing across primary navigation. */
+#menu-component-wrapper .nav-item-icon svg,
+#menu-component-wrapper .nav-item-arrow svg,
+#menu-component-wrapper .nav-section-chevron svg,
+#menu-component-wrapper .drawer-close-btn svg,
+#menu-component-wrapper .sidebar-compact-btn svg,
+#menu-component-wrapper .mobile-toggle svg {
+  display: block;
+  flex: 0 0 auto;
+}
+
+/* v2.3.8 UI FIX — sidebar controls are kept in one non-overlapping row. */
+#menu-component-wrapper .sidebar-controls {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 12003;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  pointer-events: none;
+}
+#menu-component-wrapper .sidebar-controls > button {
+  position: static !important;
+  margin: 0;
+  flex: 0 0 36px;
+  width: 36px !important;
+  height: 36px !important;
+  pointer-events: auto;
+}
+#menu-component-wrapper .sidebar-controls .drawer-close-btn {
+  display: inline-flex;
+}
+#menu-component-wrapper .sidebar-controls .sidebar-compact-btn {
+  display: inline-flex;
+}
+
+/* The compact control is a desktop affordance; mobile only needs Close. */
+@media (max-width: 900px) {
+  #menu-component-wrapper .sidebar-controls {
+    top: 16px;
+    right: 14px;
+  }
+  #menu-component-wrapper .sidebar-controls .sidebar-compact-btn {
+    display: none !important;
+  }
+}
+
+@media (min-width: 901px) {
+  #menu-component-wrapper .sidebar-controls .drawer-close-btn {
+    display: none !important;
+  }
+}
+
+/* Compact sidebar: keep its single control centered above the logo. */
+#menu-component-wrapper .sidebar.compact .sidebar-controls {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+#menu-component-wrapper .sidebar.compact .sidebar-controls .sidebar-compact-btn {
+  transform: none !important;
+}
+#menu-component-wrapper .sidebar.compact .sidebar-controls .sidebar-compact-btn:hover,
+#menu-component-wrapper .sidebar.compact .sidebar-controls .sidebar-compact-btn:focus-visible {
+  transform: translateY(-1px) !important;
+}
+
+/* Use the same Lucide icon family/optical box as the index navigation. */
+#menu-component-wrapper .nav-item-icon svg,
+#menu-component-wrapper .nav-item-arrow svg,
+#menu-component-wrapper .nav-section-chevron svg,
+#menu-component-wrapper .sidebar-controls svg {
+  display: block;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.9;
+}
+#menu-component-wrapper .nav-item-icon svg {
+  width: 21px;
+  height: 21px;
+}
+#menu-component-wrapper .nav-item-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+#menu-component-wrapper .sidebar-controls svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* v2.3.8 — compact sidebar is controlled from Settings and applies to all viewport sizes. */
+#menu-component-wrapper .sidebar.compact {
+  width: 92px !important;
+  max-width: 92px !important;
+}
+#menu-component-wrapper .sidebar.compact .sidebar-inner {
+  padding: 74px 10px 22px !important;
+}
+#menu-component-wrapper .sidebar.compact .branding-area {
+  padding-top: 0 !important;
+  margin-bottom: 12px !important;
+}
+#menu-component-wrapper .sidebar.compact .branding-area img {
+  max-width: 56px !important;
+  max-height: 56px !important;
+  object-fit: contain;
+}
+#menu-component-wrapper .sidebar.compact .branding-area .logo-label,
+#menu-component-wrapper .sidebar.compact .nav-section-label,
+#menu-component-wrapper .sidebar.compact .nav-subsection-label,
+#menu-component-wrapper .sidebar.compact .nav-item-label,
+#menu-component-wrapper .sidebar.compact .nav-item-arrow,
+#menu-component-wrapper .sidebar.compact .info-card,
+#menu-component-wrapper .sidebar.compact .sidebar-divider,
+#menu-component-wrapper .sidebar.compact .status-badge,
+#menu-component-wrapper .sidebar.compact .nav-section-chevron {
+  display: none !important;
+}
+#menu-component-wrapper .sidebar.compact .nav-item,
+#menu-component-wrapper .sidebar.compact .nav-item.secondary {
+  min-height: 44px;
+  width: 100%;
+  padding: 10px;
+  justify-content: center;
+  border-radius: 13px;
+}
+#menu-component-wrapper .sidebar.compact .nav-item .nav-item-icon,
+#menu-component-wrapper .sidebar.compact .nav-item.secondary .nav-item-icon {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+}
+#menu-component-wrapper .sidebar.compact .nav-subsection-list {
+  gap: 6px;
+}
+
+/* The close button is always available while the mobile drawer is open. */
+#menu-component-wrapper .drawer-close-btn {
+  display: none !important;
+}
+#menu-component-wrapper .sidebar-controls {
+  top: 14px !important;
+  right: 14px !important;
+  left: auto !important;
+  transform: none !important;
+}
+#menu-component-wrapper .sidebar-controls .drawer-close-btn {
+  display: inline-flex !important;
+  width: 36px !important;
+  height: 36px !important;
+}
+@media (min-width: 901px) {
+  #menu-component-wrapper .sidebar-controls .drawer-close-btn {
+    display: none !important;
+  }
+}
+@media (max-width: 900px) {
+  #menu-component-wrapper .sidebar-controls {
+    top: 14px !important;
+    right: 12px !important;
+  }
+  #menu-component-wrapper .sidebar.compact .sidebar-inner {
+    padding: 66px 8px 18px !important;
+  }
+  #menu-component-wrapper .sidebar.compact .branding-area img {
+    max-width: 48px !important;
+    max-height: 48px !important;
   }
 }

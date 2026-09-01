@@ -1,11 +1,17 @@
-/* ---------- background layers ---------- */
+/* Full-page background follows the active time theme. */
 .page-bg {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background:
-    radial-gradient(circle at 82% 18%, rgba(213, 103, 150, 0.1), transparent 28%),
-    radial-gradient(circle at 12% 78%, rgba(100, 138, 183, 0.08), transparent 30%),
-    linear-gradient(135deg, #f8f6fb 0%, #f4eef8 52%, #eef4fa 100%);
+  background: var(--page-bg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
   pointer-events: none;
+  transition: background 0.8s ease;
+}
+
+/* Keep the page surface transparent so the background remains visible. */
+body {
+  background: transparent;
 }

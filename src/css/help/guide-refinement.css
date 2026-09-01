@@ -1,0 +1,290 @@
+/* Fan guide reading and night-theme refinements */
+
+/* ========================================================= Fan Guide refinement — unified palette + reading... */
+.fan-guide {
+  --fan-accent: #d56796;
+  --fan-accent-deep: #bd4f7e;
+  --fan-soft: rgba(213, 103, 150, 0.12);
+  --fan-surface: rgba(213, 103, 150, 0.045);
+  --fan-surface-strong: rgba(213, 103, 150, 0.08);
+  --fan-border: rgba(213, 103, 150, 0.16);
+  --fan-border-strong: rgba(213, 103, 150, 0.28);
+  border-color: var(--fan-border);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(213, 103, 150, 0.09), transparent 30%),
+    radial-gradient(circle at 0% 100%, rgba(189, 79, 126, 0.055), transparent 28%), var(--help-card);
+}
+
+.fan-guide-answer,
+.fan-guide-why,
+.fan-guide-final,
+.fan-flow-node.fan-flow-primary,
+.fan-content-card-featured,
+.fan-manga-grid article.is-recommended,
+.fan-order-core,
+.fan-order-placement {
+  background: var(--fan-surface-strong);
+  border-color: var(--fan-border);
+}
+
+.fan-route-card,
+.fan-flow-node,
+.fan-content-card,
+.fan-manga-grid article,
+.fan-order-sequence > span,
+.fan-order-placement-sequence > span {
+  background: var(--fan-surface);
+  border-color: var(--fan-border);
+}
+
+.fan-route-card:hover,
+.fan-route-card.is-selected {
+  background: var(--fan-surface-strong);
+  border-color: var(--fan-border-strong);
+}
+
+.fan-route-card.is-selected .fan-route-card-check {
+  background: var(--fan-accent);
+  border-color: var(--fan-accent);
+}
+
+.fan-flow-node.fan-flow-primary,
+.fan-content-card-featured {
+  box-shadow: inset 3px 0 0 var(--fan-accent);
+}
+
+/* The detailed explanations read better as one editorial column. */
+.fan-content-grid {
+  grid-template-columns: 1fr;
+}
+
+.fan-content-card-featured {
+  grid-column: auto;
+}
+
+/* Reading order: one path, one explanation, no fake fork. */
+.fan-guide-order {
+  background: var(--fan-surface);
+  border-color: var(--fan-border);
+}
+
+.fan-order-core {
+  background: var(--fan-surface-strong);
+}
+
+.fan-order-sequence {
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.2fr) auto minmax(0, 1.05fr) auto minmax(
+      0,
+      1.15fr
+    );
+}
+
+.fan-order-sequence > span {
+  min-height: 52px;
+}
+
+.fan-order-sequence > span.fan-order-special {
+  position: relative;
+  border-color: var(--fan-border-strong);
+  background: rgba(213, 103, 150, 0.1);
+}
+
+.fan-order-sequence > span.fan-order-special em {
+  display: block;
+  margin-left: 37px;
+  color: var(--fan-accent);
+  font-size: 0.48rem;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.fan-order-placement {
+  margin: 18px 22px 0;
+  padding: 18px 20px 20px;
+  border: 1px solid var(--fan-border);
+  border-radius: 17px;
+}
+
+.fan-order-placement-head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.fan-order-placement-mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border-radius: 10px;
+  background: var(--fan-soft);
+  color: var(--fan-accent);
+}
+
+.fan-order-placement-head h5 {
+  margin: 3px 0 0;
+  color: var(--help-text);
+  font-size: 0.82rem;
+}
+
+.fan-order-placement > p {
+  max-width: 760px;
+  margin: 13px 0 0;
+  color: var(--help-muted);
+  font-size: 0.68rem;
+  line-height: 1.7;
+}
+
+.fan-order-placement > p strong,
+.fan-order-note strong {
+  color: var(--help-text);
+}
+
+.fan-order-placement-sequence {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 9px;
+  margin-top: 15px;
+}
+
+.fan-order-placement-sequence > span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  padding: 9px 11px;
+  border: 1px solid var(--fan-border);
+  border-radius: 11px;
+}
+
+.fan-order-placement-sequence > span.is-highlighted {
+  border-color: var(--fan-border-strong);
+  background: rgba(213, 103, 150, 0.1);
+}
+
+.fan-order-placement-sequence b {
+  display: grid;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  border-radius: 8px;
+  background: var(--fan-soft);
+  color: var(--fan-accent);
+  font-size: 0.5rem;
+  font-weight: 900;
+}
+
+.fan-order-placement-sequence strong {
+  min-width: 0;
+  color: var(--help-text);
+  font-size: 0.66rem;
+}
+
+.fan-order-placement-sequence > i {
+  color: var(--fan-accent);
+  font-size: 0.58rem;
+}
+
+.fan-order-note {
+  border-top-color: var(--fan-border);
+}
+
+/* Keep the same palette in the full night theme instead of introducing blue/grey surfaces. */
+body.time-night .fan-guide {
+  border-color: rgba(213, 103, 150, 0.18);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(213, 103, 150, 0.1), transparent 30%),
+    radial-gradient(circle at 0% 100%, rgba(189, 79, 126, 0.06), transparent 28%), var(--help-card);
+}
+
+body.time-night .fan-route-card,
+body.time-night .fan-flow-node,
+body.time-night .fan-content-card,
+body.time-night .fan-guide-order,
+body.time-night .fan-manga-grid article,
+body.time-night .fan-order-sequence > span,
+body.time-night .fan-order-placement-sequence > span {
+  background: rgba(213, 103, 150, 0.045);
+  border-color: rgba(213, 103, 150, 0.14);
+}
+
+body.time-night .fan-route-card:hover,
+body.time-night .fan-route-card.is-selected,
+body.time-night .fan-order-sequence > span.fan-order-special,
+body.time-night .fan-order-placement-sequence > span.is-highlighted {
+  background: rgba(213, 103, 150, 0.095);
+  border-color: rgba(213, 103, 150, 0.28);
+}
+
+body.time-night .fan-flow-node.fan-flow-primary,
+body.time-night .fan-content-card-featured,
+body.time-night .fan-guide-answer,
+body.time-night .fan-guide-why,
+body.time-night .fan-guide-final,
+body.time-night .fan-order-core,
+body.time-night .fan-order-placement {
+  background: rgba(213, 103, 150, 0.065);
+  border-color: rgba(213, 103, 150, 0.17);
+}
+
+@media (max-width: 1000px) {
+  .fan-order-sequence {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .fan-order-sequence i {
+    justify-self: center;
+    transform: rotate(90deg);
+  }
+}
+
+@media (max-width: 700px) {
+  .fan-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fan-order-placement {
+    margin: 15px 16px 0;
+    padding: 15px;
+    border-radius: 14px;
+  }
+
+  .fan-order-placement-sequence {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .fan-order-placement-sequence > i {
+    justify-self: center;
+    transform: rotate(90deg);
+  }
+}
+
+@media (max-width: 520px) {
+  .fan-order-sequence > span.fan-order-special em {
+    margin-left: 34px;
+    font-size: 0.44rem;
+  }
+
+  .fan-order-placement > p {
+    font-size: 0.63rem;
+    line-height: 1.7;
+  }
+
+  .fan-order-placement-head h5 {
+    font-size: 0.72rem;
+  }
+
+  .fan-order-placement-sequence > span {
+    padding: 9px;
+  }
+
+  .fan-order-placement-sequence strong {
+    font-size: 0.62rem;
+  }
+}

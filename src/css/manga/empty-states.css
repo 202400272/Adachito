@@ -1,4 +1,4 @@
-/* ---------- empty state ---------- */
+/* empty state */
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -34,7 +34,7 @@
   margin-top: 0.1rem;
 }
 
-/* ---------- coming soon state ---------- */
+/* coming soon state */
 .coming-soon-state {
   display: flex;
   flex-direction: column;

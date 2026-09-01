@@ -1,0 +1,102 @@
+/* Theme variables and base styles */
+
+/* root variables (otros palette) */
+/* Default palette doubles as the "afternoon" theme; body.time-* below override these same variables so every... */
+:root {
+  --lavender: #c9b8e8;
+  --blush: #f0c8d8;
+  --sage: #b8d4c8;
+  --cream: #faf4ee;
+  --plum: #5c3a6b;
+  --dusty-rose: #d1a3c6;
+  --warm-white: #fff8f4;
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(209, 163, 198, 0.3);
+  --shadow-soft: rgba(92, 58, 107, 0.1);
+  --shadow-glow: rgba(209, 163, 198, 0.25);
+  --page-bg: linear-gradient(135deg, #fbe9e7 0%, #f3e5f5 50%, #e8eaf6 100%);
+  --page-text: #4a3b52;
+  /* base RGB triplet every "glass" card background is mixed from */
+  --glass-r: 255;
+  --glass-g: 255;
+  --glass-b: 255;
+  /* body text sitting directly on glass/card surfaces, by weight */
+  --ink: #3d2f42;
+  --ink-muted: #6b5a72;
+  --ink-faint: #c9b7c6;
+}
+
+/* time-of-day theme overrides */
+/* Applied to <body> by the sidebar component's theme script (menu.html sets body.time-morning / time-afternoo... */
+body.time-morning {
+  --plum: #3a5a78;
+  --dusty-rose: #4a7fa8;
+  --warm-white: #f4f9ff;
+  --glass-border: rgba(168, 200, 232, 0.4);
+  --shadow-soft: rgba(74, 100, 140, 0.1);
+  --shadow-glow: rgba(74, 127, 168, 0.2);
+  --page-bg: linear-gradient(135deg, #e6f0fc 0%, #f5e8f8 50%, #eaf3fb 100%);
+  --page-text: #4a5578;
+  --glass-r: 244;
+  --glass-g: 249;
+  --glass-b: 255;
+  --ink: #2f3a52;
+  --ink-muted: #5c6b8a;
+  --ink-faint: #b9c8de;
+}
+
+body.time-afternoon {
+  --plum: #5c3a6b;
+  --dusty-rose: #d1a3c6;
+  --warm-white: #fff8f4;
+  --glass-border: rgba(209, 163, 198, 0.3);
+  --shadow-soft: rgba(92, 58, 107, 0.1);
+  --shadow-glow: rgba(209, 163, 198, 0.25);
+  --page-bg: linear-gradient(135deg, #fbe9e7 0%, #f3e5f5 50%, #e8eaf6 100%);
+  --page-text: #4a3b52;
+  --glass-r: 255;
+  --glass-g: 255;
+  --glass-b: 255;
+  --ink: #3d2f42;
+  --ink-muted: #6b5a72;
+  --ink-faint: #c9b7c6;
+}
+
+body.time-night {
+  --plum: #f2eafc;
+  --dusty-rose: #c98aa8;
+  --warm-white: #2d1f3d;
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --shadow-soft: rgba(0, 0, 0, 0.35);
+  --shadow-glow: rgba(201, 138, 168, 0.25);
+  --page-bg: linear-gradient(180deg, #241531 0%, #150c20 100%);
+  --page-text: #f2eafc;
+  --glass-r: 45;
+  --glass-g: 30;
+  --glass-b: 60;
+  --ink: #f2eafc;
+  --ink-muted: #cbb8dc;
+  --ink-faint: #8a7396;
+}
+
+/* reset & base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Quicksand", sans-serif;
+  background: var(--page-bg);
+  color: var(--page-text);
+  min-height: 100vh;
+  padding: 1.5rem;
+  position: relative;
+  overflow-x: hidden;
+  transition:
+    background 0.6s ease,
+    color 0.6s ease;
+}
+
+/* Shared menu backgrounds are owned by menu.css. */

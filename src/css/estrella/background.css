@@ -1,0 +1,6 @@
+/* Constellation background restoration */
+
+/* Restore the original constellation star-field background. */
+.sky-bg {
+  background: url("../../assets/Imagenes/Fondo_Estrellado.webp") center/cover no-repeat !important;
+}

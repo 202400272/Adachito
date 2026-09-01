@@ -1,0 +1,311 @@
+/* Light and night palettes for the About page. */
+body.time-morning,
+body.time-morning .about-shell,
+body.time-morning .about-main {
+  --page-bg: linear-gradient(135deg, #edf3fb 0%, #edf6ff 42%, #f4eaf9 100%);
+  --page-text: #485d74;
+  --surface: rgba(249, 252, 255, 0.76);
+  --surface-hover: rgba(255, 255, 255, 0.92);
+  --surface-strong: rgba(242, 247, 252, 0.96);
+  --surface-soft: rgba(247, 250, 255, 0.56);
+  --surface-subtle: rgba(245, 248, 255, 0.2);
+  --surface-border: rgba(126, 162, 192, 0.22);
+  --accent: #8aaac8;
+  --accent-strong: #557b9f;
+  --accent-soft: rgba(138, 170, 200, 0.14);
+  --accent-border: rgba(138, 170, 200, 0.26);
+  --accent-border-strong: rgba(138, 170, 200, 0.44);
+  --muted-text: #667185;
+  --shadow-color: rgba(75, 103, 133, 0.1);
+  --shadow-color-strong: rgba(75, 103, 133, 0.18);
+  --shadow-soft: rgba(75, 103, 133, 0.1);
+  --shadow-glow: rgba(138, 170, 200, 0.2);
+  --color-deep: #5b7594;
+  --color-mid: #6689ad;
+  --color-blush: #8aaac8;
+  --color-text: #485d74;
+  --glass-bg: rgba(249, 252, 255, 0.76);
+  --glass-border: rgba(126, 162, 192, 0.22);
+  --plum: #557b9f;
+  --dusty-rose: #8aaac8;
+}
+
+body.time-afternoon,
+body.time-afternoon .about-shell,
+body.time-afternoon .about-main {
+  --page-bg: linear-gradient(135deg, #fbe9e7 0%, #f3e5f5 50%, #e8eaf6 100%);
+  --page-text: #3d234d;
+  --surface: rgba(255, 248, 244, 0.8);
+  --surface-hover: rgba(255, 255, 255, 0.9);
+  --surface-strong: rgba(255, 248, 244, 0.94);
+  --surface-soft: rgba(255, 255, 255, 0.4);
+  --surface-subtle: rgba(255, 255, 255, 0.18);
+  --surface-border: rgba(140, 90, 150, 0.18);
+  --accent: #d1a3c6;
+  --accent-strong: #8c5a96;
+  --accent-soft: rgba(209, 163, 198, 0.14);
+  --accent-border: rgba(209, 163, 198, 0.26);
+  --accent-border-strong: rgba(209, 163, 198, 0.42);
+  --muted-text: #5f4b6b;
+  --shadow-color: rgba(92, 58, 107, 0.1);
+  --shadow-color-strong: rgba(92, 58, 107, 0.18);
+  --shadow-soft: rgba(92, 58, 107, 0.1);
+  --shadow-glow: rgba(209, 163, 198, 0.25);
+  --color-deep: #6c5287;
+  --color-mid: #9a6898;
+  --color-blush: #d187a2;
+  --color-text: #3d234d;
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-border: rgba(140, 90, 150, 0.18);
+  --plum: #6c5287;
+  --dusty-rose: #d187a2;
+}
+
+body.time-morning .about-hero-content,
+body.time-morning .about-card,
+body.time-morning .translator-materials-modal,
+body.time-morning .changelog-modal {
+  background: rgba(247, 250, 253, 0.92) !important;
+  border-color: rgba(126, 162, 192, 0.22) !important;
+}
+
+body.time-afternoon .about-hero-content,
+body.time-afternoon .about-card,
+body.time-afternoon .translator-materials-modal,
+body.time-afternoon .changelog-modal {
+  background: rgba(255, 248, 244, 0.92) !important;
+  border-color: rgba(140, 90, 150, 0.18) !important;
+}
+
+body.time-morning .about-hero-title,
+body.time-afternoon .about-hero-title,
+body.time-morning .about-section-title,
+body.time-afternoon .about-section-title {
+  color: #d73778 !important;
+}
+
+body.time-morning .about-hero-title .iconify,
+body.time-afternoon .about-hero-title .iconify,
+body.time-morning .about-section-title .iconify,
+body.time-afternoon .about-section-title .iconify {
+  color: #ef7aa8 !important;
+}
+
+body.time-morning .about-hero-subtitle,
+body.time-afternoon .about-hero-subtitle,
+body.time-morning .about-section-subtitle,
+body.time-afternoon .about-section-subtitle,
+body.time-morning .translator-info h4,
+body.time-afternoon .translator-info h4,
+body.time-morning .translator-info h4 a,
+body.time-afternoon .translator-info h4 a,
+body.time-morning .translator-role,
+body.time-afternoon .translator-role,
+body.time-morning .translator-badge,
+body.time-afternoon .translator-badge,
+body.time-morning .translator-desc,
+body.time-afternoon .translator-desc,
+body.time-morning .view-materials-btn,
+body.time-afternoon .view-materials-btn,
+body.time-morning .material-title,
+body.time-afternoon .material-title,
+body.time-morning .materials-group-header,
+body.time-afternoon .materials-group-header,
+body.time-morning .materials-count,
+body.time-afternoon .materials-count,
+body.time-morning .material-date,
+body.time-afternoon .material-date,
+body.time-morning .changelog-modal-title,
+body.time-afternoon .changelog-modal-title,
+body.time-morning .changelog-nav-item-version,
+body.time-afternoon .changelog-nav-item-version,
+body.time-morning .changelog-nav-item-date,
+body.time-afternoon .changelog-nav-item-date,
+body.time-morning .changelog-details-empty,
+body.time-afternoon .changelog-details-empty,
+body.time-morning .translator-materials-title,
+body.time-afternoon .translator-materials-title,
+body.time-morning .translator-materials-close,
+body.time-afternoon .translator-materials-close {
+  color: #4a3556 !important;
+}
+
+body.time-morning .changelog-nav-header,
+body.time-afternoon .changelog-nav-header,
+body.time-morning .materials-empty,
+body.time-afternoon .materials-empty,
+body.time-morning .view-materials-btn .material-count,
+body.time-afternoon .view-materials-btn .material-count {
+  color: #6d4b6b !important;
+}
+
+body.time-morning .materials-empty .iconify,
+body.time-afternoon .materials-empty .iconify,
+body.time-morning .translator-materials-close:hover,
+body.time-afternoon .translator-materials-close:hover,
+body.time-morning .translator-link .link-icon .iconify,
+body.time-afternoon .translator-link .link-icon .iconify,
+body.time-morning .translator-card:hover .translator-icon,
+body.time-afternoon .translator-card:hover .translator-icon {
+  color: #8b5c88 !important;
+}
+
+/* Night */
+body.time-morning .page-bg {
+  background: linear-gradient(135deg, #fbe9e7 0%, #f3e5f5 50%, #e8eaf6 100%) !important;
+}
+body.time-afternoon .page-bg {
+  background: linear-gradient(135deg, #fbe9e7 0%, #f3e5f5 50%, #e8eaf6 100%) !important;
+}
+body.time-night .page-bg {
+  background:
+    radial-gradient(circle at 72% 10%, rgba(132, 83, 153, 0.14), transparent 28%),
+    linear-gradient(165deg, #17121e 0%, #211827 46%, #171d2a 100%) !important;
+}
+
+body.time-night,
+body.time-night .about-shell,
+body.time-night .about-main {
+  --page-bg:
+    radial-gradient(circle at 72% 10%, rgba(132, 83, 153, 0.14), transparent 28%),
+    linear-gradient(165deg, #17121e 0%, #211827 46%, #171d2a 100%);
+  --page-text: #f2eaf5;
+  --surface: #2b2133;
+  --surface-hover: #403048;
+  --surface-strong: #33263b;
+  --surface-soft: #241c2c;
+  --surface-subtle: rgba(255, 255, 255, 0.045);
+  --surface-border: rgba(221, 190, 226, 0.14);
+  --accent: #d39bc6;
+  --accent-strong: #c486b6;
+  --accent-soft: rgba(211, 155, 198, 0.14);
+  --accent-border: rgba(221, 190, 226, 0.14);
+  --accent-border-strong: rgba(221, 190, 226, 0.24);
+  --muted-text: #c8b9cf;
+  --shadow-color: rgba(4, 2, 8, 0.48);
+  --shadow-color-strong: rgba(4, 2, 8, 0.62);
+  --shadow-soft: rgba(4, 2, 8, 0.35);
+  --shadow-glow: rgba(211, 155, 198, 0.22);
+  --color-deep: #f1e8f4;
+  --color-mid: #d7add0;
+  --color-blush: #e0a3bf;
+  --color-text: #f2eaf5;
+  --glass-bg: rgba(34, 26, 43, 0.9);
+  --glass-border: rgba(221, 190, 226, 0.12);
+  --plum: #f2eaf5;
+  --dusty-rose: #d39bc6;
+}
+
+body.time-night .about-hero-content,
+body.time-night .about-card,
+body.time-night .translator-materials-modal,
+body.time-night .changelog-modal {
+  background: rgba(43, 33, 51, 0.94) !important;
+  border-color: rgba(221, 190, 226, 0.14) !important;
+  color: #f2eaf5;
+}
+
+body.time-night .about-hero-title,
+body.time-night .about-section-title {
+  color: #f2d8ed !important;
+}
+body.time-night .about-hero-title .iconify,
+body.time-night .about-section-title .iconify {
+  color: #e0a3bf !important;
+}
+body.time-night .about-hero-subtitle,
+body.time-night .about-section-subtitle,
+body.time-night .translator-info h4,
+body.time-night .translator-info h4 a,
+body.time-night .translator-role,
+body.time-night .translator-badge,
+body.time-night .translator-desc,
+body.time-night .view-materials-btn,
+body.time-night .material-title,
+body.time-night .materials-group-header,
+body.time-night .materials-count,
+body.time-night .material-date,
+body.time-night .changelog-modal-title,
+body.time-night .changelog-nav-item-version,
+body.time-night .changelog-nav-item-date,
+body.time-night .changelog-details-empty,
+body.time-night .translator-materials-title,
+body.time-night .translator-materials-close {
+  color: #f0e7f3 !important;
+}
+body.time-night .translator-role,
+body.time-night .translator-desc,
+body.time-night .material-date,
+body.time-night .changelog-nav-item-date {
+  color: #c8b9cf !important;
+}
+body.time-night .changelog-nav-header,
+body.time-night .materials-empty,
+body.time-night .view-materials-btn .material-count {
+  color: #cbbbd2 !important;
+}
+body.time-night .materials-empty .iconify,
+body.time-night .translator-materials-close:hover,
+body.time-night .translator-link .link-icon .iconify,
+body.time-night .translator-card:hover .translator-icon {
+  color: #e0a3bf !important;
+}
+
+/* The materials modal contains a few legacy hard-coded light colors. */
+body.time-night .translator-materials-header {
+  border-bottom-color: rgba(221, 190, 226, 0.12);
+  background: rgba(255, 255, 255, 0.02);
+}
+body.time-night .translator-materials-body {
+  background: rgba(18, 13, 25, 0.42);
+}
+body.time-night .translator-materials-close {
+  color: #cfc1d6;
+}
+body.time-night .translator-materials-close:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+body.time-night .materials-group-header {
+  border-bottom-color: rgba(211, 155, 198, 0.22);
+  color: #f8f0ff !important;
+  background: rgba(255, 255, 255, 0.015);
+}
+body.time-night .materials-count {
+  background: rgba(211, 155, 198, 0.18);
+  color: #f8f0ff !important;
+}
+body.time-night .material-item {
+  background: rgba(79, 62, 86, 0.98);
+  border-color: rgba(221, 190, 226, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(221, 190, 226, 0.04);
+}
+body.time-night .material-item:hover {
+  background: rgba(92, 74, 101, 0.98);
+  border-color: rgba(211, 155, 198, 0.22);
+}
+body.time-night .material-title {
+  color: #ffffff !important;
+}
+body.time-night .material-date {
+  color: #d9cfe4 !important;
+}
+body.time-night .materials-empty .iconify {
+  color: #8f7b98 !important;
+}
+body.time-night .material-status.status-complete {
+  background: rgba(124, 179, 138, 0.18);
+  color: #ffffff !important;
+}
+body.time-night .material-status.status-in-progress {
+  background: rgba(226, 179, 70, 0.18);
+  color: #ffffff !important;
+}
+body.time-night .material-status.status-in-review {
+  background: rgba(98, 156, 219, 0.18);
+  color: #ffffff !important;
+}
+body.time-night .material-status.status-pending {
+  background: rgba(142, 128, 151, 0.18);
+  color: #ffffff !important;
+}

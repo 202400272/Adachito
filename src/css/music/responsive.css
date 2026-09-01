@@ -336,10 +336,7 @@
     display: none !important;
   }
 
-  /* .expanded-player-* rules removed from this file — expanded-player.css
-     now owns the mobile layout for that component (swipe-pager pages,
-     large artwork, readable queue text). These old rules used a
-     stacked grid + tiny artwork/text that directly fought it. */
+  /* .expanded-player-* rules removed from this file — expanded-player.css now owns the mobile layout for that c... */
 }
 
 @media (max-width: 480px) {
@@ -670,8 +667,7 @@
     font-size: 0.7rem;
   }
 
-  /* .expanded-player-* rules removed here too — see the note in the
-     768px block above. */
+  /* .expanded-player-* rules removed here too — see the note in the 768px block above. */
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -709,7 +705,5 @@
     padding-bottom: env(safe-area-inset-bottom);
   }
 
-  /* .expanded-player-container margin-bottom removed — the overlay
-     above already pads for the bottom safe area; adding it again
-     here on the nested container doubled the inset. */
+  /* .expanded-player-container margin-bottom removed — the overlay above already pads for the bottom safe area;... */
 }

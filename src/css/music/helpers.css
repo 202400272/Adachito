@@ -1,3 +1,19 @@
+.iconify {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.iconify svg {
+  display: block;
+  width: 1em;
+  height: 1em;
+}
+
 .empty-state {
   text-align: center;
   padding: 3rem 2rem;

@@ -45,6 +45,31 @@ Each major section has its own HTML entry under `src/pages/`. Examples include n
 
 Clean public URLs are mapped through `_redirects`. Adding a new page is therefore a two-part change: create the page and make sure its public route is defined.
 
+## CSS architecture
+
+Page-specific CSS uses folder-based entry points. Each page keeps a small `main.css` entry file that imports focused modules for layout, components, themes, responsive behavior, and page-specific features.
+
+```text
+src/css/
+├── global.css
+├── about/
+│   ├── main.css
+│   └── ...
+├── anime/
+│   ├── main.css
+│   └── ...
+├── index/
+│   ├── main.css
+│   └── ...
+└── <page>/
+    ├── main.css
+    └── ...
+```
+
+The goal is to split CSS by responsibility rather than by arbitrary line counts. A page entry should stay small, while feature files contain the rules for one understandable part of the page. Shared rules belong in `global.css` or an appropriate shared component stylesheet.
+
+Legacy root files such as `src/css/anime.css` may remain temporarily as compatibility shims. They are safe to remove only after every HTML, configuration, and runtime reference points to the folder-based entry file.
+
 ## Shared components
 
 Shared markup such as the menu, footer, and feedback UI is kept under `src/components/`. Page scripts should avoid duplicating site-wide behavior when a shared component or existing utility already provides it.

@@ -397,6 +397,7 @@ function renderAll() {
   const container = document.getElementById("statsContent");
   container.innerHTML = `
             ${renderOverview()}
+            ${renderArchiveEffort()}
             ${renderDashboard()}
             ${renderTimeline()}
             ${renderTranslation()}
@@ -426,11 +427,6 @@ function renderOverview() {
           <p class="stats-eyebrow">SERIES STATISTICS · ARCHIVE SNAPSHOT</p>
           <h2>Adachi &amp; Shimamura by the numbers</h2>
           <p>Publication, volume, chapter, page, and translation data recorded across the archive.</p>
-        </div>
-        <div class="archive-status">
-          <span class="status-pulse"></span>
-          <span>Archive active</span>
-          <small>Updated from recorded data</small>
         </div>
       </div>
 
@@ -503,6 +499,94 @@ function renderOverview() {
       <div class="overview-note">
         <iconify-icon icon="fa6-regular:circle-info"></iconify-icon>
         <span>Upcoming entries are tracked separately. Page, chapter, and translation metrics are calculated from released entries with the relevant data recorded.</span>
+      </div>
+    </section>
+  `;
+}
+
+function renderArchiveEffort() {
+  const released = volumes.filter((volume) => !volume.is_upcoming);
+  const translated = released.filter((volume) => Boolean(volume.en_completion));
+  const completeRecords = released.filter(
+    (volume) => volume.jp_release && volume.chapters != null && volume.page_count != null,
+  );
+  const main = released.filter((volume) => !volume.is_short_story && !volume.is_special).length;
+  const sideStories = released.filter((volume) => volume.is_short_story).length;
+  const specials = released.filter((volume) => volume.is_special).length;
+  const years = Math.max(
+    0,
+    parseInt(statsSummary.publicationEnd) - parseInt(statsSummary.publicationStart) + 1,
+  );
+
+  return `
+    <section class="section-reveal stats-archive-effort" data-section="archive" id="section-archive">
+      <div class="section-header archive-effort-header">
+        <div>
+          <p class="stats-eyebrow">THE ARCHIVE SO FAR</p>
+          <h2 class="section-title"><iconify-icon icon="fa6-solid:box-archive"></iconify-icon> Archive effort</h2>
+          <p class="section-subtitle">A snapshot of the work put into organizing the series history into one searchable record.</p>
+        </div>
+        <div class="archive-effort-mark"><iconify-icon icon="fa6-regular:heart"></iconify-icon></div>
+      </div>
+
+      <div class="archive-effort-grid">
+        <article class="archive-effort-card">
+          <iconify-icon icon="fa6-solid:folder-tree"></iconify-icon>
+          <strong>${statsSummary.totalVolumes}</strong>
+          <span>entries tracked</span>
+          <small>${released.length} released · ${statsSummary.upcomingVolumes || 0} upcoming</small>
+        </article>
+        <article class="archive-effort-card">
+          <iconify-icon icon="fa6-solid:calendar-days"></iconify-icon>
+          <strong>${years}</strong>
+          <span>years documented</span>
+          <small>${statsSummary.publicationStart} — ${statsSummary.publicationEnd}</small>
+        </article>
+        <article class="archive-effort-card">
+          <iconify-icon icon="fa6-solid:book-open"></iconify-icon>
+          <strong>${statsSummary.totalChapters.toLocaleString()}</strong>
+          <span>chapters indexed</span>
+          <small>${statsSummary.totalPages.toLocaleString()} recorded pages across released entries</small>
+        </article>
+        <article class="archive-effort-card">
+          <iconify-icon icon="fa6-solid:language"></iconify-icon>
+          <strong>${translated.length}</strong>
+          <span>translation completions recorded</span>
+          <small>English completion dates kept alongside original releases</small>
+        </article>
+      </div>
+
+      <div class="archive-effort-story">
+        <article class="archive-effort-copy">
+          <span class="panel-kicker">WHAT HAS BEEN BUILT</span>
+          <h3>More than a list of volumes</h3>
+          <p>
+            The archive brings publication dates, chapter counts, page ranges, volume categories, and
+            translation milestones into one place so the series can be explored as a timeline rather than
+            a collection of disconnected releases.
+          </p>
+          <div class="archive-record-list">
+            <div><iconify-icon icon="fa6-solid:calendar-check"></iconify-icon><span>Publication chronology</span><b>${completeRecords.length}/${released.length}</b></div>
+            <div><iconify-icon icon="fa6-solid:list-check"></iconify-icon><span>Reading structure indexed</span><b>${statsSummary.totalChapters.toLocaleString()} chapters</b></div>
+            <div><iconify-icon icon="fa6-solid:file-lines"></iconify-icon><span>Volume length recorded</span><b>${statsSummary.totalPages.toLocaleString()} pages</b></div>
+            <div><iconify-icon icon="fa6-solid:language"></iconify-icon><span>Translation milestones</span><b>${translated.length} entries</b></div>
+          </div>
+        </article>
+
+        <aside class="archive-effort-note">
+          <iconify-icon icon="fa6-solid:seedling"></iconify-icon>
+          <span class="panel-kicker">ONGOING WORK</span>
+          <h3>The record keeps growing</h3>
+          <p>
+            New releases can be added without losing the context of older material, while upcoming entries
+            remain separate until their publication and reading data can be recorded.
+          </p>
+          <div class="archive-category-summary">
+            <span><b>${main}</b> main volumes</span>
+            <span><b>${sideStories}</b> short-story releases</span>
+            <span><b>${specials}</b> special releases</span>
+          </div>
+        </aside>
       </div>
     </section>
   `;

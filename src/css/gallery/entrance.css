@@ -1,7 +1,4 @@
-/* ============================================================
-   HERO - MUSEUM EXHIBITION DESIGN
-   Dark mode only, premium featured artwork
-   ============================================================ */
+/* ============================================================ HERO - MUSEUM EXHIBITION DESIGN Dark mode only... */
 
 .exhibition-entrance {
   display: grid;
@@ -31,7 +28,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.25em;
-  color: rgba(212, 160, 192, 0.6);
+  color: rgba(244, 217, 232, 0.82);
   margin-bottom: 28px;
   display: block;
 }
@@ -56,7 +53,7 @@
   font-family: "Georgia", "Times New Roman", serif;
   font-size: clamp(0.95rem, 1.2vw, 1.15rem);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.76);
   max-width: 420px;
   line-height: 1.7;
   margin: 0 0 36px 0;
@@ -93,7 +90,7 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.64);
 }
 
 .entrance-divider {
@@ -156,9 +153,7 @@
   color: rgba(255, 255, 255, 0.15);
 }
 
-/* ============================================================
-   RIGHT: FEATURED ARTWORK - PREMIUM MUSEUM PRESENTATION
-   ============================================================ */
+/* ============================================================ RIGHT: FEATURED ARTWORK - PREMIUM MUSEUM PRESE... */
 
 .entrance-artwork {
   position: relative;
@@ -261,9 +256,7 @@
   opacity: 1;
 }
 
-/* ============================================================
-   MUSEUM PLAQUE - PREMIUM REDESIGN
-   ============================================================ */
+/* ============================================================ MUSEUM PLAQUE - PREMIUM REDESIGN =============... */
 
 .entrance-artwork-credit {
   position: absolute;
@@ -490,9 +483,7 @@
   background: rgba(255, 255, 255, 0.7);
 }
 
-/* ============================================================
-   RESPONSIVE DESIGN
-   ============================================================ */
+/* ============================================================ RESPONSIVE DESIGN ============================... */
 
 /* ---- TABLETS ---- */
 @media (max-width: 1024px) {
@@ -549,8 +540,8 @@
 @media (max-width: 768px) {
   .exhibition-entrance {
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-    min-height: 100vh;
+    grid-template-rows: auto;
+    min-height: 0;
     gap: 0;
     padding: 0;
   }
@@ -602,6 +593,11 @@
     gap: 0;
   }
 
+  /* Keep the mobile introduction content-sized instead of reserving a viewport-height gap. */
+  .entrance-content {
+    min-height: 0;
+  }
+
   .entrance-label {
     font-size: 0.55rem;
     letter-spacing: 0.2em;
@@ -618,7 +614,7 @@
     font-size: 0.9rem;
     max-width: 100%;
     margin-bottom: 20px;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.76);
   }
 
   .entrance-stats {
@@ -839,9 +835,7 @@
   }
 }
 
-/* ============================================================
-   TOUCH-FRIENDLY IMPROVEMENTS
-   ============================================================ */
+/* ============================================================ TOUCH-FRIENDLY IMPROVEMENTS ==================... */
 
 @media (hover: none) {
   .entrance-artwork:hover::before {
@@ -893,9 +887,7 @@
   }
 }
 
-/* ============================================================
-   REDUCED MOTION
-   ============================================================ */
+/* ============================================================ REDUCED MOTION ===============================... */
 
 @media (prefers-reduced-motion: reduce) {
   .scroll-line::after {

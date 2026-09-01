@@ -1,4 +1,4 @@
-/* ---------- sections ---------- */
+/* sections */
 .about-section {
   margin-bottom: 2.5rem;
 }
@@ -26,7 +26,7 @@
   border-color: var(--accent-border-strong);
 }
 
-/* ---------- section titles ---------- */
+/* section titles */
 .about-section-title {
   font-family: "Noto Serif JP", serif;
   font-size: 2rem;

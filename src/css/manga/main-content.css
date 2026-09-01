@@ -1,4 +1,4 @@
-/* ---------- main content ---------- */
+/* main content */
 .main-content {
   flex: 1;
   min-width: 0;
@@ -21,14 +21,14 @@
   content: "";
   position: fixed;
   top: 0;
-  left: 300px;
+  left: 0;
   right: 0;
   bottom: 0;
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.92) 0%,
-    rgba(243, 229, 245, 0.8) 50%,
-    rgba(255, 255, 255, 0.92) 100%
+    rgba(255, 255, 255, 0.82) 0%,
+    rgba(243, 229, 245, 0.72) 50%,
+    rgba(255, 255, 255, 0.82) 100%
   );
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
@@ -58,7 +58,7 @@ h1.update-title::after {
   border-radius: 4px;
 }
 
-/* ===== Clean surface redesign: no image backgrounds ===== */
+/* Clean surface redesign: no image backgrounds ===== */
 
 .main-content {
   background:

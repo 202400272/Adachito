@@ -158,7 +158,8 @@
           "title_en": "Whereabouts",
           "artist": "Hanae Nakamura",
           "duration": "2:06",
-          "filename": "01. Whereabouts.flac"
+          "filename": "01. Whereabouts.flac",
+          "title_es": "Dónde Estoy"
         },
         {
           "id": "ost-2",
@@ -167,7 +168,8 @@
           "title_en": "Lunch Break",
           "artist": "Miki Sakurai",
           "duration": "2:20",
-          "filename": "02. Lunch Break.flac"
+          "filename": "02. Lunch Break.flac",
+          "title_es": "Pausa para el Almuerzo"
         },
         {
           "id": "ost-3",
@@ -176,7 +178,8 @@
           "title_en": "Besides You",
           "artist": "Natsumi Tabuchi",
           "duration": "2:35",
-          "filename": "03. Besides You.flac"
+          "filename": "03. Besides You.flac",
+          "title_es": "Junto a Ti"
         },
         {
           "id": "ost-4",
@@ -185,7 +188,8 @@
           "title_en": "Small Elevation",
           "artist": "Miki Sakurai",
           "duration": "2:24",
-          "filename": "04. Small Elevation.flac"
+          "filename": "04. Small Elevation.flac",
+          "title_es": "Pequeña Elevación"
         },
         {
           "id": "ost-5",
@@ -194,7 +198,8 @@
           "title_en": "What is Socializing",
           "artist": "Natsumi Tabuchi",
           "duration": "2:11",
-          "filename": "05. What is Socializing.flac"
+          "filename": "05. What is Socializing.flac",
+          "title_es": "Qué es Socializar"
         },
         {
           "id": "ost-6",
@@ -203,7 +208,8 @@
           "title_en": "Go Out",
           "artist": "Hanae Nakamura",
           "duration": "1:51",
-          "filename": "06. Go Out.flac"
+          "filename": "06. Go Out.flac",
+          "title_es": "Salir"
         },
         {
           "id": "ost-7",
@@ -212,7 +218,8 @@
           "title_en": "Jet Black World",
           "artist": "Hanae Nakamura",
           "duration": "2:02",
-          "filename": "07. Jet Black World.flac"
+          "filename": "07. Jet Black World.flac",
+          "title_es": "Mundo Negro Azabache"
         },
         {
           "id": "ost-8",
@@ -221,7 +228,8 @@
           "title_en": "Future People",
           "artist": "Miki Sakurai",
           "duration": "2:04",
-          "filename": "08. Future People.flac"
+          "filename": "08. Future People.flac",
+          "title_es": "Gente del Futuro"
         },
         {
           "id": "ost-9",
@@ -230,7 +238,8 @@
           "title_en": "Unknown Communication",
           "artist": "Miki Sakurai",
           "duration": "1:58",
-          "filename": "09. Unknown Communication.flac"
+          "filename": "09. Unknown Communication.flac",
+          "title_es": "Comunicación Desconocida"
         },
         {
           "id": "ost-10",
@@ -239,7 +248,8 @@
           "title_en": "Casual Everyday",
           "artist": "Hanae Nakamura",
           "duration": "2:04",
-          "filename": "10. Casual Everyday.flac"
+          "filename": "10. Casual Everyday.flac",
+          "title_es": "Cada Día Sin Más"
         },
         {
           "id": "ost-11",
@@ -248,7 +258,8 @@
           "title_en": "We are Unscrupulous",
           "artist": "Natsumi Tabuchi",
           "duration": "2:05",
-          "filename": "11. We are Unscrupulous.flac"
+          "filename": "11. We are Unscrupulous.flac",
+          "title_es": "Somos Poco Serios"
         },
         {
           "id": "ost-12",
@@ -257,7 +268,8 @@
           "title_en": "Shame and Delusion",
           "artist": "Hanae Nakamura",
           "duration": "1:59",
-          "filename": "12. Shame and Delusion.flac"
+          "filename": "12. Shame and Delusion.flac",
+          "title_es": "Vergüenza y Delirio"
         },
         {
           "id": "ost-13",
@@ -266,7 +278,8 @@
           "title_en": "Feelings I Want to Suppress",
           "artist": "Hanae Nakamura",
           "duration": "2:10",
-          "filename": "13. Feelings I Want to Suppress.flac"
+          "filename": "13. Feelings I Want to Suppress.flac",
+          "title_es": "Sentimientos que Quiero Suprimir"
         },
         {
           "id": "ost-14",
@@ -275,7 +288,8 @@
           "title_en": "Irritated Feelings",
           "artist": "Miki Sakurai",
           "duration": "1:55",
-          "filename": "14. Irritated Feelings.flac"
+          "filename": "14. Irritated Feelings.flac",
+          "title_es": "Sentimientos Irritados"
         },
         {
           "id": "ost-15",
@@ -284,7 +298,8 @@
           "title_en": "Even if... Throbbing",
           "artist": "Natsumi Tabuchi",
           "duration": "2:08",
-          "filename": "15. Even if... Throbbing.flac"
+          "filename": "15. Even if... Throbbing.flac",
+          "title_es": "Incluso si... Palpitante"
         },
         {
           "id": "ost-16",
@@ -293,7 +308,8 @@
           "title_en": "Let's Go Home Together",
           "artist": "Hanae Nakamura",
           "duration": "2:12",
-          "filename": "16. Let's Go Home Together.flac"
+          "filename": "16. Let's Go Home Together.flac",
+          "title_es": "Vamos a Casa Juntos"
         },
         {
           "id": "ost-17",
@@ -302,7 +318,8 @@
           "title_en": "Sister",
           "artist": "Miki Sakurai",
           "duration": "1:48",
-          "filename": "17. Sister.flac"
+          "filename": "17. Sister.flac",
+          "title_es": "Hermana"
         },
         {
           "id": "ost-18",
@@ -311,7 +328,8 @@
           "title_en": "Was Seen ...",
           "artist": "Natsumi Tabuchi",
           "duration": "1:52",
-          "filename": "18. Was Seen....flac"
+          "filename": "18. Was Seen....flac",
+          "title_es": "Fui Visto..."
         },
         {
           "id": "ost-19",
@@ -320,7 +338,8 @@
           "title_en": "My Best and Your Best",
           "artist": "Hanae Nakamura",
           "duration": "2:15",
-          "filename": "19. My Best and Your Best.flac"
+          "filename": "19. My Best and Your Best.flac",
+          "title_es": "Mi Mejor y Tu Mejor"
         },
         {
           "id": "ost-20",
@@ -329,7 +348,8 @@
           "title_en": "Friend",
           "artist": "Miki Sakurai",
           "duration": "1:58",
-          "filename": "20. Friend.flac"
+          "filename": "20. Friend.flac",
+          "title_es": "Amigo"
         },
         {
           "id": "ost-21",
@@ -338,7 +358,8 @@
           "title_en": "A Sense of Distance",
           "artist": "Natsumi Tabuchi",
           "duration": "2:05",
-          "filename": "21. A Sense of Distance.flac"
+          "filename": "21. A Sense of Distance.flac",
+          "title_es": "Un Sentido de Distancia"
         },
         {
           "id": "ost-22",
@@ -347,7 +368,8 @@
           "title_en": "Unraveled Heart",
           "artist": "Hanae Nakamura",
           "duration": "2:18",
-          "filename": "22. Unraveled Heart.flac"
+          "filename": "22. Unraveled Heart.flac",
+          "title_es": "Corazón Desenredado"
         },
         {
           "id": "ost-23",
@@ -356,7 +378,8 @@
           "title_en": "Feelings Pop",
           "artist": "Miki Sakurai",
           "duration": "1:45",
-          "filename": "23. Feelings Pop.flac"
+          "filename": "23. Feelings Pop.flac",
+          "title_es": "Sentimientos que Explotan"
         },
         {
           "id": "ost-24",
@@ -365,7 +388,8 @@
           "title_en": "Reality",
           "artist": "Natsumi Tabuchi",
           "duration": "2:02",
-          "filename": "24. Reality.flac"
+          "filename": "24. Reality.flac",
+          "title_es": "Realidad"
         },
         {
           "id": "ost-25",
@@ -374,7 +398,8 @@
           "title_en": "It's Soft",
           "artist": "Hanae Nakamura",
           "duration": "1:50",
-          "filename": "25. It's Soft.flac"
+          "filename": "25. It's Soft.flac",
+          "title_es": "Es Suave"
         },
         {
           "id": "ost-26",
@@ -383,7 +408,8 @@
           "title_en": "Sharing Bad Things",
           "artist": "Miki Sakurai",
           "duration": "1:55",
-          "filename": "26. Sharing Bad Things.flac"
+          "filename": "26. Sharing Bad Things.flac",
+          "title_es": "Compartiendo Cosas Malas"
         },
         {
           "id": "ost-27",
@@ -392,7 +418,8 @@
           "title_en": "Sulking",
           "artist": "Natsumi Tabuchi",
           "duration": "1:48",
-          "filename": "27. Sulking.flac"
+          "filename": "27. Sulking.flac",
+          "title_es": "Enfadado"
         },
         {
           "id": "ost-28",
@@ -401,7 +428,8 @@
           "title_en": "Feelings Passing By",
           "artist": "Hanae Nakamura",
           "duration": "2:00",
-          "filename": "28. Feelings Passing By.flac"
+          "filename": "28. Feelings Passing By.flac",
+          "title_es": "Sentimientos que Pasan"
         },
         {
           "id": "ost-29",
@@ -410,7 +438,8 @@
           "title_en": "Dogimagi",
           "artist": "Miki Sakurai",
           "duration": "1:42",
-          "filename": "29. Dogimagi.flac"
+          "filename": "29. Dogimagi.flac",
+          "title_es": "Dogimagi"
         },
         {
           "id": "ost-30",
@@ -419,7 +448,8 @@
           "title_en": "I Want to Get Along With You",
           "artist": "Natsumi Tabuchi",
           "duration": "2:10",
-          "filename": "30. I Want to Get Along With You.flac"
+          "filename": "30. I Want to Get Along With You.flac",
+          "title_es": "Quiero Llevarme Bien Contigo"
         },
         {
           "id": "ost-31",
@@ -428,7 +458,8 @@
           "title_en": "A Sense of Security",
           "artist": "Hanae Nakamura",
           "duration": "2:05",
-          "filename": "31. A Sense of Security.flac"
+          "filename": "31. A Sense of Security.flac",
+          "title_es": "Un Sentido de Seguridad"
         },
         {
           "id": "ost-32",
@@ -437,7 +468,8 @@
           "title_en": "From Now On",
           "artist": "Miki Sakurai",
           "duration": "2:15",
-          "filename": "32. From Now On.flac"
+          "filename": "32. From Now On.flac",
+          "title_es": "De Ahora en Adelante"
         },
         {
           "id": "ost-33",
@@ -446,7 +478,8 @@
           "title_en": "Until Now",
           "artist": "Natsumi Tabuchi",
           "duration": "2:08",
-          "filename": "33. Until Now.flac"
+          "filename": "33. Until Now.flac",
+          "title_es": "Hasta Ahora"
         },
         {
           "id": "ost-34",
@@ -455,7 +488,8 @@
           "title_en": "Let's Tell",
           "artist": "Hanae Nakamura",
           "duration": "2:12",
-          "filename": "34. Let's Tell.flac"
+          "filename": "34. Let's Tell.flac",
+          "title_es": "Digamos"
         },
         {
           "id": "ost-35",
@@ -464,7 +498,8 @@
           "title_en": "Embrace Your Feelings",
           "artist": "Miki Sakurai",
           "duration": "2:20",
-          "filename": "35. Embrace Your Feelings.flac"
+          "filename": "35. Embrace Your Feelings.flac",
+          "title_es": "Acepta Tus Sentimientos"
         }
       ]
     },
@@ -489,7 +524,8 @@
           "title_en": "The Day I Met You",
           "artist": "Adachi and Shimamura (CV: Akari Kitō, Miku Itō)",
           "duration": "4:12",
-          "filename": "01. Kimi ni Aeta Hi.flac"
+          "filename": "01. Kimi ni Aeta Hi.flac",
+          "title_es": "The Day I Met You"
         },
         {
           "id": "opening-2",
@@ -498,7 +534,8 @@
           "title_en": "Merry-Go-Round",
           "artist": "Adachi and Shimamura (CV: Akari Kitō, Miku Itō)",
           "duration": "3:48",
-          "filename": "02. Merry-Go-Round.flac"
+          "filename": "02. Merry-Go-Round.flac",
+          "title_es": "Merry-Go-Round"
         },
         {
           "id": "opening-3",
@@ -507,7 +544,8 @@
           "title_en": "The Day I Met You -TV size ver.-",
           "artist": "Adachi and Shimamura (CV: Akari Kitō, Miku Itō)",
           "duration": "1:30",
-          "filename": "03. Kimi ni Aeta Hi (TV size ver.).flac"
+          "filename": "03. Kimi ni Aeta Hi (TV size ver.).flac",
+          "title_es": "The Day I Met You (TV size ver.)"
         },
         {
           "id": "opening-4",
@@ -516,7 +554,8 @@
           "title_en": "Merry-Go-Round -Glocken Ver.-",
           "artist": "Adachi and Shimamura (CV: Akari Kitō, Miku Itō)",
           "duration": "2:15",
-          "filename": "04. Merry-Go-Round (Glocken Ver.).flac"
+          "filename": "04. Merry-Go-Round (Glocken Ver.).flac",
+          "title_es": "Merry-Go-Round (Glocken Ver.)"
         },
         {
           "id": "opening-5",
@@ -525,7 +564,8 @@
           "title_en": "The Day I Met You -Instrumental-",
           "artist": "Adachi and Shimamura (CV: Akari Kitō, Miku Itō)",
           "duration": "4:12",
-          "filename": "05. Kimi ni Aeta Hi (Instrumental).flac"
+          "filename": "05. Kimi ni Aeta Hi (Instrumental).flac",
+          "title_es": "The Day I Met You (Instrumental)"
         },
         {
           "id": "opening-6",
@@ -534,7 +574,8 @@
           "title_en": "Merry-Go-Round -Instrumental-",
           "artist": "Adachi and Shimamura (CV: Akari Kitō, Miku Itō)",
           "duration": "3:48",
-          "filename": "06. Merry-Go-Round (Instrumental).flac"
+          "filename": "06. Merry-Go-Round (Instrumental).flac",
+          "title_es": "Merry-Go-Round (Instrumental)"
         },
         {
           "id": "opening-7",
@@ -543,7 +584,8 @@
           "title_en": "The Day I Met You -Adachi Solo Ver.-",
           "artist": "Adachi and Shimamura (CV: Akari Kitō, Miku Itō)",
           "duration": "4:12",
-          "filename": "07. Kimi ni Aeta Hi (Adachi Solo Ver.).flac"
+          "filename": "07. Kimi ni Aeta Hi (Adachi Solo Ver.).flac",
+          "title_es": "The Day I Met You (Adachi Solo Ver.)"
         },
         {
           "id": "opening-8",
@@ -552,7 +594,8 @@
           "title_en": "The Day I Met You -Shimamura Solo Ver.-",
           "artist": "Adachi and Shimamura (CV: Akari Kitō, Miku Itō)",
           "duration": "4:12",
-          "filename": "08. Kimi ni Aeta Hi (Shimamura Solo Ver.).flac"
+          "filename": "08. Kimi ni Aeta Hi (Shimamura Solo Ver.).flac",
+          "title_es": "The Day I Met You (Shimamura Solo Ver.)"
         }
       ]
     },
@@ -578,7 +621,8 @@
           "title_en": "By Your Side",
           "artist": "Akari Kitō",
           "duration": "4:34",
-          "filename": "01. Kimi no Tonari de.flac"
+          "filename": "01. Kimi no Tonari de.flac",
+          "title_es": "Beside You"
         },
         {
           "id": "ending-2",
@@ -587,7 +631,8 @@
           "title_en": "Dive to World",
           "artist": "Akari Kitō",
           "duration": "3:52",
-          "filename": "02. Dive to World.flac"
+          "filename": "02. Dive to World.flac",
+          "title_es": "Dive to World"
         },
         {
           "id": "ending-3",
@@ -596,7 +641,8 @@
           "title_en": "Transparent Dream",
           "artist": "Akari Kitō",
           "duration": "4:18",
-          "filename": "03. Toumei na Yume.flac"
+          "filename": "03. Toumei na Yume.flac",
+          "title_es": "Transparent Dream"
         },
         {
           "id": "ending-4",
@@ -605,7 +651,8 @@
           "title_en": "By Your Side -Instrumental-",
           "artist": "Akari Kitō",
           "duration": "4:34",
-          "filename": "04. Kimi no Tonari de (Instrumental).flac"
+          "filename": "04. Kimi no Tonari de (Instrumental).flac",
+          "title_es": "Beside You (Instrumental)"
         },
         {
           "id": "ending-5",
@@ -614,7 +661,8 @@
           "title_en": "Dive to World -Instrumental-",
           "artist": "Akari Kitō",
           "duration": "3:52",
-          "filename": "05. Dive to World (Instrumental).flac"
+          "filename": "05. Dive to World (Instrumental).flac",
+          "title_es": "Dive to World (Instrumental)"
         },
         {
           "id": "ending-6",
@@ -623,7 +671,8 @@
           "title_en": "Transparent Dream -Instrumental-",
           "artist": "Akari Kitō",
           "duration": "4:18",
-          "filename": "06. Toumei na Yume (Instrumental).flac"
+          "filename": "06. Toumei na Yume (Instrumental).flac",
+          "title_es": "Transparent Dream (Instrumental)"
         }
       ]
     }

@@ -1,5 +1,127 @@
 [
   {
+    "version": "2.3.8",
+    "build": "20260831",
+    "date": "31 de agosto de 2026",
+    "subtitle": "Configuración, preferencias del lector, navegación y mejoras de interfaz",
+    "changes": {
+      "new": [
+        "Se añadió una página de Configuración dedicada para evitar que las preferencias estén agrupadas dentro del menú de navegación.",
+        "Se añadieron preferencias predeterminadas para Manga, Anime, Música y lectores PDF, incluido el modo PDF Continuo.",
+        "Se añadieron modales de confirmación y finalización dentro de la aplicación para las acciones de datos guardados, sustituyendo los diálogos nativos del navegador.",
+        "Se añadieron iconos de banderas de países al selector de idioma para que las opciones no dependan de la representación de emojis.",
+        "Se añadió un modo compacto del menú lateral para escritorio, con una preferencia local guardada para una navegación más limpia basada en iconos."
+      ],
+      "improvements": [
+        "Se hizo disponible Configuración mediante la ruta compartida /Adashima_Settings en desarrollo, preview y Cloudflare Pages.",
+        "Se mejoraron los materiales traducidos y los layouts de About en pantallas estrechas y con nombres o títulos largos.",
+        "Se actualizó el menú lateral compartido para utilizar el mismo lenguaje visual de iconos Lucide que las tarjetas de navegación de la página de inicio.",
+        "Se refinaron el espaciado, los estados activos, el tamaño de los iconos, el modo compacto y el comportamiento responsive del menú lateral sin cambiar su modelo de superposición.",
+        "Se sustituyeron los elementos de idioma basados en emojis por iconos reutilizables de banderas de países y se mejoró su alineación y estado activo.",
+        "Se actualizaron las referencias de versión de Configuración y navegación a v2.3.8."
+      ],
+      "fixes": [
+        "Se corrigió la ruta de Configuración que no cargaba correctamente en el servidor local de desarrollo y en el preview de producción.",
+        "Se corrigieron los materiales traducidos que podían desbordarse o quedar demasiado apretados en pantallas pequeñas.",
+        "Se corrigió la persistencia de la vista de Novelas Ligeras para restaurar la vista de lista o cuadrícula al volver a abrir la página.",
+        "Se corrigió la preferencia PDF Continuo para que el lector de Novelas aplique correctamente el modo guardado al abrir un PDF.",
+        "Se corrigió la preferencia PDF Continuo para que el lector de Manga traduzca correctamente el ajuste compartido al modo continuo interno.",
+        "Se corrigió la sincronización del modo de lector PDF para que cambiarlo directamente en el lector actualice también la preferencia guardada compartida.",
+        "Se corrigieron los iconos de advertencia duplicados en el modal de confirmación de datos guardados para mostrar solo un icono por confirmación."
+      ]
+    },
+    "notes": [
+      "La Configuración permanece guardada localmente en el navegador actual y no se sincroniza con una cuenta. Las vistas predeterminadas se aplican al abrir la página correspondiente, mientras que cambiar una vista directamente en una página actualiza esa preferencia. El menú lateral compartido sigue funcionando como superposición en escritorio y móvil; el modo compacto está disponible en escritorio."
+    ]
+  },
+  {
+    "version": "2.3.7",
+    "build": "20260830",
+    "date": "August 30, 2026",
+    "subtitle": "Fase 3: Refactorización de CSS, navegación superpuesta unificada y limpieza de layouts",
+    "changes": {
+      "new": [
+        "Se inició la Fase 3 del plan de refactorización a largo plazo, centrada en la arquitectura y el mantenimiento del CSS.",
+        "Se introdujo una estructura de CSS consistente por página, organizando los estilos grandes en carpetas y módulos específicos para componentes o funciones.",
+        "Se añadió un sistema de scrollbar compartido y estandarizado para mantener un desplazamiento consistente en todo el sitio.",
+        "Se estandarizó el menú de hamburguesa compartido en las páginas normales, colocando el botón a la izquierda y haciendo que el menú lateral se abra como una superposición.",
+        "Gallery ahora utiliza la navegación del menú lateral compartido en lugar de su botón independiente «Back to Menu»."
+      ],
+      "improvements": [
+        "Se extrajeron los estilos inline restantes hacia archivos CSS externos, conservando los estilos específicos existentes.",
+        "Se dividieron las hojas de estilo grandes en módulos más pequeños y enfocados, con comentarios breves y útiles.",
+        "Se eliminó la reserva permanente de espacio del menú lateral en escritorio para que las páginas normales puedan utilizar todo el ancho de la pantalla.",
+        "Se ajustaron About, Anime, Drama, Manga, Novels, Timeline, Extra Stories, Web Stories y Author Archive para funcionar independientemente del layout del menú lateral.",
+        "Se mejoró el comportamiento del menú lateral en escritorio para que siga el mismo modelo oculto hasta abrirse que en móvil.",
+        "Se mejoraron las animaciones del menú en escritorio y móvil, incluyendo transiciones más suaves para el panel, fondo, botón y elementos de navegación, además de compatibilidad con reduced-motion.",
+        "Se mejoraron los fondos basados en la hora para que los temas de Mañana, Tarde y Noche puedan ocupar toda la página sin quedar ocultos por los contenedores.",
+        "Constellation mantiene su sistema de navegación independiente en lugar de utilizar el menú lateral compartido.",
+        "Se integró el trabajo de las Fases 1 y 2 dentro del esfuerzo general de refactorización: esas fases se centraron en SOP y datos, mientras que la Fase 3 se centra en CSS."
+      ],
+      "fixes": [
+        "Se corrigió la cadena de estilos de la página de inicio para que el CSS compartido siga disponible después de la modularización.",
+        "Se corrigió la pantalla en blanco o morada de la página de inicio causada por estilos inline obsoletos y una cadena de imports CSS incompleta.",
+        "Se corrigió la carga de los temas basados en la hora de la página de inicio para que el tema seleccionado se aplique correctamente.",
+        "Se corrigió que las páginas de escritorio conservaran la antigua reserva de 300px del menú lateral.",
+        "Se corrigió que el menú de hamburguesa permaneciera visible debido a reglas de escritorio en conflicto.",
+        "Se corrigió que el contenedor del menú dejara una franja vacía o coloreada visible cuando estaba cerrado.",
+        "Se corrigieron los problemas de pantalla en blanco y margen superior excesivo en About causados por reglas de layout y temas en conflicto.",
+        "Se eliminó el control redundante «Back to Menu» de Gallery y se trasladó la navegación al menú lateral compartido.",
+        "Se corrigieron varios problemas de fondo y ancho de viewport para que el menú lateral ya no consuma espacio del contenido.",
+        "Se corrigió el comportamiento inconsistente del scrollbar causado por estilos específicos de página que competían entre sí."
+      ],
+      "notes": [
+        "La Fase 3 es una refactorización estructural del CSS, no un rediseño visual. Se conservan los diseños y funcionalidades específicos de cada página siempre que sea posible.",
+        "El menú lateral compartido permanece oculto hasta abrirse tanto en escritorio como en móvil y se superpone al contenido en lugar de reservar espacio.",
+        "Constellation permanece intencionadamente separado porque utiliza su propio sistema de navegación.",
+        "La refactorización mantiene las rutas de entrada existentes cuando resulta práctico para reducir cambios innecesarios mientras la implementación se reorganiza.",
+        "Esta versión continúa la limpieza a largo plazo iniciada con las Fases 1 y 2, con esta fase centrada específicamente en CSS."
+      ]
+    }
+  },
+  {
+    "version": "2.3.6",
+    "build": "20260829",
+    "date": "29 de agosto de 2026",
+    "subtitle": "Mejoras de Galería, streams de Anime y Archivo de Estadísticas",
+    "changes": {
+      "new": [
+        "Añadida una sección de esfuerzo del Archivo en Estadísticas para destacar la cobertura documentada, el progreso de traducción, la estructura de lectura y el trabajo continuo del archivo.",
+        "Añadido un catálogo dedicado de streams de Anime para que las versiones de material puedan crecer independientemente del idioma de la interfaz."
+      ],
+      "improvements": [
+        "Se mejoró el manejo de los títulos de las pistas de Música para que el reproductor muestre el idioma activo en lugar de usar siempre los títulos en japonés.",
+        "Se mejoró la carga de la Galería para evitar solicitudes repetidas cuando una imagen falla e impedir que la página llegue al estado inactivo de red.",
+        "Se mejoró la estabilidad visual de la Galería para mantener un comportamiento de contenido y carga más predecible durante las comprobaciones automatizadas.",
+        "Mejorado el diseño móvil de la Galería eliminando el espacio vacío excesivo entre la introducción y los controles de la colección.",
+        "Rediseñado el campo de búsqueda de la Galería para ofrecer mejor contraste, una respuesta de enfoque más clara y mejor uso táctil en escritorio y móvil.",
+        "Mejorado el contraste y la tipografía de los encabezados de la Galería para que textos como Galería Aleatoria sean más legibles en los temas del sitio.",
+        "Perfeccionada la presentación de las cuadrículas de Manga y Novelas con tarjetas centradas en las portadas y mejor espaciado móvil.",
+        "Restaurado y refinado el estilo de los botones de acción de la Galería y mejorado el contraste del texto en toda la Galería.",
+        "Mejorado el sistema de fuentes del reproductor de Anime para que los materiales en inglés y español puedan seleccionarse independientemente del idioma de la interfaz.",
+        "Añadido un selector de streams más claro y preparado para futuras versiones, como subtítulos en inglés y otros idiomas."
+      ],
+      "fixes": [
+        "Se corrigió el error de JavaScript causado por intentar consultar elementos que no están presentes en todas las páginas.",
+        "Se corrigió el campo de búsqueda de Historias adicionales que permanecía oculto en español y no podía utilizarse.",
+        "Se corrigieron las URLs de audio de Música para los nombres de archivo que contienen apóstrofes y paréntesis, de modo que se soliciten correctamente las rutas codificadas esperadas.",
+        "Se corrigió la verificación exhaustiva de pistas de Música que fallaba cuando la cuadrícula de álbumes aún no estaba lista al iniciar la prueba.",
+        "Se corrigieron los errores restantes de ESLint de tipo no-empty sin desactivar la regla.",
+        "Se corrigió el tiempo de espera de la Galería durante la navegación al esperar a que la red quedara inactiva debido a solicitudes repetidas de imágenes fallidas.",
+        "Corregido un problema por el que las tarjetas de volúmenes de Manga quedaban invisibles aunque el JSON cargara correctamente.",
+        "Corregidas las acciones de capítulos del modal de volúmenes de Manga para que al seleccionar un capítulo se abra la entrada correspondiente en el lector.",
+        "Eliminada una imagen decorativa de personaje que se superponía en la página de Manga y mejorada la experiencia del modal de volúmenes en móvil.",
+        "Corregido el reproductor de Anime que quedaba bloqueado en la carga tras la actualización del catálogo de streams restaurando la lógica de resolución de fuentes que faltaba.",
+        "Corregida la carga de fuentes de episodios de Anime para que los streams de la serie principal se resuelvan desde el catálogo mientras Mini Anime sigue utilizando sus fuentes existentes."
+      ],
+      "notes": [
+        "Las correcciones de regresión visual se limitaron al comportamiento del diseño y la carga; no se añadieron atajos específicos para las pruebas ni trucos basados en capturas de pantalla.",
+        "Los ajustes de estilo de Galería y Manga se realizaron directamente en la estructura de hojas de estilo existente; no se añadieron archivos CSS de anulación independientes.",
+        "La localización de la interfaz de Anime y la selección de la versión del stream son independientes: cambiar la versión del stream no cambia el idioma del sitio."
+      ]
+    }
+  },
+  {
     "version": "2.3.5",
     "build": "20260828",
     "date": "28 de agosto de 2026",

@@ -286,15 +286,15 @@
   "versionItems": [
     {
       "label": "Website Version",
-      "value": "v2.3.4"
+      "value": "v2.3.8"
     },
     {
       "label": "Build Number",
-      "value": "#20260824"
+      "value": "#20260831"
     },
     {
       "label": "Last Updated",
-      "value": "August 24, 2026"
+      "value": "August 31, 2026"
     },
     {
       "label": "Translation Progress",

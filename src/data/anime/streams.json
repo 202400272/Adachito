@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "defaults": {
+    "en": "en-dub",
+    "es": "es-sub",
+    "tg": "en-dub"
+  },
+  "variants": {
+    "en-dub": {
+      "label": "English Dub",
+      "labelKey": "englishDub",
+      "urlTemplate": "https://media.adashimaverse.com/Anime/Ingles/%5BCleo%5DAdachi_to_Shimamura_-_{episodePadded}_(Dual%20Audio_10bit_1080p_x265).mkv",
+      "downloadFilenameTemplate": "[Cleo]Adachi_to_Shimamura_-_{episodePadded}_(Dual Audio_10bit_1080p_x265).mkv"
+    },
+    "en-sub": {
+      "label": "English Sub",
+      "labelKey": "englishSub",
+      "urlTemplate": "https://media.adashimaverse.com/Anime/Ingles/%5BCleo%5DAdachi_to_Shimamura_-_{episodePadded}_(Dual%20Audio_10bit_1080p_x265).mkv",
+      "downloadFilenameTemplate": "[Cleo]Adachi_to_Shimamura_-_{episodePadded}_(Dual Audio_10bit_1080p_x265).mkv"
+    },
+    "es-sub": {
+      "label": "Spanish Sub",
+      "labelKey": "spanishSub",
+      "urlTemplate": "https://media.adashimaverse.com/Anime/Capitulo%20{episode}.mp4",
+      "downloadFilenameTemplate": "Capitulo_{episode}.mp4"
+    }
+  }
+}

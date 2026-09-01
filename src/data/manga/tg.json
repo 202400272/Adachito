@@ -145,7 +145,7 @@
         "51": 8,
         "52": 8,
         "53": 8,
-        "54.5": 8,
+        "54.1": 8,
         "54": 8,
         "55": 9,
         "56": 9,
@@ -545,5 +545,10 @@
     "56": "Ch. 56.pdf",
     "57": "Ch. 57.pdf",
     "58": "Ch. 58.pdf"
+  },
+  "volumeModal": {
+    "translation": "Salin",
+    "chapters": "Mga Kabanata",
+    "available": "Available na basahin"
   }
 }

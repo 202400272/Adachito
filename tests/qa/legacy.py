@@ -147,6 +147,15 @@ def resource_exists(href, source):
         return True
     if clean in EXPECTED_ROUTES:
         return EXPECTED_ROUTES[clean].is_file()
+    # These routes are intentionally clean URLs backed by Netlify redirects
+    # and the Vite preview route table. They do not have a same-named source
+    # file, so treating them as ordinary filesystem paths creates false failures.
+    clean_routes = {
+        "/privacy": ROOT / "src/pages/Privacy.html",
+        "/terms": ROOT / "src/pages/Terms.html",
+    }
+    if clean in clean_routes:
+        return clean_routes[clean].is_file()
     for candidate in candidate_paths(clean, source):
         if candidate.is_file():
             return True
@@ -561,7 +570,18 @@ def functional_mobile_menu(page, base_url):
 
 def exercise_search(page, base_url, route, selector, label):
     try:
+        # Extra Stories currently hides its search controls in the Spanish
+        # "translation in progress" view. Test the real searchable EN view
+        # instead of racing the initial render and attempting to fill a control
+        # that is about to be hidden.
+        if route == "/Adashima_Extra_Stories":
+            page.add_init_script(
+                "localStorage.setItem('lang','en'); "
+                "localStorage.setItem('preferredLanguage','en'); "
+                "localStorage.setItem('language','en');"
+            )
         goto(page, base_url, route)
+        page.wait_for_timeout(400)
         field = page.locator(selector).first
         if not field.count() or not field.is_visible():
             return []  # Optional component: skip silently.

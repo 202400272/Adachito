@@ -1,0 +1,19 @@
+/* Shared site-wide interaction behavior. */
+
+/* Remove the mobile tap highlight. */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Keep focus visible for keyboard users. */
+button:focus,
+a:focus,
+[role="button"]:focus {
+  outline: none;
+}
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid rgba(140, 90, 150, 0.5);
+  outline-offset: 2px;
+}

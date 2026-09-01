@@ -43,9 +43,12 @@ def accordion(page,base):
     t=page.locator('#infoToggle'); c=page.locator('#infoContent')
     if not (t.count() and c.count()): return Result('Browser','Homepage explanation','SKIP','This section is not present on the current homepage.')
     try:
-        t.click(); page.wait_for_timeout(120)
+        # The panel animates open/closed over ~0.4-0.6s (see .info-content's
+        # max-height transition in index.css). Wait past that instead of
+        # racing it, or the visibility check can fire mid-transition.
+        t.click(); page.wait_for_timeout(650)
         opened=not c.is_hidden() and t.get_attribute('aria-expanded')=='true'
-        t.click(); page.wait_for_timeout(120)
+        t.click(); page.wait_for_timeout(650)
         closed=c.is_hidden() and t.get_attribute('aria-expanded')=='false'
         ok=opened and closed
         return Result('Browser','Homepage explanation','PASS' if ok else 'FAIL','Opened and closed correctly.' if ok else 'The expandable section did not open and close correctly.',[] if ok else ['Expected it to open after the first click and close after the second.'],1)

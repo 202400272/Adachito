@@ -1,8 +1,8 @@
-/* ===== RESPONSIVE BREAKPOINTS ===== */
+/* RESPONSIVE BREAKPOINTS ===== */
 
 /* Base mobile-first styles are in main.css */
 
-/* ===== TABLETS AND SMALL DESKTOPS ===== */
+/* TABLETS AND SMALL DESKTOPS ===== */
 @media (min-width: 768px) {
   .main-content {
     padding: 20px 24px;
@@ -174,7 +174,7 @@
   }
 }
 
-/* ===== LARGE TABLETS AND DESKTOPS ===== */
+/* LARGE TABLETS AND DESKTOPS ===== */
 @media (min-width: 1024px) {
   .main-content {
     padding: 24px 32px;
@@ -250,7 +250,7 @@
   }
 }
 
-/* ===== LARGE DESKTOPS ===== */
+/* LARGE DESKTOPS ===== */
 @media (min-width: 1440px) {
   .main-content {
     max-width: 1400px;
@@ -300,7 +300,7 @@
   }
 }
 
-/* ===== MOBILE PHONES ===== */
+/* MOBILE PHONES ===== */
 @media (max-width: 767px) {
   /* Masonry Grid - Mobile */
   .masonry-grid {
@@ -360,8 +360,15 @@
   }
 
   .random-gallery-title {
-    font-size: 20px;
-    text-align: center;
+    font-size: 1.25rem;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.96);
+    line-height: 1.25;
+  }
+
+  .random-gallery-controls {
+    margin: 4px 0 18px;
+    padding-top: 0;
   }
 
   .shuffle-btn {
@@ -576,7 +583,7 @@
   }
 }
 
-/* ===== SMALL PHONES ===== */
+/* SMALL PHONES ===== */
 @media (max-width: 480px) {
   .main-content {
     padding: 12px 12px;
@@ -724,7 +731,7 @@
   }
 }
 
-/* ===== VERY SMALL PHONES ===== */
+/* VERY SMALL PHONES ===== */
 @media (max-width: 380px) {
   .masonry-grid {
     column-count: 2;
@@ -779,12 +786,14 @@
   }
 
   .random-gallery-title {
-    font-size: 15px;
+    font-size: 1.1rem;
   }
 
-  .shuffle-btn {
-    font-size: 11px;
-    padding: 6px 12px;
+  .shuffle-btn,
+  .clear-filters-btn {
+    font-size: 0.72rem;
+    min-height: 42px;
+    padding: 0 14px;
   }
 
   .collection-view-title {
@@ -792,7 +801,7 @@
   }
 }
 
-/* ===== TOUCH-FRIENDLY IMPROVEMENTS FOR MOBILE ===== */
+/* TOUCH-FRIENDLY IMPROVEMENTS FOR MOBILE ===== */
 @media (hover: none) {
   .masonry-item:hover {
     transform: none !important;
@@ -830,7 +839,7 @@
   }
 }
 
-/* ===== REDUCE ANIMATIONS FOR USERS WHO PREFER REDUCED MOTION ===== */
+/* REDUCE ANIMATIONS FOR USERS WHO PREFER REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -863,7 +872,7 @@
   }
 }
 
-/* ===== PRINT STYLES ===== */
+/* PRINT STYLES ===== */
 @media print {
   .lang-controls,
   .filter-wrapper,

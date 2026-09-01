@@ -1,0 +1,732 @@
+/* Explore the story modules */
+
+/* ===================================================================== EXPLORE THE STORY — redesign to match... */
+
+.story-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 1fr);
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: unset !important;
+  gap: 16px;
+  max-width: 980px;
+  width: 100%;
+}
+
+.story-grid .nav-card.nav-card-featured {
+  grid-column: 1 !important;
+  grid-row: 1 / 3 !important;
+}
+.story-grid .nav-card.nav-card-manga {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+}
+.story-grid .nav-card.nav-card-anime {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+}
+
+.story-grid .nav-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 24px 26px;
+  border-radius: 22px;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid var(--glass-border);
+  background: color-mix(in srgb, var(--glass-bg) 70%, transparent);
+  box-shadow: 0 12px 34px rgba(15, 8, 30, 0.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  text-decoration: none;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.story-grid .nav-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 92% 12%, rgba(255, 255, 255, 0.12), transparent 30%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.07), transparent 60%);
+  pointer-events: none;
+}
+
+.story-grid .nav-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(15, 8, 30, 0.24);
+}
+
+/* Accent color per card, driven off a custom property so every child element (kicker, underline, icon border,... */
+.story-grid .nav-card-featured {
+  --story-accent: #e893b3;
+}
+.story-grid .nav-card-manga {
+  --story-accent: #7fb2e8;
+}
+.story-grid .nav-card-anime {
+  --story-accent: #e8926b;
+}
+
+/* Kicker row: short accent line + uppercase label */
+.story-grid .story-card-kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.story-grid .story-card-kicker-line {
+  width: 22px;
+  height: 2px;
+  flex: 0 0 auto;
+  background: var(--story-accent);
+  border-radius: 2px;
+}
+.story-grid .story-card-kicker-text {
+  font:
+    700 0.68rem/1 "Quicksand",
+    sans-serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--story-accent);
+}
+
+.story-grid .story-card-title {
+  font-family: "Noto Serif JP", serif;
+  font-weight: 700;
+  color: var(--text-light, #f5eefc);
+  margin: 0 0 14px;
+  line-height: 1.05;
+}
+.story-grid .nav-card-featured .story-card-title {
+  font-size: clamp(1.7rem, 2.8vw, 2.5rem);
+}
+.story-grid .nav-card-side .story-card-title {
+  font-size: clamp(1.25rem, 1.7vw, 1.5rem);
+  margin-bottom: 8px;
+}
+
+.story-grid .story-card-underline {
+  display: block;
+  width: 52px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--story-accent);
+  opacity: 0.9;
+  margin-bottom: 14px;
+}
+.story-grid .nav-card-side .story-card-underline {
+  width: 34px;
+  margin-bottom: 10px;
+}
+
+.story-grid .story-card-desc {
+  margin: 0;
+  color: var(--text-secondary);
+  font:
+    400 0.92rem/1.5 "Quicksand",
+    sans-serif;
+  max-width: 340px;
+}
+.story-grid .nav-card-side .story-card-desc {
+  font-size: 0.85rem;
+  max-width: 190px;
+}
+
+/* Featured card: long divider line + circular arrow button, pinned low */
+.story-grid .nav-card-featured .story-card-action {
+  margin-top: auto;
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+}
+.story-grid .story-card-action-line {
+  flex: 1 1 auto;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--story-accent) 55%, transparent),
+    transparent
+  );
+}
+.story-grid .story-card-action-btn,
+.story-grid .story-card-icon {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  border: 1.5px solid var(--story-accent);
+  color: var(--story-accent);
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+.story-grid .story-card-action-btn svg,
+.story-grid .story-card-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.story-grid .nav-card-featured:hover .story-card-action-btn {
+  background: var(--story-accent);
+  color: #241533;
+  transform: translateX(3px);
+}
+
+/* Featured card: bespoke line-art book illustration in the background, echoing the reference design's corner... */
+.story-grid .nav-card-featured .story-card-decor {
+  position: absolute;
+  right: 6%;
+  bottom: -6%;
+  z-index: 0;
+  color: var(--story-accent);
+  opacity: 0.3;
+  pointer-events: none;
+  transform: rotate(-8deg);
+}
+.story-grid .story-card-decor svg {
+  width: 200px;
+  height: auto;
+  display: block;
+}
+.story-grid .nav-card-featured .story-card-kicker,
+.story-grid .nav-card-featured .story-card-title,
+.story-grid .nav-card-featured .story-card-underline,
+.story-grid .nav-card-featured .story-card-desc,
+.story-grid .nav-card-featured .story-card-action {
+  position: relative;
+  z-index: 1;
+}
+
+/* Side cards (manga / anime): icon top-right, thin arrow bottom-right */
+.story-grid .nav-card-side {
+  justify-content: space-between;
+}
+.story-grid .story-card-side-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.story-grid .story-card-arrow {
+  align-self: flex-end;
+  margin-top: 14px;
+  color: var(--text-secondary);
+  opacity: 0.8;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+.story-grid .story-card-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+.story-grid .nav-card-side:hover .story-card-arrow {
+  transform: translateX(4px);
+  opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .story-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 14px;
+  }
+  .story-grid .nav-card.nav-card-featured,
+  .story-grid .nav-card.nav-card-manga,
+  .story-grid .nav-card.nav-card-anime {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+  }
+  .story-grid .nav-card {
+    padding: 20px 20px;
+  }
+  .story-grid .nav-card-featured .story-card-decor {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .story-grid .nav-card-featured .story-card-title {
+    font-size: 2rem;
+  }
+}
+
+/* Spinner icon (replaces the old fa-spin animation for the Lucide loader-2 icon used in the feedback form's s... */
+.spin-icon {
+  animation: spin-icon-rotate 1s linear infinite;
+}
+@keyframes spin-icon-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===================================================================== LUCIDE ICON SIZING — fix-ups for spot... */
+
+.chip svg {
+  width: 12px;
+  height: 12px;
+  opacity: 0.8;
+}
+
+.series-intro-chevron svg {
+  width: 16px;
+  height: 16px;
+}
+
+.bulletin-more-chevron {
+  display: inline-flex;
+  transition: transform 0.2s ease;
+}
+.bulletin-more-chevron svg {
+  width: 12px;
+  height: 12px;
+}
+.bulletin-more-chevron.is-open {
+  transform: rotate(180deg);
+}
+
+.bulletin-read i {
+  display: inline-flex;
+  transition: transform 0.2s ease;
+}
+.bulletin-read i svg {
+  width: 12px;
+  height: 12px;
+}
+.bulletin-read:hover i {
+  transform: translateX(3px);
+}
+
+.bulletin-source svg,
+.bulletin-modal-source svg {
+  width: 12px;
+  height: 12px;
+}
+
+.bulletin-modal-close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.feedback-footer-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.feedback-close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.submit-spinner svg {
+  width: 14px;
+  height: 14px;
+  vertical-align: -2px;
+}
+
+/* Lucide sizing fix-ups for the "More from the Archive" cards, which still use the older .nav-card-icon / .na... */
+.nav-card-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.discover-grid .nav-card-icon svg {
+  width: 16px;
+  height: 16px;
+}
+.nav-card-arrow svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 1.75;
+}
+.discover-grid .nav-card-arrow {
+  width: 24px;
+  height: 24px;
+}
+.discover-grid .nav-card-arrow svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* ============================================================ EXPLORE THE STORY — final minimalist card trea... */
+.story-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.85fr) !important;
+  grid-template-rows: repeat(2, minmax(150px, 1fr)) !important;
+  grid-template-areas: "novels manga" "novels anime" !important;
+  gap: 14px !important;
+  max-width: 1040px;
+}
+.story-grid .nav-card {
+  position: relative !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  min-width: 0 !important;
+  padding: 22px !important;
+  border: 1px solid rgba(92, 75, 81, 0.12) !important;
+  border-radius: 20px !important;
+  background: rgba(255, 255, 255, 0.58) !important;
+  box-shadow: 0 10px 30px rgba(80, 55, 90, 0.055) !important;
+  text-decoration: none !important;
+  color: inherit !important;
+  isolation: isolate;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease !important;
+}
+.story-grid .nav-card:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 16px 36px rgba(80, 55, 90, 0.1) !important;
+  border-color: rgba(140, 90, 150, 0.24) !important;
+}
+.story-grid .nav-card::before {
+  display: none !important;
+}
+.story-grid .nav-card-featured {
+  grid-area: novels !important;
+}
+.story-grid .nav-card:nth-child(2) {
+  grid-area: manga !important;
+}
+.story-grid .nav-card:nth-child(3) {
+  grid-area: anime !important;
+}
+.story-grid .story-card-kicker {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  font-size: 0.64rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  color: var(--story-accent, #8c5a96) !important;
+  text-transform: uppercase;
+}
+.story-grid .story-card-kicker-line {
+  width: 22px !important;
+  height: 1px !important;
+  background: currentColor !important;
+  opacity: 0.65;
+}
+.story-grid .story-card-title {
+  margin: 9px 0 0 !important;
+  font-family: "Noto Serif JP", Georgia, serif !important;
+  font-size: 1.5rem !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.015em;
+  color: var(--text-main, #3d234d) !important;
+}
+.story-grid .nav-card-featured .story-card-title {
+  font-size: clamp(2rem, 4vw, 3.15rem) !important;
+  max-width: 78%;
+}
+.story-grid .story-card-desc {
+  margin: 10px 0 0 !important;
+  max-width: 560px;
+  font-size: 0.82rem !important;
+  line-height: 1.65 !important;
+  color: var(--text-muted, #766a78) !important;
+}
+.story-grid .story-card-underline {
+  display: none !important;
+}
+.story-grid .story-card-side-row {
+  align-items: center !important;
+  gap: 14px !important;
+}
+.story-grid .story-card-icon,
+.story-grid .story-card-decor {
+  position: relative !important;
+  inset: auto !important;
+  flex: 0 0 48px;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 14px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: var(--story-accent, #8c5a96) !important;
+  background: var(--accent-soft, rgba(140, 90, 150, 0.1)) !important;
+  opacity: 1 !important;
+  transform: none !important;
+  z-index: 2 !important;
+}
+.story-grid .story-card-decor {
+  position: absolute !important;
+  right: 22px !important;
+  bottom: 22px !important;
+  width: 66px !important;
+  height: 66px !important;
+  opacity: 0.12 !important;
+  border-radius: 18px !important;
+}
+.story-grid .story-card-icon svg,
+.story-grid .story-card-decor svg {
+  width: 23px !important;
+  height: 23px !important;
+}
+.story-grid .story-card-decor svg {
+  width: 32px !important;
+  height: 32px !important;
+}
+.story-grid .story-card-action {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-top: 20px !important;
+  color: var(--story-accent, #8c5a96) !important;
+}
+.story-grid .story-card-action-line {
+  width: 30px !important;
+  height: 1px !important;
+  background: currentColor !important;
+  opacity: 0.45;
+}
+.story-grid .story-card-action-btn,
+.story-grid .story-card-arrow {
+  width: 30px !important;
+  height: 30px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+  background: var(--accent-soft, rgba(140, 90, 150, 0.1)) !important;
+  color: var(--story-accent, #8c5a96) !important;
+}
+.story-grid .story-card-action-btn svg,
+.story-grid .story-card-arrow svg {
+  width: 14px !important;
+  height: 14px !important;
+}
+.story-grid .nav-card-side .story-card-arrow {
+  margin-top: 12px !important;
+  align-self: flex-end !important;
+}
+body.time-morning .story-grid .nav-card {
+  background: rgba(247, 250, 253, 0.72) !important;
+  border-color: rgba(95, 134, 170, 0.16) !important;
+}
+body.time-morning .story-grid .story-card-icon,
+body.time-morning .story-grid .story-card-decor {
+  color: #5f86aa !important;
+  background: rgba(95, 134, 170, 0.1) !important;
+}
+body.time-morning .story-grid .story-card-action-btn,
+body.time-morning .story-grid .story-card-arrow {
+  color: var(--story-accent) !important;
+  background: color-mix(in srgb, var(--story-accent) 10%, transparent) !important;
+}
+body.time-afternoon .story-grid .nav-card {
+  background: rgba(255, 255, 255, 0.58) !important;
+}
+body.time-night .story-grid .nav-card {
+  background: rgba(38, 29, 47, 0.82) !important;
+  border-color: rgba(221, 190, 226, 0.13) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18) !important;
+}
+body.time-night .story-grid .story-card-title {
+  color: #f1e8f4 !important;
+}
+body.time-night .story-grid .story-card-desc {
+  color: #bfaec7 !important;
+}
+body.time-night .story-grid .story-card-icon,
+body.time-night .story-grid .story-card-decor {
+  color: #d39bc6 !important;
+  background: rgba(211, 155, 198, 0.11) !important;
+}
+body.time-night .story-grid .story-card-action-btn,
+body.time-night .story-grid .story-card-arrow {
+  color: var(--story-accent) !important;
+  background: color-mix(in srgb, var(--story-accent) 11%, transparent) !important;
+}
+@media (max-width: 900px) {
+  .story-grid {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto !important;
+    grid-template-areas: "novels" "manga" "anime" !important;
+  }
+  .story-grid .nav-card-featured .story-card-title {
+    font-size: 2rem !important;
+    max-width: 76%;
+  }
+}
+@media (max-width: 520px) {
+  .story-grid .nav-card {
+    padding: 19px !important;
+    border-radius: 17px !important;
+  }
+  .story-grid .story-card-title {
+    font-size: 1.35rem !important;
+  }
+  .story-grid .nav-card-featured .story-card-title {
+    font-size: 1.8rem !important;
+  }
+  .story-grid .story-card-desc {
+    font-size: 0.78rem !important;
+  }
+}
+
+/* ============================================================ EXPLORE THE STORY — INTEGRATED ICON COMPOSITIO... */
+.story-grid .nav-card {
+  --story-accent: #c86b9b;
+  --story-icon-opacity: 0.12;
+  isolation: isolate !important;
+}
+.story-grid .nav-card::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 170px;
+  height: 170px;
+  right: -44px;
+  bottom: -54px;
+  border: 1px solid currentColor;
+  border-radius: 46% 54% 60% 40%;
+  color: var(--story-accent);
+  opacity: 0.1;
+  transform: rotate(-12deg);
+  pointer-events: none;
+}
+.story-grid .story-card-decor,
+.story-grid .story-card-icon {
+  background: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: var(--story-accent) !important;
+}
+.story-grid .story-card-decor {
+  position: absolute !important;
+  right: 26px !important;
+  bottom: 18px !important;
+  width: 118px !important;
+  height: 118px !important;
+  opacity: var(--story-icon-opacity) !important;
+  transform: rotate(-7deg) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+.story-grid .story-card-decor svg {
+  width: 100% !important;
+  height: 100% !important;
+  stroke-width: 1.15 !important;
+}
+.story-grid .story-card-side-row {
+  position: relative !important;
+  display: block !important;
+  padding-right: 72px !important;
+}
+.story-grid .story-card-icon {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  width: 52px !important;
+  height: 52px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 0.72 !important;
+}
+.story-grid .story-card-icon svg {
+  width: 34px !important;
+  height: 34px !important;
+  stroke-width: 1.25 !important;
+}
+.story-grid .story-card-side-row::after {
+  content: "";
+  position: absolute;
+  right: 9px;
+  top: 54px;
+  width: 34px;
+  height: 1px;
+  background: var(--story-accent);
+  opacity: 0.42;
+}
+.story-grid .story-card-title {
+  position: relative !important;
+  z-index: 2 !important;
+}
+.story-grid .story-card-desc {
+  position: relative !important;
+  z-index: 2 !important;
+}
+.story-grid .nav-card-featured .story-card-title {
+  max-width: 74% !important;
+}
+.story-grid .nav-card-featured::after {
+  width: 240px;
+  height: 240px;
+  right: -74px;
+  bottom: -92px;
+  opacity: 0.075;
+}
+.story-grid .nav-card-featured .story-card-decor {
+  width: 170px !important;
+  height: 170px !important;
+  right: 26px !important;
+  bottom: 14px !important;
+}
+.story-grid .story-card-action {
+  position: relative !important;
+  z-index: 3 !important;
+}
+.story-grid .story-card-action-btn,
+.story-grid .story-card-arrow {
+  background: transparent !important;
+  border: 1px solid color-mix(in srgb, var(--story-accent) 60%, transparent) !important;
+}
+body.time-morning .story-grid .nav-card {
+  --story-accent: #5f86aa;
+}
+body.time-afternoon .story-grid .nav-card {
+  --story-accent: #b86591;
+}
+body.time-night .story-grid .nav-card {
+  --story-accent: #d39bc6;
+}
+@media (max-width: 900px) {
+  .story-grid .nav-card-featured .story-card-title {
+    max-width: 72% !important;
+  }
+  .story-grid .nav-card-featured .story-card-decor {
+    width: 130px !important;
+    height: 130px !important;
+  }
+}
+@media (max-width: 520px) {
+  .story-grid .story-card-side-row {
+    padding-right: 58px !important;
+  }
+  .story-grid .story-card-icon {
+    width: 42px !important;
+    height: 42px !important;
+  }
+  .story-grid .story-card-icon svg {
+    width: 29px !important;
+    height: 29px !important;
+  }
+  .story-grid .story-card-side-row::after {
+    right: 4px;
+    top: 46px;
+    width: 28px;
+  }
+  .story-grid .nav-card-featured .story-card-decor {
+    width: 110px !important;
+    height: 110px !important;
+    right: 8px !important;
+  }
+}

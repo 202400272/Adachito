@@ -179,7 +179,12 @@ def schema_health():
         except Exception:
             continue
         checked += 1
-        ids = []
+        # Group ids by the top-level collection they belong to (the first path
+        # segment, e.g. "root.categories[3]" -> "categories"). Different
+        # collections in the same file legitimately reuse ids as foreign keys
+        # (e.g. help.json's `categories` link to `sections` by matching id),
+        # so only flag ids repeated *within* the same collection.
+        ids_by_collection = {}
         for location, record in _iter_records(data):
             if not isinstance(record, dict):
                 continue
@@ -188,13 +193,15 @@ def schema_health():
                 if not isinstance(value, (str, int)) or (isinstance(value, str) and not value.strip()):
                     problems.append(f"{path.relative_to(SRC)} {location}: invalid id")
                 else:
-                    ids.append(str(value))
+                    collection = location.split(".")[1].split("[")[0] if "." in location else location
+                    ids_by_collection.setdefault(collection, []).append(str(value))
             for key in ("title", "name"):
                 if key in record and isinstance(record[key], str) and not record[key].strip():
                     problems.append(f"{path.relative_to(SRC)} {location}: empty {key}")
-        dup = [v for v, c in Counter(ids).items() if c > 1]
-        if dup:
-            problems.append(f"{path.relative_to(SRC)} duplicate IDs: {', '.join(dup[:8])}")
+        for collection, ids in ids_by_collection.items():
+            dup = [v for v, c in Counter(ids).items() if c > 1]
+            if dup:
+                problems.append(f"{path.relative_to(SRC)} duplicate IDs in {collection}: {', '.join(dup[:8])}")
     status = "PASS" if not problems else "WARN"
     return status, f"{checked} JSON file(s) inspected · {len(problems)} schema/data issue(s)", problems, checked
 

@@ -1,0 +1,82 @@
+/* Channel information and astronaut */
+
+/* channel info card */
+.channel-info-card {
+  width: 100%;
+  max-width: 880px;
+  margin-top: 22px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1.5px solid rgba(209, 163, 198, 0.45);
+  padding: 22px 28px;
+  box-shadow: 0 8px 30px rgba(92, 58, 107, 0.1);
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  transition: all 0.4s ease;
+}
+.channel-info-icon {
+  font-size: 2rem;
+  color: #d1a3c6;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.channel-info-text h3 {
+  font-family: "Noto Serif JP", serif;
+  font-size: 1.15rem;
+  color: #5c3a6b;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.channel-info-text p {
+  font-size: 0.9rem;
+  color: #7a5e8a;
+  line-height: 1.6;
+}
+.channel-badge {
+  margin-left: auto;
+  font-family: "Special Elite", monospace;
+  font-size: 0.75rem;
+  color: rgba(92, 58, 107, 0.6);
+  background: rgba(209, 163, 198, 0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(209, 163, 198, 0.4);
+  white-space: nowrap;
+  align-self: center;
+  flex-shrink: 0;
+}
+
+/* floating astronaut */
+.floating-adashima {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 200px;
+  animation: float-astronaut 8s ease-in-out infinite;
+  z-index: 100;
+  filter: drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.2));
+}
+.floating-adashima img {
+  width: 100%;
+  border-radius: 0;
+  display: block;
+  object-fit: contain;
+  background: transparent;
+}
+@keyframes float-astronaut {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-15px) rotate(5deg);
+  }
+  66% {
+    transform: translateY(10px) rotate(-5deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}

@@ -1,0 +1,74 @@
+/* Audio and subtitle source selector */
+
+/* Source selector: quick audio/subtitle switching */
+.toolbar-source {
+  margin-left: auto;
+}
+.source-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  flex-wrap: wrap;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.035);
+}
+.source-option {
+  min-height: 34px;
+  padding: 0 11px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #a99eaa;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+.source-option:hover {
+  color: #f5eef4;
+  background: rgba(255, 255, 255, 0.06);
+}
+.source-option.active {
+  color: #281b29;
+  background: #ead8e7;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 900px) {
+  .player-toolbar {
+    padding-top: 8px;
+  }
+  .toolbar-source {
+    margin-left: 0;
+    order: -1;
+  }
+  .source-switcher {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 4px;
+    scroll-snap-type: x proximity;
+  }
+  .source-option {
+    min-height: 38px;
+    flex: 0 0 auto;
+    padding: 0 10px;
+    font-size: 10px;
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
+}
+@media (max-width: 420px) {
+  .source-option {
+    font-size: 10px;
+    letter-spacing: 0;
+  }
+}

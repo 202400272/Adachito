@@ -462,5 +462,10 @@
     "56": "Capitulo_56.pdf",
     "57": "Capitulo_57_new.pdf",
     "anthology:1": "https://media.adashimaverse.com/Manga_descarga/Antologia.pdf"
+  },
+  "volumeModal": {
+    "translation": "Traducción",
+    "chapters": "Capítulos",
+    "available": "Disponible para leer"
   }
 }

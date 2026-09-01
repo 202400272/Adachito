@@ -90,7 +90,7 @@ async function loadContent(lang) {
           }
         }
       } catch {
-        /* ignored */
+        // Ignore persistence or optional browser API failures.
       }
     }
     if (lang === "es") {
@@ -110,7 +110,7 @@ async function loadContent(lang) {
           }
         }
       } catch {
-        /* ignored */
+        // Ignore persistence or optional browser API failures.
       }
     }
     console.warn("Failed to load language file:", e.message);
@@ -135,7 +135,7 @@ async function loadRewards(lang) {
         });
         if (fallback.ok) return await fallback.json();
       } catch {
-        /* ignored */
+        // Ignore persistence or optional browser API failures.
       }
     }
     console.warn("Failed to load rewards file:", e.message);
@@ -160,7 +160,7 @@ async function loadConstellations(lang) {
         });
         if (fallback.ok) return await fallback.json();
       } catch {
-        /* ignored */
+        // Ignore persistence or optional browser API failures.
       }
     }
     console.warn("Failed to load constellations file:", e.message);
@@ -487,7 +487,7 @@ function saveProgress() {
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch {
-    /* ignored */
+    // Ignore persistence or optional browser API failures.
   }
 }
 
@@ -1114,7 +1114,7 @@ function playCompletionSound() {
       osc.stop(ac.currentTime + i * 0.12 + 0.4);
     });
   } catch {
-    /* ignored */
+    // Ignore persistence or optional browser API failures.
   }
 }
 
@@ -1137,7 +1137,7 @@ function playFinalSound() {
       osc.stop(ac.currentTime + i * 0.08 + 2.5);
     });
   } catch {
-    /* ignored */
+    // Ignore persistence or optional browser API failures.
   }
 }
 
@@ -1150,7 +1150,7 @@ function toggleSound() {
     try {
       getAudioCtx().resume();
     } catch {
-      /* ignored */
+      // Ignore persistence or optional browser API failures.
     }
     playCompletionSound();
   }

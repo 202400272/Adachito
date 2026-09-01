@@ -63,6 +63,7 @@
     <link rel="icon" type="image/png" sizes="512x512" href="/assets/Imagenes/icon-512x512.webp" />
     <link rel="stylesheet" href="/src/components/styles/footer.css" />
     <link rel="stylesheet" href="/src/components/styles/feedback.css" />
+    <link rel="stylesheet" href="/src/components/styles/scrollbar.css" />
   </head>
   <body>
     <div class="particles" id="particles"></div>
@@ -375,7 +376,11 @@
                     data-i18n-tg="Mga thumbnail"
                     >Miniaturas</span
                   >
-                  <button class="pdf-btn pdf-thumbnails-close" id="pdfThumbnailsClose">
+                  <button
+                    class="pdf-btn pdf-thumbnails-close"
+                    id="pdfThumbnailsClose"
+                    aria-label="Close thumbnails"
+                  >
                     <i class="fas fa-times"></i>
                   </button>
                 </div>

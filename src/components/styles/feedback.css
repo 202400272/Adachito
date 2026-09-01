@@ -284,10 +284,7 @@
   color: #f0e6ff;
 }
 
-/* Custom "Feedback Type" dropdown.
-   The real <select> (.feedback-select-native) stays in the DOM as the form's
-   source of truth but is visually hidden — this trigger + listbox pair is
-   the styled stand-in the person actually sees and interacts with. */
+/* Custom "Feedback Type" dropdown. */
 .feedback-select-wrap {
   position: relative;
 }
@@ -569,9 +566,7 @@
   margin: 0;
 }
 
-/* ============================================================
-   FOOTER BUTTON - MORE PROMINENT & MODERN
-   ============================================================ */
+/* ============================================================ FOOTER BUTTON - MORE PROMINENT & MODERN ======... */
 
 .feedback-footer-btn {
   background: linear-gradient(135deg, rgba(232, 121, 169, 0.15), rgba(192, 132, 252, 0.15));
@@ -670,9 +665,7 @@
   animation: feedbackBtnPulse 2s ease-in-out 2;
 }
 
-/* ============================================================
-   ANIMATIONS
-   ============================================================ */
+/* ============================================================ ANIMATIONS ===================================... */
 
 @keyframes feedbackFadeIn {
   from {
@@ -770,9 +763,7 @@
   animation: feedbackShake 0.4s ease;
 }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
+/* ============================================================ RESPONSIVE ===================================... */
 
 @media (max-width: 640px) {
   .feedback-container {

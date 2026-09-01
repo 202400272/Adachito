@@ -1,4 +1,4 @@
-/* ---------- default states (both hidden) ---------- */
+/* default states (both hidden) */
 .volumes-grid {
   display: none;
 }
@@ -7,7 +7,7 @@
   display: none;
 }
 
-/* ---------- GRID VIEW ---------- */
+/* GRID VIEW */
 .update-box.view-grid .volumes-grid {
   display: grid !important;
 }
@@ -16,7 +16,7 @@
   display: none !important;
 }
 
-/* ---------- LIST VIEW ---------- */
+/* LIST VIEW */
 .update-box.view-list .manga-item {
   display: block !important;
 }

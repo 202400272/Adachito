@@ -1,0 +1,347 @@
+{
+  "ui": {
+    "lang": "en",
+    "back": "Others",
+    "eyebrow": "WEB STORIES",
+    "title": "Published Web Stories",
+    "intro": "A directory of stories and related material published online, with Japanese and English titles, publication status, translations, and contextual notes.",
+    "stories": "Stories",
+    "featuredVolume": "Included in official volumes",
+    "auChapters": "AU Chapters",
+    "auShare": "Share of all series chapters",
+    "search": "Search by Japanese or English title...",
+    "searchAria": "Search published web stories",
+    "clearSearchAria": "Clear search",
+    "all": "All",
+    "featured": "Included in volumes",
+    "notFeatured": "Web-only",
+    "au": "AU",
+    "crossover": "Crossover",
+    "filterAria": "Filter stories",
+    "directory": "DIRECTORY",
+    "directoryTitle": "Published Web Stories",
+    "source": "Source",
+    "type": "Type",
+    "status": "Publication Status",
+    "translator": "English Translation",
+    "notes": "Notes",
+    "resultOne": "story",
+    "resultMany": "stories",
+    "noResults": "No stories match your current search or filters.",
+    "reference": "REFERENCE",
+    "auTitle": "Alternate Universe Chapters",
+    "auIntro": "A reference list of alternate-universe chapters, which account for 7.53% of all chapters in the series.",
+    "misc": "Additional Notes",
+    "mobileType": "Type",
+    "mobileTranslator": "English Translation",
+    "statuses": {
+      "featured": "Included in SS",
+      "featuredPartial": "Partially included in SS2",
+      "notFeatured": "Web-only"
+    },
+    "jpTitle": "Japanese Title",
+    "enTitle": "English Title",
+    "directoryStatsAria": "Web story directory statistics",
+    "backAria": "Return to Others",
+    "auToggleAria": "Show or hide alternate-universe chapters",
+    "notesToggleAria": "Show or hide additional notes"
+  },
+  "stories": [
+    {
+      "jpTitle": "別にこうなる予定はないかもしれない10年後",
+      "enTitle": "Ten Years Later (Or a Future That May Never Happen)",
+      "source": "Kakuyomu",
+      "type": "Short Story",
+      "status": "Not featured",
+      "notes": "",
+      "translator": "",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/1177354054935507231](https://kakuyomu.jp/works/1177354054897444952/episodes/1177354054935507231)",
+      "translationUrl": null
+    },
+    {
+      "jpTitle": "",
+      "enTitle": "happy birthday",
+      "source": "Kakuyomu",
+      "type": "Short Story",
+      "status": "Not featured",
+      "notes": "",
+      "translator": "",
+      "sourceUrl": null,
+      "translationUrl": null
+    },
+    {
+      "jpTitle": "としまむら",
+      "enTitle": "\"And Shimamura\"",
+      "source": "Kakuyomu",
+      "type": "Short Story",
+      "status": "Featured in SS",
+      "notes": "",
+      "translator": "",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/1177354054934072642](https://kakuyomu.jp/works/1177354054897444952/episodes/1177354054934072642)",
+      "translationUrl": null
+    },
+    {
+      "jpTitle": "クリスマスは去年やった気がするから、今年は冬休み",
+      "enTitle": "We Did Christmas Last Year, So How About Winter Break This Time?",
+      "source": "Kakuyomu",
+      "type": "Short Story",
+      "status": "Not featured",
+      "notes": "",
+      "translator": "Sneikkimies",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/1177354054934436902](https://kakuyomu.jp/works/1177354054897444952/episodes/1177354054934436902)",
+      "translationUrl": "[https://sneikkimies.github.io/#/shortreader/?target=ChristmasLastYear](https://sneikkimies.github.io/#/shortreader/?target=ChristmasLastYear)"
+    },
+    {
+      "jpTitle": "いっちばーん",
+      "enTitle": "Number One",
+      "source": "Kakuyomu",
+      "type": "Short Story",
+      "status": "Not featured",
+      "notes": "",
+      "translator": "",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/1177354055450766712](https://kakuyomu.jp/works/1177354054897444952/episodes/1177354055450766712)",
+      "translationUrl": null
+    },
+    {
+      "jpTitle": "しまむら家の謎",
+      "enTitle": "The Mystery of the Shimamura Family",
+      "source": "Kakuyomu",
+      "type": "Short Story",
+      "status": "Not featured",
+      "notes": "",
+      "translator": "",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/16816452218471455977](https://kakuyomu.jp/works/1177354054897444952/episodes/16816452218471455977)",
+      "translationUrl": null
+    },
+    {
+      "jpTitle": "みろよくりすますのかがやきはあたたかい",
+      "enTitle": "Look, the Glow of Christmas Is Warm",
+      "source": "Kakuyomu",
+      "type": "Short Story",
+      "status": "Featured in SS",
+      "notes": "",
+      "translator": "",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/16816927859260137431](https://kakuyomu.jp/works/1177354054897444952/episodes/16816927859260137431)",
+      "translationUrl": null
+    },
+    {
+      "jpTitle": "わたしたちのやったことをみとめてくれるあたたかさだぜ",
+      "enTitle": "The Warmth That Watches Over the Fruits of Our Labour",
+      "source": "Kakuyomu",
+      "type": "Short Story",
+      "status": "Featured in SS",
+      "notes": "Directly connected to \"The Noes of Elephant.\"",
+      "translator": "",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/16816927859290053935](https://kakuyomu.jp/works/1177354054897444952/episodes/16816927859290053935)",
+      "translationUrl": null
+    },
+    {
+      "jpTitle": "私の初恋相手がキスしてた×安達としまむらコラボＳＳ",
+      "enTitle": "My First Love Was Kissing × Adachi and Shimamura Crossover SS",
+      "source": "Kakuyomu",
+      "type": "Short Story, Crossover",
+      "status": "Not featured",
+      "notes": "A crossover with My First Love Was Kissing.",
+      "translator": "",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/16816927859643359488](https://kakuyomu.jp/works/1177354054897444952/episodes/16816927859643359488)",
+      "translationUrl": null
+    },
+    {
+      "jpTitle": "私の初恋相手がキスしてた×安達としまむらコラボＳＳ　不安定なる完全",
+      "enTitle": "My First Love Was Kissing × Adachi and Shimamura Crossover SS: \"Unstable Perfection\"",
+      "source": "Kakuyomu",
+      "type": "Short Story, Crossover",
+      "status": "Not featured",
+      "notes": "A crossover with My First Love Was Kissing.",
+      "translator": "",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/16816927859985378330](https://kakuyomu.jp/works/1177354054897444952/episodes/16816927859985378330)",
+      "translationUrl": null
+    },
+    {
+      "jpTitle": "The Noes of Elephant",
+      "enTitle": "The Noes of Elephant",
+      "source": "Kakuyomu",
+      "type": "Short Story",
+      "status": "Not featured",
+      "notes": "Prequel to \"The Warmth That Watches Over the Fruits of Our Labour.\"",
+      "translator": "Sneikkimies",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/16816927861088041348](https://kakuyomu.jp/works/1177354054897444952/episodes/16816927861088041348)",
+      "translationUrl": "[https://sneikkimies.github.io/#/shortreader/?target=NoesOfElephant](https://sneikkimies.github.io/#/shortreader/?target=NoesOfElephant)"
+    },
+    {
+      "jpTitle": "味変",
+      "enTitle": "Change of Flavour",
+      "source": "Kakuyomu",
+      "type": "Short Story",
+      "status": "Featured in SS",
+      "notes": "",
+      "translator": "",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/16817330651038458352](https://kakuyomu.jp/works/1177354054897444952/episodes/16817330651038458352)",
+      "translationUrl": null
+    },
+    {
+      "jpTitle": "宇宙さえ知らない",
+      "enTitle": "Ever Mysterious Space",
+      "source": "Kakuyomu",
+      "type": "Short Story",
+      "status": "Featured in SS",
+      "notes": "",
+      "translator": "",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/16817330653911556246](https://kakuyomu.jp/works/1177354054897444952/episodes/16817330653911556246)",
+      "translationUrl": null
+    },
+    {
+      "jpTitle": "安達としまむら四方山話",
+      "enTitle": "Adachi and Shimamura: Miscellaneous Tales",
+      "source": "Kakuyomu",
+      "type": "Short Story",
+      "status": "Featured in SS2 (partial)",
+      "notes": "",
+      "translator": "",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/16818093073726840989](https://kakuyomu.jp/works/1177354054897444952/episodes/16818093073726840989)",
+      "translationUrl": null
+    },
+    {
+      "jpTitle": "安達としまむら四方山話その２",
+      "enTitle": "Adachi and Shimamura: Miscellaneous Tales, Part 2",
+      "source": "Kakuyomu",
+      "type": "Short Story",
+      "status": "Featured in SS2 (partial)",
+      "notes": "",
+      "translator": "",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/16818093074169293939](https://kakuyomu.jp/works/1177354054897444952/episodes/16818093074169293939)",
+      "translationUrl": null
+    },
+    {
+      "jpTitle": "安達としまむら四方山話その３",
+      "enTitle": "Adachi and Shimamura: Miscellaneous Tales, Part 3",
+      "source": "Kakuyomu",
+      "type": "Short Story",
+      "status": "Featured in SS2 (partial)",
+      "notes": "",
+      "translator": "",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/16818093074579321323](https://kakuyomu.jp/works/1177354054897444952/episodes/16818093074579321323)",
+      "translationUrl": null
+    },
+    {
+      "jpTitle": "休日　Nice Sols",
+      "enTitle": "Holiday: Nice Sols",
+      "source": "Kakuyomu",
+      "type": "Anthology, Short Story",
+      "status": "Not featured",
+      "notes": "An anthology featuring Adachi and Shimamura.",
+      "translator": "",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/16818093090943385005](https://kakuyomu.jp/works/1177354054897444952/episodes/16818093090943385005)",
+      "translationUrl": null
+    },
+    {
+      "jpTitle": "ちょっとしたその後",
+      "enTitle": "Shortly After",
+      "source": "Kakuyomu",
+      "type": "Short Story, AU",
+      "status": "Not featured",
+      "notes": "An epilogue to the \"If Adachi Were a Teacher\" AU chapter (Vol. 12, Ch. 1).",
+      "translator": "Sneikkimies",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/16818093091659694404](https://kakuyomu.jp/works/1177354054897444952/episodes/16818093091659694404)",
+      "translationUrl": "[https://sneikkimies.github.io/#/shortreader/?target=afterschool](https://sneikkimies.github.io/#/shortreader/?target=afterschool)"
+    },
+    {
+      "jpTitle": "昨日なぁのぉだぁ",
+      "enTitle": "It Was Yesterdaaay",
+      "source": "Kakuyomu",
+      "type": "Short Story",
+      "status": "Not featured",
+      "notes": "",
+      "translator": "",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/16818622172872413269](https://kakuyomu.jp/works/1177354054897444952/episodes/16818622172872413269)",
+      "translationUrl": null
+    },
+    {
+      "jpTitle": "こどもの日は過ぎたけど子供がいたら",
+      "enTitle": "Children's Day Has Passed, but What If They Had Children?",
+      "source": "Kakuyomu",
+      "type": "Short Story, AU",
+      "status": "Not featured",
+      "notes": "",
+      "translator": "Sneikkimies",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/16818622174716276215](https://kakuyomu.jp/works/1177354054897444952/episodes/16818622174716276215)",
+      "translationUrl": "[https://sneikkimies.github.io/#/shortreader/?target=Mothers](https://sneikkimies.github.io/#/shortreader/?target=Mothers)"
+    },
+    {
+      "jpTitle": "もしもともしもでもしもしも",
+      "enTitle": "If Ifs and Ifs If Ifs",
+      "source": "Kakuyomu",
+      "type": "Short Story, AU",
+      "status": "Not featured",
+      "notes": "A crossover between the \"If Adachi Were a Teacher\" AU (Vol. 12, Ch. 1) and Married Teacher. Contains spoilers for Married Teacher.",
+      "translator": "",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/822139836217613649](https://kakuyomu.jp/works/1177354054897444952/episodes/822139836217613649)",
+      "translationUrl": null
+    },
+    {
+      "jpTitle": "もしもともしもでもしもしももしもしもしも",
+      "enTitle": "If Ifs and Ifs If Ifs If If Ifs",
+      "source": "Kakuyomu",
+      "type": "Short Story, AU",
+      "status": "Not featured",
+      "notes": "",
+      "translator": "",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/822139837896549929](https://kakuyomu.jp/works/1177354054897444952/episodes/822139837896549929)",
+      "translationUrl": null
+    },
+    {
+      "jpTitle": "誕生日二日目",
+      "enTitle": "Day Two of My Birthday",
+      "source": "Kakuyomu",
+      "type": "Short Story",
+      "status": "Not featured",
+      "notes": "The first story to reference Adachi's birthday.",
+      "translator": "",
+      "sourceUrl": "[https://kakuyomu.jp/works/1177354054897444952/episodes/2912051597433894240](https://kakuyomu.jp/works/1177354054897444952/episodes/2912051597433894240)",
+      "translationUrl": null
+    }
+  ],
+  "stats": {
+    "storyCount": 23,
+    "auCount": 7,
+    "auWeight": "7.53%"
+  },
+  "auChapters": [
+    {
+      "number": 1,
+      "title": "If Everyone Was Little",
+      "volume": "Volume 5"
+    },
+    {
+      "number": 2,
+      "title": "If They Hadn't Met on the Gym's Second Floor",
+      "volume": "Volume 7"
+    },
+    {
+      "number": 3,
+      "title": "If Adachi Had Stayed the Way She Was at First",
+      "volume": "Volume 7"
+    },
+    {
+      "number": 4,
+      "title": "In This World",
+      "volume": "Volume 7"
+    },
+    {
+      "number": 5,
+      "title": "If Adachi Were a Teacher",
+      "volume": "Volume 12"
+    },
+    {
+      "number": 6,
+      "title": "If Adachi Were a Novelist",
+      "volume": "Volume 12"
+    },
+    {
+      "number": 7,
+      "title": "If Shimamura Went Back to the...",
+      "volume": "Volume 12"
+    }
+  ],
+  "notes": "AU — Alternate Universe. A story that diverges from the main timeline, setting, or established circumstances.\nSS — Short Story 1, the first official Adachi and Shimamura short story collection.\nSS2 — Short Story 2, the second official Adachi and Shimamura short story collection.\nIncluded — Published or incorporated into an official short story volume.\nWeb-only — Published independently on Kakuyomu and not included in an official release.\nAnthology — A collection containing multiple stories, which may include characters or settings from the author's other works.\nCrossover — A story that brings together characters or settings from multiple works, such as Adachi and Shimamura × My First Love Was Kissing.\nKakuyomu — A Japanese web novel and self-publishing platform.\nPartial — Only part of the original story, or material derived from it, appears in the referenced official publication.\nHitohama — A Story About a Married Teacher Who Becomes Obsessed With Her Female Student, a web novel.\nNote — Stories published on Kakuyomu may differ from their versions in official short story volumes. Material may be revised, rewritten, expanded, or otherwise altered for official publication."
+}

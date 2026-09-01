@@ -97,7 +97,7 @@ npm run preview
 
 ## Documentation
 
-The root README provides a quick overview. More detailed documentation is available in [`docs/`](docs/).
+The root README provides a quick overview. More detailed documentation is available in [`docs/`](docs/). The CSS source is organized by page, with folder-based `main.css` entry points and smaller component/feature modules.
 
 | Document                                 | Description                                                            |
 | ---------------------------------------- | ---------------------------------------------------------------------- |
@@ -138,7 +138,7 @@ adashimaverse/
 ├── src/
 │   ├── pages/        # HTML pages
 │   ├── js/           # Client-side functionality
-│   ├── css/          # Styles and themes
+│   ├── css/          # Shared styles and page/component styles
 │   └── data/         # Structured catalogue content
 │
 ├── public/           # Static public assets

@@ -1,0 +1,89 @@
+/* Surface cleanup and time themes */
+
+/* Clean surface redesign: no image backgrounds ===== */
+
+.main-content {
+  background:
+    radial-gradient(circle at 85% 10%, rgba(213, 103, 150, 0.1), transparent 28%),
+    radial-gradient(circle at 10% 85%, rgba(100, 138, 183, 0.08), transparent 30%),
+    linear-gradient(135deg, #f8f6fb 0%, #f2eaf7 55%, #edf3fa 100%) !important;
+  background-attachment: fixed !important;
+}
+.main-content::before {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(8px);
+}
+
+/* LOCAL TIME-OF-DAY THEME ===== */
+/* CRT/video surfaces intentionally keep their original design. */
+body.time-morning {
+  --page-bg: linear-gradient(135deg, #eaf3fb 0%, #edf0fa 58%, #f3ebf7 100%);
+  --page-text: #4f5f73;
+  --page-surface: rgba(247, 250, 253, 0.88);
+  --page-border: rgba(95, 134, 170, 0.2);
+}
+body.time-afternoon {
+  --page-bg: linear-gradient(135deg, #f3e6ee 0%, #e8cdd4 55%, #f6e8d3 100%);
+  --page-text: #4a3b52;
+  --page-surface: rgba(255, 248, 244, 0.9);
+  --page-border: rgba(140, 90, 150, 0.18);
+}
+body.time-night {
+  --page-bg: linear-gradient(135deg, #17121e 0%, #211827 55%, #171d2a 100%);
+  --page-text: #f2eaf5;
+  --page-surface: rgba(43, 33, 51, 0.92);
+  --page-border: rgba(221, 190, 226, 0.15);
+}
+body.time-morning .main-content,
+body.time-afternoon .main-content,
+body.time-night .main-content {
+  background: var(--page-bg) !important;
+  color: var(--page-text) !important;
+}
+body.time-morning .header-container,
+body.time-morning .header-top-controls,
+body.time-afternoon .header-container,
+body.time-afternoon .header-top-controls,
+body.time-night .header-container,
+body.time-night .header-top-controls {
+  background: var(--page-surface) !important;
+  border-color: var(--page-border) !important;
+  color: var(--page-text) !important;
+}
+body.time-morning .header-container h1,
+body.time-morning .header-container h2,
+body.time-morning .header-container p,
+body.time-afternoon .header-container h1,
+body.time-afternoon .header-container h2,
+body.time-afternoon .header-container p,
+body.time-night .header-container h1,
+body.time-night .header-container h2,
+body.time-night .header-container p {
+  color: var(--page-text) !important;
+}
+
+/* ===== THEME SURFACE CLEANUP ===== Keep the page background seamless while preserving the CRT surfaces. */
+body.time-morning,
+body.time-afternoon,
+body.time-night {
+  background: var(--page-bg) !important;
+  color: var(--page-text) !important;
+}
+body.time-morning .main-content,
+body.time-afternoon .main-content,
+body.time-night .main-content {
+  background: transparent !important;
+}
+body.time-morning .main-content::before,
+body.time-afternoon .main-content::before,
+body.time-night .main-content::before {
+  display: none !important;
+}
+body.time-morning .header-container,
+body.time-afternoon .header-container,
+body.time-night .header-container,
+body.time-morning .header-top-controls,
+body.time-afternoon .header-top-controls,
+body.time-night .header-top-controls {
+  background: transparent !important;
+}

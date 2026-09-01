@@ -1,7 +1,4 @@
-/* ============================================================
-   EXTRA STORIES — COMPLETE LIBRARY / BOOKPLATE REDESIGN
-   Keeps existing markup + JS functionality intact.
-   ============================================================ */
+/* ============================================================ EXTRA STORIES — COMPLETE LIBRARY / BOOKPLATE R... */
 
 :root {
   --es-ink: #332a36;
@@ -37,10 +34,11 @@ body::before {
 }
 
 .extra-main {
-  width: calc(100% - 300px);
-  max-width: 1320px;
+  /* Keep the page canvas full width; do not reserve space for the menu. */
+  width: 100%;
+  max-width: none;
   padding: 1.5rem 3.5rem 5rem;
-  margin-left: auto;
+  margin: 0;
   position: relative;
   z-index: 2;
 }

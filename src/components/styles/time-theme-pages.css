@@ -1,8 +1,4 @@
-/* ============================================================
-   SHARED PAGE TIME THEMES
-   The menu owns the body.time-* class; these rules style the
-   independent page surfaces, players and modals consistently.
-   ============================================================ */
+/* ============================================================ SHARED PAGE TIME THEMES The menu owns the body... */
 
 /* HELP */
 body.time-morning {
@@ -384,11 +380,7 @@ body.time-night .volume-card-title {
   color: #ead8ec !important;
 }
 
-/* ============================================================
-   MANGA / CD DRAMA / LIGHT NOVELS
-   These pages follow the same automatic morning / afternoon /
-   night appearance as Help, About, Music and Stats.
-   ============================================================ */
+/* ============================================================ MANGA / CD DRAMA / LIGHT NOVELS These pages fo... */
 
 :root {
   --content-theme-bg: linear-gradient(135deg, #eaf3fb, #edf0fa 60%, #f3ebf7);
@@ -719,11 +711,7 @@ body.time-night details[open].novel-item {
   border-color: var(--content-theme-accent) !important;
 }
 
-/* ============================================================
-   ABOUT / OTROS / AUTHOR ARCHIVE / LINEA SUPPORT
-   These pages use older standalone palettes, so explicitly map
-   their major surfaces to the same time-based theme language.
-   ============================================================ */
+/* ============================================================ ABOUT / OTROS / AUTHOR ARCHIVE / LINEA SUPPORT... */
 
 /* ABOUT — remove the pale/white wash behind the content. */
 body.time-morning .about-shell,

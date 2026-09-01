@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Quicksand:wght@300;400;600;700&display=swap");
 
-/* ===== MOBILE INTERACTION ===== */
+/* MOBILE INTERACTION ===== */
 
 /* Remove the blue tap highlight on mobile browsers */
 * {
@@ -112,19 +112,21 @@ body {
   z-index: 2;
   background: linear-gradient(135deg, #f8f6fb, #f3eaf8, #edf4fa);
   min-width: 0;
+  width: 100%;
 }
 
 .main-content::before {
   content: "";
   position: fixed;
-  top: 0;
-  left: 300px;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.65);
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.02));
   z-index: -1;
   pointer-events: none;
   backdrop-filter: blur(2px);
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
 body.time-morning {
@@ -516,7 +518,7 @@ canvas {
   }
 }
 
-/* ===== Clean surface redesign: no image backgrounds ===== */
+/* Clean surface redesign: no image backgrounds ===== */
 
 .main-content {
   background:

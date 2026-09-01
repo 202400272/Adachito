@@ -3,7 +3,7 @@ const PDFJS_CDN = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDFJS_VERSION
 try {
   pdfjsLib.GlobalWorkerOptions.workerSrc = `${PDFJS_CDN}/pdf.worker.min.js`;
 } catch {
-  /* ignored */
+  // Ignore persistence failures when storage is unavailable.
 }
 
 let modalPdfDoc = null;
@@ -16,7 +16,8 @@ let modalRenderTask = null;
 let modalThumbnails = [];
 let modalThumbnailsVisible = false;
 let modalThumbnailsRendered = false;
-let modalReadingMode = localStorage.getItem("adashima_pdf_mode") || "single";
+const savedPdfMode = localStorage.getItem("adashima_pdf_mode");
+let modalReadingMode = savedPdfMode === "continuous" ? "cascade" : "single";
 let cascadeObserver = null;
 let cascadeScrollObserver = null;
 let cascadeUnloadObserver = null;
@@ -1293,10 +1294,10 @@ let currentLang = (() => {
 let _isSwitching = false;
 let translations = null;
 
-// ===== SUPPORTED LANGUAGES =====
+// Supported languages
 const SUPPORTED_LANGUAGES = ["es", "en", "tg"];
 
-// ===== LANGUAGE NORMALIZATION WITH FALLBACK TO 'es' =====
+// Normalize language with Spanish fallback
 function normalizeLanguage(lang, fallback) {
   fallback = fallback || "es";
   if (!lang) return fallback;
@@ -1315,7 +1316,7 @@ function normalizeLanguage(lang, fallback) {
 window.normalizeLanguage = normalizeLanguage;
 window.SUPPORTED_LANGUAGES = SUPPORTED_LANGUAGES;
 
-// ===== SIMPLIFIED: Read all version data from JSON =====
+// Load version data from JSON
 function getVersionData(version) {
   if (!translations || !translations.versions) return null;
   return translations.versions[version] || null;
@@ -1346,7 +1347,7 @@ function getVolumeThumbnail(version, volume) {
   return versionThumbs[`volume_${volume}`] || null;
 }
 
-// ===== MANGA CONFIG =====
+// Manga reader configuration
 const MANGA_CONFIG = {
   get chapters() {
     const chapters = getChaptersForVersion(currentVersion);
@@ -1724,39 +1725,97 @@ function buildListChapterHTML(ch) {
         `;
 }
 
+function getGridTranslationCredit() {
+  const credits = {
+    moke: { name: "Cuetie Scans", url: "https://discord.gg/xCRUwzhqyJ" },
+    mani: { name: "Sneikkimies", url: "https://sneikkimies.github.io/" },
+    anthology: { name: "Sneikkimies", url: "https://sneikkimies.github.io/" },
+  };
+  return credits[currentVersion] || null;
+}
+
 function buildGridVolumeHTML(volume, chapters) {
   const volumeLabel = getText("chapterLabels.volume") || "Volume";
   const displayTitle = `${volumeLabel} ${volume}`;
   const chapterLabel = getText("chapterLabels.chapter") || "Chapter";
-  let chaptersHtml = "";
+  const desc = chapters.length > 0 ? MANGA_CONFIG.getDescription(chapters[0].id) || "" : "";
+  const thumbUrl = MANGA_CONFIG.getVolumeThumbnail(volume);
+  const thumbAlt = displayTitle;
+  const summary = `${chapters.length} ${chapterLabel}${chapters.length > 1 ? "s" : ""}${desc ? ` · ${desc}` : ""}`;
+  return `
+    <article class="volume-card" data-volume="${volume}" tabindex="0" role="button" aria-label="Open ${displayTitle}">
+      ${thumbUrl ? `<img class="card-img" src="${thumbUrl}" alt="${thumbAlt}" loading="lazy" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'card-img card-img-placeholder\'><i class=\'fas fa-book-open\'></i></div>'">` : `<div class="card-img card-img-placeholder"><i class="fas fa-book-open"></i></div>`}
+      <div class="card-body">
+        <div class="card-title">${displayTitle}</div>
+        <div class="card-desc">${summary}</div>
+      </div>
+    </article>`;
+}
 
-  for (const ch of chapters) {
-    chaptersHtml += buildGridChapterHTML(ch);
+let volumeModalCloseTimer = null;
+
+function openVolumeModal(volume) {
+  const data = getVersionData(currentVersion);
+  const chapters = Object.keys(data?.chapters || {})
+    .map(Number)
+    .filter(Number.isFinite)
+    .filter((id) => Number(data.chapters[id]) === Number(volume));
+  const modal = document.getElementById("volumeModal");
+  const content = document.getElementById("volumeModalContent");
+  if (!modal || !content) return;
+
+  clearTimeout(volumeModalCloseTimer);
+  modal.classList.remove("is-closing");
+
+  const title = `${getText("chapterLabels.volume") || "Volume"} ${volume}`;
+  const chapterLabel = getText("chapterLabels.chapter") || "Chapter";
+  const credit = getGridTranslationCredit();
+  const cover = MANGA_CONFIG.getVolumeThumbnail(volume);
+  const list = chapters.map((id) => buildGridChapterHTML({ id })).join("");
+  const translationLabel = getText("volumeModal.translation") || "Translation";
+
+  content.innerHTML = `
+    <div class="volume-modal-content">
+      <div class="volume-modal-cover-panel">
+        ${cover ? `<img class="volume-modal-cover" src="${cover}" alt="${title}">` : `<div class="volume-modal-cover card-img-placeholder"><i class="fas fa-book-open"></i></div>`}
+      </div>
+      <div class="volume-modal-details">
+        <div class="volume-modal-header">
+          <h2 class="volume-modal-title">${title}</h2>
+          <p class="volume-modal-meta">${chapters.length} ${chapterLabel}${chapters.length !== 1 ? "s" : ""}</p>
+        </div>
+        ${credit ? `<div class="volume-modal-credit"><i class="fas fa-language" aria-hidden="true"></i><span>${translationLabel}</span><a href="${credit.url}" target="_blank" rel="noopener noreferrer">${credit.name}</a></div>` : ""}
+        <div class="volume-modal-chapters">${list}</div>
+      </div>
+    </div>`;
+
+  modal.hidden = false;
+  document.body.style.overflow = "hidden";
+  requestAnimationFrame(() => {
+    modal.classList.add("is-open");
+    modal.querySelector(".volume-modal-close")?.focus({ preventScroll: true });
+  });
+}
+
+function closeVolumeModal(immediate = false) {
+  const modal = document.getElementById("volumeModal");
+  if (!modal || modal.hidden) return;
+  clearTimeout(volumeModalCloseTimer);
+
+  if (immediate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    modal.classList.remove("is-open", "is-closing");
+    modal.hidden = true;
+    document.body.style.overflow = "";
+    return;
   }
 
-  const desc = chapters.length > 0 ? MANGA_CONFIG.getDescription(chapters[0].id) || "" : "";
-
-  let thumbUrl = MANGA_CONFIG.getVolumeThumbnail(volume);
-  let thumbAlt = displayTitle;
-
-  return `
-            <div class="volume-card" data-volume="${volume}">
-                <div class="card-img-wrap">
-                    ${thumbUrl ? `<img class="card-img" src="${thumbUrl}" alt="${thumbAlt}" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\\'card-img-placeholder\\'><i class=\\'fas fa-book-open\\'></i></div>';">` : `<div class="card-img-placeholder"><i class="fas fa-book-open"></i></div>`}
-                </div>
-                <div class="card-body">
-                    <div class="card-title">${displayTitle}</div>
-                    <div class="card-meta">${chapters.length} ${chapterLabel}${chapters.length > 1 ? "s" : ""}</div>
-                    ${desc ? `<div class="card-desc">${desc}</div>` : ""}
-                </div>
-                <button class="card-expand-btn" type="button">
-                    <i class="fas fa-chevron-down"></i> ${getText("viewList") || "List"} ${chapterLabel}${chapters.length > 1 ? "s" : ""}
-                </button>
-                <div class="volume-chapters">
-                    ${chaptersHtml}
-                </div>
-            </div>
-        `;
+  modal.classList.remove("is-open");
+  modal.classList.add("is-closing");
+  volumeModalCloseTimer = setTimeout(() => {
+    modal.hidden = true;
+    modal.classList.remove("is-closing");
+    document.body.style.overflow = "";
+  }, 220);
 }
 
 function buildGridChapterHTML(ch) {
@@ -1765,26 +1824,29 @@ function buildGridChapterHTML(ch) {
   const desc = MANGA_CONFIG.getDescription(ch.id);
 
   return `
-            <div class="chapter-row" data-chapter="${ch.id}">
-                <div class="chapter-info">
-                    <span class="chapter-title">${chapterLabel} ${ch.id}</span>
-                    ${desc ? `<span class="chapter-subtitle">${desc}</span>` : ""}
-                </div>
-                <div class="chapter-actions">
-            <button class="chapter-btn read-btn" data-chapter="${ch.id}" title="${readLabel}">
-                        <i class="fas fa-book-open"></i>
-                    </button>
-                </div>
-            </div>
-        `;
+    <button class="chapter-row chapter-read-row read-btn" type="button" data-chapter="${ch.id}" aria-label="${readLabel} ${chapterLabel} ${ch.id}">
+      <span class="chapter-info">
+        <span class="chapter-title">${chapterLabel} ${ch.id}</span>
+        ${desc ? `<span class="chapter-subtitle">${desc}</span>` : ""}
+      </span>
+      <span class="chapter-open-icon" aria-hidden="true"><i class="fas fa-book-open-reader"></i></span>
+    </button>
+  `;
 }
 
-function toggleVolumeExpand(btn) {
-  const card = btn.closest(".volume-card");
-  if (!card) return;
-  card.classList.toggle("expanded");
-  document.querySelectorAll(".volume-card.expanded").forEach((other) => {
-    if (other !== card) other.classList.remove("expanded");
+function attachVolumeModalListeners() {
+  const modal = document.getElementById("volumeModal");
+  if (!modal || modal.dataset.listenersBound === "1") return;
+  modal.dataset.listenersBound = "1";
+
+  modal.addEventListener("click", (event) => {
+    const readRow = event.target.closest(".volume-modal-chapters .read-btn");
+    if (!readRow) return;
+    event.preventDefault();
+    const chapterId = Number(readRow.dataset.chapter);
+    if (Number.isNaN(chapterId)) return;
+    closeVolumeModal(true);
+    requestAnimationFrame(() => openReader(chapterId));
   });
 }
 
@@ -1801,16 +1863,26 @@ function attachChapterActionListeners(container) {
       e.preventDefault();
       e.stopPropagation();
       const chapterId = Number(readBtn.dataset.chapter);
-      if (!Number.isNaN(chapterId)) openReader(chapterId);
+      if (!Number.isNaN(chapterId)) {
+        closeVolumeModal(true);
+        requestAnimationFrame(() => openReader(chapterId));
+      }
       return;
     }
 
-    const expandBtn = e.target.closest(".card-expand-btn");
-    if (expandBtn) {
+    const volumeCard = e.target.closest(".volume-card");
+    if (volumeCard && !e.target.closest(".chapter-row")) {
       e.preventDefault();
-      e.stopPropagation();
-      toggleVolumeExpand(expandBtn);
+      openVolumeModal(Number(volumeCard.dataset.volume));
     }
+  });
+
+  container.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const volumeCard = e.target.closest(".volume-card");
+    if (!volumeCard || e.target.closest("button, a")) return;
+    e.preventDefault();
+    openVolumeModal(Number(volumeCard.dataset.volume));
   });
 }
 
@@ -1997,6 +2069,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   initPdfEvents();
   initAllChapters();
+  attachVolumeModalListeners();
 
   const searchInput = document.getElementById("searchInput");
   const clearBtn = document.getElementById("searchClearBtn");
@@ -2025,9 +2098,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   }
 
-  // ========================================
   // VIEW TOGGLE - FIXED
-  // ========================================
+
   const viewListBtn = document.getElementById("viewListBtn");
   const viewGridBtn = document.getElementById("viewGridBtn");
   const viewSlider = document.getElementById("viewToggleSlider");
@@ -2128,6 +2200,13 @@ document.addEventListener("DOMContentLoaded", async function () {
   window.closePdfModal = closePdfModal;
   window.MANGA_CONFIG = MANGA_CONFIG;
   window.getText = getText;
+  document
+    .querySelectorAll("[data-volume-modal-close]")
+    .forEach((el) => el.addEventListener("click", () => closeVolumeModal()));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeVolumeModal();
+  });
+
   window.updatePdfUITranslations = updatePdfUITranslations;
   window.setVersion = setVersion;
   window.setView = setView;

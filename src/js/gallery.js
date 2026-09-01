@@ -1,4 +1,4 @@
-// ===== CONFIGURATION =====
+// Gallery configuration
 const BASE_PATH = window.LanguageSwitch?.getDataFolderUrl
   ? window.LanguageSwitch.getDataFolderUrl("gallery")
   : (() => {
@@ -45,7 +45,7 @@ let searchQuery = "";
 let _currentViewerIndex = 0;
 let _viewerItems = [];
 
-// ===== OPTIMIZED PERFORMANCE CONFIG =====
+// Performance settings
 const CONFIG = {
   INITIAL_LOAD_COUNT: 12,
   BATCH_SIZE: 8,
@@ -59,7 +59,7 @@ const CONFIG = {
   SLIDESHOW_INTERVAL: 5000, // 5 seconds
 };
 
-// ===== COLLECTION DEFINITIONS =====
+// Gallery collections
 const COLLECTION_DEFINITIONS = [
   { folder: "covers", type: "cover", label: "Covers" },
   { folder: "coversJP", type: "cover", label: "Covers" },
@@ -251,7 +251,7 @@ function renderIllustrationVolumeGroups(items) {
   preloadVisibleImages(container);
 }
 
-// ===== VIBRANT RGB COLOR PALETTE WITH HIGH CONTRAST =====
+// Accent colors for gallery UI
 const COLOR_PALETTES = [
   {
     bg: "rgb(255, 235, 240)",
@@ -511,6 +511,10 @@ const STATIC_TRANSLATIONS = {
   },
 };
 
+// Tagalog uses the English material as the content fallback until a dedicated
+// translation is available, while preserving the tg locale throughout the UI.
+STATIC_TRANSLATIONS.tg = { ...STATIC_TRANSLATIONS.en };
+
 function getStaticText(key, params = {}) {
   const dict = STATIC_TRANSLATIONS[currentLanguage] || STATIC_TRANSLATIONS.en;
   let text = dict[key] || STATIC_TRANSLATIONS.en[key] || key;
@@ -525,7 +529,9 @@ function getStaticText(key, params = {}) {
 }
 
 function applyStaticTranslations() {
-  const lang = currentLanguage === "en" ? "en" : "es";
+  // Gallery markup currently provides English and Spanish data attributes.
+  // Tagalog intentionally uses the English source material instead of falling back to Spanish.
+  const lang = currentLanguage === "es" ? "es" : "en";
   document.querySelectorAll("[data-i18n-es]").forEach((el) => {
     el.textContent = lang === "en" ? el.dataset.i18nEn : el.dataset.i18nEs;
   });
@@ -538,7 +544,7 @@ function applyStaticTranslations() {
   document.querySelectorAll("[data-i18n-aria-es]").forEach((el) => {
     el.setAttribute("aria-label", lang === "en" ? el.dataset.i18nAriaEn : el.dataset.i18nAriaEs);
   });
-  document.documentElement.lang = lang;
+  document.documentElement.lang = currentLanguage;
 }
 
 // FIXED: Use LanguageSwitch for data URL
@@ -573,7 +579,7 @@ async function fetchLanguageJson(basePath, lang) {
     return response;
   }
 
-  const fallbackLang = lang === "es" ? "en" : "es";
+  const fallbackLang = "en";
   if (fallbackLang !== lang) {
     const fallbackUrl = `${BASE_PATH}${basePath}/${fallbackLang}.json?v=${version}`;
     response = await fetch(fallbackUrl, { cache: "no-store" });
@@ -582,7 +588,7 @@ async function fetchLanguageJson(basePath, lang) {
   return response;
 }
 
-// ===== STATE =====
+// Runtime state
 let loadedCollections = new Set();
 let isLoading = false;
 let allArtworksCache = [];
@@ -595,7 +601,7 @@ let slideshowInterval = null;
 let slideshowArtworks = [];
 let currentSlideIndex = 0;
 
-// ===== CACHES =====
+// Runtime caches
 let searchIndex = null;
 let searchIndexDirty = true;
 let cachedFilteredResults = null;
@@ -608,7 +614,7 @@ let isRendering = false;
 let pendingRender = null;
 const observedElements = new WeakSet();
 
-// ===== IMAGE CACHE =====
+// Image cache
 const imageCache = new Map();
 const CACHE_LIMIT = 100;
 
@@ -630,7 +636,7 @@ function setCachedImage(url, data) {
   imageCache.set(url, data);
 }
 
-// ===== OPTIMIZED IMAGE LOADER =====
+// Image loading
 class ImageLoader {
   constructor() {
     this.loadingQueue = [];
@@ -812,7 +818,7 @@ class ImageLoader {
 
 const imageLoader = new ImageLoader();
 
-// ===== SHOW LOADING STATE =====
+// Loading state
 function showLoadingState() {
   const container = document.getElementById("exhibitionSectionsContainer");
   if (!container) return;
@@ -824,12 +830,12 @@ function showLoadingState() {
     `;
 }
 
-// ===== GENERATE PLACEHOLDER =====
+// Placeholder generation
 function generatePlaceholder() {
   return 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23f0f0f0"/%3E%3C/svg%3E';
 }
 
-// ===== BUILD SEARCH INDEX =====
+// Search index
 function buildSearchIndex(artworks) {
   const index = new Map();
   for (let i = 0; i < artworks.length; i++) {
@@ -848,7 +854,7 @@ function buildSearchIndex(artworks) {
   return index;
 }
 
-// ===== LOAD ALL COLLECTIONS =====
+// Load gallery collections
 async function loadAllCollections(lang) {
   const allLoadPromises = [];
 
@@ -982,7 +988,7 @@ async function loadAllCollections(lang) {
   return false;
 }
 
-// ===== GET RANDOM ARTWORKS =====
+// Select random artworks
 function getRandomArtworks(artworks, count = CONFIG.RANDOM_DISPLAY_COUNT) {
   if (!artworks || artworks.length === 0) return [];
 
@@ -999,7 +1005,7 @@ function getRandomArtworks(artworks, count = CONFIG.RANDOM_DISPLAY_COUNT) {
   return shuffled.slice(0, Math.min(count, shuffled.length));
 }
 
-// ===== GET FILTERED ARTWORKS =====
+// Filter artworks
 function getFilteredArtworks() {
   if (!galleryData) return [];
 
@@ -1062,7 +1068,7 @@ function getFilteredArtworks() {
   return filtered;
 }
 
-// ===== OPTIMIZED IMAGE HTML =====
+// Build image markup
 function getOptimizedImageHTML(artwork, _type = "grid") {
   if (!artwork || !artwork.image) return "";
 
@@ -1078,12 +1084,12 @@ function getOptimizedImageHTML(artwork, _type = "grid") {
             decoding="async"
             style="display:block;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:1;transition:opacity 0.3s ease;background:#f0f0f0;"
             onload="this.style.opacity='1';this.style.background='transparent';"
-            onerror="this.src='${originalSrc}';this.dataset.src='${originalSrc}';this.style.opacity='1';"
+            onerror="this.onerror=null;this.style.opacity='1';this.style.background='#f0f0f0';"
         >
     `;
 }
 
-// ===== OBSERVE IMAGES =====
+// Observe lazy-loaded images
 function observeImagesOptimized(container) {
   if (!container) return;
 
@@ -1100,7 +1106,7 @@ function observeImagesOptimized(container) {
   }
 }
 
-// ===== PRELOAD VISIBLE IMAGES =====
+// Preload visible images
 function preloadVisibleImages(container) {
   const images = container.querySelectorAll("img[data-src]");
   const visibleImages = [];
@@ -1127,7 +1133,7 @@ function preloadVisibleImages(container) {
   }
 }
 
-// ===== BUILD COMBINED ITEMS WITH ARTIST BIOS =====
+// Combine artworks with artist data
 function buildCombinedItems(artworks) {
   if (!artworks || artworks.length === 0) return [];
 
@@ -1212,7 +1218,7 @@ function buildCombinedItems(artworks) {
   return combinedItems;
 }
 
-// ===== RENDER MASONRY ITEM =====
+// Render masonry item
 function renderMasonryItem(entry) {
   if (entry.type === "artwork") {
     const item = entry.item;
@@ -1260,7 +1266,7 @@ function renderMasonryItem(entry) {
   return "";
 }
 
-// ===== RENDER RANDOM MASONRY GALLERY =====
+// Render random masonry gallery
 function renderRandomMasonryGallery() {
   const container = document.getElementById("exhibitionSectionsContainer");
   if (!container) return;
@@ -1323,7 +1329,7 @@ function renderRandomMasonryGallery() {
   }
 }
 
-// ===== SLIDESHOW FUNCTIONS =====
+// Slideshow controls
 function startSlideshow(artworks) {
   // Clear any existing interval
   if (slideshowInterval) {
@@ -1365,7 +1371,7 @@ function stopSlideshow() {
   }
 }
 
-// ===== LOAD REMAINING MASONRY ITEMS =====
+// Load remaining masonry items
 function loadRemainingMasonryItems(items, container) {
   const batchSize = CONFIG.COLLECTION_BATCH_SIZE;
   let currentIndex = 0;
@@ -1414,7 +1420,7 @@ function loadRemainingMasonryItems(items, container) {
   setTimeout(loadNextBatch, 300);
 }
 
-// ===== SHUFFLE GALLERY =====
+// Shuffle gallery
 function shuffleGallery() {
   const container = document.getElementById("exhibitionSectionsContainer");
   if (!container) return;
@@ -1428,7 +1434,7 @@ function shuffleGallery() {
   }, 300);
 }
 
-// ===== RENDER COLLECTION PROGRESSIVELY =====
+// Render collection progressively
 function renderCollectionProgressively(collectionName) {
   const container = document.getElementById("exhibitionSectionsContainer");
   if (!container) return;
@@ -1496,7 +1502,7 @@ function renderCollectionProgressively(collectionName) {
   }
 }
 
-// ===== RENDER FILTERED MASONRY =====
+// Render filtered masonry
 function renderFilteredMasonry(items) {
   const container = document.getElementById("exhibitionSectionsContainer");
   if (!container) return;
@@ -1540,7 +1546,7 @@ function renderFilteredMasonry(items) {
   }
 }
 
-// ===== UPDATE HERO IMAGE =====
+// Update hero image
 function updateHeroImageOptimized(artwork) {
   const heroImg = document.getElementById("heroImage");
   const heroTitle = document.getElementById("heroTitle");
@@ -1580,7 +1586,7 @@ function updateHeroImageOptimized(artwork) {
   }
 }
 
-// ===== RENDER EXHIBITION =====
+// Render exhibition view
 async function renderExhibitionIncremental() {
   if (isRendering) {
     if (!pendingRender) {
@@ -1649,7 +1655,7 @@ async function performIncrementalRender() {
   isRendering = false;
 }
 
-// ===== EVENT DELEGATION =====
+// Gallery event handlers
 function setupEventDelegation() {
   const container = document.getElementById("exhibitionSectionsContainer");
   if (!container) return;
@@ -1680,7 +1686,7 @@ function setupEventDelegation() {
   );
 }
 
-// ===== VIEWER FUNCTIONS =====
+// Viewer controls
 function openViewer(uniqueId) {
   if (!galleryData) return;
 
@@ -1794,7 +1800,7 @@ function closeViewer() {
   document.body.style.overflow = "";
 }
 
-// ===== FILTER FUNCTIONS =====
+// Filter controls
 function filterByCollection(collectionName) {
   if (currentCollection === collectionName) return;
 
@@ -1892,7 +1898,7 @@ function updateBreadcrumb() {
   }
 }
 
-// ===== UI HELPER FUNCTIONS =====
+// UI helpers
 function updateUIText() {
   applyStaticTranslations();
   if (!translations) return;
@@ -1992,7 +1998,7 @@ function showErrorState() {
   }
 }
 
-// ===== LOAD GALLERY DATA =====
+// Load gallery data
 async function loadGalleryData(lang, initialLoad = true) {
   if (isLoading) return;
   isLoading = true;
@@ -2057,7 +2063,7 @@ async function loadGalleryData(lang, initialLoad = true) {
   }
 }
 
-// ===== SETUP FUNCTIONS =====
+// Setup
 function setupFilters() {
   document.querySelectorAll(".filter-pill").forEach((pill) => {
     pill.addEventListener(
@@ -2157,88 +2163,6 @@ function setupFilterToggle() {
   );
 }
 
-function setupBackToMenuMotion() {
-  const button = document.querySelector(".back-to-menu-btn");
-  if (!button) return;
-
-  let idleTimer = null;
-  let frameRequested = false;
-  let lastScrollY = window.scrollY;
-
-  function setButtonMode() {
-    if (window.innerWidth <= 768) {
-      button.classList.add("mobile-fixed");
-      button.style.opacity = "1";
-      button.style.transform = "translateY(0)";
-      button.style.pointerEvents = "auto";
-    } else {
-      button.classList.remove("mobile-fixed");
-      button.style.opacity = "";
-      button.style.transform = "";
-      button.style.pointerEvents = "";
-    }
-  }
-
-  function fadeOutButton() {
-    button.style.opacity = "0.45";
-  }
-
-  function showButton() {
-    button.style.opacity = "1";
-  }
-
-  function scheduleFade() {
-    clearTimeout(idleTimer);
-    idleTimer = window.setTimeout(() => {
-      if (window.innerWidth <= 768) {
-        fadeOutButton();
-      }
-    }, 1800);
-  }
-
-  function onUserInteraction() {
-    if (window.innerWidth > 768) return;
-    showButton();
-    button.style.transform = "translateY(0)";
-    scheduleFade();
-  }
-
-  function onScroll() {
-    if (window.innerWidth > 768) return;
-
-    if (!frameRequested) {
-      frameRequested = true;
-      window.requestAnimationFrame(() => {
-        const currentY = window.scrollY;
-        const delta = currentY - lastScrollY;
-        const offset = Math.max(-8, Math.min(8, delta));
-        button.style.transform = `translateY(${offset}px)`;
-        lastScrollY = currentY;
-        frameRequested = false;
-      });
-    }
-    onUserInteraction();
-  }
-
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("touchstart", onUserInteraction, { passive: true });
-  window.addEventListener("touchmove", onUserInteraction, { passive: true });
-  window.addEventListener("wheel", onUserInteraction, { passive: true });
-  window.addEventListener("resize", setButtonMode, { passive: true });
-
-  setButtonMode();
-  scheduleFade();
-}
-
-// ===== DEBOUNCED SEARCH =====
-const debouncedSearch = debounce(async function () {
-  cachedFilteredResults = null;
-  _groupedCollectionsDirty = true;
-  _isInitialRender = true;
-  lastFilterKey = "";
-  await renderExhibitionIncremental();
-}, 200);
-
 function debounce(func, wait) {
   let timeout;
   return function executedFunction(...args) {
@@ -2247,7 +2171,9 @@ function debounce(func, wait) {
   };
 }
 
-// ===== CLEANUP =====
+const debouncedSearch = debounce(renderExhibitionIncremental, 250);
+
+// Cleanup
 function cleanupGallery() {
   setInterval(() => {
     imageCache.clear();
@@ -2259,943 +2185,12 @@ function cleanupGallery() {
   });
 }
 
-// ===== INJECT PROGRESSIVE LOADING CSS =====
-function injectProgressiveLoadingCSS() {
-  const css = `
-    /* ===== IMPROVED TYPOGRAPHY ===== */
-    .entrance-title {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      text-shadow: 0 2px 20px rgba(0,0,0,0.05);
-    }
+// Gallery styling is maintained in the existing CSS modules.
 
-    .entrance-subtitle {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-weight: 400;
-      letter-spacing: 0.01em;
-      line-height: 1.6;
-      opacity: 0.85;
-    }
-
-    .entrance-stat {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-weight: 700;
-    }
-
-    .entrance-stat-label {
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .entrance-label {
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-    }
-
-    .entrance-explore {
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .random-gallery-title {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-
-    .collection-view-title {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-
-    .filtered-grid-title {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-
-    .shuffle-btn {
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .masonry-title {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-
-    .masonry-artist {
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-    }
-
-    .masonry-collection {
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      font-size: 10px;
-    }
-
-    .masonry-bio-name {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-
-    .masonry-bio-text {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-weight: 400;
-      line-height: 1.7;
-    }
-
-    .masonry-bio-label {
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .viewer-caption .title {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-
-    .viewer-caption .artist {
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-    }
-
-    .collection-view-back {
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-    }
-
-    .clear-filters-btn {
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-    }
-
-    .filter-pill {
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      font-size: 11px;
-    }
-
-    .filter-select {
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-    }
-
-    .breadcrumb-label {
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      font-size: 11px;
-    }
-
-    .breadcrumb-value {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-weight: 700;
-    }
-
-    .breadcrumb-clear {
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-    }
-
-    .empty-state h3 {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-weight: 700;
-    }
-
-    .empty-state p {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-weight: 400;
-      line-height: 1.6;
-    }
-
-    /* ===== SLIDESHOW HERO ENHANCEMENTS ===== */
-    .entrance-artwork {
-      position: relative;
-      overflow: hidden;
-      background: #f8f8f8;
-      min-height: 300px;
-      box-shadow: 0 4px 30px rgba(0,0,0,0.08);
-    }
-
-    .entrance-artwork img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: opacity 0.6s ease-in-out;
-    }
-
-    .entrance-artwork-credit {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 20px 24px;
-      background: linear-gradient(transparent, rgba(0,0,0,0.6));
-      backdrop-filter: blur(2px);
-    }
-
-    .entrance-artwork-title {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-weight: 700;
-      font-size: 18px;
-      color: white;
-      display: block;
-      text-shadow: 0 1px 8px rgba(0,0,0,0.3);
-      letter-spacing: -0.01em;
-    }
-
-    .entrance-artwork-artist {
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      font-weight: 500;
-      font-size: 14px;
-      color: rgba(255,255,255,0.85);
-      display: block;
-      margin-top: 2px;
-      letter-spacing: 0.03em;
-    }
-
-    /* Slideshow indicator dots */
-    .slideshow-indicators {
-      position: absolute;
-      bottom: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 8px;
-      padding: 6px 12px;
-      background: rgba(0,0,0,0.3);
-      backdrop-filter: blur(4px);
-      border-radius: 20px;
-    }
-
-    .slideshow-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.4);
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .slideshow-dot.active {
-      background: white;
-      transform: scale(1.2);
-    }
-
-    /* Slideshow pause button */
-    .slideshow-pause {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      width: 36px;
-      height: 36px;
-      border: none;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(4px);
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-    }
-
-    .slideshow-pause:hover {
-      background: rgba(0,0,0,0.6);
-      transform: scale(1.05);
-    }
-
-    /* ===== MASONRY GRID ===== */
-    .masonry-grid {
-      column-count: 4;
-      column-gap: 20px;
-      padding: 0;
-    }
-
-    .masonry-item {
-      break-inside: avoid;
-      margin-bottom: 20px;
-      overflow: hidden;
-      background: white;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      opacity: 1;
-      animation: fadeInUp 0.5s ease forwards;
-      position: relative;
-      display: inline-block;
-      width: 100%;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-
-    .masonry-item:nth-child(1) { animation-delay: 0.05s; }
-    .masonry-item:nth-child(2) { animation-delay: 0.10s; }
-    .masonry-item:nth-child(3) { animation-delay: 0.15s; }
-    .masonry-item:nth-child(4) { animation-delay: 0.20s; }
-    .masonry-item:nth-child(5) { animation-delay: 0.25s; }
-    .masonry-item:nth-child(6) { animation-delay: 0.30s; }
-    .masonry-item:nth-child(7) { animation-delay: 0.35s; }
-    .masonry-item:nth-child(8) { animation-delay: 0.40s; }
-    .masonry-item:nth-child(9) { animation-delay: 0.45s; }
-    .masonry-item:nth-child(10) { animation-delay: 0.50s; }
-    .masonry-item:nth-child(11) { animation-delay: 0.55s; }
-    .masonry-item:nth-child(12) { animation-delay: 0.60s; }
-
-    .masonry-item:hover {
-      transform: translateY(-6px) scale(1.01);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-      z-index: 2;
-    }
-
-    .masonry-artwork {
-      position: relative;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .masonry-artwork img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .masonry-label {
-      padding: 12px 16px;
-      flex-shrink: 0;
-      border-top: 2px solid rgba(0,0,0,0.06);
-    }
-
-    .masonry-title {
-      font-size: 15px;
-      font-weight: 700;
-      display: block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-    }
-
-    .masonry-artist {
-      font-size: 13px;
-      font-weight: 600;
-      display: block;
-      margin-top: 3px;
-      letter-spacing: 0.02em;
-      line-height: 1.3;
-    }
-
-    .masonry-collection {
-      font-size: 10px;
-      display: block;
-      margin-top: 3px;
-      opacity: 0.6;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-    }
-
-    /* Artist Bio Cards */
-    .masonry-bio {
-      padding: 32px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 200px;
-      cursor: default;
-      border: 2px solid rgba(0,0,0,0.08) !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-
-    .masonry-bio:hover {
-      transform: none !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
-    }
-
-    .masonry-bio-content {
-      text-align: center;
-      max-width: 280px;
-    }
-
-    .masonry-bio-label {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      opacity: 0.7;
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 700;
-    }
-
-    .masonry-bio-name {
-      font-size: 22px;
-      margin: 8px 0 12px 0;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      line-height: 1.2;
-    }
-
-    .masonry-bio-text {
-      font-size: 14px;
-      line-height: 1.7;
-      opacity: 0.85;
-      margin: 0;
-      font-weight: 400;
-    }
-
-    .masonry-bio-content a {
-      font-size: 13px;
-      text-decoration: none;
-      display: inline-block;
-      margin-top: 10px;
-      transition: opacity 0.3s ease;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-    }
-
-    .masonry-bio-content a:hover {
-      opacity: 0.6;
-    }
-
-    /* Controls */
-    .random-gallery-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .random-gallery-title {
-      font-size: 26px;
-      font-weight: 700;
-      color: #1a1a1a;
-      margin: 0;
-      letter-spacing: -0.01em;
-    }
-
-    .shuffle-btn {
-      background: rgb(220, 30, 100);
-      color: white;
-      border: none;
-      padding: 10px 28px;
-      cursor: pointer;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: all 0.3s ease;
-      font-size: 13px;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      box-shadow: 0 2px 12px rgba(220, 30, 100, 0.3);
-    }
-
-    .shuffle-btn:hover {
-      transform: scale(1.04);
-      background: rgb(200, 20, 80) !important;
-      box-shadow: 0 4px 20px rgba(220, 30, 100, 0.4);
-    }
-
-    .shuffle-btn:active {
-      transform: scale(0.96);
-    }
-
-    /* Collection View */
-    .collection-view-header {
-      margin-bottom: 30px;
-    }
-
-    .collection-view-back {
-      background: none;
-      border: none;
-      color: #5a2157;
-      cursor: pointer;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 0;
-      margin-bottom: 16px;
-      transition: color 0.3s ease;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-    }
-
-    .collection-view-back:hover {
-      color: #3f153f;
-    }
-
-    .collection-view-title {
-      font-size: 32px;
-      font-weight: 700;
-      color: #1a1a1a;
-      margin: 0 0 4px 0;
-      letter-spacing: -0.01em;
-    }
-
-    .collection-view-count {
-      color: #555;
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-    }
-
-    .collection-view-description {
-      color: #444;
-      margin-top: 12px;
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 1.7;
-    }
-
-    /* Filtered View */
-    .filtered-grid-header {
-      margin-bottom: 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .filtered-grid-title {
-      font-size: 26px;
-      font-weight: 700;
-      color: #1a1a1a;
-      margin: 0;
-      letter-spacing: -0.01em;
-    }
-
-    .clear-filters-btn {
-      background: none;
-      border: none;
-      color: #5a2157;
-      cursor: pointer;
-      font-size: 14px;
-      transition: color 0.3s ease;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-    }
-
-    .clear-filters-btn:hover {
-      color: #3f153f;
-      text-decoration: underline;
-    }
-
-    /* Loading */
-    .masonry-loading-more {
-      text-align: center;
-      padding: 30px;
-      color: #888;
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-    }
-
-    .masonry-loading-more::after {
-      content: '...';
-      animation: dots 1.5s steps(4, end) infinite;
-    }
-
-    @keyframes dots {
-      0% { content: ''; }
-      25% { content: '.'; }
-      50% { content: '..'; }
-      75% { content: '...'; }
-    }
-
-    .loading-state {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 80px 20px;
-      text-align: center;
-    }
-
-    .loading-spinner {
-      width: 50px;
-      height: 50px;
-      border: 4px solid #f0f0f0;
-      border-top: 4px solid rgba(90, 33, 87, 0.8);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-bottom: 20px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Empty State */
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: #1a1a1a;
-    }
-
-    .empty-state-icon {
-      font-size: 48px;
-      color: rgba(90, 33, 87, 0.4);
-      margin-bottom: 20px;
-    }
-
-    .empty-state h3 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .empty-state p {
-      font-size: 16px;
-      line-height: 1.7;
-      opacity: 0.7;
-    }
-
-    .empty-clear-btn {
-      background: rgba(255, 255, 255, 0.08);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 10px 24px;
-      cursor: pointer;
-      margin-top: 16px;
-      font-weight: 700;
-      transition: background 0.3s ease, border-color 0.3s ease;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      font-size: 13px;
-    }
-
-    .empty-clear-btn:hover {
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    .refresh-btn {
-      background: rgba(255, 255, 255, 0.08);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 10px 24px;
-      cursor: pointer;
-      margin-top: 16px;
-      font-weight: 700;
-      transition: background 0.3s ease, border-color 0.3s ease;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      font-size: 13px;
-    }
-
-    .refresh-btn:hover {
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    /* ===== MOBILE OPTIMIZATIONS ===== */
-
-    @media (max-width: 1024px) {
-      .masonry-grid {
-        column-count: 3;
-        column-gap: 16px;
-      }
-      
-      .masonry-item {
-        margin-bottom: 16px;
-      }
-
-      .entrance-artwork {
-        min-height: 250px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .masonry-grid {
-        column-count: 2;
-        column-gap: 12px;
-      }
-
-      .masonry-item {
-        margin-bottom: 12px;
-      }
-
-      .masonry-label {
-        padding: 8px 12px;
-      }
-
-      .masonry-title {
-        font-size: 13px;
-      }
-
-      .masonry-artist {
-        font-size: 12px;
-      }
-
-      .masonry-collection {
-        font-size: 9px;
-      }
-
-      .masonry-bio {
-        min-height: 150px;
-        padding: 20px 16px;
-      }
-
-      .masonry-bio-name {
-        font-size: 18px;
-      }
-
-      .masonry-bio-text {
-        font-size: 13px;
-      }
-
-      .masonry-bio-label {
-        font-size: 9px;
-        letter-spacing: 0.10em;
-      }
-
-      .random-gallery-controls {
-        flex-direction: column;
-        align-items: stretch;
-        margin-bottom: 20px;
-      }
-
-      .random-gallery-title {
-        font-size: 22px;
-        text-align: center;
-      }
-
-      .shuffle-btn {
-        justify-content: center;
-        padding: 10px 16px;
-        font-size: 12px;
-      }
-
-      .collection-view-title {
-        font-size: 26px;
-      }
-
-      .collection-view-description {
-        font-size: 15px;
-      }
-
-      .filtered-grid-title {
-        font-size: 20px;
-      }
-
-      .filtered-grid-header {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-      }
-
-      .clear-filters-btn {
-        text-align: center;
-      }
-
-      .collection-view-back {
-        font-size: 13px;
-      }
-
-      .entrance-artwork {
-        min-height: 200px;
-      }
-
-      .entrance-artwork-title {
-        font-size: 16px;
-      }
-
-      .entrance-artwork-artist {
-        font-size: 13px;
-      }
-
-      .slideshow-indicators {
-        bottom: 70px;
-        padding: 4px 10px;
-        gap: 6px;
-      }
-
-      .slideshow-dot {
-        width: 6px;
-        height: 6px;
-      }
-
-      .slideshow-pause {
-        width: 30px;
-        height: 30px;
-        font-size: 12px;
-        top: 12px;
-        right: 12px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .masonry-grid {
-        column-count: 2;
-        column-gap: 8px;
-      }
-
-      .masonry-item {
-        margin-bottom: 8px;
-        border-width: 1px !important;
-      }
-
-      .masonry-label {
-        padding: 6px 10px;
-      }
-
-      .masonry-title {
-        font-size: 12px;
-      }
-
-      .masonry-artist {
-        font-size: 11px;
-      }
-
-      .masonry-collection {
-        font-size: 8px;
-      }
-
-      .masonry-bio {
-        min-height: 120px;
-        padding: 16px 12px;
-      }
-
-      .masonry-bio-name {
-        font-size: 16px;
-        margin: 4px 0 8px 0;
-      }
-
-      .masonry-bio-text {
-        font-size: 12px;
-        line-height: 1.4;
-      }
-
-      .masonry-bio-label {
-        font-size: 8px;
-        letter-spacing: 0.08em;
-        margin-bottom: 4px;
-      }
-
-      .random-gallery-title {
-        font-size: 18px;
-      }
-
-      .shuffle-btn {
-        font-size: 11px;
-        padding: 8px 14px;
-      }
-
-      .collection-view-title {
-        font-size: 22px;
-      }
-
-      .collection-view-description {
-        font-size: 14px;
-      }
-
-      .collection-view-back {
-        font-size: 12px;
-      }
-
-      .collection-view-count {
-        font-size: 12px;
-      }
-
-      .filtered-grid-title {
-        font-size: 17px;
-      }
-
-      .masonry-loading-more {
-        font-size: 12px;
-        padding: 20px;
-      }
-
-      .entrance-artwork {
-        min-height: 160px;
-      }
-
-      .entrance-artwork-title {
-        font-size: 14px;
-      }
-
-      .entrance-artwork-artist {
-        font-size: 12px;
-      }
-
-      .entrance-artwork-credit {
-        padding: 12px 16px;
-      }
-
-      .slideshow-indicators {
-        bottom: 60px;
-        padding: 4px 8px;
-        gap: 5px;
-      }
-
-      .slideshow-dot {
-        width: 5px;
-        height: 5px;
-      }
-
-      .slideshow-pause {
-        width: 26px;
-        height: 26px;
-        font-size: 10px;
-        top: 8px;
-        right: 8px;
-      }
-    }
-  `;
-
-  const styleSheet = document.createElement("style");
-  styleSheet.textContent = css;
-  document.head.appendChild(styleSheet);
-}
-
-// ===== LANGUAGE SWITCH FUNCTION =====
+// Language switching
 function switchLanguage(lang) {
   if (lang === currentLanguage) return;
-  currentLanguage = lang === "en" ? "en" : "es";
+  currentLanguage = ["es", "en", "tg"].includes(lang) ? lang : "es";
 
   // Save language preferences
   localStorage.setItem("lang", currentLanguage);
@@ -3211,7 +2206,7 @@ function switchLanguage(lang) {
   window.location.reload();
 }
 
-// ===== EXPOSE GLOBAL FUNCTIONS =====
+// Expose page handlers
 window.openViewer = openViewer;
 window.closeViewer = closeViewer;
 window.filterByCollection = filterByCollection;
@@ -3220,8 +2215,39 @@ window.switchLanguage = switchLanguage;
 window.restoreMainExhibition = restoreMainExhibition;
 window.shuffleGallery = shuffleGallery;
 
-// ===== INITIALIZATION =====
+// Initialize gallery
+async function loadGalleryMenu() {
+  const container = document.getElementById("sidebar-container");
+  if (!container) return;
+
+  try {
+    const response = await fetch(
+      "/src/components/menu.html?v=" + Math.floor(Date.now() / 86400000),
+    );
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    let html = await response.text();
+    html = html.replace(/data-route="\.\.\/\.\.\/index\.html"/g, 'data-route="/index.html"');
+    container.innerHTML = html;
+
+    // Execute the component's inline setup script after insertion.
+    container.querySelectorAll("script").forEach((oldScript) => {
+      const newScript = document.createElement("script");
+      Array.from(oldScript.attributes).forEach((attr) =>
+        newScript.setAttribute(attr.name, attr.value),
+      );
+      newScript.textContent = oldScript.textContent;
+      oldScript.replaceWith(newScript);
+    });
+
+    setTimeout(() => document.dispatchEvent(new CustomEvent("menuLoaded")), 100);
+  } catch (error) {
+    console.error("Error loading menu:", error);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", async function () {
+  await loadGalleryMenu();
   // FIXED: Sync with LanguageSwitch
   const langFromSwitch = window.LanguageSwitch?.getCurrentLanguage?.();
   if (langFromSwitch) {
@@ -3233,7 +2259,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       localStorage.getItem("preferredLanguage") ||
       localStorage.getItem("language") ||
       "es";
-    currentLanguage = storedLanguage === "en" ? "en" : "es";
+    currentLanguage = ["es", "en", "tg"].includes(storedLanguage) ? storedLanguage : "es";
   }
 
   // Ensure document language is set
@@ -3249,7 +2275,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     window.LanguageSwitch?.setLanguage?.(currentLanguage);
   }
 
-  injectProgressiveLoadingCSS();
   applyStaticTranslations();
   imageLoader.setupObserver();
   await loadGalleryData(currentLanguage, true);
@@ -3295,8 +2320,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   setupFilters();
   setupFilterToggle();
   setupEventDelegation();
-
-  setupBackToMenuMotion();
 
   const viewerClose = document.getElementById("viewerClose");
   if (viewerClose) {

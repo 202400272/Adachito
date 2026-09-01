@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -60,6 +60,7 @@
     <link rel="icon" type="image/png" sizes="192x192" href="/assets/Imagenes/icon-192x192.webp" />
     <link rel="icon" type="image/png" sizes="512x512" href="/assets/Imagenes/icon-512x512.webp" />
     <link rel="stylesheet" href="/src/components/styles/feedback.css" />
+    <link rel="stylesheet" href="/src/components/styles/scrollbar.css" />
   </head>
   <body>
     <audio
@@ -136,6 +137,7 @@
             <button
               class="menu-btn"
               id="btn-shimamura"
+              aria-label="Show Hougetsu Shimamura"
               onclick="openProfileModal('shimamuraModal')"
               disabled
               style="opacity: 0.4; cursor: not-allowed"
@@ -145,6 +147,7 @@
             <button
               class="menu-btn"
               id="btn-adachi"
+              aria-label="Show Sakura Adachi"
               onclick="openProfileModal('adachiModal')"
               disabled
               style="opacity: 0.4; cursor: not-allowed"
@@ -257,7 +260,12 @@
       <div class="final-aurora"></div>
       <div class="final-message">
         <h2 id="final-title"></h2>
-        <button class="final-close-btn" onclick="closeFinalEvent()" id="final-close-btn">
+        <button
+          class="final-close-btn"
+          onclick="closeFinalEvent()"
+          id="final-close-btn"
+          aria-label="Close"
+        >
           Cerrar
         </button>
       </div>
@@ -290,7 +298,12 @@
               <span id="reward-pdf-label">Descargar historia en PDF</span>
             </button>
           </div>
-          <button class="btn-close-reward" onclick="closeRewardModal()" id="reward-continue-btn">
+          <button
+            class="btn-close-reward"
+            onclick="closeRewardModal()"
+            id="reward-continue-btn"
+            aria-label="Continue"
+          >
             Continuar
           </button>
         </div>
@@ -306,6 +319,7 @@
             class="btn-close-reward"
             onclick="closeModal('instructionsModal')"
             id="instructions-btn"
+            aria-label="Close instructions"
           >
             ¡Entendido!
           </button>
@@ -415,6 +429,7 @@
               class="btn-close-profile"
               onclick="closeModal('adachiModal')"
               id="profile-close-btn"
+              aria-label="Close profile"
             >
               <i class="fas fa-times"></i>
               <span id="profile-close-label"></span>
@@ -524,6 +539,7 @@
               class="btn-close-profile"
               onclick="closeModal('shimamuraModal')"
               id="profile-close-btn2"
+              aria-label="Close profile"
             >
               <i class="fas fa-times"></i>
               <span id="profile-close-label2"></span>

@@ -1,4 +1,4 @@
-/* ---------- library controls ---------- */
+/* library controls */
 .library-controls {
   display: flex;
   flex-wrap: wrap;
@@ -9,7 +9,7 @@
   width: 100%;
 }
 
-/* ---------- controls right wrapper ---------- */
+/* controls right wrapper */
 .controls-right {
   display: flex;
   flex-wrap: wrap;

@@ -48,8 +48,11 @@ body {
   overflow-x: hidden;
 }
 
+/* Full-width page shell; the menu overlays instead of occupying layout space. */
 .main-content {
-  flex: 1;
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: none;
   min-width: 0;
   position: relative;
   padding: var(--space-xl) clamp(var(--space-md), 4vw, var(--space-xxl)) var(--space-xxl)
@@ -72,7 +75,7 @@ body {
   content: "";
   position: fixed;
   top: 0;
-  left: 300px;
+  left: 0;
   right: 0;
   bottom: 0;
   background: linear-gradient(
@@ -893,7 +896,7 @@ body {
 
 @media (min-width: 901px) {
   .article-modal {
-    padding-left: 300px;
+    padding-left: 0;
   }
 }
 
@@ -1630,9 +1633,7 @@ body {
   }
 }
 
-/* ======================================================================
-   TIME-BASED THEME + READABILITY
-   ====================================================================== */
+/* ====================================================================== TIME-BASED THEME + READABILITY =====... */
 body.time-morning .main-content {
   background: linear-gradient(135deg, #eaf3fb 0%, #edf0fa 58%, #f3ebf7 100%) !important;
   color: #40566b !important;
@@ -1843,9 +1844,7 @@ body.time-afternoon .modal-close {
   color: #8c5a96 !important;
 }
 
-/* Fix: .pill-count keeps its light-theme colors (dark text on a faint dark
-   badge) even after .filter-pill is re-themed for night mode, making the
-   article counts unreadable. Give the badge its own themed contrast. */
+/* Fix: .pill-count keeps its light-theme colors (dark text on a faint dark badge) even after .filter-pill is... */
 body.time-night .filter-pill .pill-count {
   background: rgba(255, 255, 255, 0.16) !important;
   color: rgba(242, 234, 245, 0.9) !important;
@@ -1863,8 +1862,7 @@ body.time-night .filter-pill.active .pill-count {
   }
 }
 
-/* Final visual cleanup: keep Author Archive fully time-themed and avoid the
-   legacy light overlay/background bleeding through the themed surface. */
+/* Final visual cleanup: keep Author Archive fully time-themed and avoid the legacy light overlay/background b... */
 .main-content {
   background-image: none !important;
 }
@@ -1922,8 +1920,7 @@ body.time-night .filter-select {
   border-color: rgba(221, 190, 226, 0.14) !important;
 }
 
-/* ===== THEME SURFACE CLEANUP =====
-   Keep the body background seamless; hero/cards are the intentional surfaces. */
+/* ===== THEME SURFACE CLEANUP ===== Keep the body background seamless; hero/cards are the intentional surfaces. */
 body.time-morning,
 body.time-afternoon,
 body.time-night {

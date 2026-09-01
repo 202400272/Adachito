@@ -1,7 +1,7 @@
 .player-bar {
   position: fixed;
   bottom: 0;
-  left: 300px;
+  left: 0;
   right: 0;
   padding-bottom: env(safe-area-inset-bottom);
   background: rgba(255, 248, 252, 0.97);
@@ -19,7 +19,11 @@
   pointer-events: none;
   visibility: hidden;
   height: var(--player-height-desktop);
-  width: calc(100% - 300px);
+  width: 100%;
+}
+
+.main-content.has-player {
+  padding-bottom: var(--player-height-desktop);
 }
 
 .player-bar.visible {

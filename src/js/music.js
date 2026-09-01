@@ -3,10 +3,10 @@ const R2_CONFIG = {
   musicPath: "music",
 };
 
-// ===== SUPPORTED LANGUAGES =====
+// Supported languages
 const SUPPORTED_LANGUAGES = ["es", "en", "tg"];
 
-// ===== LANGUAGE NORMALIZATION WITH FALLBACK TO 'es' =====
+// Normalize language with Spanish fallback
 function normalizeLanguage(lang, fallback) {
   fallback = fallback || "es";
   if (!lang) return fallback;
@@ -25,7 +25,7 @@ function normalizeLanguage(lang, fallback) {
 window.normalizeLanguage = normalizeLanguage;
 window.SUPPORTED_LANGUAGES = SUPPORTED_LANGUAGES;
 
-// ===== LANGUAGE DETECTION =====
+// Detect active language
 let currentLang = (() => {
   const storedLang =
     window.LanguageSwitch?.getCurrentLanguage?.() ||
@@ -43,7 +43,11 @@ let currentAlbumId = null;
 let albumScrollPosition = 0;
 
 function getTrackUrl(albumFolder, filename) {
-  return `${R2_CONFIG.baseUrl}/${R2_CONFIG.musicPath}/${albumFolder}/${encodeURIComponent(filename)}`;
+  const encodedFilename = encodeURIComponent(filename).replace(
+    /[!'()*]/g,
+    (char) => `%${char.charCodeAt(0).toString(16).toUpperCase()}`,
+  );
+  return `${R2_CONFIG.baseUrl}/${R2_CONFIG.musicPath}/${albumFolder}/${encodedFilename}`;
 }
 
 function showDownloadNotice(message) {
@@ -162,8 +166,25 @@ function matchesTrackId(itemId, candidateId) {
   return String(itemId) === String(candidateId);
 }
 
+function getLocalizedTrackTitle(track) {
+  if (!track) return "Untitled";
+  if (currentLang === "en") return track.title || track.title_en || track.title_jp || "Untitled";
+  if (currentLang === "es")
+    return track.title || track.title_es || track.title_en || track.title_jp || "Sin título";
+  return track.title || track.title_tg || track.title_en || track.title_jp || "Untitled";
+}
+
 updateLangLabel();
 updateFavoritesBackLabel();
+
+function refreshIconify() {
+  if (typeof Iconify !== "undefined") {
+    Iconify.scan(document.body);
+  }
+}
+
+window.addEventListener("DOMContentLoaded", refreshIconify);
+window.addEventListener("load", refreshIconify);
 
 (function () {
   let albums = [];
@@ -223,7 +244,7 @@ updateFavoritesBackLabel();
         }
       }
     } catch {
-      /* ignored */
+      // Ignore persistence failures when storage is unavailable.
     }
 
     try {
@@ -232,7 +253,7 @@ updateFavoritesBackLabel();
         currentView = savedView;
       }
     } catch {
-      /* ignored */
+      // Ignore persistence failures when storage is unavailable.
     }
   }
 
@@ -662,7 +683,7 @@ updateFavoritesBackLabel();
     try {
       localStorage.setItem("adashima_music_view", view);
     } catch {
-      /* ignored */
+      // Ignore persistence failures when storage is unavailable.
     }
     applyViewMode();
   }
@@ -928,7 +949,7 @@ updateFavoritesBackLabel();
       });
       localStorage.setItem("adashima_music_favorites_v2", JSON.stringify(serialized));
     } catch {
-      /* ignored */
+      // Ignore persistence failures when storage is unavailable.
     }
     updateFavoritesHeaderCount();
   }
@@ -1262,7 +1283,7 @@ updateFavoritesBackLabel();
   function updateExpandedPlayer() {
     const track = getTrack(currentTrackId);
     if (track) {
-      const displayTitle = track.title_jp || track.title || track.title_es || "Untitled";
+      const displayTitle = getLocalizedTrackTitle(track);
       expandedTitle.textContent = displayTitle;
       expandedArtist.textContent = track.artist;
       expandedAlbum.textContent = currentAlbum?.title || "";
@@ -1287,7 +1308,7 @@ updateFavoritesBackLabel();
   function updateUI() {
     const track = getTrack(currentTrackId);
     if (track) {
-      const displayTitle = track.title_jp || track.title || track.title_es || "Untitled";
+      const displayTitle = getLocalizedTrackTitle(track);
       playerTitle.textContent = displayTitle;
       playerArtist.textContent = track.artist;
       const thumbImg = playerThumb.querySelector("img");
@@ -1397,7 +1418,20 @@ updateFavoritesBackLabel();
         updateUI();
       });
     } else {
-      nextTrack();
+      const autoplayNext =
+        window.AdashimaSettings?.getAutoplayNext?.() ??
+        (() => {
+          try {
+            return localStorage.getItem("adashima_autoplay_next") !== "false";
+          } catch {
+            return true;
+          }
+        })();
+      if (autoplayNext) nextTrack();
+      else {
+        isPlaying = false;
+        updateUI();
+      }
     }
   });
 
@@ -1588,10 +1622,18 @@ updateFavoritesBackLabel();
     }
   });
 
-  loadMusicData();
-  volumeSlider.value = String(Math.round(volume * 100));
-  audio.volume = volume;
-  updateVolumeIcon();
+  const initializeMusicPage = () => {
+    loadMusicData();
+    volumeSlider.value = String(Math.round(volume * 100));
+    audio.volume = volume;
+    updateVolumeIcon();
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeMusicPage, { once: true });
+  } else {
+    initializeMusicPage();
+  }
 
   window.loadMusicData = loadMusicData;
   window.toggleView = toggleView;

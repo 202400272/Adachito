@@ -1,0 +1,81 @@
+{
+  "artworks": [
+    {
+      "id": 1,
+      "title": "Sun Illuminated by the Universe - Coral Red 1",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeSS2/Image%201%20Volume%20SS2%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume SS2",
+      "date": "2024-12-10",
+      "collection": "VOLUME SS2",
+      "type": "illustration",
+      "tags": ["illustration", "volume-ss2", "special", "side-story"],
+      "featured": true
+    },
+    {
+      "id": 2,
+      "title": "Sun Illuminated by the Universe - Coral Red 2",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeSS2/Image%202%20Volume%20SS2%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume SS2",
+      "date": "2024-12-10",
+      "collection": "VOLUME SS2",
+      "type": "illustration",
+      "tags": ["illustration", "volume-ss2", "special", "side-story"],
+      "featured": false
+    },
+    {
+      "id": 3,
+      "title": "Sun Illuminated by the Universe - Coral Red 3",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeSS2/Image%203%20Volume%20SS2%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume SS2",
+      "date": "2024-12-10",
+      "collection": "VOLUME SS2",
+      "type": "illustration",
+      "tags": ["illustration", "volume-ss2", "special", "side-story"],
+      "featured": false
+    },
+    {
+      "id": 4,
+      "title": "Longing Extolled by Life Itself - Naples Yellow",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeSS2/Image%204%20Volume%20SS2%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume SS2",
+      "date": "2024-12-10",
+      "collection": "VOLUME SS2",
+      "type": "illustration",
+      "tags": ["illustration", "volume-ss2", "special", "side-story"],
+      "featured": false
+    },
+    {
+      "id": 5,
+      "title": "And Then, Future That Reaches Dawn - Bright Blue",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeSS2/Image%205%20Volume%20SS2%20Light%20Novel.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume SS2",
+      "date": "2024-12-10",
+      "collection": "VOLUME SS2",
+      "type": "illustration",
+      "tags": ["illustration", "volume-ss2", "special", "side-story"],
+      "featured": false
+    }
+  ],
+  "uiText": {
+    "searchPlaceholder": "Search Volume SS2 illustrations...",
+    "publicationLabel": "Publication",
+    "dateLabel": "Date",
+    "collectionLabel": "Collection",
+    "tagsLabel": "Tags"
+  },
+  "artists": {
+    "Raemz": {
+      "bio": "Raemz is the illustrator for the Adachi to Shimamura light novel series from Volume 10 onwards, bringing a fresh and vibrant style to the series."
+    }
+  }
+}

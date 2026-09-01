@@ -4,9 +4,7 @@
   --pdf-gap: 10px;
 }
 
-/* --------------------------------------------------------------------
-   Modal shell: full viewport on mobile, no card chrome eating space
-   -------------------------------------------------------------------- */
+/* -------------------------------------------------------------------- Modal shell: full viewport on mobile,... */
 
 .pdf-modal.open {
   display: flex;
@@ -46,11 +44,7 @@
   }
 }
 
-/* --------------------------------------------------------------------
-   Body / canvas area: this is what should own essentially all the
-   available space. No decorative padding — the fit-to-viewport math
-   in JS already accounts for this box's real size.
-   -------------------------------------------------------------------- */
+/* -------------------------------------------------------------------- Body / canvas area: this is what shoul... */
 
 .pdf-body-wrapper {
   flex: 1;
@@ -76,18 +70,13 @@
   align-items: center;
   justify-content: center;
   overflow: auto;
-  /* Let native panning handle single-finger drag when zoomed; our JS
-     preventDefault()s the two-finger pinch case explicitly, so pinch
-     never falls through to a native page-zoom. */
+  /* Let native panning handle single-finger drag when zoomed; our JS preventDefault()s the two-finger pinch cas... */
   touch-action: pan-x pan-y;
   -webkit-overflow-scrolling: touch;
   background: var(--pdf-canvas-bg, #1a1a1f);
 }
 
-/* Grab/grabbing affordance for desktop click-drag panning. The JS only
-   engages actual dragging once zoomed past fit scale (see mousedown
-   handler), but showing "grab" at all times here is a cheap, harmless
-   hint; "grabbing" during an active drag confirms the interaction. */
+/* Grab/grabbing affordance for desktop click-drag panning. */
 .pdf-canvas-container {
   cursor: grab;
 }
@@ -100,26 +89,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Shrink-wraps to the canvas — the JS sizing logic measures this
-     box once per layout pass and treats it as the fit-to-viewport
-     target, so nothing here should add margin/padding around it. */
+  /* Shrink-wraps to the canvas — the JS sizing logic measures this box once per layout pass and treats it as th... */
 }
 
 #pdfRenderModal {
   display: block;
-  /* Width/height are set in px by JS on every render — do not
-     constrain with CSS width/height here, that would fight the
-     fit-to-viewport calculation and reintroduce empty margins or
-     distort the aspect ratio. */
-  /* Promotes the canvas to its own compositing layer ahead of the zoom
-     gesture so the CSS-transform preview (applyZoomPreview) doesn't
-     stutter on the frame it first engages. */
+  /* Width/height are set in px by JS on every render — do not constrain with CSS width/height here, that would... */
+  /* Promotes the canvas to its own compositing layer ahead of the zoom gesture so the CSS-transform preview (ap... */
   will-change: transform;
 }
 
-/* --------------------------------------------------------------------
-   Cascade (continuous scroll) mode
-   -------------------------------------------------------------------- */
+/* -------------------------------------------------------------------- Cascade (continuous scroll) mode -----... */
 
 .pdf-cascade-container {
   flex: 1;
@@ -146,8 +126,7 @@
   align-items: center;
   justify-content: center;
   background: transparent;
-  /* No card styling on purpose — pages should read as one continuous
-     surface, not a stack of separate tiles. */
+  /* No card styling on purpose — pages should read as one continuous surface, not a stack of separate tiles. */
 }
 
 .pdf-cascade-canvas {
@@ -197,18 +176,7 @@
   }
 }
 
-/* --------------------------------------------------------------------
-   Merged header: the "Reading: Volume X" title bar and the page/zoom
-   controls now live in ONE row (#pdfModal .pdf-modal-header) instead
-   of a title bar plus a second floating toolbar. This saves a whole
-   row of vertical space and keeps the controls permanently visible
-   and readable instead of a low-contrast HUD that faded in and out.
-
-   Specificity note: every rule below is scoped with the #pdfModal id
-   so it reliably wins over the shared, lower-contrast defaults in
-   pdf-reader.css (used by the manga reader too) regardless of the
-   order the stylesheets happen to load in.
-   -------------------------------------------------------------------- */
+/* -------------------------------------------------------------------- Merged header: the "Reading: Volume X"... */
 
 #pdfModal .pdf-modal-header {
   display: flex;
@@ -245,13 +213,9 @@
   color: #fff;
 }
 
-/* The toolbar, once inside the header, flows inline instead of
-   floating absolutely over the canvas — it shares the header's own
-   opaque background, so it never needs (or gets) its own bar. */
+/* The toolbar, once inside the header, flows inline instead of floating absolutely over the canvas — it share... */
 #pdfModal .pdf-toolbar-in-header {
-  /* relative (not static): the "more" dropdown below still anchors
-     its position off this element, it just no longer floats over
-     the canvas itself */
+  /* relative (not static): the "more" dropdown below still anchors its position off this element, it just no lo... */
   position: relative;
   flex: 1 1 auto;
   justify-content: flex-end;
@@ -269,8 +233,7 @@
   flex-wrap: nowrap;
 }
 
-/* High-contrast controls: solid near-white icons on the opaque header
-   bar, replacing the low-opacity mauve that was hard to see. */
+/* High-contrast controls: solid near-white icons on the opaque header bar, replacing the low-opacity mauve th... */
 #pdfModal .pdf-toolbar-in-header .pdf-btn {
   color: rgba(255, 255, 255, 0.88);
   background: rgba(255, 255, 255, 0.07);
@@ -316,8 +279,7 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* "More" dropdown still anchors under its own button — unaffected by
-   the toolbar now living inside the header instead of over the canvas. */
+/* "More" dropdown still anchors under its own button — unaffected by the toolbar now living inside the header... */
 #pdfModal .pdf-toolbar-in-header .pdf-toolbar-secondary {
   background: rgba(24, 24, 27, 0.98);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -332,13 +294,7 @@
   color: #fff;
 }
 
-/* --------------------------------------------------------------------
-   Progress bar: the only piece that still floats over the canvas and
-   auto-hides while reading (see JS: scheduleToolbarAutoHide /
-   toggleToolbarVisibility, which toggle .pdf-chrome-hidden on the
-   viewer). The controls themselves no longer auto-hide now that
-   they're part of the fixed header above.
-   -------------------------------------------------------------------- */
+/* -------------------------------------------------------------------- Progress bar: the only piece that stil... */
 
 .pdf-progress-wrap {
   position: absolute;
@@ -360,8 +316,7 @@
   pointer-events: none;
 }
 
-/* The reveal tab still exists to bring the progress bar back on
-   touch devices, tucked under the (now merged) header. */
+/* The reveal tab still exists to bring the progress bar back on touch devices, tucked under the (now merged)... */
 .pdf-chrome-reveal {
   position: absolute;
   top: 6px;
@@ -390,10 +345,7 @@
   pointer-events: auto;
 }
 
-/* --------------------------------------------------------------------
-   Toolbar controls: one flat icon-only row. No visible button chrome
-   at rest — icons pick up a background only on hover/active/pressed.
-   -------------------------------------------------------------------- */
+/* -------------------------------------------------------------------- Toolbar controls: one flat icon-only row. */
 
 .pdf-btn-label {
   display: none;
@@ -427,23 +379,12 @@
   margin: 0 2px;
 }
 
-/* --------------------------------------------------------------------
-   Kebab (⋮) overflow menu: a small dropdown anchored under the
-   button, not an inline row.
-   -------------------------------------------------------------------- */
+/* -------------------------------------------------------------------- Kebab (⋮) overflow menu: a small dropd... */
 
 #pdfModal .pdf-more-wrap {
   position: relative;
   flex: 0 0 auto;
-  /* Establishes its own stacking context so the dropdown's z-index
-     below is actually compared against the rest of the modal, rather
-     than being capped by ancestors that never declare a z-index of
-     their own (.pdf-modal-header, .pdf-toolbar-in-header,
-     .pdf-toolbar-primary are all z-index:auto). Without this, the
-     dropdown — despite being position:absolute — was painting
-     *underneath* deeper body elements that do set an explicit
-     z-index, e.g. .pdf-thumbnails-sidebar (7), .pdf-progress-wrap (5),
-     .pdf-chrome-reveal (6), and .pdf-page-indicator-mobile (4). */
+  /* Establishes its own stacking context so the dropdown's z-index below is actually compared against the rest... */
   z-index: 20;
 }
 
@@ -464,9 +405,7 @@
   transition:
     opacity 0.15s ease,
     transform 0.15s ease;
-  /* Belt-and-suspenders: matches .pdf-more-wrap's stacking context
-     above, kept explicit here in case this class is ever reused
-     outside that wrapper. Highest layer inside the modal shell. */
+  /* Belt-and-suspenders: matches .pdf-more-wrap's stacking context above, kept explicit here in case this class... */
   z-index: 20;
 }
 
@@ -490,12 +429,7 @@
   font-size: 13.5px;
 }
 
-/* --------------------------------------------------------------------
-   Responsive behavior: header wraps to a second line on narrow
-   screens rather than the controls shrinking to the point of being
-   hard to tap or see — this still costs far less height than the old
-   separate title bar + toolbar.
-   -------------------------------------------------------------------- */
+/* -------------------------------------------------------------------- Responsive behavior: header wraps to a... */
 
 @media (max-width: 768px) {
   #pdfModal .pdf-modal-header {
@@ -515,8 +449,7 @@
     justify-content: center;
   }
 
-  /* Let the icon row itself wrap on very narrow phones instead of
-     clipping or overflowing past the edge of the modal. */
+  /* Let the icon row itself wrap on very narrow phones instead of clipping or overflowing past the edge of the... */
   #pdfModal .pdf-toolbar-in-header .pdf-toolbar-primary {
     flex-wrap: wrap;
     justify-content: center;
@@ -568,8 +501,7 @@
   }
 }
 
-/* Thumbnails sidebar and mobile page indicator should sit above the
-   cascade/canvas layers, not be pushed around by them. */
+/* Thumbnails sidebar and mobile page indicator should sit above the cascade/canvas layers, not be pushed arou... */
 .pdf-thumbnails-sidebar {
   z-index: 7;
 }
@@ -589,19 +521,14 @@
   transition: opacity 0.2s ease;
 }
 
-/* Ships with an inline style="display:none"; only meant as a quiet
-   stand-in for the full page-count readout while the toolbar itself
-   is hidden on small screens. */
+/* Ships with an inline style="display:none"; only meant as a quiet stand-in for the full page-count readout w... */
 @media (max-width: 768px) {
   .pdf-chrome-hidden .pdf-page-indicator-mobile {
     display: flex !important;
     opacity: 0.85;
   }
 }
-/* ========================================================================
-   MOBILE READER v2 — immersive ebook layout
-   Scoped to #pdfModal so the shared manga/PDF reader remains unchanged.
-   ======================================================================== */
+/* ======================================================================== MOBILE READER v2 — immersive ebook... */
 @media (max-width: 768px) {
   #pdfModal .pdf-modal-content {
     width: 100vw;
@@ -752,8 +679,7 @@
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
   }
 
-  /* Existing chrome auto-hide state: hide the whole header, not just the
-     progress bar. The reveal tab remains available inside the viewer. */
+  /* Existing chrome auto-hide state: hide the whole header, not just the progress bar. */
   #pdfModal:has(.custom-pdf-viewer.pdf-chrome-hidden) .pdf-modal-header {
     opacity: 0;
     transform: translateY(-100%);
@@ -765,9 +691,7 @@
     margin-top: -50px;
   }
 
-  /* More menu: anchor it to the ⋯ button instead of the bottom of
-     the viewport. The parent .pdf-more-wrap is position:relative,
-     so this opens directly beneath the button on mobile. */
+  /* More menu: anchor it to the ⋯ button instead of the bottom of the viewport. */
   #pdfModal .pdf-more-wrap {
     position: relative;
     z-index: 40;

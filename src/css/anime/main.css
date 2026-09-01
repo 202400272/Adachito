@@ -1,0 +1,9 @@
+/* Anime page CSS modules */
+/* Imports stay ordered to preserve the original cascade. */
+
+@import url("../global.css");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap");
+@import url("base.css");
+@import url("responsive.css");
+@import url("menu-fix.css");
+@import url("source-selector.css");

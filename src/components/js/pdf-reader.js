@@ -2,18 +2,16 @@
 (function (global) {
   "use strict";
 
-  // ========================================
   // Configuration
-  // ========================================
+
   const DEFAULTS = {
     container: "#pdf-reader",
     pdf: "",
     title: "Document",
   };
 
-  // ========================================
   // State
-  // ========================================
+
   const state = {
     pdfDoc: null,
     currentPage: 1,
@@ -36,9 +34,8 @@
     pendingRender: false,
   };
 
-  // ========================================
   // Local Storage Helpers
-  // ========================================
+
   function getStorageKey() {
     const path = state.pdfPath || "default";
     return `pdf-reader_${path.replace(/[^a-zA-Z0-9]/g, "_")}`;
@@ -69,9 +66,8 @@
     }
   }
 
-  // ========================================
   // HTML Generation
-  // ========================================
+
   function buildHTML(_title) {
     return `
       <div class="pdf-toolbar">
@@ -101,9 +97,8 @@
     `;
   }
 
-  // ========================================
   // DOM References
-  // ========================================
+
   function cacheDOM(container) {
     state.container = container;
     state.wrapper = container.querySelector(".pdf-canvas-wrapper");
@@ -115,9 +110,8 @@
     state.spinner = container.querySelector(".pdf-spinner");
   }
 
-  // ========================================
   // PDF Loading with better error handling
-  // ========================================
+
   function loadPDF(url) {
     if (state.loading) return;
     state.loading = true;
@@ -173,9 +167,8 @@
       });
   }
 
-  // ========================================
   // Rendering with throttling
-  // ========================================
+
   function renderPage() {
     if (!state.pdfDoc) return;
     if (state.isRendering) {
@@ -258,9 +251,8 @@
       });
   }
 
-  // ========================================
   // Navigation with debouncing
-  // ========================================
+
   let navigationTimeout = null;
 
   function goToPage(num) {
@@ -295,9 +287,8 @@
     }
   }
 
-  // ========================================
   // Zoom with smooth transitions
-  // ========================================
+
   function zoomIn() {
     state.scale = Math.min(3.0, state.scale + 0.15);
     state.fitWidth = false;
@@ -327,9 +318,8 @@
     saveState();
   }
 
-  // ========================================
   // Fullscreen
-  // ========================================
+
   function toggleFullscreen() {
     const el = state.container;
     if (!document.fullscreenElement) {
@@ -339,9 +329,8 @@
     }
   }
 
-  // ========================================
   // UI Updates
-  // ========================================
+
   function updateUI() {
     if (state.pageInput) {
       state.pageInput.value = state.currentPage;
@@ -371,9 +360,8 @@
     }
   }
 
-  // ========================================
   // Events with passive listeners
-  // ========================================
+
   function bindEvents() {
     const container = state.container;
 
@@ -450,9 +438,8 @@
     );
   }
 
-  // ========================================
   // Initialization
-  // ========================================
+
   function init(options) {
     // Merge options
     const config = Object.assign({}, DEFAULTS, options || {});
@@ -482,9 +469,8 @@
     }
   }
 
-  // ========================================
   // Public API
-  // ========================================
+
   const PDFReader = {
     init: init,
     // Expose for debugging

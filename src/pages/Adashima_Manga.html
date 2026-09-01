@@ -74,16 +74,6 @@
   <body>
     <div class="particles" id="particles"></div>
 
-    <a class="floating-decor float-2" href="/Juego" title="Go to Game">
-      <img
-        src="/assets/Imagenes/Flotantemanga2-Photoroom.webp"
-        alt="Manga Decoration 2"
-        loading="lazy"
-        decoding="async"
-        style="width: 100%; height: auto"
-      />
-    </a>
-
     <div id="menu-container"></div>
 
     <main class="main-content">
@@ -144,14 +134,21 @@
       <script type="module" src="/src/components/js/footer.js"></script>
     </main>
 
-    <div class="floating-adashima">
-      <img
-        src="/assets/Imagenes/astronauta.png"
-        alt="Adashima Astronaut"
-        loading="lazy"
-        decoding="async"
-        onerror="this.style.display = 'none'"
-      />
+    <div
+      class="volume-modal"
+      id="volumeModal"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-label="Manga volume"
+    >
+      <div class="volume-modal-backdrop" data-volume-modal-close></div>
+      <div class="volume-modal-dialog">
+        <button class="volume-modal-close" type="button" data-volume-modal-close aria-label="Close">
+          <i class="fas fa-times"></i>
+        </button>
+        <div id="volumeModalContent"></div>
+      </div>
     </div>
 
     <!-- PDF Modal -->
@@ -240,7 +237,11 @@
               <div class="pdf-thumbnails-sidebar" id="pdfThumbnailsSidebar">
                 <div class="pdf-thumbnails-header">
                   <span id="pdfThumbnailsTitle">Thumbnails</span>
-                  <button class="pdf-btn pdf-thumbnails-close" id="pdfThumbnailsClose">
+                  <button
+                    class="pdf-btn pdf-thumbnails-close"
+                    id="pdfThumbnailsClose"
+                    aria-label="Close thumbnails"
+                  >
                     <i class="fas fa-times"></i>
                   </button>
                 </div>
@@ -283,7 +284,7 @@
 
     <!-- Import JS -->
     <script src="/src/js/language-switch.js"></script>
-    <script src="/src/js/manga.js?v=20260801"></script>
+    <script src="/src/js/manga.js?v=20260829"></script>
     <script type="module" src="/src/components/js/feedback.js"></script>
   </body>
 </html>

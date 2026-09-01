@@ -169,6 +169,7 @@ function buildOsdMenu() {
 }
 
 function updateOsdActiveChannel() {
+  if (!osdChannelList) return;
   osdChannelList.querySelectorAll(".osd-ch-item").forEach((el, i) => {
     el.classList.toggle("active-ch", i === state.currentChannel);
   });
@@ -467,6 +468,22 @@ async function switchChannel(index) {
   playPauseBtn.disabled = false;
   crtVideo.play().catch(() => {});
 }
+
+crtVideo.addEventListener("ended", () => {
+  const autoplayNext =
+    window.AdashimaSettings?.getAutoplayNext?.() ??
+    (() => {
+      try {
+        return localStorage.getItem("adashima_autoplay_next") !== "false";
+      } catch {
+        return true;
+      }
+    })();
+
+  if (autoplayNext && state.powered && state.currentChannel < CHANNELS.length - 1) {
+    switchChannel(state.currentChannel + 1);
+  }
+});
 
 function updateInfoCard(ch) {
   const icon = document.querySelector(".channel-info-icon i");

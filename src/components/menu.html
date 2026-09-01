@@ -11,1265 +11,11 @@
       onload="this.media = 'all'"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <style>
-      /* Keep the deferred CDN icon font from blocking visible menu content. */
-      @font-face {
-        font-family: "Font Awesome 6 Free";
-        font-style: normal;
-        font-weight: 900;
-        font-display: swap;
-        src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2")
-          format("woff2");
-      }
-      @font-face {
-        font-family: "Font Awesome 6 Brands";
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2")
-          format("woff2");
-      }
-    </style>
     <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Chewy&display=swap"
       rel="stylesheet"
     />
-    <style>
-      /* ============================================================
-         REDUCED MOTION
-         ============================================================ */
-      @media (prefers-reduced-motion: reduce) {
-        #menu-component-wrapper *,
-        #menu-component-wrapper *::before,
-        #menu-component-wrapper *::after {
-          transition-duration: 0.01ms !important;
-          animation-duration: 0.01ms !important;
-        }
-      }
-
-      /* ============================================================
-         ROOT VARIABLES (scoped)
-         ============================================================ */
-      #menu-component-wrapper {
-        --sakura-pink: #fce4ec !important;
-        --sakura-dark: #f06292 !important;
-        --hougetsu-blue: #e3f2fd !important;
-        --hougetsu-dark: #64b5f6 !important;
-        --cream-white: #fffbf0 !important;
-        --text-main: #5c4b51 !important;
-        --text-secondary: #5c4b51 !important;
-        --text-muted: #7a6a72 !important;
-        --glass-bg: rgba(255, 255, 255, 0.8) !important;
-        --glass-border: rgba(255, 255, 255, 0.8) !important;
-        --glass-shadow: 0 8px 32px 0 rgba(135, 107, 145, 0.15) !important;
-        --nav-bg: linear-gradient(
-          135deg,
-          rgba(255, 245, 247, 0.98),
-          rgba(234, 244, 255, 0.98)
-        ) !important;
-        --nav-border: rgba(255, 255, 255, 0.8) !important;
-        --nav-text: #5c4b51 !important;
-        --nav-shadow: 0 8px 32px 0 rgba(135, 107, 145, 0.15) !important;
-        --surface-bg: rgba(255, 255, 255, 0.94) !important;
-        --surface-border: rgba(240, 98, 146, 0.3) !important;
-        --surface-glass: rgba(255, 255, 255, 0.86) !important;
-        --accent-primary: #f06292 !important;
-        --accent-soft: rgba(240, 98, 146, 0.12) !important;
-        font-family: "Nunito", sans-serif !important;
-        color: var(--text-main) !important;
-        display: block !important;
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 300px !important;
-        height: 100vh !important;
-        z-index: 1 !important;
-        pointer-events: auto !important;
-        background: linear-gradient(
-          135deg,
-          rgba(255, 245, 247, 0.98),
-          rgba(234, 244, 255, 0.98)
-        ) !important;
-        transition: color 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      }
-
-      body.time-morning #menu-component-wrapper,
-      body.time-morning #menu-component-wrapper .sidebar,
-      body.time-afternoon #menu-component-wrapper,
-      body.time-afternoon #menu-component-wrapper .sidebar,
-      body.time-night #menu-component-wrapper,
-      body.time-night #menu-component-wrapper .sidebar {
-        background: rgb(45, 24, 62) var(--nav-bg) !important;
-      }
-
-      @media (min-width: 901px) {
-        #menu-component-wrapper,
-        #menu-component-wrapper .sidebar {
-          z-index: 1 !important;
-        }
-      }
-
-      /* ============================================================
-         TIME-OF-DAY THEME OVERRIDES
-         ============================================================ */
-      body.time-morning #menu-component-wrapper {
-        --nav-bg: linear-gradient(
-          135deg,
-          rgba(230, 240, 252, 0.8),
-          rgba(245, 232, 248, 0.7)
-        ) !important;
-        --nav-border: rgba(200, 215, 235, 0.7) !important;
-        --nav-text: #837896 !important;
-        --nav-shadow: 0 8px 32px 0 rgba(130, 150, 180, 0.12) !important;
-        --text-main: #5c5470 !important;
-        --text-secondary: #5c5470 !important;
-        --surface-bg: #eef4fa !important;
-        --surface-border: rgba(168, 200, 232, 0.4) !important;
-        --accent-primary: #4a7fa8 !important;
-        --accent-soft: rgba(74, 127, 168, 0.12) !important;
-        background: linear-gradient(
-          135deg,
-          rgba(230, 240, 252, 0.8),
-          rgba(245, 232, 248, 0.7)
-        ) !important;
-      }
-      body.time-afternoon #menu-component-wrapper {
-        --nav-bg: linear-gradient(
-          180deg,
-          rgba(250, 214, 227, 0.96),
-          rgba(232, 216, 247, 0.97)
-        ) !important;
-        --nav-border: rgba(255, 255, 255, 0.42) !important;
-        --nav-text: #4a2f57 !important;
-        --nav-shadow: 0 12px 28px 0 rgba(120, 82, 139, 0.16) !important;
-        --text-main: #4a2f57 !important;
-        --text-secondary: #5b4a67 !important;
-        --surface-bg: rgba(255, 255, 255, 0.18) !important;
-        --surface-border: rgba(255, 255, 255, 0.38) !important;
-        --accent-primary: #d56796 !important;
-        --accent-soft: rgba(214, 103, 150, 0.14) !important;
-        background: linear-gradient(
-          180deg,
-          rgba(250, 214, 227, 0.96),
-          rgba(232, 216, 247, 0.97)
-        ) !important;
-      }
-      body.time-night #menu-component-wrapper {
-        --nav-bg: linear-gradient(180deg, #2d183e 0%, #201330 100%) !important;
-        --nav-border: rgba(255, 255, 255, 0.18) !important;
-        --nav-text: #f2eafc !important;
-        --nav-shadow: 0 8px 32px 0 rgba(20, 10, 28, 0.35) !important;
-        --text-main: #f2eafc !important;
-        --text-secondary: #d9c9e8 !important;
-        --surface-bg: rgba(255, 255, 255, 0.08) !important;
-        --surface-border: rgba(255, 255, 255, 0.14) !important;
-        --accent-primary: #c98aa8 !important;
-        --accent-soft: rgba(180, 120, 150, 0.18) !important;
-        background: linear-gradient(180deg, #2d183e 0%, #201330 100%) !important;
-      }
-
-      /* ============================================================
-         MOBILE DRAWER CLOSE BUTTON (X) — only inside the mobile drawer
-         ============================================================ */
-      #menu-component-wrapper .drawer-close-btn {
-        display: none;
-        position: absolute;
-        top: 14px;
-        right: 14px;
-        z-index: 5;
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        border: 1px solid var(--surface-border) !important;
-        background: var(--surface-bg) !important;
-        color: var(--text-main) !important;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.95rem;
-        cursor: pointer;
-        transition:
-          background-color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-          color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-          transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      #menu-component-wrapper .drawer-close-btn:hover {
-        background: var(--accent-soft) !important;
-        color: var(--accent-primary) !important;
-        transform: rotate(90deg);
-      }
-      #menu-component-wrapper .drawer-close-btn:focus-visible {
-        outline: 2px solid var(--accent-primary) !important;
-        outline-offset: 2px;
-      }
-
-      /* ============================================================
-         MOBILE TOGGLE BUTTON
-         ============================================================ */
-      #menu-component-wrapper .mobile-toggle {
-        position: fixed;
-        top: 15px;
-        right: 15px;
-        z-index: 13000;
-        background: var(--glass-bg) !important;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border: 1px solid var(--glass-border) !important;
-        color: var(--sakura-dark) !important;
-        min-width: 56px;
-        min-height: 56px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: none;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.2rem;
-        box-shadow: var(--glass-shadow) !important;
-        padding: 0.8rem;
-        touch-action: manipulation;
-        transition:
-          background-color 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
-          border-color 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
-          box-shadow 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
-          color 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
-          transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      #menu-component-wrapper .mobile-toggle:hover {
-        transform: scale(1.1);
-        background: white;
-      }
-      #menu-component-wrapper.mobile-toggle-hidden .mobile-toggle {
-        display: none !important;
-      }
-
-      /* ============================================================
-         SIDEBAR / NAVIGATION PANEL
-         ============================================================ */
-      #menu-component-wrapper .sidebar {
-        width: 300px;
-        flex-shrink: 0;
-        height: 100vh;
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        overflow-y: auto;
-        background: var(--nav-bg) !important;
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border-right: 1px solid var(--nav-border) !important;
-        box-shadow: var(--nav-shadow) !important;
-        z-index: 1 !important;
-        transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        background-image:
-          radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
-          radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.5) 0%, transparent 50%),
-          radial-gradient(1.5px 1.5px at 20% 12%, rgba(255, 255, 255, 0.9) 50%, transparent 100%),
-          radial-gradient(1px 1px at 68% 6%, rgba(255, 255, 255, 0.7) 50%, transparent 100%),
-          radial-gradient(1.5px 1.5px at 42% 22%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
-          radial-gradient(1px 1px at 88% 40%, rgba(255, 255, 255, 0.6) 50%, transparent 100%),
-          radial-gradient(1.5px 1.5px at 22% 62%, rgba(255, 255, 255, 0.7) 50%, transparent 100%),
-          radial-gradient(1px 1px at 58% 78%, rgba(255, 255, 255, 0.5) 50%, transparent 100%),
-          radial-gradient(1.5px 1.5px at 90% 88%, rgba(255, 255, 255, 0.6) 50%, transparent 100%);
-        background-repeat: no-repeat;
-        transition: background-image 0.6s ease;
-      }
-      /* Night theme echoes the starry hero on the right: same twinkling dots,
-         plus two soft color blobs (pink + blue) standing in for its glow orbs. */
-      body.time-night #menu-component-wrapper .sidebar {
-        background: rgb(45, 24, 62) var(--nav-bg) !important;
-        background-image:
-          radial-gradient(circle at 20% 20%, rgba(240, 98, 146, 0.1) 0%, transparent 45%),
-          radial-gradient(circle at 85% 75%, rgba(100, 130, 220, 0.12) 0%, transparent 45%),
-          radial-gradient(1.5px 1.5px at 20% 12%, rgba(255, 255, 255, 0.85) 50%, transparent 100%),
-          radial-gradient(1px 1px at 68% 6%, rgba(255, 255, 255, 0.6) 50%, transparent 100%),
-          radial-gradient(1.5px 1.5px at 42% 22%, rgba(255, 255, 255, 0.75) 50%, transparent 100%),
-          radial-gradient(1px 1px at 88% 40%, rgba(255, 255, 255, 0.55) 50%, transparent 100%),
-          radial-gradient(1.5px 1.5px at 22% 62%, rgba(255, 255, 255, 0.65) 50%, transparent 100%),
-          radial-gradient(1px 1px at 58% 78%, rgba(255, 255, 255, 0.45) 50%, transparent 100%),
-          radial-gradient(1.5px 1.5px at 90% 88%, rgba(255, 255, 255, 0.55) 50%, transparent 100%) !important;
-      }
-      #menu-component-wrapper .sidebar::-webkit-scrollbar {
-        width: 6px;
-      }
-      #menu-component-wrapper .sidebar::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      #menu-component-wrapper .sidebar::-webkit-scrollbar-thumb {
-        background: rgba(240, 98, 146, 0.3);
-        border-radius: 10px;
-      }
-      #menu-component-wrapper .sidebar::-webkit-scrollbar-thumb:hover {
-        background: rgba(240, 98, 146, 0.5);
-      }
-      #menu-component-wrapper .sidebar-inner {
-        padding: 30px 25px;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        min-height: 100%;
-        transition: background-color 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      }
-
-      /* ============================================================
-         BRANDING (non-interactive, strongest visual)
-         ============================================================ */
-      #menu-component-wrapper .branding-area {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 8px 0 12px 0;
-        margin-bottom: 4px;
-        background: transparent;
-        cursor: default;
-        pointer-events: none;
-      }
-      #menu-component-wrapper .branding-area::before {
-        content: "";
-        position: absolute;
-        top: 4px;
-        left: 50%;
-        width: 180px;
-        height: 180px;
-        transform: translateX(-50%);
-        background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%) !important;
-        filter: blur(18px);
-        z-index: 0;
-        transition: background-color 2.5s ease;
-      }
-      #menu-component-wrapper .branding-area img {
-        position: relative;
-        z-index: 2;
-        width: auto;
-        max-width: 100%;
-        height: auto;
-        max-height: 160px;
-        object-fit: contain;
-        filter: drop-shadow(0 8px 15px rgba(240, 98, 146, 0.25));
-        pointer-events: none;
-      }
-      #menu-component-wrapper .branding-area .logo-label {
-        margin-top: -15px;
-        transform: rotate(-2deg);
-        font-family: "Chewy", cursive;
-        font-size: 1.8rem;
-        color: var(--text-main) !important;
-        text-align: center;
-        white-space: normal;
-        letter-spacing: 1px;
-        line-height: 1.1;
-        z-index: 10;
-        width: 100%;
-        text-shadow:
-          -4px -4px 0 #fff,
-          4px -4px 0 #fff,
-          -4px 4px 0 #fff,
-          4px 4px 0 #fff,
-          -4px 0px 0 #fff,
-          4px 0px 0 #fff,
-          0px -4px 0 #fff,
-          0px 4px 0 #fff;
-        transition:
-          color 2.5s ease,
-          text-shadow 2.5s ease;
-      }
-      body.time-night #menu-component-wrapper .branding-area .logo-label {
-        color: #d8c8e0 !important;
-        text-shadow:
-          -4px -4px 0 rgba(20, 12, 32, 0.5),
-          4px -4px 0 rgba(20, 12, 32, 0.5),
-          -4px 4px 0 rgba(20, 12, 32, 0.5),
-          4px 4px 0 rgba(20, 12, 32, 0.5) !important;
-      }
-      body.time-morning #menu-component-wrapper .branding-area .logo-label {
-        color: #3a6ea5 !important;
-      }
-      body.time-afternoon #menu-component-wrapper .branding-area .logo-label {
-        color: #e91e78 !important;
-      }
-
-      /* ============================================================
-         SIDEBAR SECTION LABELS (BRAND / NAVIGATION / COMMUNITY / etc.)
-         ============================================================ */
-      #menu-component-wrapper .nav-section {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-      }
-      #menu-component-wrapper .nav-section-label {
-        display: block;
-        font-size: 0.62rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        color: var(--text-secondary) !important;
-        opacity: 0.45;
-        transition: color 2.5s ease;
-      }
-
-      /* Collapsible section header (used for NAVIGATION) */
-      #menu-component-wrapper .nav-section-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-        width: 100%;
-        min-height: 30px;
-        padding: 4px 6px;
-        margin: 0 -6px 4px;
-        border: none;
-        border-radius: 8px;
-        background: transparent;
-        cursor: pointer;
-        font-family: "Nunito", sans-serif;
-        transition: background-color 0.2s ease;
-      }
-      #menu-component-wrapper .nav-section-toggle:hover,
-      #menu-component-wrapper .nav-section-toggle:focus-visible {
-        background: var(--accent-soft) !important;
-      }
-      #menu-component-wrapper .nav-section-toggle:focus-visible {
-        outline: 2px solid var(--accent-primary) !important;
-        outline-offset: 2px;
-      }
-      #menu-component-wrapper .nav-section-chevron {
-        font-size: 0.68rem;
-        color: var(--text-muted) !important;
-        opacity: 0.6;
-        transition:
-          transform 0.3s ease,
-          color 2.5s ease;
-      }
-      #menu-component-wrapper .nav-section-toggle[aria-expanded="true"] .nav-section-chevron {
-        transform: rotate(180deg);
-      }
-
-      /* Categorized navigation groups */
-      #menu-component-wrapper .nav-subsection {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-      }
-      #menu-component-wrapper .nav-subsection + .nav-subsection {
-        margin-top: 10px;
-      }
-      #menu-component-wrapper .nav-subsection-label {
-        display: block;
-        padding: 4px 8px 3px;
-        font-size: 0.58rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.14em;
-        color: var(--text-secondary);
-        opacity: 0.42;
-        line-height: 1.2;
-      }
-      #menu-component-wrapper .nav-subsection-list {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-      }
-      #menu-component-wrapper .nav-subsection-list .nav-item {
-        min-height: 44px;
-      }
-
-      /* ============================================================
-         PRIMARY NAVIGATION (unified list — strongest interaction styling)
-         ============================================================ */
-      #menu-component-wrapper .nav-list {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-      }
-      #menu-component-wrapper .nav-list.collapsible {
-        display: none;
-      }
-      #menu-component-wrapper .nav-list.collapsible.open {
-        display: flex;
-        animation: appearanceFadeIn 0.25s ease;
-      }
-      #menu-component-wrapper .nav-item {
-        position: relative;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        width: 100%;
-        min-height: 46px;
-        padding: 10px 14px 10px 16px;
-        border-radius: 16px;
-        background: transparent;
-        border: 1px solid transparent;
-        color: var(--nav-text, var(--text-main)) !important;
-        text-decoration: none;
-        font-family: "Nunito", sans-serif;
-        font-weight: 600;
-        font-size: 0.9rem;
-        box-sizing: border-box;
-        cursor: pointer;
-        text-align: left;
-        transition:
-          background-color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-          color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-          box-shadow 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-          transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      #menu-component-wrapper .nav-item::before {
-        content: "";
-        position: absolute;
-        left: -1px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 3px;
-        height: 0;
-        border-radius: 3px;
-        background: var(--accent-primary) !important;
-        transition: height 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      #menu-component-wrapper .nav-item .nav-item-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 30px;
-        height: 30px;
-        flex-shrink: 0;
-        font-size: 0.95rem;
-        color: var(--hougetsu-dark) !important;
-        background: var(--surface-glass) !important;
-        border-radius: 10px;
-        transition:
-          color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-          background-color 2.5s ease;
-      }
-      #menu-component-wrapper .nav-item .nav-item-label {
-        flex: 1;
-        line-height: 1.25;
-      }
-      #menu-component-wrapper .nav-item .nav-item-arrow {
-        font-size: 0.75rem;
-        opacity: 0;
-        transform: translateX(-3px);
-        color: var(--accent-primary) !important;
-        transition:
-          opacity 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-          transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      #menu-component-wrapper .nav-item:hover,
-      #menu-component-wrapper .nav-item:focus-visible {
-        background: var(--accent-soft) !important;
-        box-shadow: 0 3px 12px var(--accent-soft);
-      }
-      #menu-component-wrapper .nav-item:hover .nav-item-arrow,
-      #menu-component-wrapper .nav-item:focus-visible .nav-item-arrow,
-      #menu-component-wrapper .nav-item.active .nav-item-arrow {
-        opacity: 0.7;
-        transform: translateX(0);
-      }
-      #menu-component-wrapper .nav-item:hover .nav-item-icon,
-      #menu-component-wrapper .nav-item:focus-visible .nav-item-icon {
-        color: var(--sakura-dark) !important;
-      }
-      #menu-component-wrapper .nav-item:focus-visible {
-        outline: 2px solid var(--accent-primary) !important;
-        outline-offset: 2px;
-      }
-      #menu-component-wrapper .nav-item.active {
-        background: var(--accent-soft) !important;
-        font-weight: 700;
-        color: var(--accent-primary) !important;
-        box-shadow: 0 4px 16px var(--accent-soft);
-      }
-      #menu-component-wrapper .nav-item.active::before {
-        height: 60%;
-      }
-      #menu-component-wrapper .nav-item.active .nav-item-icon {
-        color: var(--accent-primary) !important;
-      }
-
-      /* ============================================================
-         SECONDARY NAVIGATION (external links: Community / Original Work)
-         Visually lighter than primary nav — no card, no accent bar
-         ============================================================ */
-      #menu-component-wrapper .nav-item.secondary {
-        min-height: 40px;
-        padding: 8px 14px 8px 16px;
-        font-weight: 500;
-        font-size: 0.84rem;
-        color: var(--text-secondary) !important;
-        opacity: 0.85;
-      }
-      #menu-component-wrapper .nav-item.secondary::before {
-        display: none;
-      }
-      #menu-component-wrapper .nav-item.secondary .nav-item-icon {
-        font-size: 0.85rem;
-        width: 18px;
-        height: 18px;
-        background: transparent !important;
-        border-radius: 0;
-        color: var(--text-muted) !important;
-      }
-      #menu-component-wrapper .nav-item.secondary .nav-item-arrow {
-        font-size: 0.62rem;
-        opacity: 0.4;
-        transform: none;
-      }
-      #menu-component-wrapper .nav-item.secondary:hover,
-      #menu-component-wrapper .nav-item.secondary:focus-visible {
-        opacity: 1;
-        background: var(--accent-soft) !important;
-        color: var(--accent-primary) !important;
-      }
-      #menu-component-wrapper .nav-item.secondary:hover .nav-item-icon,
-      #menu-component-wrapper .nav-item.secondary:focus-visible .nav-item-icon {
-        color: var(--accent-primary) !important;
-      }
-      #menu-component-wrapper .nav-item.secondary:hover .nav-item-arrow,
-      #menu-component-wrapper .nav-item.secondary:focus-visible .nav-item-arrow {
-        opacity: 0.8;
-      }
-      /* Facebook keeps its brand color on hover as a small, intentional exception */
-      #menu-component-wrapper .nav-item.secondary.fb-item:hover,
-      #menu-component-wrapper .nav-item.secondary.fb-item:focus-visible {
-        background: rgba(24, 119, 242, 0.1) !important;
-        color: #1877f2 !important;
-      }
-      #menu-component-wrapper .nav-item.secondary.fb-item:hover .nav-item-icon,
-      #menu-component-wrapper .nav-item.secondary.fb-item:focus-visible .nav-item-icon {
-        color: #1877f2 !important;
-      }
-
-      /* ============================================================
-         DIVIDER
-         ============================================================ */
-      #menu-component-wrapper .sidebar-divider {
-        height: 1px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          var(--surface-border) 20%,
-          var(--surface-border) 80%,
-          transparent
-        ) !important;
-        margin: 4px 0 8px 0;
-        transition: background-color 2.5s ease;
-      }
-
-      /* ============================================================
-         STATUS (informational styling — quiet, not interactive)
-         ============================================================ */
-      #menu-component-wrapper .info-card {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        background: transparent;
-        padding: 10px 16px;
-        border-radius: 16px;
-        border: 1px dashed var(--surface-border) !important;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-        transition: border-color 2.5s ease;
-      }
-      #menu-component-wrapper .info-card h4 {
-        margin: 0;
-        font-size: 0.78rem;
-        font-weight: 600;
-        color: var(--text-secondary) !important;
-        opacity: 0.75;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-family: "Nunito", sans-serif;
-        transition: color 2.5s ease;
-      }
-      #menu-component-wrapper .status-badge {
-        display: inline-block;
-        background: var(--accent-soft) !important;
-        padding: 3px 12px;
-        border-radius: 20px;
-        font-weight: 700;
-        font-size: 0.72rem;
-        color: var(--accent-primary) !important;
-        transition:
-          background-color 2.5s ease,
-          color 2.5s ease;
-      }
-
-      /* ============================================================
-         SETTINGS (compact, collapsible)
-         ============================================================ */
-      #menu-component-wrapper .settings-card {
-        background: transparent;
-        border: 1px solid var(--surface-border) !important;
-        border-radius: 18px;
-        padding: 14px 16px 16px;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-        transition:
-          background-color 2.5s ease,
-          border-color 2.5s ease;
-      }
-      #menu-component-wrapper .settings-body-inner {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-      }
-      #menu-component-wrapper .settings-header {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin: -2px -4px 0;
-        padding: 6px 4px;
-        border-radius: 10px;
-        border-bottom: none;
-        min-height: 44px;
-        transition: background-color 0.2s ease;
-        cursor: pointer;
-      }
-      #menu-component-wrapper .settings-header:hover,
-      #menu-component-wrapper .settings-header:focus-visible {
-        background: var(--accent-soft) !important;
-      }
-      #menu-component-wrapper .settings-header:focus-visible {
-        outline: 2px solid var(--accent-primary) !important;
-        outline-offset: 2px;
-      }
-      #menu-component-wrapper .settings-card.open .settings-header {
-        margin-bottom: 8px;
-        padding-bottom: 6px;
-        border-bottom: 1px solid var(--surface-border) !important;
-        border-radius: 10px 10px 0 0;
-        transition:
-          background-color 0.2s ease,
-          border-color 2.5s ease;
-      }
-      #menu-component-wrapper .settings-header-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 24px;
-        height: 24px;
-        flex-shrink: 0;
-        color: var(--accent-primary) !important;
-        font-size: 0.9rem;
-        transition: color 2.5s ease;
-      }
-      #menu-component-wrapper .settings-header-content h3 {
-        margin: 0;
-        font-size: 0.88rem;
-        font-weight: 700;
-        letter-spacing: 0.2px;
-        color: var(--text-main) !important;
-        line-height: 1.3;
-        transition: color 2.5s ease;
-      }
-      #menu-component-wrapper .settings-header-content p {
-        margin: 0;
-        font-size: 0.68rem;
-        font-weight: 400;
-        color: var(--text-secondary) !important;
-        opacity: 0.6;
-        letter-spacing: 0.02em;
-        transition: color 2.5s ease;
-      }
-      #menu-component-wrapper .settings-body {
-        padding: 0 4px;
-      }
-      #menu-component-wrapper .settings-body {
-        display: none;
-        margin-top: 6px;
-        animation: appearanceFadeIn 0.25s ease;
-      }
-      #menu-component-wrapper .settings-body.open {
-        display: block;
-      }
-      @keyframes appearanceFadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(-6px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      /* ============================================================
-         SETTINGS SECTION LABELS
-         ============================================================ */
-      #menu-component-wrapper .settings-section-label {
-        display: block;
-        font-size: 0.58rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: var(--text-secondary) !important;
-        opacity: 0.45;
-        margin-bottom: 8px;
-        transition: color 2.5s ease;
-      }
-      #menu-component-wrapper .settings-subsection-label {
-        display: block;
-        font-size: 0.82rem;
-        font-weight: 600;
-        color: var(--text-main) !important;
-        margin-bottom: 2px;
-        transition: color 2.5s ease;
-      }
-      #menu-component-wrapper .settings-subsection-desc {
-        display: block;
-        font-size: 0.7rem;
-        color: var(--text-secondary) !important;
-        opacity: 0.55;
-        margin-bottom: 6px;
-        transition: color 2.5s ease;
-      }
-      #menu-component-wrapper .setting-description {
-        font-size: 0.68rem;
-        color: var(--text-secondary) !important;
-        opacity: 0.5;
-        line-height: 1.4;
-        transition: color 2.5s ease;
-      }
-      #menu-component-wrapper .setting-label > span:first-child {
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--text-main) !important;
-        line-height: 1.3;
-        transition: color 2.5s ease;
-      }
-      #menu-component-wrapper .setting-group {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 4px 0;
-      }
-
-      /* ============================================================
-         LANGUAGE SELECTOR
-         ============================================================ */
-      #menu-component-wrapper .language-selector,
-      #menu-component-wrapper .appearance-selector {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        background: var(--surface-bg) !important;
-        border-radius: 14px;
-        border: 1px solid var(--surface-border) !important;
-        overflow: hidden;
-        transition:
-          border-color 2.5s ease,
-          background-color 2.5s ease;
-        margin-top: 8px;
-      }
-      #menu-component-wrapper .lang-option,
-      #menu-component-wrapper .appearance-option {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        width: 100%;
-        padding: 8px 12px;
-        border: none;
-        background: transparent;
-        color: var(--text-main) !important;
-        font-size: 0.85rem;
-        font-weight: 500;
-        text-align: left;
-        cursor: pointer;
-        font-family: "Nunito", sans-serif;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-        transition:
-          background-color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-          color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      #menu-component-wrapper .lang-option:last-child,
-      #menu-component-wrapper .appearance-option:last-child {
-        border-bottom: none;
-      }
-      body.time-night #menu-component-wrapper .lang-option,
-      body.time-night #menu-component-wrapper .appearance-option {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
-      }
-      #menu-component-wrapper .lang-option .lang-icon,
-      #menu-component-wrapper .appearance-option .appearance-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 24px;
-        height: 24px;
-        flex-shrink: 0;
-        opacity: 0.6;
-        transition: opacity 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      #menu-component-wrapper .lang-option .lang-name,
-      #menu-component-wrapper .appearance-option .appearance-name {
-        flex: 1;
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--text-main) !important;
-        transition: color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      #menu-component-wrapper .lang-option .lang-check,
-      #menu-component-wrapper .appearance-option .appearance-check {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--text-muted) !important;
-        font-size: 0.65rem;
-        opacity: 0;
-        transform: scale(0.6);
-        flex-shrink: 0;
-        width: 18px;
-        height: 18px;
-        transition:
-          opacity 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-          transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-          color 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      #menu-component-wrapper .lang-option:hover,
-      #menu-component-wrapper .appearance-option:hover {
-        background: var(--accent-soft) !important;
-      }
-      #menu-component-wrapper .lang-option.active,
-      #menu-component-wrapper .appearance-option.active {
-        background: var(--accent-soft) !important;
-      }
-      #menu-component-wrapper .lang-option.active .lang-name,
-      #menu-component-wrapper .appearance-option.active .appearance-name {
-        color: var(--accent-primary) !important;
-      }
-      #menu-component-wrapper .lang-option.active .lang-check,
-      #menu-component-wrapper .appearance-option.active .appearance-check {
-        opacity: 1;
-        transform: scale(1);
-        color: var(--accent-primary) !important;
-      }
-
-      /* ============================================================
-         TOGGLE SWITCH
-         ============================================================ */
-      #menu-component-wrapper .toggle-switch {
-        position: relative;
-        width: 40px;
-        height: 24px;
-        flex-shrink: 0;
-        cursor: pointer;
-      }
-      #menu-component-wrapper .toggle-switch input {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        opacity: 0;
-        cursor: pointer;
-        appearance: none;
-        -webkit-appearance: none;
-      }
-      #menu-component-wrapper .toggle-slider {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: var(--surface-border) !important;
-        border-radius: 26px;
-        border: 1px solid rgba(0, 0, 0, 0.06);
-        transition:
-          background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-          border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      #menu-component-wrapper .toggle-slider::before {
-        content: "";
-        position: absolute;
-        width: 18px;
-        height: 18px;
-        left: 2px;
-        bottom: 2px;
-        background: #fff;
-        border-radius: 50%;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      #menu-component-wrapper .toggle-switch input:checked + .toggle-slider {
-        background: var(--accent-primary) !important;
-        border-color: var(--accent-primary) !important;
-      }
-      #menu-component-wrapper .toggle-switch input:checked + .toggle-slider::before {
-        transform: translateX(16px);
-      }
-      body.time-night #menu-component-wrapper .toggle-slider {
-        background: rgba(255, 255, 255, 0.15) !important;
-        border-color: rgba(255, 255, 255, 0.1) !important;
-      }
-      body.time-night #menu-component-wrapper .toggle-switch input:checked + .toggle-slider {
-        background: var(--accent-primary) !important;
-        border-color: var(--accent-primary) !important;
-      }
-      body.time-night #menu-component-wrapper .toggle-slider::before {
-        background: #d8c8e0 !important;
-      }
-
-      /* ============================================================
-         HOMEPAGE NOTICE (contextual hint under the mobile burger setting)
-         ============================================================ */
-      #menu-component-wrapper .homepage-notice {
-        display: flex;
-        align-items: flex-start;
-        gap: 6px;
-        margin-top: 6px;
-        font-size: 0.68rem;
-        line-height: 1.4;
-        color: var(--text-secondary) !important;
-        opacity: 0.6;
-        transition: color 2.5s ease;
-      }
-      #menu-component-wrapper .homepage-notice i {
-        margin-top: 1px;
-        flex-shrink: 0;
-      }
-
-      /* ============================================================
-         RESPONSIVE BREAKPOINTS
-         ============================================================ */
-      @media (max-width: 900px) {
-        #menu-component-wrapper .mobile-toggle {
-          display: flex !important;
-        }
-        #menu-component-wrapper .drawer-close-btn {
-          display: flex;
-        }
-        #menu-component-wrapper .sidebar {
-          position: fixed;
-          top: 0;
-          right: 0;
-          left: auto;
-          height: 100vh;
-          transform: translateX(110%);
-          border-radius: 30px 0 0 30px;
-          border-left: 1px solid var(--glass-border) !important;
-          border-right: none;
-          box-shadow: -4px 0 30px rgba(135, 107, 145, 0.25);
-          z-index: 11000;
-          width: 85%;
-          max-width: 360px;
-        }
-        #menu-component-wrapper .sidebar.active {
-          transform: translateX(0);
-        }
-      }
-      @media (min-width: 901px) {
-        #menu-component-wrapper .mobile-only-section {
-          display: none !important;
-        }
-      }
-      @media (max-width: 600px) {
-        #menu-component-wrapper .mobile-toggle {
-          width: 56px;
-          height: 56px;
-          font-size: 1.4rem;
-          right: 12px;
-          top: 12px;
-        }
-        #menu-component-wrapper .sidebar {
-          width: 100%;
-          max-width: none;
-          border-radius: 0;
-          transform: translateX(100%);
-        }
-        #menu-component-wrapper .sidebar-inner {
-          padding: 22px;
-          gap: 14px;
-        }
-        #menu-component-wrapper .branding-area img {
-          max-height: 140px;
-        }
-        #menu-component-wrapper .branding-area .logo-label {
-          font-size: 1.6rem;
-        }
-      }
-
-      /* ============================================================
-         MOBILE MENU — FINAL COMPACT DRAWER (late overrides)
-         ============================================================ */
-      @media (max-width: 900px) {
-        #menu-component-wrapper {
-          position: fixed !important;
-          inset: 0 !important;
-          width: 100vw !important;
-          height: 100dvh !important;
-          pointer-events: none !important;
-          z-index: 12000 !important;
-          background: transparent !important;
-        }
-        #menu-component-wrapper .mobile-toggle {
-          position: fixed !important;
-          top: 14px !important;
-          right: 14px !important;
-          width: 42px !important;
-          height: 42px !important;
-          min-width: 42px !important;
-          min-height: 42px !important;
-          padding: 0 !important;
-          border-radius: 13px !important;
-          z-index: 12002 !important;
-          display: inline-flex !important;
-          align-items: center !important;
-          justify-content: center !important;
-          background: rgba(255, 248, 252, 0.9) !important;
-          color: #e45f9a !important;
-          border: 1px solid rgba(255, 255, 255, 0.42) !important;
-          box-shadow: 0 8px 26px rgba(38, 18, 48, 0.2) !important;
-          backdrop-filter: blur(16px) saturate(125%) !important;
-          -webkit-backdrop-filter: blur(16px) saturate(125%) !important;
-        }
-        #menu-component-wrapper .sidebar {
-          position: fixed !important;
-          top: 0 !important;
-          left: 0 !important;
-          right: auto !important;
-          width: min(318px, 86vw) !important;
-          max-width: 318px !important;
-          height: 100dvh !important;
-          max-height: 100dvh !important;
-          border-radius: 0 24px 24px 0 !important;
-          border-left: 0 !important;
-          overflow: hidden auto !important;
-          transform: translateX(-105%) !important;
-          opacity: 0 !important;
-          visibility: hidden !important;
-          pointer-events: none !important;
-          z-index: 12001 !important;
-          transition:
-            transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1),
-            opacity 0.2s ease,
-            visibility 0s linear 0.28s !important;
-        }
-        #menu-component-wrapper .sidebar.active {
-          transform: translateX(0) !important;
-          opacity: 1 !important;
-          visibility: visible !important;
-          pointer-events: auto !important;
-          transition-delay: 0s !important;
-        }
-        #menu-component-wrapper .sidebar-inner {
-          min-height: 100% !important;
-          box-sizing: border-box !important;
-          padding: 18px 16px 24px !important;
-          gap: 10px !important;
-        }
-        #menu-component-wrapper .branding-area {
-          grid-template-columns: 58px 1fr auto !important;
-          gap: 11px !important;
-          padding: 2px 42px 16px 4px !important;
-          align-items: center !important;
-        }
-        #menu-component-wrapper .branding-area img {
-          width: 58px !important;
-          height: 48px !important;
-          max-width: 58px !important;
-          max-height: 48px !important;
-          object-fit: contain !important;
-          border-radius: 12px !important;
-        }
-        #menu-component-wrapper .branding-area .logo-label {
-          margin: 0 !important;
-          font-size: 0.98rem !important;
-          line-height: 1.15 !important;
-        }
-        #menu-component-wrapper .drawer-close-btn {
-          display: inline-flex !important;
-          position: absolute !important;
-          top: 16px !important;
-          right: 14px !important;
-          width: 34px !important;
-          height: 34px !important;
-          border-radius: 11px !important;
-          z-index: 10 !important;
-        }
-        #menu-component-wrapper .nav-item {
-          min-height: 46px !important;
-          padding: 7px 9px !important;
-          border-radius: 12px !important;
-        }
-        #menu-component-wrapper .nav-item-icon {
-          width: 32px !important;
-          height: 32px !important;
-          flex-basis: 32px !important;
-          border-radius: 10px !important;
-        }
-        #menu-component-wrapper.mobile-toggle-hidden .mobile-toggle,
-        #menu-component-wrapper.mobile-toggle-hidden #menu-toggle-btn {
-          display: none !important;
-          visibility: hidden !important;
-          opacity: 0 !important;
-          pointer-events: none !important;
-        }
-        #menu-component-wrapper.mobile-toggle-hidden .sidebar {
-          transform: translateX(-105%) !important;
-          opacity: 0 !important;
-          visibility: hidden !important;
-          pointer-events: none !important;
-        }
-        #menu-component-wrapper::after {
-          content: "";
-          position: fixed;
-          inset: 0;
-          z-index: 12000;
-          background: rgba(22, 12, 30, 0.38);
-          opacity: 0;
-          visibility: hidden;
-          pointer-events: none;
-          transition:
-            opacity 0.22s ease,
-            visibility 0s linear 0.22s;
-          backdrop-filter: blur(2px);
-          -webkit-backdrop-filter: blur(2px);
-        }
-        #menu-component-wrapper:has(.sidebar.active)::after {
-          opacity: 1;
-          visibility: visible;
-          pointer-events: auto;
-          transition-delay: 0s;
-        }
-      }
-
-      /* Desktop is a persistent sidebar. The hide-burger preference is mobile-only. */
-      @media (min-width: 901px) {
-        #menu-component-wrapper,
-        #menu-component-wrapper.mobile-toggle-hidden {
-          display: block !important;
-          visibility: visible !important;
-          opacity: 1 !important;
-          width: 300px !important;
-          height: 100vh !important;
-          position: fixed !important;
-          top: 0 !important;
-          left: 0 !important;
-          right: auto !important;
-          pointer-events: auto !important;
-          z-index: 1000 !important;
-        }
-        #menu-component-wrapper .sidebar,
-        #menu-component-wrapper.mobile-toggle-hidden .sidebar {
-          display: block !important;
-          visibility: visible !important;
-          opacity: 1 !important;
-          width: 300px !important;
-          height: 100vh !important;
-          position: fixed !important;
-          top: 0 !important;
-          left: 0 !important;
-          right: auto !important;
-          transform: translateX(0) !important;
-          pointer-events: auto !important;
-          z-index: 1001 !important;
-        }
-        #menu-component-wrapper .mobile-toggle {
-          display: none !important;
-        }
-      }
-    </style>
   </head>
   <body>
     <!-- ============================================================
@@ -1286,16 +32,24 @@
         aria-expanded="false"
         aria-controls="sideMenu"
       >
-        <i class="fas fa-bars" aria-hidden="true"></i>
+        <i data-lucide="menu" aria-hidden="true"></i>
       </button>
 
       <!-- ==========================================================
            SIDEBAR / NAVIGATION PANEL
            ========================================================== -->
       <nav class="sidebar" id="sideMenu" aria-label="Sidebar">
-        <button type="button" class="drawer-close-btn" id="menu-close-btn" aria-label="Close menu">
-          <i class="fas fa-xmark" aria-hidden="true"></i>
-        </button>
+        <div class="sidebar-controls" aria-label="Sidebar controls">
+          <button
+            type="button"
+            class="drawer-close-btn"
+            id="menu-close-btn"
+            aria-label="Close menu"
+            title="Close menu"
+          >
+            <i data-lucide="x" aria-hidden="true"></i>
+          </button>
+        </div>
         <div class="sidebar-inner">
           <!-- 1. BRANDING (strongest visual) -->
           <div class="branding-area">
@@ -1330,7 +84,8 @@
             >
               <span class="nav-section-label" id="menu-nav-label">NAVIGATION</span>
               <i
-                class="fas fa-chevron-down nav-section-chevron"
+                data-lucide="chevron-down"
+                class="nav-section-chevron"
                 id="navSectionChevron"
                 aria-hidden="true"
               ></i>
@@ -1348,11 +103,11 @@
                     id="menu-back-home"
                   >
                     <span class="nav-item-icon" aria-hidden="true"
-                      ><i class="fas fa-house"></i
+                      ><i data-lucide="house"></i
                     ></span>
                     <span class="nav-item-label" id="menu-back-text">Inicio</span>
                     <span class="nav-item-arrow" aria-hidden="true"
-                      ><i class="fas fa-chevron-right"></i
+                      ><i data-lucide="chevron-right"></i
                     ></span>
                   </a>
                 </div>
@@ -1362,38 +117,36 @@
                 <div class="nav-subsection-list">
                   <a href="/Adashima_Anime" data-page="anime" class="nav-item">
                     <span class="nav-item-icon" aria-hidden="true"
-                      ><i class="fas fa-clapperboard"></i
+                      ><i data-lucide="clapperboard"></i
                     ></span>
                     <span class="nav-item-label" id="menu-nav-anime">Anime</span>
                     <span class="nav-item-arrow" aria-hidden="true"
-                      ><i class="fas fa-chevron-right"></i
+                      ><i data-lucide="chevron-right"></i
                     ></span>
                   </a>
                   <a href="/Adashima_Manga" data-page="manga" class="nav-item">
                     <span class="nav-item-icon" aria-hidden="true"
-                      ><i class="fas fa-book-open"></i
+                      ><i data-lucide="book-open"></i
                     ></span>
                     <span class="nav-item-label" id="menu-nav-manga">Manga</span>
                     <span class="nav-item-arrow" aria-hidden="true"
-                      ><i class="fas fa-chevron-right"></i
+                      ><i data-lucide="chevron-right"></i
                     ></span>
                   </a>
                   <a href="/Adashima_Novelas" data-page="novels" class="nav-item">
-                    <span class="nav-item-icon" aria-hidden="true"
-                      ><i class="fas fa-book"></i
-                    ></span>
+                    <span class="nav-item-icon" aria-hidden="true"><i data-lucide="book"></i></span>
                     <span class="nav-item-label" id="menu-nav-novels">Novels</span>
                     <span class="nav-item-arrow" aria-hidden="true"
-                      ><i class="fas fa-chevron-right"></i
+                      ><i data-lucide="chevron-right"></i
                     ></span>
                   </a>
                   <a href="/Adashima_Extra_Stories" data-page="extraStories" class="nav-item">
                     <span class="nav-item-icon" aria-hidden="true"
-                      ><i class="fas fa-scroll"></i
+                      ><i data-lucide="scroll"></i
                     ></span>
                     <span class="nav-item-label" id="menu-nav-extra">Extra Stories</span>
                     <span class="nav-item-arrow" aria-hidden="true"
-                      ><i class="fas fa-chevron-right"></i
+                      ><i data-lucide="chevron-right"></i
                     ></span>
                   </a>
                 </div>
@@ -1403,29 +156,29 @@
                 <div class="nav-subsection-list">
                   <a href="/Adashima_Drama" data-page="drama" class="nav-item">
                     <span class="nav-item-icon" aria-hidden="true"
-                      ><i class="fas fa-masks-theater"></i
+                      ><i data-lucide="drama"></i
                     ></span>
                     <span class="nav-item-label" id="menu-nav-drama">Drama CD</span>
                     <span class="nav-item-arrow" aria-hidden="true"
-                      ><i class="fas fa-chevron-right"></i
+                      ><i data-lucide="chevron-right"></i
                     ></span>
                   </a>
                   <a href="/Adashima_Music" data-page="music" class="nav-item">
                     <span class="nav-item-icon" aria-hidden="true"
-                      ><i class="fas fa-music"></i
+                      ><i data-lucide="music"></i
                     ></span>
                     <span class="nav-item-label" id="menu-nav-music">Music</span>
                     <span class="nav-item-arrow" aria-hidden="true"
-                      ><i class="fas fa-chevron-right"></i
+                      ><i data-lucide="chevron-right"></i
                     ></span>
                   </a>
                   <a href="/Adashima_Gallery" data-page="gallery" class="nav-item">
                     <span class="nav-item-icon" aria-hidden="true"
-                      ><i class="fas fa-images"></i
+                      ><i data-lucide="images"></i
                     ></span>
                     <span class="nav-item-label" id="menu-nav-gallery">Gallery</span>
                     <span class="nav-item-arrow" aria-hidden="true"
-                      ><i class="fas fa-chevron-right"></i
+                      ><i data-lucide="chevron-right"></i
                     ></span>
                   </a>
                 </div>
@@ -1435,38 +188,36 @@
                 <div class="nav-subsection-list">
                   <a href="/Adashima_Linea" data-page="timeline" class="nav-item">
                     <span class="nav-item-icon" aria-hidden="true"
-                      ><i class="fas fa-clock-rotate-left"></i
+                      ><i data-lucide="history"></i
                     ></span>
                     <span class="nav-item-label" id="menu-nav-timeline">Timeline</span>
                     <span class="nav-item-arrow" aria-hidden="true"
-                      ><i class="fas fa-chevron-right"></i
+                      ><i data-lucide="chevron-right"></i
                     ></span>
                   </a>
                   <a href="/Adashima_Estrella" data-page="constellation" class="nav-item">
-                    <span class="nav-item-icon" aria-hidden="true"
-                      ><i class="fas fa-star"></i
-                    ></span>
+                    <span class="nav-item-icon" aria-hidden="true"><i data-lucide="star"></i></span>
                     <span class="nav-item-label" id="menu-nav-constellation">Constellation</span>
                     <span class="nav-item-arrow" aria-hidden="true"
-                      ><i class="fas fa-chevron-right"></i
+                      ><i data-lucide="chevron-right"></i
                     ></span>
                   </a>
                   <a href="/Adashima_Stats" data-page="stats" class="nav-item" id="menu-stats-item">
                     <span class="nav-item-icon" aria-hidden="true"
-                      ><i class="fas fa-chart-column"></i
+                      ><i data-lucide="bar-chart-3"></i
                     ></span>
                     <span class="nav-item-label" id="menu-nav-stats">Stats</span>
                     <span class="nav-item-arrow" aria-hidden="true"
-                      ><i class="fas fa-chevron-right"></i
+                      ><i data-lucide="chevron-right"></i
                     ></span>
                   </a>
                   <a href="/Adashima_Otros" data-page="others" class="nav-item">
                     <span class="nav-item-icon" aria-hidden="true"
-                      ><i class="fas fa-shapes"></i
+                      ><i data-lucide="shapes"></i
                     ></span>
                     <span class="nav-item-label" id="menu-nav-others">Others</span>
                     <span class="nav-item-arrow" aria-hidden="true"
-                      ><i class="fas fa-chevron-right"></i
+                      ><i data-lucide="chevron-right"></i
                     ></span>
                   </a>
                 </div>
@@ -1475,21 +226,19 @@
                 <span class="nav-subsection-label" id="menu-info-label">INFO</span>
                 <div class="nav-subsection-list">
                   <a href="/Adashima_About" data-page="about" class="nav-item">
-                    <span class="nav-item-icon" aria-hidden="true"
-                      ><i class="fas fa-circle-info"></i
-                    ></span>
+                    <span class="nav-item-icon" aria-hidden="true"><i data-lucide="info"></i></span>
                     <span class="nav-item-label" id="menu-nav-about">About</span>
                     <span class="nav-item-arrow" aria-hidden="true"
-                      ><i class="fas fa-chevron-right"></i
+                      ><i data-lucide="chevron-right"></i
                     ></span>
                   </a>
                   <a href="/Adashima_Help" data-page="help" class="nav-item" id="menu-nav-help">
                     <span class="nav-item-icon" aria-hidden="true"
-                      ><i class="fas fa-circle-question"></i
+                      ><i data-lucide="circle-help"></i
                     ></span>
                     <span class="nav-item-label" id="menu-help-text">Help Center</span>
                     <span class="nav-item-arrow" aria-hidden="true"
-                      ><i class="fas fa-chevron-right"></i
+                      ><i data-lucide="chevron-right"></i
                     ></span>
                   </a>
                 </div>
@@ -1515,7 +264,7 @@
                 ></span>
                 <span class="nav-item-label" id="menu-fb-text">Visítanos en Facebook</span>
                 <span class="nav-item-arrow" aria-hidden="true"
-                  ><i class="fas fa-external-link-alt"></i
+                  ><i data-lucide="external-link"></i
                 ></span>
               </a>
             </div>
@@ -1531,10 +280,10 @@
                 rel="noopener"
                 class="nav-item secondary"
               >
-                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-book"></i></span>
+                <span class="nav-item-icon" aria-hidden="true"><i data-lucide="book"></i></span>
                 <span class="nav-item-label" id="menu-link-novel">Novela Ligera</span>
                 <span class="nav-item-arrow" aria-hidden="true"
-                  ><i class="fas fa-external-link-alt"></i
+                  ><i data-lucide="external-link"></i
                 ></span>
               </a>
               <a
@@ -1543,10 +292,10 @@
                 rel="noopener"
                 class="nav-item secondary"
               >
-                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-images"></i></span>
+                <span class="nav-item-icon" aria-hidden="true"><i data-lucide="images"></i></span>
                 <span class="nav-item-label" id="menu-link-manga">Manga</span>
                 <span class="nav-item-arrow" aria-hidden="true"
-                  ><i class="fas fa-external-link-alt"></i
+                  ><i data-lucide="external-link"></i
                 ></span>
               </a>
               <a
@@ -1555,10 +304,10 @@
                 rel="noopener"
                 class="nav-item secondary"
               >
-                <span class="nav-item-icon" aria-hidden="true"><i class="fas fa-pen-nib"></i></span>
+                <span class="nav-item-icon" aria-hidden="true"><i data-lucide="pen-line"></i></span>
                 <span class="nav-item-label" id="menu-link-blog">Blog del Autor</span>
                 <span class="nav-item-arrow" aria-hidden="true"
-                  ><i class="fas fa-external-link-alt"></i
+                  ><i data-lucide="external-link"></i
                 ></span>
               </a>
             </div>
@@ -1571,7 +320,7 @@
             <span class="nav-section-label" id="menu-status-label">STATUS</span>
             <div class="info-card">
               <h4 id="menu-status-title">
-                <i class="fas fa-book-reader" aria-hidden="true"></i> Estado de la Novela
+                <i data-lucide="book-open" aria-hidden="true"></i> Estado de la Novela
               </h4>
               <span class="status-badge" id="menu-status-badge">En Publicación</span>
             </div>
@@ -1579,215 +328,24 @@
 
           <div class="sidebar-divider"></div>
 
-          <!-- 4. SETTINGS (compact, collapsible) -->
-          <div class="settings-card" id="settingsCard">
-            <div
-              class="settings-header"
-              id="settingsToggle"
-              role="button"
-              tabindex="0"
-              aria-expanded="false"
-            >
-              <div class="settings-header-icon"><i class="fas fa-sliders-h"></i></div>
-              <div class="settings-header-content">
-                <h3 id="menu-settings-title">Configuración</h3>
-                <p id="menu-settings-subtitle">Personaliza tu experiencia</p>
-              </div>
-              <i
-                class="fas fa-chevron-down"
-                style="margin-left: auto; color: var(--text-muted); transition: transform 0.3s ease"
-                id="settingsChevron"
-              ></i>
-            </div>
-            <div class="settings-body" id="settingsBody">
-              <!-- LANGUAGE -->
-              <div class="settings-section">
-                <div class="settings-section-label" id="menu-preferences-label">PREFERENCIAS</div>
-                <div class="setting-label">
-                  <span class="settings-subsection-label" id="menu-language-label">IDIOMA</span>
-                  <span class="settings-subsection-desc" id="menu-language-desc"
-                    >Elige tu idioma preferido</span
-                  >
-                </div>
-                <div class="language-selector" role="group" aria-label="Language options">
-                  <button
-                    type="button"
-                    class="lang-option"
-                    data-lang="es"
-                    data-label="Español"
-                    aria-pressed="false"
-                  >
-                    <span class="lang-icon" aria-hidden="true">🇪🇸</span>
-                    <span class="lang-name">Español</span>
-                    <span class="lang-check"><i class="fas fa-check"></i></span>
-                  </button>
-                  <button
-                    type="button"
-                    class="lang-option"
-                    data-lang="en"
-                    data-label="English"
-                    aria-pressed="false"
-                  >
-                    <span class="lang-icon" aria-hidden="true">🇬🇧</span>
-                    <span class="lang-name">English</span>
-                    <span class="lang-check"><i class="fas fa-check"></i></span>
-                  </button>
-                  <button
-                    type="button"
-                    class="lang-option"
-                    data-lang="tg"
-                    data-label="Tagalog"
-                    aria-pressed="false"
-                  >
-                    <span class="lang-icon" aria-hidden="true">🇵🇭</span>
-                    <span class="lang-name">Tagalog</span>
-                    <span class="lang-check"><i class="fas fa-check"></i></span>
-                  </button>
-                </div>
-              </div>
-
-              <div class="sidebar-divider" style="margin: 12px 0"></div>
-
-              <!-- APPEARANCE -->
-              <div class="settings-section">
-                <div class="settings-section-label" id="menu-appearance-label">APARIENCIA</div>
-                <div class="setting-group">
-                  <div class="setting-label">
-                    <span id="menu-appearance-toggle-text">Apariencia basada en la hora</span>
-                    <span class="setting-description" id="menu-appearance-toggle-sub"
-                      >Adapta automáticamente la apariencia según la hora del día.</span
-                    >
-                  </div>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="appearance-toggle-checkbox" checked />
-                    <span class="toggle-slider"></span>
-                  </label>
-                </div>
-                <div
-                  class="appearance-selector-wrapper"
-                  id="appearanceSelectorWrapper"
-                  style="display: none; margin-top: 6px"
-                >
-                  <div class="settings-subsection-label" id="menu-appearance-selector-label">
-                    Apariencia
-                  </div>
-                  <div class="appearance-selector" role="group" aria-label="Opciones de apariencia">
-                    <button
-                      type="button"
-                      class="appearance-option"
-                      data-theme="morning"
-                      data-label="Mañana"
-                      aria-pressed="false"
-                    >
-                      <span class="appearance-icon" aria-hidden="true">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="18"
-                          height="18"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        >
-                          <circle cx="12" cy="12" r="5" />
-                          <line x1="12" y1="1" x2="12" y2="3" />
-                          <line x1="12" y1="21" x2="12" y2="23" />
-                          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                          <line x1="1" y1="12" x2="3" y2="12" />
-                          <line x1="21" y1="12" x2="23" y2="12" />
-                          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                        </svg>
-                      </span>
-                      <span class="appearance-name">Mañana</span>
-                      <span class="appearance-check"><i class="fas fa-check"></i></span>
-                    </button>
-                    <button
-                      type="button"
-                      class="appearance-option"
-                      data-theme="afternoon"
-                      data-label="Tarde"
-                      aria-pressed="false"
-                    >
-                      <span class="appearance-icon" aria-hidden="true">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="18"
-                          height="18"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        >
-                          <path d="M12 2v2" />
-                          <path d="m4.93 4.93 1.41 1.41" />
-                          <path d="M20 12h2" />
-                          <path d="m19.07 4.93-1.41 1.41" />
-                          <path d="M15.947 12.65a4 4 0 0 0-5.925-4.128" />
-                          <path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z" />
-                        </svg>
-                      </span>
-                      <span class="appearance-name">Tarde</span>
-                      <span class="appearance-check"><i class="fas fa-check"></i></span>
-                    </button>
-                    <button
-                      type="button"
-                      class="appearance-option"
-                      data-theme="night"
-                      data-label="Noche"
-                      aria-pressed="false"
-                    >
-                      <span class="appearance-icon" aria-hidden="true">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="18"
-                          height="18"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        >
-                          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                        </svg>
-                      </span>
-                      <span class="appearance-name">Noche</span>
-                      <span class="appearance-check"><i class="fas fa-check"></i></span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- MOBILE-ONLY: Burger menu visibility -->
-              <div class="sidebar-divider mobile-only-section" style="margin: 12px 0"></div>
-              <div class="settings-section mobile-only-section">
-                <div class="settings-section-label" id="menu-nav-settings-label">NAVEGACIÓN</div>
-                <div class="setting-group">
-                  <div class="setting-label">
-                    <span id="menu-hide-burger-text">Ocultar menú en otras páginas</span>
-                    <span class="setting-description" id="menu-hide-burger-desc"
-                      >Oculta el botón del menú en páginas distintas a la de inicio.</span
-                    >
-                  </div>
-                  <label class="toggle-switch">
-                    <input type="checkbox" id="hide-burger-toggle-checkbox" />
-                    <span class="toggle-slider"></span>
-                  </label>
-                </div>
-                <!-- shown only on the homepage, explaining the exception -->
-                <div class="homepage-notice" id="homepage-notice">
-                  <i class="fas fa-info-circle" aria-hidden="true"></i>
-                  <span id="menu-homepage-notice-text"
-                    >El botón siempre está visible en la página de inicio</span
-                  >
-                </div>
-              </div>
+          <!-- SETTINGS (dedicated page) -->
+          <div class="nav-section">
+            <span class="nav-section-label" id="menu-settings-section-label">SETTINGS</span>
+            <div class="nav-list">
+              <a
+                href="/Adashima_Settings"
+                data-page="settings"
+                class="nav-item"
+                id="menu-settings-link"
+              >
+                <span class="nav-item-icon" aria-hidden="true"
+                  ><i data-lucide="sliders-horizontal"></i
+                ></span>
+                <span class="nav-item-label" id="menu-settings-link-text">Settings</span>
+                <span class="nav-item-arrow" aria-hidden="true"
+                  ><i data-lucide="chevron-right"></i
+                ></span>
+              </a>
             </div>
           </div>
         </div>
@@ -1954,13 +512,10 @@
           const btn = document.getElementById("menu-toggle-btn");
           if (!sidebar) return;
           sidebar.classList.toggle("active", isOpen);
+          sidebar.setAttribute("aria-hidden", isOpen ? "false" : "true");
           if (btn) {
             btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
             btn.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
-          }
-
-          if (window.innerWidth <= 900) {
-            sidebar.style.transform = isOpen ? "translateX(0)" : "translateX(-105%)";
           }
         }
         window.setSidebarState = setSidebarState;
@@ -1996,12 +551,18 @@
         }
 
         function syncLanguageSpecificMenuItems() {
-          const lang = (localStorage.getItem("lang") || "es").toLowerCase();
+          const stored = localStorage.getItem("lang") || localStorage.getItem("preferredLanguage") || localStorage.getItem("language") || "es";
+          const lang = (stored || "es").toLowerCase();
           const statsItem = document.getElementById("menu-stats-item");
           if (!statsItem) return;
           const shouldHide = lang === "es";
           statsItem.style.display = shouldHide ? "none" : "";
           statsItem.setAttribute("aria-hidden", shouldHide ? "true" : "false");
+          if (shouldHide) {
+            statsItem.setAttribute("hidden", "hidden");
+          } else {
+            statsItem.removeAttribute("hidden");
+          }
         }
         window.syncLanguageSpecificMenuItems = syncLanguageSpecificMenuItems;
 
@@ -2020,30 +581,6 @@
           if (!sidebar || !sidebar.classList.contains("active")) return;
           adashimaCloseMenu();
         });
-      })();
-
-      // ============================================================
-      (function () {
-        const card = document.getElementById("settingsCard");
-        const toggle = document.getElementById("settingsToggle");
-        const body = document.getElementById("settingsBody");
-        const chevron = document.getElementById("settingsChevron");
-        if (toggle && body) {
-          toggle.addEventListener("click", function () {
-            const isOpen = body.classList.toggle("open");
-            if (card) card.classList.toggle("open", isOpen);
-            toggle.setAttribute("aria-expanded", isOpen);
-            if (chevron) {
-              chevron.style.transform = isOpen ? "rotate(180deg)" : "rotate(0deg)";
-            }
-          });
-          toggle.addEventListener("keydown", function (e) {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              toggle.click();
-            }
-          });
-        }
       })();
 
       // ============================================================
@@ -2165,8 +702,9 @@
         function applyBurgerVisibility() {
           const hideOnOtherPages = getSetting();
           const onHome = isHomePage();
-          // The homepage is always the exception: never hide the burger there.
-          const shouldHide = hideOnOtherPages && !onHome;
+          // The preference only affects mobile; desktop always keeps the launcher.
+          const isMobile = window.matchMedia("(max-width: 900px)").matches;
+          const shouldHide = hideOnOtherPages && !onHome && isMobile;
           if (wrapper) wrapper.classList.toggle("mobile-toggle-hidden", shouldHide);
 
           // Some pages apply their own mobile-menu layout with !important rules.
@@ -2206,6 +744,9 @@
             applyBurgerVisibility();
           }
         });
+
+        // Keep the launcher state correct when the viewport crosses 900px.
+        window.addEventListener("resize", applyBurgerVisibility);
 
         applyBurgerVisibility();
       })();
@@ -2269,6 +810,97 @@
       })();
 
       // ============================================================
+      // GLOBAL SETTINGS STATE (UI lives on /Adashima_Settings)
+      // ============================================================
+      (function () {
+        const KEYS = {
+          reducedMotion: "adashima_reduced_motion",
+          autoplay: "adashima_autoplay_next",
+          dataSaver: "adashima_data_saver",
+          mangaView: "adashima_manga_view",
+          animeView: "episodeView",
+          musicView: "adashima_music_view",
+          pdfView: "adashima_pdf_mode",
+          novelsView: "adashima_novels_view",
+        };
+
+        function getBool(key, fallback) {
+          try {
+            const value = localStorage.getItem(key);
+            return value === null ? fallback : value === "true";
+          } catch {
+            return fallback;
+          }
+        }
+
+        function applyReducedMotion(enabled) {
+          document.documentElement.classList.toggle("adashima-reduced-motion", enabled);
+          document.body?.classList.toggle("adashima-reduced-motion", enabled);
+        }
+
+        function applyDataSaver(enabled) {
+          document.documentElement.classList.toggle("adashima-data-saver", enabled);
+          document.body?.classList.toggle("adashima-data-saver", enabled);
+          if (enabled) {
+            document.querySelectorAll("img").forEach((img) => {
+              if (!img.dataset.adashimaOriginalLoading) {
+                img.dataset.adashimaOriginalLoading = img.getAttribute("loading") || "";
+                img.dataset.adashimaOriginalFetchPriority = img.getAttribute("fetchpriority") || "";
+              }
+              img.setAttribute("loading", "lazy");
+              img.setAttribute("fetchpriority", "low");
+            });
+          }
+        }
+
+        window.AdashimaSettings = {
+          getAutoplayNext: () => getBool(KEYS.autoplay, true),
+          isReducedMotion: () => getBool(KEYS.reducedMotion, false),
+          isDataSaver: () => getBool(KEYS.dataSaver, false),
+          getViewPreference: (name) => {
+            const key = {
+              manga: KEYS.mangaView,
+              novels: KEYS.novelsView,
+              anime: KEYS.animeView,
+              music: KEYS.musicView,
+              pdf: KEYS.pdfView,
+            }[name];
+            if (!key) return null;
+            try {
+              return localStorage.getItem(key);
+            } catch {
+              return null;
+            }
+          },
+        };
+
+        applyReducedMotion(getBool(KEYS.reducedMotion, false));
+        applyDataSaver(getBool(KEYS.dataSaver, false));
+
+        const dataSaverObserver = new MutationObserver((mutations) => {
+          if (!getBool(KEYS.dataSaver, false)) return;
+          mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+              if (!(node instanceof Element)) return;
+              const images = node.matches("img") ? [node] : [...node.querySelectorAll("img")];
+              images.forEach((img) => {
+                img.setAttribute("loading", "lazy");
+                img.setAttribute("fetchpriority", "low");
+              });
+            });
+          });
+        });
+        if (document.body)
+          dataSaverObserver.observe(document.body, { childList: true, subtree: true });
+
+        window.addEventListener("storage", (event) => {
+          if (event.key === KEYS.reducedMotion)
+            applyReducedMotion(getBool(KEYS.reducedMotion, false));
+          if (event.key === KEYS.dataSaver) applyDataSaver(getBool(KEYS.dataSaver, false));
+        });
+      })();
+
+      // ============================================================
       // BACK TO HOME
       // ============================================================
       document.getElementById("menu-back-home").addEventListener("click", function (e) {
@@ -2276,6 +908,58 @@
         const route = this.getAttribute("data-route") || "/index.html";
         window.location.href = route;
       });
+
+      // ============================================================
+      // LUCIDE ICONS + SIDEBAR PREFERENCE
+      // ============================================================
+      (function () {
+        const STORAGE_KEY = "adashima_sidebar_compact";
+
+        function refreshIcons() {
+          if (window.lucide && typeof window.lucide.createIcons === "function") {
+            window.lucide.createIcons({ attrs: { "stroke-width": 1.9 } });
+          }
+        }
+
+        function ensureLucide() {
+          if (window.lucide) {
+            refreshIcons();
+            return;
+          }
+          const existing = document.querySelector("script[data-adashima-lucide]");
+          if (existing) return;
+          const script = document.createElement("script");
+          script.src = "https://unpkg.com/lucide@1.31.0/dist/umd/lucide.min.js";
+          script.async = true;
+          script.dataset.adashimaLucide = "true";
+          script.onload = refreshIcons;
+          document.head.appendChild(script);
+        }
+
+        function applyCompactState(compact) {
+          const sidebar = document.getElementById("sideMenu");
+          if (!sidebar) return;
+          sidebar.classList.toggle("compact", Boolean(compact));
+        }
+
+        let compact = false;
+        try {
+          compact = localStorage.getItem(STORAGE_KEY) === "true";
+        } catch (e) {}
+        applyCompactState(compact);
+
+        window.addEventListener("storage", function (event) {
+          if (event.key === STORAGE_KEY) applyCompactState(event.newValue === "true");
+        });
+
+        window.addEventListener("adashimaSidebarCompactChanged", function (event) {
+          applyCompactState(Boolean(event.detail?.enabled));
+        });
+
+        ensureLucide();
+        window.refreshMenuIcons = refreshIcons;
+        window.applySidebarCompactState = applyCompactState;
+      })();
 
       // ============================================================
       // TRANSLATION SYSTEM (simplified fallback)
@@ -2293,6 +977,8 @@
             linkBlog: "Blog del Autor",
             settingsTitle: "Configuración",
             settingsSubtitle: "Personaliza tu experiencia",
+            settingsSectionLabel: "AJUSTES",
+            settingsLinkText: "Configuración",
             preferencesLabel: "PREFERENCIAS",
             languageLabel: "IDIOMA",
             languageDesc: "Elige tu idioma preferido",
@@ -2303,6 +989,34 @@
             appearanceMorning: "Mañana",
             appearanceAfternoon: "Tarde",
             appearanceNight: "Noche",
+            accessibilityLabel: "ACCESIBILIDAD",
+            reducedMotionText: "Reducir movimiento",
+            reducedMotionDesc: "Reduce animaciones y transiciones.",
+            playbackLabel: "REPRODUCCIÓN",
+            autoplayText: "Reproducir siguiente automáticamente",
+            autoplayDesc: "Pasa automáticamente al siguiente episodio o pista.",
+            viewPreferencesLabel: "VISTAS Y LECTURA",
+            mangaViewText: "Vista de Manga",
+            mangaViewDesc: "Vista predeterminada de la biblioteca.",
+            animeViewText: "Vista de episodios",
+            animeViewDesc: "Cómo se muestran los episodios de Anime.",
+            musicViewText: "Vista de Música",
+            musicViewDesc: "Vista predeterminada de la biblioteca musical.",
+            pdfViewText: "Modo del lector PDF",
+            pdfViewDesc: "Cómo se muestran las páginas del PDF.",
+            dataLabel: "DATOS",
+            dataSaverText: "Ahorrar datos",
+            dataSaverDesc: "Reduce la carga de imágenes en conexiones limitadas.",
+            localDataLabel: "DATOS GUARDADOS",
+            resetProgressText: "Restablecer progreso de lectura",
+            resetProgressDesc: "Borra el progreso guardado.",
+            clearFavoritesText: "Borrar favoritos",
+            clearFavoritesDesc: "Borra tus favoritos de Música.",
+            resetSiteText: "Restablecer todos los datos",
+            resetSiteDesc: "Borra preferencias, progreso, favoritos y vistas guardadas.",
+            whatsNewLabel: "ACTUALIZACIONES",
+            whatsNewTitle: "Versión 2.3.8",
+            whatsNewDesc: "Ver qué hay de nuevo",
             homepageNoticeText: "El botón siempre está visible en la página de inicio",
             navLabel: "NAVEGACIÓN",
             mainLabel: "PRINCIPAL",
@@ -2341,6 +1055,8 @@
             linkBlog: "Author's Blog",
             settingsTitle: "Settings",
             settingsSubtitle: "Customize your experience",
+            settingsSectionLabel: "SETTINGS",
+            settingsLinkText: "Settings",
             preferencesLabel: "PREFERENCES",
             languageLabel: "LANGUAGE",
             languageDesc: "Choose your preferred language",
@@ -2351,6 +1067,34 @@
             appearanceMorning: "Morning",
             appearanceAfternoon: "Afternoon",
             appearanceNight: "Night",
+            accessibilityLabel: "ACCESSIBILITY",
+            reducedMotionText: "Reduce motion",
+            reducedMotionDesc: "Reduce animations and transitions.",
+            playbackLabel: "PLAYBACK",
+            autoplayText: "Autoplay next",
+            autoplayDesc: "Automatically continue to the next episode or track.",
+            viewPreferencesLabel: "VIEWS & READING",
+            mangaViewText: "Manga view",
+            mangaViewDesc: "Default library view.",
+            animeViewText: "Episode view",
+            animeViewDesc: "How Anime episodes are displayed.",
+            musicViewText: "Music view",
+            musicViewDesc: "Default music library view.",
+            pdfViewText: "PDF reader mode",
+            pdfViewDesc: "How PDF pages are displayed.",
+            dataLabel: "DATA",
+            dataSaverText: "Data saver",
+            dataSaverDesc: "Reduce image loading on limited connections.",
+            localDataLabel: "SAVED DATA",
+            resetProgressText: "Reset reading progress",
+            resetProgressDesc: "Delete saved reading progress.",
+            clearFavoritesText: "Clear favorites",
+            clearFavoritesDesc: "Delete your saved Music favorites.",
+            resetSiteText: "Reset all site data",
+            resetSiteDesc: "Delete preferences, progress, favorites, and saved views.",
+            whatsNewLabel: "UPDATES",
+            whatsNewTitle: "Version 2.3.8",
+            whatsNewDesc: "See what's new",
             homepageNoticeText: "The button is always visible on the homepage",
             navLabel: "NAVIGATION",
             mainLabel: "MAIN",
@@ -2389,6 +1133,8 @@
             linkBlog: "Blog ng May-akda",
             settingsTitle: "Mga Setting",
             settingsSubtitle: "I-personalize ang iyong karanasan",
+            settingsSectionLabel: "MGA SETTING",
+            settingsLinkText: "Mga Setting",
             preferencesLabel: "PREFERENSIYA",
             languageLabel: "WIKA",
             languageDesc: "Piliin ang iyong gustong wika",
@@ -2399,6 +1145,34 @@
             appearanceMorning: "Umaga",
             appearanceAfternoon: "Hapon",
             appearanceNight: "Gabi",
+            accessibilityLabel: "ACCESSIBILITY",
+            reducedMotionText: "Bawasan ang galaw",
+            reducedMotionDesc: "Bawasan ang animation at transition.",
+            playbackLabel: "PAGPAPATUGTOG",
+            autoplayText: "Awtomatikong susunod",
+            autoplayDesc: "Awtomatikong magpatuloy sa susunod na episode o track.",
+            viewPreferencesLabel: "VIEW AT PAGBASA",
+            mangaViewText: "Manga view",
+            mangaViewDesc: "Default na view ng library.",
+            animeViewText: "Episode view",
+            animeViewDesc: "Kung paano ipinapakita ang mga Anime episode.",
+            musicViewText: "Music view",
+            musicViewDesc: "Default na view ng music library.",
+            pdfViewText: "PDF reader mode",
+            pdfViewDesc: "Kung paano ipinapakita ang mga pahina ng PDF.",
+            dataLabel: "DATA",
+            dataSaverText: "Magtipid ng data",
+            dataSaverDesc: "Bawasan ang pag-load ng mga larawan sa limitadong koneksyon.",
+            localDataLabel: "NAKA-SAVE NA DATA",
+            resetProgressText: "I-reset ang reading progress",
+            resetProgressDesc: "Burahin ang naka-save na progress.",
+            clearFavoritesText: "Burahin ang favorites",
+            clearFavoritesDesc: "Burahin ang Music favorites.",
+            resetSiteText: "I-reset ang lahat ng site data",
+            resetSiteDesc: "Burahin ang preferences, progress, favorites, at saved views.",
+            whatsNewLabel: "MGA UPDATE",
+            whatsNewTitle: "Version 2.3.8",
+            whatsNewDesc: "Tingnan kung ano ang bago",
             homepageNoticeText: "Palaging nakikita ang button sa homepage",
             navLabel: "NABIGASYON",
             mainLabel: "PANGUNAHIN",
@@ -2441,6 +1215,8 @@
             "menu-link-blog": t.linkBlog,
             "menu-settings-title": t.settingsTitle,
             "menu-settings-subtitle": t.settingsSubtitle,
+            "menu-settings-section-label": t.settingsSectionLabel,
+            "menu-settings-link-text": t.settingsLinkText,
             "menu-preferences-label": t.preferencesLabel,
             "menu-language-label": t.languageLabel,
             "menu-language-desc": t.languageDesc,
@@ -2448,6 +1224,36 @@
             "menu-appearance-toggle-text": t.appearanceToggleText,
             "menu-appearance-toggle-sub": t.appearanceToggleSub,
             "menu-appearance-selector-label": t.appearanceSelectorLabel,
+            "menu-accessibility-label": t.accessibilityLabel,
+            "menu-reduced-motion-text": t.reducedMotionText,
+            "menu-reduced-motion-desc": t.reducedMotionDesc,
+            "menu-playback-label": t.playbackLabel,
+            "menu-autoplay-text": t.autoplayText,
+            "menu-autoplay-desc": t.autoplayDesc,
+            "menu-view-preferences-label": t.viewPreferencesLabel,
+            "menu-manga-view-text": t.mangaViewText,
+            "menu-manga-view-desc": t.mangaViewDesc,
+            "menu-anime-view-text": t.animeViewText,
+            "menu-anime-view-desc": t.animeViewDesc,
+            "menu-music-view-text": t.musicViewText,
+            "menu-music-view-desc": t.musicViewDesc,
+            "menu-pdf-view-text": t.pdfViewText,
+            "menu-pdf-view-desc": t.pdfViewDesc,
+            "menu-data-label": t.dataLabel,
+            "menu-data-saver-text": t.dataSaverText,
+            "menu-data-saver-desc": t.dataSaverDesc,
+            "menu-local-data-label": t.localDataLabel,
+            "menu-reset-progress-text": t.resetProgressText,
+            "menu-reset-progress-desc": t.resetProgressDesc,
+            "menu-clear-favorites-text": t.clearFavoritesText,
+            "menu-clear-favorites-desc": t.clearFavoritesDesc,
+            "menu-clear-bookmarks-text": t.clearBookmarksText,
+            "menu-clear-bookmarks-desc": t.clearBookmarksDesc,
+            "menu-reset-site-text": t.resetSiteText,
+            "menu-reset-site-desc": t.resetSiteDesc,
+            "menu-whats-new-label": t.whatsNewLabel,
+            "menu-whats-new-title": t.whatsNewTitle,
+            "menu-whats-new-desc": t.whatsNewDesc,
             "menu-homepage-notice-text": t.homepageNoticeText,
             "menu-nav-label": t.navLabel,
             "menu-main-label": t.mainLabel,
@@ -2487,14 +1293,48 @@
             names[1].textContent = t.appearanceAfternoon;
             names[2].textContent = t.appearanceNight;
           }
+          const viewLabels = {
+            es: {
+              manga: ["Cuadrícula", "Lista"],
+              anime: ["Lista", "Cuadrícula"],
+              music: ["Estándar", "Compacta"],
+              pdf: ["Página única", "Continuo"],
+            },
+            en: {
+              manga: ["Grid", "List"],
+              anime: ["List", "Grid"],
+              music: ["Standard", "Compact"],
+              pdf: ["Single page", "Continuous"],
+            },
+            tg: {
+              manga: ["Grid", "Listahan"],
+              anime: ["Listahan", "Grid"],
+              music: ["Standard", "Compact"],
+              pdf: ["Isang pahina", "Tuluy-tuloy"],
+            },
+          };
+          const labels = viewLabels[lang] || viewLabels.en;
+          [
+            ["default-manga-view", "manga"],
+            ["default-anime-view", "anime"],
+            ["default-music-view", "music"],
+            ["default-pdf-view", "pdf"],
+          ].forEach(([id, key]) => {
+            const select = document.getElementById(id);
+            if (select)
+              [...select.options].forEach((option, i) => {
+                option.textContent = labels[key][i];
+              });
+          });
 
           // status title with icon
           const st = document.getElementById("menu-status-title");
-          if (st) st.innerHTML = '<i class="fas fa-book-reader"></i> ' + t.statusTitle;
+          if (st) st.innerHTML = '<i data-lucide="book-open"></i> ' + t.statusTitle;
           const sup = document.getElementById("menu-support-title");
-          if (sup) sup.innerHTML = '<i class="fas fa-heart"></i> ' + t.supportTitle;
+          if (sup) sup.innerHTML = '<i data-lucide="heart"></i> ' + t.supportTitle;
 
           if (window.updateAppearance) window.updateAppearance();
+          if (window.refreshMenuIcons) window.refreshMenuIcons();
         };
 
         const storedLang = localStorage.getItem("lang") || "es";

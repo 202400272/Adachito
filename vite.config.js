@@ -31,6 +31,7 @@ const runtimeJs = [
 
 const previewRoutes = {
   "/Adashima_About": "src/pages/Adashima_About.html",
+  "/Adashima_Settings": "src/pages/Adashima_Settings.html",
   "/Adashima_Help": "src/pages/Adashima_Help.html",
   "/Adashima_Anime": "src/pages/Adashima_Anime.html",
   "/Adashima_Drama": "src/pages/Adashima_Drama.html",
@@ -175,9 +176,35 @@ function copyRuntimeFiles() {
   };
 }
 
-function previewCleanRoutes() {
+function cleanRoutes() {
   return {
-    name: "preview-clean-routes",
+    name: "clean-routes",
+
+    // Clean URLs are needed during normal development too. Cloudflare's
+    // _redirects file only exists at deployment time, so Vite must handle
+    // the route itself when running `npm run dev`.
+    configureServer(server) {
+      server.middlewares.use(async (req, res, next) => {
+        if (req.method !== "GET" && req.method !== "HEAD") return next();
+
+        const pathname = new URL(req.url, "http://localhost").pathname.replace(/\/$/, "") || "/";
+        const source = previewRoutes[pathname];
+        if (!source) return next();
+
+        try {
+          const html = await readFile(resolve(root, source), "utf8");
+          res.statusCode = 200;
+          res.setHeader("Content-Type", "text/html; charset=utf-8");
+          res.end(html);
+        } catch (error) {
+          if (error.code === "ENOENT") return next();
+          next(error);
+        }
+      });
+    },
+
+    // Vite Preview serves the built files, so use the corresponding dist
+    // path for the same clean URLs.
     configurePreviewServer(server) {
       server.middlewares.use(async (req, res, next) => {
         if (req.method !== "GET" && req.method !== "HEAD") return next();
@@ -205,7 +232,7 @@ export default defineConfig({
   base: "/",
   publicDir: false,
 
-  plugins: [tailwindcss(), themeBootstrap(), copyRuntimeFiles(), previewCleanRoutes()],
+  plugins: [tailwindcss(), themeBootstrap(), copyRuntimeFiles(), cleanRoutes()],
 
   server: {
     host: true,
@@ -226,6 +253,7 @@ export default defineConfig({
         main: page("index.html"),
         offline: page("offline.html"),
         about: page("src/pages/Adashima_About.html"),
+        settings: page("src/pages/Adashima_Settings.html"),
         help: page("src/pages/Adashima_Help.html"),
         anime: page("src/pages/Adashima_Anime.html"),
         drama: page("src/pages/Adashima_Drama.html"),

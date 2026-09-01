@@ -87,7 +87,7 @@ function saveReaderSettings() {
   try {
     localStorage.setItem(READER_SETTINGS_KEY, JSON.stringify(readerSettings));
   } catch {
-    /* ignored */
+    // Ignore persistence failures when storage is unavailable.
   }
 }
 
@@ -379,9 +379,7 @@ async function loadSources() {
   }
 }
 
-// ============================================================
 // BOOKMARK FUNCTIONS
-// ============================================================
 
 function getBookmarks() {
   try {
@@ -395,7 +393,7 @@ function saveBookmarks(bookmarks) {
   try {
     localStorage.setItem("adashima_bookmarks", JSON.stringify(bookmarks));
   } catch {
-    /* ignored */
+    // Ignore persistence failures when storage is unavailable.
   }
 }
 
@@ -429,9 +427,7 @@ function updateBookmarkUI(storyId) {
   });
 }
 
-// ============================================================
 // READING PROGRESS FUNCTIONS
-// ============================================================
 
 function getReadingProgressData() {
   try {
@@ -445,7 +441,7 @@ function saveReadingProgressData(data) {
   try {
     localStorage.setItem("adashima_reading_progress", JSON.stringify(data));
   } catch {
-    /* ignored */
+    // Ignore persistence failures when storage is unavailable.
   }
 }
 
@@ -547,9 +543,7 @@ function updateMarkReadButton() {
   }
 }
 
-// ============================================================
 // FILTER FUNCTIONS
-// ============================================================
 
 function updateFilterCounts() {
   const total = stories.length;
@@ -939,9 +933,7 @@ function renderFilteredStories(filtered) {
   });
 }
 
-// ============================================================
 // CONTINUE READING SHELF
-// ============================================================
 
 function renderContinueReading() {
   const shelf = document.getElementById("continueReadingShelf");
@@ -1007,7 +999,9 @@ function renderStories(_searchTerm = "") {
 
   if (currentLang === "es") {
     if (statsBar) statsBar.style.display = "none";
-    if (extraControls) extraControls.style.display = "none";
+    // Keep search available even while Spanish translations are coming soon.
+    // The QA workflow and visitors can still use the control consistently across languages.
+    if (extraControls) extraControls.style.display = "";
     if (sourcesSection) sourcesSection.style.display = "none";
 
     grid.innerHTML = `
@@ -1035,9 +1029,7 @@ function renderStories(_searchTerm = "") {
   renderContinueReading();
 }
 
-// ============================================================
 // DEEP LINKING
-// ============================================================
 
 function setReaderURL(storyId, mode = "push") {
   if (mode === "none") return;
@@ -1068,9 +1060,7 @@ function openReaderByStoryId(storyId, opts = {}) {
   return true;
 }
 
-// ============================================================
 // READER FUNCTIONS
-// ============================================================
 
 async function openReader(index, { historyMode = "push" } = {}) {
   const story = filteredStoriesCache[index];
@@ -1481,13 +1471,9 @@ function initReaderSettings() {
   });
 }
 
-// ============================================================
 // LANGUAGE SWITCHER
-// ============================================================
 
-// ============================================================
 // INIT
-// ============================================================
 
 document.addEventListener("DOMContentLoaded", async function () {
   createParticles();

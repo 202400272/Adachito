@@ -30,6 +30,77 @@ let currentView = localStorage.getItem("episodeView") || "list";
 
 const CDN_BASE_URL = "https://media.adashimaverse.com";
 
+// Stream catalog is intentionally separate from UI localization. The UI language
+// (en/es/tg) decides the default stream, while the catalog stores every available
+// audio/subtitle release and can grow without changing the language JSON files.
+const STREAM_CATALOG_URL = "/src/data/anime/streams.json";
+let streamCatalog = null;
+
+const STREAM_CATALOG_FALLBACK = {
+  defaults: { en: "en-dub", es: "es-sub", tg: "en-dub" },
+  variants: {
+    "en-dub": {
+      label: "English Dub",
+      labelKey: "englishDub",
+      urlTemplate: `${CDN_BASE_URL}/Anime/Ingles/%5BCleo%5DAdachi_to_Shimamura_-_{episodePadded}_(Dual%20Audio_10bit_1080p_x265).mkv`,
+      downloadFilenameTemplate:
+        "[Cleo]Adachi_to_Shimamura_-_{episodePadded}_(Dual Audio_10bit_1080p_x265).mkv",
+    },
+    "en-sub": {
+      label: "English Sub",
+      labelKey: "englishSub",
+      urlTemplate: `${CDN_BASE_URL}/Anime/Ingles/%5BCleo%5DAdachi_to_Shimamura_-_{episodePadded}_(Dual%20Audio_10bit_1080p_x265).mkv`,
+      downloadFilenameTemplate:
+        "[Cleo]Adachi_to_Shimamura_-_{episodePadded}_(Dual Audio_10bit_1080p_x265).mkv",
+    },
+    "es-sub": {
+      label: "Spanish Sub",
+      labelKey: "spanishSub",
+      urlTemplate: `${CDN_BASE_URL}/Anime/Capitulo%20{episode}.mp4`,
+      downloadFilenameTemplate: "Capitulo_{episode}.mp4",
+    },
+  },
+};
+
+function getVariantStorageKey(lang = currentLang) {
+  return `adashima_anime_source_variant_${lang}`;
+}
+
+function getAvailableStreamVariants() {
+  return streamCatalog?.variants || STREAM_CATALOG_FALLBACK.variants;
+}
+
+function getDefaultSourceVariant(lang = currentLang) {
+  const defaults = streamCatalog?.defaults || STREAM_CATALOG_FALLBACK.defaults;
+  const variants = getAvailableStreamVariants();
+  const preferred = defaults[lang] || defaults.en || Object.keys(variants)[0];
+  return variants[preferred] ? preferred : Object.keys(variants)[0];
+}
+
+function syncSourceVariantForLanguage(lang = currentLang) {
+  const variants = getAvailableStreamVariants();
+  const saved = localStorage.getItem(getVariantStorageKey(lang));
+  state.sourceVariant = saved && variants[saved] ? saved : getDefaultSourceVariant(lang);
+}
+
+async function loadStreamCatalog() {
+  if (streamCatalog) return streamCatalog;
+  try {
+    const response = await fetch(`${STREAM_CATALOG_URL}?v=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const data = await response.json();
+    if (!data?.variants || typeof data.variants !== "object") {
+      throw new Error("Invalid stream catalog");
+    }
+    streamCatalog = data;
+  } catch (error) {
+    console.warn("⚠️ Failed to load anime stream catalog; using safe fallback:", error.message);
+    streamCatalog = STREAM_CATALOG_FALLBACK;
+  }
+  syncSourceVariantForLanguage(currentLang);
+  return streamCatalog;
+}
+
 // ----- runtime state -----
 const state = {
   powered: false,
@@ -43,6 +114,7 @@ const state = {
   cinemaMode: false,
   powerEffectActive: false,
   keyboardHelpOpen: false,
+  sourceVariant: null,
 };
 
 let fullscreenUiTimer = null;
@@ -196,6 +268,7 @@ const nowPlayingSub = document.getElementById("nowPlayingSub");
 const nowEpisodeBadge = document.getElementById("nowEpisodeBadge");
 const crtStageGlow = document.getElementById("crtStageGlow");
 const heroArtworkImg = document.getElementById("heroArtworkImg");
+const sourceSwitcher = document.getElementById("sourceSwitcher");
 
 // Overlay controls
 const overlayPlayPause = document.getElementById("overlayPlayPause");
@@ -222,6 +295,153 @@ const osdNotifMain = document.getElementById("osdNotifMain");
 const osdNotifSub = document.getElementById("osdNotifSub");
 
 // ================================================================
+// Stream variants / audio & subtitle source selector
+// ================================================================
+function interpolateEpisodeTemplate(template, episodeNumber) {
+  const episode = String(episodeNumber);
+  const episodePadded = episode.padStart(2, "0");
+  return String(template || "")
+    .replaceAll("{episode}", episode)
+    .replaceAll("{episodePadded}", episodePadded);
+}
+
+function getStreamVariant(variant = state.sourceVariant) {
+  const variants = getAvailableStreamVariants();
+  return variants[variant] || variants[getDefaultSourceVariant(currentLang)] || null;
+}
+
+function getMainEpisodeSource(episodeNumber, variant = state.sourceVariant) {
+  const config = getStreamVariant(variant);
+  return interpolateEpisodeTemplate(config?.urlTemplate, episodeNumber);
+}
+
+function getMainEpisodeDownloadName(episodeNumber, variant = state.sourceVariant) {
+  const config = getStreamVariant(variant);
+  return interpolateEpisodeTemplate(config?.downloadFilenameTemplate, episodeNumber);
+}
+
+function getCurrentSourceUrl(channel, index, variant = state.sourceVariant) {
+  // Mini episodes keep their own source URLs; main episodes come from the
+  // stream catalog so audio/subtitle releases stay independent of UI language.
+  if (channel?.season === "mini") {
+    return channel.activeSource || channel.video || channel.url || channel.src || "";
+  }
+
+  // Prefer the catalog source. Channel numbering is one-based for filenames.
+  const episodeNumber = Number.isFinite(channel?.episode) ? channel.episode : index + 1;
+  return getMainEpisodeSource(episodeNumber, variant);
+}
+
+function getVariantLabel(variant) {
+  const config = getStreamVariant(variant);
+  const localized = config?.labelKey ? getString(config.labelKey) : "";
+  return localized && localized !== config?.labelKey ? localized : config?.label || variant;
+}
+
+function renderSourceSwitcher() {
+  if (!sourceSwitcher) return;
+  const variants = getAvailableStreamVariants();
+  sourceSwitcher.replaceChildren();
+
+  Object.entries(variants).forEach(([id, config]) => {
+    if (config?.available === false) return;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "source-option";
+    button.dataset.sourceVariant = id;
+    button.setAttribute("aria-pressed", id === state.sourceVariant ? "true" : "false");
+    button.textContent = getVariantLabel(id);
+    sourceSwitcher.appendChild(button);
+  });
+
+  sourceSwitcher.style.setProperty("--source-count", String(sourceSwitcher.children.length || 1));
+}
+
+function updateSourceSwitcher() {
+  if (!sourceSwitcher) return;
+  const expectedCount = Object.values(getAvailableStreamVariants()).filter(
+    (v) => v?.available !== false,
+  ).length;
+  if (sourceSwitcher.children.length !== expectedCount) renderSourceSwitcher();
+  sourceSwitcher.querySelectorAll(".source-option").forEach((button) => {
+    const active = button.dataset.sourceVariant === state.sourceVariant;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", active ? "true" : "false");
+    button.textContent = getVariantLabel(button.dataset.sourceVariant);
+  });
+}
+
+function applyEmbeddedTrackPreference(variant) {
+  try {
+    if (crtVideo.audioTracks && crtVideo.audioTracks.length) {
+      const wantsDub = variant === "en-dub";
+      for (const track of crtVideo.audioTracks) {
+        const label = `${track.label || ""} ${track.language || ""}`.toLowerCase();
+        track.enabled = wantsDub ? /english|eng/.test(label) : /japanese|jpn|ja/.test(label);
+      }
+    }
+    for (const track of Array.from(crtVideo.textTracks || [])) {
+      const label = `${track.label || ""} ${track.language || ""}`.toLowerCase();
+      if (variant === "en-sub") track.mode = /english|eng/.test(label) ? "showing" : "disabled";
+      else if (variant === "es-sub")
+        track.mode = /spanish|español|spa/.test(label) ? "showing" : "disabled";
+      else track.mode = "disabled";
+    }
+  } catch {
+    // Embedded track APIs are browser-dependent; source switching still works.
+  }
+}
+
+async function switchSourceVariant(variant) {
+  if (!getAvailableStreamVariants()[variant]) return;
+  if (!variant || (variant === state.sourceVariant && !state.powered)) {
+    state.sourceVariant = variant || state.sourceVariant;
+    localStorage.setItem(getVariantStorageKey(), state.sourceVariant);
+    updateSourceSwitcher();
+    return;
+  }
+
+  state.sourceVariant = variant;
+  localStorage.setItem(getVariantStorageKey(), variant);
+  updateSourceSwitcher();
+
+  if (!state.powered || state.currentChannel < 0) return;
+  const index = state.currentChannel;
+  const currentTime = Number.isFinite(crtVideo.currentTime) ? crtVideo.currentTime : 0;
+  const wasPlaying = !crtVideo.paused;
+  const channel = CHANNELS[index];
+  if (!channel || channel.season === "mini") return;
+
+  const nextUrl = getCurrentSourceUrl(channel, index, variant);
+  if (crtVideo.src !== nextUrl) {
+    loadingInd.classList.add("show");
+    crtVideo.pause();
+    crtVideo.src = nextUrl;
+    crtVideo.load();
+    await new Promise((resolve) => {
+      const done = () => {
+        crtVideo.removeEventListener("loadedmetadata", done);
+        crtVideo.removeEventListener("error", done);
+        resolve();
+      };
+      crtVideo.addEventListener("loadedmetadata", done, { once: true });
+      crtVideo.addEventListener("error", done, { once: true });
+      setTimeout(done, 5000);
+    });
+    if (currentTime > 0 && Number.isFinite(crtVideo.duration)) {
+      crtVideo.currentTime = Math.min(currentTime, Math.max(0, crtVideo.duration - 0.5));
+    }
+    loadingInd.classList.remove("show");
+  }
+
+  applyEmbeddedTrackPreference(variant);
+  if (wasPlaying) {
+    crtVideo.play().catch(() => {});
+  }
+  showOSDNotification(getVariantLabel(variant), "");
+}
+
+// ================================================================
 // buildChannels
 // ================================================================
 function buildChannels(data, miniData) {
@@ -245,19 +465,13 @@ function buildChannels(data, miniData) {
           thumbnail: ch.thumbnail || null,
         });
       } else {
-        let src, download;
-        if (currentLang === "es") {
-          src = `${CDN_BASE_URL}/Anime/Capitulo%20${epNum}.mp4`;
-          download = `Capitulo_${epNum}.mp4`;
-        } else {
-          src = `${CDN_BASE_URL}/Anime/Ingles/%5BCleo%5DAdachi_to_Shimamura_-_${String(epNum).padStart(2, "0")}_(Dual%20Audio_10bit_1080p_x265).mkv`;
-          download = `[Cleo]Adachi_to_Shimamura_-_${String(epNum).padStart(2, "0")}_(Dual Audio_10bit_1080p_x265).mkv`;
-        }
+        const src = getMainEpisodeSource(epNum, state.sourceVariant);
+        const download = getMainEpisodeDownloadName(epNum, state.sourceVariant);
         channels.push({
           ...ch,
-          src: src,
+          src,
           downloadSrc: src,
-          download: download,
+          download,
           season: ch.season || "main",
           thumbnail: ch.thumbnail || null,
         });
@@ -976,6 +1190,7 @@ function buildOsdMenu() {
 }
 
 function updateOsdActiveChannel() {
+  if (!osdChannelList) return;
   osdChannelList.querySelectorAll(".osd-ch-item").forEach((el, i) => {
     el.classList.toggle("active-ch", i === state.currentChannel);
     const stateEl = el.querySelector(".osd-ch-state");
@@ -1111,6 +1326,14 @@ async function renderApp() {
     "High school students Adachi and Shimamura share a bond that goes beyond friendship. A tender story of connection, growth, and the quiet moments that define a relationship.";
 
   CHANNELS = buildChannels(contentData, miniAnimeData);
+  if (sourceSwitcher) {
+    sourceSwitcher.setAttribute(
+      "aria-label",
+      getString("sourceSelectorLabel") || "Audio & subtitles",
+    );
+    renderSourceSwitcher();
+    updateSourceSwitcher();
+  }
   downloadModalText.textContent = getString("downloadAllText").replace("{count}", CHANNELS.length);
   buildOsdMenu();
   if (!state.powered) updateEpisodeInfoPanel(null);
@@ -1118,12 +1341,14 @@ async function renderApp() {
   if (state.currentChannel >= 0 && state.currentChannel < CHANNELS.length && state.powered) {
     const ch = CHANNELS[state.currentChannel];
     updateEpisodeInfoPanel(ch);
-    if (crtVideo.src !== ch.src) {
+    const activeSource = getCurrentSourceUrl(ch, state.currentChannel);
+    if (crtVideo.src !== activeSource) {
       crtVideo.pause();
       crtVideo.removeAttribute("src");
       crtVideo.load();
-      crtVideo.src = ch.src;
+      crtVideo.src = activeSource;
     }
+    applyEmbeddedTrackPreference(state.sourceVariant);
   }
   document.documentElement.lang = currentLang;
   updateButtons();
@@ -1201,11 +1426,19 @@ async function renderApp() {
     };
   }
 
+  if (sourceSwitcher && !sourceSwitcher.dataset.bound) {
+    sourceSwitcher.dataset.bound = "true";
+    sourceSwitcher.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-source-variant]");
+      if (button) switchSourceVariant(button.dataset.sourceVariant);
+    });
+  }
   console.log(`✅ App rendered with ${CHANNELS.length} channels in ${currentLang}`);
 }
 
 // ===== SEARCH / FILTER =====
 function filterGuide(query) {
+  if (!guideFolders) return;
   const q = query.toLowerCase().trim();
   const folders = guideFolders.querySelectorAll(".guide-folder");
   folders.forEach((folder) => {
@@ -1409,7 +1642,7 @@ async function switchChannel(index, restoreTime = null) {
   loadingInd.classList.add("show");
   loadingText.textContent = `${getString("tuningLabel")} ${label}...`;
 
-  const videoUrl = ch.src;
+  const videoUrl = getCurrentSourceUrl(ch, index);
 
   if (crtVideo.src !== videoUrl) {
     crtVideo.pause();
@@ -1417,6 +1650,7 @@ async function switchChannel(index, restoreTime = null) {
     crtVideo.load();
     crtVideo.src = videoUrl;
   }
+  applyEmbeddedTrackPreference(state.sourceVariant);
   crtVideo.style.opacity = "1";
 
   await new Promise((resolve) => {
@@ -1451,6 +1685,7 @@ async function switchChannel(index, restoreTime = null) {
     showOSDNotification("RESUME", formatTime(restoreTime));
   }
 
+  ch.activeSource = videoUrl;
   downloadLabel.textContent = getString("downloadLabel");
   state.currentChannel = index;
   state.switching = false;
@@ -1634,7 +1869,7 @@ async function downloadAllEpisodes() {
       };
       setLabel(null);
       await forceDownload(
-        ch.downloadSrc || ch.src,
+        getCurrentSourceUrl(ch, i),
         ch.download || `${ch.label || "episode"}.mp4`,
         setLabel,
       );
@@ -1929,6 +2164,7 @@ async function switchLanguage(lang) {
   }
 
   currentLang = lang;
+  syncSourceVariantForLanguage(currentLang);
   localStorage.setItem("lang", lang);
   localStorage.setItem("preferredLanguage", lang);
   localStorage.setItem("language", lang);
@@ -2023,7 +2259,7 @@ downloadBtn.addEventListener("click", (e) => {
     icon.setAttribute("data-icon", "mdi:loading");
     icon.style.animation = "spin 1s linear infinite";
     forceDownload(
-      ch.downloadSrc || ch.src,
+      getCurrentSourceUrl(ch, state.currentChannel),
       ch.download || `${ch.label || "episode"}.mp4`,
       (pct) => {
         downloadLabel.textContent =
@@ -2120,8 +2356,27 @@ crtVideo.addEventListener("ended", () => {
     } else {
       eolNextBtn.style.display = "none";
     }
-    endEpisodeOverlay.classList.add("show");
-    upNextOverlay.classList.remove("show");
+    const autoplayNext =
+      window.AdashimaSettings?.getAutoplayNext?.() ??
+      (() => {
+        try {
+          return localStorage.getItem("adashima_autoplay_next") !== "false";
+        } catch {
+          return true;
+        }
+      })();
+
+    if (autoplayNext && state.currentChannel < CHANNELS.length - 1) {
+      endEpisodeOverlay.classList.remove("show");
+      upNextOverlay.classList.add("show");
+      window.setTimeout(() => {
+        upNextOverlay.classList.remove("show");
+        if (state.currentChannel < CHANNELS.length - 1 && state.powered) nextEpisode();
+      }, 700);
+    } else {
+      endEpisodeOverlay.classList.add("show");
+      upNextOverlay.classList.remove("show");
+    }
   }
 });
 
@@ -2218,7 +2473,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 // ===== LOAD MENU WITH TRANSLATION SUPPORT =====
-fetch("/src/components/menu.html?v=20260818-1", { cache: "no-store" })
+fetch("/src/components/menu.html?v=20260830-1", { cache: "no-store" })
   .then((response) => {
     if (!response.ok) throw new Error("HTTP error " + response.status + " loading menu");
     return response.text();
@@ -2267,6 +2522,7 @@ document.addEventListener("languageChanged", function (e) {
       }
 
       currentLang = newLang;
+      syncSourceVariantForLanguage(currentLang);
       document.documentElement.lang = newLang;
       updateLangDropdownLabel();
 
@@ -2293,6 +2549,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   loadProgress();
   loadFolderStates();
   updateLangDropdownLabel();
+  await loadStreamCatalog();
 
   const data = await loadContent(currentLang);
   if (data) {

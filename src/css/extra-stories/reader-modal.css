@@ -1,6 +1,4 @@
-/* ============================================================
-   READER MODAL
-   ============================================================ */
+/* ============================================================ READER MODAL =================================... */
 
 .reader-overlay {
   position: fixed;
@@ -507,11 +505,7 @@
   color: #6b6b6b;
 }
 
-/* ============================================================
-   MOBILE FULLSCREEN READER
-   On small screens the reader should behave like a native
-   fullscreen view instead of a small floating card.
-   ============================================================ */
+/* ============================================================ MOBILE FULLSCREEN READER On small screens the... */
 @media (max-width: 768px) {
   .reader-overlay {
     padding: 0;

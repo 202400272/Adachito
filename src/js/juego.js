@@ -455,6 +455,15 @@ let donutSpawnActive = false;
 
 const MAX_PARTICLES = 200;
 const MAX_POWERUP_PARTICLES = 100;
+const MIN_OBSTACLE_GAP = 120;
+
+function canSpawnObstacleAt(x, width) {
+  return !obstacles.some((obstacle) => {
+    const gap = obstacle.x - (x + width);
+    const reverseGap = x - (obstacle.x + obstacle.width);
+    return gap < MIN_OBSTACLE_GAP && gap > -Math.max(width, obstacle.width) && reverseGap < MIN_OBSTACLE_GAP && reverseGap > -Math.max(width, obstacle.width);
+  });
+}
 
 for (let i = 0; i < MAX_PARTICLES; i++) {
   particlePool.push({
@@ -621,8 +630,13 @@ function spawnObstacle() {
     yPos = Math.floor(Math.random() * 110) + 100;
   }
 
+  const spawnX = canvas.width + 40;
+  if (!canSpawnObstacleAt(spawnX, size)) {
+    return;
+  }
+
   obstacles.push({
-    x: canvas.width,
+    x: spawnX,
     y: yPos,
     width: size,
     height: size,
@@ -662,8 +676,13 @@ function spawnParticlesFunc(x, y, color = "#a28cbd") {
 
 function spawnDona() {
   let size = 30;
+  const spawnX = canvas.width + 40;
+  if (!canSpawnObstacleAt(spawnX, size)) {
+    return;
+  }
+
   obstacles.push({
-    x: canvas.width,
+    x: spawnX,
     y: Math.floor(Math.random() * 110) + 100,
     width: size,
     height: size,

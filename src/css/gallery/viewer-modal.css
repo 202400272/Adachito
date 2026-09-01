@@ -1,7 +1,4 @@
-/* =========================================
-   WORLD-CLASS GALLERY VIEWER
-   Timeless · Minimal · Artwork-First
-   ========================================= */
+/* ========================================= WORLD-CLASS GALLERY VIEWER Timeless · Minimal · Artwork-First ===... */
 
 /* ----- reset & base ----- */
 * {
@@ -340,9 +337,7 @@ body.lock {
   height: 100%;
 }
 
-/* =========================================
-   RESPONSIVE REFINEMENTS
-   ========================================= */
+/* ========================================= RESPONSIVE REFINEMENTS ========================================= */
 
 /* --- tablets & small laptops --- */
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -490,9 +485,7 @@ body.lock {
   }
 }
 
-/* =========================================
-   SAFE AREA INSETS (notched phones)
-   ========================================= */
+/* ========================================= SAFE AREA INSETS (notched phones) ===============================... */
 @supports (padding: max(0px)) {
   .viewer-content {
     padding-left: max(clamp(1rem, 4vw, 3.5rem), env(safe-area-inset-left));
@@ -511,9 +504,7 @@ body.lock {
   }
 }
 
-/* =========================================
-   HIGH-DPI & PRINT REFINEMENTS
-   ========================================= */
+/* ========================================= HIGH-DPI & PRINT REFINEMENTS ====================================... */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .viewer-image-wrap img {
     box-shadow:

@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Quicksand:wght@300;400;500;600&family=Special+Elite&display=swap");
-/* ===== MOBILE INTERACTION ===== */
+/* MOBILE INTERACTION ===== */
 
 /* Remove the blue tap highlight on mobile browsers */
 * {
@@ -21,7 +21,7 @@ a:focus-visible,
   outline-offset: 2px;
 }
 
-/* ---------- root variables ---------- */
+/* root variables */
 :root {
   --lavender: #c9b8e8;
   --blush: #f0c8d8;
@@ -32,7 +32,7 @@ a:focus-visible,
   --warm-white: #fff8f4;
 }
 
-/* ---------- reset & base ---------- */
+/* reset & base */
 * {
   margin: 0;
   padding: 0;
@@ -48,7 +48,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ---------- particles ---------- */
+/* particles */
 .particles {
   position: fixed;
   top: 0;
@@ -100,7 +100,7 @@ body {
   }
 }
 
-/* ---------- floating decorations ---------- */
+/* floating decorations */
 .floating-decor {
   position: absolute;
   pointer-events: none;
@@ -145,7 +145,7 @@ body {
   }
 }
 
-/* ---------- main content ---------- */
+/* main content */
 .main-content {
   flex: 1;
   position: relative;
@@ -160,14 +160,10 @@ body {
 .main-content::before {
   content: "";
   position: fixed;
-  top: 0;
-  left: 300px;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.7);
+  inset: 0;
+  background: transparent;
   z-index: -1;
   pointer-events: none;
-  backdrop-filter: blur(4px);
 }
 
 .header-container {
@@ -187,7 +183,7 @@ h1.update-title {
   text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
 }
 
-/* ---------- documents wrapper ---------- */
+/* documents wrapper */
 .documents-wrapper {
   width: 100%;
   max-width: 880px;
@@ -276,7 +272,7 @@ h1.update-title {
   color: #5c3a6b;
 }
 
-/* ---------- footer ---------- */
+/* footer */
 .footer {
   margin-top: 50px;
   text-align: center;
@@ -286,7 +282,7 @@ h1.update-title {
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
-/* ---------- floating adashima ---------- */
+/* floating adashima */
 .floating-adashima {
   position: fixed;
   bottom: 30px;
@@ -320,7 +316,7 @@ h1.update-title {
   }
 }
 
-/* ---------- download overlay ---------- */
+/* download overlay */
 .download-overlay {
   position: fixed;
   inset: 0;
@@ -377,7 +373,7 @@ h1.update-title {
   font-weight: 700;
 }
 
-/* ---------- responsive ---------- */
+/* responsive */
 @media (min-width: 769px) {
   .lang-controls {
     position: fixed !important;
@@ -400,9 +396,6 @@ h1.update-title {
     width: 140px;
     bottom: 20px;
     right: 20px;
-  }
-  .main-content::before {
-    left: 0;
   }
   .main-content {
     padding: 40px 20px;
@@ -441,7 +434,7 @@ h1.update-title {
   }
 }
 
-/* ===== Clean surface redesign: no image backgrounds ===== */
+/* Clean surface redesign: no image backgrounds ===== */
 
 .main-content {
   background:
@@ -455,7 +448,7 @@ h1.update-title {
   backdrop-filter: blur(8px);
 }
 
-/* ===== LOCAL TIME-OF-DAY THEME ===== */
+/* LOCAL TIME-OF-DAY THEME ===== */
 body.time-morning {
   --page-bg: linear-gradient(135deg, #eaf3fb 0%, #edf0fa 58%, #f3ebf7 100%);
   --page-text: #4f5f73;
@@ -499,8 +492,7 @@ body.time-night .header-container * {
   color: var(--page-text) !important;
 }
 
-/* ===== THEME SURFACE CLEANUP =====
-   Avoid a rectangular page layer; cards remain the intentional surfaces. */
+/* ===== THEME SURFACE CLEANUP ===== Avoid a rectangular page layer; cards remain the intentional surfaces. */
 body.time-morning,
 body.time-afternoon,
 body.time-night {

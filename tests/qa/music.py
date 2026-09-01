@@ -213,6 +213,18 @@ def _check_language_and_tracks(page, base_url, lang):
                 if not ok:
                     failures.append(detail)
 
+            # Opening an album hides the library grid. Restore the library before
+            # attempting the next album so the next card is actually actionable.
+            back = page.locator("#backToLibraryBtn").first
+            if back.count() and back.is_visible():
+                back.click()
+                page.locator("#musicLibraryView").wait_for(state="visible", timeout=5000)
+            else:
+                # A fresh navigation is a safe fallback if the page variant has
+                # no visible back control.
+                _goto(page, base_url)
+                _wait_for_album_grid(page)
+
         status = "PASS" if not failures and checked_tracks == total_tracks else "FAIL"
         summary = (
             f"Verified every Music track in {lang.upper()}: "

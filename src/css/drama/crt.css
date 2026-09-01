@@ -1,0 +1,476 @@
+/* CRT television and screen effects */
+
+/* CRT TV */
+.crt-tv-wrapper {
+  width: 100%;
+  max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.5));
+}
+
+.crt-tv-body {
+  position: relative;
+  width: 100%;
+  background:
+    radial-gradient(ellipse 60% 30% at 20% 5%, rgba(255, 255, 255, 0.06) 0%, transparent 100%),
+    linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.18) 0%,
+      transparent 8%,
+      transparent 92%,
+      rgba(0, 0, 0, 0.25) 100%
+    ),
+    linear-gradient(
+      170deg,
+      #45305e 0%,
+      #3a2950 12%,
+      #2e2242 28%,
+      #261c3a 50%,
+      #201630 72%,
+      #1a1028 88%,
+      #140c20 100%
+    );
+  border-radius: 34px 34px 16px 16px;
+  padding: 42px 40px 26px 40px;
+  border: none;
+  outline: none;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.08),
+    inset -4px 0 12px rgba(0, 0, 0, 0.35),
+    inset 4px 0 8px rgba(0, 0, 0, 0.2),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.5),
+    0 25px 60px rgba(0, 0, 0, 0.6),
+    0 10px 25px rgba(0, 0, 0, 0.45),
+    0 0 80px rgba(100, 60, 150, 0.12);
+}
+.crt-tv-body::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 6%;
+  right: 6%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(0, 0, 0, 0.3) 15%,
+    rgba(0, 0, 0, 0.15) 50%,
+    rgba(0, 0, 0, 0.3) 85%,
+    transparent
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+.crt-tv-body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 5%;
+  right: 5%;
+  height: 38%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.055) 0%,
+    rgba(255, 255, 255, 0.02) 40%,
+    transparent 100%
+  );
+  border-radius: 34px 34px 50% 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* TV screws */
+.tv-screw {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 35%, #4a3868, #1e1530);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.08),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.5),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  z-index: 3;
+}
+.tv-screw::before,
+.tv-screw::after {
+  content: "";
+  position: absolute;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 1px;
+}
+.tv-screw::before {
+  width: 60%;
+  height: 1.5px;
+  top: 50%;
+  left: 20%;
+  transform: translateY(-50%);
+}
+.tv-screw::after {
+  width: 1.5px;
+  height: 60%;
+  left: 50%;
+  top: 20%;
+  transform: translateX(-50%);
+}
+.tv-screw-tl {
+  top: 10px;
+  left: 12px;
+}
+.tv-screw-tr {
+  top: 10px;
+  right: 12px;
+}
+.tv-screw-bl {
+  bottom: 14px;
+  left: 12px;
+}
+.tv-screw-br {
+  bottom: 14px;
+  right: 12px;
+}
+
+.tv-brand {
+  z-index: 5;
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Special Elite", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.35em;
+  color: transparent;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-transform: uppercase;
+  pointer-events: none;
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.5),
+    0 -1px 0 rgba(255, 255, 255, 0.06);
+  white-space: nowrap;
+}
+
+.tv-led {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #1a0d20;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.8);
+  transition:
+    background 0.5s,
+    box-shadow 0.5s;
+  z-index: 4;
+}
+.tv-led.on {
+  background: radial-gradient(circle at 40% 35%, #a8ffa0, #2a8820);
+  box-shadow:
+    0 0 6px 2px rgba(168, 255, 160, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+/* Vents */
+.tv-vent-panel {
+  position: absolute;
+  top: 18px;
+  right: 14px;
+  width: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  pointer-events: none;
+  z-index: 2;
+}
+.tv-vent-slot {
+  width: 100%;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 2px;
+  box-shadow:
+    inset 0 1px 1px rgba(0, 0, 0, 0.6),
+    0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Speaker grill */
+.tv-speaker-grill {
+  position: absolute;
+  bottom: 56px;
+  left: 16px;
+  width: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  pointer-events: none;
+  z-index: 2;
+}
+.tv-speaker-slot {
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow:
+    inset 0 1px 1px rgba(0, 0, 0, 0.8),
+    0 1px 0 rgba(255, 255, 255, 0.03);
+}
+.tv-speaker-slot:nth-child(odd) {
+  width: 90%;
+}
+.tv-speaker-slot:nth-child(even) {
+  width: 75%;
+}
+
+/* CRT screen frame */
+.crt-screen-frame {
+  z-index: 1;
+  position: relative;
+  width: 100%;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
+    linear-gradient(to bottom, #100c18 0%, #0a0712 60%, #0d0a16 100%);
+  border-radius: 20px;
+  padding: 18px 20px 20px 20px;
+  box-shadow:
+    inset 0 6px 20px rgba(0, 0, 0, 0.95),
+    inset 0 -4px 15px rgba(0, 0, 0, 0.8),
+    inset 6px 0 15px rgba(0, 0, 0, 0.7),
+    inset -6px 0 15px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 2px rgba(0, 0, 0, 0.6),
+    0 4px 12px rgba(0, 0, 0, 0.5);
+  border: 3px solid #060410;
+  border-top-color: #0f0a1a;
+}
+
+.crt-screen {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: 8px / 6px;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 60px rgba(0, 0, 0, 0.7),
+    inset 0 0 15px rgba(0, 0, 0, 0.5),
+    inset 0 2px 4px rgba(0, 0, 0, 0.9),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.9),
+    0 0 20px rgba(80, 40, 120, 0.15);
+  filter: brightness(var(--brightness-level));
+  transition: filter 0.15s ease;
+}
+.crt-screen::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: radial-gradient(
+    ellipse 95% 90% at 50% 50%,
+    transparent 52%,
+    rgba(0, 0, 0, 0.35) 75%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
+  z-index: 10;
+  pointer-events: none;
+  border-radius: inherit;
+}
+.crt-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(255, 255, 255, 0.025) 25%,
+      transparent 55%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, transparent 30%);
+  z-index: 11;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.crt-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+  display: block;
+  border-radius: 8px;
+  z-index: 1;
+  transition: opacity 0.3s;
+}
+
+.scanlines-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  pointer-events: none;
+  border-radius: inherit;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, var(--scanline-opacity)) 2px,
+    rgba(0, 0, 0, var(--scanline-opacity)) 4px
+  );
+}
+
+.static-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 13;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+  mix-blend-mode: overlay;
+  animation: staticNoise 0.08s steps(1) infinite;
+  transition: opacity 0.3s;
+}
+@keyframes staticNoise {
+  0% {
+    background-position: 0 0;
+  }
+  25% {
+    background-position: -15px 10px;
+  }
+  50% {
+    background-position: 20px -8px;
+  }
+  75% {
+    background-position: -8px -15px;
+  }
+  100% {
+    background-position: 12px 5px;
+  }
+}
+
+.interference-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.12) 0px,
+    rgba(255, 255, 255, 0.12) 2px,
+    transparent 2px,
+    transparent 8px
+  );
+  transition: opacity 0.1s;
+}
+
+.power-flash {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  background: #fff;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.no-signal-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #050308;
+  border-radius: inherit;
+  color: rgba(200, 180, 220, 0.6);
+  font-family: "Special Elite", monospace;
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  gap: 8px;
+  transition: opacity 0.5s;
+}
+.no-signal-screen.off-state {
+  background: #020104;
+}
+.no-signal-screen.off-state .no-signal-bar {
+  display: none;
+}
+.no-signal-screen .no-signal-bar {
+  width: 60px;
+  height: 3px;
+  background: rgba(200, 180, 220, 0.4);
+  border-radius: 2px;
+  animation: signalBlink 1.2s ease-in-out infinite alternate;
+}
+@keyframes signalBlink {
+  0% {
+    opacity: 0.2;
+    transform: scaleX(0.6);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.channel-indicator {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  z-index: 18;
+  font-family: "Special Elite", monospace;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 220, 0.85);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.1em;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.channel-indicator.show {
+  opacity: 1;
+}
+
+.screen-glow {
+  position: absolute;
+  inset: -12px;
+  border-radius: 22px;
+  z-index: -1;
+  opacity: 0;
+  background: radial-gradient(ellipse at center, rgba(160, 130, 220, 0.25) 0%, transparent 70%);
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+  filter: blur(10px);
+}
+.screen-glow.active {
+  opacity: 1;
+  animation: ambientPulse 4s ease-in-out infinite alternate;
+}
+@keyframes ambientPulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}

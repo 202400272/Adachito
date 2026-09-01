@@ -2,7 +2,7 @@
 
 This document is a quick reference for local development, testing, and repository details that are easy to miss when working on AdaShimaverse.
 
-For the full build and deployment workflow, see [Build & Deployment](BUILD_AND_DEPLOYMENT.md). For contribution guidelines, see [Contributing](CONTRIBUTING.md).
+For the full build and deployment workflow, see [Build & Deployment](BUILD.md). For contribution guidelines, see [Contributing](CONTRIBUTING.md).
 
 ---
 
@@ -35,6 +35,24 @@ When editing data:
 - Run formatting checks after editing JSON
 
 ---
+
+## CSS refactor notes
+
+The current CSS architecture follows the same principle as the site's data layer: keep large responsibilities separated without turning every selector into its own file.
+
+- Page styles live in `src/css/<page>/`.
+- Each page folder uses `main.css` as its entry point.
+- Feature files hold substantial, related groups of styles.
+- `global.css` contains rules shared across pages.
+- Shared component styles remain outside individual page folders when multiple pages depend on them.
+
+### Safe deletion check
+
+The old root page stylesheets can be removed only when their page no longer references them and no runtime/build configuration does either. Search for both the filename and the old `/src/css/<page>.css` URL before deleting.
+
+Currently, the folder-based page entries visible in the source tree make these legacy root files the primary deletion candidates: `anime.css`, `drama.css`, `estrella.css`, `help.css`, `juegos.css`, `linea.css`, `otros.css`, and `stats.css`. `index.css` should be checked separately because the homepage has a special preload/style loading path.
+
+Do not delete shared files merely because they sit beside the page styles: `global.css`, `lang-switch.css`, `legal.css`, `pdf-modal.css`, `reader-modal.css`, `tailwind.css`, and `yashiro_runner.css` require their own dependency/reference checks.
 
 ## Vite
 

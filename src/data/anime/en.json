@@ -23,7 +23,7 @@
   "fullscreenBtnTitle": "Fullscreen",
   "volKnobTitle": "Volume — drag up/down",
   "brtKnobTitle": "Brightness — drag up/down",
-  "watchNow": "Watch Now",
+  "watchNow": "Watch now",
   "continueWatching": "Continue Watching",
   "viewAll": "View All →",
   "synopsis": "High school students Adachi and Shimamura share a bond that goes beyond friendship. A tender story of connection, growth, and the quiet moments that define a relationship.",
@@ -47,7 +47,6 @@
   "browseEpisodes": "Browse episodes",
   "keyboardShortcuts": "Keyboard shortcuts",
   "heroEyebrow": "ADASHIMAVERSE ANIME ARCHIVE",
-  "watchNow": "Watch now",
   "episodesLabel": "Episodes",
   "readyLabel": "READY",
   "nowPlaying": "NOW PLAYING",
@@ -103,7 +102,6 @@
   "shortcutCinema": "Cinema mode",
   "shortcutHelp": "Toggle shortcuts",
   "shortcutClose": "Close overlays",
-
   "channels": [
     {
       "id": 0,
@@ -310,7 +308,6 @@
       "thumbnail": "https://wherever-i-look.com/wp-content/uploads/2020/12/Shimamura-and-Adachi-Adachi-and-Shimamura-Season-1-Episode-12-Friends-and-Love-Love-and-Cherry-Blossoms-Finale.jpg"
     }
   ],
-
   "errorMessages": {
     "antennaError": "Error connecting to antenna (R2).",
     "aborted": "Playback aborted by user.",
@@ -318,5 +315,9 @@
     "decodeError": "Error decoding video format.",
     "signalLost": "Signal lost (Error 404). File not found.",
     "weakSignal": "Network signal too weak."
-  }
+  },
+  "sourceSelectorLabel": "Audio & subtitles",
+  "englishDub": "English Dub",
+  "englishSub": "English Sub",
+  "spanishSub": "Spanish Sub"
 }

@@ -10,7 +10,6 @@ html {
 
 body {
   margin: 0;
-  display: flex;
   min-height: 100vh;
   overflow-x: hidden;
   background: var(--page-bg);
@@ -30,10 +29,16 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* The menu is fixed and overlays the page. */
 #sidebar-container {
-  width: 300px;
-  min-height: 100vh;
-  flex: 0 0 300px;
+  width: 0;
+  min-height: 0;
+  flex: 0 0 0;
+  max-width: 0;
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: 20;
+  pointer-events: none;
 }
 
 body::before {

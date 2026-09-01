@@ -1,6 +1,4 @@
-/* ======================================== */
-/* ========== RESPONSIVE - MOBILE ========= */
-/* ======================================== */
+/* RESPONSIVE - MOBILE ========= */
 
 @media (max-width: 992px) {
   .volumes-grid {
@@ -576,7 +574,7 @@
   }
 }
 
-/* ===== Clean surface redesign: no image backgrounds ===== */
+/* Clean surface redesign: no image backgrounds ===== */
 
 @media (max-width: 768px) {
   .main-content {

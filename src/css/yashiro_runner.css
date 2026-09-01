@@ -251,9 +251,7 @@ canvas {
   opacity: 0.8;
 }
 
-/* ========================= */
 /* RESPONSIVE DESIGN */
-/* ========================= */
 
 /* Tablets and smaller screens */
 @media (max-width: 768px) {

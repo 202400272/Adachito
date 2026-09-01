@@ -1,4 +1,4 @@
-// ---- global state ----
+// Global state
 let currentLang = (() => {
   const storedLang =
     window.LanguageSwitch?.getCurrentLanguage?.() ||
@@ -32,10 +32,10 @@ const PDFJS_CDN = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDFJS_VERSION
 try {
   pdfjsLib.GlobalWorkerOptions.workerSrc = `${PDFJS_CDN}/pdf.worker.min.js`;
 } catch {
-  /* ignored */
+  // Ignore persistence failures when storage is unavailable.
 }
 
-// ---- modal state ----
+// Modal state
 let modalPdfDoc = null;
 let modalPageNum = 1;
 let _modalRendering = false;
@@ -54,12 +54,12 @@ let modalThumbnailRenderVersion = 0;
 let modalThumbnailAbortController = null;
 let modalPreloadPage = null;
 
-// ---- view mode + chrome visibility ----
+// Reader view state
 let modalViewMode = "single"; // "single" | "cascade"
 let modalToolbarHidden = false;
 let toolbarAutoHideTimer = null;
 
-// ---- cascade (continuous scroll) mode state ----
+// Cascade mode state
 let cascadeContainerEl = null;
 let cascadePageEntries = []; // [{ pageNum, wrapper, canvas, aspectRatio, rendered }]
 let cascadeIO = null;
@@ -1175,6 +1175,10 @@ function getPdfCacheKey(vol, _isEnglish) {
   return `${currentLang}_${fileTarget}`;
 }
 
+function getPreferredPdfViewMode() {
+  return localStorage.getItem("adashima_pdf_mode") === "continuous" ? "cascade" : "single";
+}
+
 async function loadPdfInModal(vol) {
   const isEnglish = currentLang === "en";
   const baseUrl = isEnglish
@@ -1228,12 +1232,18 @@ async function loadPdfInModal(vol) {
     document.getElementById("pageCountModal").textContent = modalPdfDoc.numPages;
     document.getElementById("mobilePageCountModal").textContent = modalPdfDoc.numPages;
     loadingEl.classList.remove("visible");
-    canvas.style.display = "block";
 
-    await queueModalRender();
+    if (getPreferredPdfViewMode() === "cascade" && modalPdfDoc.numPages > 1) {
+      canvas.style.display = "none";
+      await enterCascadeMode();
+    } else {
+      canvas.style.display = "block";
+      modalViewMode = "single";
+      await queueModalRender();
 
-    if (modalPdfDoc.numPages > 1) {
-      preloadNextPage();
+      if (modalPdfDoc.numPages > 1) {
+        preloadNextPage();
+      }
     }
   } catch (error) {
     if (error.name !== "AbortError") {
@@ -1659,9 +1669,7 @@ function setNavButtonsDisabled(disabled) {
   });
 }
 
-// ============================================================
 // CASCADE (continuous scroll) MODE
-//
 // Renders every page into its own <canvas> stacked vertically inside
 // #pdfCascadeContainer. Pages are built as lightweight placeholder
 // boxes up front (so the scrollbar/scroll position is stable and
@@ -1672,7 +1680,6 @@ function setNavButtonsDisabled(disabled) {
 // (getClampedDpr) and the same zoom state (modalScale) as single-page
 // mode — it's a second renderer for the same data, not a parallel
 // system.
-// ============================================================
 
 function resetCascadeUI() {
   teardownCascadeMode();
@@ -1715,8 +1722,13 @@ function exitCascadeMode() {
 }
 
 function toggleCascadeMode() {
-  if (modalViewMode === "cascade") exitCascadeMode();
-  else enterCascadeMode();
+  if (modalViewMode === "cascade") {
+    exitCascadeMode();
+    localStorage.setItem("adashima_pdf_mode", "single");
+  } else {
+    enterCascadeMode();
+    localStorage.setItem("adashima_pdf_mode", "continuous");
+  }
 }
 
 // Tears down observers/DOM/state without touching modalViewMode or the
@@ -1772,7 +1784,7 @@ async function buildCascadePages() {
     fallbackAspect = vp.height / vp.width;
     firstPage.cleanup();
   } catch {
-    /* ignored */
+    // Ignore persistence failures when storage is unavailable.
   }
 
   if (token !== cascadeBuildToken) return;
@@ -2553,14 +2565,21 @@ function initModalEvents() {
   });
 }
 
-let currentView = "grid";
+let currentView = (() => {
+  try {
+    const saved = localStorage.getItem("adashima_novels_view");
+    return saved === "list" || saved === "grid" ? saved : "grid";
+  } catch {
+    return "grid";
+  }
+})();
 let searchTerm = "";
 
 function resetPageScrollToTop() {
   try {
     window.history.scrollRestoration = "manual";
   } catch {
-    /* ignored */
+    // Ignore persistence failures when storage is unavailable.
   }
 
   window.scrollTo({ top: 0, left: 0, behavior: "auto" });
@@ -2592,6 +2611,11 @@ function renderVolumes() {
 function setView(view) {
   const normalizedView = view === "list" || view === "grid" ? view : "grid";
   currentView = normalizedView;
+  try {
+    localStorage.setItem("adashima_novels_view", normalizedView);
+  } catch {
+    /* ignore storage errors */
+  }
   applyView(normalizedView);
 
   const listBtn = document.getElementById("viewListBtn");
@@ -2760,7 +2784,7 @@ async function renderApp() {
   setView("grid");
 }
 
-// ===== LANGUAGE SWITCH FUNCTION =====
+// Language switching
 function switchLanguage(lang) {
   if (lang === currentLang) return;
   currentLang = lang === "en" ? "en" : "es";
@@ -2780,7 +2804,7 @@ function switchLanguage(lang) {
   window.location.reload();
 }
 
-// ===== EXPOSE GLOBAL FUNCTIONS =====
+// Expose page handlers
 window.openPdfModal = openPdfModal;
 window.closePdfModal = closePdfModal;
 window.switchLanguage = switchLanguage;

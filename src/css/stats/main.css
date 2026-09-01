@@ -1,0 +1,15 @@
+/* Statistics page CSS modules */
+/* Imports stay ordered to preserve the original cascade. */
+
+@import url("../global.css");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Quicksand:wght@300;400;500;600;700&family=Special+Elite&display=swap");
+@import url("base.css");
+@import url("decorations.css");
+@import url("layout.css");
+@import url("dashboard.css");
+@import url("translation.css");
+@import url("comparison.css");
+@import url("extras.css");
+@import url("footer.css");
+@import url("responsive.css");
+@import url("redesign.css");

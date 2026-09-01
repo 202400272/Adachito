@@ -1,12 +1,10 @@
 // src/components/js/footer.js
-//
 // Shared site footer component. Fetches src/components/footer.html into
 // any <div id="footer-container"> on the page, applies the visitor's
 // language to the one translatable string it contains (the legal
 // disclaimer), and fires a "footerLoaded" event once it's in the DOM so
 // other scripts (feedback.js, menu translation, etc.) can safely wire up
 // against it regardless of load order.
-//
 // This replaces the footer markup that used to be copy/pasted into every
 // page, plus the ~8 different (and mostly broken) per-page footer
 // translation snippets that used to live in each page's own JS file.

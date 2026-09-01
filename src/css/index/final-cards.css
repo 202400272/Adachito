@@ -1,0 +1,683 @@
+/* Final card and legal refinements */
+
+/* ===================================================================== EXPLORE CARDS — UNIFIED EXPRESSIVE IC... */
+.story-grid .nav-card-side {
+  padding: 26px 28px 24px !important;
+}
+
+.story-grid .nav-card-side .story-card-side-text {
+  position: relative;
+  z-index: 3;
+  display: block;
+  max-width: 68%;
+}
+
+.story-grid .nav-card-side .story-card-title {
+  font-size: clamp(1.45rem, 2.2vw, 2rem) !important;
+  line-height: 1.08 !important;
+  margin-bottom: 6px !important;
+}
+
+.story-grid .nav-card-side .story-card-desc {
+  max-width: 100% !important;
+  margin-top: 10px !important;
+}
+
+.story-grid .nav-card-side .story-card-decor-side {
+  width: 180px !important;
+  height: 180px !important;
+  right: -4px !important;
+  bottom: -22px !important;
+  opacity: 0.17 !important;
+  transform: rotate(-8deg) !important;
+  z-index: 1 !important;
+}
+
+.story-grid .nav-card-side .story-card-decor-side::before {
+  inset: 14px !important;
+  border-radius: 38% 62% 52% 48% !important;
+  border-width: 1px !important;
+  opacity: 0.48 !important;
+}
+
+.story-grid .nav-card-side .story-card-decor-side svg {
+  width: 122px !important;
+  height: 122px !important;
+  stroke-width: 1 !important;
+  filter: drop-shadow(0 10px 18px rgba(20, 12, 30, 0.08));
+}
+
+.story-grid .nav-card-side .story-card-arrow {
+  position: static !important;
+  align-self: flex-start !important;
+  margin: 0 !important;
+  z-index: 4 !important;
+  width: 32px !important;
+  height: 32px !important;
+  display: grid !important;
+  place-items: center !important;
+  border: 1.5px solid color-mix(in srgb, var(--story-accent) 45%, transparent) !important;
+  border-radius: 50% !important;
+  background: color-mix(in srgb, var(--story-accent) 10%, transparent) !important;
+  color: var(--story-accent) !important;
+  transition:
+    transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 0.28s ease,
+    border-color 0.28s ease,
+    color 0.28s ease !important;
+}
+
+.story-grid .nav-card-side .story-card-arrow svg {
+  width: 15px !important;
+  height: 15px !important;
+  stroke-width: 1.75 !important;
+}
+
+.story-grid .nav-card-side:hover .story-card-decor-side {
+  opacity: 0.23 !important;
+  transform: rotate(-3deg) scale(1.045) !important;
+}
+
+.story-grid .nav-card-side:hover .story-card-arrow {
+  transform: translate(2px, -2px);
+  background: var(--story-accent) !important;
+  color: #241533 !important;
+}
+
+/* Give each medium card an especially recognizable visual silhouette. */
+.story-grid .nav-card-manga .story-card-decor-side::before {
+  border-radius: 18% 42% 20% 46% !important;
+  transform: rotate(6deg);
+}
+
+.story-grid .nav-card-anime .story-card-decor-side::before {
+  border-radius: 50% !important;
+}
+
+@media (max-width: 900px) {
+  .story-grid .nav-card-side .story-card-side-text {
+    max-width: 72%;
+  }
+}
+
+@media (max-width: 600px) {
+  .story-grid .nav-card-side {
+    padding: 22px 22px 22px !important;
+  }
+
+  .story-grid .nav-card-side .story-card-side-text {
+    max-width: 78%;
+  }
+
+  .story-grid .nav-card-side .story-card-decor-side {
+    width: 135px !important;
+    height: 135px !important;
+    right: -10px !important;
+    bottom: -12px !important;
+    opacity: 0.13 !important;
+  }
+
+  .story-grid .nav-card-side .story-card-decor-side svg {
+    width: 90px !important;
+    height: 90px !important;
+  }
+}
+
+/* Accessible bulletin titles: the title is the interactive control, while the surrounding article remains a s... */
+.bulletin-item-title {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bulletin-item-title:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent-primary) 65%, white);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+  .bulletin-board {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .bulletin-feature {
+    min-height: 0;
+    padding: 24px 18px 22px;
+  }
+
+  .bulletin-feature-top {
+    gap: 8px;
+  }
+
+  .bulletin-feature-content {
+    padding-top: 24px;
+  }
+
+  .bulletin-feature-content h3 {
+    max-width: 100%;
+    margin-bottom: 10px;
+    font-size: clamp(1.45rem, 7vw, 1.8rem);
+    line-height: 1.14;
+  }
+
+  .bulletin-feature-content p {
+    max-width: 100%;
+    font-size: 0.82rem;
+    line-height: 1.58;
+  }
+
+  .bulletin-feature-actions {
+    gap: 9px;
+    margin-top: 17px;
+  }
+
+  .bulletin-list-panel {
+    padding: 16px 14px 12px;
+  }
+
+  .bulletin-list-heading {
+    align-items: center;
+    padding-bottom: 12px;
+  }
+
+  .bulletin-filters {
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    margin-inline: -2px;
+    padding: 9px 2px;
+    background: color-mix(in srgb, var(--glass-bg) 92%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .bulletin-filter {
+    min-height: 34px;
+    padding: 7px 11px;
+    font-size: 0.62rem;
+  }
+
+  .bulletin-list {
+    max-height: 390px;
+    contain: content;
+  }
+
+  .bulletin-item {
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 9px;
+    padding: 14px 1px;
+  }
+
+  .bulletin-item-content {
+    padding-right: 2px;
+  }
+
+  .bulletin-item h4 {
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+
+  .bulletin-item p {
+    margin-top: 5px;
+    font-size: 0.74rem;
+    line-height: 1.48;
+  }
+
+  .bulletin-item-meta {
+    flex-wrap: wrap;
+    row-gap: 4px;
+    margin-bottom: 6px;
+  }
+
+  .bulletin-item-sources {
+    margin-top: 7px;
+  }
+}
+
+/* footer legal navigation */
+.footer-legal-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-bottom: 0.8rem;
+  color: inherit;
+  font-size: 0.72rem;
+}
+.footer-legal-link {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 650;
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+.footer-legal-link:hover {
+  color: var(--accent-primary);
+}
+.footer-legal-links > span {
+  opacity: 0.35;
+}
+@media (max-width: 480px) {
+  .footer-legal-links {
+    font-size: 0.68rem;
+    gap: 0.4rem;
+    margin-bottom: 0.55rem;
+  }
+}
+
+/* Keep the legal links above the disclaimer on every viewport. */
+.footer-bottom {
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* =====================================================================
+   STORY ARCHIVE — CLEAN EDITORIAL OVERRIDE
+
+   This intentionally replaces the accumulated story-card treatments
+   above. Keep this block last so older story rules cannot leak through.
+   No imagery, blobs, glass effects, floating icon badges, or gradients.
+   ===================================================================== */
+
+/* Layout */
+.story-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.85fr) !important;
+  grid-template-rows: repeat(2, minmax(0, 1fr)) !important;
+  grid-template-areas: "featured manga" "featured anime" !important;
+  gap: 14px !important;
+  width: 100% !important;
+  min-height: 420px !important;
+}
+
+/* Reset the old card treatment */
+.story-grid .nav-card.nav-card-story {
+  --story-accent: #d5a3bc;
+
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: space-between !important;
+  gap: 0 !important;
+
+  min-width: 0 !important;
+  min-height: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 27px 29px 25px !important;
+  margin: 0 !important;
+
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+
+  border: 1px solid rgba(235, 220, 239, 0.15) !important;
+  border-radius: 8px !important;
+
+  background: rgba(35, 25, 44, 0.76) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+
+  color: #eee5ef !important;
+  text-decoration: none !important;
+
+  transform: none !important;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease !important;
+}
+
+.story-grid .nav-card.nav-card-featured {
+  grid-area: featured !important;
+  min-height: 420px !important;
+}
+
+.story-grid .nav-card.nav-card-manga {
+  --story-accent: #a9b9cf;
+  grid-area: manga !important;
+}
+
+.story-grid .nav-card.nav-card-anime {
+  --story-accent: #d0a28d;
+  grid-area: anime !important;
+}
+
+/* Kill all inherited decorative pseudo-elements. */
+.story-grid .nav-card.nav-card-story::before,
+.story-grid .nav-card.nav-card-story::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Header */
+.story-grid .story-card-header {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+
+.story-grid .story-card-kicker {
+  display: block !important;
+  width: auto !important;
+  min-width: 0 !important;
+  margin: 1px 0 0 !important;
+  padding: 0 !important;
+
+  font:
+    700 0.62rem/1.25 "Quicksand",
+    sans-serif !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+
+  color: var(--story-accent) !important;
+  opacity: 0.86 !important;
+}
+
+.story-grid .story-card-kicker::before,
+.story-grid .story-card-kicker::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Body */
+.story-grid .story-card-body {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: auto 0 0 !important;
+  padding: 0 !important;
+}
+
+.story-grid .story-card-title,
+.story-grid .nav-card-featured .story-card-title,
+.story-grid .nav-card-side .story-card-title {
+  display: block !important;
+  width: auto !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  font-family: "Noto Serif JP", Georgia, serif !important;
+  font-size: clamp(1.7rem, 2.8vw, 2.35rem) !important;
+  font-weight: 600 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.01em !important;
+
+  color: #f0e7f1 !important;
+  text-shadow: none !important;
+}
+
+.story-grid .nav-card-featured .story-card-title {
+  max-width: 620px !important;
+  font-size: clamp(2.35rem, 4.2vw, 3.7rem) !important;
+  line-height: 1.02 !important;
+}
+
+.story-grid .story-card-desc,
+.story-grid .nav-card-featured .story-card-desc,
+.story-grid .nav-card-side .story-card-desc {
+  display: block !important;
+  max-width: 540px !important;
+  margin: 13px 0 0 !important;
+  padding: 0 !important;
+
+  font:
+    500 0.86rem/1.65 "Quicksand",
+    sans-serif !important;
+  letter-spacing: 0 !important;
+
+  color: rgba(232, 219, 235, 0.64) !important;
+  text-shadow: none !important;
+}
+
+/* One consistent arrow chip for every story card — featured and side
+   alike — tinted with that card's own accent color. */
+.story-grid .story-card-arrow {
+  display: grid !important;
+  place-items: center !important;
+  flex: 0 0 auto !important;
+  align-self: flex-start !important;
+
+  width: 32px !important;
+  height: 32px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border: 1.5px solid color-mix(in srgb, var(--story-accent) 45%, transparent) !important;
+  border-radius: 50% !important;
+  background: color-mix(in srgb, var(--story-accent) 10%, transparent) !important;
+
+  color: var(--story-accent) !important;
+  transform: none !important;
+  transition:
+    transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease !important;
+}
+
+.story-grid .story-card-arrow svg {
+  width: 15px !important;
+  height: 15px !important;
+  stroke-width: 1.75 !important;
+}
+
+/* Hover: quiet, physical movement rather than a glowing state. */
+.story-grid .nav-card.nav-card-story:hover {
+  transform: translateY(-2px) !important;
+  background: rgba(40, 29, 49, 0.84) !important;
+  border-color: rgba(235, 220, 239, 0.28) !important;
+  box-shadow: none !important;
+}
+
+.story-grid .nav-card.nav-card-story:hover .story-card-arrow {
+  background: var(--story-accent) !important;
+  border-color: var(--story-accent) !important;
+  color: #241533 !important;
+  transform: translate(2px, -2px) !important;
+}
+
+/* Keyboard focus */
+.story-grid .nav-card.nav-card-story:focus-visible {
+  outline: 2px solid var(--story-accent) !important;
+  outline-offset: 3px !important;
+}
+
+/* Remove remnants from previous generated variants. */
+.story-grid .story-card-number,
+.story-grid .story-card-rule,
+.story-grid .story-card-footer,
+.story-grid .story-card-explore,
+.story-grid .story-card-action,
+.story-grid .story-card-action-line,
+.story-grid .story-card-action-btn,
+.story-grid .story-card-icon,
+.story-grid .story-card-decor,
+.story-grid .story-card-side-row,
+.story-grid .story-card-decor-side,
+.story-grid .nav-card-icon {
+  display: none !important;
+}
+
+@media (max-width: 1024px) {
+  .story-grid {
+    min-height: 390px !important;
+  }
+
+  .story-grid .nav-card.nav-card-featured {
+    min-height: 390px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .story-grid {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: none !important;
+    grid-template-areas: "featured" "manga" "anime" !important;
+    gap: 10px !important;
+    min-height: 0 !important;
+  }
+
+  .story-grid .nav-card.nav-card-story,
+  .story-grid .nav-card.nav-card-featured {
+    min-height: 235px !important;
+    padding: 24px 23px 22px !important;
+  }
+
+  .story-grid .nav-card.nav-card-featured {
+    min-height: 315px !important;
+  }
+
+  .story-grid .nav-card-featured .story-card-title {
+    max-width: 85% !important;
+    font-size: clamp(2.15rem, 10vw, 3rem) !important;
+  }
+
+  .story-grid .story-card-title,
+  .story-grid .nav-card-side .story-card-title {
+    font-size: 1.8rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .story-grid .nav-card.nav-card-story,
+  .story-grid .nav-card.nav-card-featured {
+    padding: 22px 20px 20px !important;
+  }
+
+  .story-grid .nav-card.nav-card-featured {
+    min-height: 290px !important;
+  }
+}
+
+/* =====================================================================
+   STORY ARCHIVE — EDITORIAL DETAIL PASS
+
+   Decorative icons are structural accents, not standalone UI buttons.
+   They sit inside the typography and card composition so the cards feel
+   designed rather than assembled from generic interface components.
+   ===================================================================== */
+.story-grid .story-card-kicker {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.story-grid .story-card-kicker .story-card-icon {
+  display: block !important;
+  width: 15px !important;
+  height: 15px !important;
+  flex: 0 0 auto !important;
+  stroke-width: 1.55 !important;
+  opacity: 0.82 !important;
+}
+
+.story-grid .story-card-body {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.story-grid .story-card-mark {
+  position: absolute !important;
+  right: 24px !important;
+  bottom: 18px !important;
+  width: 112px !important;
+  height: 112px !important;
+  display: grid !important;
+  place-items: center !important;
+  pointer-events: none !important;
+  color: var(--story-accent) !important;
+  opacity: 0.1 !important;
+  transform: rotate(-8deg) !important;
+  z-index: 1 !important;
+}
+
+.story-grid .story-card-mark svg {
+  width: 100% !important;
+  height: 100% !important;
+  stroke-width: 0.85 !important;
+}
+
+.story-grid .nav-card-featured .story-card-mark {
+  width: 190px !important;
+  height: 190px !important;
+  right: 34px !important;
+  bottom: 15px !important;
+  opacity: 0.115 !important;
+  transform: rotate(-7deg) !important;
+}
+
+.story-grid .nav-card-featured .story-card-mark svg {
+  stroke-width: 0.72 !important;
+}
+
+.story-grid .nav-card-featured .story-card-header {
+  position: relative !important;
+  z-index: 3 !important;
+}
+
+.story-grid .nav-card-side .story-card-body {
+  padding-right: 48px !important;
+}
+
+.story-grid .nav-card.nav-card-story:hover .story-card-mark {
+  opacity: 0.15 !important;
+  transform: rotate(-5deg) scale(1.025) !important;
+  transition:
+    opacity 180ms ease,
+    transform 220ms ease !important;
+}
+
+.story-grid .nav-card-featured:hover .story-card-mark {
+  opacity: 0.16 !important;
+}
+
+@media (max-width: 768px) {
+  .story-grid .story-card-mark {
+    width: 92px !important;
+    height: 92px !important;
+    right: 17px !important;
+    bottom: 13px !important;
+  }
+
+  .story-grid .nav-card-featured .story-card-mark {
+    width: 145px !important;
+    height: 145px !important;
+    right: 20px !important;
+  }
+
+  .story-grid .nav-card-side .story-card-body {
+    padding-right: 34px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-grid .nav-card.nav-card-story:hover .story-card-mark {
+    transform: rotate(-8deg) !important;
+  }
+}
+
+/* Editorial story labels use the large line-art mark as their sole icon. */
+.story-grid .story-card-kicker .story-card-icon {
+  display: none !important;
+}

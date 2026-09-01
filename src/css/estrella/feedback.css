@@ -1,0 +1,93 @@
+/* Reset confirmation and toast */
+
+/* reset confirmation */
+.reset-confirm {
+  position: fixed;
+  top: 22px;
+  right: 22px;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+.reset-confirm .reset-card {
+  min-width: 320px;
+  max-width: 420px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(250, 240, 250, 0.9));
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 12px 40px rgba(30, 10, 30, 0.18);
+  backdrop-filter: blur(6px) saturate(120%);
+  transform: translateY(-10px) scale(0.98);
+  opacity: 0;
+  pointer-events: auto;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+.reset-confirm.show .reset-card {
+  animation: resetSlideIn 360ms cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+}
+@keyframes resetSlideIn {
+  from {
+    transform: translateY(-10px) scale(0.98);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+.reset-message {
+  color: #5b2f57;
+  font-size: 0.95rem;
+  margin: 0;
+  padding-right: 12px;
+  flex: 1;
+}
+.reset-actions {
+  display: flex;
+  gap: 8px;
+}
+.reset-btn {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.reset-cancel {
+  background: rgba(90, 60, 90, 0.06);
+  color: #5b3b63;
+}
+.reset-confirm-btn {
+  background: linear-gradient(90deg, #ff9ab3, #f06292);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(240, 98, 146, 0.25);
+}
+.reset-btn:active {
+  transform: translateY(1px);
+}
+
+/* toast */
+.toast-msg {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: rgba(30, 20, 30, 0.9);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 260ms ease;
+  z-index: 99999;
+  pointer-events: none;
+}
+.toast-msg.show {
+  opacity: 1;
+  transform: translateY(0);
+}

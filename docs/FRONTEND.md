@@ -50,9 +50,29 @@ try {
 
 ## CSS
 
-Styles live under `src/css/`, with page-specific files alongside shared styles. Keep selectors scoped where practical and reuse existing variables, components, and patterns instead of creating near-duplicates.
+Styles live under `src/css/`. Page-specific styles use a folder structure with `main.css` as the entry point:
 
-The repository contains `src/css/tailwind.css` and the Tailwind/Vite dependencies, but the current pages do not link to that stylesheet. Treat Tailwind as currently unused unless the project is intentionally migrated to it.
+```text
+src/css/
+├── global.css
+├── <page>/
+│   ├── main.css
+│   ├── layout.css
+│   ├── components.css
+│   ├── responsive.css
+│   └── ...
+└── shared component styles
+```
+
+Use the module that owns a feature instead of adding another override file. Split by responsibility: layout, navigation, cards, dialogs, themes, animations, and responsive behavior are good boundaries when they are substantial enough to justify a file. Do not split tiny groups of rules just to reduce line count.
+
+`main.css` should define the import order. Keep imports stable so the cascade remains predictable. Vite/PostCSS resolves these imports during the build, so source-level modularization does not require the browser to load every CSS module separately.
+
+### Legacy root stylesheets
+
+Some root files may exist as compatibility entry points while pages migrate to folder-based CSS. Before deleting a root stylesheet, search the repository for its exact path/name and confirm there are no HTML, JavaScript, Vite, headers, or runtime references.
+
+The root files corresponding to pages already using `/src/css/<page>/main.css` are candidates for deletion after that reference check. Do not delete `global.css`, `lang-switch.css`, `legal.css`, `pdf-modal.css`, `reader-modal.css`, `tailwind.css`, or `yashiro_runner.css` based on filename alone; these serve shared or separate purposes.
 
 ## Themes
 

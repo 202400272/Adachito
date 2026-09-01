@@ -1,0 +1,729 @@
+/* Archive and editorial refinements */
+
+/* ============================================================ INDEX REDESIGN — ARCHIVE + EDITORIAL NEWS Scop... */
+
+.main-content {
+  width: 100%;
+  max-width: 1480px;
+  padding: 34px clamp(24px, 4vw, 64px) 8px;
+}
+
+.homepage-section,
+.series-intro {
+  max-width: 1120px;
+}
+
+/* Collapsible series introduction */
+.series-intro {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.series-intro-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 28px;
+  border: 1px solid var(--surface-border);
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--glass-bg) 78%, transparent);
+  box-shadow: 0 12px 38px rgba(54, 34, 65, 0.055);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    border-radius 0.25s ease;
+}
+
+.series-intro-toggle:hover {
+  background: color-mix(in srgb, var(--surface-glass) 78%, transparent);
+  box-shadow: 0 16px 42px rgba(54, 34, 65, 0.08);
+}
+
+.series-intro-toggle:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.78);
+  outline-offset: 4px;
+}
+
+.series-intro-toggle-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.series-intro-toggle .section-eyebrow {
+  margin-bottom: 7px;
+}
+
+.series-intro-toggle .editorial-title {
+  display: block;
+  font-size: clamp(1.45rem, 2.6vw, 2rem);
+}
+
+.series-intro-toggle .editorial-subtitle {
+  display: block;
+  margin-top: 5px;
+}
+
+.series-intro-chevron {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.09);
+  color: var(--text-light);
+  transition:
+    transform 0.28s ease,
+    background 0.25s ease;
+}
+
+.series-intro-chevron.rotated {
+  transform: rotate(180deg);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.series-intro .info-content {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  transition:
+    max-height 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.25s ease;
+  opacity: 0;
+}
+
+.series-intro .info-content.open {
+  opacity: 1;
+}
+
+.series-intro .info-inner {
+  margin-top: 0;
+  padding: 20px 28px 24px;
+  border: 1px solid var(--surface-border);
+  border-top: 0;
+  border-radius: 0 0 24px 24px;
+  background: color-mix(in srgb, var(--glass-bg) 62%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.series-intro.expanded .series-intro-toggle {
+  border-radius: 24px 24px 0 0;
+}
+
+.series-intro .info-chips {
+  margin-bottom: 14px;
+}
+
+.series-intro .info-body {
+  max-width: 100%;
+  color: var(--text-secondary);
+  font-size: 0.96rem;
+  line-height: 1.72;
+}
+
+.series-intro .info-body p {
+  margin: 0 0 10px;
+}
+
+.series-intro .info-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Explore / archive hierarchy */
+.explore-section {
+  margin-top: 82px;
+}
+
+.editorial-heading {
+  margin-bottom: 28px;
+}
+
+.editorial-heading .section-heading-title {
+  font-size: clamp(2rem, 3.4vw, 2.85rem);
+  letter-spacing: -0.015em;
+}
+
+.editorial-heading .section-heading-sub {
+  max-width: 700px;
+  font-size: 0.98rem;
+}
+
+.story-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.8fr);
+  grid-template-rows: minmax(170px, 1fr) minmax(170px, 1fr);
+  grid-template-areas:
+    "featured manga"
+    "featured anime";
+  gap: 14px;
+  max-width: none;
+}
+
+.story-grid .nav-card {
+  min-height: 0;
+  padding: 27px 28px;
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--glass-bg) 82%, transparent);
+  border-color: color-mix(in srgb, var(--glass-border) 86%, transparent);
+  box-shadow: 0 12px 35px rgba(54, 34, 65, 0.065);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+  overflow: hidden;
+}
+
+.story-grid .nav-card-featured {
+  grid-area: featured;
+  min-height: 360px;
+  align-items: flex-end;
+  padding: 32px;
+}
+
+.story-grid .nav-card:nth-child(2) {
+  grid-area: manga;
+}
+.story-grid .nav-card:nth-child(3) {
+  grid-area: anime;
+}
+
+.story-grid .nav-card-content {
+  align-self: flex-end;
+}
+
+.story-grid .nav-card-end {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-left: auto;
+  flex: 0 0 auto;
+}
+
+.story-grid .nav-card-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.13);
+}
+
+.story-grid .nav-card-featured .nav-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  font-size: 1.22rem;
+}
+
+.story-grid .nav-card-featured .nav-card-title {
+  font-size: clamp(1.8rem, 3vw, 2.55rem);
+  line-height: 1.08;
+}
+
+.story-grid .nav-card-title {
+  font-size: 1.25rem;
+}
+
+.story-grid .nav-card-desc {
+  max-width: 510px;
+  line-height: 1.55;
+}
+
+.story-grid .nav-card::after {
+  content: "";
+  position: absolute;
+  right: -22px;
+  bottom: -48px;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0) 68%);
+  pointer-events: none;
+}
+
+.story-grid .nav-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 42px rgba(54, 34, 65, 0.105);
+}
+
+/* More from archive: compact links, not giant cards */
+.discover-section {
+  margin-top: 88px;
+}
+
+.compact-heading {
+  margin-bottom: 20px;
+}
+
+.discover-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.discover-grid .nav-card-more {
+  min-height: 76px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.085);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: none;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.discover-grid .nav-card-more:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(54, 34, 65, 0.06);
+}
+
+.discover-grid .nav-card-more .nav-card-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.discover-grid .nav-card-more .nav-card-title {
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
+}
+
+.discover-grid .nav-card-more .nav-card-arrow {
+  font-size: 0.7rem;
+}
+
+/* What's New: editorial, not another card grid */
+.updates-section {
+  margin-top: 96px;
+}
+
+.updates-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+  gap: 36px;
+  align-items: stretch;
+  max-width: none;
+}
+
+.dev-update-card {
+  min-height: 310px;
+  padding: 30px 32px 28px;
+  border: 1px solid var(--surface-border);
+  border-radius: 25px;
+  background: color-mix(in srgb, var(--glass-bg) 72%, transparent);
+  box-shadow: 0 14px 38px rgba(54, 34, 65, 0.065);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+}
+
+.dev-update-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.dev-update-heading {
+  min-width: 0;
+}
+
+.dev-update-eyebrow,
+.series-news-kicker {
+  display: block;
+  margin-bottom: 7px;
+  font:
+    700 0.62rem/1.25 "Quicksand",
+    sans-serif;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  opacity: 0.72;
+}
+
+.dev-update-title {
+  margin: 0;
+  font:
+    700 clamp(1.55rem, 2.5vw, 2.15rem)/1.13 "Noto Serif JP",
+    serif;
+  color: var(--text-light);
+}
+
+.dev-update-date,
+.series-news-date {
+  flex: 0 0 auto;
+  padding-top: 2px;
+  font:
+    700 0.64rem/1.3 "Quicksand",
+    sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  opacity: 0.72;
+  white-space: nowrap;
+}
+
+.dev-update-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dev-update-body p {
+  margin: 0;
+  color: var(--text-secondary);
+  font:
+    500 0.93rem/1.72 "Quicksand",
+    sans-serif;
+}
+
+.dev-update-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 18px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-light);
+  font:
+    700 0.74rem/1.2 "Quicksand",
+    sans-serif;
+  cursor: pointer;
+}
+
+.dev-update-toggle i {
+  transition: transform 0.22s ease;
+}
+
+.dev-update-toggle.expanded i {
+  transform: rotate(90deg);
+}
+
+.series-news {
+  min-height: 310px;
+  border-top: 1px solid var(--surface-border);
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.series-news-feature {
+  display: grid;
+  grid-template-columns: 115px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  padding: 32px 4px 34px;
+}
+
+.series-news-body h3 {
+  margin: 0 0 12px;
+  font:
+    700 clamp(1.6rem, 2.7vw, 2.25rem)/1.12 "Noto Serif JP",
+    serif;
+  color: var(--text-light);
+  text-wrap: balance;
+}
+
+.series-news-body p {
+  margin: 0;
+  color: var(--text-secondary);
+  font:
+    500 0.96rem/1.72 "Quicksand",
+    sans-serif;
+}
+
+.series-news-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 16px;
+  color: var(--text-light);
+  font:
+    700 0.72rem/1.2 "Quicksand",
+    sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  opacity: 0.82;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.series-news-link:hover {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+/* ---------- Accordion hardening: final override over legacy info-panel rules ---------- */
+#infoPanel.series-intro {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+#infoPanel.series-intro .series-intro-toggle {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+#infoPanel.series-intro .info-content[hidden] {
+  display: none !important;
+}
+
+#infoPanel.series-intro .info-content {
+  display: block !important;
+  visibility: visible !important;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  padding: 0;
+  margin: 0;
+  transition:
+    max-height 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.22s ease;
+}
+
+#infoPanel.series-intro .info-content.open {
+  opacity: 1;
+}
+
+#infoPanel.series-intro .info-inner {
+  display: block;
+}
+
+/* Remove decorative ghost numbering from archive cards */
+.story-grid .nav-card::after {
+  content: "";
+  position: absolute;
+  right: -22px;
+  bottom: -48px;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0) 68%);
+  pointer-events: none;
+}
+
+/* Keep the footer quieter */
+.footer {
+  max-width: 1120px;
+  margin-top: 35px;
+  margin-inline: auto;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .story-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
+    grid-template-areas:
+      "featured featured"
+      "manga anime";
+  }
+
+  .story-grid .nav-card-featured {
+    min-height: 280px;
+  }
+
+  .updates-grid {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .discover-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .main-content {
+    padding: 18px 16px 56px;
+  }
+
+  .series-intro-toggle {
+    box-sizing: border-box;
+    padding: 19px 18px;
+    gap: 14px;
+    border-radius: 19px;
+  }
+
+  .series-intro-toggle-copy,
+  .series-intro .info-inner,
+  .series-intro .info-body {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .series-intro-toggle .editorial-title,
+  .series-intro-toggle .editorial-subtitle,
+  .series-intro .info-body p {
+    overflow-wrap: anywhere;
+  }
+
+  .series-intro-toggle .editorial-title {
+    font-size: 1.35rem;
+  }
+
+  .series-intro-toggle .editorial-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .series-intro-chevron {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+  }
+
+  .series-intro .info-inner {
+    padding: 21px 18px 22px;
+    border-radius: 0 0 19px 19px;
+  }
+
+  .explore-section,
+  .discover-section,
+  .updates-section {
+    margin-top: 66px;
+  }
+
+  .editorial-heading .section-heading-title {
+    font-size: 1.85rem;
+  }
+
+  .editorial-heading .section-heading-sub {
+    font-size: 0.9rem;
+  }
+
+  .story-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "featured"
+      "manga"
+      "anime";
+    gap: 10px;
+  }
+
+  .story-grid .nav-card,
+  .story-grid .nav-card-featured {
+    min-height: 138px;
+    padding: 20px;
+    border-radius: 19px;
+  }
+
+  .story-grid .nav-card-featured {
+    min-height: 218px;
+    padding: 23px;
+  }
+
+  .story-grid .nav-card-featured .nav-card-title {
+    font-size: 1.85rem;
+  }
+
+  .story-grid .nav-card-end {
+    gap: 10px;
+  }
+
+  .story-grid .nav-card-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .story-grid .nav-card-featured .nav-card-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .discover-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+  }
+
+  .discover-grid .nav-card-more {
+    min-height: 65px;
+    padding: 11px 12px;
+    gap: 9px;
+  }
+
+  .discover-grid .nav-card-more .nav-card-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    font-size: 0.78rem;
+  }
+
+  .discover-grid .nav-card-more .nav-card-title {
+    font-size: 0.78rem;
+  }
+
+  .dev-update-card {
+    min-height: 0;
+    padding: 23px 20px 21px;
+    border-radius: 19px;
+  }
+
+  .dev-update-header {
+    gap: 12px;
+  }
+
+  .dev-update-date {
+    white-space: normal;
+    text-align: right;
+  }
+
+  .dev-update-title {
+    font-size: 1.5rem;
+  }
+
+  .dev-update-body p,
+  .series-news-body p {
+    font-size: 0.88rem;
+    line-height: 1.65;
+  }
+
+  .series-news {
+    min-height: 0;
+  }
+
+  .series-news-feature {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 25px 2px 27px;
+  }
+
+  .series-news-date {
+    padding-top: 0;
+  }
+
+  .series-news-body h3 {
+    font-size: 1.65rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .series-intro-toggle,
+  .series-intro .info-content,
+  .series-intro-chevron,
+  .story-grid .nav-card,
+  .discover-grid .nav-card-more,
+  .series-news-link,
+  .dev-update-toggle i {
+    transition: none !important;
+  }
+}

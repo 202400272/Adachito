@@ -1,4 +1,4 @@
-/* ---------- TRANSLATOR STATISTICS ---------- */
+/* TRANSLATOR STATISTICS */
 .translator-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));

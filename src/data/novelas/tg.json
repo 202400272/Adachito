@@ -31,7 +31,13 @@
     "downloadPDF": "I-download ang PDF",
     "downloadEPUB": "I-download ang EPUB",
     "thumbnails": "Mga thumbnail",
-    "loadingDocument": "Ilo-load ang dokumento..."
+    "loadingDocument": "Ilo-load ang dokumento...",
+    "moreOptions": "More options",
+    "cascadeMode": "Cascade mode (continuous scroll)",
+    "cascade": "Cascade",
+    "showControls": "Show controls",
+    "adjust": "Adjust",
+    "download": "Download"
   },
   "modal": {
     "reading": "Binabasa:",

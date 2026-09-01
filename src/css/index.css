@@ -1,10 +1,10 @@
-/* ---------- imports ---------- */
+/* imports */
 
 html {
   scroll-behavior: smooth;
 }
 
-/* ===== MOBILE INTERACTION ===== */
+/* MOBILE INTERACTION ===== */
 
 /* Remove the blue tap highlight on mobile browsers */
 * {
@@ -69,7 +69,7 @@ body {
     0 5px 25px rgba(209, 135, 162, 0.8);
 }
 
-/* ===== MORNING ===== */
+/* MORNING ===== */
 body.time-morning {
   --sky-top: #a8c8e8;
   --sky-mid: #c8b5d8;
@@ -110,7 +110,7 @@ body.time-morning {
     0 5px 30px rgba(168, 200, 232, 0.3);
 }
 
-/* ===== AFTERNOON (Pink / rose palette) ===== */
+/* AFTERNOON (Pink / rose palette) ===== */
 body.time-afternoon {
   --sky-top: #75465f;
   --sky-mid: #9d5d78;
@@ -151,7 +151,7 @@ body.time-afternoon {
     0 5px 25px rgba(150, 65, 95, 0.24);
 }
 
-/* ===== NIGHT ===== */
+/* NIGHT ===== */
 body.time-night {
   --sky-top: #1a1028;
   --sky-mid: #2a1a3a;
@@ -193,14 +193,14 @@ body.time-night {
     0 5px 30px rgba(20, 10, 40, 0.5);
 }
 
-/* ===== Body Background ===== */
+/* Body Background ===== */
 body {
   background: linear-gradient(var(--sky-gradient));
   background-attachment: fixed;
   transition: background 2.5s ease;
 }
 
-/* ===== Stars Background ===== */
+/* Stars Background ===== */
 .stars-bg {
   transition: opacity 3s ease;
 }
@@ -217,7 +217,7 @@ body.time-night .stars-bg {
   opacity: 0.85;
 }
 
-/* ---------- reset & base ---------- */
+/* reset & base */
 * {
   margin: 0;
   padding: 0;
@@ -235,7 +235,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===== ENHANCED STARS BACKGROUND ===== */
+/* ENHANCED STARS BACKGROUND ===== */
 .stars-bg {
   position: fixed;
   top: 0;
@@ -475,7 +475,7 @@ body {
   }
 }
 
-/* ===== ENHANCED ORBS WITH GLOW ===== */
+/* ENHANCED ORBS WITH GLOW ===== */
 .orb {
   position: absolute;
   border-radius: 50%;
@@ -684,7 +684,7 @@ body.time-night .orb {
   }
 }
 
-/* ===== SHOOTING STARS ===== */
+/* SHOOTING STARS ===== */
 .shooting-star {
   position: fixed;
   width: 100px;
@@ -759,7 +759,7 @@ body.time-night .orb {
   }
 }
 
-/* ---------- clouds ---------- */
+/* clouds */
 .clouds-container {
   position: fixed;
   top: 0;
@@ -832,12 +832,7 @@ body.time-night .orb {
   }
 }
 
-/* ===== DECORATIVE BACKGROUND PERFORMANCE CONTROLS =====
-   .stars-bg, .sparkle-container, .shooting-star and .clouds-container
-   run infinite animations across the whole viewport for the entire time
-   the page is open. The Page Visibility API still pauses them when the tab
-   is backgrounded, but we intentionally do not respect the OS-level
-   reduced-motion preference for the decorative ambiance of the site. */
+/* ===== DECORATIVE BACKGROUND PERFORMANCE CONTROLS ===== .stars-bg, .sparkle-container, .shooting-star and .c... */
 body.decor-paused .stars-bg::before,
 body.decor-paused .stars-bg::after,
 body.decor-paused .sparkle,
@@ -848,8 +843,7 @@ body.decor-paused .lang-wrapper i {
   animation-play-state: paused !important;
 }
 
-/* Fewer simultaneous animated layers on phones — same density feel at
-   phone viewport sizes with roughly half the concurrent GPU work. */
+/* Fewer simultaneous animated layers on phones — same density feel at phone viewport sizes with roughly half... */
 @media (max-width: 768px) {
   body.time-morning .stars-bg,
   body.time-afternoon .stars-bg {
@@ -868,27 +862,19 @@ body.decor-paused .lang-wrapper i {
   }
 }
 
-/* ---------- menu container ----------
-   Reserves the sidebar's footprint before the menu markup is
-   fetched and injected, so .main-content never has to resize
-   when it lands (prevents a large layout shift). Breakpoint
-   matches the sidebar's own off-canvas breakpoint in menu.css. */
+/* ---------- menu container ---------- Reserves the sidebar's footprint before the menu markup is fetched and... */
 #menu-container {
-  flex-shrink: 0;
-  width: 300px;
-  min-height: 100vh;
-  position: relative;
+  /* The menu is a fixed overlay and never reserves page space. */
+  flex: 0 0 0;
+  width: 0;
+  min-height: 0;
+  position: fixed;
+  inset: 0 auto auto 0;
   z-index: 20;
+  pointer-events: none;
 }
 
-@media (max-width: 900px) {
-  #menu-container {
-    width: 0;
-    min-height: 0;
-  }
-}
-
-/* ---------- main content ---------- */
+/* main content */
 .main-content {
   flex: 1 1 auto;
   position: relative;
@@ -898,13 +884,12 @@ body.decor-paused .lang-wrapper i {
   align-items: center;
   min-height: 100vh;
   z-index: 3;
-  width: calc(100% - 300px);
+  width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  margin-left: 0;
 }
 
-/* ---------- language controls ---------- */
+/* language controls */
 .lang-controls {
   position: absolute;
   top: 30px;
@@ -1098,7 +1083,7 @@ body.time-night .lang-option:hover {
   font-weight: 700;
 }
 
-/* ---------- hero section ---------- */
+/* hero section */
 .hero-section {
   display: flex;
   align-items: center;
@@ -1163,7 +1148,7 @@ body.time-night .hero-sub {
   color: rgba(216, 200, 232, 0.9);
 }
 
-/* ===== HERO CTA ===== */
+/* HERO CTA ===== */
 .hero-cta {
   display: inline-flex;
   align-items: center;
@@ -1275,7 +1260,7 @@ body.time-night .hero-cta {
   }
 }
 
-/* ===== INFO PANEL & CHIPS ===== */
+/* INFO PANEL & CHIPS ===== */
 .info-panel {
   width: 100%;
   max-width: 1100px;
@@ -1528,7 +1513,7 @@ body.time-night .info-body strong {
   color: #f0e8f8;
 }
 
-/* ===== NAVIGATION GRID ===== */
+/* NAVIGATION GRID ===== */
 .nav-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1654,28 +1639,41 @@ body.time-night .nav-card:hover .nav-card-desc {
 }
 
 .nav-card-arrow {
-  font-size: 0.9rem;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--text-secondary) 35%, transparent);
+  background: transparent;
   color: var(--text-secondary);
   transition:
-    all 0.35s ease,
-    color 2.5s ease;
-  flex-shrink: 0;
+    transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 0.28s ease,
+    border-color 0.28s ease,
+    color 0.28s ease;
 }
 
 body.time-night .nav-card-arrow {
-  color: rgba(216, 200, 232, 0.6);
+  border-color: rgba(216, 200, 232, 0.32);
+  color: rgba(216, 200, 232, 0.75);
 }
 
 .nav-card:hover .nav-card-arrow {
-  transform: translateX(6px);
-  color: var(--text-light);
+  transform: translateX(4px);
+  background: var(--text-light);
+  border-color: var(--text-light);
+  color: #241533;
 }
 
 body.time-night .nav-card:hover .nav-card-arrow {
-  color: #f0e8f8;
+  background: #f0e8f8;
+  border-color: #f0e8f8;
+  color: #241533;
 }
 
-/* ===== ARCHIVE SECTION HEADINGS (Start Exploring / Discover) ===== */
+/* ARCHIVE SECTION HEADINGS (Start Exploring / Discover) ===== */
 .archive-section {
   width: 100%;
   max-width: 1100px;
@@ -1793,7 +1791,7 @@ body.time-night .section-heading-sub {
   font-size: 0.78rem;
 }
 
-/* ---------- tooltip ---------- */
+/* tooltip */
 [data-tooltip] {
   position: relative;
 }
@@ -1847,7 +1845,7 @@ body.time-night .section-heading-sub {
   transform: translateX(-50%) translateY(6px);
 }
 
-/* ===== RELEASE CARDS ROW ===== */
+/* RELEASE CARDS ROW ===== */
 .release-row {
   display: flex;
   flex-direction: column;
@@ -2104,7 +2102,7 @@ body.time-night .next-date {
   color: #c8a8b8;
 }
 
-/* ===== GALLERY SECTION ===== */
+/* GALLERY SECTION ===== */
 .gallery-section {
   width: 100%;
   max-width: 1100px;
@@ -2216,7 +2214,7 @@ body.time-night .gallery-item {
   margin: 0;
 }
 
-/* ===== LIGHTBOX ===== */
+/* LIGHTBOX ===== */
 .lightbox {
   position: fixed;
   top: 0;
@@ -2325,7 +2323,7 @@ body.time-night .gallery-item {
   opacity: 0.5;
 }
 
-/* ---------- footer ---------- */
+/* footer */
 .footer {
   width: 100%;
   max-width: 1100px;
@@ -2513,7 +2511,7 @@ body.time-night .footer-bottom {
   text-align: center;
 }
 
-/* ---------- responsive ---------- */
+/* responsive */
 @media (max-width: 1024px) {
   .hero-section {
     flex-direction: column;
@@ -3001,7 +2999,7 @@ body.time-night .footer-bottom {
   }
 }
 
-/* ===== LOADING SCREEN ===== */
+/* LOADING SCREEN ===== */
 .loading-overlay {
   position: fixed;
   inset: 0;
@@ -3132,7 +3130,7 @@ body.time-night .footer-bottom {
   }
 }
 
-/* ===== Reduced Motion ===== */
+/* Reduced Motion ===== */
 @media (prefers-reduced-motion: reduce) {
   .loading-title {
     animation: loadingTitlePulse 2.8s ease-in-out infinite;
@@ -3147,13 +3145,10 @@ body.time-night .footer-bottom {
   }
 }
 
-/* ========================================================================
-   HOMEPAGE PRESENTATION — AdashimaVerse editorial archive
-   This layer intentionally reuses the existing theme variables and assets.
-   ======================================================================== */
+/* ======================================================================== HOMEPAGE PRESENTATION — AdashimaVe... */
 
 .main-content {
-  padding: 34px clamp(24px, 4vw, 56px) 72px;
+  padding: 34px clamp(24px, 4vw, 56px) 0;
   max-width: 1440px;
 }
 
@@ -3184,8 +3179,7 @@ body.time-night .footer-bottom {
   line-height: 1.75;
 }
 
-/* Remove the old CTA styling from layout calculations even if an old cached
-   fragment happens to remain. */
+/* Remove the old CTA styling from layout calculations even if an old cached fragment happens to remain. */
 .hero-cta {
   display: none !important;
 }
@@ -3294,7 +3288,7 @@ body.time-night .footer-bottom {
   line-height: 1.6;
 }
 
-/* Story: novels are the visual anchor; the remaining major formats support it. */
+/* Story: novels are the visual anchor; the remaining major formats suppo */
 .story-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -3606,9 +3600,7 @@ body.time-night .footer-bottom {
   }
 }
 
-/* ============================================================
-   HOMEPAGE REFINEMENT — STORY + SERIES NEWS
-   ============================================================ */
+/* ============================================================ HOMEPAGE REFINEMENT — STORY + SERIES NEWS ====... */
 .story-grid {
   grid-template-columns: minmax(0, 1.35fr) minmax(280px, 1fr);
   grid-template-areas:
@@ -3977,15 +3969,12 @@ body.time-night .footer-bottom {
   }
 }
 
-/* ============================================================
-   INDEX REDESIGN — ARCHIVE + EDITORIAL NEWS
-   Scoped to index.html / index.css.
-   ============================================================ */
+/* ============================================================ INDEX REDESIGN — ARCHIVE + EDITORIAL NEWS Scop... */
 
 .main-content {
   width: 100%;
   max-width: 1480px;
-  padding: 34px clamp(24px, 4vw, 64px) 80px;
+  padding: 34px clamp(24px, 4vw, 64px) 8px;
 }
 
 .homepage-section,
@@ -3993,7 +3982,7 @@ body.time-night .footer-bottom {
   max-width: 1120px;
 }
 
-/* ---------- Collapsible series introduction ---------- */
+/* Collapsible series introduction */
 .series-intro {
   padding: 0;
   background: transparent;
@@ -4125,7 +4114,7 @@ body.time-night .footer-bottom {
   margin-bottom: 0;
 }
 
-/* ---------- Explore / archive hierarchy ---------- */
+/* Explore / archive hierarchy */
 .explore-section {
   margin-top: 82px;
 }
@@ -4238,7 +4227,7 @@ body.time-night .footer-bottom {
   box-shadow: 0 18px 42px rgba(54, 34, 65, 0.105);
 }
 
-/* ---------- More from archive: compact links, not giant cards ---------- */
+/* More from archive: compact links, not giant cards */
 .discover-section {
   margin-top: 88px;
 }
@@ -4287,7 +4276,7 @@ body.time-night .footer-bottom {
   font-size: 0.7rem;
 }
 
-/* ---------- What's New: editorial, not another card grid ---------- */
+/* What's New: editorial, not another card grid */
 .updates-section {
   margin-top: 96px;
 }
@@ -4489,7 +4478,7 @@ body.time-night .footer-bottom {
   display: block;
 }
 
-/* ---------- Remove decorative ghost numbering from archive cards ---------- */
+/* Remove decorative ghost numbering from archive cards */
 .story-grid .nav-card::after {
   content: "";
   position: absolute;
@@ -4502,13 +4491,14 @@ body.time-night .footer-bottom {
   pointer-events: none;
 }
 
-/* ---------- Keep the footer quieter ---------- */
+/* Keep the footer quieter */
 .footer {
   max-width: 1120px;
+  margin-top: 35px;
   margin-inline: auto;
 }
 
-/* ---------- Responsive ---------- */
+/* Responsive */
 @media (max-width: 900px) {
   .story-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -4707,10 +4697,7 @@ body.time-night .footer-bottom {
   }
 }
 
-/* ============================================================
-   FEATURED NOVEL CARD — TYPOGRAPHIC EDITORIAL TREATMENT
-   No imagery: use scale, structure, and negative space as the visual.
-   ============================================================ */
+/* ============================================================ FEATURED NOVEL CARD — TYPOGRAPHIC EDITORIAL TR... */
 .story-grid .nav-card-featured {
   position: relative;
   overflow: hidden;
@@ -4826,10 +4813,7 @@ body.time-night .footer-bottom {
   }
 }
 
-/* ============================================================
-   FEATURED NOVEL CARD — LARGE ICON TREATMENT
-   Uses the existing Font Awesome icon as the visual anchor.
-   ============================================================ */
+/* ============================================================ FEATURED NOVEL CARD — LARGE ICON TREATMENT Use... */
 .story-grid .nav-card-featured {
   --novel-icon: #e67f9d;
   --novel-icon-bg: rgba(230, 127, 157, 0.14);
@@ -5041,11 +5025,7 @@ body.time-night .footer-bottom {
   }
 }
 
-/* ============================================================
-   ARCHIVE CARDS — REFINED ICON-LED LAYOUT
-   The icon becomes a real visual anchor while the text stays quiet.
-   No imagery is used.
-   ============================================================ */
+/* ============================================================ ARCHIVE CARDS — REFINED ICON-LED LAYOUT The ic... */
 
 .story-grid .nav-card {
   --card-accent: #d989a6;
@@ -5388,23 +5368,7 @@ body.time-night .footer-bottom {
   }
 }
 
-/* ============================================================
-   FEATURED NOVEL CARD — FINAL PASS
-   Supersedes the treatments above. Fixes three concrete issues:
-   1) The kicker was set to a near-black plum (#4a2f57) meant for a
-      light surface, so "ORIGINAL NOVELS" was almost invisible on
-      the dark glass card — it now uses the same token every other
-      kicker on the page uses.
-   2) The icon + text were vertically centered inside a 360px-tall
-      card with nothing to fill the rest, leaving a big dead band
-      above and below. Switched to a top-to-bottom flex column so
-      the icon sits above the copy and the CTA is pushed to the
-      floor of the card via margin-top: auto, instead of being
-      absolutely pinned in empty space.
-   3) The glow was a wide, centered blob that washed out the text
-      it sat behind. It's now a tighter corner glow anchored to the
-      icon, so it reads as a light source rather than fog.
-   ============================================================ */
+/* ============================================================ FEATURED NOVEL CARD — FINAL PASS Supersedes th... */
 .story-grid .nav-card-featured {
   display: flex;
   flex-direction: column;
@@ -5538,9 +5502,7 @@ body.time-night .footer-bottom {
   }
 }
 
-/* ============================================================
-   BULLETIN NEWS — scalable editorial feed
-   ============================================================ */
+/* ============================================================ BULLETIN NEWS — scalable editorial feed ======... */
 .updates-section {
   margin-top: clamp(72px, 8vw, 112px);
 }
@@ -5966,9 +5928,7 @@ body.time-night .footer-bottom {
   }
 }
 
-/* ============================================================
-   BULLETIN DETAILS — full update modal
-   ============================================================ */
+/* ============================================================ BULLETIN DETAILS — full update modal =========... */
 body.bulletin-modal-open {
   overflow: hidden;
 }
@@ -6280,8 +6240,7 @@ body.bulletin-modal-open {
   }
 }
 
-/* Bulletin modal: always sit above every page layer, including mobile navs,
-   transformed sections, sticky headers, and other stacking contexts. */
+/* Bulletin modal: always sit above every page layer, including mobile navs, transformed sections, sticky head... */
 body.bulletin-modal-open {
   overflow: hidden !important;
 }
@@ -6321,15 +6280,7 @@ body.bulletin-modal-open {
     overscroll-behavior: contain;
   }
 }
-/* =====================================================================
-   EXPLORE THE STORY — redesign to match reference layout (v1.6)
-   Appended last on purpose: the section above this file has several
-   older, overlapping `.story-grid` rule sets from earlier iterations.
-   These rules use new, non-colliding class names (story-card-*) so they
-   don't fight the legacy ones, and use !important only on the grid
-   placement rules, which is the one spot the legacy nth-child selectors
-   have higher specificity than a fresh class selector.
-   ===================================================================== */
+/* ===================================================================== EXPLORE THE STORY — redesign to match... */
 
 .story-grid {
   display: grid;
@@ -6391,8 +6342,7 @@ body.bulletin-modal-open {
   box-shadow: 0 18px 40px rgba(15, 8, 30, 0.24);
 }
 
-/* Accent color per card, driven off a custom property so every child
-   element (kicker, underline, icon border, action button) stays in sync. */
+/* Accent color per card, driven off a custom property so every child element (kicker, underline, icon border,... */
 .story-grid .nav-card-featured {
   --story-accent: #e893b3;
 }
@@ -6513,8 +6463,7 @@ body.bulletin-modal-open {
   transform: translateX(3px);
 }
 
-/* Featured card: bespoke line-art book illustration in the background,
-   echoing the reference design's corner artwork. */
+/* Featured card: bespoke line-art book illustration in the background, echoing the reference design's corner... */
 .story-grid .nav-card-featured .story-card-decor {
   position: absolute;
   right: 6%;
@@ -6593,8 +6542,7 @@ body.bulletin-modal-open {
   }
 }
 
-/* Spinner icon (replaces the old fa-spin animation for the Lucide loader-2
-   icon used in the feedback form's submit button). */
+/* Spinner icon (replaces the old fa-spin animation for the Lucide loader-2 icon used in the feedback form's s... */
 .spin-icon {
   animation: spin-icon-rotate 1s linear infinite;
 }
@@ -6604,13 +6552,7 @@ body.bulletin-modal-open {
   }
 }
 
-/* =====================================================================
-   LUCIDE ICON SIZING — fix-ups for spots that swapped a Font Awesome
-   glyph (sized via `font-size` on an <i>) for a Lucide <svg>. SVGs don't
-   respond to font-size, so each spot that used to rely on that gets an
-   explicit width/height here instead. Only covers icons that actually
-   render on this page.
-   ===================================================================== */
+/* ===================================================================== LUCIDE ICON SIZING — fix-ups for spot... */
 
 .chip svg {
   width: 12px;
@@ -6674,10 +6616,7 @@ body.bulletin-modal-open {
   vertical-align: -2px;
 }
 
-/* Lucide sizing fix-ups for the "More from the Archive" cards, which
-   still use the older .nav-card-icon / .nav-card-arrow classes. Those
-   classes used to size a Font Awesome glyph via font-size; an <svg>
-   needs explicit width/height instead. */
+/* Lucide sizing fix-ups for the "More from the Archive" cards, which still use the older .nav-card-icon / .na... */
 .nav-card-icon svg {
   width: 20px;
   height: 20px;
@@ -6686,21 +6625,21 @@ body.bulletin-modal-open {
   width: 16px;
   height: 16px;
 }
-.nav-card-arrow {
-  display: inline-flex;
-}
 .nav-card-arrow svg {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
+  stroke-width: 1.75;
+}
+.discover-grid .nav-card-arrow {
+  width: 24px;
+  height: 24px;
 }
 .discover-grid .nav-card-arrow svg {
   width: 12px;
   height: 12px;
 }
 
-/* ============================================================
-   EXPLORE THE STORY — final minimalist card treatment
-   ============================================================ */
+/* ============================================================ EXPLORE THE STORY — final minimalist card trea... */
 .story-grid {
   display: grid !important;
   grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.85fr) !important;
@@ -6861,11 +6800,14 @@ body.time-morning .story-grid .nav-card {
   border-color: rgba(95, 134, 170, 0.16) !important;
 }
 body.time-morning .story-grid .story-card-icon,
-body.time-morning .story-grid .story-card-decor,
-body.time-morning .story-grid .story-card-action-btn,
-body.time-morning .story-grid .story-card-arrow {
+body.time-morning .story-grid .story-card-decor {
   color: #5f86aa !important;
   background: rgba(95, 134, 170, 0.1) !important;
+}
+body.time-morning .story-grid .story-card-action-btn,
+body.time-morning .story-grid .story-card-arrow {
+  color: var(--story-accent) !important;
+  background: color-mix(in srgb, var(--story-accent) 10%, transparent) !important;
 }
 body.time-afternoon .story-grid .nav-card {
   background: rgba(255, 255, 255, 0.58) !important;
@@ -6882,11 +6824,14 @@ body.time-night .story-grid .story-card-desc {
   color: #bfaec7 !important;
 }
 body.time-night .story-grid .story-card-icon,
-body.time-night .story-grid .story-card-decor,
-body.time-night .story-grid .story-card-action-btn,
-body.time-night .story-grid .story-card-arrow {
+body.time-night .story-grid .story-card-decor {
   color: #d39bc6 !important;
   background: rgba(211, 155, 198, 0.11) !important;
+}
+body.time-night .story-grid .story-card-action-btn,
+body.time-night .story-grid .story-card-arrow {
+  color: var(--story-accent) !important;
+  background: color-mix(in srgb, var(--story-accent) 11%, transparent) !important;
 }
 @media (max-width: 900px) {
   .story-grid {
@@ -6915,10 +6860,7 @@ body.time-night .story-grid .story-card-arrow {
   }
 }
 
-/* ============================================================
-   EXPLORE THE STORY — INTEGRATED ICON COMPOSITION
-   Icons are ornaments within the card layout, not standalone UI controls.
-   ============================================================ */
+/* ============================================================ EXPLORE THE STORY — INTEGRATED ICON COMPOSITIO... */
 .story-grid .nav-card {
   --story-accent: #c86b9b;
   --story-icon-opacity: 0.12;
@@ -7069,9 +7011,7 @@ body.time-night .story-grid .nav-card {
   }
 }
 
-/* ============================================================
-   BULLETIN FILTERS & SOURCES
-   ============================================================ */
+/* ============================================================ BULLETIN FILTERS & SOURCES ===================... */
 .bulletin-filters {
   display: flex;
   align-items: center;
@@ -7333,13 +7273,7 @@ body.time-night .story-grid .nav-card {
     min-width: 0;
   }
 
-  /* Inside the bulletin modal, .bulletin-modal-dialog has a backdrop-filter,
-     which creates a new containing block for position:fixed descendants.
-     That breaks the bottom-sheet rule above: the menu stops anchoring to
-     the viewport and instead gets positioned/clipped against the dialog's
-     own (scrollable, overflow:hidden) box, so it renders as a misplaced
-     box overlapping the modal text instead of a bottom sheet. Keep it as
-     a normal anchored dropdown here instead, scrolling with the dialog. */
+  /* Inside the bulletin modal, .bulletin-modal-dialog has a backdrop-filter, which creates a new containing blo... */
   .bulletin-modal-sources .bulletin-source-menu {
     position: absolute;
     top: calc(100% + 8px);
@@ -7354,13 +7288,7 @@ body.time-night .story-grid .nav-card {
   }
 }
 
-/* =====================================================================
-   EXPLORE ADACHI & SHIMAMURA — INTEGRATED CARD ART
-   Final visual pass. The icons are part of each card's composition rather
-   than small controls: each card gets a distinct editorial accent and a
-   large, low-contrast line illustration that remains readable in every
-   time-based theme.
-   ===================================================================== */
+/* ===================================================================== EXPLORE ADACHI & SHIMAMURA — INTEGRAT... */
 .story-grid .nav-card {
   --story-accent: #c86b9b;
   --story-accent-soft: rgba(200, 107, 155, 0.14);
@@ -7638,10 +7566,7 @@ body.time-night .story-grid .nav-card-anime {
   }
 }
 
-/* =====================================================================
-   EXPLORE CARDS — UNIFIED EXPRESSIVE ICON TREATMENT
-   Manga and Anime use the same integrated artwork language as Light Novels.
-   ===================================================================== */
+/* ===================================================================== EXPLORE CARDS — UNIFIED EXPRESSIVE IC... */
 .story-grid .nav-card-side {
   padding: 26px 28px 24px !important;
 }
@@ -7689,27 +7614,29 @@ body.time-night .story-grid .nav-card-anime {
 }
 
 .story-grid .nav-card-side .story-card-arrow {
-  position: absolute !important;
-  right: 22px !important;
-  bottom: 20px !important;
+  position: static !important;
+  align-self: flex-start !important;
+  margin: 0 !important;
   z-index: 4 !important;
-  width: 36px !important;
-  height: 36px !important;
+  width: 32px !important;
+  height: 32px !important;
   display: grid !important;
   place-items: center !important;
-  border: 1px solid color-mix(in srgb, var(--story-accent) 45%, transparent) !important;
+  border: 1.5px solid color-mix(in srgb, var(--story-accent) 45%, transparent) !important;
   border-radius: 50% !important;
-  background: color-mix(in srgb, var(--story-accent) 8%, transparent) !important;
+  background: color-mix(in srgb, var(--story-accent) 10%, transparent) !important;
   color: var(--story-accent) !important;
   transition:
-    transform 0.28s ease,
+    transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
     background 0.28s ease,
+    border-color 0.28s ease,
     color 0.28s ease !important;
 }
 
 .story-grid .nav-card-side .story-card-arrow svg {
-  width: 17px !important;
-  height: 17px !important;
+  width: 15px !important;
+  height: 15px !important;
+  stroke-width: 1.75 !important;
 }
 
 .story-grid .nav-card-side:hover .story-card-decor-side {
@@ -7762,9 +7689,7 @@ body.time-night .story-grid .nav-card-anime {
   }
 }
 
-/* Accessible bulletin titles: the title is the interactive control, while the
-   surrounding article remains a semantic container so source buttons can sit
-   alongside it without nested interactive-content violations. */
+/* Accessible bulletin titles: the title is the interactive control, while the surrounding article remains a s... */
 .bulletin-item-title {
   display: block;
   width: 100%;
@@ -7885,7 +7810,7 @@ body.time-night .story-grid .nav-card-anime {
   }
 }
 
-/* ---------- footer legal navigation ---------- */
+/* footer legal navigation */
 .footer-legal-links {
   display: flex;
   justify-content: center;
@@ -7923,4 +7848,536 @@ body.time-night .story-grid .nav-card-anime {
   flex-direction: column;
   align-items: center;
   gap: 0;
+}
+
+/* =====================================================================
+   STORY ARCHIVE — CLEAN EDITORIAL OVERRIDE
+
+   This intentionally replaces the accumulated story-card treatments
+   above. Keep this block last so older story rules cannot leak through.
+   No imagery, blobs, glass effects, floating icon badges, or gradients.
+   ===================================================================== */
+
+/* Layout */
+.story-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.85fr) !important;
+  grid-template-rows: repeat(2, minmax(0, 1fr)) !important;
+  grid-template-areas: "featured manga" "featured anime" !important;
+  gap: 14px !important;
+  width: 100% !important;
+  min-height: 420px !important;
+}
+
+/* Reset the old card treatment */
+.story-grid .nav-card.nav-card-story {
+  --story-accent: #d5a3bc;
+
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: space-between !important;
+  gap: 0 !important;
+
+  min-width: 0 !important;
+  min-height: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 27px 29px 25px !important;
+  margin: 0 !important;
+
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+
+  border: 1px solid rgba(235, 220, 239, 0.15) !important;
+  border-radius: 8px !important;
+
+  background: rgba(35, 25, 44, 0.76) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+
+  color: #eee5ef !important;
+  text-decoration: none !important;
+
+  transform: none !important;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease !important;
+}
+
+.story-grid .nav-card.nav-card-featured {
+  grid-area: featured !important;
+  min-height: 420px !important;
+}
+
+.story-grid .nav-card.nav-card-manga {
+  --story-accent: #a9b9cf;
+  grid-area: manga !important;
+}
+
+.story-grid .nav-card.nav-card-anime {
+  --story-accent: #d0a28d;
+  grid-area: anime !important;
+}
+
+/* Kill all inherited decorative pseudo-elements. */
+.story-grid .nav-card.nav-card-story::before,
+.story-grid .nav-card.nav-card-story::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Header */
+.story-grid .story-card-header {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+
+.story-grid .story-card-kicker {
+  display: block !important;
+  width: auto !important;
+  min-width: 0 !important;
+  margin: 1px 0 0 !important;
+  padding: 0 !important;
+
+  font:
+    700 0.62rem/1.25 "Quicksand",
+    sans-serif !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+
+  color: var(--story-accent) !important;
+  opacity: 0.86 !important;
+}
+
+.story-grid .story-card-kicker::before,
+.story-grid .story-card-kicker::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Body */
+.story-grid .story-card-body {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: auto 0 0 !important;
+  padding: 0 !important;
+}
+
+.story-grid .story-card-title,
+.story-grid .nav-card-featured .story-card-title,
+.story-grid .nav-card-side .story-card-title {
+  display: block !important;
+  width: auto !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  font-family: "Noto Serif JP", Georgia, serif !important;
+  font-size: clamp(1.7rem, 2.8vw, 2.35rem) !important;
+  font-weight: 600 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.01em !important;
+
+  color: #f0e7f1 !important;
+  text-shadow: none !important;
+}
+
+.story-grid .nav-card-featured .story-card-title {
+  max-width: 620px !important;
+  font-size: clamp(2.35rem, 4.2vw, 3.7rem) !important;
+  line-height: 1.02 !important;
+}
+
+.story-grid .story-card-desc,
+.story-grid .nav-card-featured .story-card-desc,
+.story-grid .nav-card-side .story-card-desc {
+  display: block !important;
+  max-width: 540px !important;
+  margin: 13px 0 0 !important;
+  padding: 0 !important;
+
+  font:
+    500 0.86rem/1.65 "Quicksand",
+    sans-serif !important;
+  letter-spacing: 0 !important;
+
+  color: rgba(232, 219, 235, 0.64) !important;
+  text-shadow: none !important;
+}
+
+/* One consistent arrow chip for every story card — featured and side
+   alike — tinted with that card's own accent color. */
+.story-grid .story-card-arrow {
+  display: grid !important;
+  place-items: center !important;
+  flex: 0 0 auto !important;
+  align-self: flex-start !important;
+
+  width: 32px !important;
+  height: 32px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border: 1.5px solid color-mix(in srgb, var(--story-accent) 45%, transparent) !important;
+  border-radius: 50% !important;
+  background: color-mix(in srgb, var(--story-accent) 10%, transparent) !important;
+
+  color: var(--story-accent) !important;
+  transform: none !important;
+  transition:
+    transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease !important;
+}
+
+.story-grid .story-card-arrow svg {
+  width: 15px !important;
+  height: 15px !important;
+  stroke-width: 1.75 !important;
+}
+
+/* Hover: quiet, physical movement rather than a glowing state. */
+.story-grid .nav-card.nav-card-story:hover {
+  transform: translateY(-2px) !important;
+  background: rgba(40, 29, 49, 0.84) !important;
+  border-color: rgba(235, 220, 239, 0.28) !important;
+  box-shadow: none !important;
+}
+
+.story-grid .nav-card.nav-card-story:hover .story-card-arrow {
+  background: var(--story-accent) !important;
+  border-color: var(--story-accent) !important;
+  color: #241533 !important;
+  transform: translate(2px, -2px) !important;
+}
+
+/* Keyboard focus */
+.story-grid .nav-card.nav-card-story:focus-visible {
+  outline: 2px solid var(--story-accent) !important;
+  outline-offset: 3px !important;
+}
+
+/* Remove remnants from previous generated variants. */
+.story-grid .story-card-number,
+.story-grid .story-card-rule,
+.story-grid .story-card-footer,
+.story-grid .story-card-explore,
+.story-grid .story-card-action,
+.story-grid .story-card-action-line,
+.story-grid .story-card-action-btn,
+.story-grid .story-card-icon,
+.story-grid .story-card-decor,
+.story-grid .story-card-side-row,
+.story-grid .story-card-decor-side,
+.story-grid .nav-card-icon {
+  display: none !important;
+}
+
+@media (max-width: 1024px) {
+  .story-grid {
+    min-height: 390px !important;
+  }
+
+  .story-grid .nav-card.nav-card-featured {
+    min-height: 390px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .story-grid {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: none !important;
+    grid-template-areas: "featured" "manga" "anime" !important;
+    gap: 10px !important;
+    min-height: 0 !important;
+  }
+
+  .story-grid .nav-card.nav-card-story,
+  .story-grid .nav-card.nav-card-featured {
+    min-height: 235px !important;
+    padding: 24px 23px 22px !important;
+  }
+
+  .story-grid .nav-card.nav-card-featured {
+    min-height: 315px !important;
+  }
+
+  .story-grid .nav-card-featured .story-card-title {
+    max-width: 85% !important;
+    font-size: clamp(2.15rem, 10vw, 3rem) !important;
+  }
+
+  .story-grid .story-card-title,
+  .story-grid .nav-card-side .story-card-title {
+    font-size: 1.8rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .story-grid .nav-card.nav-card-story,
+  .story-grid .nav-card.nav-card-featured {
+    padding: 22px 20px 20px !important;
+  }
+
+  .story-grid .nav-card.nav-card-featured {
+    min-height: 290px !important;
+  }
+}
+
+/* =====================================================================
+   STORY ARCHIVE — EDITORIAL DETAIL PASS
+
+   Decorative icons are structural accents, not standalone UI buttons.
+   They sit inside the typography and card composition so the cards feel
+   designed rather than assembled from generic interface components.
+   ===================================================================== */
+.story-grid .story-card-kicker {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.story-grid .story-card-kicker .story-card-icon {
+  display: block !important;
+  width: 15px !important;
+  height: 15px !important;
+  flex: 0 0 auto !important;
+  stroke-width: 1.55 !important;
+  opacity: 0.82 !important;
+}
+
+.story-grid .story-card-body {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.story-grid .story-card-mark {
+  position: absolute !important;
+  right: 24px !important;
+  bottom: 18px !important;
+  width: 112px !important;
+  height: 112px !important;
+  display: grid !important;
+  place-items: center !important;
+  pointer-events: none !important;
+  color: var(--story-accent) !important;
+  opacity: 0.1 !important;
+  transform: rotate(-8deg) !important;
+  z-index: 1 !important;
+}
+
+.story-grid .story-card-mark svg {
+  width: 100% !important;
+  height: 100% !important;
+  stroke-width: 0.85 !important;
+}
+
+.story-grid .nav-card-featured .story-card-mark {
+  width: 190px !important;
+  height: 190px !important;
+  right: 34px !important;
+  bottom: 15px !important;
+  opacity: 0.115 !important;
+  transform: rotate(-7deg) !important;
+}
+
+.story-grid .nav-card-featured .story-card-mark svg {
+  stroke-width: 0.72 !important;
+}
+
+.story-grid .nav-card-featured .story-card-header {
+  position: relative !important;
+  z-index: 3 !important;
+}
+
+.story-grid .nav-card-side .story-card-body {
+  padding-right: 48px !important;
+}
+
+.story-grid .nav-card.nav-card-story:hover .story-card-mark {
+  opacity: 0.15 !important;
+  transform: rotate(-5deg) scale(1.025) !important;
+  transition:
+    opacity 180ms ease,
+    transform 220ms ease !important;
+}
+
+.story-grid .nav-card-featured:hover .story-card-mark {
+  opacity: 0.16 !important;
+}
+
+@media (max-width: 768px) {
+  .story-grid .story-card-mark {
+    width: 92px !important;
+    height: 92px !important;
+    right: 17px !important;
+    bottom: 13px !important;
+  }
+
+  .story-grid .nav-card-featured .story-card-mark {
+    width: 145px !important;
+    height: 145px !important;
+    right: 20px !important;
+  }
+
+  .story-grid .nav-card-side .story-card-body {
+    padding-right: 34px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-grid .nav-card.nav-card-story:hover .story-card-mark {
+    transform: rotate(-8deg) !important;
+  }
+}
+
+/* Editorial story labels use the large line-art mark as their sole icon. */
+.story-grid .story-card-kicker .story-card-icon {
+  display: none !important;
+}
+
+/* Homepage loading/notification base */
+body {
+  margin: 0;
+  background: #1a1028;
+}
+
+.content-notification-bubble {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 2000;
+  width: min(620px, calc(100vw - 24px));
+  max-width: 620px;
+  background: var(--surface-glass, rgba(27, 17, 35, 0.9));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.18));
+  border-radius: 22px;
+  box-shadow: var(--glass-shadow, 0 20px 45px rgba(0, 0, 0, 0.28));
+  transform: translateY(20px) scale(0.98);
+  opacity: 0;
+  transition:
+    transform 0.22s ease,
+    opacity 0.22s ease,
+    background 1.5s ease,
+    border-color 1.5s ease;
+  pointer-events: auto;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.content-notification-bubble.is-visible {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.content-notification-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 26px;
+}
+
+.content-notification-image {
+  position: relative;
+  flex-shrink: 0;
+  width: 120px;
+  height: 120px;
+  margin: 0;
+  border-radius: 0;
+  background: transparent;
+  object-fit: contain;
+  box-shadow: none;
+}
+
+.content-notification-copy {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-right: 32px;
+}
+
+.content-notification-text {
+  display: block;
+  font-family: "Quicksand", sans-serif;
+  color: var(--text-main, rgba(255, 255, 255, 0.95));
+  font-size: 1.15rem;
+  line-height: 1.5;
+  font-weight: 600;
+  transition: color 1.5s ease;
+  word-break: break-word;
+}
+
+.content-notification-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--glass-bg, rgba(255, 255, 255, 0.12));
+  color: var(--text-main, white);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 1.5s ease,
+    color 1.5s ease;
+}
+
+body.time-morning .content-notification-bubble {
+  box-shadow: 0 20px 45px rgba(130, 150, 180, 0.22);
+}
+
+@media (max-width: 600px) {
+  .content-notification-bubble {
+    right: 12px;
+    left: 12px;
+    bottom: 12px;
+    width: auto;
+    max-width: none;
+  }
+
+  .content-notification-inner {
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .content-notification-image {
+    width: 56px;
+    height: 56px;
+  }
+
+  .content-notification-copy {
+    padding-right: 22px;
+  }
+
+  .content-notification-text {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .content-notification-close {
+    width: 26px;
+    height: 26px;
+    font-size: 1.05rem;
+  }
 }

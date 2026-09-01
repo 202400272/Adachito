@@ -23,7 +23,7 @@
   "fullscreenBtnTitle": "Full screen",
   "volKnobTitle": "Volume — i-drag pataas/pababa",
   "brtKnobTitle": "Brightness — i-drag pataas/pababa",
-  "watchNow": "Manood Ngayon",
+  "watchNow": "Manood ngayon",
   "continueWatching": "Ipagpatuloy ang Panonood",
   "viewAll": "Tingnan Lahat →",
   "synopsis": "May ugnayan sina Adachi at Shimamura na higit pa sa pagkakaibigan. Isang mahinahong kuwento tungkol sa koneksyon, paglago, at mga tahimik na sandaling nagbibigay-kahulugan sa isang relasyon.",
@@ -47,7 +47,6 @@
   "browseEpisodes": "Mag-browse ng mga episode",
   "keyboardShortcuts": "Mga keyboard shortcut",
   "heroEyebrow": "ADASHIMAVERSE ANIME ARCHIVE",
-  "watchNow": "Manood ngayon",
   "episodesLabel": "Mga episode",
   "readyLabel": "HANDA",
   "nowPlaying": "KASALUKUYANG PINAPALABAS",
@@ -103,7 +102,6 @@
   "shortcutCinema": "Cinema mode",
   "shortcutHelp": "I-toggle ang shortcuts",
   "shortcutClose": "Isara ang mga overlay",
-
   "channels": [
     {
       "id": 0,
@@ -310,7 +308,6 @@
       "thumbnail": "https://wherever-i-look.com/wp-content/uploads/2020/12/Shimamura-and-Adachi-Adachi-and-Shimamura-Season-1-Episode-12-Friends-and-Love-Love-and-Cherry-Blossoms-Finale.jpg"
     }
   ],
-
   "errorMessages": {
     "antennaError": "Error sa pagkonekta sa antenna (R2).",
     "aborted": "Itinigil ng user ang playback.",
@@ -318,5 +315,9 @@
     "decodeError": "Error sa pag-decode ng video format.",
     "signalLost": "Nawala ang signal (Error 404). Hindi nahanap ang file.",
     "weakSignal": "Masyadong mahina ang network signal."
-  }
+  },
+  "sourceSelectorLabel": "Audio & subtitles",
+  "englishDub": "English Dub",
+  "englishSub": "English Sub",
+  "spanishSub": "Spanish Sub"
 }

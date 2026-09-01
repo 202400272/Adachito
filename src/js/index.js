@@ -148,7 +148,7 @@ const FEEDBACK_CONFIG = {
   const submitBtn = document.getElementById("feedbackSubmit");
   let isSending = false;
 
-  // ----- Custom "Feedback Type" dropdown -----
+  // Custom feedback type dropdown
   // The native <select id="feedbackType"> stays in the DOM as the real
   // source of truth (form value, i18n text, existing validation all still
   // read/write it directly) but is visually hidden. This trigger+listbox
@@ -276,7 +276,7 @@ const FEEDBACK_CONFIG = {
 
   window.syncFeedbackTypeCustomUI = renderFeedbackTypeOptions;
 
-  // ----- Draft auto-save -----
+  // Draft auto-save
   // Saves in-progress (unsent) feedback to localStorage so an accidental
   // close/refresh doesn't lose what someone typed. Restored the next time
   // the form is opened, and cleared once feedback actually sends.
@@ -692,7 +692,7 @@ function renderNav(data) {
     "constellation",
     "timeline",
     "others",
-    "stats",
+    ...(currentLang === "es" ? [] : ["stats"]),
     "about",
     "help",
   ];
@@ -718,15 +718,6 @@ function renderNav(data) {
           : "ADAPTACIÓN AL ANIME",
   };
 
-  // Per-card icon (Lucide) used in the "Explore the Story" grid. The
-  // featured (novels) card gets a large decorative background icon
-  // instead of a corner badge, matching the reference layout.
-  const storyIcons = {
-    novels: "library-big",
-    manga: "panels-top-left",
-    anime: "film",
-  };
-
   function buildCard(item, variant = "story", index = 0) {
     const href = navHrefs[item.key] || "#";
     const card = document.createElement("a");
@@ -747,38 +738,37 @@ function renderNav(data) {
 
     const isFeatured = index === 0;
     const kicker = storyKickers[item.key] || "";
-    const iconName = storyIcons[item.key] || faToLucide(item.icon);
+    const storyIcons = {
+      novels: "book-open",
+      manga: "panels-top-left",
+      anime: "clapperboard",
+    };
+    const storyIcon = storyIcons[item.key] || faToLucide(item.icon);
 
-    card.className = `nav-card nav-card-story ${isFeatured ? "nav-card-featured" : "nav-card-side"} nav-card-${item.key || ""}`;
+    card.className = `nav-card nav-card-story ${
+      isFeatured ? "nav-card-featured" : "nav-card-side"
+    } nav-card-${item.key || ""}`;
 
-    if (isFeatured) {
-      card.innerHTML = `
+    card.innerHTML = `
+      <div class="story-card-header">
         <span class="story-card-kicker">
-          <span class="story-card-kicker-text">${kicker}</span>
+          <span>${kicker}</span>
         </span>
+        <span class="story-card-arrow" aria-hidden="true">
+          <i data-lucide="arrow-up-right"></i>
+        </span>
+      </div>
+
+      <div class="story-card-body">
         <h3 class="story-card-title">${item.title || ""}</h3>
-        <span class="story-card-underline" aria-hidden="true"></span>
         ${item.desc ? `<p class="story-card-desc">${item.desc}</p>` : ""}
-        <span class="story-card-action">
-          <span class="story-card-action-line" aria-hidden="true"></span>
-          <span class="story-card-action-btn" aria-hidden="true"><i data-lucide="arrow-right"></i></span>
-        </span>
-        <span class="story-card-decor" aria-hidden="true"><i data-lucide="${iconName}"></i></span>
-      `;
-    } else {
-      card.innerHTML = `
-        <span class="story-card-kicker">
-          <span class="story-card-kicker-text">${kicker}</span>
-        </span>
-        <span class="story-card-side-text">
-          <h3 class="story-card-title">${item.title || ""}</h3>
-          <span class="story-card-underline" aria-hidden="true"></span>
-          ${item.desc ? `<p class="story-card-desc">${item.desc}</p>` : ""}
-        </span>
-        <span class="story-card-decor story-card-decor-side" aria-hidden="true"><i data-lucide="${iconName}"></i></span>
-        <span class="story-card-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></span>
-      `;
-    }
+      </div>
+
+      <span class="story-card-mark" aria-hidden="true">
+        <i data-lucide="${storyIcon}"></i>
+      </span>
+    `;
+
     return card;
   }
 
@@ -1534,7 +1524,7 @@ function createBulletinSources(update, copy) {
     try {
       hostname = new URL(source.url, window.location.href).hostname;
     } catch {
-      /* ignored */
+      // Keep the original URL as a readable fallback.
     }
     link.innerHTML = `<span class="bulletin-source-option-index">${String(index + 1).padStart(2, "0")}</span><span class="bulletin-source-option-label">${source.label || hostname}</span><i data-lucide="external-link" aria-hidden="true"></i>`;
     menu.appendChild(link);
@@ -1711,7 +1701,10 @@ function getContentNotificationSignature(payload) {
 
 async function showContentNotification() {
   const targetLang = getNotificationFileCode(currentLang);
-  const notificationUrl = new URL(`src/data/Notificaciones/${targetLang}.json`, window.location.href).toString();
+  const notificationUrl = new URL(
+    `src/data/Notificaciones/${targetLang}.json`,
+    window.location.href,
+  ).toString();
 
   try {
     const response = await fetch(`${notificationUrl}?v=${Date.now()}`, { cache: "no-store" });
@@ -1768,7 +1761,7 @@ async function showContentNotification() {
       try {
         localStorage.setItem(storageKey, signature);
       } catch {
-        /* ignored */
+        // Notification dismissal should still continue when storage is unavailable.
       }
       bubble.classList.remove("is-visible");
       setTimeout(() => bubble.remove(), 220);
@@ -2100,15 +2093,20 @@ window.addEventListener("resize", () => {
 });
 
 function bindInfoToggle() {
-  const toggle = document.getElementById("infoToggle");
-  if (!toggle || toggle.dataset.bound === "true") return;
+  if (document.documentElement.dataset.infoToggleBound === "true") return;
 
-  toggle.dataset.bound = "true";
-  toggle.addEventListener("click", (event) => {
+  // Delegate the click so the control keeps working even if homepage
+  // content is rendered or replaced after this script is evaluated.
+  document.addEventListener("click", (event) => {
+    const toggle = event.target.closest?.("#infoToggle");
+    if (!toggle) return;
+
     event.preventDefault();
     const currentlyExpanded = toggle.getAttribute("aria-expanded") === "true";
     setInfoExpanded(!currentlyExpanded);
   });
+
+  document.documentElement.dataset.infoToggleBound = "true";
 }
 
 bindInfoToggle();
@@ -2148,7 +2146,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   updateLangLabel();
-  bindInfoToggle();
   setInfoExpanded(false);
 
   try {

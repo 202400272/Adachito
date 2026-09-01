@@ -57,10 +57,13 @@
     <link rel="stylesheet" href="/src/css/gallery/main.css" />
     <!-- Minimal viewer CSS -->
     <link rel="stylesheet" href="/src/css/gallery/viewer-modal.css" />
+    <link rel="stylesheet" href="/src/components/styles/menu.css" />
     <link rel="stylesheet" href="/src/components/styles/footer.css" />
     <link rel="stylesheet" href="/src/components/styles/feedback.css" />
+    <link rel="stylesheet" href="/src/components/styles/scrollbar.css" />
   </head>
   <body>
+    <div id="sidebar-container"></div>
     <div class="particles" id="particles"></div>
 
     <main class="main-content">
@@ -220,22 +223,12 @@
               data-i18n-aria-es="Buscar en la galería"
               data-i18n-aria-en="Search gallery"
             />
-            <button class="search-clear-btn" id="searchClearBtn">
+            <button class="search-clear-btn" id="searchClearBtn" aria-label="Clear search">
               <i class="fas fa-times"></i>
             </button>
           </div>
 
           <div class="controls-actions">
-            <a
-              class="back-to-menu-btn"
-              href="/"
-              data-i18n-es="Volver al menú"
-              data-i18n-en="Back to Menu"
-            >
-              <i class="fas fa-arrow-left"></i>
-              <span>Volver al menú</span>
-            </a>
-
             <!-- Filter Toggle Button (visible on mobile) -->
             <button class="filter-toggle" id="filterToggle" aria-expanded="false">
               <i class="fas fa-sliders-h"></i>

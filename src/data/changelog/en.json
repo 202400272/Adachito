@@ -1,5 +1,128 @@
 [
   {
+    "version": "2.3.8",
+    "build": "20260831",
+    "date": "August 31, 2026",
+    "subtitle": "Settings, Reader Preferences, Navigation Polish, and UI Refinements",
+    "changes": {
+      "new": [
+        "Added a dedicated Settings page so preferences are no longer cramped inside the navigation menu.",
+        "Added explicit default view preferences for Manga, Anime, Music, and PDF readers, including a Continuous PDF option.",
+        "Added custom in-app confirmation and completion modals for saved-data actions instead of browser-native dialogs.",
+        "Added country-flag icons to the language selector so language choices no longer depend on emoji rendering.",
+        "Added a compact desktop sidebar mode with a saved local preference for a cleaner icon-first navigation view."
+      ],
+      "improvements": [
+        "Made Settings available through the shared clean route at /Adashima_Settings in development, preview, and Cloudflare Pages environments.",
+        "Improved translated-material and About page layouts on narrow screens and with long names or titles.",
+        "Updated the shared sidebar to use the same Lucide-style icon language as the homepage navigation cards for a more consistent visual system.",
+        "Refined sidebar spacing, active states, icon sizing, compact mode, and responsive behavior while preserving the existing overlay navigation model.",
+        "Replaced emoji-based language visuals with reusable country flag icons and improved their alignment and active states.",
+        "Updated the Settings and navigation version references to v2.3.8."
+      ],
+      "fixes": [
+        "Fixed the Settings page route not loading correctly in the local development server and production preview.",
+        "Fixed translated-material entries that could overflow or crowd the modal on smaller screens.",
+        "Fixed Light Novel view preference persistence so the selected list or grid view is restored when the page is reopened.",
+        "Fixed the Continuous PDF preference so the Novels reader correctly applies the saved mode when opening a PDF.",
+        "Fixed the Continuous PDF preference so the Manga reader correctly maps the shared continuous setting to its internal continuous reader mode.",
+        "Fixed PDF reader mode synchronization so changing the reader directly updates the shared saved preference.",
+        "Fixed duplicated warning icons in the saved-data confirmation modal so each confirmation displays one warning icon."
+      ]
+    },
+    "notes": [
+      "Settings remain local to the current browser and are not synced to an account. Default view choices affect the relevant page when it opens, while changing a view directly on a page updates that saved preference. The shared sidebar remains an overlay on desktop and mobile; compact mode is available on desktop."
+    ]
+  },
+  {
+    "version": "2.3.7",
+    "build": "20260830",
+    "date": "August 30, 2026",
+    "subtitle": "Phase 3 CSS Refactor, Unified Overlay Navigation, and Layout Cleanup",
+    "changes": {
+      "new": [
+        "Started Phase 3 of the long-term refactor plan, focusing on CSS architecture and maintainability.",
+        "Introduced a consistent page-based CSS structure, organizing large page styles into focused folders and component or feature modules.",
+        "Added a standardized shared scrollbar system for consistent document scrolling across the site.",
+        "Standardized the shared burger menu across regular pages, with the launcher positioned on the left and the sidebar opening as an overlay.",
+        "Updated Gallery to use the shared sidebar navigation instead of its separate Back to Menu button."
+      ],
+      "improvements": [
+        "Extracted remaining inline page styles into external CSS while preserving existing page-specific styling.",
+        "Split large stylesheets into smaller, focused modules with concise, meaningful comments.",
+        "Removed the sidebar's permanent desktop layout footprint so regular pages can use the full viewport.",
+        "Adjusted About, Anime, Drama, Manga, Novels, Timeline, Extra Stories, Web Stories, and Author Archive layouts to work independently from the sidebar.",
+        "Improved desktop sidebar behavior so it follows the same hidden-until-opened overlay model as mobile.",
+        "Improved sidebar animations on desktop and mobile with smoother drawer, scrim, launcher, and navigation transitions, including reduced-motion support.",
+        "Improved time-based page backgrounds so Morning, Afternoon, and Night themes can occupy the full page without being covered by page shells.",
+        "Kept Constellation on its dedicated navigation system rather than forcing it into the shared sidebar architecture.",
+        "Connected the work from Phases 1 and 2 to the broader refactor effort: those phases focused on SOP and data, while Phase 3 focuses on CSS."
+      ],
+      "fixes": [
+        "Fixed the homepage stylesheet chain so shared CSS remains available after modularization.",
+        "Fixed the homepage blank or purple screen caused by stale inline styling and an incomplete CSS import chain.",
+        "Fixed homepage time-based theme loading so the selected theme is applied reliably.",
+        "Fixed desktop pages retaining the old 300px sidebar reservation after the overlay transition.",
+        "Fixed the burger menu becoming permanently visible because of conflicting desktop sidebar rules.",
+        "Fixed the sidebar wrapper leaving a visible blank or colored strip when the menu was closed.",
+        "Fixed About page blank-screen and large top-margin issues caused by conflicting layout and theme rules.",
+        "Fixed Gallery's redundant Back to Menu control and moved navigation responsibility to the shared sidebar.",
+        "Fixed several page background and viewport-width issues so the sidebar no longer consumes content space.",
+        "Fixed inconsistent scrollbar behavior caused by competing page-specific scrollbar styles."
+      ],
+      "notes": [
+        "Phase 3 is a structural CSS refactor, not a visual redesign. Existing page-specific designs and functionality are preserved wherever possible.",
+        "The shared sidebar is hidden until opened on desktop and mobile and overlays page content instead of reserving width.",
+        "Constellation remains intentionally separate because it uses its own navigation system.",
+        "The refactor keeps existing entry points where practical to reduce unnecessary breakage while implementation details move into the standardized CSS structure.",
+        "This release continues the long-term cleanup begun with Phases 1 and 2, with the current phase concentrating on CSS."
+      ]
+    }
+  },
+  {
+    "version": "2.3.6",
+    "build": "20260829",
+    "date": "August 29, 2026",
+    "subtitle": "Gallery polish, Anime stream improvements, and Stats archive",
+    "changes": {
+      "new": [
+        "Added an Archive effort section to Stats to highlight the archive’s documented coverage, translation progress, reading structure, and ongoing work.",
+        "Added a dedicated Anime stream catalog so media versions can grow independently from the site UI language."
+      ],
+      "improvements": [
+        "Improved Music track title handling so the player displays the active language instead of always falling back to Japanese titles.",
+        "Improved Gallery loading so failed images do not trigger repeated requests and prevent the page from becoming idle.",
+        "Improved Gallery visual stability by keeping its content and loading behavior predictable for automated checks.",
+        "Improved the Gallery mobile layout by removing the oversized empty space between the introduction and collection controls.",
+        "Redesigned the Gallery search field for clearer contrast, stronger focus feedback, and better touch usability on desktop and mobile.",
+        "Improved Gallery section heading contrast and typography so labels such as Random Gallery remain readable across the site themes.",
+        "Refined Manga and Novel grid presentation with a cleaner cover-first card treatment and mobile-friendly spacing.",
+        "Restored and refined Gallery action button styling and improved text contrast across the Gallery.",
+        "Improved the Anime player source system so English and Spanish materials can be selected independently from the interface language.",
+        "Added a clearer stream selector designed to support future versions such as English Sub and additional subtitle languages."
+      ],
+      "fixes": [
+        "Fixed the JavaScript error caused by querying elements that are not present on every page.",
+        "Fixed the Extra Stories search field being hidden in Spanish mode, preventing it from being used.",
+        "Fixed Music audio URLs for filenames containing apostrophes and parentheses so the expected encoded paths are requested correctly.",
+        "Fixed Music exhaustive-track verification failing when the album grid was not ready when the test started.",
+        "Fixed the remaining ESLint no-empty errors without disabling the rule.",
+        "Fixed Gallery navigation timing out while waiting for network idle because of repeated failed image requests.",
+        "Fixed Manga volume cards rendering invisible even when the manga JSON loaded successfully.",
+        "Fixed Manga volume modal chapter actions so selecting a chapter opens the corresponding reader entry.",
+        "Removed an overlapping decorative character image from the Manga page and refined the mobile volume modal experience.",
+        "Fixed the Anime player getting stuck on loading after the stream-catalog update by restoring the missing source-resolution logic.",
+        "Fixed Anime episode source loading so main-series streams are resolved from the stream catalog while Mini Anime continues using its existing sources."
+      ],
+      "notes": [
+        "Visual-regression fixes were limited to layout and loading behavior; no test-only bypasses or screenshot-specific hacks were added.",
+        "Gallery and Manga styling refinements were made directly in the existing stylesheet structure; no standalone CSS override files were added.",
+        "The Tagalog changelog intentionally uses the English changelog content so technical archive and development notes remain easy to read.",
+        "Anime UI localization and anime stream selection are intentionally separate: changing a stream version does not change the site language."
+      ]
+    }
+  },
+  {
     "version": "2.3.5",
     "build": "20260828",
     "date": "August 28, 2026",

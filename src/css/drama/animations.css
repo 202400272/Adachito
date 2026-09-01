@@ -1,0 +1,127 @@
+/* CRT animations and fullscreen */
+
+/* animations for CRT */
+@keyframes crtPowerOn {
+  0% {
+    clip-path: inset(50% 0 50% 0);
+    opacity: 0.3;
+    filter: brightness(3);
+  }
+  30% {
+    clip-path: inset(48% 0 48% 0);
+    filter: brightness(2);
+  }
+  60% {
+    clip-path: inset(0% 0 0% 0);
+    filter: brightness(1.5);
+  }
+  80% {
+    filter: brightness(1.2);
+  }
+  100% {
+    clip-path: inset(0% 0 0% 0);
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+@keyframes crtPowerOff {
+  0% {
+    clip-path: inset(0% 0 0% 0);
+    opacity: 1;
+  }
+  40% {
+    clip-path: inset(48% 0 48% 0);
+    opacity: 0.8;
+    filter: brightness(2);
+  }
+  80% {
+    clip-path: inset(50% 0 50% 0);
+    filter: brightness(3);
+    opacity: 0.3;
+  }
+  100% {
+    clip-path: inset(50% 0 50% 0);
+    opacity: 0;
+  }
+}
+@keyframes channelChange {
+  0% {
+    transform: scaleY(1);
+    filter: brightness(1);
+  }
+  15% {
+    transform: scaleY(0.02);
+    filter: brightness(8);
+  }
+  25% {
+    transform: scaleY(0.02);
+    filter: brightness(6);
+  }
+  40% {
+    transform: scaleY(1.04);
+    filter: brightness(1.3) contrast(1.2);
+  }
+  60% {
+    transform: scaleY(0.98);
+    filter: brightness(1.1);
+  }
+  100% {
+    transform: scaleY(1);
+    filter: brightness(1);
+  }
+}
+.crt-video.channel-switching {
+  animation: channelChange 0.5s ease-out forwards;
+}
+.crt-screen.powered-on .crt-video {
+  animation: crtPowerOn 0.8s ease-out forwards;
+}
+.crt-screen.powered-off .crt-video {
+  animation: crtPowerOff 0.6s ease-in forwards;
+}
+
+/* fullscreen */
+#crtScreen:fullscreen,
+#crtScreen:-webkit-full-screen {
+  background: #000;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#crtScreen:fullscreen .screen-glow,
+#crtScreen:fullscreen .no-signal-screen,
+#crtScreen:fullscreen .channel-indicator,
+#crtScreen:fullscreen .scanlines-overlay,
+#crtScreen:fullscreen .static-overlay,
+#crtScreen:fullscreen .interference-overlay,
+#crtScreen:fullscreen .power-flash,
+#crtScreen:fullscreen .loading-indicator,
+#crtScreen:fullscreen .osd-menu,
+#crtScreen:-webkit-full-screen .screen-glow,
+#crtScreen:-webkit-full-screen .no-signal-screen,
+#crtScreen:-webkit-full-screen .channel-indicator,
+#crtScreen:-webkit-full-screen .scanlines-overlay,
+#crtScreen:-webkit-full-screen .static-overlay,
+#crtScreen:-webkit-full-screen .interference-overlay,
+#crtScreen:-webkit-full-screen .power-flash,
+#crtScreen:-webkit-full-screen .loading-indicator,
+#crtScreen:-webkit-full-screen .osd-menu {
+  display: none !important;
+}
+#crtScreen:fullscreen .crt-video,
+#crtScreen:-webkit-full-screen .crt-video {
+  position: static !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  border-radius: 0 !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+#crtScreen:fullscreen::before,
+#crtScreen:fullscreen::after,
+#crtScreen:-webkit-full-screen::before,
+#crtScreen:-webkit-full-screen::after {
+  display: none !important;
+}

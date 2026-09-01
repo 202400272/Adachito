@@ -24,11 +24,10 @@
 @import url("expanded-player.css");
 
 /* Utilities */
-@import url("scrollbar.css");
 @import url("helpers.css");
 @import url("footer.css");
 @import url("responsive.css");
-/* ===== LOCAL TIME-OF-DAY THEME ===== */
+/* LOCAL TIME-OF-DAY THEME ===== */
 body.time-morning {
   --music-theme-accent: #5f86aa;
   --music-theme-pink: #b487a5;
@@ -112,13 +111,93 @@ body.time-night .queue-item button {
 }
 body.time-morning .expanded-player-overlay,
 body.time-morning .queue-overlay {
-  background: rgba(224, 234, 245, 0.72) !important;
+  background: rgba(239, 239, 241, 0.72) !important;
 }
 body.time-afternoon .expanded-player-overlay,
 body.time-afternoon .queue-overlay {
-  background: rgba(80, 55, 75, 0.22) !important;
+  background: rgba(110, 80, 96, 0.22) !important;
 }
 body.time-night .expanded-player-overlay,
 body.time-night .queue-overlay {
   background: rgba(5, 3, 9, 0.72) !important;
+}
+body.time-morning .expanded-player-bg,
+body.time-afternoon .expanded-player-bg {
+  background:
+    radial-gradient(ellipse at 22% 30%, rgba(171, 151, 190, 0.22) 0%, transparent 65%),
+    radial-gradient(ellipse at 78% 70%, rgba(255, 201, 216, 0.22) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.76) 0%, rgba(245, 240, 246, 0.78) 100%) !important;
+}
+body.time-morning .expanded-player-container,
+body.time-afternoon .expanded-player-container {
+  background: rgba(255, 255, 255, 0.72) !important;
+  border-color: rgba(140, 90, 150, 0.12) !important;
+  color: var(--music-theme-text) !important;
+}
+body.time-morning .expanded-player-heading-title,
+body.time-morning .expanded-player-eyebrow,
+body.time-morning .expanded-track-title,
+body.time-morning .expanded-track-artist,
+body.time-morning .expanded-progress .time-label,
+body.time-morning .expanded-queue-title,
+body.time-morning .expanded-queue-count,
+body.time-morning .expanded-queue-item .eqi-title,
+body.time-morning .expanded-queue-item .eqi-artist,
+body.time-morning .expanded-queue-item .eqi-duration,
+body.time-afternoon .expanded-player-heading-title,
+body.time-afternoon .expanded-player-eyebrow,
+body.time-afternoon .expanded-track-title,
+body.time-afternoon .expanded-track-artist,
+body.time-afternoon .expanded-progress .time-label,
+body.time-afternoon .expanded-queue-title,
+body.time-afternoon .expanded-queue-count,
+body.time-afternoon .expanded-queue-item .eqi-title,
+body.time-afternoon .expanded-queue-item .eqi-artist,
+body.time-afternoon .expanded-queue-item .eqi-duration {
+  color: var(--music-theme-text) !important;
+}
+body.time-morning .expanded-player-close,
+body.time-morning .expanded-queue-toggle,
+body.time-morning .expanded-controls .ctrl-btn,
+body.time-afternoon .expanded-player-close,
+body.time-afternoon .expanded-queue-toggle,
+body.time-afternoon .expanded-controls .ctrl-btn {
+  color: var(--music-theme-text) !important;
+  border-color: rgba(140, 90, 150, 0.18) !important;
+  background: rgba(255, 255, 255, 0.4) !important;
+}
+body.time-morning .expanded-controls .ctrl-play-large,
+body.time-afternoon .expanded-controls .ctrl-play-large {
+  background: var(--music-theme-accent) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 28px rgba(140, 90, 150, 0.2) !important;
+}
+body.time-morning .expanded-controls .ctrl-play-large .iconify,
+body.time-afternoon .expanded-controls .ctrl-play-large .iconify {
+  color: #fff !important;
+}
+body.time-morning .expanded-player-right,
+body.time-afternoon .expanded-player-right {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border-left-color: rgba(140, 90, 150, 0.12) !important;
+}
+body.time-morning .expanded-queue-item:hover,
+body.time-afternoon .expanded-queue-item:hover {
+  background: rgba(140, 90, 150, 0.06) !important;
+}
+body.time-morning .expanded-queue-item.current,
+body.time-afternoon .expanded-queue-item.current {
+  background: rgba(140, 90, 150, 0.08) !important;
+}
+body.time-morning .expanded-queue-item .eqi-number,
+body.time-afternoon .expanded-queue-item .eqi-number {
+  color: rgba(92, 58, 107, 0.52) !important;
+}
+body.time-morning .expanded-progress input[type="range"],
+body.time-afternoon .expanded-progress input[type="range"] {
+  background: rgba(140, 90, 150, 0.18) !important;
+}
+body.time-morning .expanded-progress input[type="range"]::-webkit-slider-thumb,
+body.time-afternoon .expanded-progress input[type="range"]::-webkit-slider-thumb {
+  background: var(--music-theme-accent) !important;
 }

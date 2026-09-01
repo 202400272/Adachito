@@ -1,4 +1,4 @@
-/* ---------- segmented control base ---------- */
+/* segmented control base */
 .version-toggle-group,
 .view-toggle-group {
   position: relative;
@@ -90,7 +90,7 @@
   z-index: 1;
 }
 
-/* ---------- version toggle (3 buttons) ---------- */
+/* version toggle (3 buttons) */
 .version-toggle-slider {
   width: calc(33.33% - 3px);
 }

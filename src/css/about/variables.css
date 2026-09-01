@@ -38,19 +38,19 @@
 }
 
 body.time-morning {
-  --page-bg: linear-gradient(135deg, #eaf3fb 0%, #edf2fa 48%, #f3eafa 100%);
-  --page-text: #4f5870;
-  --surface: rgba(247, 250, 253, 0.74);
-  --surface-hover: rgba(250, 252, 255, 0.88);
-  --surface-strong: rgba(244, 248, 252, 0.96);
-  --surface-soft: rgba(244, 248, 252, 0.52);
-  --surface-subtle: rgba(244, 248, 252, 0.24);
-  --surface-border: rgba(128, 158, 191, 0.24);
+  --page-bg: linear-gradient(135deg, #edf3fb 0%, #edf6ff 42%, #f4eaf9 100%);
+  --page-text: #485d74;
+  --surface: rgba(249, 252, 255, 0.76);
+  --surface-hover: rgba(255, 255, 255, 0.92);
+  --surface-strong: rgba(242, 247, 252, 0.96);
+  --surface-soft: rgba(247, 250, 255, 0.56);
+  --surface-subtle: rgba(245, 248, 255, 0.2);
+  --surface-border: rgba(126, 162, 192, 0.22);
   --accent: #8aaac8;
   --accent-strong: #557b9f;
   --accent-soft: rgba(138, 170, 200, 0.14);
-  --accent-border: rgba(138, 170, 200, 0.24);
-  --accent-border-strong: rgba(138, 170, 200, 0.42);
+  --accent-border: rgba(138, 170, 200, 0.26);
+  --accent-border-strong: rgba(138, 170, 200, 0.44);
   --muted-text: #667185;
   --shadow-color: rgba(75, 103, 133, 0.1);
   --shadow-color-strong: rgba(75, 103, 133, 0.18);
@@ -63,6 +63,26 @@ body.time-morning {
 
 body.time-afternoon {
   --page-bg: linear-gradient(135deg, #fbe9e7 0%, #f3e5f5 50%, #e8eaf6 100%);
+  --page-text: #3d234d;
+  --surface: rgba(255, 248, 244, 0.8);
+  --surface-hover: rgba(255, 255, 255, 0.9);
+  --surface-strong: rgba(255, 248, 244, 0.94);
+  --surface-soft: rgba(255, 255, 255, 0.4);
+  --surface-subtle: rgba(255, 255, 255, 0.18);
+  --surface-border: rgba(140, 90, 150, 0.18);
+  --accent: #d1a3c6;
+  --accent-strong: #8c5a96;
+  --accent-soft: rgba(209, 163, 198, 0.14);
+  --accent-border: rgba(209, 163, 198, 0.26);
+  --accent-border-strong: rgba(209, 163, 198, 0.42);
+  --muted-text: #5f4b6b;
+  --shadow-color: rgba(92, 58, 107, 0.1);
+  --shadow-color-strong: rgba(92, 58, 107, 0.18);
+  --plum: #6c5287;
+  --dusty-rose: #d187a2;
+  --color-mid: #9a6898;
+  --color-deep: #6c5287;
+  --color-text: #3d234d;
 }
 
 body.time-night {

@@ -1,0 +1,522 @@
+{
+  "pageTitle": "Help Center — AdaShimaverse",
+  "hero": {
+    "kicker": "Help Center",
+    "title": "Find your way around AdaShimaverse",
+    "subtitle": "A practical guide to reading the archive, finding adaptations and extras, using the built-in readers, understanding the stats, and reporting problems.",
+    "search": "Search help topics...",
+    "searchHint": "/",
+    "searchMeta": "Search questions, features, settings, or archive terms."
+  },
+  "categories": [
+    {
+      "id": "new-fan-guide",
+      "icon": "fa-route",
+      "title": "New Fan Guide",
+      "description": "What to consume first, and why"
+    },
+    {
+      "id": "getting-started",
+      "icon": "fa-compass",
+      "title": "Getting Started",
+      "description": "The basics"
+    },
+    {
+      "id": "archive",
+      "icon": "fa-box-archive",
+      "title": "Archive & metadata",
+      "description": "How the archive is organized"
+    },
+    {
+      "id": "translations",
+      "icon": "fa-language",
+      "title": "Translations & official releases",
+      "description": "Languages, sources & official releases"
+    },
+    {
+      "id": "reading",
+      "icon": "fa-book-open",
+      "title": "Reading",
+      "description": "Readers, downloads & progress"
+    },
+    {
+      "id": "navigation",
+      "icon": "fa-compass-drafting",
+      "title": "Navigation",
+      "description": "Find things faster"
+    },
+    {
+      "id": "settings",
+      "icon": "fa-sliders",
+      "title": "Settings",
+      "description": "Language & appearance"
+    },
+    {
+      "id": "stats-guide",
+      "icon": "fa-chart-simple",
+      "title": "Understanding Stats",
+      "description": "What the numbers mean"
+    },
+    {
+      "id": "constellation",
+      "icon": "fa-star",
+      "title": "Constellation & unlocks",
+      "description": "Rewards and profiles"
+    },
+    {
+      "id": "gallery",
+      "icon": "fa-images",
+      "title": "Gallery",
+      "description": "Illustrations by volume"
+    },
+    {
+      "id": "minigame",
+      "icon": "fa-gamepad",
+      "title": "Yashiro mini-game",
+      "description": "Extra content"
+    },
+    {
+      "id": "troubleshooting",
+      "icon": "fa-wrench",
+      "title": "Troubleshooting",
+      "description": "Fix common problems"
+    },
+    {
+      "id": "feedback",
+      "icon": "fa-message",
+      "title": "Feedback",
+      "description": "Report issues & corrections"
+    },
+    {
+      "id": "dmca",
+      "icon": "fa-scale-balanced",
+      "title": "DMCA & Copyright",
+      "description": "Requesting removals & rights info"
+    }
+  ],
+  "sections": [
+    {
+      "id": "new-fan-guide",
+      "icon": "fa-route",
+      "eyebrow": "START HERE",
+      "title": "New Fan Guide: Where Should I Start?",
+      "items": [
+        {
+          "question": "If you want the full story",
+          "answer": "Start with the <strong>light novels</strong>. They are the original source and give you the most complete version of Adachi and Shimamura, including inner thoughts, narration, conversations, and details that adaptations may condense or omit.<br><br>Begin with <strong>Volume 1</strong> and read in order. You do not need to learn the site’s extras or release history before starting."
+        },
+        {
+          "question": "If you prefer manga",
+          "answer": "There are <strong>two manga adaptations</strong>. The <strong>2016 Mani version</strong> is short and covers the early part of the story, while the <strong>2019 Moke Yuzuhara version</strong> is the longer-running adaptation and is officially available in English.<br><br>They are separate adaptations of the same light-novel source, so neither is required before reading the other."
+        },
+        {
+          "question": "If you prefer anime",
+          "answer": "The <strong>2020 anime</strong> is a good visual introduction, especially if you prefer animation, voice acting, and music. It adapts only part of the novels, so it is not a substitute for the full source material.<br><br>If you discover the series through the anime and want the complete story, go back to <strong>Volume 1</strong> rather than treating the anime as the starting point for the novels."
+        },
+        {
+          "question": "What about 99.9 and Extra Stories?",
+          "answer": "You can ignore the extras when you first start. For the main novel sequence, read <strong>Volumes 1–9 → Volume 99.9 → Volume 10 onward</strong>. Volume 99.9 collects the Special Novels originally released with the Japanese Blu-ray editions of the anime and fits between Volumes 9 and 10.<br><br><strong>Extra Stories</strong> are separate supplementary pieces. Read them after the volume, event, or release they are associated with so you have the intended context."
+        },
+        {
+          "question": "Finished the anime and want to continue?",
+          "answer": "For a continuation-only route, you can pick up the <strong>manga around Chapter 26</strong> or start the <strong>light novels with Volume 5</strong>.<br><br>For the fullest experience, however, we still recommend reading the novels from <strong>Volume 1</strong>. The continuation points are meant for readers who simply want to move forward from the adaptation."
+        }
+      ]
+    },
+    {
+      "id": "getting-started",
+      "icon": "fa-compass",
+      "eyebrow": "START HERE",
+      "title": "Getting started",
+      "items": [
+        {
+          "question": "What is AdaShimaverse?",
+          "answer": "AdaShimaverse is an unofficial, non-profit fan archive for <em>Adachi to Shimamura</em>. It brings together reference material and fan-accessible resources for the series in one place."
+        },
+        {
+          "question": "What can I find here?",
+          "answer": "The menu currently includes <strong>Anime, Manga, Novels, Extra Stories, Drama CD, Music, Gallery, Timeline, Constellation, Stats, Others</strong>, and <strong>About</strong>. Each section is built for a different kind of material, so you do not have to search the entire site to find what you want."
+        },
+        {
+          "question": "Where should I start reading?",
+          "answer": "If you want the main story, open <strong>Novels</strong>. For manga material, use <strong>Manga</strong>. <strong>Extra Stories</strong> contains shorter side material and includes its own bookmarks and reading-progress features."
+        },
+        {
+          "question": "Is the material official?",
+          "answer": "No. AdaShimaverse is a fan-made archive and is not an official website of the creators, publisher, or rights holders. The site itself is non-profit. Use the <strong>About</strong> section for project information, credits, and links to the original work."
+        },
+        {
+          "question": "Can I use AdaShimaverse on my phone?",
+          "answer": "Yes. The site is designed to work on smaller screens. On mobile, use the floating menu button to open navigation and settings. If you prefer not to see that button on other pages, it can be disabled in the menu settings."
+        },
+        {
+          "question": "Is there an app?",
+          "answer": "There is no separate app in an app store, but AdaShimaverse can be installed as an app on desktop and mobile. On Android and desktop Chrome/Edge, look for an <strong>Install</strong> option in the browser's address bar or menu. On iOS, open the site in Safari, tap <strong>Share</strong>, then <strong>Add to Home Screen</strong>. Once installed, it opens in its own window with an icon on your home screen or desktop."
+        }
+      ]
+    },
+    {
+      "id": "reading",
+      "icon": "fa-book-open",
+      "eyebrow": "READING",
+      "title": "Reading & reader controls",
+      "items": [
+        {
+          "question": "How do I read a novel or manga volume?",
+          "answer": "Open <strong>Novels</strong> or <strong>Manga</strong>, choose a volume, and select <strong>Read</strong>. The document opens in the site's reader instead of taking you to a separate page."
+        },
+        {
+          "question": "What can I do in the PDF reader?",
+          "answer": "The reader supports <strong>zoom in/out, zoom reset, previous/next page, direct page navigation, fullscreen, thumbnails</strong>, and <strong>cascade mode</strong> for continuous scrolling. The available controls can vary slightly between readers."
+        },
+        {
+          "question": "What is Cascade mode?",
+          "answer": "Cascade mode displays the document as a continuous vertical stream instead of one page at a time. It is useful when you want to scroll naturally through a long document. Switching back to the normal mode returns to single-page navigation."
+        },
+        {
+          "question": "Can I download a book?",
+          "answer": "Where a download is provided, the reader exposes the available formats through its download controls. The novel archive can provide <strong>PDF</strong> and <strong>EPUB</strong> files; availability depends on the individual volume."
+        },
+        {
+          "question": "What are the reader keyboard shortcuts?",
+          "answer": "In the novel and manga PDF readers, <strong>Left Arrow</strong> moves to the previous page, <strong>Right Arrow</strong> moves to the next page, <strong>0</strong> resets zoom, and <strong>F</strong> toggles fullscreen. The PDF reader also recognizes <strong>Page Up/Page Down</strong>; avoid using shortcuts while typing in a page or search field."
+        },
+        {
+          "question": "How do bookmarks and reading progress work?",
+          "answer": "<strong>Extra Stories</strong> can save bookmarks and reading progress in your browser. Progress is tracked as you read, and bookmarked stories can be filtered from the library. These are local browser features, not an account-based sync system."
+        },
+        {
+          "question": "What happens if I clear my browser data?",
+          "answer": "Some site preferences and local reading data are stored in your browser. Clearing the site's local storage or browsing data can remove things such as Extra Stories bookmarks, reading progress, reader preferences, or language/settings saved locally."
+        }
+      ]
+    },
+    {
+      "id": "navigation",
+      "icon": "fa-compass-drafting",
+      "eyebrow": "NAVIGATION",
+      "title": "Finding things quickly",
+      "items": [
+        {
+          "question": "What does each main section contain?",
+          "answer": "<strong>Novels</strong> and <strong>Manga</strong> focus on volumes and chapters; <strong>Extra Stories</strong> collects shorter side material; <strong>Anime</strong> covers the animated adaptation; <strong>Drama CD</strong> and <strong>Music</strong> focus on audio material; <strong>Gallery</strong> is for visual material; <strong>Timeline</strong> organizes events; <strong>Constellation</strong> is a reference/exploration feature; <strong>Stats</strong> provides site data; and <strong>Others</strong> collects miscellaneous material."
+        },
+        {
+          "question": "How do I find a specific title?",
+          "answer": "Use the search box when a section provides one. In the library pages, search can narrow entries by information such as title, description, or volume. If a search gives no result, try a shorter part of the title or another spelling."
+        },
+        {
+          "question": "Can I switch between Grid and List views?",
+          "answer": "Some library pages provide <strong>Grid</strong> and <strong>List</strong> views. Use the view controls near the top of the library when they are available."
+        },
+        {
+          "question": "Where are the original-work links?",
+          "answer": "The menu includes a <strong>Support the Original Work</strong> area with links to the official light novel, manga, and the author's web novel/blog resources. These links are external and open outside AdaShimaverse."
+        },
+        {
+          "question": "What are Timeline and Constellation for?",
+          "answer": "<strong>Timeline</strong> is for chronological reference, while <strong>Constellation</strong> is an interactive reference feature for exploring relationships and details across the series. They are useful when you want context rather than simply reading a volume."
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "icon": "fa-sliders",
+      "eyebrow": "SETTINGS",
+      "title": "Language, appearance & preferences",
+      "items": [
+        {
+          "question": "Which interface languages are available?",
+          "answer": "The site's interface includes <strong>English, Spanish, and Tagalog</strong> in the main site localization. Individual sections or pieces of content may have different language availability depending on the material."
+        },
+        {
+          "question": "How do I change the language?",
+          "answer": "Open the menu, find the <strong>Language</strong> setting, and choose the language you want. The selection is saved locally in your browser so it can be restored on a later visit."
+        },
+        {
+          "question": "What is Time-based appearance?",
+          "answer": "Time-based appearance automatically changes the site's appearance according to the time of day. You can turn this behavior off and use the available appearance options from the menu instead."
+        },
+        {
+          "question": "What does the Mobile menu button setting do?",
+          "answer": "It controls whether the floating mobile menu button is shown on other pages. The homepage keeps its menu button available regardless of this setting."
+        },
+        {
+          "question": "Do I need an account?",
+          "answer": "No account is required for the site's normal browsing and reading features. Some preferences are kept locally in your browser rather than tied to a user account."
+        }
+      ]
+    },
+    {
+      "id": "archive",
+      "icon": "fa-box-archive",
+      "eyebrow": "ARCHIVE",
+      "title": "Archive structure & metadata",
+      "items": [
+        {
+          "question": "What is the difference between Novels, Manga, and Extra Stories?",
+          "answer": "<strong>Novels</strong> is the main light-novel archive. <strong>Manga</strong> covers the manga adaptations and their volumes. <strong>Extra Stories</strong> is for shorter or supplemental material that is easier to browse as individual stories. Treat the sections as separate collections rather than three versions of the same library."
+        },
+        {
+          "question": "Why do some entries have labels such as Special, Short Story, or Upcoming?",
+          "answer": "Those labels describe how an entry is classified in the archive. <strong>Special</strong> marks material such as Volume 99.9, <strong>Short Story</strong> marks the short-story collections, and <strong>Upcoming</strong> is used for a volume that has a known release but is not yet part of the released archive."
+        },
+        {
+          "question": "Why can page counts differ from the printed book?",
+          "answer": "The archive's page count is based on the pages represented by the stored document and its recorded page range. Front matter, numbering conventions, scans, or other document differences can make an archive count differ from a publisher's advertised page count. Use the recorded page range when you need to understand exactly what the archive is counting."
+        },
+        {
+          "question": "How should I read material tied to a particular volume?",
+          "answer": "When an extra story, illustration, or other item clearly belongs to a specific release, reading the corresponding main volume first is the safest approach. This preserves context and reduces the chance of encountering a character, event, or reference before its intended point in the series."
+        },
+        {
+          "question": "Why is some content available in one language but not another?",
+          "answer": "The interface and the archive's source material are separate things. The site interface supports multiple languages, but an individual book, article, gallery entry, or other resource may only have a source or translation in certain languages. Missing language options do not necessarily mean the underlying item is missing."
+        },
+        {
+          "question": "Where can I check the source or official release information?",
+          "answer": "Use the relevant item page, the Timeline, Gallery metadata, or the About section depending on what you are checking. When the archive provides an external official-work link, prefer that source for publisher or creator information rather than treating the fan archive as the authority."
+        }
+      ]
+    },
+    {
+      "id": "translations",
+      "icon": "fa-language",
+      "eyebrow": "TRANSLATIONS & SOURCES",
+      "title": "Translations, sources & official releases",
+      "items": [
+        {
+          "question": "Are the novels, manga, and other book-format works officially translated?",
+          "answer": "<strong>No.</strong> The English-language novels, manga, and other book-format works available through AdaShimaverse are <strong>fan translations, not official translations</strong>. The archive uses fan-translated versions of material rather than presenting them as licensed English editions. Where an official English release exists, that edition remains the authoritative licensed publication."
+        },
+        {
+          "question": "Why does AdaShimaverse use fan translations?",
+          "answer": "The archive aims to make the wider series easier to explore, including material that may not have an official English release. Fan translations can provide access to works that would otherwise be unavailable in English, while the archive clearly distinguishes them from officially licensed editions."
+        },
+        {
+          "question": "Does changing the site language translate the novels or manga?",
+          "answer": "<strong>No.</strong> The site's interface language and the language of its archived material are separate. Changing the interface to English, Spanish, or Tagalog changes menus and other site text; it does not automatically translate a novel, manga, or other source document."
+        },
+        {
+          "question": "Are all works in the archive available in English?",
+          "answer": "No. Language availability depends on the individual work and the source material available to the archive. Some items may have an English fan translation, an official English edition, another language, or no English version at all."
+        },
+        {
+          "question": "Why might a fan translation differ from another English version?",
+          "answer": "Different translations can make different choices for wording, tone, names, terminology, and dialogue. A fan translation should therefore be treated as <strong>a translation of the original text</strong>, not as an identical copy of another English edition. When comparing versions, differences do not necessarily mean that one version is automatically incorrect."
+        },
+        {
+          "question": "Is a fan translation the same as an official English edition?",
+          "answer": "No. An official edition is published or licensed by the rights holders and follows the publisher's editorial and translation process. A fan translation is produced independently and does not carry the same official status, even when it covers the same Japanese material."
+        },
+        {
+          "question": "Should I support the official English releases?",
+          "answer": "<strong>Yes, whenever an official release is available.</strong> Purchasing licensed editions supports the creators, translators, publishers, and rights holders involved with the series. Fan translations in the archive are intended to improve access to the broader material, not to replace officially licensed publications."
+        },
+        {
+          "question": "Where can I find the official releases?",
+          "answer": "Use the site's <strong>Support the Original Work</strong> links when available. They point readers toward official sources for the light novels, manga, and other licensed material. For publisher-specific availability, always rely on the linked official source rather than treating the fan archive as the authority."
+        },
+        {
+          "question": "Can I report a problem with a translation?",
+          "answer": "Yes. If you notice a suspected mistranslation, missing passage, inconsistent terminology, or other issue in archived translated material, use <strong>Send Feedback</strong> and identify the exact work, volume, chapter or page, and the part that appears incorrect. When possible, explain what you expected to see so the issue can be investigated."
+        }
+      ]
+    },
+    {
+      "id": "stats-guide",
+      "icon": "fa-chart-simple",
+      "eyebrow": "STATISTICS",
+      "title": "Understanding the Statistics page",
+      "items": [
+        {
+          "question": "What do the main totals count?",
+          "answer": "The Statistics page separates the <strong>tracked collection</strong> from <strong>released material</strong>. Chapter and page totals exclude upcoming entries that do not have recorded page counts, while the tracked-volume count can include an upcoming release."
+        },
+        {
+          "question": "How is translation delay calculated?",
+          "answer": "Translation delay is the number of days between the recorded <strong>Japanese release date</strong> and the recorded <strong>English completion date</strong>. It is an archive metric, not a measure of how long an official publisher took to publish an English edition."
+        },
+        {
+          "question": "What does the publication gap measure?",
+          "answer": "A publication gap is the number of days between the Japanese release dates of consecutive released entries included in the statistics. It describes the spacing of releases, not the time required to write or translate a volume."
+        },
+        {
+          "question": "Why does an upcoming volume appear in some statistics but not others?",
+          "answer": "Upcoming material is useful when describing the collection as a whole, so it can appear in tracked-volume or category counts. It is excluded from metrics that require completed page counts, chapters represented in the released archive, or a completed translation date."
+        },
+        {
+          "question": "Can the statistics change?",
+          "answer": "Yes. The page is generated from the archive's statistics data, so corrections to dates, page counts, classifications, or release status can change the results. The numbers should be read as a snapshot of the archive's current dataset rather than immutable facts."
+        },
+        {
+          "question": "What is the best way to use the Charts section?",
+          "answer": "Use the charts for comparisons rather than absolute conclusions. <strong>Pages per Volume</strong> and <strong>Chapters per Volume</strong> compare structure; <strong>Cumulative Pages</strong> shows the running size of the released collection; and <strong>Translation Delay</strong> shows how the recorded JP-to-EN interval varies between entries."
+        }
+      ]
+    },
+    {
+      "id": "constellation",
+      "icon": "fa-star",
+      "eyebrow": "CONSTELLATION",
+      "title": "Constellation & unlocks",
+      "items": [
+        {
+          "question": "What is the Constellation page?",
+          "answer": "Constellation is an interactive section where you <strong>connect stars to complete constellations</strong>. Each completed constellation can unlock a reward, such as a mini-story or other archive content."
+        },
+        {
+          "question": "How do rewards unlock?",
+          "answer": "Each reward is tied to a <strong>specific number of completed constellations</strong>. Reaching that number automatically opens a window with the matching reward, which can include a <strong>mini-story PDF</strong> or other special content."
+        },
+        {
+          "question": "What are the Adachi and Shimamura profiles?",
+          "answer": "These are locked sections that unlock at certain milestones: the <strong>Shimamura profile unlocks after completing 3 constellations</strong>, and the <strong>Adachi profile, along with full access to all stories, unlocks after completing 10</strong>."
+        },
+        {
+          "question": "Does my progress save? Does it sync across devices?",
+          "answer": "Progress is saved <strong>locally in your browser</strong>, not to an account. That means it will not sync across devices, and clearing your browser's site data will reset your constellations and unlocks."
+        },
+        {
+          "question": "What is the novel status badge in the sidebar?",
+          "answer": "It's a quick indicator showing the <strong>light novel's current status</strong> (for example, ongoing or finished) right from the sidebar, without needing to visit the Novels section."
+        }
+      ]
+    },
+    {
+      "id": "gallery",
+      "icon": "fa-images",
+      "eyebrow": "GALLERY",
+      "title": "Browsing the Gallery",
+      "items": [
+        {
+          "question": "What's in the Gallery?",
+          "answer": "The Gallery brings together <strong>official illustrations</strong> pulled from the light novels and other visual material, organized by volume and by artist when that information is available."
+        },
+        {
+          "question": "How is it organized?",
+          "answer": "Artworks are grouped by <strong>volume</strong> (Volume 01, Volume 02, and so on), and you can also <strong>filter by collection</strong> using the filters at the top of the page."
+        },
+        {
+          "question": "Can I view an image at full size?",
+          "answer": "Yes. Selecting an artwork opens an <strong>enlarged view</strong> with details like the title, artist, and source publication."
+        },
+        {
+          "question": "A volume shows no illustrations. Is that normal?",
+          "answer": "Yes, that can happen while the archive keeps expanding. If you think content is missing that should be there, you can report it through <strong>Send Feedback</strong>."
+        }
+      ]
+    },
+    {
+      "id": "minigame",
+      "icon": "fa-gamepad",
+      "eyebrow": "YASHIRO GAME",
+      "title": "About the Yashiro mini-game",
+      "items": [
+        {
+          "question": "What is the Yashiro mini-game?",
+          "answer": "It's a small standalone game inspired by the character <strong>Yashiro</strong>, meant as light extra content in the archive, without a direct connection to the main story."
+        },
+        {
+          "question": "Does my game progress save to an account?",
+          "answer": "There are no accounts on AdaShimaverse. If the game saves any preference or score, it does so <strong>locally in your browser</strong>, the same as the rest of the site."
+        },
+        {
+          "question": "Where do I find it?",
+          "answer": "You can reach it from its link in the site's navigation menu."
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "icon": "fa-wrench",
+      "eyebrow": "TROUBLESHOOTING",
+      "title": "When something goes wrong",
+      "items": [
+        {
+          "question": "A page is completely blank. What should I do?",
+          "answer": "First, reload the page. If it remains blank, try a hard refresh, then try opening the page in a private/incognito window or another browser. If only one page is affected, include that exact page in your bug report."
+        },
+        {
+          "question": "The reader opens but the document is blank or stuck loading.",
+          "answer": "Give the document a moment to load, then refresh the page. Check that JavaScript is enabled and that your browser or content-blocking extension is not blocking the document resources. If another browser works, report the original browser and the affected volume."
+        },
+        {
+          "question": "Images, audio, or a specific item is missing.",
+          "answer": "Reload the page and check your connection first. If the rest of the site works but one item does not, the problem may be specific to that asset. Report the exact title, volume, track, or gallery item so it can be investigated."
+        },
+        {
+          "question": "The site looks outdated after an update.",
+          "answer": "Your browser may still have an older cached asset. Try a hard refresh. If you installed the site or use offline caching, close and reopen it so the latest assets can be loaded."
+        },
+        {
+          "question": "My bookmarks or reading progress disappeared.",
+          "answer": "Extra Stories bookmarks and reading progress are stored locally in your browser. They can disappear if site data was cleared, local storage was reset, or you changed to a different browser/device. There is currently no account-based sync for these local features."
+        },
+        {
+          "question": "A download says the file is unavailable.",
+          "answer": "The file may not currently be available for that item. Try again later and check whether another format is offered. If a file that used to work has stopped working, include the exact volume or item when reporting it."
+        }
+      ]
+    },
+    {
+      "id": "feedback",
+      "icon": "fa-message",
+      "eyebrow": "FEEDBACK",
+      "title": "Report a problem or suggest an improvement",
+      "items": [
+        {
+          "question": "What should I report?",
+          "answer": "You can report <strong>broken pages, missing files, incorrect information, translation mistakes, broken links, reader problems, visual bugs</strong>, or anything else that is preventing you from using the site normally."
+        },
+        {
+          "question": "What information makes a bug report useful?",
+          "answer": "Include the <strong>page or section, title/volume/chapter, browser and device</strong> when relevant, and a short description of what you expected versus what happened. A screenshot or console error can also help when the problem is visual or technical."
+        },
+        {
+          "question": "Can I suggest a feature?",
+          "answer": "Yes. Suggestions for new features, navigation improvements, reader controls, archive organization, or quality-of-life changes are welcome. Explain the problem the feature would solve rather than only describing the button you want added."
+        },
+        {
+          "question": "Where do I send feedback?",
+          "answer": "Use the site's <strong>Send Feedback</strong> form when it is available. For project information, credits, and other official site details, see the <strong>About</strong> section."
+        },
+        {
+          "question": "Who owns the original series?",
+          "answer": "<em>Adachi and Shimamura</em> and its original characters, artwork, and related works belong to their respective rights holders. AdaShimaverse is an unofficial fan project and does not claim ownership of the original work."
+        }
+      ]
+    },
+    {
+      "id": "dmca",
+      "icon": "fa-scale-balanced",
+      "eyebrow": "DMCA & COPYRIGHT",
+      "title": "DMCA & Copyright",
+      "items": [
+        {
+          "question": "What is AdaShimaverse's stance on copyright?",
+          "answer": "AdaShimaverse is an unofficial, non-profit fan archive. <em>Adachi and Shimamura</em>, its characters, artwork, and related works belong to their respective rights holders. We do not claim ownership of any original material referenced or hosted on the site, and we respect the rights of creators and publishers."
+        },
+        {
+          "question": "How do I request that something be removed?",
+          "answer": "If you're a rights holder (or represent one) and would like something on AdaShimaverse taken down, just reach out through <strong>Send Feedback</strong> or the contact details in the <strong>About</strong> section. Let us know it's a copyright request so we can prioritize it."
+        },
+        {
+          "question": "What should I include in my request?",
+          "answer": "It helps to include: what the material is, where it appears on the site (a link or page name), and a way to contact you if we have questions. That's usually enough for us to look into it."
+        },
+        {
+          "question": "How long does it take?",
+          "answer": "We review requests as soon as we can and remove or disable content that shouldn't be up. Since this is a small fan-run project, response times can vary, so thanks for your patience."
+        },
+        {
+          "question": "Does removing content mean AdaShimaverse admits wrongdoing?",
+          "answer": "No. We take these requests seriously and would rather err on the side of caution and take something down than leave up something we shouldn't. AdaShimaverse is a fan-run, non-profit project made out of love for the series."
+        }
+      ]
+    }
+  ],
+  "noResults": "No matching help topics found.",
+  "footer": "Unofficial Adachi to Shimamura fan site.<br />Created by fans, non-profit.<br />Adachi to Shimamura and all rights belong to Hitoma Iruma.",
+  "about": "About AdaShimaverse"
+}

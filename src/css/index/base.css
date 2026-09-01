@@ -1,0 +1,216 @@
+/* Theme variables and base styles */
+
+/* imports */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* CSS Variables for sky themes - defined on body for proper inheritance */
+body {
+  --sky-top: #6c5287;
+  --sky-mid: #9a6898;
+  --sky-bottom: #fde4b8;
+  --sky-gradient: 165deg, #6c5287 0%, #9a6898 25%, #d187a2 55%, #f1b5a5 85%, #fde4b8 100%;
+
+  --surface-bg: rgba(255, 255, 255, 0.25);
+  --surface-glass: rgba(255, 255, 255, 0.45);
+  --surface-border: rgba(255, 255, 255, 0.6);
+  --surface-shadow: 0 8px 32px 0 rgba(135, 107, 145, 0.15);
+
+  --text-main: #4a2f57;
+  --text-secondary: #5c4b51;
+  --text-light: rgba(255, 255, 255, 0.9);
+
+  --accent-primary: #f06292;
+  --accent-secondary: #64b5f6;
+  --accent-soft: rgba(240, 98, 146, 0.2);
+
+  --orb-opacity: 1;
+  --star-opacity: 0;
+  --star-transition: 3s ease;
+
+  --nav-bg: linear-gradient(135deg, rgba(252, 228, 236, 0.72), rgba(227, 242, 253, 0.72));
+  --nav-border: rgba(255, 255, 255, 0.6);
+  --nav-text: #5c4b51;
+  --nav-shadow: 0 8px 32px 0 rgba(135, 107, 145, 0.15);
+
+  --burger-bg: rgba(255, 255, 255, 0.45);
+  --burger-border: rgba(255, 255, 255, 0.6);
+  --burger-color: #f06292;
+  --burger-shadow: 0 8px 32px 0 rgba(135, 107, 145, 0.15);
+
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+
+  --hero-shadow:
+    0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(209, 135, 162, 0.6),
+    0 5px 25px rgba(209, 135, 162, 0.8);
+}
+
+/* MORNING ===== */
+body.time-morning {
+  --sky-top: #a8c8e8;
+  --sky-mid: #c8b5d8;
+  --sky-bottom: #f5d8c8;
+  --sky-gradient: 165deg, #a8c8e8 0%, #c8b5d8 30%, #e8c8d8 55%, #f5d8c8 80%, #fff5e8 100%;
+
+  --surface-bg: rgba(255, 255, 255, 0.35);
+  --surface-glass: rgba(255, 255, 255, 0.55);
+  --surface-border: rgba(255, 255, 255, 0.7);
+  --surface-shadow: 0 8px 32px 0 rgba(130, 150, 180, 0.15);
+
+  --text-main: #837896;
+  --text-secondary: #8f84a2;
+
+  --accent-primary: #e88ba0;
+  --accent-secondary: #8ab8d8;
+  --accent-soft: rgba(232, 139, 160, 0.15);
+
+  --orb-opacity: 0.7;
+  --star-opacity: 0.05;
+
+  --nav-bg: linear-gradient(135deg, rgba(230, 240, 252, 0.8), rgba(245, 232, 248, 0.7));
+  --nav-border: rgba(200, 215, 235, 0.7);
+  --nav-text: #837896;
+  --nav-shadow: 0 8px 32px 0 rgba(130, 150, 180, 0.12);
+
+  --burger-bg: rgba(255, 255, 255, 0.55);
+  --burger-border: rgba(200, 215, 235, 0.7);
+  --burger-color: #e88ba0;
+  --burger-shadow: 0 8px 32px 0 rgba(130, 150, 180, 0.15);
+
+  --glass-bg: rgba(255, 255, 255, 0.35);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+
+  --hero-shadow:
+    0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(168, 200, 232, 0.5),
+    0 5px 30px rgba(168, 200, 232, 0.3);
+}
+
+/* AFTERNOON (Pink / rose palette) ===== */
+body.time-afternoon {
+  --sky-top: #75465f;
+  --sky-mid: #9d5d78;
+  --sky-bottom: #c98291;
+  --sky-gradient: 165deg, #75465f 0%, #9d5d78 30%, #b96f82 60%, #c98291 100%;
+
+  --surface-bg: rgba(255, 238, 244, 0.2);
+  --surface-glass: rgba(255, 238, 244, 0.38);
+  --surface-border: rgba(255, 230, 238, 0.48);
+  --surface-shadow: 0 8px 32px 0 rgba(155, 92, 119, 0.16);
+
+  --text-main: #5a3b4c;
+  --text-secondary: #765565;
+
+  --accent-primary: #d96f98;
+  --accent-secondary: #c987a5;
+  --accent-soft: rgba(217, 111, 152, 0.18);
+
+  --orb-opacity: 0.8;
+  --star-opacity: 0;
+
+  --nav-bg: linear-gradient(135deg, rgba(91, 48, 69, 0.72), rgba(119, 59, 83, 0.68));
+  --nav-border: rgba(255, 220, 232, 0.32);
+  --nav-text: #5a3b4c;
+  --nav-shadow: 0 8px 32px 0 rgba(155, 92, 119, 0.14);
+
+  --burger-bg: rgba(83, 45, 63, 0.62);
+  --burger-border: rgba(255, 220, 232, 0.38);
+  --burger-color: #d96f98;
+  --burger-shadow: 0 8px 32px 0 rgba(155, 92, 119, 0.14);
+
+  --glass-bg: rgba(255, 235, 243, 0.18);
+  --glass-border: rgba(255, 220, 232, 0.34);
+  --glass-shadow: 0 10px 40px rgba(70, 30, 48, 0.18);
+
+  --hero-shadow:
+    0 0 15px rgba(255, 225, 235, 0.52), 0 0 30px rgba(190, 82, 125, 0.28),
+    0 5px 25px rgba(150, 65, 95, 0.24);
+}
+
+/* NIGHT ===== */
+body.time-night {
+  --sky-top: #1a1028;
+  --sky-mid: #2a1a3a;
+  --sky-bottom: #3a2a4a;
+  --sky-gradient: 165deg, #1a1028 0%, #2a1a3a 25%, #3a2a4a 55%, #4a2a5a 80%, #3a2a4a 100%;
+
+  --surface-bg: rgba(255, 255, 255, 0.08);
+  --surface-glass: rgba(255, 255, 255, 0.15);
+  --surface-border: rgba(180, 150, 200, 0.3);
+  --surface-shadow: 0 8px 32px 0 rgba(30, 20, 50, 0.4);
+
+  --text-main: #d8c8e8;
+  --text-secondary: #c8b8d8;
+  --text-light: rgba(255, 240, 255, 0.95);
+
+  --accent-primary: #d88ab8;
+  --accent-secondary: #8ab8d8;
+  --accent-soft: rgba(216, 138, 184, 0.2);
+
+  --orb-opacity: 0.4;
+  --star-opacity: 0.85;
+
+  --nav-bg: linear-gradient(135deg, rgba(30, 20, 50, 0.85), rgba(50, 30, 70, 0.85));
+  --nav-border: rgba(180, 150, 200, 0.25);
+  --nav-text: #d8c8e8;
+  --nav-shadow: 0 8px 32px 0 rgba(20, 10, 40, 0.5);
+
+  --burger-bg: rgba(40, 30, 60, 0.85);
+  --burger-border: rgba(180, 150, 200, 0.3);
+  --burger-color: #d88ab8;
+  --burger-shadow: 0 8px 32px 0 rgba(20, 10, 40, 0.5), 0 0 20px rgba(216, 138, 184, 0.1);
+
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(180, 150, 200, 0.2);
+  --glass-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+
+  --hero-shadow:
+    0 0 20px rgba(180, 150, 200, 0.4), 0 0 40px rgba(216, 138, 184, 0.2),
+    0 5px 30px rgba(20, 10, 40, 0.5);
+}
+
+/* Body Background ===== */
+body {
+  background: linear-gradient(var(--sky-gradient));
+  background-attachment: fixed;
+  transition: background 2.5s ease;
+}
+
+/* Stars Background ===== */
+.stars-bg {
+  transition: opacity 3s ease;
+}
+
+body.time-morning .stars-bg {
+  opacity: 0.05;
+}
+
+body.time-afternoon .stars-bg {
+  opacity: 0;
+}
+
+body.time-night .stars-bg {
+  opacity: 0.85;
+}
+
+/* reset & base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Quicksand", "Noto Serif JP", sans-serif;
+  display: flex;
+  min-height: 100vh;
+  color: #4a2f57;
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

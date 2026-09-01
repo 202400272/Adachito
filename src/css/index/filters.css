@@ -1,0 +1,556 @@
+/* Bulletin filters and Adachi exploration */
+
+/* ============================================================ BULLETIN FILTERS & SOURCES ===================... */
+.bulletin-filters {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 2px 12px;
+  border-bottom: 1px solid color-mix(in srgb, var(--surface-border) 72%, transparent);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.bulletin-filters::-webkit-scrollbar {
+  display: none;
+}
+
+.bulletin-filter {
+  flex: 0 0 auto;
+  min-height: 34px;
+  padding: 7px 12px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-secondary);
+  font:
+    700 0.64rem/1.1 "Quicksand",
+    sans-serif;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.bulletin-filter:hover {
+  color: var(--text-light);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.bulletin-filter.is-active {
+  color: var(--text-light);
+  border-color: color-mix(in srgb, var(--accent-primary) 38%, var(--surface-border));
+  background: color-mix(in srgb, var(--accent-primary) 16%, transparent);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+.bulletin-content-filter.has-unread {
+  border-color: color-mix(in srgb, #ff3d81 64%, var(--surface-border));
+  color: #ff3d81;
+  box-shadow:
+    0 0 0 1px rgba(255, 61, 129, 0.24),
+    0 0 18px rgba(255, 61, 129, 0.42);
+  animation: bulletinContentPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes bulletinContentPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(255, 61, 129, 0.2),
+      0 0 12px rgba(255, 61, 129, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(255, 61, 129, 0.42),
+      0 0 24px rgba(255, 61, 129, 0.62);
+  }
+}
+
+.bulletin-filter:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.65);
+  outline-offset: 2px;
+}
+
+.bulletin-filter-empty {
+  margin: 0;
+  padding: 34px 6px;
+  color: var(--text-secondary);
+  font:
+    500 0.8rem/1.5 "Quicksand",
+    sans-serif;
+  text-align: center;
+  opacity: 0.72;
+}
+
+.bulletin-sources {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.bulletin-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 7px 11px;
+  border: 1px solid color-mix(in srgb, var(--surface-border) 78%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--glass-bg) 72%, transparent);
+  color: var(--text-light);
+  font:
+    700 0.66rem/1.1 "Quicksand",
+    sans-serif;
+  letter-spacing: 0.035em;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.9;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.bulletin-source:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--accent-primary) 42%, var(--surface-border));
+  background: color-mix(in srgb, var(--accent-primary) 11%, var(--glass-bg));
+}
+
+.bulletin-source i:first-child {
+  width: 13px;
+  height: 13px;
+}
+
+.bulletin-source-chevron {
+  width: 11px;
+  height: 11px;
+  opacity: 0.55;
+  transition: transform 0.2s ease;
+}
+
+.bulletin-source[aria-expanded="true"] .bulletin-source-chevron {
+  transform: rotate(180deg);
+}
+
+.bulletin-source-menu {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: min(330px, calc(100vw - 40px));
+  padding: 6px;
+  border: 1px solid var(--surface-border);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--glass-bg) 94%, #111 6%);
+  box-shadow: 0 18px 42px rgba(20, 12, 28, 0.18);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.bulletin-source-option {
+  display: grid;
+  grid-template-columns: 25px minmax(0, 1fr) 14px;
+  align-items: center;
+  gap: 9px;
+  min-height: 38px;
+  padding: 7px 9px;
+  border-radius: 9px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font:
+    600 0.68rem/1.3 "Quicksand",
+    sans-serif;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.bulletin-source-option:hover {
+  color: var(--text-light);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.bulletin-source-option-index {
+  color: var(--text-secondary);
+  font-size: 0.57rem;
+  opacity: 0.55;
+}
+
+.bulletin-source-option-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bulletin-source-option svg {
+  width: 12px;
+  height: 12px;
+  opacity: 0.55;
+}
+
+.bulletin-item-sources {
+  margin-top: 9px;
+}
+
+.bulletin-item-sources .bulletin-source {
+  min-height: 29px;
+  padding: 5px 9px;
+  font-size: 0.58rem;
+  opacity: 0.72;
+}
+
+.bulletin-item-author {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 9px;
+  color: var(--text-secondary);
+  font:
+    600 0.61rem/1.2 "Quicksand",
+    sans-serif;
+  opacity: 0.62;
+}
+
+.bulletin-item-author svg {
+  width: 12px;
+  height: 12px;
+}
+
+.bulletin-modal-author {
+  margin: -8px 0 24px;
+  color: var(--text-secondary);
+  font:
+    600 0.7rem/1.3 "Quicksand",
+    sans-serif;
+  letter-spacing: 0.04em;
+  opacity: 0.72;
+}
+
+.bulletin-modal-sources {
+  margin-top: 25px;
+}
+
+.bulletin-modal-sources .bulletin-source {
+  min-height: 38px;
+}
+
+@media (max-width: 600px) {
+  .bulletin-filters {
+    padding-top: 11px;
+  }
+
+  .bulletin-filter {
+    min-height: 32px;
+    padding-inline: 10px;
+  }
+
+  .bulletin-source-menu {
+    position: fixed;
+    top: auto;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    width: auto;
+    min-width: 0;
+  }
+
+  /* Inside the bulletin modal, .bulletin-modal-dialog has a backdrop-filter, which creates a new containing blo... */
+  .bulletin-modal-sources .bulletin-source-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    bottom: auto;
+    left: 0;
+    right: auto;
+    width: auto;
+    min-width: min(280px, calc(100vw - 88px));
+    max-width: calc(100vw - 88px);
+    max-height: min(260px, calc(100dvh - 160px));
+    overflow-y: auto;
+  }
+}
+
+/* ===================================================================== EXPLORE ADACHI & SHIMAMURA — INTEGRAT... */
+.story-grid .nav-card {
+  --story-accent: #c86b9b;
+  --story-accent-soft: rgba(200, 107, 155, 0.14);
+  --story-icon-opacity: 0.16;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: 0;
+  border: 1px solid color-mix(in srgb, var(--story-accent) 28%, var(--glass-border));
+  background:
+    radial-gradient(circle at 88% 16%, var(--story-accent-soft), transparent 34%),
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--glass-bg) 88%, var(--story-accent) 12%),
+      var(--glass-bg)
+    );
+  box-shadow:
+    0 16px 42px rgba(20, 12, 30, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.story-grid .nav-card::before {
+  content: "";
+  position: absolute;
+  inset: auto -60px -85px auto;
+  width: 230px;
+  height: 230px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--story-accent-soft), transparent 68%);
+  z-index: -2;
+  pointer-events: none;
+}
+
+.story-grid .nav-card::after {
+  content: "";
+  position: absolute;
+  right: -42px;
+  bottom: -68px;
+  width: 190px;
+  height: 190px;
+  border: 1px solid color-mix(in srgb, var(--story-accent) 26%, transparent);
+  border-radius: 48% 52% 62% 38%;
+  transform: rotate(-18deg);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.story-grid .nav-card-featured {
+  --story-accent: #d58aaa;
+  --story-accent-soft: rgba(213, 138, 170, 0.17);
+}
+.story-grid .nav-card-manga {
+  --story-accent: #7ca8d6;
+  --story-accent-soft: rgba(124, 168, 214, 0.15);
+}
+.story-grid .nav-card-anime {
+  --story-accent: #df966f;
+  --story-accent-soft: rgba(223, 150, 111, 0.15);
+}
+
+/* The large illustration is deliberately visible, but never competes with copy. */
+.story-grid .story-card-decor {
+  position: absolute !important;
+  right: 22px !important;
+  bottom: 8px !important;
+  width: 170px !important;
+  height: 170px !important;
+  display: grid !important;
+  place-items: center !important;
+  color: var(--story-accent) !important;
+  opacity: var(--story-icon-opacity) !important;
+  transform: rotate(-7deg) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+.story-grid .story-card-decor::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 1px solid currentColor;
+  border-radius: 42% 58% 55% 45%;
+  opacity: 0.42;
+}
+
+.story-grid .story-card-decor svg {
+  width: 112px !important;
+  height: 112px !important;
+  stroke-width: 1.05 !important;
+}
+
+/* Small icon is now a compact identity mark, not a generic button. */
+.story-grid .story-card-icon {
+  width: 58px !important;
+  height: 58px !important;
+  display: grid !important;
+  place-items: center !important;
+  flex: 0 0 auto;
+  border: 1px solid color-mix(in srgb, var(--story-accent) 48%, transparent) !important;
+  border-radius: 18px !important;
+  background: color-mix(in srgb, var(--story-accent) 10%, transparent) !important;
+  color: var(--story-accent) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 8px 20px rgba(20, 12, 30, 0.08) !important;
+  opacity: 1 !important;
+  transform: rotate(3deg);
+  transition:
+    transform 0.28s ease,
+    background 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.story-grid .story-card-icon svg {
+  width: 29px !important;
+  height: 29px !important;
+  stroke-width: 1.65 !important;
+}
+
+.story-grid .nav-card-side:hover .story-card-icon {
+  transform: rotate(0deg) translateY(-2px) scale(1.04);
+  background: color-mix(in srgb, var(--story-accent) 17%, transparent) !important;
+}
+
+/* Text sits on a clean reading plane above the artwork. */
+.story-grid .story-card-kicker,
+.story-grid .story-card-title,
+.story-grid .story-card-desc,
+.story-grid .story-card-action,
+.story-grid .story-card-side-row {
+  position: relative;
+  z-index: 2;
+}
+
+.story-grid .story-card-kicker {
+  margin-bottom: 12px;
+}
+.story-grid .story-card-kicker-line {
+  width: 26px;
+  background: var(--story-accent);
+}
+.story-grid .story-card-kicker-text {
+  color: var(--story-accent);
+  letter-spacing: 0.16em;
+}
+.story-grid .story-card-title {
+  text-shadow: 0 1px 14px rgba(20, 12, 30, 0.1);
+}
+.story-grid .story-card-desc {
+  max-width: 430px;
+}
+
+.story-grid .nav-card-featured {
+  padding: 30px 32px 28px !important;
+}
+
+.story-grid .nav-card-featured .story-card-title {
+  max-width: 66% !important;
+  font-size: clamp(1.9rem, 3vw, 2.8rem) !important;
+}
+
+.story-grid .nav-card-featured .story-card-desc {
+  max-width: 58% !important;
+}
+
+.story-grid .nav-card-featured .story-card-decor {
+  width: 235px !important;
+  height: 235px !important;
+  right: 24px !important;
+  bottom: -28px !important;
+  opacity: 0.18 !important;
+}
+
+.story-grid .nav-card-featured .story-card-decor svg {
+  width: 150px !important;
+  height: 150px !important;
+  stroke-width: 0.9 !important;
+}
+
+.story-grid .story-card-action-btn,
+.story-grid .story-card-arrow {
+  color: var(--story-accent) !important;
+  border-color: color-mix(in srgb, var(--story-accent) 52%, transparent) !important;
+  background: color-mix(in srgb, var(--story-accent) 8%, transparent) !important;
+}
+
+.story-grid .nav-card-featured:hover .story-card-action-btn {
+  background: var(--story-accent) !important;
+  color: #241533 !important;
+}
+
+/* Time theme follows the menu's existing theme state. */
+body.time-morning .story-grid .nav-card-featured {
+  --story-accent: #638caf;
+  --story-accent-soft: rgba(99, 140, 175, 0.15);
+}
+body.time-morning .story-grid .nav-card-manga {
+  --story-accent: #6d9fbd;
+  --story-accent-soft: rgba(109, 159, 189, 0.14);
+}
+body.time-morning .story-grid .nav-card-anime {
+  --story-accent: #b58c72;
+  --story-accent-soft: rgba(181, 140, 114, 0.14);
+}
+body.time-afternoon .story-grid .nav-card-featured {
+  --story-accent: #bd7098;
+  --story-accent-soft: rgba(189, 112, 152, 0.15);
+}
+body.time-afternoon .story-grid .nav-card-manga {
+  --story-accent: #7899c5;
+  --story-accent-soft: rgba(120, 153, 197, 0.14);
+}
+body.time-afternoon .story-grid .nav-card-anime {
+  --story-accent: #d38b68;
+  --story-accent-soft: rgba(211, 139, 104, 0.14);
+}
+body.time-night .story-grid .nav-card-featured {
+  --story-accent: #d69bc6;
+  --story-accent-soft: rgba(214, 155, 198, 0.16);
+}
+body.time-night .story-grid .nav-card-manga {
+  --story-accent: #92b9df;
+  --story-accent-soft: rgba(146, 185, 223, 0.15);
+}
+body.time-night .story-grid .nav-card-anime {
+  --story-accent: #e3a17e;
+  --story-accent-soft: rgba(227, 161, 126, 0.15);
+}
+
+@media (max-width: 900px) {
+  .story-grid .nav-card-featured .story-card-title {
+    max-width: 72% !important;
+  }
+  .story-grid .nav-card-featured .story-card-desc {
+    max-width: 64% !important;
+  }
+  .story-grid .nav-card-featured .story-card-decor {
+    width: 190px !important;
+    height: 190px !important;
+    right: 8px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .story-grid .nav-card-featured {
+    padding: 24px 22px 22px !important;
+  }
+  .story-grid .nav-card-featured .story-card-title,
+  .story-grid .nav-card-featured .story-card-desc {
+    max-width: 100% !important;
+  }
+  .story-grid .nav-card-featured .story-card-decor {
+    width: 135px !important;
+    height: 135px !important;
+    right: -8px !important;
+    bottom: -10px !important;
+    opacity: 0.12 !important;
+  }
+  .story-grid .nav-card-featured .story-card-decor svg {
+    width: 88px !important;
+    height: 88px !important;
+  }
+  .story-grid .story-card-icon {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 15px !important;
+  }
+  .story-grid .story-card-icon svg {
+    width: 25px !important;
+    height: 25px !important;
+  }
+}

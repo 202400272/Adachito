@@ -577,7 +577,7 @@ window.addEventListener("resize", () => {
   window.__sakuraResize = setTimeout(initSakuraRain, 200);
 });
 
-// ===== LOAD MENU WITH TRANSLATION SUPPORT =====
+// Load and translate the menu
 const menuVer = Math.floor(Date.now() / 86400000);
 fetch("/src/components/menu.html?v=" + menuVer)
   .then((response) => {
@@ -608,7 +608,7 @@ fetch("/src/components/menu.html?v=" + menuVer)
   })
   .catch((e) => console.warn("menu.html no disponible:", e.message));
 
-// ===== MENU LOADED LISTENER =====
+// Handle menu loading
 document.addEventListener("menuLoaded", function () {
   // Translate menu to current language when it loads
   if (typeof window.translateMenu === "function") {

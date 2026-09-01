@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="AdashimaVerse settings and saved-data controls." />
+    <title>Settings — AdashimaVerse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Quicksand:wght@400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flag-icons@7.3.2/css/flag-icons.min.css"
+    />
+    <link rel="stylesheet" href="/src/css/settings/main.css?v=20260831" />
+    <link rel="icon" href="/assets/Imagenes/favicon.ico" />
+  </head>
+  <body data-page="settings">
+    <div class="settings-shell">
+      <div id="sidebar-container"></div>
+
+      <main class="settings-main">
+        <header class="settings-hero">
+          <div class="settings-hero-mark" aria-hidden="true"><i class="fas fa-sliders-h"></i></div>
+          <div class="settings-hero-copy">
+            <p class="settings-kicker" id="settingsKicker">ADASHIMAVERSE</p>
+            <h1 id="settingsTitle">Settings</h1>
+            <p id="settingsSubtitle">
+              Customize how the archive behaves and remembers your preferences.
+            </p>
+          </div>
+          <button
+            class="settings-back-button"
+            id="settingsBackButton"
+            type="button"
+            aria-label="Volver"
+          >
+            <span class="settings-back-button-icon" aria-hidden="true">
+              <i class="fas fa-arrow-left"></i>
+            </span>
+            <span class="settings-back-button-text" id="settingsBackButtonText">Volver</span>
+          </button>
+        </header>
+
+        <div class="settings-content">
+          <section class="settings-card">
+            <div class="settings-card-heading">
+              <span class="settings-card-icon"><i class="fas fa-language"></i></span>
+              <div>
+                <p class="settings-eyebrow" id="languageEyebrow">PREFERENCES</p>
+                <h2 id="languageTitle">Language</h2>
+              </div>
+            </div>
+            <div class="language-options" role="group" aria-label="Language options">
+              <button type="button" class="language-option" data-lang="es">
+                <span class="language-option-icon fi fi-es" aria-hidden="true"></span>
+                <strong>Español</strong><i class="fas fa-check" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="language-option" data-lang="en">
+                <span class="language-option-icon fi fi-us" aria-hidden="true"></span>
+                <strong>English</strong><i class="fas fa-check" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="language-option" data-lang="tg">
+                <span class="language-option-icon fi fi-ph" aria-hidden="true"></span>
+                <strong>Tagalog</strong><i class="fas fa-check" aria-hidden="true"></i>
+              </button>
+            </div>
+          </section>
+
+          <section class="settings-card">
+            <div class="settings-card-heading">
+              <span class="settings-card-icon"><i class="fas fa-palette"></i></span>
+              <div>
+                <p class="settings-eyebrow" id="appearanceEyebrow">APPEARANCE</p>
+                <h2 id="appearanceTitle">Appearance</h2>
+              </div>
+            </div>
+            <div class="setting-row">
+              <div>
+                <strong id="autoAppearanceTitle">Time-based appearance</strong>
+                <p id="autoAppearanceDesc">Automatically adapt the theme to the time of day.</p>
+              </div>
+              <label class="toggle-switch"
+                ><input type="checkbox" id="appearance-toggle-checkbox" /><span
+                  class="toggle-slider"
+                ></span
+              ></label>
+            </div>
+            <div class="theme-options" id="themeOptions">
+              <button type="button" class="theme-option" data-theme="morning">
+                <i class="fas fa-sun"></i><span id="themeMorning">Morning</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="afternoon">
+                <i class="fas fa-cloud-sun"></i><span id="themeAfternoon">Afternoon</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="night">
+                <i class="fas fa-moon"></i><span id="themeNight">Night</span>
+              </button>
+            </div>
+          </section>
+
+          <section class="settings-card">
+            <div class="settings-card-heading">
+              <span class="settings-card-icon"><i class="fas fa-universal-access"></i></span>
+              <div>
+                <p class="settings-eyebrow" id="accessibilityEyebrow">ACCESSIBILITY</p>
+                <h2 id="accessibilityTitle">Accessibility</h2>
+              </div>
+            </div>
+            <div class="setting-row">
+              <div>
+                <strong id="reducedMotionTitle">Reduce motion</strong>
+                <p id="reducedMotionDesc">
+                  Reduce animations and transitions, regardless of the OS preference.
+                </p>
+              </div>
+              <label class="toggle-switch"
+                ><input type="checkbox" id="reduced-motion-toggle-checkbox" /><span
+                  class="toggle-slider"
+                ></span
+              ></label>
+            </div>
+          </section>
+
+          <section class="settings-card">
+            <div class="settings-card-heading">
+              <span class="settings-card-icon"><i class="fas fa-play-circle"></i></span>
+              <div>
+                <p class="settings-eyebrow" id="playbackEyebrow">PLAYBACK</p>
+                <h2 id="playbackTitle">Playback</h2>
+              </div>
+            </div>
+            <div class="setting-row">
+              <div>
+                <strong id="autoplayTitle">Autoplay next</strong>
+                <p id="autoplayDesc">Automatically continue to the next episode or music track.</p>
+              </div>
+              <label class="toggle-switch"
+                ><input type="checkbox" id="autoplay-next-toggle-checkbox" /><span
+                  class="toggle-slider"
+                ></span
+              ></label>
+            </div>
+          </section>
+
+          <section class="settings-card">
+            <div class="settings-card-heading">
+              <span class="settings-card-icon"><i class="fas fa-table-cells-large"></i></span>
+              <div>
+                <p class="settings-eyebrow" id="viewsEyebrow">VIEWS & READING</p>
+                <h2 id="viewsTitle">Default views</h2>
+              </div>
+            </div>
+            <div class="preference-list">
+              <label class="preference-row"
+                ><span
+                  ><strong id="mangaViewTitle">Manga view</strong
+                  ><small id="mangaViewDesc">Default library view.</small></span
+                ><select id="default-manga-view">
+                  <option value="grid">Grid</option>
+                  <option value="list">List</option>
+                </select></label
+              >
+              <label class="preference-row"
+                ><span
+                  ><strong id="novelsViewTitle">Novel view</strong
+                  ><small id="novelsViewDesc"
+                    >Default view for the Light Novel library.</small
+                  ></span
+                ><select id="default-novels-view">
+                  <option value="grid">Grid</option>
+                  <option value="list">List</option>
+                </select></label
+              >
+              <label class="preference-row"
+                ><span
+                  ><strong id="animeViewTitle">Episode view</strong
+                  ><small id="animeViewDesc">How Anime episodes are displayed.</small></span
+                ><select id="default-anime-view">
+                  <option value="list">List</option>
+                  <option value="grid">Grid</option>
+                </select></label
+              >
+              <label class="preference-row"
+                ><span
+                  ><strong id="musicViewTitle">Music view</strong
+                  ><small id="musicViewDesc">Default music library view.</small></span
+                ><select id="default-music-view">
+                  <option value="standard">Standard</option>
+                  <option value="compact">Compact</option>
+                </select></label
+              >
+              <label class="preference-row"
+                ><span
+                  ><strong id="pdfViewTitle">PDF reader mode</strong
+                  ><small id="pdfViewDesc">How PDF pages are displayed.</small></span
+                ><select id="default-pdf-view">
+                  <option value="single">Single page</option>
+                  <option value="continuous">Continuous</option>
+                </select></label
+              >
+            </div>
+          </section>
+
+          <section class="settings-card settings-info-card">
+            <div class="settings-card-heading">
+              <span class="settings-card-icon"><i class="fas fa-circle-info"></i></span>
+              <div>
+                <p class="settings-eyebrow" id="howSettingsEyebrow">ABOUT THESE SETTINGS</p>
+                <h2 id="howSettingsTitle">How these settings work</h2>
+              </div>
+            </div>
+            <div class="settings-explanation" id="settingsExplanation">
+              <p>
+                These preferences are saved locally in this browser, so they apply only to this
+                device and browser profile. They are not synced to an account.
+              </p>
+              <p>
+                Default views are used when a library or reader opens. If you change a view directly
+                on a page, that page's saved preference is updated too.
+              </p>
+              <p>
+                Resetting saved data removes the selected information from this browser; it does not
+                delete any AdashimaVerse content.
+              </p>
+            </div>
+          </section>
+
+          <section class="settings-card">
+            <div class="settings-card-heading">
+              <span class="settings-card-icon"><i class="fas fa-gauge-high"></i></span>
+              <div>
+                <p class="settings-eyebrow" id="dataEyebrow">DATA</p>
+                <h2 id="dataTitle">Data saver</h2>
+              </div>
+            </div>
+            <div class="setting-row">
+              <div>
+                <strong id="dataSaverTitle">Save data</strong>
+                <p id="dataSaverDesc">
+                  Lazy-load images and request low network priority where possible.
+                </p>
+              </div>
+              <label class="toggle-switch"
+                ><input type="checkbox" id="data-saver-toggle-checkbox" /><span
+                  class="toggle-slider"
+                ></span
+              ></label>
+            </div>
+          </section>
+
+          <section class="settings-card">
+            <div class="settings-card-heading">
+              <span class="settings-card-icon"><i class="fas fa-database"></i></span>
+              <div>
+                <p class="settings-eyebrow" id="savedDataEyebrow">SAVED DATA</p>
+                <h2 id="savedDataTitle">Manage local data</h2>
+              </div>
+            </div>
+            <div class="action-grid">
+              <button class="data-action" id="reset-reading-progress-btn">
+                <i class="fas fa-book-open"></i
+                ><span
+                  ><strong id="resetProgressTitle">Reset reading progress</strong
+                  ><small id="resetProgressDesc">Delete saved reading progress.</small></span
+                >
+              </button>
+              <button class="data-action" id="clear-favorites-btn">
+                <i class="fas fa-heart"></i
+                ><span
+                  ><strong id="clearFavoritesTitle">Clear favorites</strong
+                  ><small id="clearFavoritesDesc">Delete saved Music favorites.</small></span
+                >
+              </button>
+              <button class="data-action" id="clear-bookmarks-btn">
+                <i class="fas fa-bookmark"></i
+                ><span
+                  ><strong id="clearBookmarksTitle">Clear bookmarks</strong
+                  ><small id="clearBookmarksDesc">Delete saved bookmarks.</small></span
+                >
+              </button>
+              <button class="data-action danger" id="reset-site-data-btn">
+                <i class="fas fa-trash-can"></i
+                ><span
+                  ><strong id="resetSiteTitle">Reset all site data</strong
+                  ><small id="resetSiteDesc"
+                    >Delete saved preferences, progress, favorites, and views.</small
+                  ></span
+                >
+              </button>
+            </div>
+          </section>
+
+          <section class="settings-card">
+            <div class="settings-card-heading">
+              <span class="settings-card-icon"><i class="fas fa-bars"></i></span>
+              <div>
+                <p class="settings-eyebrow" id="navigationEyebrow">NAVIGATION</p>
+                <h2 id="navigationTitle">Navigation</h2>
+              </div>
+            </div>
+            <div class="setting-row">
+              <div>
+                <strong id="hideBurgerTitle">Hide menu on other pages</strong>
+                <p id="hideBurgerDesc">Hide the mobile menu button away from the homepage.</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="hide-burger-toggle-checkbox" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-row">
+              <div>
+                <strong id="compactSidebarTitle">Compact sidebar</strong>
+                <p id="compactSidebarDesc">Use an icon-only sidebar on desktop and mobile.</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="compact-sidebar-toggle-checkbox" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </section>
+
+          <section class="settings-card settings-update-card">
+            <div class="settings-card-heading">
+              <span class="settings-card-icon"><i class="fas fa-scroll"></i></span>
+              <div>
+                <p class="settings-eyebrow" id="updatesEyebrow">UPDATES</p>
+                <h2 id="updatesTitle">What's new?</h2>
+              </div>
+            </div>
+            <a class="whats-new" href="/Adashima_About#changelog"
+              ><span
+                ><strong id="versionTitle">Version 2.3.8</strong
+                ><small id="versionDesc">See what's new in AdashimaVerse.</small></span
+              ><i class="fas fa-arrow-up-right-from-square"></i
+            ></a>
+          </section>
+
+          <div
+            class="settings-action-modal"
+            id="settingsActionModal"
+            role="dialog"
+            aria-modal="true"
+            aria-hidden="true"
+            aria-labelledby="settingsActionModalTitle"
+          >
+            <div class="settings-action-modal-backdrop" data-settings-modal-close></div>
+            <div class="settings-action-modal-card" role="document">
+              <button
+                class="settings-action-modal-x"
+                id="settingsActionModalX"
+                type="button"
+                aria-label="Close"
+                data-settings-modal-close
+              >
+                <i class="fas fa-xmark" aria-hidden="true"></i>
+              </button>
+              <div
+                class="settings-action-modal-icon"
+                id="settingsActionModalIcon"
+                aria-hidden="true"
+              >
+                <i class="fas fa-triangle-exclamation"></i>
+              </div>
+              <h2 id="settingsActionModalTitle">Confirm action</h2>
+              <p id="settingsActionModalMessage"></p>
+              <div class="settings-action-modal-actions">
+                <button
+                  class="settings-modal-btn secondary"
+                  id="settingsActionModalCancel"
+                  type="button"
+                >
+                  Cancel
+                </button>
+                <button
+                  class="settings-modal-btn primary"
+                  id="settingsActionModalConfirm"
+                  type="button"
+                >
+                  Confirm
+                </button>
+                <button
+                  class="settings-modal-btn primary"
+                  id="settingsActionModalClose"
+                  type="button"
+                  hidden
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <p class="settings-footnote" id="settingsFootnote">
+            Your preferences are stored locally in your browser. They are not uploaded to
+            AdashimaVerse.
+          </p>
+        </div>
+      </main>
+    </div>
+    <script src="/src/js/settings-page.js?v=20260831"></script>
+  </body>
+</html>

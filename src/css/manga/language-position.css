@@ -1,4 +1,4 @@
-/* ---------- desktop language selector position ---------- */
+/* desktop language selector position */
 @media (min-width: 769px) {
   .lang-controls {
     position: absolute !important;

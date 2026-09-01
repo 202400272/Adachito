@@ -671,7 +671,7 @@ async function loadSidebar() {
       document.dispatchEvent(new CustomEvent("menuLoaded"));
     }, 100);
   } catch {
-    /* ignored */
+    // Ignore optional storage or loading failures and keep the page usable.
   }
 }
 
@@ -712,37 +712,54 @@ document.addEventListener("DOMContentLoaded", function () {
     loadArchiveData();
   });
 
-  const langToggle = document.getElementById("langToggle");
-  const langDropdown = document.getElementById("langDropdown");
-  const langMenu = document.getElementById("langMenu");
-  const langSelectedLabel = document.getElementById("langSelectedLabel");
+  function initLanguageMenu() {
+    const langToggle = document.getElementById("langToggle");
+    const langDropdown = document.getElementById("langDropdown");
+    const langMenu = document.getElementById("langMenu");
+    const langSelectedLabel = document.getElementById("langSelectedLabel");
 
-  langMenu.querySelectorAll(".lang-option").forEach((option) => {
-    const isSelected = option.dataset.lang === currentLanguage;
-    option.classList.toggle("selected", isSelected);
-    if (isSelected) langSelectedLabel.textContent = option.dataset.label;
-  });
+    // The shared sidebar/menu is fetched asynchronously. Do not touch its
+    // controls until menuLoaded has fired.
+    if (!langToggle || !langDropdown || !langMenu) return;
 
-  langToggle.addEventListener("click", function (e) {
-    e.stopPropagation();
-    const isOpen = langDropdown.classList.toggle("open");
-    langToggle.setAttribute("aria-expanded", isOpen);
-  });
-
-  langMenu.querySelectorAll(".lang-option").forEach((option) => {
-    option.addEventListener("click", function () {
-      switchLanguage(this.dataset.lang);
+    langMenu.querySelectorAll(".lang-option").forEach((option) => {
+      const isSelected = option.dataset.lang === currentLanguage;
+      option.classList.toggle("selected", isSelected);
+      if (isSelected && langSelectedLabel) langSelectedLabel.textContent = option.dataset.label;
     });
-  });
 
-  document.addEventListener("click", function () {
-    langDropdown.classList.remove("open");
-    langToggle.setAttribute("aria-expanded", "false");
-  });
+    if (langToggle.dataset.archiveBound !== "true") {
+      langToggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        const isOpen = langDropdown.classList.toggle("open");
+        langToggle.setAttribute("aria-expanded", isOpen);
+      });
+      langToggle.dataset.archiveBound = "true";
+    }
 
-  langMenu.addEventListener("click", function (e) {
-    e.stopPropagation();
-  });
+    langMenu.querySelectorAll(".lang-option").forEach((option) => {
+      if (option.dataset.archiveBound === "true") return;
+      option.addEventListener("click", function () {
+        switchLanguage(this.dataset.lang);
+      });
+      option.dataset.archiveBound = "true";
+    });
+
+    if (langMenu.dataset.archiveBound !== "true") {
+      document.addEventListener("click", function () {
+        langDropdown.classList.remove("open");
+        langToggle.setAttribute("aria-expanded", "false");
+      });
+
+      langMenu.addEventListener("click", function (e) {
+        e.stopPropagation();
+      });
+      langMenu.dataset.archiveBound = "true";
+    }
+  }
+
+  initLanguageMenu();
+  document.addEventListener("menuLoaded", initLanguageMenu);
 
   const searchInput = document.getElementById("archiveSearch");
   const clearBtn = document.getElementById("searchClearBtn");
