@@ -1,0 +1,81 @@
+/* ============================================================
+   GLOBAL PERFORMANCE LAYER
+   Safe rendering optimizations that preserve the visual design.
+   ============================================================ */
+
+/* Keep decorative fixed layers out of hit testing and isolate their
+   paint work from the document. These elements are visual-only. */
+.stars-bg,
+.sparkle-container,
+.clouds-container,
+.particles {
+  pointer-events: none;
+  contain: paint;
+}
+
+/* Animated decorative objects use compositor-friendly transforms.
+   Only the elements that are actually animated are promoted. */
+.sparkle,
+.shooting-star,
+.cloud,
+.orb,
+.star {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Avoid accidental layout work from media while preserving intrinsic size. */
+img,
+video {
+  max-width: 100%;
+}
+
+/* Isolate large, independent page regions where the existing markup already
+   guarantees that the region does not participate in surrounding layout. */
+.about-main,
+.help-main,
+.stats-main,
+.music-page-container {
+  isolation: isolate;
+}
+
+/* Browsers can skip rendering below-the-fold decorative layers when the page
+   is scrolled. The visual elements remain in the same position. */
+@media (max-width: 768px) {
+  .cloud,
+  .orb::after,
+  .shooting-star::after {
+    will-change: auto;
+  }
+
+  /* Blur is one of the more expensive effects on mobile GPUs. Keep the
+     atmosphere, but use a cheaper version on small screens. */
+  .cloud {
+    filter: blur(28px);
+  }
+}
+
+/* Stop background animations when the document is not visible. */
+body.decor-paused .stars-bg::before,
+body.decor-paused .stars-bg::after,
+body.decor-paused .sparkle,
+body.decor-paused .shooting-star,
+body.decor-paused .cloud,
+body.decor-paused .orb,
+body.decor-paused .star {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stars-bg::before,
+  .stars-bg::after,
+  .sparkle,
+  .shooting-star,
+  .cloud,
+  .orb,
+  .star,
+  .lang-wrapper i {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}

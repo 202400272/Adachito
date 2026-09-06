@@ -35,7 +35,8 @@
     "documentNotAvailable": "Documento no disponible.",
     "loadingDocument": "Cargando documento...",
     "errorOnPage": "Error en pág.",
-    "retry": "Reintentar"
+    "retry": "Reintentar",
+    "resumedAt": "Continuando en la pág."
   },
   "generalDownloads": {
     "pdf": "Descargar PDF Completo",

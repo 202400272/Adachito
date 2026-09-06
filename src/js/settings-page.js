@@ -485,21 +485,13 @@ function wire() {
 
   backButton?.addEventListener("click", () => {
     const referrer = document.referrer;
-    const isSameOrigin = referrer && referrer.startsWith(window.location.origin);
+    const target = referrer && referrer.startsWith(window.location.origin) ? referrer : "/";
 
-    if (isSameOrigin) {
-      const nextUrl = new URL(referrer);
-      nextUrl.searchParams.set("_reload", String(Date.now()));
-      window.location.assign(nextUrl.toString());
-      return;
+    try {
+      window.location.replace(target);
+    } catch {
+      window.location.href = target;
     }
-
-    if (window.history.length > 1) {
-      window.location.assign("/");
-      return;
-    }
-
-    window.location.href = "/";
   });
 
   document.getElementById("appearance-toggle-checkbox").addEventListener("change", (e) => {

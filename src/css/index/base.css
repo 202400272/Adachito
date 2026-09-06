@@ -102,8 +102,9 @@ body.time-afternoon {
   --surface-border: rgba(255, 230, 238, 0.48);
   --surface-shadow: 0 8px 32px 0 rgba(155, 92, 119, 0.16);
 
-  --text-main: #5a3b4c;
-  --text-secondary: #765565;
+  --text-main: #3d2431;
+  --text-secondary: #533746;
+  --text-light: rgba(255, 247, 250, 0.96);
 
   --accent-primary: #d96f98;
   --accent-secondary: #c987a5;
@@ -114,7 +115,7 @@ body.time-afternoon {
 
   --nav-bg: linear-gradient(135deg, rgba(91, 48, 69, 0.72), rgba(119, 59, 83, 0.68));
   --nav-border: rgba(255, 220, 232, 0.32);
-  --nav-text: #5a3b4c;
+  --nav-text: #fff7fa;
   --nav-shadow: 0 8px 32px 0 rgba(155, 92, 119, 0.14);
 
   --burger-bg: rgba(83, 45, 63, 0.62);
@@ -213,4 +214,8 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body.time-afternoon {
+  color: var(--text-main);
 }

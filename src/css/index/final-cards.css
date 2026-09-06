@@ -497,6 +497,63 @@
   transform: translate(2px, -2px) !important;
 }
 
+body.time-afternoon .story-grid .nav-card.nav-card-featured {
+  --story-accent: #b83f72;
+  background: #f3d9e4 !important;
+  border-color: #dfa9bd !important;
+  color: #54283e !important;
+  box-shadow: 0 14px 34px rgba(91, 48, 69, 0.12) !important;
+}
+
+body.time-afternoon .story-grid .nav-card.nav-card-featured .story-card-title {
+  color: #54283e !important;
+}
+
+body.time-afternoon .story-grid .nav-card.nav-card-featured .story-card-desc {
+  color: #704b5e !important;
+}
+
+body.time-afternoon .story-grid .nav-card.nav-card-featured:hover {
+  background: #f8e5ed !important;
+  border-color: #d792ae !important;
+  box-shadow: 0 16px 38px rgba(91, 48, 69, 0.16) !important;
+}
+
+body.time-afternoon .story-grid .nav-card.nav-card-side {
+  background: #f8e8ef !important;
+  border-color: #e2bdca !important;
+  color: #54283e !important;
+  box-shadow: 0 10px 26px rgba(91, 48, 69, 0.08) !important;
+}
+
+body.time-afternoon .story-grid .nav-card.nav-card-manga {
+  --story-accent: #b05d91;
+}
+
+body.time-afternoon .story-grid .nav-card.nav-card-anime {
+  --story-accent: #c87858;
+}
+
+body.time-afternoon .story-grid .nav-card.nav-card-side .story-card-title {
+  color: #54283e !important;
+}
+
+body.time-afternoon .story-grid .nav-card.nav-card-side .story-card-desc {
+  color: #704b5e !important;
+}
+
+body.time-afternoon .story-grid .nav-card.nav-card-side:hover {
+  background: #fceff4 !important;
+  border-color: #d99ab3 !important;
+  box-shadow: 0 14px 30px rgba(91, 48, 69, 0.12) !important;
+}
+
+body.time-morning .story-grid .nav-card.nav-card-story:hover {
+  background: #f3f8fc !important;
+  border-color: #8fb4cc !important;
+  box-shadow: 0 14px 30px rgba(95, 134, 170, 0.18) !important;
+}
+
 /* Keyboard focus */
 .story-grid .nav-card.nav-card-story:focus-visible {
   outline: 2px solid var(--story-accent) !important;

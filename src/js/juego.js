@@ -461,7 +461,12 @@ function canSpawnObstacleAt(x, width) {
   return !obstacles.some((obstacle) => {
     const gap = obstacle.x - (x + width);
     const reverseGap = x - (obstacle.x + obstacle.width);
-    return gap < MIN_OBSTACLE_GAP && gap > -Math.max(width, obstacle.width) && reverseGap < MIN_OBSTACLE_GAP && reverseGap > -Math.max(width, obstacle.width);
+    return (
+      gap < MIN_OBSTACLE_GAP &&
+      gap > -Math.max(width, obstacle.width) &&
+      reverseGap < MIN_OBSTACLE_GAP &&
+      reverseGap > -Math.max(width, obstacle.width)
+    );
   });
 }
 

@@ -471,7 +471,7 @@ function updateReadingProgress(storyId, progress) {
   // Update progress bar in reader if current story
   const currentStory = filteredStoriesCache[currentStoryIndex];
   if (currentStory && currentStory.id === storyId) {
-    document.getElementById("readerProgress").style.width = clampedProgress + "%";
+    document.getElementById("readerProgress").style.transform = `scaleX(${clampedProgress / 100})`;
   }
 }
 
@@ -1155,7 +1155,7 @@ async function openReader(index, { historyMode = "push" } = {}) {
 
   // Set initial progress
   const currentProgress = getReadingProgress(story.id);
-  progress.style.width = currentProgress + "%";
+  progress.style.transform = `scaleX(${currentProgress / 100})`;
 
   // Restore scroll position to match saved progress, once layout has painted
   if (currentProgress > 0) {
@@ -1193,26 +1193,32 @@ async function openReader(index, { historyMode = "push" } = {}) {
   let lastSavedProgress = currentProgress;
   let saveTimeout = null;
 
-  readerScrollHandler = function () {
-    const scrollTop = this.scrollTop;
-    const scrollHeight = this.scrollHeight - this.clientHeight;
+  let scrollTicking = false;
+  let pendingScrollTop = 0;
 
-    let scrollProgress = 0;
-    if (scrollHeight > 0) {
-      // Calculate actual scroll progress
-      scrollProgress = (scrollTop / scrollHeight) * 100;
-      // Clamp to 100% if at bottom
-      if (scrollTop + this.clientHeight >= scrollHeight - 2) {
+  readerScrollHandler = function () {
+    pendingScrollTop = this.scrollTop;
+    if (scrollTicking) return;
+    scrollTicking = true;
+
+    requestAnimationFrame(() => {
+      scrollTicking = false;
+      const scrollTop = pendingScrollTop;
+      const scrollHeight = readerBody.scrollHeight - readerBody.clientHeight;
+
+      if (scrollHeight <= 0) return;
+
+      let scrollProgress = (scrollTop / scrollHeight) * 100;
+      if (scrollTop + readerBody.clientHeight >= scrollHeight - 2) {
         scrollProgress = 100;
       }
-      progress.style.width = scrollProgress + "%";
 
-      // Nearing the end of the story - surface the "continue to next" prompt
-      if (scrollTop + this.clientHeight >= scrollHeight - 60) {
+      progress.style.transform = `scaleX(${scrollProgress / 100})`;
+
+      if (scrollTop + readerBody.clientHeight >= scrollHeight - 60) {
         renderNextStoryPrompt();
       }
 
-      // Only save if progress changed significantly
       if (Math.abs(scrollProgress - lastSavedProgress) > 2) {
         clearTimeout(saveTimeout);
         saveTimeout = setTimeout(() => {
@@ -1220,10 +1226,10 @@ async function openReader(index, { historyMode = "push" } = {}) {
           lastSavedProgress = scrollProgress;
         }, 500);
       }
-    }
+    });
   };
 
-  readerBody.addEventListener("scroll", readerScrollHandler);
+  readerBody.addEventListener("scroll", readerScrollHandler, { passive: true });
 
   // Also check on resize for proper height calculation
   readerResizeHandler = function () {
@@ -1236,7 +1242,7 @@ async function openReader(index, { historyMode = "push" } = {}) {
         if (scrollTop + readerBody.clientHeight >= scrollHeight - 2) {
           scrollProgress = 100;
         }
-        progress.style.width = scrollProgress + "%";
+        progress.style.transform = `scaleX(${scrollProgress / 100})`;
       }
     }
   };

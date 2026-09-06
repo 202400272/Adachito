@@ -1701,17 +1701,6 @@ document.addEventListener("menuLoaded", function () {
   }
 });
 
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .getRegistrations()
-      .then((registrations) => {
-        registrations.forEach((registration) => registration.unregister());
-      })
-      .catch(() => {});
-  });
-}
-
 document.addEventListener("DOMContentLoaded", async function () {
   await loadAllData(currentLang);
   renderUI();

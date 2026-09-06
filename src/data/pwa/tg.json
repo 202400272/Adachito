@@ -1,0 +1,174 @@
+{
+  "meta": {
+    "title": "I-install ang AdashimaVerse — Gabay sa PWA",
+    "description": "Alamin kung ano ang Progressive Web App, ano ang ginagawa ng AdashimaVerse bilang PWA, at kung paano ito i-install sa phone o computer."
+  },
+  "hero": {
+    "kicker": "ADASHIMAVERSE",
+    "title": "I-install na parang app.",
+    "description": "Ang AdashimaVerse ay isang <strong>Progressive Web App</strong>. Idagdag ito sa home screen o desktop para mas mabilis at mas app-like ang pag-access sa archive.",
+    "install": "I-install ang AdashimaVerse",
+    "installed": "Naka-install",
+    "guide": "Tingnan ang installation guide"
+  },
+  "overview": {
+    "eyebrow": "MAIKLING PALIWANAG",
+    "title": "Ano ba ang PWA?",
+    "intro": "Ang PWA ay website na may dagdag na web features para mas kumilos na parang naka-install na application. Walang hiwalay na APK, EXE, o app-store download para sa AdashimaVerse.",
+    "cards": [
+      {
+        "icon": "window-maximize",
+        "title": "Website na parang app",
+        "text": "Maaari itong magbukas sa sarili nitong window at ilunsad mula sa icon kahit web-based pa rin ang content."
+      },
+      {
+        "icon": "house",
+        "title": "Isang tap lang",
+        "text": "Idagdag ang AdashimaVerse sa home screen o app launcher para mas mabilis itong buksan."
+      },
+      {
+        "icon": "bolt",
+        "title": "Mas mabilis sa mga susunod na visit",
+        "text": "Maaaring mag-cache ang browser ng ilang reusable resources para mas mabilis ang ilang susunod na pagbisita."
+      },
+      {
+        "icon": "store",
+        "title": "Walang app store na kailangan",
+        "text": "Browser ang bahala sa installation. Hindi mo kailangang maghanap ng hiwalay na AdashimaVerse app sa store."
+      }
+    ]
+  },
+  "whatItMeans": {
+    "eyebrow": "ANO ANG TALAGANG NAI-INSTALL",
+    "title": "Website pa rin ito — mas madali lang itong buksan na parang app.",
+    "points": [
+      {
+        "icon": "globe",
+        "title": "Web technology",
+        "text": "Pareho pa rin ang website, URL, HTML, CSS, JavaScript, at content na ginagamit sa browser version."
+      },
+      {
+        "icon": "rocket",
+        "title": "App-like na launch",
+        "text": "Pag na-install, maaaring magkaroon ng sariling icon at launch surface ang AdashimaVerse."
+      },
+      {
+        "icon": "arrows-rotate",
+        "title": "Web ang pinanggagalingan ng updates",
+        "text": "Walang manual na app-store update process. Dumarating ang changes sa pamamagitan ng web at service worker."
+      },
+      {
+        "icon": "wifi",
+        "title": "Depende sa cache ang offline support",
+        "text": "May service worker na maaaring mag-cache ng piling resources. Hindi garantisadong gagana offline ang lahat ng page at data."
+      }
+    ]
+  },
+  "installation": {
+    "eyebrow": "PAANO MAG-INSTALL",
+    "title": "Piliin ang device mo",
+    "intro": "Maaaring mag-iba nang kaunti ang pangalan at lokasyon ng install option depende sa browser at device.",
+    "guides": [
+      {
+        "icon": "android",
+        "label": "PHONE",
+        "title": "Android · Chrome",
+        "steps": [
+          "Buksan ang AdashimaVerse sa Chrome.",
+          "Buksan ang <strong>⋮ menu</strong> ng browser.",
+          "Piliin ang <strong>Install app</strong> o, sa ilang setup, <strong>Add to Home screen</strong>.",
+          "I-confirm ang installation at hanapin ang AdashimaVerse icon."
+        ],
+        "tip": "Kung may lumabas na install prompt sa site, puwede mo itong gamitin."
+      },
+      {
+        "icon": "desktop",
+        "label": "DESKTOP",
+        "title": "Chrome · Edge",
+        "steps": [
+          "Buksan ang AdashimaVerse sa Chrome o Edge.",
+          "Hanapin ang <strong>install icon</strong> sa address bar o buksan ang browser menu.",
+          "Piliin ang <strong>Install AdashimaVerse</strong> (maaaring iba ang wording).",
+          "I-confirm ang installation. Maaari na itong magbukas sa sarili nitong window."
+        ],
+        "tip": "Maaaring hindi lumabas ang install control hangga’t hindi tapos mag-load ang page at dine-decide ng browser na installable ang site."
+      },
+      {
+        "icon": "apple",
+        "label": "IPHONE / IPAD",
+        "title": "Safari",
+        "steps": [
+          "Buksan ang AdashimaVerse sa Safari.",
+          "I-tap ang <strong>Share</strong> button.",
+          "Piliin ang <strong>Add to Home Screen</strong>.",
+          "I-tap ang <strong>Add</strong> para matapos."
+        ],
+        "tip": "Sa iPhone at iPad, karaniwang Safari ang ginagamit para sa Add to Home Screen."
+      }
+    ]
+  },
+  "features": {
+    "eyebrow": "ANO ANG MAKUKUHA MO",
+    "title": "Ano ang nagbabago pagkatapos i-install?",
+    "items": [
+      {
+        "icon": "house",
+        "title": "Sariling icon",
+        "text": "Buksan ang AdashimaVerse mula sa home screen o desktop nang hindi inuulit ang URL."
+      },
+      {
+        "icon": "window-restore",
+        "title": "Mas malinis na launch experience",
+        "text": "Sa supported platforms, maaari itong magbukas nang walang normal na browser tab interface."
+      },
+      {
+        "icon": "database",
+        "title": "May resources na puwedeng ma-cache",
+        "text": "Maaaring magtago ang service worker ng static resources para sa mas mabilis na repeat visits at limitadong offline behavior."
+      },
+      {
+        "icon": "cloud-arrow-down",
+        "title": "Fresh content ay galing pa rin sa site",
+        "text": "Ang news, localized JSON, at dynamic data ay kinukuha sa network para manatiling updated ang archive."
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "MABUTING MALAMAN",
+    "title": "Mga karaniwang tanong",
+    "items": [
+      {
+        "q": "Normal app ba ito?",
+        "a": "Web app ito na ini-install gamit ang browser. Maaari itong magkaroon ng icon at app-like launch, pero web pa rin ang content."
+      },
+      {
+        "q": "Kailangan ba ng app store?",
+        "a": "Hindi. Browser ang humahawak sa installation."
+      },
+      {
+        "q": "Gagana ba lahat nang walang internet?",
+        "a": "Hindi palagi. May static resources na naka-cache, pero maaaring kailanganin pa rin ng internet para sa JSON at ibang network content."
+      },
+      {
+        "q": "Bakit walang Install button?",
+        "a": "Browser ang nagdedesisyon kung kailan available ang native install prompt. Kung wala, gamitin ang device guide sa itaas."
+      },
+      {
+        "q": "Gagamit ba ito ng dagdag na storage?",
+        "a": "Maaaring mag-save ang browser ng app shell, cached resources, at website data. Nag-iiba ang laki depende sa browser at paggamit."
+      },
+      {
+        "q": "Paano ito nag-a-update?",
+        "a": "Web pa rin ang site kaya fresh content ay kinukuha mula sa site. Ang cached files ay pinamamahalaan ng service worker."
+      },
+      {
+        "q": "Puwede ko ba itong alisin?",
+        "a": "Oo. Gamitin ang normal na uninstall o remove-from-home-screen controls ng device."
+      },
+      {
+        "q": "Kailangan ko bang mag-download ng APK o EXE?",
+        "a": "Hindi. Huwag mag-download ng hiwalay na APK o EXE. Browser installation ang gamitin."
+      }
+    ]
+  }
+}

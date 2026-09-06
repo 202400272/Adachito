@@ -1070,10 +1070,20 @@ function initPdfEvents() {
     canvasContainer.classList.add("panning");
     e.preventDefault();
   });
+  let panFrame = 0;
+  let pendingPanX = 0;
+  let pendingPanY = 0;
   window.addEventListener("mousemove", (e) => {
     if (!isPanning) return;
-    canvasContainer.scrollLeft = panScrollLeft - (e.clientX - panStartX);
-    canvasContainer.scrollTop = panScrollTop - (e.clientY - panStartY);
+    pendingPanX = e.clientX;
+    pendingPanY = e.clientY;
+    if (panFrame) return;
+    panFrame = requestAnimationFrame(() => {
+      panFrame = 0;
+      if (!isPanning) return;
+      canvasContainer.scrollLeft = panScrollLeft - (pendingPanX - panStartX);
+      canvasContainer.scrollTop = panScrollTop - (pendingPanY - panStartY);
+    });
   });
   window.addEventListener("mouseup", () => {
     if (!isPanning) return;
@@ -2213,14 +2223,3 @@ document.addEventListener("DOMContentLoaded", async function () {
   window.applySearch = applySearch;
   window.showToast = showToast;
 });
-
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .getRegistrations()
-      .then((registrations) => {
-        registrations.forEach((registration) => registration.unregister());
-      })
-      .catch(() => {});
-  });
-}

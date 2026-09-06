@@ -17,7 +17,8 @@
     "documentNotAvailable": "Hindi available ang dokumento.",
     "loadingDocument": "Ilo-load ang dokumento...",
     "errorOnPage": "Error sa pahina.",
-    "retry": "Subukan muli"
+    "retry": "Subukan muli",
+    "resumedAt": "Ipagpapatuloy sa pahina"
   },
   "pdfControls": {
     "zoomOut": "Mag-zoom out (-)",

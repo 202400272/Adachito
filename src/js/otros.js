@@ -260,14 +260,3 @@ document.addEventListener("languageChanged", async function (event) {
   renderApp();
   if (window.translateMenu) window.translateMenu(currentLang);
 });
-
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .getRegistrations()
-      .then((registrations) => {
-        registrations.forEach((registration) => registration.unregister());
-      })
-      .catch(() => {});
-  });
-}

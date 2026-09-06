@@ -1,44 +1,27 @@
-.sidebar {
-  width: 300px;
-  background-color: rgba(209, 163, 198, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  z-index: 10;
-  box-shadow: 2px 0 24px rgba(92, 58, 107, 0.12);
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow-y: auto;
+#menu-container #menu-component-wrapper .sidebar-inner {
+  justify-content: flex-start;
+  align-items: stretch;
 }
 
-.sidebar-inner {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100%;
-  padding: 30px 20px;
-  width: 100%;
-}
-
-.sidebar-box {
+#menu-container #menu-component-wrapper .sidebar-box {
   width: 100%;
   margin-bottom: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
-.sidebar-box img {
+#menu-container #menu-component-wrapper .sidebar-box img {
   width: 100%;
   height: auto;
   object-fit: cover;
 }
 
-.sidebar::-webkit-scrollbar {
+#menu-container #menu-component-wrapper .sidebar::-webkit-scrollbar {
   width: 5px;
 }
-.sidebar::-webkit-scrollbar-thumb {
+
+#menu-container #menu-component-wrapper .sidebar::-webkit-scrollbar-thumb {
   background: rgba(92, 58, 107, 0.25);
   border-radius: 10px;
 }

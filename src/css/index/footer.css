@@ -28,6 +28,18 @@ body.time-night .footer {
   border-top-color: rgba(180, 150, 200, 0.15);
 }
 
+body.time-afternoon .footer {
+  color: #4d2c3e;
+  border-top-color: #d29aaa;
+  text-shadow: none;
+}
+
+body.time-morning .footer {
+  color: #40566b;
+  border-top-color: #a9c2d4;
+  text-shadow: none;
+}
+
 .footer-content {
   display: flex;
   flex-direction: column;
@@ -56,12 +68,30 @@ body.time-night .footer {
   line-height: 1.4;
 }
 
+body.time-afternoon .footer-eyebrow,
+body.time-afternoon .footer-column-title {
+  color: #a53f68;
+}
+
+body.time-morning .footer-eyebrow,
+body.time-morning .footer-column-title {
+  color: #4f7898;
+}
+
 .footer-tagline {
   margin: 0;
   color: var(--text-light);
   font-size: 1rem;
   font-weight: 650;
   line-height: 1.5;
+}
+
+body.time-afternoon .footer-tagline {
+  color: inherit;
+}
+
+body.time-morning .footer-tagline {
+  color: inherit;
 }
 
 .footer-tagline em {
@@ -74,6 +104,18 @@ body.time-night .footer {
   opacity: 0.78;
   font-size: 0.78rem;
   line-height: 1.7;
+}
+
+body.time-afternoon .footer-description,
+body.time-afternoon .footer-feedback-copy {
+  color: inherit;
+  opacity: 0.86;
+}
+
+body.time-morning .footer-description,
+body.time-morning .footer-feedback-copy {
+  color: inherit;
+  opacity: 0.86;
 }
 
 .footer-column {
@@ -118,6 +160,22 @@ body.time-night .footer {
   transform: translateX(3px);
 }
 
+body.time-afternoon .footer-link {
+  color: inherit;
+}
+
+body.time-afternoon .footer-link:hover {
+  color: #a53f68;
+}
+
+body.time-morning .footer-link {
+  color: inherit;
+}
+
+body.time-morning .footer-link:hover {
+  color: #4f7898;
+}
+
 .footer-link:hover::after {
   transform: scaleX(1);
 }
@@ -158,6 +216,16 @@ body.time-night .feedback-footer-btn {
   color: #e8d8f0;
 }
 
+body.time-afternoon .feedback-footer-btn {
+  color: #8f3158;
+  text-decoration-color: rgba(143, 49, 88, 0.45);
+}
+
+body.time-morning .feedback-footer-btn {
+  color: #40566b;
+  text-decoration-color: rgba(64, 86, 107, 0.45);
+}
+
 .feedback-footer-btn:hover {
   color: var(--accent-primary);
   background: transparent;
@@ -175,6 +243,16 @@ body.time-night .feedback-footer-btn {
   border-top: 1px solid rgba(255, 255, 255, 0.18);
   font-size: 0.68rem;
   opacity: 0.72;
+}
+
+body.time-afternoon .footer-bottom {
+  border-top-color: currentColor;
+  opacity: 0.86;
+}
+
+body.time-morning .footer-bottom {
+  border-top-color: currentColor;
+  opacity: 0.86;
 }
 
 body.time-night .footer-bottom {

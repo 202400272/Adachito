@@ -147,35 +147,44 @@ function t(key) {
   return I18N[currentLanguage][key];
 }
 
+function setText(id, value) {
+  const element = document.getElementById(id);
+  if (element) element.textContent = value;
+}
+
+function setMarkup(id, value) {
+  const element = document.getElementById(id);
+  if (element) element.innerHTML = value;
+}
+
 function applyUITranslations(lang) {
   const dict = I18N[lang];
   document.documentElement.lang = lang;
-  document.getElementById("heroTitleText").textContent = dict.heroTitle;
-  document.getElementById("heroSubtitleText").innerHTML = dict.heroSubtitle;
-  document.getElementById("statLabelTotal").textContent = dict.statTotal;
-  document.getElementById("statLabelInterviews").textContent = dict.statInterviews;
-  document.getElementById("statLabelAfterwords").textContent = dict.statAfterwords;
-  document.getElementById("statLabelCommentaries").textContent = dict.statCommentaries;
-  document.getElementById("statLabelMagazine").textContent = dict.statMagazine;
-  document.getElementById("statLabelYears").textContent = dict.statYears;
-  document.getElementById("archiveSearch").placeholder = dict.searchPlaceholder;
-  document.getElementById("pillTextAll").textContent = dict.pillAll;
-  document.getElementById("pillTextInterview").textContent = dict.pillInterview;
-  document.getElementById("pillTextCommentary").textContent = dict.pillCommentary;
-  document.getElementById("pillTextAfterword").textContent = dict.pillAfterword;
-  document.getElementById("pillTextMagazine").textContent = dict.pillMagazine;
-  document.getElementById("pillTextBlog").textContent = dict.pillBlog;
-  document.getElementById("pillTextTwitter").textContent = dict.pillTwitter;
-  document.getElementById("pillTextEvent").textContent = dict.pillEvent;
-  document.getElementById("filterLabelYear").textContent = dict.filterLabelYear;
-  document.getElementById("filterLabelSort").textContent = dict.filterLabelSort;
-  document.getElementById("yearFilterAllOption").textContent = dict.yearAll;
-  document.getElementById("sortNewestOption").textContent = dict.sortNewest;
-  document.getElementById("sortOldestOption").textContent = dict.sortOldest;
-  document.getElementById("sortTitleOption").textContent = dict.sortTitle;
+  setText("heroTitleText", dict.heroTitle);
+  setMarkup("heroSubtitleText", dict.heroSubtitle);
+  setText("statLabelTotal", dict.statTotal);
+  setText("statLabelInterviews", dict.statInterviews);
+  setText("statLabelAfterwords", dict.statAfterwords);
+  setText("statLabelCommentaries", dict.statCommentaries);
+  setText("statLabelMagazine", dict.statMagazine);
+  setText("statLabelYears", dict.statYears);
+  setText("pillTextAll", dict.pillAll);
+  setText("pillTextInterview", dict.pillInterview);
+  setText("pillTextCommentary", dict.pillCommentary);
+  setText("pillTextAfterword", dict.pillAfterword);
+  setText("pillTextMagazine", dict.pillMagazine);
+  setText("pillTextBlog", dict.pillBlog);
+  setText("pillTextTwitter", dict.pillTwitter);
+  setText("pillTextEvent", dict.pillEvent);
+  setText("filterLabelYear", dict.filterLabelYear);
+  setText("filterLabelSort", dict.filterLabelSort);
+  setText("yearFilterAllOption", dict.yearAll);
+  setText("sortNewestOption", dict.sortNewest);
+  setText("sortOldestOption", dict.sortOldest);
+  setText("sortTitleOption", dict.sortTitle);
   // Footer is now the shared component (src/components/js/footer.js),
   // which handles its own translation.
-  document.getElementById("referencePanelTitle").textContent = dict.referencePanelTitle;
+  setText("referencePanelTitle", dict.referencePanelTitle);
 }
 
 function getTypeLabel(type) {
@@ -463,12 +472,12 @@ function updateStatsFromData(items, animate = true) {
     animateStats("magazineCount", magazines);
     animateStats("yearCount", years.size);
   } else {
-    document.getElementById("totalSources").textContent = total;
-    document.getElementById("interviewCount").textContent = interviews;
-    document.getElementById("afterwordCount").textContent = afterwords;
-    document.getElementById("commentaryCount").textContent = commentaries;
-    document.getElementById("magazineCount").textContent = magazines;
-    document.getElementById("yearCount").textContent = years.size;
+    setText("totalSources", total);
+    setText("interviewCount", interviews);
+    setText("afterwordCount", afterwords);
+    setText("commentaryCount", commentaries);
+    setText("magazineCount", magazines);
+    setText("yearCount", years.size);
   }
 }
 

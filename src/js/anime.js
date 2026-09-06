@@ -1996,6 +1996,8 @@ function setTimelineFromPointer(clientX, elm) {
 function attachTimelineInteractions(elm) {
   if (!elm) return;
   elm.style.cursor = "pointer";
+  let timelineFrame = 0;
+  let pendingClientX = 0;
   elm.addEventListener("pointerdown", (event) => {
     if (!state.powered || state.currentChannel < 0 || !crtVideo.duration) return;
     beginFullscreenInteraction(event);
@@ -2005,14 +2007,21 @@ function attachTimelineInteractions(elm) {
   });
   elm.addEventListener("pointermove", (event) => {
     if (!isTimelineScrubbing || !state.powered || state.currentChannel < 0) return;
-    if (event.pointerType === "touch") {
-      beginFullscreenInteraction(event);
-    }
+    pendingClientX = event.clientX;
+    if (event.pointerType === "touch") beginFullscreenInteraction(event);
     showFullscreenUi();
-    setTimelineFromPointer(event.clientX, elm);
+    if (timelineFrame) return;
+    timelineFrame = requestAnimationFrame(() => {
+      timelineFrame = 0;
+      setTimelineFromPointer(pendingClientX, elm);
+    });
   });
   const stopScrubbing = () => {
     isTimelineScrubbing = false;
+    if (timelineFrame) {
+      cancelAnimationFrame(timelineFrame);
+      timelineFrame = 0;
+    }
     endFullscreenInteraction();
   };
   elm.addEventListener("pointerup", stopScrubbing);
@@ -2588,14 +2597,3 @@ document.addEventListener("DOMContentLoaded", async function () {
   style.textContent = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
   document.head.appendChild(style);
 });
-
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .getRegistrations()
-      .then((registrations) => {
-        registrations.forEach((registration) => registration.unregister());
-      })
-      .catch(() => {});
-  });
-}

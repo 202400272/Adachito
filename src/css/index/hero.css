@@ -61,6 +61,11 @@ body.time-morning .hero-sub {
   color: rgba(131, 120, 150, 0.9);
 }
 
+body.time-afternoon .hero-sub {
+  color: #fff4f8;
+  text-shadow: 0 1px 8px rgba(91, 48, 69, 0.32);
+}
+
 body.time-night .hero-sub {
   color: rgba(216, 200, 232, 0.9);
 }
@@ -276,7 +281,7 @@ body.time-morning .info-title {
 }
 
 body.time-afternoon .info-title {
-  color: #ffffff;
+  color: var(--text-main);
 }
 
 body.time-night .info-title {
@@ -406,6 +411,10 @@ body.time-afternoon .info-body {
 
 body.time-night .info-body {
   color: #d8c8e8;
+}
+
+body.time-afternoon .info-body {
+  color: var(--text-secondary);
 }
 
 .info-body p {

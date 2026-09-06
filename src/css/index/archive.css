@@ -307,6 +307,31 @@
   font-size: 0.7rem;
 }
 
+body.time-afternoon .discover-grid .nav-card-more {
+  color: #693b52;
+  border-color: #e2bdca;
+}
+
+body.time-afternoon .discover-grid .nav-card-more .nav-card-icon {
+  background: #f7dce7;
+  color: #b83f72;
+}
+
+body.time-afternoon .discover-grid .nav-card-more .nav-card-title {
+  color: #603548;
+}
+
+body.time-afternoon .discover-grid .nav-card-more .nav-card-arrow {
+  border-color: #d298b1;
+  background: #f9eaf1;
+  color: #9f315e;
+}
+
+body.time-afternoon .discover-grid .nav-card-more:hover {
+  background: #fceff4;
+  border-color: #d99ab3;
+}
+
 /* What's New: editorial, not another card grid */
 .updates-section {
   margin-top: 96px;

@@ -42,6 +42,10 @@ body.time-night .nav-card {
   color: #e8d8f0;
 }
 
+body.time-afternoon .nav-card {
+  color: var(--text-main);
+}
+
 .nav-card:hover {
   background: var(--surface-glass);
   transform: translateY(-3px);
@@ -69,6 +73,10 @@ body.time-night .nav-card {
 
 body.time-night .nav-card-icon {
   color: rgba(216, 200, 232, 0.8);
+}
+
+body.time-afternoon .nav-card-icon {
+  color: var(--text-main);
 }
 
 .nav-card:hover .nav-card-icon {
@@ -101,6 +109,10 @@ body.time-night .nav-card-title {
   color: #e8d8f0;
 }
 
+body.time-afternoon .nav-card-title {
+  color: var(--text-main);
+}
+
 .nav-card-desc {
   font-family: "Quicksand", sans-serif;
   font-size: 0.85rem;
@@ -115,6 +127,11 @@ body.time-morning .nav-card-desc {
 
 body.time-night .nav-card-desc {
   color: rgba(216, 200, 232, 0.7);
+}
+
+body.time-afternoon .nav-card-desc,
+body.time-afternoon .nav-card:hover .nav-card-desc {
+  color: var(--text-secondary);
 }
 
 .nav-card:hover .nav-card-desc {

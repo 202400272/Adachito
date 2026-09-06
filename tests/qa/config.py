@@ -15,7 +15,7 @@ ROUTES = [
     "/Adashima_Drama", "/Adashima_Estrella", "/Adashima_Extra_Stories",
     "/Adashima_Gallery", "/Adashima_Linea", "/Adashima_Manga",
     "/Adashima_Music", "/Adashima_Novelas", "/Adashima_Otros",
-    "/Adashima_Stats", "/Juego", "/otros/Author_Archive",
+    "/Adashima_Stats", "/Adashima_PWA", "/Juego", "/otros/Author_Archive",
 ]
 
 # Each workflow has a human-friendly name and only uses controls that are known

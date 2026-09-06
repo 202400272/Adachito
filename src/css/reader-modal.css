@@ -365,8 +365,10 @@
 .reader-progress-fill {
   height: 100%;
   background: linear-gradient(90deg, #d1a3c6, #b889b0);
-  width: 0%;
-  transition: width 0.15s ease;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.15s ease;
   border-radius: 0 2px 2px 0;
 }
 

@@ -1,5 +1,58 @@
 [
   {
+    "version": "2.4.0",
+    "build": "20260905",
+    "date": "Setyembre 5, 2026",
+    "subtitle": "Progressive Web App at Installation Guide",
+    "changes": {
+      "new": [
+        "Nagdagdag ng Progressive Web App (PWA) support para ma-install ang AdashimaVerse na parang app sa mga supported device.",
+        "Nagdagdag ng dedicated PWA page na nagpapaliwanag kung ano ang PWA, ano ang nai-install, offline behavior, updates, storage, at paano ito alisin.",
+        "Nagdagdag ng installation guides para sa Android, desktop browsers, at iPhone/iPad.",
+        "Nagdagdag ng native Install AdashimaVerse action kapag nagbibigay ang browser ng install prompt."
+      ],
+      "improvements": [
+        "Ginawang data-driven ang PWA guide gamit ang localized JSON files para mas madaling i-maintain at i-translate.",
+        "Isinama ang PWA page sa shared sidebar menu at burger-menu launcher nito.",
+        "Ginamit ng PWA page ang existing time-based morning, afternoon, at night themes ng site."
+      ],
+      "fixes": [
+        "Inayos ang nawawalang shared burger menu sa PWA page.",
+        "Inayos ang layout at theme behavior ng PWA page para hindi magkaroon ng hiwalay o conflicting site-wide styles."
+      ],
+      "notes": [
+        "Nagdadagdag ang release na ito ng optional app-like na paraan para ma-access ang AdashimaVerse nang hindi binabago ang normal na website experience."
+      ]
+    }
+  },
+  {
+    "version": "2.3.9",
+    "build": "20260901",
+    "date": "Setyembre 1, 2026",
+    "subtitle": "Performance, Loading, Navigation Transitions, at Build Optimizations",
+    "changes": {
+      "new": [
+        "Nagdagdag ng site-wide loading experience gamit ang existing AdashimaVerse loading screen sa lahat ng page.",
+        "Nagdagdag ng smooth page-to-page loading transitions habang pinapanatili ang normal browser navigation.",
+        "Nagdagdag ng production performance audit para sa build size, assets, stylesheets, at scripts."
+      ],
+      "improvements": [
+        "Pinahusay ang initial page loading at dinefer ang non-critical work kung ligtas itong gawin.",
+        "Pinahusay ang scroll at animation scheduling para mabawasan ang main-thread work at maging mas smooth ang interactions.",
+        "Pinahusay ang production caching para sa static assets at mas mabilis na repeat visits.",
+        "In-optimize ang malalaking image assets at inalis ang redundant generated asset copies sa production builds.",
+        "Binawasan ang unnecessary stylesheet loading at pinahusay ang production asset delivery."
+      ],
+      "fixes": [
+        "Inayos ang About page version information para awtomatikong kunin ang website version, build number, at last-updated date mula sa pinakabagong changelog entry.",
+        "Inayos ang About page changelog loader para basahin ang aktuwal na localized changelog data sa halip na gumamit ng stale o malformed data URL."
+      ],
+      "notes": [
+        "Pinapanatili ang visual design, time-based themes, mobile layouts, at existing loading-screen appearance."
+      ]
+    }
+  },
+  {
     "version": "2.3.8",
     "build": "20260831",
     "date": "Agosto 31, 2026",
@@ -382,7 +435,9 @@
         "Improved theme transitions and appearance changes on mobile Chrome.",
         "Refined mobile theme-switching behavior for a smoother and more consistent experience."
       ],
-      "fixes": ["Fixed minor theme-switching inconsistencies affecting Chrome on mobile devices."],
+      "fixes": [
+        "Fixed minor theme-switching inconsistencies affecting Chrome on mobile devices."
+      ],
       "notes": [
         "Tagalog is now available as a UI language, but the localization is currently considered a prototype.",
         "The Tagalog rollout is primarily intended to test and validate the site's ability to support additional languages in the future.",
@@ -980,7 +1035,9 @@
         "Improved project organization and maintainability."
       ],
       "fixes": [],
-      "notes": ["Internal refactor with no major user-facing changes."]
+      "notes": [
+        "Internal refactor with no major user-facing changes."
+      ]
     }
   }
 ]

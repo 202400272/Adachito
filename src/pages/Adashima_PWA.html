@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Learn what a Progressive Web App is and how to install AdashimaVerse on your phone or computer." />
+    <link rel="canonical" href="https://adashimaverse.com/Adashima_PWA" />
+    <meta name="theme-color" content="#17121e" />
+    <title>Install AdashimaVerse — PWA Guide</title>
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="/src/components/styles/menu.css" />
+    <link rel="stylesheet" href="/src/components/styles/time-theme-pages.css" />
+    <link rel="stylesheet" href="/src/components/styles/scrollbar.css" />
+    <link rel="stylesheet" href="/src/components/styles/footer.css" />
+    <link rel="stylesheet" href="/src/components/styles/feedback.css" />
+    <link rel="stylesheet" href="/src/css/pwa.css" />
+    <link rel="icon" type="image/x-icon" href="/assets/Imagenes/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/Imagenes/apple-touch-icon.webp" />
+  </head>
+
+  <body data-page="pwa">
+    <div id="menu-container"></div>
+
+    <main class="pwa-main">
+      <header class="pwa-hero" aria-labelledby="pwaHeroTitle">
+        <div class="pwa-hero-orbit orbit-one" aria-hidden="true"></div>
+        <div class="pwa-hero-orbit orbit-two" aria-hidden="true"></div>
+        <div class="pwa-hero-content">
+          <span class="pwa-kicker" id="pwaHeroKicker"></span>
+          <h1 id="pwaHeroTitle"></h1>
+          <p id="pwaHeroDescription"></p>
+          <button class="pwa-primary" id="pwaGuideInstall" type="button">
+            <i class="fas fa-download" aria-hidden="true"></i>
+            <span id="pwaGuideInstallLabel"></span>
+          </button>
+          <button class="pwa-text-action" id="pwaHeroGuide" type="button"></button>
+        </div>
+      </header>
+
+      <div class="pwa-content">
+        <section class="pwa-section" id="overviewSection" aria-labelledby="overviewTitle">
+          <div class="pwa-section-heading">
+            <span class="pwa-eyebrow" id="overviewEyebrow"></span>
+            <h2 id="overviewTitle"></h2>
+            <p id="overviewIntro"></p>
+          </div>
+          <div class="pwa-card-grid" id="overviewGrid"></div>
+        </section>
+
+        <section class="pwa-section" id="meaningSection" aria-labelledby="meaningTitle">
+          <div class="pwa-section-heading">
+            <span class="pwa-eyebrow" id="meaningEyebrow"></span>
+            <h2 id="meaningTitle"></h2>
+          </div>
+          <div class="pwa-card-grid" id="meaningGrid"></div>
+        </section>
+
+        <section class="pwa-section" id="installSection" aria-labelledby="installTitle">
+          <div class="pwa-section-heading">
+            <span class="pwa-eyebrow" id="installEyebrow"></span>
+            <h2 id="installTitle"></h2>
+            <p id="installIntro"></p>
+          </div>
+          <div class="pwa-guides" id="installGuides"></div>
+        </section>
+
+        <section class="pwa-section" id="featuresSection" aria-labelledby="featuresTitle">
+          <div class="pwa-section-heading">
+            <span class="pwa-eyebrow" id="featuresEyebrow"></span>
+            <h2 id="featuresTitle"></h2>
+          </div>
+          <div class="pwa-card-grid" id="featuresGrid"></div>
+        </section>
+
+        <section class="pwa-section pwa-faq" id="faqSection" aria-labelledby="faqTitle">
+          <div class="pwa-section-heading">
+            <span class="pwa-eyebrow" id="faqEyebrow"></span>
+            <h2 id="faqTitle"></h2>
+          </div>
+          <div id="faqList"></div>
+        </section>
+
+        <div id="footer-container"></div>
+      </div>
+    </main>
+
+    <script src="/src/js/sw-register.js" defer></script>
+    <script src="/src/js/language-switch.js" defer></script>
+    <script src="/src/js/pwa.js" defer></script>
+    <script type="module" src="/src/components/js/footer.js"></script>
+    <script type="module" src="/src/components/js/feedback.js"></script>
+  </body>
+</html>

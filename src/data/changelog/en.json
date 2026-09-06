@@ -1,5 +1,58 @@
 [
   {
+    "version": "2.4.0",
+    "build": "20260905",
+    "date": "September 5, 2026",
+    "subtitle": "Progressive Web App & Installation Guide",
+    "changes": {
+      "new": [
+        "Added Progressive Web App (PWA) support for installing AdashimaVerse like an app on supported devices.",
+        "Added a dedicated PWA page explaining what a PWA is, what gets installed, offline behavior, updates, storage, and removal.",
+        "Added installation guides for Android, desktop browsers, and iPhone/iPad.",
+        "Added a native Install AdashimaVerse action when the browser provides an install prompt."
+      ],
+      "improvements": [
+        "Made the PWA guide content data-driven through localized JSON files for easier maintenance and translation.",
+        "Integrated the PWA page with the shared sidebar menu and its burger-menu launcher.",
+        "Aligned the PWA page with the existing time-based morning, afternoon, and night themes."
+      ],
+      "fixes": [
+        "Fixed the PWA guide page missing the shared burger menu.",
+        "Fixed PWA page layout and theme behavior so the page does not introduce separate or conflicting site-wide styling."
+      ],
+      "notes": [
+        "This release adds an optional app-like way to access AdashimaVerse without changing the normal website experience."
+      ]
+    }
+  },
+  {
+    "version": "2.3.9",
+    "build": "20260901",
+    "date": "September 1, 2026",
+    "subtitle": "Performance, Loading, Navigation Transitions, and Build Optimizations",
+    "changes": {
+      "new": [
+        "Added a site-wide loading experience using the existing AdashimaVerse loading screen on every page.",
+        "Added smooth page-to-page loading transitions while preserving normal browser navigation behavior.",
+        "Added production performance auditing for build size, assets, stylesheets, and scripts."
+      ],
+      "improvements": [
+        "Improved initial page loading and deferred non-critical work where safe.",
+        "Improved scroll and animation scheduling to reduce main-thread work and keep interactions smoother.",
+        "Improved production caching for static assets and offline-friendly repeat visits.",
+        "Optimized large image assets and removed redundant generated asset copies from production builds.",
+        "Reduced unnecessary stylesheet loading behavior and improved production asset delivery."
+      ],
+      "fixes": [
+        "Fixed About page version information so the current website version, build number, and last-updated date are derived from the latest changelog entry.",
+        "Fixed the About page changelog loader so it reads the actual localized changelog data instead of relying on a stale or malformed data URL."
+      ],
+      "notes": [
+        "Visual design, time-based themes, mobile layouts, and the existing loading-screen appearance are preserved."
+      ]
+    }
+  },
+  {
     "version": "2.3.8",
     "build": "20260831",
     "date": "August 31, 2026",
@@ -382,7 +435,9 @@
         "Improved theme transitions and appearance changes on mobile Chrome.",
         "Refined mobile theme-switching behavior for a smoother and more consistent experience."
       ],
-      "fixes": ["Fixed minor theme-switching inconsistencies affecting Chrome on mobile devices."],
+      "fixes": [
+        "Fixed minor theme-switching inconsistencies affecting Chrome on mobile devices."
+      ],
       "notes": [
         "Tagalog is now available as a UI language, but the localization is currently considered a prototype.",
         "The Tagalog rollout is primarily intended to test and validate the site's ability to support additional languages in the future.",
@@ -980,7 +1035,9 @@
         "Improved project organization and maintainability."
       ],
       "fixes": [],
-      "notes": ["Internal refactor with no major user-facing changes."]
+      "notes": [
+        "Internal refactor with no major user-facing changes."
+      ]
     }
   }
 ]

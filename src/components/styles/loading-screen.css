@@ -1,0 +1,140 @@
+/* Existing AdashimaVerse loading screen, shared by every page. */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: linear-gradient(
+    165deg,
+    #1a1028 0%,
+    #2a1a3a 25%,
+    #3a2a4a 55%,
+    #4a2a5a 80%,
+    #3a2a4a 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.7s ease,
+    visibility 0.7s ease;
+  will-change: opacity, visibility;
+  pointer-events: all;
+}
+
+.loading-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 20px;
+  text-align: center;
+}
+
+.loading-title {
+  font-family: "Noto Serif JP", serif;
+  font-size: clamp(2.2rem, 8vw, 4.5rem);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow:
+    0 0 30px rgba(209, 135, 162, 0.3),
+    0 0 60px rgba(209, 135, 162, 0.15),
+    0 4px 20px rgba(0, 0, 0, 0.3);
+  letter-spacing: 2px;
+  line-height: 1.1;
+  animation: loadingTitlePulse 2.8s ease-in-out infinite;
+}
+
+@keyframes loadingTitlePulse {
+  0%,
+  100% {
+    text-shadow:
+      0 0 30px rgba(209, 135, 162, 0.3),
+      0 0 60px rgba(209, 135, 162, 0.15),
+      0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    text-shadow:
+      0 0 40px rgba(209, 135, 162, 0.5),
+      0 0 80px rgba(209, 135, 162, 0.25),
+      0 4px 30px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.loading-indicator {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 12px rgba(209, 135, 162, 0.3);
+  animation: loadingDotBounce 1.4s ease-in-out infinite;
+}
+
+.loading-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+.loading-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.loading-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes loadingDotBounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0.5;
+  }
+  30% {
+    transform: translateY(-12px) scale(1.1);
+    opacity: 1;
+  }
+}
+
+.loading-message {
+  font-family: "Quicksand", sans-serif;
+  font-size: clamp(0.85rem, 2vw, 1.05rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.3px;
+  margin-top: 4px;
+  animation: loadingMessagePulse 2.4s ease-in-out infinite;
+}
+
+@keyframes loadingMessagePulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-title,
+  .loading-dot,
+  .loading-message {
+    animation: none;
+  }
+}

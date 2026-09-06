@@ -126,7 +126,13 @@
 
 #canvasContainerModal,
 #canvasWrapperModal {
-  touch-action: manipulation;
+  /* pan-x pan-y (not "manipulation") is required here: "manipulation"
+     still lets the browser drive its own continuous pinch-zoom, which
+     races the custom pinch/double-tap-zoom handlers in novelas.js and
+     is what makes zoom/pan feel broken on touch. pan-x/pan-y keeps
+     native one-finger panning/scrolling but hands pinch and double-tap
+     entirely to JS. */
+  touch-action: pan-x pan-y;
   overscroll-behavior: contain;
 }
 
@@ -478,6 +484,92 @@
   color: rgba(209, 163, 198, 0.7);
 }
 
+/* In-document search bar */
+.pdf-search-bar {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(22, 18, 30, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(209, 163, 198, 0.14);
+  border-radius: 12px;
+  padding: 6px 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  max-width: min(92%, 420px);
+}
+
+.pdf-search-bar[hidden] {
+  display: none;
+}
+
+.pdf-search-icon {
+  color: rgba(209, 163, 198, 0.4);
+  font-size: 0.8rem;
+  padding: 0 2px;
+  flex-shrink: 0;
+}
+
+.pdf-search-input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(209, 163, 198, 0.08);
+  border-radius: 8px;
+  color: rgba(232, 200, 223, 0.9);
+  padding: 6px 8px;
+  font-size: 0.85rem;
+  font-family: "Quicksand", sans-serif;
+  width: 160px;
+  min-width: 0;
+  flex: 1;
+}
+
+.pdf-search-input:focus {
+  outline: none;
+  border-color: rgba(209, 163, 198, 0.25);
+}
+
+.pdf-search-input::placeholder {
+  color: rgba(209, 163, 198, 0.3);
+}
+
+.pdf-search-counter {
+  color: rgba(209, 163, 198, 0.5);
+  font-size: 0.75rem;
+  font-family: "Quicksand", sans-serif;
+  white-space: nowrap;
+  padding: 0 2px;
+  min-width: 44px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 480px) {
+  .pdf-search-input {
+    width: 110px;
+  }
+  .pdf-search-counter {
+    font-size: 0.65rem;
+    min-width: 34px;
+  }
+}
+
+/* Highlight overlay for the active/found search match. Positioned by JS
+   directly over the rendered canvas, in both single-page and cascade
+   (continuous scroll) modes. */
+.pdf-search-highlight {
+  position: absolute;
+  background: rgba(255, 213, 79, 0.45);
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 5;
+  box-shadow: 0 0 0 1px rgba(255, 213, 79, 0.6);
+}
+
 /* PDF Body (Canvas Container) */
 .pdf-body {
   flex: 1;
@@ -496,7 +588,8 @@
   justify-content: center;
   background: #0d0b11;
   min-height: 300px;
-  touch-action: manipulation;
+  /* See #canvasContainerModal above: pan-x pan-y, not manipulation. */
+  touch-action: pan-x pan-y;
   overscroll-behavior: contain;
 }
 
@@ -524,7 +617,7 @@
   justify-content: center;
   padding: 0;
   position: relative;
-  touch-action: manipulation;
+  touch-action: pan-x pan-y;
 }
 
 .pdf-canvas-wrapper canvas {
@@ -535,14 +628,39 @@
   border-radius: 4px;
   transition: opacity 0.25s ease;
   background: transparent;
-  touch-action: manipulation;
+  touch-action: pan-x pan-y;
+}
+
+#canvasContainerModal .pdf-canvas-wrapper canvas {
+  max-width: none;
 }
 
 /* Cascade Mode Styles */
 #pdfCascadeContainer {
   width: 100%;
   max-width: 100%;
+  height: 100%;
   position: relative;
+  /* This is the element novelas.js actually attaches its scroll/wheel/
+     touch listeners to (see cascadeContainerEl / cascadeScrollEl) and
+     calls entry.wrapper.scrollIntoView() against for page navigation.
+     Without its own overflow-y here, it has no defined height of its
+     own and inherits none from a scrollable ancestor (.pdf-body is
+     `overflow: hidden`), so scrollIntoView()/scrollTop still work
+     (script can scroll a hidden-overflow box), which is why the
+     toolbar Prev/Next buttons and keyboard arrows "work" — but a
+     finger-drag or mouse-wheel swipe through the continuous view has
+     no native scroll container to grab, so it does nothing. This is
+     the main reason touch scrolling feels broken in the (default)
+     continuous reading mode. */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  /* pan-y only (not pan-x): this view only ever scrolls vertically, and
+     leaving pan-x enabled here would let a stray horizontal finger
+     drag get eaten by the browser instead of reaching the pinch/tap
+     handlers below. */
+  touch-action: pan-y;
 }
 
 .pdf-cascade-page {
@@ -644,6 +762,79 @@
   display: none;
   pointer-events: none;
   gap: 3px;
+}
+
+.pdf-chrome-hidden .pdf-progress-wrap {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pdf-exit-fullscreen {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  z-index: 30;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(18, 18, 20, 0.94);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.custom-pdf-viewer:fullscreen .pdf-exit-fullscreen,
+.custom-pdf-viewer:-webkit-full-screen .pdf-exit-fullscreen,
+body.fullscreen-reader .pdf-exit-fullscreen {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.pdf-chrome-reveal {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translate(-50%, -140%);
+  z-index: 6;
+  width: 44px;
+  height: 22px;
+  border: none;
+  border-radius: 0 0 12px 12px;
+  background: rgba(18, 18, 20, 0.94);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.pdf-chrome-hidden .pdf-chrome-reveal {
+  opacity: 0.85;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+}
+
+#pdfModal:has(.custom-pdf-viewer.pdf-chrome-hidden) .pdf-modal-header {
+  opacity: 0;
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+#pdfModal:has(.custom-pdf-viewer.pdf-chrome-hidden) .pdf-modal-body {
+  margin-top: -50px;
 }
 
 /* Toast Message */

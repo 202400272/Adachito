@@ -17,3 +17,266 @@
 @import url("filters.css");
 @import url("final-cards.css");
 @import url("cleanup.css");
+
+
+/* ===== PWA INSTALL PROMO ===== */
+.pwa-promo-section {
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+}
+
+.pwa-promo-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.09), rgba(255,255,255,0.035)),
+    rgba(19, 15, 31, 0.72);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(12px);
+}
+
+body.time-morning .pwa-promo-card {
+  border-color: rgba(138, 184, 216, 0.42);
+  background:
+    linear-gradient(135deg, rgba(255, 250, 241, 0.92), rgba(226, 240, 250, 0.86)),
+    rgba(255, 255, 255, 0.78);
+  box-shadow: 0 20px 60px rgba(130, 150, 180, 0.2);
+}
+
+body.time-morning .pwa-promo-title {
+  color: #596b82;
+}
+
+body.time-morning .pwa-promo-text {
+  color: #687d94;
+}
+
+body.time-morning .pwa-promo-mark {
+  border-color: rgba(138, 184, 216, 0.42);
+  background: rgba(255, 255, 255, 0.58);
+  color: #5f86aa;
+}
+
+body.time-morning .pwa-install-button {
+  border-color: rgba(95, 134, 170, 0.4);
+  background: #5f86aa;
+  color: #fff;
+}
+
+body.time-morning .pwa-install-button:hover {
+  background: #496f91;
+  border-color: #496f91;
+}
+
+body.time-morning .pwa-guide-link {
+  color: #63758b;
+}
+
+body.time-morning .pwa-guide-link:hover {
+  color: #496f91;
+}
+
+body.time-afternoon .pwa-promo-card {
+  border-color: rgba(217, 111, 152, 0.38);
+  background:
+    linear-gradient(135deg, rgba(255, 246, 237, 0.94), rgba(250, 220, 221, 0.88)),
+    rgba(255, 255, 255, 0.8);
+  box-shadow: 0 20px 60px rgba(155, 92, 119, 0.22);
+}
+
+body.time-afternoon .pwa-promo-title {
+  color: #693e50;
+}
+
+body.time-afternoon .pwa-promo-text {
+  color: #80596a;
+}
+
+body.time-afternoon .pwa-promo-mark {
+  border-color: rgba(217, 111, 152, 0.38);
+  background: rgba(255, 255, 255, 0.56);
+  color: #c45d86;
+}
+
+body.time-afternoon .pwa-install-button {
+  border-color: rgba(180, 77, 119, 0.38);
+  background: #b9577c;
+  color: #fff;
+}
+
+body.time-afternoon .pwa-install-button:hover {
+  background: #98415f;
+  border-color: #98415f;
+}
+
+body.time-afternoon .pwa-guide-link {
+  color: #80596a;
+}
+
+body.time-afternoon .pwa-guide-link:hover {
+  color: #98415f;
+}
+
+.pwa-promo-card::after {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  right: -110px;
+  top: -150px;
+  border-radius: 50%;
+  background: rgba(221, 159, 194, 0.14);
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+.pwa-promo-mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  flex: 0 0 68px;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.92);
+  font-size: 1.55rem;
+}
+
+.pwa-promo-spark {
+  position: absolute;
+  top: -9px;
+  right: -5px;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.9);
+  transform: rotate(12deg);
+}
+
+.pwa-promo-copy {
+  min-width: 0;
+}
+
+.pwa-promo-title {
+  margin: 0.2rem 0 0.35rem;
+  font-family: "Noto Serif JP", serif;
+  font-size: clamp(1.35rem, 2.6vw, 2rem);
+  line-height: 1.2;
+  color: rgba(255,255,255,0.96);
+}
+
+.pwa-promo-text {
+  max-width: 680px;
+  margin: 0;
+  color: rgba(255,255,255,0.66);
+  line-height: 1.65;
+}
+
+.pwa-promo-actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.65rem;
+  min-width: 175px;
+}
+
+.pwa-install-button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 46px;
+  padding: 0.7rem 1rem;
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  font: 600 0.92rem "Quicksand", sans-serif;
+  cursor: pointer;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.pwa-install-button:hover {
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.34);
+}
+
+.pwa-install-button:focus-visible,
+.pwa-guide-link:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.85);
+  outline-offset: 3px;
+}
+
+.pwa-install-button[hidden] {
+  display: none;
+}
+
+.pwa-guide-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 30px;
+  color: rgba(255,255,255,0.62);
+  font: 500 0.82rem "Quicksand", sans-serif;
+  text-decoration: none;
+}
+
+.pwa-guide-link:hover {
+  color: rgba(255,255,255,0.9);
+}
+
+.pwa-guide-link i {
+  font-size: 0.7rem;
+  transition: transform 160ms ease;
+}
+
+.pwa-guide-link:hover i {
+  transform: translateX(3px);
+}
+
+@media (max-width: 760px) {
+  .pwa-promo-card {
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .pwa-promo-actions {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+
+  .pwa-install-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .pwa-promo-card {
+    grid-template-columns: 1fr;
+  }
+
+  .pwa-promo-mark {
+    width: 58px;
+    height: 58px;
+    flex-basis: 58px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pwa-install-button,
+  .pwa-guide-link i {
+    transition: none;
+  }
+}

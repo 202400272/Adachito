@@ -532,6 +532,12 @@ body.time-morning .story-grid .story-card-arrow {
 body.time-afternoon .story-grid .nav-card {
   background: rgba(255, 255, 255, 0.58) !important;
 }
+body.time-afternoon .story-grid .story-card-title {
+  color: var(--text-main) !important;
+}
+body.time-afternoon .story-grid .story-card-desc {
+  color: var(--text-secondary) !important;
+}
 body.time-night .story-grid .nav-card {
   background: rgba(38, 29, 47, 0.82) !important;
   border-color: rgba(221, 190, 226, 0.13) !important;

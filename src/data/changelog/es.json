@@ -1,5 +1,58 @@
 [
   {
+    "version": "2.4.0",
+    "build": "20260905",
+    "date": "5 de septiembre de 2026",
+    "subtitle": "Aplicación web progresiva y guía de instalación",
+    "changes": {
+      "new": [
+        "Se añadió compatibilidad con Progressive Web App (PWA) para instalar AdashimaVerse como una aplicación en dispositivos compatibles.",
+        "Se añadió una página dedicada a PWA que explica qué es una PWA, qué se instala, el funcionamiento sin conexión, las actualizaciones, el almacenamiento y cómo desinstalarla.",
+        "Se añadieron guías de instalación para Android, navegadores de escritorio y iPhone/iPad.",
+        "Se añadió una acción nativa de instalación de AdashimaVerse cuando el navegador proporciona el aviso de instalación."
+      ],
+      "improvements": [
+        "El contenido de la guía PWA ahora utiliza archivos JSON localizados para facilitar su mantenimiento y traducción.",
+        "La página PWA se integró con el menú lateral compartido y su botón de menú.",
+        "La página PWA ahora utiliza los temas existentes según la hora: mañana, tarde y noche."
+      ],
+      "fixes": [
+        "Se corrigió la ausencia del botón de menú compartido en la página PWA.",
+        "Se corrigió el diseño y el comportamiento de los temas de la página PWA para evitar estilos separados o en conflicto con el resto del sitio."
+      ],
+      "notes": [
+        "Esta versión añade una forma opcional de acceder a AdashimaVerse como una aplicación sin cambiar la experiencia normal del sitio web."
+      ]
+    }
+  },
+  {
+    "version": "2.3.9",
+    "build": "20260901",
+    "date": "1 de septiembre de 2026",
+    "subtitle": "Rendimiento, carga, transiciones de navegación y optimización del build",
+    "changes": {
+      "new": [
+        "Se añadió una experiencia de carga global usando la pantalla de carga existente de AdashimaVerse en todas las páginas.",
+        "Se añadieron transiciones suaves entre páginas conservando la navegación normal del navegador.",
+        "Se añadió una auditoría de rendimiento para producción que comprueba tamaño del build, recursos, hojas de estilo y scripts."
+      ],
+      "improvements": [
+        "Se mejoró la carga inicial y se aplazó el trabajo no crítico cuando es seguro hacerlo.",
+        "Se mejoró la programación del scroll y las animaciones para reducir el trabajo del hilo principal y mantener interacciones más fluidas.",
+        "Se mejoró la caché de recursos estáticos para acelerar las visitas repetidas y favorecer el funcionamiento sin conexión.",
+        "Se optimizaron recursos de imagen grandes y se eliminaron copias redundantes generadas en el build de producción.",
+        "Se redujo la carga innecesaria de hojas de estilo y se mejoró la entrega de recursos en producción."
+      ],
+      "fixes": [
+        "Se corrigió la información de versión de About para que la versión, el número de build y la fecha de actualización se obtengan de la entrada más reciente del changelog.",
+        "Se corrigió el cargador del changelog de About para que lea los datos localizados reales en lugar de depender de una URL de datos obsoleta o mal formada."
+      ],
+      "notes": [
+        "Se conservan el diseño visual, los temas según la hora, los layouts móviles y la apariencia de la pantalla de carga existente."
+      ]
+    }
+  },
+  {
     "version": "2.3.8",
     "build": "20260831",
     "date": "31 de agosto de 2026",
@@ -981,7 +1034,9 @@
         "Se mejoró la organización y facilidad de mantenimiento del proyecto."
       ],
       "fixes": [],
-      "notes": ["Refactorización interna sin cambios importantes visibles para los usuarios."]
+      "notes": [
+        "Refactorización interna sin cambios importantes visibles para los usuarios."
+      ]
     }
   }
 ]

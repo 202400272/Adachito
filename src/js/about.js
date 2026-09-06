@@ -45,9 +45,9 @@ async function loadTranslations(lang) {
   try {
     const url =
       window.LanguageSwitch && typeof window.LanguageSwitch.getDataUrl === "function"
-        ? window.LanguageSwitch.getDataUrl("about", lang) + "?v=" + Date.now()
-        : `../data/about/${lang}.json?v=${Date.now()}`;
-    const response = await fetch(url);
+        ? window.LanguageSwitch.getDataUrl("about", lang)
+        : `/src/data/about/${encodeURIComponent(lang)}.json`;
+    const response = await fetch(url, { cache: "no-store" });
     if (!response.ok) throw new Error("Failed to load translations");
     const data = await response.json();
     translations = data;
@@ -171,6 +171,67 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeMaterialsModal();
 });
 
+// DYNAMIC VERSION INFORMATION
+
+function renderVersionInformation(changelogData) {
+  const vg = document.getElementById("versionGrid");
+  if (!vg) return;
+
+  const versionItems = getText("versionItems");
+  const fallbackItems = Array.isArray(versionItems) ? versionItems : [];
+  const latest = Array.isArray(changelogData) && changelogData.length > 0 ? changelogData[0] : null;
+
+  // Keep translated labels and manually maintained translation progress from the About data.
+  // Only release metadata is sourced from the changelog.
+  const items = fallbackItems.map((item) => ({ ...item }));
+
+  if (!latest) {
+    if (items.length > 0) {
+      vg.innerHTML = items
+        .map(
+          (v) => `
+            <div class="version-item">
+              <span class="version-label">${v.label || ""}</span>
+              <span class="version-value">${v.value || ""}</span>
+            </div>
+          `,
+        )
+        .join("");
+    }
+    return;
+  }
+
+  const versionValue = `v${String(latest.version).replace(/^v/i, "")}`;
+  const buildValue = latest.build ? `#${latest.build}` : "N/A";
+  const latestDate = latest.date || "N/A";
+
+  // Preserve the labels/order supplied by each language's About translation file.
+  if (items[0]) items[0].value = versionValue;
+  if (items[1]) items[1].value = buildValue;
+  if (items[2]) items[2].value = latestDate;
+
+  // If a translation file is missing the metadata rows, provide sensible labels
+  // without replacing the existing translation data.
+  if (items.length === 0) {
+    items.push(
+      { label: "Website Version", value: versionValue },
+      { label: "Build Number", value: buildValue },
+      { label: "Last Updated", value: latestDate },
+    );
+  }
+
+  vg.innerHTML = items
+    .map(
+      (v) => `
+        <div class="version-item">
+          <span class="version-label">${v.label || ""}</span>
+          <span class="version-value">${v.value || ""}</span>
+        </div>
+      `,
+    )
+    .join("");
+}
+
 // RENDER PAGE
 
 function renderPage(data) {
@@ -264,22 +325,7 @@ function renderPage(data) {
 
   // Version Information
   document.getElementById("versionTitle").textContent = getText("versionTitle") || "";
-  const vg = document.getElementById("versionGrid");
-  if (vg) {
-    const versionItems = getText("versionItems");
-    if (Array.isArray(versionItems)) {
-      vg.innerHTML = versionItems
-        .map(
-          (v) => `
-            <div class="version-item">
-              <span class="version-label">${v.label || ""}</span>
-              <span class="version-value">${v.value || ""}</span>
-            </div>
-          `,
-        )
-        .join("");
-    }
-  }
+  renderVersionInformation(_changelogData);
 
   // Changelog button
   document.getElementById("changelogBtnLabel").textContent =
@@ -482,6 +528,8 @@ class ChangelogManager {
     this.detailsContent = document.getElementById("changelogDetailsContent");
     this.openBtn = document.getElementById("openChangelogBtn");
     this.closeBtn = document.getElementById("closeChangelogBtn");
+    this.loadPromise = null;
+    this.loadedLang = null;
   }
 
   init() {
@@ -497,21 +545,47 @@ class ChangelogManager {
     });
   }
 
-  async loadChangelog() {
-    try {
-      const url =
-        window.LanguageSwitch && typeof window.LanguageSwitch.getDataUrl === "function"
-          ? window.LanguageSwitch.getDataUrl("changelog", this.lang) + "?v=" + Date.now()
-          : `../data/changelog/${this.lang}.json?v=${Date.now()}`;
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Failed to load changelog");
-      const data = await response.json();
-      this.changelogData = data;
-      return data;
-    } catch (e) {
-      console.warn("Failed to load changelog:", e.message);
-      return [];
+  async loadChangelog(force = false) {
+    if (!force && this.loadedLang === this.lang && this.changelogData.length > 0) {
+      return this.changelogData;
     }
+
+    if (!force && this.loadPromise) {
+      return this.loadPromise;
+    }
+
+    const lang = this.lang;
+    const url =
+      window.LanguageSwitch && typeof window.LanguageSwitch.getDataUrl === "function"
+        ? window.LanguageSwitch.getDataUrl("changelog", lang)
+        : `/src/data/changelog/${encodeURIComponent(lang)}.json`;
+
+    this.loadPromise = fetch(url, {
+      cache: "no-store",
+      headers: { Accept: "application/json" },
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .then((data) => {
+        if (!Array.isArray(data)) throw new Error("Changelog data is not an array");
+        if (this.lang !== lang) return [];
+        this.changelogData = data;
+        this.loadedLang = lang;
+        _changelogData = data;
+        renderVersionInformation(data);
+        return data;
+      })
+      .catch((error) => {
+        console.warn(`Failed to load changelog from ${url}:`, error);
+        return [];
+      })
+      .finally(() => {
+        this.loadPromise = null;
+      });
+
+    return this.loadPromise;
   }
 
   renderNav(versions) {
@@ -614,19 +688,42 @@ class ChangelogManager {
   async open() {
     if (!this.overlay) return;
 
-    if (this.changelogData.length === 0) {
-      const data = await this.loadChangelog();
-      if (data && data.length > 0) {
-        this.changelogData = data;
-        this.selectedVersion = data[0].version;
-        this.renderNav(data);
-        this.renderDetails(data[0]);
-      }
-    }
-
     window.changelogInstance = this;
     this.overlay.classList.add("active");
     document.body.style.overflow = "hidden";
+
+    if (this.changelogData.length > 0 && this.loadedLang === this.lang) {
+      this.selectedVersion ||= this.changelogData[0].version;
+      this.renderNav(this.changelogData);
+      this.renderDetails(
+        this.changelogData.find((entry) => entry.version === this.selectedVersion) ||
+          this.changelogData[0],
+      );
+      return;
+    }
+
+    this.renderNav([]);
+    if (this.detailsContent) {
+      this.detailsContent.innerHTML = `
+        <div class="changelog-details-empty">
+          <span class="iconify" data-icon="mdi:loading"></span>
+          <span>Loading changelog…</span>
+        </div>`;
+    }
+
+    const data = await this.loadChangelog();
+
+    if (data.length > 0) {
+      this.selectedVersion = data[0].version;
+      this.renderNav(data);
+      this.renderDetails(data[0]);
+    } else if (this.detailsContent) {
+      this.detailsContent.innerHTML = `
+        <div class="changelog-details-empty">
+          <span class="iconify" data-icon="mdi:alert-circle-outline"></span>
+          <span>Unable to load the changelog.</span>
+        </div>`;
+    }
   }
 
   close() {
@@ -640,8 +737,12 @@ class ChangelogManager {
     this.lang = lang;
     this.changelogData = [];
     this.selectedVersion = null;
+    this.loadedLang = null;
+    this.loadPromise = null;
     if (this.overlay.classList.contains("active")) {
       await this.open();
+    } else {
+      this.loadChangelog(true);
     }
   }
 }
@@ -651,9 +752,22 @@ class ChangelogManager {
 // INIT
 
 document.addEventListener("DOMContentLoaded", async function () {
-  const data = await loadTranslations(currentLang);
+  const changelog = new ChangelogManager(currentLang);
+  changelog.init();
+  window.changelogInstance = changelog;
+
+  // Load translations and release metadata together. The About page can therefore
+  // render its version information from the same changelog used by the modal.
+  const [data, changelogData] = await Promise.all([
+    loadTranslations(currentLang),
+    changelog.loadChangelog(),
+  ]);
+
+  _changelogData = changelogData;
+
   if (data) {
     renderPage(data);
+    renderVersionInformation(changelogData);
   } else {
     console.error("Failed to load translations");
     document.querySelector(".about-main").innerHTML = `
@@ -674,10 +788,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     { threshold: 0.05, rootMargin: "0px 0px -20px 0px" },
   );
   document.querySelectorAll(".about-card, .translator-card").forEach((el) => observer.observe(el));
-
-  const changelog = new ChangelogManager(currentLang);
-  changelog.init();
-  window.changelogInstance = changelog;
 
   if (window.location.hash === "#changelog") {
     // Allow the shared Settings shortcut to open the existing About-page modal.

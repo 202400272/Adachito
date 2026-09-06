@@ -99,6 +99,7 @@
       <link rel="stylesheet" href="/src/components/styles/menu.css?v=1.5.3" />
       <link rel="stylesheet" href="/src/components/styles/scrollbar.css?v=1.5.3" />
       <link rel="stylesheet" href="/src/components/styles/feedback.css?v=1.5.3" />
+    <link rel="stylesheet" href="/src/css/pwa.css?v=1.5.3" />
     </noscript>
 
     <link rel="icon" type="image/x-icon" href="/assets/Imagenes/favicon.ico" />
@@ -109,18 +110,6 @@
     <link rel="icon" type="image/png" sizes="512x512" href="/assets/Imagenes/icon-512x512.webp" />
   </head>
   <body>
-    <!-- ===== LOADING SCREEN ===== -->
-    <div id="loadingScreen" class="loading-overlay" role="status" aria-label="Loading">
-      <div class="loading-content">
-        <div class="loading-title">AdashimaVerse</div>
-        <div class="loading-indicator">
-          <span class="loading-dot"></span>
-          <span class="loading-dot"></span>
-          <span class="loading-dot"></span>
-        </div>
-        <p class="loading-message" id="loadingMessage">Loading archive...</p>
-      </div>
-    </div>
     <div class="stars-bg"></div>
     <div class="sparkle-container">
       <div class="sparkle"></div>
@@ -374,6 +363,35 @@
               </button>
             </div>
             <div class="bulletin-list" id="bulletinList" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ===== INSTALL ADASHIMAVERSE ===== -->
+      <section
+        class="homepage-section pwa-promo-section"
+        id="pwaSection"
+        aria-labelledby="pwaPromoTitle"
+      >
+        <div class="pwa-promo-card">
+          <div class="pwa-promo-mark" aria-hidden="true">
+            <i class="fas fa-mobile-screen-button"></i>
+            <span class="pwa-promo-spark">✦</span>
+          </div>
+          <div class="pwa-promo-copy">
+            <h2 class="pwa-promo-title" id="pwaPromoTitle"></h2>
+            <p class="pwa-promo-text" id="pwaPromoText"></p>
+          </div>
+          <div class="pwa-promo-actions">
+            <button type="button" class="pwa-install-button" id="pwaInstallButton">
+              <i class="fas fa-download" aria-hidden="true"></i>
+              <span id="pwaInstallLabel"></span>
+            </button>
+            <a class="pwa-guide-link" id="pwaGuideLink" href="/Adashima_PWA">
+              <span id="pwaGuideLabel"></span>
+              <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </a>
           </div>
         </div>
       </section>
@@ -663,5 +681,6 @@
     <!-- Import JS -->
     <script src="./src/js/language-switch.js" defer></script>
     <script src="./src/js/index.js?v=1.5.3" defer></script>
+    <script src="./src/js/sw-register.js?v=1.5.3" defer></script>
   </body>
 </html>

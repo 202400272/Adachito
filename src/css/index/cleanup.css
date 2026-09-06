@@ -150,6 +150,21 @@
 body.time-morning .content-notification-bubble {
   box-shadow: 0 20px 45px rgba(130, 150, 180, 0.22);
 }
+
+body.time-morning .hero-title,
+body.time-morning .section-heading-title,
+body.time-morning .editorial-title,
+body.time-morning .story-grid .story-card-title {
+  color: #4a3b52 !important;
+}
+
+body.time-morning .hero-sub,
+body.time-morning .section-heading-sub,
+body.time-morning .editorial-subtitle,
+body.time-morning .story-grid .story-card-desc {
+  color: #5c4b51 !important;
+}
+
 @media (max-width: 600px) {
   .content-notification-bubble {
     right: 12px;

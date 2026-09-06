@@ -14,85 +14,6 @@ if (
   });
 }
 
-// ===== LOADING SCREEN =====
-(function initLoadingScreen() {
-  const loadingScreen = document.getElementById("loadingScreen");
-  const _prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (!loadingScreen) return;
-
-  // Function to hide the loading screen
-  function hideLoadingScreen() {
-    if (!loadingScreen) return;
-    loadingScreen.classList.add("hidden");
-    document.body.style.overflow = "";
-
-    // Remove from DOM after transition to prevent interference
-    setTimeout(() => {
-      if (loadingScreen && loadingScreen.parentNode) {
-        loadingScreen.remove();
-      }
-    }, 800);
-  }
-
-  // Prevent scrolling while loading
-  document.body.style.overflow = "hidden";
-
-  // Set loading message with i18n if content is available
-  const loadingMessage = document.getElementById("loadingMessage");
-  if (loadingMessage) {
-    const currentLang = localStorage.getItem("lang") || "es";
-    const messages = {
-      es: "Cargando archivo...",
-      en: "Loading archive...",
-    };
-    loadingMessage.textContent = messages[currentLang] || messages.es;
-  }
-
-  // Hide immediately on DOM ready (not waiting for full load)
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function onDOMReady() {
-      // Wait one frame to ensure initial paint is complete
-      requestAnimationFrame(() => {
-        hideLoadingScreen();
-      });
-      document.removeEventListener("DOMContentLoaded", onDOMReady);
-    });
-  } else {
-    // DOM already ready
-    requestAnimationFrame(() => {
-      hideLoadingScreen();
-    });
-  }
-
-  // Safety fallback: hide after 2.5 seconds regardless
-  // This ensures the loader doesn't stay visible if something goes wrong
-  const fallbackTimer = setTimeout(() => {
-    hideLoadingScreen();
-  }, 2500);
-
-  // Clear fallback if the screen hides naturally
-  const observer = new MutationObserver(() => {
-    if (loadingScreen.classList.contains("hidden")) {
-      clearTimeout(fallbackTimer);
-      observer.disconnect();
-    }
-  });
-  observer.observe(loadingScreen, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-
-  // Also hide when window is fully loaded (covers async resources)
-  window.addEventListener("load", function onLoad() {
-    // Only hide if not already hidden
-    if (!loadingScreen.classList.contains("hidden")) {
-      hideLoadingScreen();
-    }
-    window.removeEventListener("load", onLoad);
-  });
-})();
-
 const FEEDBACK_CONFIG = {
   SERVICE_ID: "service_n0xzgps",
   TEMPLATE_ID: "template_lui1cw4",
@@ -136,6 +57,41 @@ const FEEDBACK_CONFIG = {
     return "Unknown OS";
   },
 };
+
+let deferredPwaPrompt = null;
+
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  deferredPwaPrompt = event;
+});
+
+window.addEventListener("appinstalled", () => {
+  deferredPwaPrompt = null;
+  const button = document.getElementById("pwaInstallButton");
+  if (button) button.disabled = true;
+});
+
+function initPwaPromo() {
+  const button = document.getElementById("pwaInstallButton");
+  if (!button || button.dataset.initialized) return;
+
+  button.dataset.initialized = "true";
+  button.addEventListener("click", async () => {
+    if (!deferredPwaPrompt) {
+      window.location.href = "/Adashima_PWA";
+      return;
+    }
+
+    const prompt = deferredPwaPrompt;
+    deferredPwaPrompt = null;
+    try {
+      await prompt.prompt();
+      await prompt.userChoice;
+    } catch {
+      window.location.href = "/Adashima_PWA";
+    }
+  });
+}
 
 (function () {
   const modal = document.getElementById("feedbackModal");
@@ -885,37 +841,48 @@ function applyFeedbackI18n() {
   const t = contentData?.feedback;
   if (!t) return;
 
-  document.getElementById("feedbackTitle").textContent = t.title;
-  document.getElementById("feedbackSubtitle").textContent = t.subtitle;
-  document.getElementById("feedbackTypeLabelText").textContent = t.typeLabel;
-  document.getElementById("fbTypePlaceholder").textContent = t.typePlaceholder;
-  document.getElementById("fbTypeBug").textContent = t.typeBug;
-  document.getElementById("fbTypeTranslation").textContent = t.typeTranslation;
-  document.getElementById("fbTypeMissing").textContent = t.typeMissing;
-  document.getElementById("fbTypeBroken").textContent = t.typeBroken;
-  document.getElementById("fbTypeFeature").textContent = t.typeFeature;
-  document.getElementById("fbTypeGeneral").textContent = t.typeGeneral;
+  const setText = (id, value) => {
+    const element = document.getElementById(id);
+    if (element) element.textContent = value;
+  };
+  const setPlaceholder = (id, value) => {
+    const element = document.getElementById(id);
+    if (element) element.placeholder = value;
+  };
+
+  setText("feedbackTitle", t.title);
+  setText("feedbackSubtitle", t.subtitle);
+  setText("feedbackTypeLabelText", t.typeLabel);
+  setText("fbTypePlaceholder", t.typePlaceholder);
+  setText("fbTypeBug", t.typeBug);
+  setText("fbTypeTranslation", t.typeTranslation);
+  setText("fbTypeMissing", t.typeMissing);
+  setText("fbTypeBroken", t.typeBroken);
+  setText("fbTypeFeature", t.typeFeature);
+  setText("fbTypeGeneral", t.typeGeneral);
   if (typeof window.syncFeedbackTypeCustomUI === "function") {
     window.syncFeedbackTypeCustomUI();
   }
   if (t.draftNoticeText) {
-    document.getElementById("feedbackDraftNoticeText").textContent = t.draftNoticeText;
+    setText("feedbackDraftNoticeText", t.draftNoticeText);
   }
   if (t.draftClear) {
-    document.getElementById("feedbackDraftClearLabel").textContent = t.draftClear;
+    setText("feedbackDraftClearLabel", t.draftClear);
   }
-  document.getElementById("feedbackTitleLabel").textContent = t.titleLabel;
-  document.getElementById("feedbackTitleInput").placeholder = t.titlePlaceholder;
-  document.getElementById("feedbackDescLabel").textContent = t.descLabel;
-  document.getElementById("feedbackDescription").placeholder = t.descPlaceholder;
-  document.getElementById("feedbackEmailLabel").textContent = t.emailLabel;
-  document.getElementById("feedbackEmailHint").textContent = t.emailHint;
-  document.getElementById("fbCancelLabel").textContent = t.cancel;
-  document.getElementById("fbSubmitLabel").textContent = t.submit;
-  document.getElementById("fbSuccessTitle").textContent = t.successTitle;
-  document.getElementById("fbSuccessText").textContent = t.successText;
-  document.getElementById("feedbackFooterLabel").textContent = t.footerBtn;
+  setText("feedbackTitleLabel", t.titleLabel);
+  setPlaceholder("feedbackTitleInput", t.titlePlaceholder);
+  setText("feedbackDescLabel", t.descLabel);
+  setPlaceholder("feedbackDescription", t.descPlaceholder);
+  setText("feedbackEmailLabel", t.emailLabel);
+  setText("feedbackEmailHint", t.emailHint);
+  setText("fbCancelLabel", t.cancel);
+  setText("fbSubmitLabel", t.submit);
+  setText("fbSuccessTitle", t.successTitle);
+  setText("fbSuccessText", t.successText);
+  setText("feedbackFooterLabel", t.footerBtn);
 }
+
+document.addEventListener("feedbackModalReady", applyFeedbackI18n);
 
 function applyHomepageFooterI18n(data) {
   const footer = document.getElementById("footer");
@@ -1827,6 +1794,17 @@ function renderApp(data) {
   const infoSub = document.getElementById("infoSub");
   if (infoSub && data.info) infoSub.textContent = data.info.subtitle;
 
+  const pwaPromo = data.pwaPromo || {};
+  const pwaPromoTitle = document.getElementById("pwaPromoTitle");
+  const pwaPromoText = document.getElementById("pwaPromoText");
+  const pwaInstallLabel = document.getElementById("pwaInstallLabel");
+  const pwaGuideLabel = document.getElementById("pwaGuideLabel");
+
+  if (pwaPromoTitle) pwaPromoTitle.textContent = pwaPromo.title || "";
+  if (pwaPromoText) pwaPromoText.textContent = pwaPromo.text || "";
+  if (pwaInstallLabel) pwaInstallLabel.textContent = pwaPromo.installLabel || "";
+  if (pwaGuideLabel) pwaGuideLabel.textContent = pwaPromo.guideLabel || "";
+
   const chips = document.querySelectorAll(".chip-text");
   if (data.info && data.info.chips) {
     data.info.chips.forEach((chipText, i) => {
@@ -2138,6 +2116,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", async function () {
+  initPwaPromo();
+
   try {
     emailjs.init(FEEDBACK_CONFIG.PUBLIC_KEY);
     console.log("[EmailJS] Initialized");

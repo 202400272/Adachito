@@ -17,7 +17,8 @@
     "documentNotAvailable": "Document not available.",
     "loadingDocument": "Loading document...",
     "errorOnPage": "Error on pg.",
-    "retry": "Retry"
+    "retry": "Retry",
+    "resumedAt": "Resuming at pg."
   },
   "pdfControls": {
     "zoomOut": "Zoom out (-)",

@@ -551,7 +551,11 @@
         }
 
         function syncLanguageSpecificMenuItems() {
-          const stored = localStorage.getItem("lang") || localStorage.getItem("preferredLanguage") || localStorage.getItem("language") || "es";
+          const stored =
+            localStorage.getItem("lang") ||
+            localStorage.getItem("preferredLanguage") ||
+            localStorage.getItem("language") ||
+            "es";
           const lang = (stored || "es").toLowerCase();
           const statsItem = document.getElementById("menu-stats-item");
           if (!statsItem) return;

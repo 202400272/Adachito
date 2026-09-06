@@ -1,107 +1,64 @@
-// Kill switch: 20260816-CLEAR-CACHES
-const isLocalHost =
-  self.location.hostname === "localhost" ||
-  self.location.hostname === "127.0.0.1" ||
-  self.location.hostname === "[::1]";
+const CACHE_NAME = "adashimaverse-static-v2";
+const STATIC_DESTINATIONS = new Set(["style", "script", "image", "font"]);
 
-if (isLocalHost) {
-  self.addEventListener("install", (event) => {
-    event.waitUntil(
-      (async () => {
-        try {
-          const cacheNames = await caches.keys();
-          await Promise.all(cacheNames.map((name) => caches.delete(name)));
-        } catch {
-          /* ignored */
-        }
+self.addEventListener("install", (_event) => {
+  self.skipWaiting();
+});
 
-        self.skipWaiting();
-      })(),
-    );
-  });
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches
+      .keys()
+      .then((keys) =>
+        Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))),
+      )
+      .then(() => self.clients.claim()),
+  );
+});
 
-  self.addEventListener("activate", (event) => {
-    event.waitUntil(
-      (async () => {
-        try {
-          const cacheNames = await caches.keys();
-          await Promise.all(cacheNames.map((name) => caches.delete(name)));
-        } catch {
-          /* ignored */
-        }
+self.addEventListener("fetch", (event) => {
+  const { request } = event;
+  if (request.method !== "GET") return;
 
-        try {
-          await self.registration.unregister();
-        } catch {
-          /* ignored */
-        }
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return;
 
-        await self.clients.claim();
-      })(),
-    );
-  });
-
-  self.addEventListener("fetch", (event) => {
-    const { request } = event;
-
-    if (request.method !== "GET") return;
-
-    event.respondWith(fetch(request, { cache: "no-store" }));
-  });
-} else {
-  self.addEventListener("install", (event) => {
-    event.waitUntil(
-      (async () => {
-        try {
-          const cacheNames = await caches.keys();
-          await Promise.all(cacheNames.map((name) => caches.delete(name)));
-        } catch {
-          /* ignored */
-        }
-
-        self.skipWaiting();
-      })(),
-    );
-  });
-
-  self.addEventListener("activate", (event) => {
-    event.waitUntil(
-      (async () => {
-        try {
-          const cacheNames = await caches.keys();
-          await Promise.all(cacheNames.map((name) => caches.delete(name)));
-        } catch {
-          /* ignored */
-        }
-
-        await self.clients.claim();
-
-        try {
-          await self.registration.unregister();
-        } catch {
-          /* ignored */
-        }
-
-        const allClients = await self.clients.matchAll({
-          type: "window",
-          includeUncontrolled: true,
-        });
-        allClients.forEach((client) => {
-          if ("navigate" in client) {
-            client.navigate(client.url).catch(() => {});
+  // Never cache dynamic content or localized JSON. This keeps changelog and
+  // other frequently edited data fresh while still allowing the browser's
+  // normal HTTP cache to work.
+  if (url.pathname.startsWith("/src/data/") || request.mode === "navigate") {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response.ok && request.mode === "navigate") {
+            const copy = response.clone();
+            caches
+              .open(CACHE_NAME)
+              .then((cache) => cache.put(request, copy))
+              .catch(() => {});
           }
-        });
-      })(),
+          return response;
+        })
+        .catch(() => caches.match(request)),
     );
-  });
+    return;
+  }
 
-  self.addEventListener("fetch", (event) => {
-    const { request } = event;
+  if (!STATIC_DESTINATIONS.has(request.destination)) return;
 
-    if (request.method !== "GET") return;
-
-    if (request.mode === "navigate" || request.destination === "document") {
-      event.respondWith(fetch(request, { cache: "no-store" }).catch(() => caches.match(request)));
-    }
-  });
-}
+  event.respondWith(
+    caches.match(request).then((cached) => {
+      if (cached) return cached;
+      return fetch(request).then((response) => {
+        if (response.ok) {
+          const copy = response.clone();
+          caches
+            .open(CACHE_NAME)
+            .then((cache) => cache.put(request, copy))
+            .catch(() => {});
+        }
+        return response;
+      });
+    }),
+  );
+});

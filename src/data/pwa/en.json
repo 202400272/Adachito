@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "Install AdashimaVerse — PWA Guide",
+    "description": "Learn what a Progressive Web App is, what AdashimaVerse can do as a PWA, and how to install it on your phone or computer."
+  },
+  "hero": {
+    "kicker": "ADASHIMAVERSE",
+    "title": "Install it like an app.",
+    "description": "AdashimaVerse is a <strong>Progressive Web App</strong>. Add it to your home screen or desktop for a quicker, app-like way to visit the archive.",
+    "install": "Install AdashimaVerse",
+    "installed": "Installed",
+    "guide": "See installation instructions"
+  },
+  "overview": {
+    "eyebrow": "THE SHORT VERSION",
+    "title": "So, what's a PWA?",
+    "intro": "A PWA is a website enhanced with web features that let it behave more like an installed application. There is no separate APK, EXE, or app-store download for AdashimaVerse.",
+    "cards": [
+      {"icon":"window-maximize","title":"A website with an app-like shell","text":"It can open in its own window and launch from an icon, while the content itself remains web-based."},
+      {"icon":"house","title":"Easy to access","text":"Put AdashimaVerse on your phone's home screen or in your computer's app launcher so the archive is one tap or click away."},
+      {"icon":"bolt","title":"Fast repeat visits","text":"Your browser can keep reusable site resources cached, which can make later visits feel faster when those resources are available locally."},
+      {"icon":"store","title":"No app store required","text":"Installation is handled by a supported browser. You do not need to find a separate AdashimaVerse listing in an app store."}
+    ]
+  },
+  "whatItMeans": {
+    "eyebrow": "WHAT YOU'RE ACTUALLY INSTALLING",
+    "title": "It's still the website — just packaged for easier access.",
+    "points": [
+      {"icon":"globe","title":"Web technology","text":"The PWA uses the same website, URLs, HTML, CSS, JavaScript, and content as the browser version."},
+      {"icon":"rocket","title":"App-like launch","text":"Once installed, your device can give AdashimaVerse its own icon and launch surface instead of making you open a browser tab first."},
+      {"icon":"arrows-rotate","title":"Updates come from the web","text":"There is no manual app-store update process. Changes to the site are delivered through normal web and service-worker update mechanisms."},
+      {"icon":"wifi","title":"Offline support depends on cached content","text":"AdashimaVerse has a service worker that can cache selected site resources. Not every page or piece of content is guaranteed to work offline, especially fresh data loaded from JSON."}
+    ]
+  },
+  "installation": {
+    "eyebrow": "HOW TO INSTALL",
+    "title": "Choose your device",
+    "intro": "The exact wording and location of the install option can vary by browser version and device.",
+    "guides": [
+      {
+        "icon":"android",
+        "label":"PHONE",
+        "title":"Android · Chrome",
+        "steps":["Open AdashimaVerse in Chrome.","Open the browser's <strong>⋮ menu</strong>.","Choose <strong>Install app</strong> or, on some setups, <strong>Add to Home screen</strong>.","Confirm the installation and look for the AdashimaVerse icon on your home screen or app list."],
+        "tip":"If Chrome offers an install prompt directly on the site, you can use that instead of opening the menu."
+      },
+      {
+        "icon":"desktop",
+        "label":"DESKTOP",
+        "title":"Chrome · Edge",
+        "steps":["Open AdashimaVerse in Chrome or Edge.","Look for an <strong>install icon</strong> in the address bar, or open the browser menu.","Select the option to <strong>Install AdashimaVerse</strong> (the wording may differ).","Confirm the installation. The PWA can then open in its own window and appear in your app list."],
+        "tip":"The install control may not appear until the page has finished loading and the browser decides that the site is installable."
+      },
+      {
+        "icon":"apple",
+        "label":"IPHONE / IPAD",
+        "title":"Safari",
+        "steps":["Open AdashimaVerse in Safari.","Tap the <strong>Share</strong> button.","Choose <strong>Add to Home Screen</strong>.","Adjust the name if you want, then tap <strong>Add</strong>."],
+        "tip":"On iPhone and iPad, Safari's Add to Home Screen flow is the normal way to save a web app to the home screen."
+      }
+    ]
+  },
+  "features": {
+    "eyebrow": "WHAT YOU GET",
+    "title": "What changes after installation?",
+    "items": [
+      {"icon":"house","title":"A dedicated icon","text":"Launch AdashimaVerse from your home screen or desktop instead of navigating to the URL each time."},
+      {"icon":"window-restore","title":"A cleaner launch experience","text":"On browsers and platforms that support standalone display, the site can open without the normal browser tab interface."},
+      {"icon":"database","title":"Some resources can be cached","text":"The service worker may retain selected static resources for faster repeat visits and limited offline behavior."},
+      {"icon":"cloud-arrow-down","title":"Fresh content still comes from the site","text":"News, localized JSON, and other dynamic data are deliberately fetched from the network so the archive can stay current."}
+    ]
+  },
+  "faq": {
+    "eyebrow": "GOOD TO KNOW",
+    "title": "Common questions",
+    "items": [
+      {"q":"Is this a normal app?","a":"It is a web app installed through your browser. It can have an app icon and an app-like launch experience, but its content is still delivered by the web."},
+      {"q":"Do I need an app store?","a":"No. A supported browser handles the installation. There is no separate AdashimaVerse app-store package required."},
+      {"q":"Will everything work without internet?","a":"Not necessarily. The service worker caches selected static resources, but fresh JSON data and other network-dependent content may still require an internet connection."},
+      {"q":"Why don't I see an Install button?","a":"The browser controls when a native install prompt is available. If it is not shown, use your device's installation instructions above, such as Add to Home Screen on iOS."},
+      {"q":"Will installing it use more storage?","a":"The browser may store the app shell, cached resources, and normal website data on your device. The amount varies with browser behavior and what you visit."},
+      {"q":"How does it update?","a":"The website remains web-based, so new content is normally fetched from the site. Cached static files are managed by the service worker and may update when the browser installs a newer worker/cache version."},
+      {"q":"Can I remove it later?","a":"Yes. Remove the AdashimaVerse web app using your device's normal uninstall or remove-from-home-screen controls. This does not remove the website from the internet."},
+      {"q":"Is there an APK or EXE I should download?","a":"No. Do not download a separate APK or EXE for AdashimaVerse. Use the browser installation flow described on this page."}
+    ]
+  }
+}

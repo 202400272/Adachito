@@ -9,7 +9,12 @@
   "info": {
     "title": "What is Adachi to Shimamura?",
     "subtitle": "An introduction for new readers",
-    "chips": ["Hitoma Iruma", "Yuri · Slice of Life", "Since 2013", "Dengeki Bunko"],
+    "chips": [
+      "Hitoma Iruma",
+      "Yuri · Slice of Life",
+      "Since 2013",
+      "Dengeki Bunko"
+    ],
     "paragraphs": [
       "<strong>Adachi to Shimamura</strong> (安達としまむら) is a Japanese yuri light novel series written by <strong>Hitoma Iruma</strong>. The series began serialization in <em>Dengeki Bunko Magazine</em> in October 2012, with its first volume published under the Dengeki Bunko imprint in March 2013. The original light novel illustrations were provided by <strong>Non</strong> for Volumes 1–8, followed by <strong>Shizue Kaneko</strong> for Volume 9 and <strong>Raemz</strong> from Volume 10 onward. Non continues to be credited with the character designs.",
       "<strong>Sakura Adachi</strong> and <strong>Hougetsu Shimamura</strong> are first-year high school students who meet while skipping class and begin spending time together on the second floor of their school's gymnasium. The two gradually become friends, talking about television, cooking, and other everyday subjects, occasionally playing table tennis, and developing a routine around their time together. For Adachi, however, the friendship gradually begins to feel like something more. As she becomes increasingly conscious of her feelings for Shimamura, she struggles with jealousy, uncertainty, and the difficulty of expressing what she wants from their relationship.",
@@ -146,5 +151,11 @@
     "successTitle": "Thank You!",
     "successText": "Your feedback has been received. Thank you for helping us improve the archive.",
     "footerBtn": "Send Feedback"
+  },
+  "pwaPromo": {
+    "title": "Install AdashimaVerse",
+    "text": "Add AdashimaVerse to your home screen for a cleaner, app-like way to browse the archive. No app store required.",
+    "installLabel": "Install PWA",
+    "guideLabel": "How does this work?"
   }
 }

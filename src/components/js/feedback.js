@@ -86,6 +86,7 @@ class FeedbackManager {
     this.overlay = this.modal.querySelector(".feedback-overlay");
 
     this.applyTranslation();
+    document.dispatchEvent(new CustomEvent("feedbackModalReady"));
 
     // Bind events
     this.bindEvents();

@@ -53,7 +53,12 @@
     <link rel="stylesheet" href="/src/css/lang-switch.css" />
     <link rel="stylesheet" href="/src/components/styles/pdf-reader.css" />
     <link rel="stylesheet" href="/src/css/novels/main.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <!-- pdf.js is no longer loaded here render-blocking on every page view.
+         novelas.js lazy-loads it on demand the moment someone opens the
+         reader (see loadPdfJsLibrary()). This preconnect just warms the DNS/TLS
+         connection ahead of time so that on-demand load isn't paying that
+         cost when it actually happens. -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
 
     <link rel="icon" type="image/x-icon" href="/assets/Imagenes/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/Imagenes/apple-touch-icon.webp" />
@@ -147,8 +152,12 @@
             >
             <span id="pdfVolumeTitle">Volumen</span>
           </h2>
-          <!-- Toolbar merged into header: primary controls stay visible, secondary
-               controls collapse behind "more" on narrow screens (see CSS) -->
+          <!-- Toolbar merged into header. Only page navigation stays inline —
+               everything else (zoom, page-jump, reading mode, theme,
+               thumbnails, fullscreen, downloads) lives in one dedicated
+               settings panel (#pdfToolbarSecondary), opened from the single
+               gear button. Same panel markup/behavior on desktop and mobile;
+               CSS only adjusts its width/position per breakpoint. -->
           <div class="pdf-toolbar pdf-toolbar-in-header">
             <div class="pdf-toolbar-primary">
               <button
@@ -177,160 +186,271 @@
               >
                 <i class="fas fa-chevron-right"></i>
               </button>
-              <input
-                type="number"
-                id="pageInputModal"
-                class="pdf-page-input"
-                min="1"
-                placeholder="Ir a"
-                data-i18n-placeholder-es="Ir a"
-                data-i18n-placeholder-en="Go to page"
-                data-i18n-placeholder-tg="Pumunta sa pahina"
-              />
+
+              <button
+                class="pdf-btn"
+                id="pdfSearchToggle"
+                title="Buscar en el documento (Ctrl+F)"
+                aria-label="Buscar en el documento"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-controls="pdfSearchBar"
+                data-i18n-title-es="Buscar en el documento (Ctrl+F)"
+                data-i18n-title-en="Search in document (Ctrl+F)"
+                data-i18n-title-tg="Maghanap sa dokumento (Ctrl+F)"
+                data-i18n-aria-es="Buscar en el documento"
+                data-i18n-aria-en="Search in document"
+                data-i18n-aria-tg="Maghanap sa dokumento"
+              >
+                <i class="fas fa-search"></i>
+              </button>
 
               <span class="pdf-toolbar-divider"></span>
 
               <button
-                class="pdf-btn"
-                id="pdfZoomOutModal"
-                title="Alejar (-)"
-                data-i18n-title-es="Alejar (-)"
-                data-i18n-title-en="Zoom out (-)"
-                data-i18n-title-tg="Mag-zoom out (-)"
-              >
-                <i class="fas fa-search-minus"></i>
-              </button>
-              <span class="pdf-zoom-display" id="zoomDisplayModal">100%</span>
-              <button
-                class="pdf-btn"
-                id="pdfZoomInModal"
-                title="Acercar (+)"
-                data-i18n-title-es="Acercar (+)"
-                data-i18n-title-en="Zoom in (+)"
-                data-i18n-title-tg="Mag-zoom in (+)"
-              >
-                <i class="fas fa-search-plus"></i>
-              </button>
-
-              <button
                 class="pdf-btn pdf-btn-more"
                 id="pdfMoreToggle"
-                title="Más opciones"
+                title="Ajustes"
+                aria-haspopup="true"
                 aria-expanded="false"
                 aria-controls="pdfToolbarSecondary"
-                data-i18n-title-es="Más opciones"
-                data-i18n-title-en="More options"
-                data-i18n-title-tg="Higit pang mga opsyon"
+                data-i18n-title-es="Ajustes"
+                data-i18n-title-en="Settings"
+                data-i18n-title-tg="Mga setting"
               >
-                <i class="fas fa-ellipsis-h"></i>
+                <i class="fas fa-sliders-h"></i>
               </button>
             </div>
 
-            <div class="pdf-toolbar-secondary" id="pdfToolbarSecondary">
-              <button
-                class="pdf-btn pdf-btn-cascade"
-                id="pdfCascadeToggle"
-                title="Modo cascada (scroll continuo)"
-                aria-pressed="false"
-                data-i18n-title-es="Modo cascada (scroll continuo)"
-                data-i18n-title-en="Cascade mode (continuous scroll)"
-                data-i18n-title-tg="Cascade mode (tuloy-tuloy na scroll)"
-              >
-                <i class="fas fa-grip-lines"></i>
+            <!-- Dims the reader and closes the panel on outside tap/click -->
+            <div class="pdf-settings-backdrop" id="pdfToolbarSecondaryBackdrop"></div>
+
+            <div
+              class="pdf-toolbar-secondary"
+              id="pdfToolbarSecondary"
+              role="dialog"
+              aria-modal="false"
+              aria-label="Ajustes del lector"
+            >
+              <div class="pdf-settings-header">
                 <span
-                  class="pdf-btn-label"
-                  data-i18n-es="Cascada"
-                  data-i18n-en="Cascade"
-                  data-i18n-tg="Cascade"
-                  >Cascada</span
+                  data-i18n-es="Ajustes"
+                  data-i18n-en="Settings"
+                  data-i18n-tg="Mga setting"
+                  >Ajustes</span
                 >
-              </button>
-              <button
-                class="pdf-btn pdf-btn-thumbnails"
-                id="pdfThumbnailToggle"
-                title="Miniaturas"
-                data-i18n-title-es="Miniaturas"
-                data-i18n-title-en="Thumbnails"
-                data-i18n-title-tg="Mga thumbnail"
-              >
-                <i class="fas fa-th"></i>
-                <span
-                  class="pdf-btn-label"
-                  data-i18n-es="Miniaturas"
-                  data-i18n-en="Thumbnails"
-                  data-i18n-tg="Thumbnail"
-                  >Miniaturas</span
+                <button
+                  class="pdf-btn pdf-settings-close"
+                  id="pdfSettingsClose"
+                  aria-label="Cerrar ajustes"
+                  title="Cerrar"
                 >
-              </button>
-              <button
-                class="pdf-btn pdf-btn-reset"
-                id="pdfZoomResetModal"
-                title="Restablecer zoom (0)"
-                data-i18n-title-es="Restablecer zoom (0)"
-                data-i18n-title-en="Reset zoom (0)"
-                data-i18n-title-tg="I-reset ang zoom (0)"
-              >
-                <i class="fas fa-sync-alt"></i>
-                <span
-                  class="pdf-btn-label"
-                  data-i18n-es="Ajustar"
-                  data-i18n-en="Adjust"
-                  data-i18n-tg="Ayusin"
-                  >Ajustar</span
-                >
-              </button>
-              <button
-                class="pdf-btn"
-                id="pdfFullscreenModal"
-                title="Pantalla completa (F)"
-                data-i18n-title-es="Pantalla completa (F)"
-                data-i18n-title-en="Fullscreen (F)"
-                data-i18n-title-tg="Buong screen (F)"
-              >
-                <i class="fas fa-expand" id="fsIconModal"></i>
-                <span
-                  class="pdf-btn-label"
-                  data-i18n-es="Pantalla completa"
-                  data-i18n-en="Fullscreen"
-                  data-i18n-tg="Buong screen"
-                  >Pantalla completa</span
-                >
-              </button>
-              <button
-                class="pdf-btn"
-                id="pdfDownloadModal"
-                title="Descargar PDF"
-                data-i18n-title-es="Descargar PDF"
-                data-i18n-title-en="Download PDF"
-                data-i18n-title-tg="I-download ang PDF"
-              >
-                <i class="fas fa-download"></i>
-                <span
-                  class="pdf-btn-label"
-                  data-i18n-es="Descargar"
-                  data-i18n-en="Download"
-                  data-i18n-tg="I-download"
-                  >Descargar</span
-                >
-              </button>
-              <button
-                class="pdf-btn"
-                id="epubDownloadModal"
-                title="Descargar EPUB"
-                style="display: none"
-                data-i18n-title-es="Descargar EPUB"
-                data-i18n-title-en="Download EPUB"
-                data-i18n-title-tg="I-download ang EPUB"
-              >
-                <i class="fas fa-book"></i>
-                <span
-                  class="pdf-btn-label"
-                  data-i18n-es="EPUB"
-                  data-i18n-en="EPUB"
-                  data-i18n-tg="EPUB"
-                  >EPUB</span
-                >
-              </button>
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+
+              <div class="pdf-settings-body">
+                <div class="pdf-settings-section">
+                  <div
+                    class="pdf-settings-section-title"
+                    data-i18n-es="Ir a la página"
+                    data-i18n-en="Go to page"
+                    data-i18n-tg="Pumunta sa pahina"
+                  >
+                    Ir a la página
+                  </div>
+                  <div class="pdf-settings-row">
+                    <input
+                      type="number"
+                      id="pageInputModal"
+                      class="pdf-page-input"
+                      min="1"
+                      placeholder="Ir a"
+                      data-i18n-placeholder-es="Ir a"
+                      data-i18n-placeholder-en="Go to page"
+                      data-i18n-placeholder-tg="Pumunta sa pahina"
+                    />
+                  </div>
+                </div>
+
+                <div class="pdf-settings-section">
+                  <div
+                    class="pdf-settings-section-title"
+                    data-i18n-es="Zoom"
+                    data-i18n-en="Zoom"
+                    data-i18n-tg="Zoom"
+                  >
+                    Zoom
+                  </div>
+                  <div class="pdf-settings-row pdf-settings-row-zoom">
+                    <button
+                      class="pdf-btn"
+                      id="pdfZoomOutModal"
+                      title="Alejar (-)"
+                      data-i18n-title-es="Alejar (-)"
+                      data-i18n-title-en="Zoom out (-)"
+                      data-i18n-title-tg="Mag-zoom out (-)"
+                    >
+                      <i class="fas fa-search-minus"></i>
+                    </button>
+                    <span class="pdf-zoom-display" id="zoomDisplayModal">100%</span>
+                    <button
+                      class="pdf-btn"
+                      id="pdfZoomInModal"
+                      title="Acercar (+)"
+                      data-i18n-title-es="Acercar (+)"
+                      data-i18n-title-en="Zoom in (+)"
+                      data-i18n-title-tg="Mag-zoom in (+)"
+                    >
+                      <i class="fas fa-search-plus"></i>
+                    </button>
+                    <button
+                      class="pdf-btn pdf-btn-reset"
+                      id="pdfZoomResetModal"
+                      title="Restablecer zoom (0)"
+                      data-i18n-title-es="Restablecer zoom (0)"
+                      data-i18n-title-en="Reset zoom (0)"
+                      data-i18n-title-tg="I-reset ang zoom (0)"
+                    >
+                      <i class="fas fa-sync-alt"></i>
+                      <span
+                        data-i18n-es="Ajustar"
+                        data-i18n-en="Reset"
+                        data-i18n-tg="Ayusin"
+                        >Ajustar</span
+                      >
+                    </button>
+                  </div>
+                </div>
+
+                <div class="pdf-settings-section">
+                  <div
+                    class="pdf-settings-section-title"
+                    data-i18n-es="Lectura"
+                    data-i18n-en="Reading"
+                    data-i18n-tg="Pagbasa"
+                  >
+                    Lectura
+                  </div>
+                  <div class="pdf-settings-item pdf-setting-select" id="pdfViewModeSetting">
+                    <i class="fas fa-file-alt" aria-hidden="true"></i>
+                    <label class="pdf-setting-toggle-label" for="pdfViewModeSelect">
+                      <span data-i18n-es="Modo de lectura" data-i18n-en="Reading mode" data-i18n-tg="Mode ng pagbasa">Modo de lectura</span>
+                    </label>
+                    <select id="pdfViewModeSelect" aria-label="Modo de lectura">
+                      <option value="single">Modo de página única</option>
+                      <option value="cascade">Modo cascada (scroll continuo)</option>
+                    </select>
+                  </div>
+                  <button
+                    class="pdf-settings-item pdf-setting-toggle"
+                    id="pdfTouchToggle"
+                    type="button"
+                    aria-pressed="true"
+                    title="Controles táctiles"
+                    data-i18n-title-es="Controles táctiles"
+                    data-i18n-title-en="Touch controls"
+                    data-i18n-title-tg="Mga touch control"
+                  >
+                    <i class="fas fa-hand-paper"></i>
+                    <span class="pdf-setting-toggle-label">Controles táctiles: activados</span>
+                    <span class="pdf-setting-switch" aria-hidden="true"><span></span></span>
+                  </button>
+                  <button
+                    class="pdf-settings-item"
+                    id="pdfThemeToggle"
+                    title="Tema de lectura (claro/sepia/oscuro)"
+                    data-i18n-title-es="Tema de lectura (claro/sepia/oscuro)"
+                    data-i18n-title-en="Reading theme (light/sepia/dark)"
+                    data-i18n-title-tg="Tema sa pagbasa (maliwanag/sepia/madilim)"
+                  >
+                    <i class="fas fa-adjust"></i>
+                    <span
+                      id="pdfThemeToggleLabel"
+                      data-i18n-es="Tema (claro/sepia/oscuro)"
+                      data-i18n-en="Theme (light/sepia/dark)"
+                      data-i18n-tg="Tema (maliwanag/sepia/madilim)"
+                      >Tema (claro/sepia/oscuro)</span
+                    >
+                  </button>
+                  <button
+                    class="pdf-settings-item"
+                    id="pdfThumbnailToggle"
+                    title="Miniaturas"
+                    data-i18n-title-es="Miniaturas"
+                    data-i18n-title-en="Thumbnails"
+                    data-i18n-title-tg="Mga thumbnail"
+                  >
+                    <i class="fas fa-th"></i>
+                    <span
+                      data-i18n-es="Miniaturas"
+                      data-i18n-en="Thumbnails"
+                      data-i18n-tg="Mga thumbnail"
+                      >Miniaturas</span
+                    >
+                  </button>
+                  <button
+                    class="pdf-settings-item"
+                    id="pdfFullscreenModal"
+                    title="Pantalla completa (F)"
+                    data-i18n-title-es="Pantalla completa (F)"
+                    data-i18n-title-en="Fullscreen (F)"
+                    data-i18n-title-tg="Buong screen (F)"
+                  >
+                    <i class="fas fa-expand" id="fsIconModal"></i>
+                    <span
+                      data-i18n-es="Pantalla completa"
+                      data-i18n-en="Fullscreen"
+                      data-i18n-tg="Buong screen"
+                      >Pantalla completa</span
+                    >
+                  </button>
+                </div>
+
+                <div class="pdf-settings-section">
+                  <div
+                    class="pdf-settings-section-title"
+                    data-i18n-es="Descargar"
+                    data-i18n-en="Download"
+                    data-i18n-tg="I-download"
+                  >
+                    Descargar
+                  </div>
+                  <button
+                    class="pdf-settings-item"
+                    id="pdfDownloadModal"
+                    title="Descargar PDF"
+                    data-i18n-title-es="Descargar PDF"
+                    data-i18n-title-en="Download PDF"
+                    data-i18n-title-tg="I-download ang PDF"
+                  >
+                    <i class="fas fa-download"></i>
+                    <span
+                      data-i18n-es="Descargar PDF"
+                      data-i18n-en="Download PDF"
+                      data-i18n-tg="I-download ang PDF"
+                      >Descargar PDF</span
+                    >
+                  </button>
+                  <button
+                    class="pdf-settings-item"
+                    id="epubDownloadModal"
+                    style="display: none"
+                    title="Descargar EPUB"
+                    data-i18n-title-es="Descargar EPUB"
+                    data-i18n-title-en="Download EPUB"
+                    data-i18n-title-tg="I-download ang EPUB"
+                  >
+                    <i class="fas fa-book"></i>
+                    <span
+                      data-i18n-es="Descargar EPUB"
+                      data-i18n-en="Download EPUB"
+                      data-i18n-tg="I-download ang EPUB"
+                      >Descargar EPUB</span
+                    >
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
           <button
@@ -342,6 +462,14 @@
             data-i18n-aria-tg="Isara ang mambabasa"
           >
             <i class="fas fa-times"></i>
+          </button>
+          <button
+            class="pdf-exit-fullscreen"
+            id="pdfExitFullscreenModal"
+            aria-label="Salir de pantalla completa"
+            title="Salir de pantalla completa"
+          >
+            <i class="fas fa-compress"></i>
           </button>
         </div>
         <div class="pdf-modal-body">
@@ -362,6 +490,118 @@
 
             <div class="pdf-progress-wrap">
               <div class="pdf-progress-fill" id="pdfProgressModal" style="width: 0%"></div>
+            </div>
+
+            <!-- In-document text search ("find in document"): text is extracted
+                 per page via pdf.js getTextContent() as the book is read, then
+                 matched here; jumping to a match highlights it on the page. -->
+            <div class="pdf-search-bar" id="pdfSearchBar" hidden>
+              <i class="fas fa-search pdf-search-icon"></i>
+              <input
+                type="text"
+                id="pdfSearchInput"
+                class="pdf-search-input"
+                placeholder="Buscar en el documento…"
+                data-i18n-placeholder-es="Buscar en el documento…"
+                data-i18n-placeholder-en="Search in document…"
+                data-i18n-placeholder-tg="Maghanap sa dokumento…"
+                autocomplete="off"
+              />
+              <span class="pdf-search-counter" id="pdfSearchCounter"></span>
+              <button
+                class="pdf-btn"
+                id="pdfSearchPrev"
+                title="Anterior"
+                aria-label="Previous match"
+                data-i18n-title-es="Anterior"
+                data-i18n-title-en="Previous match"
+                data-i18n-title-tg="Nakaraan"
+              >
+                <i class="fas fa-chevron-up"></i>
+              </button>
+              <button
+                class="pdf-btn"
+                id="pdfSearchNext"
+                title="Siguiente"
+                aria-label="Next match"
+                data-i18n-title-es="Siguiente"
+                data-i18n-title-en="Next match"
+                data-i18n-title-tg="Susunod"
+              >
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <button
+                class="pdf-btn"
+                id="pdfSearchClose"
+                title="Cerrar búsqueda"
+                aria-label="Close search"
+                data-i18n-title-es="Cerrar búsqueda"
+                data-i18n-title-en="Close search"
+                data-i18n-title-tg="Isara ang paghahanap"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+
+            <!-- First-time reading hint: tap zones, swipe, chrome toggle, shortcuts.
+                 Shown once per browser (localStorage flag), dismissible. -->
+            <div class="pdf-reader-hint" id="pdfReaderHint" hidden>
+              <div class="pdf-reader-hint-card">
+                <h3
+                  data-i18n-es="Cómo usar el lector"
+                  data-i18n-en="How to use the reader"
+                  data-i18n-tg="Paano gamitin ang mambabasa"
+                >
+                  Cómo usar el lector
+                </h3>
+                <ul>
+                  <li>
+                    <i class="fas fa-hand-pointer"></i>
+                    <span
+                      data-i18n-es="Toca los bordes izq./der. (o desliza) para cambiar de página"
+                      data-i18n-en="Tap the left/right edges (or swipe) to turn pages"
+                      data-i18n-tg="Tapikin ang kaliwa/kanang gilid (o mag-swipe) para lumipat ng pahina"
+                    >
+                      Toca los bordes izq./der. (o desliza) para cambiar de página
+                    </span>
+                  </li>
+                  <li>
+                    <i class="fas fa-arrows-alt-v"></i>
+                    <span
+                      data-i18n-es="Toca el centro para ocultar o mostrar los controles"
+                      data-i18n-en="Tap the center to hide or show the controls"
+                      data-i18n-tg="Tapikin ang gitna para itago o ipakita ang mga kontrol"
+                    >
+                      Toca el centro para ocultar o mostrar los controles
+                    </span>
+                  </li>
+                  <li>
+                    <i class="fas fa-grip-lines"></i>
+                    <span
+                      data-i18n-es="Prueba el modo cascada para leer con scroll continuo"
+                      data-i18n-en="Try cascade mode to read with continuous scroll"
+                      data-i18n-tg="Subukan ang cascade mode para sa tuloy-tuloy na scroll"
+                    >
+                      Prueba el modo cascada para leer con scroll continuo
+                    </span>
+                  </li>
+                  <li>
+                    <i class="fas fa-search-plus"></i>
+                    <span
+                      data-i18n-es="Pellizca con dos dedos o toca dos veces para hacer zoom"
+                      data-i18n-en="Pinch with two fingers or double-tap to zoom"
+                      data-i18n-tg="I-pinch ng dalawang daliri o i-double tap para mag-zoom"
+                    >
+                      Pellizca con dos dedos o toca dos veces para hacer zoom
+                    </span>
+                  </li>
+                </ul>
+                <button class="btn" id="pdfReaderHintDismiss">
+                  <span data-i18n-es="Entendido" data-i18n-en="Got it" data-i18n-tg="Nakuha ko">
+                    Entendido
+                  </span>
+                </button>
+              </div>
             </div>
 
             <!-- Main Body with Thumbnails Sidebar -->

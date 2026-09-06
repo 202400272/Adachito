@@ -1,0 +1,174 @@
+{
+  "meta": {
+    "title": "Instalar AdashimaVerse — Guía PWA",
+    "description": "Descubre qué es una Progressive Web App, qué ofrece AdashimaVerse como PWA y cómo instalarla en tu teléfono o computadora."
+  },
+  "hero": {
+    "kicker": "ADASHIMAVERSE",
+    "title": "Instálalo como una app.",
+    "description": "AdashimaVerse es una <strong>Progressive Web App</strong>. Añádela a tu pantalla de inicio o escritorio para acceder al archivo de forma rápida y con una experiencia similar a una app.",
+    "install": "Instalar AdashimaVerse",
+    "installed": "Instalado",
+    "guide": "Ver instrucciones de instalación"
+  },
+  "overview": {
+    "eyebrow": "LA VERSIÓN CORTA",
+    "title": "Entonces, ¿qué es una PWA?",
+    "intro": "Una PWA es un sitio web mejorado con funciones que permiten que se comporte más como una aplicación instalada. No necesitas un APK, EXE ni una descarga desde una tienda para AdashimaVerse.",
+    "cards": [
+      {
+        "icon": "window-maximize",
+        "title": "Un sitio web con aspecto de app",
+        "text": "Puede abrirse en su propia ventana y lanzarse desde un icono, aunque el contenido siga siendo web."
+      },
+      {
+        "icon": "house",
+        "title": "Fácil de acceder",
+        "text": "Pon AdashimaVerse en la pantalla de inicio del teléfono o en el lanzador de aplicaciones del ordenador."
+      },
+      {
+        "icon": "bolt",
+        "title": "Visitas repetidas más rápidas",
+        "text": "El navegador puede conservar recursos reutilizables en caché, haciendo que algunas visitas posteriores se sientan más rápidas."
+      },
+      {
+        "icon": "store",
+        "title": "Sin tienda de aplicaciones",
+        "text": "La instalación la gestiona un navegador compatible. No necesitas buscar una aplicación separada en una tienda."
+      }
+    ]
+  },
+  "whatItMeans": {
+    "eyebrow": "QUÉ ESTÁS INSTALANDO REALMENTE",
+    "title": "Sigue siendo el sitio web, solo que preparado para acceder a él más fácilmente.",
+    "points": [
+      {
+        "icon": "globe",
+        "title": "Tecnología web",
+        "text": "Usa el mismo sitio, URLs, HTML, CSS, JavaScript y contenido que la versión del navegador."
+      },
+      {
+        "icon": "rocket",
+        "title": "Inicio como app",
+        "text": "Tras instalarla, el dispositivo puede mostrar su propio icono y una superficie de inicio independiente."
+      },
+      {
+        "icon": "arrows-rotate",
+        "title": "Las actualizaciones llegan desde la web",
+        "text": "No existe un proceso de actualización manual mediante una tienda. Los cambios llegan mediante la web y los mecanismos del service worker."
+      },
+      {
+        "icon": "wifi",
+        "title": "El modo sin conexión depende de la caché",
+        "text": "AdashimaVerse tiene un service worker que puede guardar determinados recursos. No todas las páginas ni todos los datos están garantizados sin conexión."
+      }
+    ]
+  },
+  "installation": {
+    "eyebrow": "CÓMO INSTALAR",
+    "title": "Elige tu dispositivo",
+    "intro": "El texto y la ubicación de la opción de instalación pueden variar según la versión del navegador y el dispositivo.",
+    "guides": [
+      {
+        "icon": "android",
+        "label": "TELÉFONO",
+        "title": "Android · Chrome",
+        "steps": [
+          "Abre AdashimaVerse en Chrome.",
+          "Abre el <strong>menú ⋮</strong> del navegador.",
+          "Elige <strong>Instalar aplicación</strong> o, en algunos dispositivos, <strong>Añadir a pantalla de inicio</strong>.",
+          "Confirma la instalación y busca el icono de AdashimaVerse."
+        ],
+        "tip": "Si Chrome muestra directamente un aviso de instalación, puedes usarlo."
+      },
+      {
+        "icon": "desktop",
+        "label": "ESCRITORIO",
+        "title": "Chrome · Edge",
+        "steps": [
+          "Abre AdashimaVerse en Chrome o Edge.",
+          "Busca el <strong>icono de instalación</strong> en la barra de direcciones o abre el menú.",
+          "Selecciona <strong>Instalar AdashimaVerse</strong> (el texto puede variar).",
+          "Confirma la instalación. La PWA podrá abrirse en su propia ventana."
+        ],
+        "tip": "Puede que el control no aparezca hasta que la página termine de cargar y el navegador determine que el sitio es instalable."
+      },
+      {
+        "icon": "apple",
+        "label": "IPHONE / IPAD",
+        "title": "Safari",
+        "steps": [
+          "Abre AdashimaVerse en Safari.",
+          "Toca el botón <strong>Compartir</strong>.",
+          "Elige <strong>Añadir a pantalla de inicio</strong>.",
+          "Toca <strong>Añadir</strong> para terminar."
+        ],
+        "tip": "En iPhone y iPad, Safari utiliza normalmente el flujo Añadir a pantalla de inicio."
+      }
+    ]
+  },
+  "features": {
+    "eyebrow": "QUÉ OBTIENES",
+    "title": "¿Qué cambia después de instalarla?",
+    "items": [
+      {
+        "icon": "house",
+        "title": "Un icono propio",
+        "text": "Abre AdashimaVerse desde la pantalla de inicio o el escritorio sin escribir la URL cada vez."
+      },
+      {
+        "icon": "window-restore",
+        "title": "Una experiencia de inicio más limpia",
+        "text": "En plataformas compatibles, puede abrirse sin la interfaz normal de pestañas del navegador."
+      },
+      {
+        "icon": "database",
+        "title": "Algunos recursos pueden guardarse en caché",
+        "text": "El service worker puede conservar recursos estáticos para acelerar visitas posteriores y ofrecer un modo sin conexión limitado."
+      },
+      {
+        "icon": "cloud-arrow-down",
+        "title": "El contenido nuevo sigue viniendo del sitio",
+        "text": "Las noticias, los JSON localizados y otros datos dinámicos se solicitan de la red para mantener el archivo actualizado."
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "BUENO SABERLO",
+    "title": "Preguntas frecuentes",
+    "items": [
+      {
+        "q": "¿Es una aplicación normal?",
+        "a": "Es una aplicación web instalada mediante el navegador. Puede tener icono y una experiencia de inicio similar a una app, pero su contenido sigue llegando desde la web."
+      },
+      {
+        "q": "¿Necesito una tienda de aplicaciones?",
+        "a": "No. Un navegador compatible gestiona la instalación."
+      },
+      {
+        "q": "¿Todo funcionará sin internet?",
+        "a": "No necesariamente. El service worker guarda determinados recursos estáticos, pero los JSON y otros contenidos que dependen de la red pueden necesitar conexión."
+      },
+      {
+        "q": "¿Por qué no veo el botón Instalar?",
+        "a": "El navegador decide cuándo puede mostrar el aviso de instalación. Si no aparece, usa las instrucciones del dispositivo, como Añadir a pantalla de inicio en iOS."
+      },
+      {
+        "q": "¿Usará más almacenamiento?",
+        "a": "El navegador puede guardar el contenido de la app, recursos en caché y datos normales del sitio. La cantidad depende del navegador y de lo que visites."
+      },
+      {
+        "q": "¿Cómo se actualiza?",
+        "a": "El sitio sigue siendo web, así que el contenido nuevo normalmente se solicita al sitio. Los archivos en caché son gestionados por el service worker."
+      },
+      {
+        "q": "¿Puedo quitarla después?",
+        "a": "Sí. Elimina la aplicación web con los controles normales de tu dispositivo. El sitio web seguirá existiendo."
+      },
+      {
+        "q": "¿Debo descargar un APK o EXE?",
+        "a": "No. No descargues un APK o EXE separado. Usa el flujo de instalación del navegador."
+      }
+    ]
+  }
+}

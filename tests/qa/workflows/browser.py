@@ -8,8 +8,8 @@ def _goto(page, base, route):
 
 
 def smoke(page, base, mobile=False, progress_callback=None):
-    failures=[]; checked=0; errors=[]; requests=[]
-    page.on('pageerror', lambda e: errors.append(str(e)))
+    failures=[]; checked=0; errors=[]; requests=[]; current_route='/'
+    page.on('pageerror', lambda e: errors.append(f"{current_route}: {e}"))
     page.on('requestfailed', lambda r: requests.append(f"{r.method} {r.url}"))
     # Bound every action on this page, not just navigation. Without this,
     # actions like page.evaluate() fall back to Playwright's default (30s),
@@ -18,6 +18,7 @@ def smoke(page, base, mobile=False, progress_callback=None):
     page.set_default_timeout(8000)
     total = len(ROUTES)
     for i, route in enumerate(ROUTES, 1):
+        current_route = route
         label = 'Mobile' if mobile else 'Desktop'
         print(f"  {label}: opening all pages · {i}/{total} · {route}", flush=True)
         if progress_callback:
@@ -43,13 +44,14 @@ def accordion(page,base):
     t=page.locator('#infoToggle'); c=page.locator('#infoContent')
     if not (t.count() and c.count()): return Result('Browser','Homepage explanation','SKIP','This section is not present on the current homepage.')
     try:
+        page.wait_for_function("document.documentElement.dataset.infoToggleBound === 'true'")
         # The panel animates open/closed over ~0.4-0.6s (see .info-content's
         # max-height transition in index.css). Wait past that instead of
         # racing it, or the visibility check can fire mid-transition.
-        t.click(); page.wait_for_timeout(650)
-        opened=not c.is_hidden() and t.get_attribute('aria-expanded')=='true'
-        t.click(); page.wait_for_timeout(650)
-        closed=c.is_hidden() and t.get_attribute('aria-expanded')=='false'
+        t.click(); page.wait_for_function("document.querySelector('#infoToggle')?.getAttribute('aria-expanded') === 'true'")
+        opened=t.get_attribute('aria-expanded')=='true'
+        t.click(); page.wait_for_function("document.querySelector('#infoToggle')?.getAttribute('aria-expanded') === 'false'")
+        closed=t.get_attribute('aria-expanded')=='false'
         ok=opened and closed
         return Result('Browser','Homepage explanation','PASS' if ok else 'FAIL','Opened and closed correctly.' if ok else 'The expandable section did not open and close correctly.',[] if ok else ['Expected it to open after the first click and close after the second.'],1)
     except Exception as e:return Result('Browser','Homepage explanation','FAIL',f'Could not use the expandable section: {e}',severity='normal')

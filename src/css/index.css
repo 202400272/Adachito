@@ -6799,6 +6799,20 @@ body.time-morning .story-grid .nav-card {
   background: rgba(247, 250, 253, 0.72) !important;
   border-color: rgba(95, 134, 170, 0.16) !important;
 }
+body.time-morning .story-grid .story-card-kicker {
+  color: #465a7d !important;
+  opacity: 1 !important;
+}
+body.time-morning .story-grid .story-card-title,
+body.time-morning .story-grid .nav-card-featured .story-card-title,
+body.time-morning .story-grid .nav-card-side .story-card-title {
+  color: #3c3a4d !important;
+}
+body.time-morning .story-grid .story-card-desc,
+body.time-morning .story-grid .nav-card-featured .story-card-desc,
+body.time-morning .story-grid .nav-card-side .story-card-desc {
+  color: rgba(60, 68, 83, 0.82) !important;
+}
 body.time-morning .story-grid .story-card-icon,
 body.time-morning .story-grid .story-card-decor {
   color: #5f86aa !important;

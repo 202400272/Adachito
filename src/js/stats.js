@@ -1607,17 +1607,21 @@ function initScrollSpy() {
   }
 
   let ticking = false;
-  window.addEventListener("scroll", function () {
-    if (!ticking) {
-      window.requestAnimationFrame(function () {
-        updateActiveSection();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!ticking) {
+        window.requestAnimationFrame(function () {
+          updateActiveSection();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    },
+    { passive: true },
+  );
 
-  window.addEventListener("resize", updateActiveSection);
+  window.addEventListener("resize", updateActiveSection, { passive: true });
 }
 
 let sectionObserver = null;
