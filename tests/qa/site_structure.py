@@ -8,7 +8,7 @@ def _page_path(route):
     route=route.split('#',1)[0].split('?',1)[0]
     if not route or route=='/': return 'index.html'
     route=route.lstrip('/')
-    if route in {'privacy', 'terms'}:
+    if route.lower() in {'privacy', 'terms'}:
         return f'src/pages/{route.capitalize()}.html'
     if route.startswith('Adashima_'):
         return f'src/pages/{route}.html'

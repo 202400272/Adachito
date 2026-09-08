@@ -49,9 +49,8 @@ const previewRoutes = {
   "/otros/Author_Archive": "src/pages/otros/Author_Archive.html",
   "/otros/Web_Stories": "src/pages/otros/Web_Stories.html",
   "/Adashima_PWA": "src/pages/Adashima_PWA.html",
-  "/privacy": "src/pages/Privacy.html",
-  "/terms": "src/pages/Terms.html",
-  "/otros/Web_Stories": "src/pages/otros/Web_Stories.html",
+  "/Privacy": "src/pages/Privacy.html",
+  "/Terms": "src/pages/Terms.html",
 };
 
 function themeBootstrap() {
@@ -403,6 +402,16 @@ function cleanRoutes() {
   const legacyRoutes = {
     "/src/pages/Adashima_PWA": "/Adashima_PWA",
     "/src/pages/Adashima_PWA.html": "/Adashima_PWA",
+    "/privacy": "/Privacy",
+    "/terms": "/Terms",
+    "/src/pages/Privacy": "/Privacy",
+    "/src/pages/Privacy.html": "/Privacy",
+    "/src/pages/Terms": "/Terms",
+    "/src/pages/Terms.html": "/Terms",
+    "/src/pages/otros/Author_Archive": "/otros/Author_Archive",
+    "/src/pages/otros/Author_Archive.html": "/otros/Author_Archive",
+    "/src/pages/otros/Web_Stories": "/otros/Web_Stories",
+    "/src/pages/otros/Web_Stories.html": "/otros/Web_Stories",
   };
 
   function redirectLegacyRoute(req, res) {

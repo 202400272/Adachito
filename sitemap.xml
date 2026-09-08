@@ -86,12 +86,12 @@
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://adashimaverse.com/privacy</loc>
+    <loc>https://adashimaverse.com/Privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.1</priority>
   </url>
   <url>
-    <loc>https://adashimaverse.com/terms</loc>
+    <loc>https://adashimaverse.com/Terms</loc>
     <changefreq>yearly</changefreq>
     <priority>0.1</priority>
   </url>

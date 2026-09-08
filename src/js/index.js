@@ -639,7 +639,7 @@ function renderNav(data) {
   if (!grid) return;
 
   const navItems = Array.isArray(data?.nav?.items) ? data.nav.items : [];
-  const featuredKeys = ["novels", "manga", "anime"];
+  const featuredKeys = ["novels", "anime", "manga"];
   const moreKeys = [
     "extraStories",
     "drama",

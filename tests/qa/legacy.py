@@ -151,8 +151,8 @@ def resource_exists(href, source):
     # and the Vite preview route table. They do not have a same-named source
     # file, so treating them as ordinary filesystem paths creates false failures.
     clean_routes = {
-        "/privacy": ROOT / "src/pages/Privacy.html",
-        "/terms": ROOT / "src/pages/Terms.html",
+        "/Privacy": ROOT / "src/pages/Privacy.html",
+        "/Terms": ROOT / "src/pages/Terms.html",
     }
     if clean in clean_routes:
         return clean_routes[clean].is_file()

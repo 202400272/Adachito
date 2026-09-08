@@ -13,9 +13,9 @@
 /Adashima_Otros          /src/pages/Adashima_Otros           200
 /Adashima_Stats          /src/pages/Adashima_Stats           200
 /Juego                   /src/pages/Juego                     200
-/Author_Archive            /src/pages/otros/Author_Archive.html      200
-/otros/Author_Archive      /src/pages/otros/Author_Archive.html      200
-/otros/Author_Archive.html /src/pages/otros/Author_Archive.html      200
+/Author_Archive            /src/pages/otros/Author_Archive              200
+/otros/Author_Archive      /src/pages/otros/Author_Archive              200
+/otros/Author_Archive.html /src/pages/otros/Author_Archive              200
 
 /src/pages/Adashima_PWA     /Adashima_PWA                         301
 /src/pages/Adashima_PWA.html /Adashima_PWA                         301
@@ -23,6 +23,16 @@
 # Optional SPA catch-all (uncomment if you want unknown routes to serve index.html)
 # /*  /index.html  200
 /Adashima_PWA /src/pages/Adashima_PWA 200
-/privacy /src/pages/Privacy.html 200
-/terms /src/pages/Terms.html 200
-/otros/Web_Stories /src/pages/otros/Web_Stories.html 200
+/Privacy /src/pages/Privacy 200
+/Terms /src/pages/Terms 200
+/privacy /Privacy 301
+/terms /Terms 301
+/src/pages/Privacy /Privacy 301
+/src/pages/Privacy.html /Privacy 301
+/src/pages/Terms /Terms 301
+/src/pages/Terms.html /Terms 301
+/src/pages/otros/Author_Archive /otros/Author_Archive 301
+/src/pages/otros/Author_Archive.html /otros/Author_Archive 301
+/src/pages/otros/Web_Stories /otros/Web_Stories 301
+/src/pages/otros/Web_Stories.html /otros/Web_Stories 301
+/otros/Web_Stories /src/pages/otros/Web_Stories 200
