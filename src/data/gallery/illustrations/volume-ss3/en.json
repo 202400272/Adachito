@@ -1,0 +1,107 @@
+{
+  "artworks": [
+    {
+      "id": 1,
+      "title": "Adachi's Departure",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeSS3/CI01.png",
+      "publication": "Adachi to Shimamura Light Novel Volume SS3",
+      "date": "2025-01-01",
+      "collection": "VOLUME SS3",
+      "type": "illustration",
+      "tags": ["illustration", "volume-ss3", "special", "side-story"],
+      "featured": true
+    },
+    {
+      "id": 2,
+      "title": "Hey, you there. Want to try being Shimamura for a little while?",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeSS3/CI02.png",
+      "publication": "Adachi to Shimamura Light Novel Volume SS3",
+      "date": "2025-01-01",
+      "collection": "VOLUME SS3",
+      "type": "illustration",
+      "tags": ["illustration", "volume-ss3", "special", "side-story"],
+      "featured": false
+    },
+    {
+      "id": 3,
+      "title": "Shimamura and the Yakiniku Restaurant",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeSS3/01.png",
+      "publication": "Adachi to Shimamura Light Novel Volume SS3",
+      "date": "2025-01-01",
+      "collection": "VOLUME SS3",
+      "type": "illustration",
+      "tags": ["illustration", "volume-ss3", "special", "side-story"],
+      "featured": false
+    },
+    {
+      "id": 4,
+      "title": "Love Again",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeSS3/02.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume SS3",
+      "date": "2025-01-01",
+      "collection": "VOLUME SS3",
+      "type": "illustration",
+      "tags": ["illustration", "volume-ss3", "special", "side-story"],
+      "featured": false
+    },
+    {
+      "id": 5,
+      "title": "Hamburg Construction",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeSS3/03.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume SS3",
+      "date": "2025-01-01",
+      "collection": "VOLUME SS3",
+      "type": "illustration",
+      "tags": ["illustration", "volume-ss3", "special", "side-story"],
+      "featured": false
+    },
+    {
+      "id": 6,
+      "title": "Hey, you there. Want to try being Shimamura for a little while?",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeSS3/04.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume SS3",
+      "date": "2025-01-01",
+      "collection": "VOLUME SS3",
+      "type": "illustration",
+      "tags": ["illustration", "volume-ss3", "special", "side-story"],
+      "featured": false
+    },
+    {
+      "id": 7,
+      "title": "On a Southern Island",
+      "artist": "Raemz",
+      "artistCaption": "Illustration by Raemz",
+      "image": "https://pub-669d8b8b8b7c4f8d92985f2a8392663d.r2.dev/gallery/volumeSS3/05.jpg",
+      "publication": "Adachi to Shimamura Light Novel Volume SS3",
+      "date": "2025-01-01",
+      "collection": "VOLUME SS3",
+      "type": "illustration",
+      "tags": ["illustration", "volume-ss3", "special", "side-story"],
+      "featured": false
+    }
+  ],
+  "uiText": {
+    "searchPlaceholder": "Search Volume SS3 illustrations...",
+    "publicationLabel": "Publication",
+    "dateLabel": "Date",
+    "collectionLabel": "Collection",
+    "tagsLabel": "Tags"
+  },
+  "artists": {
+    "Raemz": {
+      "bio": "Raemz is the illustrator for the Adachi to Shimamura light novel series from Volume 10 onwards, bringing a fresh and vibrant style to the series."
+    }
+  }
+}

@@ -88,6 +88,7 @@ const VOLUME_DEFINITIONS = [
   { path: "volume-13", label: "VOLUME 13", enabled: true },
   { path: "volume-ss", label: "VOLUME SS", enabled: true },
   { path: "volume-ss2", label: "VOLUME SS2", enabled: true },
+  { path: "volume-ss3", label: "VOLUME SS3", enabled: true },
   { path: "volume-99", label: "VOLUME 99.9", enabled: true },
 ];
 
