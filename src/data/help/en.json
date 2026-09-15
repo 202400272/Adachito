@@ -188,6 +188,18 @@
         {
           "question": "What happens if I clear my browser data?",
           "answer": "Some site preferences and local reading data are stored in your browser. Clearing the site's local storage or browsing data can remove things such as Extra Stories bookmarks, reading progress, reader preferences, or language/settings saved locally."
+        },
+        {
+          "question": "How does the EPUB reader work?",
+          "answer": "The EPUB reader opens the book directly in the browser and supports <strong>Light, Sepia, Dark, and AMOLED themes</strong>, font controls, line spacing, reading width, text alignment, paragraph spacing, search, a table of contents, fullscreen, and <strong>Continuous Scroll</strong> mode. Your EPUB reading position and reader preferences are saved locally in your browser."
+        },
+        {
+          "question": "Why does Continuous Scroll move past illustrations automatically?",
+          "answer": "Some EPUBs store a full-page illustration or a short section as a separate EPUB document. In <strong>Continuous Scroll</strong> mode, reaching the bottom now automatically opens the next EPUB section, so you do not have to press the Next button just to continue reading. The Previous/Next controls are still available for manual navigation."
+        },
+        {
+          "question": "Can I preview EPUB settings on mobile?",
+          "answer": "Yes. The EPUB reader's settings panel includes a <strong>live reading preview</strong>. It updates while you change the theme, font, size, weight, spacing, alignment, and other typography settings, so you can see the result without closing the settings panel."
         }
       ]
     },
@@ -216,6 +228,10 @@
         {
           "question": "What are Timeline and Constellation for?",
           "answer": "<strong>Timeline</strong> is for chronological reference, while <strong>Constellation</strong> is an interactive reference feature for exploring relationships and details across the series. They are useful when you want context rather than simply reading a volume."
+        },
+        {
+          "question": "How do the main applications differ?",
+          "answer": "<strong>Novels</strong> are the main light-novel archive and provide PDF/EPUB reading; <strong>Manga</strong> focuses on visual PDF reading and cascade mode; <strong>Extra Stories</strong> provides supplementary stories with bookmarks and progress; <strong>Music</strong> provides album/track playback, favorites, and a queue; <strong>Anime</strong> provides episode playback, source selection, and progress; <strong>Drama CD</strong> provides a channel-style audio experience; <strong>Gallery</strong> organizes illustrations and covers; <strong>Timeline</strong>, <strong>Constellation</strong>, and <strong>Stats</strong> are reference/exploration tools; and <strong>Others</strong> contains miscellaneous resources."
         }
       ]
     },

@@ -9,12 +9,7 @@
   "info": {
     "title": "Ano ang Adachi to Shimamura?",
     "subtitle": "Isang panimula para sa mga bagong mambabasa",
-    "chips": [
-      "Hitoma Iruma",
-      "Yuri · Slice of Life",
-      "Mula noong 2013",
-      "Dengeki Bunko"
-    ],
+    "chips": ["Hitoma Iruma", "Yuri · Slice of Life", "Mula noong 2013", "Dengeki Bunko"],
     "paragraphs": [
       "<strong>Adachi to Shimamura</strong> (安達としまむら) ay isang Japanese yuri light novel series na isinulat ni <strong>Hitoma Iruma</strong>. Unang inilathala ang serye sa <em>Dengeki Bunko Magazine</em> noong Oktubre 2012, bago inilabas ang unang volume nito sa ilalim ng Dengeki Bunko imprint noong Marso 2013. Ang mga orihinal na ilustrasyon ng light novel ay iginuhit ni <strong>Non</strong> para sa Volumes 1–8, sinundan ni <strong>Shizue Kaneko</strong> para sa Volume 9, at ni <strong>Raemz</strong> mula Volume 10 pataas. Patuloy pa ring kinikilala si Non bilang character designer ng serye.",
       "<strong>Sakura Adachi</strong> at <strong>Hougetsu Shimamura</strong> ay mga first-year high school student na nagkakilala matapos nilang parehong mag-skip ng klase at magsimulang magpalipas ng oras sa ikalawang palapag ng gymnasium ng kanilang paaralan. Sa paglipas ng panahon, naging magkaibigan sila. Nagkukuwentuhan sila tungkol sa mga palabas sa telebisyon, pagluluto, at iba pang maliliit na bagay sa kanilang pang-araw-araw na buhay. Paminsan-minsan, naglalaro rin sila ng table tennis, hanggang sa unti-unting mabuo ang sarili nilang routine tuwing magkasama sila. Para kay Adachi, gayunpaman, ang nararamdaman niya ay nagsisimulang lumampas sa pagkakaibigan. Habang lalo niyang namamalayan ang kanyang damdamin para kay Shimamura, lalo rin siyang nahihirapang harapin ang selos at pag-aalinlangan, pati na ang hirap ng pagsasabi kung ano ba talaga ang gusto niya para sa relasyon nilang dalawa.",
@@ -157,5 +152,81 @@
     "text": "Idagdag ang AdashimaVerse sa iyong home screen para sa mas malinis at parang app na paraan ng pag-browse sa archive. Hindi kailangan ng app store.",
     "installLabel": "I-install ang PWA",
     "guideLabel": "Paano ito gumagana?"
+  },
+  "search": {
+    "sectionLabel": "Mga kontrol sa paghahanap sa archive",
+    "triggerLabel": "Maghanap sa archive",
+    "placeholder": "Maghanap sa archive...",
+    "inputPlaceholder": "Maghanap ng nobela, manga, musika, stories o gallery...",
+    "hint": "Maghanap sa novels, manga, music, stories, at gallery.",
+    "dialogTitle": "Maghanap sa archive",
+    "filtersLabel": "Mga kategorya ng paghahanap",
+    "resultsLabel": "Mga resulta ng paghahanap",
+    "status": {
+      "start": "Mag-type para maghanap sa buong archive.",
+      "loading": "Ginagawa ang search index...",
+      "none": "Walang nahanap. Subukan ang ibang pamagat o keyword."
+    },
+    "resultCount": {
+      "singular": "resulta",
+      "plural": "resulta"
+    },
+    "footer": {
+      "navigate": "Mag-navigate",
+      "open": "Buksan",
+      "close": "Isara"
+    },
+    "clear": "I-clear ang paghahanap",
+    "categories": {
+      "all": "Lahat",
+      "novels": "Mga Nobela",
+      "manga": "Manga",
+      "music": "Musika",
+      "anime": "Anime",
+      "drama": "CD Drama",
+      "stories": "Stories",
+      "gallery": "Gallery"
+    },
+    "shortcut": "Ctrl K"
+  },
+  "help": {
+    "eyebrow": "QUICK GUIDE",
+    "title": "Paano gumagana ang AdashimaVerse",
+    "close": "Isara ang tulong",
+    "items": [
+      [
+        "languages",
+        "Wika",
+        "Ang pagpapalit ng wika ay maaaring makaapekto hindi lang sa interface. Halimbawa, ang Spanish ay maaari ring magpalit ng content at translated materials kapag may available na Spanish version."
+      ],
+      [
+        "search",
+        "Global search",
+        "Gamitin ang search bar sa homepage o pindutin ang Ctrl+K (Cmd+K sa Mac) para maghanap sa novels, manga, music, stories, at gallery. Maaari ring mag-filter ayon sa category."
+      ],
+      [
+        "menu",
+        "Menu",
+        "Gamitin ang menu para mabilis na puntahan ang pangunahing sections ng site. Sa maliit na screen, gamitin ang menu button para buksan ito bilang overlay."
+      ],
+      [
+        "sun",
+        "Appearance",
+        "Maaaring mag-adjust ang visual theme ng site depende sa oras ng araw. May ilang page din na may sariling appearance o theme controls."
+      ],
+      [
+        "book-open",
+        "Readers",
+        "Depende sa material, maaaring may chapter navigation, reading settings, progress, bookmarks, o downloads ang reader pages."
+      ],
+      [
+        "message-circle",
+        "Feedback",
+        "Kung may makita kang error, nawawalang material, sirang link, o bagay na puwedeng ayusin, gamitin ang feedback option kapag available."
+      ]
+    ],
+    "visitHelp": "Bisitahin ang buong Help page",
+    "visitIcon": "arrow-up-right",
+    "triggerLabel": "Tungkol sa mga function ng site"
   }
 }

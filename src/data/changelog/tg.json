@@ -1,5 +1,65 @@
 [
   {
+    "version": "2.4.2",
+    "build": "20260913",
+    "date": "Setyembre 13, 2026",
+    "subtitle": "EPUB Reader, pagpili ng PDF Reader at Reader UI Refinement",
+    "changes": {
+      "new": [
+        "Nagdagdag ng OpenDyslexic at mas malinaw na magkakaibang font choices, kasama ang font-weight controls.",
+        "Muling idinisenyo ang mga story card ng Extra Stories para mas madaling ma-scan at mas malinaw ang reading action.",
+        "Nagdagdag ng volume filter para mas madaling paliitin ang story library nang walang persistent navigation.",
+        "Nagdagdag ng Grid at List view para makapili sa visual browsing o mas compact na pag-scan ng stories.",
+        "Nagdagdag ng native browser EPUB reader para sa English light novels, kung saan ang EPUB content ay ina-unpack at direktang ni-render sa reading interface.",
+        "Nagdagdag ng persistent reader preference sa Reader Settings para piliin ang EPUB o PDF nang walang popup."
+      ],
+      "improvements": [
+        "Ang EPUB chapter navigation ay gumagamit na ngayon ng semantic table of contents ng libro sa halip na bilangin ang bawat XHTML spine file.",
+        "Nagdagdag ng letter-spacing at hyphenation controls para sa mas komportableng long-form reading.",
+        "Pinahusay ang EPUB-to-EPUB switching sa pamamagitan ng paghihiwalay ng ZIP session ng bawat libro para hindi makaistorbo ang mabagal na resources ng lumang libro sa susunod.",
+        "Itinago ang visible scrollbar ng EPUB reader habang nananatiling scrollable ang content.",
+        "Inalis ang sticky volume-jump bar para mabawasan ang visual clutter at hindi kailangang scrolling.",
+        "Inayos ang Night theme ng Extra Stories para maging mas cohesive ang dark archive palette sa halip na light panels.",
+        "Inalis ang Morning sa time-based appearance system at pinalawig ang Afternoon sa daytime period.",
+        "Inayos ang Afternoon theme gamit ang mas malinaw na pink na palette.",
+        "Ginawang full-screen by default ang EPUB reader para sa mas immersive na pagbabasa.",
+        "Pinahusay ang chapter navigation at EPUB resource handling habang pinapanatili ang original R2 media source."
+      ],
+      "fixes": [
+        "Inayos ang reader preference switching para ang paglipat sa PDF o EPUB mula sa alinmang reader ay agad magpalit ng kasalukuyang volume.",
+        "Inayos ang hindi tamang chapter counter na dulot ng pagbibilang sa bawat XHTML spine document bilang chapter.",
+        "Inayos ang stale EPUB resource work na maaaring mag-iwan sa ilang libro sa 'Loading book…' kapag nagbukas ng ibang volume.",
+        "Inayos ang EPUB resource at SVG handling na maaaring magdulot ng broken images habang nagre-render ng chapters.",
+        "Inayos ang z-index ng EPUB reader para hindi lumitaw sa ibabaw nito ang burger menu kapag bukas ang reader."
+      ],
+      "notes": [
+        "Nakatuon ang update na ito sa mas madaling pag-browse, pag-scan, at pag-navigate sa Extra Stories archive habang nananatiling compact ang interface.",
+        "Maaaring pumili ang English novel readers ng format na mas bagay sa kanilang device o reading preference sa bawat pagbukas ng volume."
+      ]
+    }
+  },
+  {
+    "version": "2.4.1",
+    "build": "20260912",
+    "date": "Setyembre 12, 2026",
+    "subtitle": "Global Search, Quick Guide, at Volume SS3 Illustrations",
+    "changes": {
+      "new": [
+        "Nagdagdag ng global search sa homepage, na maaaring buksan gamit ang search button sa tabi ng burger menu o Ctrl+K (Cmd+K sa Mac). Naghahanap ito sa novels, manga, music, extra stories, at gallery, kasama ang category filters at keyboard navigation.",
+        "Nagdagdag ng ? Quick Guide button sa tabi ng search button. Ipinapaliwanag nito ang language behavior, global search, navigation menu, appearance themes, readers, at feedback features para mas madaling maintindihan ng bagong visitor ang archive.",
+        "Nagdagdag ng Volume SS3 illustrations sa Gallery para mapalawak ang archive ng special-edition artwork."
+      ],
+      "improvements": [
+        "Pinahusay ang global search modal gamit ang dedicated top-level overlay, mas malinaw na visual hierarchy, keyboard-friendly controls, at mas polished na night-mode design na mas bagay sa starry atmosphere ng site.",
+        "Kasama na ngayon sa global search ang Extra Stories archive, kaya maaaring hanapin mula sa homepage ang stories na nasa Extra Stories section."
+      ],
+      "fixes": [],
+      "notes": [
+        "Ang Extra Stories search results ay magbubukas sa kaukulang story sa Extra Stories reader kapag may available na story identifier."
+      ]
+    }
+  },
+  {
     "version": "2.4.0",
     "build": "20260905",
     "date": "Setyembre 5, 2026",
@@ -435,9 +495,7 @@
         "Improved theme transitions and appearance changes on mobile Chrome.",
         "Refined mobile theme-switching behavior for a smoother and more consistent experience."
       ],
-      "fixes": [
-        "Fixed minor theme-switching inconsistencies affecting Chrome on mobile devices."
-      ],
+      "fixes": ["Fixed minor theme-switching inconsistencies affecting Chrome on mobile devices."],
       "notes": [
         "Tagalog is now available as a UI language, but the localization is currently considered a prototype.",
         "The Tagalog rollout is primarily intended to test and validate the site's ability to support additional languages in the future.",
@@ -1035,9 +1093,7 @@
         "Improved project organization and maintainability."
       ],
       "fixes": [],
-      "notes": [
-        "Internal refactor with no major user-facing changes."
-      ]
+      "notes": ["Internal refactor with no major user-facing changes."]
     }
   }
 ]

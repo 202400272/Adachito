@@ -12,5 +12,6 @@ This directory contains the project documentation for developers and contributor
 - [QA Tester](QA.md) — tester architecture, result philosophy, localization completeness, and troubleshooting.
 - [Contributing](CONTRIBUTING.md) — coding, content, documentation, testing, and pull-request guidelines.
 - [Development Notes](DEV-NOTES.md) — short operational notes and repository gotchas that are easy to miss.
+- [Applications & Features](APPLICATIONS.md) — how the novels/EPUB/PDF readers, manga, Extra Stories, music, anime, drama, gallery, timeline, constellation, stats, help, PWA, and search applications work.
 
 The root [`README.md`](../README.md) remains the project overview and the canonical high-level reference. Vite is the project's development server, production build tool, and local preview server; the build-specific details live in [Build & Deployment](BUILD.md). These documents split the maintenance information into smaller topics so individual sections can be updated without turning one file into a catch-all manual.

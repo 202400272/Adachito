@@ -78,7 +78,7 @@ body.time-morning {
 
   --burger-bg: rgba(255, 255, 255, 0.55);
   --burger-border: rgba(200, 215, 235, 0.7);
-  --burger-color: #e88ba0;
+  --burger-color: #4a7fa8;
   --burger-shadow: 0 8px 32px 0 rgba(130, 150, 180, 0.15);
 
   --glass-bg: rgba(255, 255, 255, 0.35);
@@ -92,18 +92,18 @@ body.time-morning {
 
 /* AFTERNOON (Pink / rose palette) ===== */
 body.time-afternoon {
-  --sky-top: #75465f;
-  --sky-mid: #9d5d78;
+  --sky-top: #985b78;
+  --sky-mid: #aa6680;
   --sky-bottom: #c98291;
-  --sky-gradient: 165deg, #75465f 0%, #9d5d78 30%, #b96f82 60%, #c98291 100%;
+  --sky-gradient: 165deg, #985b78 0%, #aa6680 30%, #bb748b 60%, #c98291 100%;
 
   --surface-bg: rgba(255, 238, 244, 0.2);
   --surface-glass: rgba(255, 238, 244, 0.38);
   --surface-border: rgba(255, 230, 238, 0.48);
   --surface-shadow: 0 8px 32px 0 rgba(155, 92, 119, 0.16);
 
-  --text-main: #3d2431;
-  --text-secondary: #533746;
+  --text-main: #5a3b4c;
+  --text-secondary: #765565;
   --text-light: rgba(255, 247, 250, 0.96);
 
   --accent-primary: #d96f98;
@@ -134,44 +134,44 @@ body.time-afternoon {
 
 /* NIGHT ===== */
 body.time-night {
-  --sky-top: #1a1028;
-  --sky-mid: #2a1a3a;
-  --sky-bottom: #3a2a4a;
-  --sky-gradient: 165deg, #1a1028 0%, #2a1a3a 25%, #3a2a4a 55%, #4a2a5a 80%, #3a2a4a 100%;
+  --sky-top: #02050c;
+  --sky-mid: #0d0916;
+  --sky-bottom: #160f22;
+  --sky-gradient: 165deg, #02050c 0%, #0d0916 18%, #150d1f 38%, #1c1028 62%, #0b0814 100%;
 
-  --surface-bg: rgba(255, 255, 255, 0.08);
-  --surface-glass: rgba(255, 255, 255, 0.15);
-  --surface-border: rgba(180, 150, 200, 0.3);
-  --surface-shadow: 0 8px 32px 0 rgba(30, 20, 50, 0.4);
+  --surface-bg: rgba(255, 255, 255, 0.04);
+  --surface-glass: rgba(255, 255, 255, 0.08);
+  --surface-border: rgba(180, 150, 200, 0.2);
+  --surface-shadow: 0 8px 32px 0 rgba(7, 6, 15, 0.66);
 
-  --text-main: #d8c8e8;
-  --text-secondary: #c8b8d8;
+  --text-main: #e9def4;
+  --text-secondary: #d3bfdc;
   --text-light: rgba(255, 240, 255, 0.95);
 
   --accent-primary: #d88ab8;
   --accent-secondary: #8ab8d8;
-  --accent-soft: rgba(216, 138, 184, 0.2);
+  --accent-soft: rgba(216, 138, 184, 0.16);
 
-  --orb-opacity: 0.4;
-  --star-opacity: 0.85;
+  --orb-opacity: 0.28;
+  --star-opacity: 0.9;
 
-  --nav-bg: linear-gradient(135deg, rgba(30, 20, 50, 0.85), rgba(50, 30, 70, 0.85));
-  --nav-border: rgba(180, 150, 200, 0.25);
-  --nav-text: #d8c8e8;
-  --nav-shadow: 0 8px 32px 0 rgba(20, 10, 40, 0.5);
+  --nav-bg: linear-gradient(135deg, rgba(12, 9, 18, 0.9), rgba(20, 14, 28, 0.9));
+  --nav-border: rgba(141, 116, 176, 0.24);
+  --nav-text: #e9def4;
+  --nav-shadow: 0 8px 32px 0 rgba(4, 4, 12, 0.7);
 
-  --burger-bg: rgba(40, 30, 60, 0.85);
-  --burger-border: rgba(180, 150, 200, 0.3);
+  --burger-bg: rgba(17, 13, 24, 0.88);
+  --burger-border: rgba(141, 116, 176, 0.26);
   --burger-color: #d88ab8;
-  --burger-shadow: 0 8px 32px 0 rgba(20, 10, 40, 0.5), 0 0 20px rgba(216, 138, 184, 0.1);
+  --burger-shadow: 0 8px 32px 0 rgba(4, 4, 12, 0.7), 0 0 18px rgba(216, 138, 184, 0.08);
 
-  --glass-bg: rgba(255, 255, 255, 0.06);
-  --glass-border: rgba(180, 150, 200, 0.2);
-  --glass-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(180, 150, 200, 0.12);
+  --glass-shadow: 0 10px 40px rgba(0, 0, 0, 0.34);
 
   --hero-shadow:
-    0 0 20px rgba(180, 150, 200, 0.4), 0 0 40px rgba(216, 138, 184, 0.2),
-    0 5px 30px rgba(20, 10, 40, 0.5);
+    0 0 20px rgba(180, 150, 200, 0.2), 0 0 40px rgba(216, 138, 184, 0.08),
+    0 5px 30px rgba(3, 4, 10, 0.74);
 }
 
 /* Body Background ===== */

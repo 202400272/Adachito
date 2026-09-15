@@ -362,7 +362,7 @@
       (function () {
         const APPEARANCE_STORAGE_KEY = "adashima_time_based_appearance";
         const MANUAL_THEME_STORAGE_KEY = "adashima_manual_appearance";
-        const VALID_THEMES = ["morning", "afternoon", "night"];
+        const VALID_THEMES = ["afternoon", "night"];
 
         function normalizeTheme(theme) {
           return VALID_THEMES.includes(theme) ? theme : getTimePeriod();
@@ -386,7 +386,6 @@
 
         function getTimePeriod() {
           const hour = new Date().getHours();
-          if (hour >= 5 && hour < 12) return "morning";
           if (hour >= 12 && hour < 19) return "afternoon";
           return "night";
         }

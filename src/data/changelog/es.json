@@ -1,5 +1,65 @@
 [
   {
+    "version": "2.4.2",
+    "build": "20260913",
+    "date": "13 de septiembre de 2026",
+    "subtitle": "Lector EPUB, elección de lector PDF y refinamiento de la interfaz",
+    "changes": {
+      "new": [
+        "Se añadieron OpenDyslexic y más fuentes claramente diferenciadas, junto con controles de peso de fuente.",
+        "Rediseñamos las tarjetas de Historias Extra para facilitar la lectura rápida y destacar mejor la acción de lectura.",
+        "Añadimos un filtro por volumen para acotar la biblioteca sin añadir navegación persistente.",
+        "Añadimos modos de vista Cuadrícula y Lista para elegir entre una exploración visual y un escaneo compacto.",
+        "Se añadió un lector EPUB nativo en el navegador para las novelas ligeras en inglés, con el contenido EPUB descomprimido y renderizado directamente en la interfaz de lectura.",
+        "Se añadió una preferencia persistente de lector en Ajustes para elegir EPUB o PDF sin usar una ventana emergente."
+      ],
+      "improvements": [
+        "La navegación de capítulos EPUB ahora sigue la tabla de contenidos semántica del libro en lugar de contar cada archivo XHTML del spine.",
+        "Se añadieron controles de espaciado entre letras e hifenación para mejorar la lectura prolongada.",
+        "Se mejoró el cambio entre EPUB y EPUB aislando la sesión ZIP de cada libro para que los recursos lentos de un libro anterior no interfieran con el siguiente.",
+        "Se ocultó la barra de desplazamiento visible del lector EPUB sin eliminar el desplazamiento.",
+        "Eliminamos la barra fija de salto por volumen para reducir el ruido visual y el desplazamiento.",
+        "Refinamos el tema Noche para que Historias Extra utilice una paleta oscura coherente en lugar de paneles claros.",
+        "Eliminamos Mañana del sistema de apariencia basada en la hora y ampliamos Tarde durante el periodo diurno.",
+        "Refinamos el tema de Tarde con una paleta claramente rosada.",
+        "El lector EPUB ahora utiliza la pantalla completa de forma predeterminada para una experiencia de lectura más inmersiva.",
+        "Se mejoraron la navegación entre capítulos y la gestión de recursos EPUB manteniendo la fuente multimedia R2 original."
+      ],
+      "fixes": [
+        "Se corrigió el cambio de preferencia para que pasar a PDF o EPUB desde cualquiera de los dos lectores cambie inmediatamente el volumen abierto.",
+        "Se corrigió el contador de capítulos inexacto causado por contar los documentos XHTML del spine como capítulos.",
+        "Se corrigió el trabajo de recursos EPUB obsoleto que podía dejar algunos libros atascados en 'Loading book…' al abrir otro volumen.",
+        "Se corrigió la gestión de recursos EPUB y SVG que podía provocar imágenes rotas durante el renderizado de capítulos.",
+        "Se corrigió el orden de capas del lector EPUB para que el menú hamburguesa no aparezca por encima del lector abierto."
+      ],
+      "notes": [
+        "Esta actualización se centra en hacer más fácil de explorar, escanear y navegar el archivo de Historias Extra manteniendo la interfaz compacta.",
+        "Los lectores de novelas en inglés pueden elegir el formato que mejor se adapte a su dispositivo o preferencia de lectura cada vez que abren un volumen."
+      ]
+    }
+  },
+  {
+    "version": "2.4.1",
+    "build": "20260912",
+    "date": "12 de septiembre de 2026",
+    "subtitle": "Búsqueda global, guía rápida e ilustraciones del Volumen SS3",
+    "changes": {
+      "new": [
+        "Se añadió una búsqueda global en la página principal, accesible desde el botón de búsqueda junto al menú o con Ctrl+K (Cmd+K en Mac). Busca en novelas, manga, música, historias extra y galería, con filtros por categoría y navegación mediante teclado.",
+        "Se añadió un botón ? de Guía rápida junto al botón de búsqueda. Explica el comportamiento de idiomas, la búsqueda global, el menú, los temas de apariencia, los lectores y los comentarios para ayudar a los nuevos visitantes a entender el archivo sin salir de la página.",
+        "Se añadieron ilustraciones del Volumen SS3 a la Galería, ampliando el archivo con nuevas obras de la edición especial."
+      ],
+      "improvements": [
+        "Se mejoró el modal de búsqueda global con una capa superior dedicada, una jerarquía visual más clara, controles accesibles mediante teclado y un diseño nocturno que combina mejor con el ambiente estrellado del sitio.",
+        "La búsqueda global ahora incluye el archivo de Historias Extra, por lo que las historias disponibles en esa sección pueden encontrarse desde la búsqueda de la página principal."
+      ],
+      "fixes": [],
+      "notes": [
+        "Los resultados de Historias Extra abren la historia correspondiente en el lector cuando existe un identificador de historia."
+      ]
+    }
+  },
+  {
     "version": "2.4.0",
     "build": "20260905",
     "date": "5 de septiembre de 2026",
@@ -1034,9 +1094,7 @@
         "Se mejoró la organización y facilidad de mantenimiento del proyecto."
       ],
       "fixes": [],
-      "notes": [
-        "Refactorización interna sin cambios importantes visibles para los usuarios."
-      ]
+      "notes": ["Refactorización interna sin cambios importantes visibles para los usuarios."]
     }
   }
 ]

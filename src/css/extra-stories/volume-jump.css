@@ -1,0 +1,68 @@
+/* Compact volume navigation: keeps long archives scannable without repeated scrolling. */
+.volume-jump {
+  position: sticky;
+  top: 12px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0 22px;
+  padding: 9px 10px;
+  border: 1px solid var(--page-border);
+  background: color-mix(in srgb, var(--page-surface) 94%, transparent);
+  box-shadow: 4px 4px 0 var(--page-soft);
+  backdrop-filter: blur(12px);
+}
+.volume-jump.is-empty {
+  display: none;
+}
+.volume-jump-label {
+  flex: 0 0 auto;
+  font:
+    700 0.62rem/1 "Quicksand",
+    sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--page-muted);
+}
+.volume-jump-list {
+  display: flex;
+  gap: 6px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.volume-jump-btn {
+  flex: 0 0 auto;
+  padding: 6px 9px;
+  border: 1px solid var(--page-border);
+  border-radius: 2px;
+  background: var(--page-bg);
+  color: var(--page-text);
+  font:
+    700 0.62rem/1 "Quicksand",
+    sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.volume-jump-btn:hover,
+.volume-jump-btn:focus-visible {
+  border-color: var(--page-accent);
+  color: var(--page-accent-strong);
+}
+.volume-group {
+  scroll-margin-top: 82px;
+}
+@media (max-width: 600px) {
+  .volume-jump {
+    top: 8px;
+    margin: 12px 0 16px;
+    padding: 8px;
+  }
+  .volume-jump-label {
+    display: none;
+  }
+  .volume-group {
+    scroll-margin-top: 70px;
+  }
+}

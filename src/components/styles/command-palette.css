@@ -1,0 +1,380 @@
+.command-palette-trigger {
+  width: calc(100% - 24px);
+  margin: 0 12px 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.055);
+  color: rgba(255, 255, 255, 0.82);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font:
+    600 12px/1 "Quicksand",
+    sans-serif;
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+  box-sizing: border-box;
+}
+.command-palette-trigger:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+.command-palette-trigger:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.65);
+  outline-offset: 2px;
+}
+.command-palette-trigger-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.08);
+}
+.command-palette-trigger-icon svg {
+  width: 14px;
+  height: 14px;
+}
+.command-palette-trigger-label {
+  flex: 1;
+  text-align: left;
+}
+.command-palette-trigger kbd {
+  font:
+    600 10px/1 "Quicksand",
+    sans-serif;
+  padding: 4px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 5px;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.command-palette {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(70px, 12vh, 130px) 18px 24px;
+  box-sizing: border-box;
+}
+.command-palette[hidden] {
+  display: none;
+}
+.command-palette-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 6, 18, 0.58);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: commandBackdropIn 0.18s ease both;
+}
+.command-palette-dialog {
+  position: relative;
+  width: min(720px, 100%);
+  max-height: min(690px, calc(100vh - 100px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 20px;
+  background: linear-gradient(160deg, rgba(39, 25, 51, 0.96), rgba(21, 15, 30, 0.97));
+  box-shadow:
+    0 28px 90px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.025) inset;
+  animation: commandDialogIn 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+  color: #fff;
+}
+.command-palette-header {
+  padding: 14px 14px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+.command-palette-search-row {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.055);
+}
+.command-palette-search-row > svg {
+  width: 19px;
+  height: 19px;
+  color: rgba(255, 255, 255, 0.52);
+  flex: none;
+}
+.command-palette-search-row input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #fff;
+  font:
+    600 16px/1.2 "Quicksand",
+    sans-serif;
+}
+.command-palette-search-row input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+.command-palette-search-row kbd,
+.command-palette-footer kbd {
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.055);
+  padding: 3px 6px;
+  color: rgba(255, 255, 255, 0.5);
+  font:
+    600 10px/1 "Quicksand",
+    sans-serif;
+}
+.command-palette-hint {
+  margin: 9px 3px 10px;
+  color: rgba(255, 255, 255, 0.4);
+  font:
+    500 11px/1.3 "Quicksand",
+    sans-serif;
+}
+.command-palette-filters {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.command-palette-filters::-webkit-scrollbar {
+  display: none;
+}
+.command-palette-filter {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 7px 11px;
+  background: rgba(255, 255, 255, 0.045);
+  color: rgba(255, 255, 255, 0.56);
+  font:
+    600 11px/1 "Quicksand",
+    sans-serif;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: 0.16s ease;
+}
+.command-palette-filter:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+.command-palette-filter.is-active {
+  background: rgba(214, 151, 193, 0.17);
+  border-color: rgba(231, 181, 213, 0.3);
+  color: #fff;
+}
+.command-palette-results {
+  overflow: auto;
+  padding: 7px;
+  min-height: 150px;
+}
+.command-palette-result {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-align: left;
+  padding: 9px;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition:
+    background 0.14s ease,
+    border-color 0.14s ease;
+  box-sizing: border-box;
+}
+.command-palette-result:hover,
+.command-palette-result.is-selected {
+  background: rgba(255, 255, 255, 0.075);
+  border-color: rgba(255, 255, 255, 0.09);
+}
+.command-palette-thumb {
+  width: 45px;
+  height: 52px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 8px;
+  background: linear-gradient(145deg, rgba(220, 159, 199, 0.2), rgba(124, 98, 160, 0.16));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.command-palette-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.command-palette-thumb svg {
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.5);
+}
+.command-palette-result-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+.command-palette-result-title {
+  font:
+    700 13px/1.25 "Quicksand",
+    sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.command-palette-result-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  color: rgba(255, 255, 255, 0.4);
+  font:
+    500 10px/1.2 "Quicksand",
+    sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.command-palette-result-meta b {
+  color: rgba(244, 205, 231, 0.75);
+  font-weight: 700;
+}
+.command-palette-result-description {
+  color: rgba(255, 255, 255, 0.48);
+  font:
+    500 10px/1.3 "Quicksand",
+    sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.command-palette-result-arrow {
+  width: 14px;
+  height: 14px;
+  color: rgba(255, 255, 255, 0.25);
+  flex: none;
+}
+.command-palette-empty {
+  min-height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 7px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.48);
+  font-family: "Quicksand", sans-serif;
+}
+.command-palette-empty strong {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+}
+.command-palette-empty span {
+  font-size: 11px;
+}
+.command-palette-empty-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 4px;
+}
+.command-palette-empty-icon svg {
+  width: 19px;
+  height: 19px;
+}
+.command-palette-footer {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 9px 13px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.35);
+  font:
+    500 10px/1 "Quicksand",
+    sans-serif;
+}
+.command-palette-footer span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.command-palette-open {
+  overflow: hidden !important;
+}
+@keyframes commandBackdropIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes commandDialogIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 640px) {
+  .command-palette {
+    padding: 58px 10px 10px;
+  }
+  .command-palette-dialog {
+    max-height: calc(100dvh - 68px);
+    border-radius: 16px;
+  }
+  .command-palette-header {
+    padding: 10px;
+  }
+  .command-palette-search-row {
+    height: 46px;
+  }
+  .command-palette-result-description {
+    display: none;
+  }
+  .command-palette-footer {
+    justify-content: space-between;
+    gap: 6px;
+  }
+  .command-palette-footer span:nth-child(3) {
+    display: none;
+  }
+  .command-palette-trigger {
+    margin-left: 8px;
+    margin-right: 8px;
+    width: calc(100% - 16px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .command-palette-backdrop,
+  .command-palette-dialog {
+    animation: none;
+  }
+  .command-palette-trigger {
+    transition: none;
+  }
+}

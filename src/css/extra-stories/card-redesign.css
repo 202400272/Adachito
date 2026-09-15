@@ -1,0 +1,643 @@
+.volume-stories {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.story-card {
+  --card-rule: color-mix(in srgb, var(--page-accent) 70%, var(--page-border));
+  position: relative;
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  min-height: 205px;
+  overflow: hidden;
+  border: 1px solid var(--page-border);
+  border-radius: 2px;
+  background: var(--page-surface);
+  box-shadow: 4px 4px 0 var(--page-soft);
+  cursor: pointer;
+  isolation: isolate;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.story-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--page-accent);
+}
+
+.story-card::after {
+  content: "";
+  position: absolute;
+  right: -24px;
+  bottom: -28px;
+  width: 92px;
+  height: 92px;
+  border: 1px solid var(--page-border);
+  border-radius: 50%;
+  opacity: 0.45;
+  z-index: -1;
+}
+
+.story-card:hover {
+  transform: translate(-2px, -2px);
+  border-color: var(--page-text);
+  box-shadow: 7px 7px 0 var(--page-soft);
+}
+
+.story-card:focus-visible {
+  outline: 2px solid var(--page-accent);
+  outline-offset: 4px;
+}
+
+.story-card-number {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 18px;
+  border-right: 1px solid var(--page-border);
+  background: color-mix(in srgb, var(--page-bg) 72%, var(--page-surface));
+  color: var(--page-accent-strong);
+  font:
+    700 0.68rem/1 "Quicksand",
+    sans-serif;
+  letter-spacing: 0.1em;
+}
+
+.story-card-number::after {
+  content: "";
+  position: absolute;
+  top: 39px;
+  left: 18px;
+  width: 18px;
+  height: 2px;
+  background: var(--page-accent);
+}
+
+.story-card-body {
+  min-width: 0;
+  min-height: 205px;
+  padding: 16px 18px 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.story-card-topline {
+  min-height: 31px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.story-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 0;
+  padding-right: 4px;
+}
+
+.story-type,
+.story-store-badge,
+.story-progress-badge {
+  padding: 4px 6px;
+  border: 1px solid var(--page-border);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--page-muted);
+  font:
+    700 0.54rem/1 "Quicksand",
+    sans-serif;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.story-type {
+  color: var(--page-text);
+}
+.story-store-badge {
+  border-style: dashed;
+}
+.story-progress-badge.complete {
+  border-color: var(--page-accent);
+  background: var(--page-accent);
+  color: var(--page-surface-strong);
+}
+
+.story-bookmark-btn {
+  flex: 0 0 auto;
+  width: 29px;
+  height: 29px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--page-border);
+  border-radius: 2px;
+  background: var(--page-bg);
+  color: var(--page-muted);
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.story-bookmark-btn:hover,
+.story-bookmark-btn.bookmarked {
+  border-color: var(--page-accent);
+  background: var(--page-accent);
+  color: var(--page-surface-strong);
+}
+
+.story-card-content {
+  padding: 8px 28px 12px 0;
+}
+
+.story-title {
+  margin: 0 0 7px;
+  max-width: 640px;
+  color: var(--page-text);
+  font:
+    700 clamp(1.35rem, 1.9vw, 1.7rem)/1.04 "Cormorant Garamond",
+    "Noto Serif",
+    serif;
+  letter-spacing: -0.012em;
+}
+
+.story-description {
+  margin: 0;
+  max-width: 620px;
+  color: var(--page-muted);
+  font:
+    400 0.76rem/1.55 "Source Serif 4",
+    serif;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.story-footer {
+  margin-top: auto;
+  padding-top: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-top: 1px solid var(--page-border);
+}
+
+.story-open-hint {
+  display: none;
+}
+
+.story-read-btn {
+  min-width: 104px;
+  justify-content: space-between;
+  padding: 8px 10px 8px 12px;
+  border: 1px solid var(--page-text);
+  border-radius: 2px;
+  background: var(--page-text);
+  color: var(--page-surface-strong);
+  font:
+    700 0.58rem/1 "Quicksand",
+    sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.story-read-btn:hover {
+  background: var(--page-accent);
+  border-color: var(--page-accent);
+  color: var(--page-surface-strong);
+}
+
+.story-read-btn i {
+  transition: transform 0.18s ease;
+}
+.story-read-btn:hover i {
+  transform: translateX(3px);
+}
+
+@media (max-width: 900px) {
+  .volume-stories {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .volume-stories {
+    gap: 12px;
+  }
+  .story-card {
+    grid-template-columns: 43px minmax(0, 1fr);
+    min-height: 195px;
+    box-shadow: 3px 3px 0 var(--page-soft);
+  }
+  .story-card:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--page-soft);
+  }
+  .story-card-number {
+    padding-top: 17px;
+    font-size: 0.62rem;
+  }
+  .story-card-number::after {
+    top: 39px;
+    left: 13px;
+    width: 15px;
+  }
+  .story-card-body {
+    min-height: 195px;
+    padding: 14px 13px 12px;
+  }
+  .story-card-content {
+    padding: 7px 2px 10px 0;
+  }
+  .story-title {
+    font-size: 1.4rem;
+    line-height: 1.02;
+  }
+  .story-description {
+    font-size: 0.73rem;
+    line-height: 1.52;
+    -webkit-line-clamp: 4;
+  }
+  .story-read-btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-card,
+  .story-read-btn i {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   VIEW MODE + NIGHT UI REFINEMENT
+   ============================================================ */
+.view-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.view-toggle-group {
+  display: inline-flex;
+  border: 1px solid var(--page-border);
+  background: var(--page-bg);
+  padding: 2px;
+  border-radius: 3px;
+}
+
+.view-toggle-btn {
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 9px;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--page-muted);
+  font:
+    700 0.59rem/1 "Quicksand",
+    sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.view-toggle-btn i {
+  font-size: 0.62rem;
+}
+
+.view-toggle-btn:hover {
+  color: var(--page-text);
+}
+
+.view-toggle-btn.active {
+  background: var(--page-text);
+  color: var(--page-surface-strong);
+}
+
+/* List mode: compact archive rows — metadata + title only. The whole
+   point of this view is scanning many titles at once, so every row is
+   trimmed down as far as it'll go: smaller badges/bookmark button, no
+   decorative flourishes (the corner circle and number tick-mark are cut
+   since they cost more visual weight than a slim row can spare), and a
+   shorter title size so more rows fit on screen without feeling cramped. */
+.extra-grid.list-view .volume-stories {
+  grid-template-columns: 1fr;
+  gap: 3px;
+}
+
+.extra-grid.list-view .story-card {
+  min-height: 52px;
+  grid-template-columns: 32px minmax(0, 1fr);
+}
+
+.extra-grid.list-view .story-card::after {
+  display: none;
+}
+
+.extra-grid.list-view .story-card-body {
+  min-height: 52px;
+  padding: 6px 10px;
+}
+
+.extra-grid.list-view .story-card-topline {
+  min-height: 16px;
+  gap: 6px;
+}
+
+.extra-grid.list-view .story-meta {
+  gap: 4px;
+}
+
+.extra-grid.list-view .story-type,
+.extra-grid.list-view .story-store-badge,
+.extra-grid.list-view .story-progress-badge {
+  padding: 2px 5px;
+  font-size: 0.48rem;
+}
+
+.extra-grid.list-view .story-bookmark-btn {
+  width: 21px;
+  height: 21px;
+  font-size: 0.7rem;
+}
+
+.extra-grid.list-view .story-card-content {
+  padding: 1px 0 0 0;
+}
+
+.extra-grid.list-view .story-description {
+  display: none;
+}
+
+.extra-grid.list-view .story-title {
+  margin: 0;
+  max-width: 100%;
+  font-size: 1rem;
+  line-height: 1.2;
+  white-space: normal;
+  overflow: visible;
+}
+
+/* The whole row already opens the story on click (and via keyboard —
+   see the .story-card click/keydown handlers in extra-stories.js), so a
+   dedicated Read button here just crowds a compact list row and forces
+   the title onto one truncated line to make space for it. Hiding it
+   removes that pressure without touching the button (or its click
+   handling) in grid view. */
+.extra-grid.list-view .story-footer {
+  display: none;
+}
+
+.extra-grid.list-view .story-card-number {
+  padding-top: 7px;
+  font-size: 0.6rem;
+}
+
+.extra-grid.list-view .story-card-number::after {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .extra-grid.list-view .volume-stories {
+    gap: 3px;
+  }
+
+  .extra-grid.list-view .story-card {
+    min-height: 46px;
+    grid-template-columns: 28px minmax(0, 1fr);
+  }
+
+  .extra-grid.list-view .story-card-body {
+    min-height: 46px;
+    padding: 5px 8px;
+  }
+
+  .extra-grid.list-view .story-card-content {
+    padding: 1px 0 0 0;
+  }
+
+  .extra-grid.list-view .story-title {
+    font-size: 0.9rem;
+  }
+
+  .extra-grid.list-view .story-bookmark-btn {
+    width: 19px;
+    height: 19px;
+    font-size: 0.62rem;
+  }
+
+  .extra-grid.list-view .story-card-number {
+    padding-top: 6px;
+    font-size: 0.56rem;
+  }
+}
+
+/* Night theme: the archive should feel deliberately dark, not like a
+   light page with dark text swapped out. */
+body.time-night .extra-main {
+  --page-bg: #151317;
+  --page-text: #eee7ed;
+  --page-surface: #211e23;
+  --page-surface-strong: #29242b;
+  --page-border: #39333c;
+  --page-soft: #2d2730;
+  --page-accent: #d59ab9;
+  --page-accent-strong: #e1adc8;
+  --page-muted: #aaa0ab;
+}
+
+body.time-night .extra-hero-content {
+  border-color: #38323b;
+  background:
+    radial-gradient(circle at 84% 22%, rgba(213, 154, 185, 0.13), transparent 27%),
+    linear-gradient(135deg, #252027, #1b181f);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+}
+
+body.time-night .extra-hero-title {
+  color: #eee7ed;
+}
+body.time-night .extra-hero-subtitle,
+body.time-night .library-hint {
+  color: #aaa0ab;
+}
+body.time-night .extra-hero-content::after {
+  border-color: rgba(213, 154, 185, 0.16);
+}
+
+body.time-night .extra-stats,
+body.time-night .library-toolbar,
+body.time-night .extra-sources,
+body.time-night .continue-reading {
+  border-color: #38323b;
+  background: #1d1a20;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
+}
+
+body.time-night .stat-item {
+  background: transparent;
+  border-color: #38323b;
+}
+body.time-night .stat-number,
+body.time-night .library-heading,
+body.time-night .volume-title {
+  color: #eee7ed;
+}
+body.time-night .library-toolbar-top {
+  border-color: #38323b;
+}
+
+body.time-night .search-wrapper,
+body.time-night .search-wrapper input,
+body.time-night .volume-filter select,
+body.time-night .view-toggle-group {
+  background: #151317;
+  border-color: #403943;
+  color: #eee7ed;
+}
+
+body.time-night .search-wrapper input::placeholder {
+  color: #766d78;
+}
+body.time-night .search-wrapper i {
+  color: #d59ab9;
+}
+
+body.time-night .filter-pill,
+body.time-night .view-toggle-btn,
+body.time-night .story-bookmark-btn {
+  border-color: #403943;
+  color: #aaa0ab;
+}
+body.time-night .filter-pill:hover,
+body.time-night .view-toggle-btn:hover {
+  background: #29242b;
+  color: #eee7ed;
+}
+body.time-night .filter-pill.active,
+body.time-night .view-toggle-btn.active {
+  background: #eee7ed;
+  border-color: #eee7ed;
+  color: #211d23;
+}
+
+body.time-night .story-card {
+  border-color: #39333c;
+  background: #211e23;
+  box-shadow: 4px 4px 0 #2d2730;
+}
+body.time-night .story-card:hover {
+  border-color: #d59ab9;
+  box-shadow: 7px 7px 0 #302832;
+}
+body.time-night .story-card-number {
+  background: #19171b;
+  border-color: #39333c;
+  color: #d59ab9;
+}
+body.time-night .story-type,
+body.time-night .story-store-badge,
+body.time-night .story-progress-badge,
+body.time-night .story-bookmark-btn {
+  border-color: #39333c;
+  background: transparent;
+  color: #aaa0ab;
+}
+body.time-night .story-type {
+  color: #ddd4dc;
+}
+body.time-night .story-title {
+  color: #eee7ed;
+}
+body.time-night .story-description {
+  color: #aaa0ab;
+}
+body.time-night .story-footer {
+  border-color: #39333c;
+}
+body.time-night .story-read-btn {
+  background: #eee7ed;
+  border-color: #eee7ed;
+  color: #211d23;
+}
+body.time-night .story-read-btn:hover {
+  background: #d59ab9;
+  border-color: #d59ab9;
+  color: #211d23;
+}
+body.time-night .story-bookmark-btn:hover,
+body.time-night .story-bookmark-btn.bookmarked {
+  border-color: #d59ab9;
+  background: rgba(213, 154, 185, 0.16);
+  color: #e1adc8;
+}
+body.time-night .volume-header {
+  border-color: #39333c;
+}
+body.time-night .volume-header::after {
+  background: #d59ab9;
+}
+body.time-night .volume-count {
+  background: rgba(213, 154, 185, 0.1);
+  color: #d59ab9;
+}
+
+@media (max-width: 900px) {
+  .view-toggle {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .view-toggle {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .view-toggle-group {
+    flex: 1;
+  }
+  .view-toggle-btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  /* Keep list mode genuinely compact on phones. */
+  .extra-grid.list-view .volume-stories {
+    gap: 3px;
+  }
+
+  .extra-grid.list-view .story-card {
+    grid-template-columns: 28px minmax(0, 1fr);
+    min-height: 46px;
+  }
+
+  .extra-grid.list-view .story-card-body {
+    min-height: 46px;
+    padding: 5px 8px;
+  }
+
+  .extra-grid.list-view .story-card-content {
+    padding: 1px 0 0 0;
+  }
+
+  .extra-grid.list-view .story-card-number {
+    padding-top: 6px;
+    font-size: 0.56rem;
+  }
+}

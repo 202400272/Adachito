@@ -1,4 +1,4 @@
-const CACHE_NAME = "adashimaverse-static-v2";
+const CACHE_NAME = "adashimaverse-static-v4";
 const STATIC_DESTINATIONS = new Set(["style", "script", "image", "font"]);
 
 self.addEventListener("install", (_event) => {

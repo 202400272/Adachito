@@ -74,6 +74,26 @@ Legacy root files such as `src/css/anime.css` may remain temporarily as compatib
 
 Shared markup such as the menu, footer, and feedback UI is kept under `src/components/`. Page scripts should avoid duplicating site-wide behavior when a shared component or existing utility already provides it.
 
+## Document-reader architecture
+
+The novels application contains two specialized document readers rather than one generic viewer. This is intentional: EPUB and PDF expose different primitives and therefore require different rendering strategies.
+
+```text
+Novel catalogue
+      │
+      ├── EPUB → JSZip → OPF/manifest/spine/nav → XHTML/CSS → DOM
+      │
+      └── PDF  → PDF.js → PDFDocumentProxy → PDFPageProxy → Canvas
+```
+
+The EPUB reader treats the **spine as the physical reading sequence** and maintains a separate **detected chapter model** for user-facing chapter numbering. This prevents covers, copyright pages, standalone illustrations, and other XHTML spine resources from being counted as chapters. EPUB chapter detection prefers EPUB 3 navigation / EPUB 2 NCX metadata and falls back to chapter-like XHTML headings when navigation metadata is incomplete.
+
+The PDF reader treats the document as a **fixed page sequence**. PDF.js performs PDF parsing and page interpretation; the application controls page navigation, canvas rendering, zoom, continuous/cascade rendering, preloading, text extraction, and bounded caches. PDF rendering is intentionally lazy so opening the novel catalogue does not load the PDF engine unnecessarily.
+
+Both readers keep document state local to the browser. The catalogue supplies stable volume identity; the reader owns presentation and reading position. This separation keeps translated titles and catalogue presentation changes from invalidating local reader state.
+
+For implementation details, including EPUB package resolution, chapter detection, PDF.js rendering, cache ownership, cancellation, progress models, and QA cases, see [Novels — EPUB & PDF Reader Architecture](applications/novels.md).
+
 ## Build architecture
 
 Vite is the project's development server, production build tool, and local production-preview server. `npm run build` runs `vite build` and generates `dist/`.

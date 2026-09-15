@@ -104,37 +104,35 @@
         rel="stylesheet"
       />
     </noscript>
-    <link rel="preload" as="style" href="/src/css/index/main.css?v=1.5.3" />
+    <link rel="preload" as="style" href="/src/css/index/main.css?v=2.4.1" />
+    <link rel="stylesheet" href="/src/css/index/main.css?v=2.4.1" />
+    <link rel="stylesheet" href="/src/css/index/search.css?v=2.4.1" />
     <link
       rel="stylesheet"
-      href="/src/css/index/main.css?v=1.5.3"
+      href="/src/components/styles/menu.css?v=2.4.1"
       media="print"
       onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
-      href="/src/components/styles/menu.css?v=1.5.3"
+      href="/src/components/styles/scrollbar.css?v=2.4.1"
       media="print"
       onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
-      href="/src/components/styles/scrollbar.css?v=1.5.3"
+      href="/src/components/styles/feedback.css?v=2.4.1"
       media="print"
       onload="this.media = 'all'"
     />
-    <link
-      rel="stylesheet"
-      href="/src/components/styles/feedback.css?v=1.5.3"
-      media="print"
-      onload="this.media = 'all'"
-    />
+    <link rel="stylesheet" href="/src/css/index/mobile-controls.css?v=2.4.1" />
     <noscript>
-      <link rel="stylesheet" href="/src/css/index/main.css?v=1.5.3" />
-      <link rel="stylesheet" href="/src/components/styles/menu.css?v=1.5.3" />
-      <link rel="stylesheet" href="/src/components/styles/scrollbar.css?v=1.5.3" />
-      <link rel="stylesheet" href="/src/components/styles/feedback.css?v=1.5.3" />
-    <link rel="stylesheet" href="/src/css/pwa.css?v=1.5.3" />
+      <link rel="stylesheet" href="/src/css/index/main.css?v=2.4.1" />
+      <link rel="stylesheet" href="/src/css/index/search.css?v=2.4.1" />
+      <link rel="stylesheet" href="/src/components/styles/menu.css?v=2.4.1" />
+      <link rel="stylesheet" href="/src/components/styles/scrollbar.css?v=2.4.1" />
+      <link rel="stylesheet" href="/src/components/styles/feedback.css?v=2.4.1" />
+      <link rel="stylesheet" href="/src/css/pwa.css?v=2.4.1" />
     </noscript>
 
     <link rel="icon" type="image/x-icon" href="/assets/Imagenes/favicon.ico" />
@@ -188,7 +186,162 @@
     <div class="orb orb-pink-top"></div>
     <div class="orb orb-yellow-small"></div>
 
-    <div id="menu-container"></div>
+    <div id="mobile-header-controls">
+      <div id="menu-container"></div>
+
+      <!-- SEARCH + HELP HEADER CONTROLS -->
+      <section class="homepage-search" id="homepage-search-controls" aria-label="">
+        <div class="homepage-search-row">
+          <button
+            type="button"
+            class="homepage-search-trigger"
+            id="global-search-trigger"
+            aria-label=""
+            title=""
+          >
+            <span class="homepage-search-icon" aria-hidden="true"
+              ><i data-lucide="search"></i
+            ></span>
+            <span class="homepage-search-placeholder" id="global-search-placeholder"></span>
+            <kbd class="homepage-search-shortcut" aria-hidden="true"></kbd>
+          </button>
+          <button
+            type="button"
+            class="homepage-help-trigger"
+            id="homepage-help-trigger"
+            aria-label=""
+            title=""
+          >
+            <span aria-hidden="true">?</span>
+          </button>
+        </div>
+        <p class="homepage-search-hint" id="homepage-search-hint"></p>
+      </section>
+    </div>
+
+    <!-- GLOBAL SEARCH OVERLAY: document-root sibling so it can always cover the site -->
+    <div class="global-search-overlay" id="global-search-overlay" hidden>
+      <div class="global-search-backdrop" data-search-close></div>
+      <section
+        class="global-search-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="global-search-title"
+      >
+        <h2 id="global-search-title" class="sr-only"></h2>
+        <div class="global-search-header">
+          <div class="global-search-input-wrap">
+            <i data-lucide="search" aria-hidden="true"></i
+            ><input
+              id="global-search-input"
+              type="search"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder=""
+            /><button
+              type="button"
+              class="global-search-clear"
+              id="global-search-clear"
+              aria-label=""
+              hidden
+            >
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+          <button type="button" class="global-search-close" data-search-close aria-label="">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <div class="global-search-filters" id="global-search-filters" role="tablist" aria-label="">
+          <button
+            type="button"
+            class="global-search-filter active"
+            data-search-filter="all"
+            role="tab"
+            aria-selected="true"
+          ></button
+          ><button
+            type="button"
+            class="global-search-filter"
+            data-search-filter="novels"
+            role="tab"
+            aria-selected="false"
+          ></button
+          ><button
+            type="button"
+            class="global-search-filter"
+            data-search-filter="manga"
+            role="tab"
+            aria-selected="false"
+          ></button
+          ><button
+            type="button"
+            class="global-search-filter"
+            data-search-filter="music"
+            role="tab"
+            aria-selected="false"
+          ></button
+          ><button
+            type="button"
+            class="global-search-filter"
+            data-search-filter="anime"
+            role="tab"
+            aria-selected="false"
+          ></button
+          ><button
+            type="button"
+            class="global-search-filter"
+            data-search-filter="drama"
+            role="tab"
+            aria-selected="false"
+          ></button
+          ><button
+            type="button"
+            class="global-search-filter"
+            data-search-filter="stories"
+            role="tab"
+            aria-selected="false"
+          ></button
+          ><button
+            type="button"
+            class="global-search-filter"
+            data-search-filter="gallery"
+            role="tab"
+            aria-selected="false"
+          ></button>
+        </div>
+        <div class="global-search-status" id="global-search-status"></div>
+        <div
+          class="global-search-results"
+          id="global-search-results"
+          role="listbox"
+          aria-label=""
+        ></div>
+        <div class="global-search-footer"></div>
+      </section>
+    </div>
+
+    <!-- SITE HELP OVERLAY: document-root sibling so it can always cover the site -->
+    <div class="homepage-help-overlay" id="homepage-help-overlay" hidden>
+      <div class="homepage-help-backdrop" data-help-close></div>
+      <section
+        class="homepage-help-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="homepage-help-title"
+      >
+        <div class="homepage-help-header">
+          <div>
+            <span class="section-eyebrow" id="homepage-help-eyebrow"></span>
+            <h2 id="homepage-help-title"></h2>
+          </div>
+          <button type="button" class="homepage-help-close" data-help-close aria-label="">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <div class="homepage-help-body" id="homepage-help-body"></div>
+      </section>
+    </div>
 
     <div class="main-content">
       <section class="hero-section" id="heroSection">
@@ -401,7 +554,6 @@
           </div>
         </div>
       </section>
-
 
       <!-- ===== INSTALL ADASHIMAVERSE ===== -->
       <section
@@ -712,10 +864,12 @@
         </div>
       </div>
     </div>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
     <!-- Import JS -->
     <script src="./src/js/language-switch.js" defer></script>
-    <script src="./src/js/index.js?v=1.5.3" defer></script>
-    <script src="./src/js/sw-register.js?v=1.5.3" defer></script>
+    <script src="./src/js/index.js?v=2.4.1" defer></script>
+    <script src="./src/js/mobile-controls.js?v=2.4.1" defer></script>
+    <script src="./src/js/sw-register.js?v=2.4.1" defer></script>
   </body>
 </html>

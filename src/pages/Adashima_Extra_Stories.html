@@ -141,32 +141,89 @@
       </div>
 
       <!-- Filter Controls -->
-      <div class="extra-controls-top">
-        <div class="extra-filter-group" id="filterGroup">
-          <button class="filter-pill active" data-filter="all">
-            All <span class="filter-count" id="countAll">0</span>
-          </button>
-          <button class="filter-pill" data-filter="bookmarks">
-            <i class="fas fa-bookmark"></i>
-            <span class="filter-count" id="countBookmarks">0</span>
-          </button>
-          <button class="filter-pill" data-filter="unread">
-            <i class="fas fa-circle"></i>
-            <span class="filter-count" id="countUnread">0</span>
-          </button>
-          <button class="filter-pill" data-filter="read">
-            <i class="fas fa-check-circle"></i>
-            <span class="filter-count" id="countRead">0</span>
-          </button>
+      <section class="library-toolbar" aria-label="Story library controls">
+        <div class="library-toolbar-top">
+          <div>
+            <p class="library-kicker">LIBRARY</p>
+            <h2 class="library-heading">Browse the extra stories</h2>
+            <p class="library-hint">Choose a status or search by title, volume, type, or store.</p>
+          </div>
+          <div class="library-result-count" id="libraryResultCount" aria-live="polite">
+            <strong id="libraryResultNumber">0</strong>
+            <span>stories shown</span>
+          </div>
         </div>
-      </div>
 
-      <div class="extra-controls">
-        <div class="search-wrapper">
-          <input type="text" id="searchInput" placeholder="Search..." aria-label="Search stories" />
-          <i class="fas fa-search"></i>
+        <div class="library-toolbar-controls">
+          <div class="search-wrapper">
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search stories..."
+              aria-label="Search stories"
+            />
+            <button
+              class="search-clear"
+              id="searchClear"
+              type="button"
+              aria-label="Clear search"
+              hidden
+            >
+              <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <div class="library-filter-row">
+            <div class="status-filter" id="filterGroup" aria-label="Reading status">
+              <span class="status-filter-label">Show</span>
+              <button class="filter-pill active" data-filter="all">
+                All <span class="filter-count" id="countAll">0</span>
+              </button>
+              <button class="filter-pill" data-filter="unread">
+                Unread <span class="filter-count" id="countUnread">0</span>
+              </button>
+              <button class="filter-pill" data-filter="read">
+                Read <span class="filter-count" id="countRead">0</span>
+              </button>
+              <button class="filter-pill" data-filter="bookmarks">
+                Bookmarked <span class="filter-count" id="countBookmarks">0</span>
+              </button>
+            </div>
+            <label class="volume-filter">
+              <span class="status-filter-label">Volume</span>
+              <select id="volumeFilter" aria-label="Filter by volume">
+                <option value="all">All volumes</option>
+              </select>
+            </label>
+            <div class="view-toggle" aria-label="Story display mode">
+              <span class="status-filter-label">View</span>
+              <div class="view-toggle-group" role="group" aria-label="Story display mode">
+                <button
+                  type="button"
+                  class="view-toggle-btn active"
+                  data-view="grid"
+                  aria-label="Grid view"
+                  aria-pressed="true"
+                >
+                  <i class="fas fa-grip" aria-hidden="true"></i>
+                  <span>Grid</span>
+                </button>
+                <button
+                  type="button"
+                  class="view-toggle-btn"
+                  data-view="list"
+                  aria-label="List view"
+                  aria-pressed="false"
+                >
+                  <i class="fas fa-list" aria-hidden="true"></i>
+                  <span>List</span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
       <div class="extra-grid" id="storyGrid"></div>
 

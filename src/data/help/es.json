@@ -190,6 +190,18 @@
         {
           "question": "¿Qué ocurre si borro los datos de mi navegador?",
           "answer": "Algunas preferencias del sitio y datos de lectura locales se almacenan en tu navegador. Borrar el almacenamiento local del sitio o los datos de navegación puede eliminar elementos como los marcadores de Historias adicionales, el progreso de lectura, las preferencias del lector o el idioma y los ajustes guardados localmente."
+        },
+        {
+          "question": "¿Cómo funciona el lector EPUB?",
+          "answer": "El lector EPUB abre el libro directamente en el navegador y admite <strong>temas Claro, Sepia, Oscuro y AMOLED</strong>, controles de fuente, interlineado, ancho de lectura, alineación, espacio entre párrafos, búsqueda, tabla de contenido, pantalla completa y <strong>Desplazamiento continuo</strong>. La posición de lectura y las preferencias se guardan localmente en el navegador."
+        },
+        {
+          "question": "¿Por qué el desplazamiento continuo avanza automáticamente después de las ilustraciones?",
+          "answer": "Algunos EPUB guardan una ilustración de página completa o una sección corta como un documento EPUB separado. En <strong>Desplazamiento continuo</strong>, llegar al final avanza automáticamente a la siguiente sección, por lo que no tienes que pulsar Siguiente solo para continuar. Los controles Anterior/Siguiente siguen disponibles para la navegación manual."
+        },
+        {
+          "question": "¿Puedo previsualizar los ajustes del EPUB en el móvil?",
+          "answer": "Sí. El panel de ajustes del lector EPUB incluye una <strong>vista previa en vivo</strong>. Se actualiza al cambiar el tema, la fuente, el tamaño, el peso, el espaciado, la alineación y otros ajustes tipográficos, para que puedas ver el resultado sin cerrar el panel."
         }
       ]
     },
@@ -218,6 +230,10 @@
         {
           "question": "¿Para qué sirven Cronología y Constelación?",
           "answer": "<strong>Cronología</strong> sirve como referencia cronológica, mientras que <strong>Constelación</strong> es una función interactiva de referencia para explorar relaciones y detalles a lo largo de la serie. Son útiles cuando buscas contexto en lugar de simplemente leer un volumen."
+        },
+        {
+          "question": "¿En qué se diferencian las principales aplicaciones?",
+          "answer": "<strong>Novelas</strong> es el archivo principal de novelas ligeras y ofrece lectura PDF/EPUB; <strong>Manga</strong> se centra en la lectura visual en PDF y el modo cascada; <strong>Historias adicionales</strong> ofrece material complementario con marcadores y progreso; <strong>Música</strong> ofrece reproducción de álbumes/pistas, favoritos y cola; <strong>Anime</strong> ofrece reproducción de episodios, selección de fuente y progreso; <strong>Drama CD</strong> ofrece una experiencia de audio tipo canal; <strong>Galería</strong> organiza ilustraciones y portadas; <strong>Línea de tiempo</strong>, <strong>Constelación</strong> y <strong>Estadísticas</strong> son herramientas de referencia/exploración; y <strong>Otros</strong> contiene recursos diversos."
         }
       ]
     },

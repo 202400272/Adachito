@@ -1,0 +1,151 @@
+@media (max-width: 767px) {
+  #mobile-header-controls {
+    display: contents !important;
+  }
+
+  #mobile-header-controls > #menu-container,
+  #mobile-header-controls > #homepage-search-controls {
+    position: static !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #mobile-header-controls .homepage-search-row {
+    display: contents !important;
+  }
+
+  #menu-component-wrapper .mobile-toggle,
+  #mobile-header-controls #menu-container .mobile-toggle,
+  #mobile-header-controls #menu-container .menu-toggle,
+  #mobile-header-controls #menu-container .mobile-menu-toggle,
+  #mobile-header-controls #menu-container button[aria-label*="menu" i]:not(.drawer-close-btn),
+  #mobile-header-controls .homepage-search-trigger,
+  #mobile-header-controls .homepage-help-trigger {
+    position: fixed !important;
+    left: 14px !important;
+    width: 38px !important;
+    min-width: 38px !important;
+    max-width: 38px !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    max-height: 38px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    border-radius: 11px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    backdrop-filter: blur(14px) saturate(115%) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(115%) !important;
+    background: var(--burger-bg) !important;
+    border: 1px solid var(--burger-border) !important;
+    color: var(--burger-color) !important;
+    box-shadow: var(--burger-shadow) !important;
+    z-index: 12001 !important;
+    pointer-events: auto !important;
+  }
+
+  #menu-component-wrapper .mobile-toggle,
+  #mobile-header-controls #menu-container .mobile-toggle,
+  #mobile-header-controls #menu-container .menu-toggle,
+  #mobile-header-controls #menu-container .mobile-menu-toggle,
+  #mobile-header-controls #menu-container button[aria-label*="menu" i]:not(.drawer-close-btn) {
+    top: 14px !important;
+    z-index: 12002 !important;
+  }
+
+  #mobile-header-controls .homepage-search-trigger {
+    top: 58px !important;
+  }
+
+  #mobile-header-controls .homepage-help-trigger {
+    top: 102px !important;
+    font:
+      700 0.88rem/1 "Quicksand",
+      sans-serif !important;
+  }
+
+  #menu-component-wrapper .mobile-toggle i,
+  #menu-component-wrapper .mobile-toggle svg,
+  #mobile-header-controls #menu-container .mobile-toggle i,
+  #mobile-header-controls #menu-container .mobile-toggle svg,
+  #mobile-header-controls #menu-container .menu-toggle i,
+  #mobile-header-controls #menu-container .menu-toggle svg,
+  #mobile-header-controls #menu-container .mobile-menu-toggle i,
+  #mobile-header-controls #menu-container .mobile-menu-toggle svg,
+  #mobile-header-controls #menu-container button[aria-label*="menu" i]:not(.drawer-close-btn) i,
+  #mobile-header-controls #menu-container button[aria-label*="menu" i]:not(.drawer-close-btn) svg,
+  #mobile-header-controls .homepage-search-icon,
+  #mobile-header-controls .homepage-search-icon svg {
+    width: 16px !important;
+    height: 16px !important;
+    stroke: currentColor !important;
+    fill: none !important;
+    color: currentColor !important;
+  }
+
+  #mobile-header-controls .homepage-search-placeholder,
+  #mobile-header-controls .homepage-search-shortcut,
+  #mobile-header-controls .homepage-search-hint {
+    display: none !important;
+  }
+
+  #menu-component-wrapper .mobile-toggle:hover,
+  #mobile-header-controls #menu-container .mobile-toggle:hover,
+  #mobile-header-controls #menu-container .menu-toggle:hover,
+  #mobile-header-controls #menu-container .mobile-menu-toggle:hover,
+  #mobile-header-controls #menu-container button[aria-label*="menu" i]:not(.drawer-close-btn):hover,
+  #mobile-header-controls .homepage-search-trigger:hover,
+  #mobile-header-controls .homepage-help-trigger:hover,
+  #menu-component-wrapper .mobile-toggle:focus-visible,
+  #mobile-header-controls #menu-container .mobile-toggle:focus-visible,
+  #mobile-header-controls #menu-container .menu-toggle:focus-visible,
+  #mobile-header-controls #menu-container .mobile-menu-toggle:focus-visible,
+  #mobile-header-controls
+    #menu-container
+    button[aria-label*="menu" i]:not(.drawer-close-btn):focus-visible,
+  #mobile-header-controls .homepage-search-trigger:focus-visible,
+  #mobile-header-controls .homepage-help-trigger:focus-visible {
+    background: var(--burger-bg) !important;
+    border-color: var(--burger-border) !important;
+    color: var(--burger-color) !important;
+    box-shadow: var(--burger-shadow) !important;
+    outline: none !important;
+  }
+
+  #menu-component-wrapper .mobile-toggle:active,
+  #mobile-header-controls #menu-container .mobile-toggle:active,
+  #mobile-header-controls #menu-container .menu-toggle:active,
+  #mobile-header-controls #menu-container .mobile-menu-toggle:active,
+  #mobile-header-controls
+    #menu-container
+    button[aria-label*="menu" i]:not(.drawer-close-btn):active,
+  #mobile-header-controls .homepage-search-trigger:active,
+  #mobile-header-controls .homepage-help-trigger:active {
+    transform: scale(0.95) !important;
+  }
+
+  body.time-morning #menu-component-wrapper #menu-toggle-btn,
+  body.time-morning #menu-component-wrapper .mobile-toggle,
+  body.time-morning #mobile-header-controls .homepage-search-trigger,
+  body.time-morning #mobile-header-controls .homepage-help-trigger {
+    background: rgba(255, 255, 255, 0.72) !important;
+    border-color: rgba(95, 134, 170, 0.42) !important;
+    color: #4a7fa8 !important;
+    box-shadow: 0 8px 32px 0 rgba(130, 150, 180, 0.15) !important;
+  }
+
+  body.time-morning #menu-component-wrapper #menu-toggle-btn i,
+  body.time-morning #menu-component-wrapper #menu-toggle-btn svg,
+  body.time-morning #menu-component-wrapper .mobile-toggle i,
+  body.time-morning #menu-component-wrapper .mobile-toggle svg,
+  body.time-morning #mobile-header-controls .homepage-search-icon,
+  body.time-morning #mobile-header-controls .homepage-search-icon svg {
+    color: #4a7fa8 !important;
+    stroke: #4a7fa8 !important;
+    fill: none !important;
+  }
+}

@@ -1,3 +1,5 @@
+/* global emailjs */
+
 if (
   location.hostname === "localhost" ||
   location.hostname === "127.0.0.1" ||
@@ -2115,6 +2117,616 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  const helpTrigger = document.getElementById("homepage-help-trigger");
+  const helpOverlay = document.getElementById("homepage-help-overlay");
+  const helpBody = document.getElementById("homepage-help-body");
+  const helpTitle = document.getElementById("homepage-help-title");
+  const helpEyebrow = document.getElementById("homepage-help-eyebrow");
+  if (!helpTrigger || !helpOverlay || !helpBody) return;
+  let lang = (localStorage.getItem("lang") || document.documentElement.lang || "es").toLowerCase();
+  let COPY = null;
+  const iconMap = {
+    languages: "languages",
+    search: "search",
+    menu: "menu",
+    sun: "sun",
+    "book-open": "book-open",
+    "message-circle": "message-circle",
+  };
+
+  async function loadHelpCopy() {
+    try {
+      const data = await loadContent(lang);
+      COPY = data.help || null;
+      if (!COPY) return;
+      if (!helpOverlay.hidden) render();
+    } catch (error) {
+      console.warn("[Help] Failed to load localized copy:", error);
+    }
+  }
+
+  function render() {
+    const c = COPY;
+    if (!c) return;
+    helpEyebrow.textContent = c.eyebrow || "";
+    helpTitle.textContent = c.title || "";
+    helpTrigger.setAttribute("aria-label", c.triggerLabel || "?");
+    helpTrigger.setAttribute("title", c.triggerLabel || "?");
+    const closeButton = helpOverlay.querySelector(".homepage-help-close");
+    if (closeButton) closeButton.setAttribute("aria-label", c.close || "");
+    helpBody.innerHTML =
+      c.items
+        .map(
+          ([icon, title, text]) =>
+            `<article class="homepage-help-item"><span class="homepage-help-item-icon"><i data-lucide="${iconMap[icon] || icon}"></i></span><div><h3>${title}</h3><p>${text}</p></div></article>`,
+        )
+        .join("") +
+      `<a class="homepage-help-page-link" href="/Adashima_Help"><span>${c.visitHelp || ""}</span><i data-lucide="${c.visitIcon || "arrow-up-right"}" aria-hidden="true"></i></a>`;
+    if (window.lucide) window.lucide.createIcons();
+  }
+
+  function open() {
+    render();
+    helpOverlay.hidden = false;
+    document.body.classList.add("homepage-help-open");
+  }
+  function close() {
+    helpOverlay.hidden = true;
+    document.body.classList.remove("homepage-help-open");
+  }
+  helpTrigger.addEventListener("click", open);
+  helpOverlay.addEventListener("click", (e) => {
+    if (e.target.closest("[data-help-close]")) close();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !helpOverlay.hidden) close();
+  });
+  document.addEventListener("languageChanged", (e) => {
+    lang = (e.detail?.lang || localStorage.getItem("lang") || "es").toLowerCase();
+    loadHelpCopy();
+  });
+  loadHelpCopy();
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  // ============================================================
+  // GLOBAL SEARCH (client-side command palette)
+  // ============================================================
+  (function () {
+    const trigger = document.getElementById("global-search-trigger");
+    const overlay = document.getElementById("global-search-overlay");
+    const input = document.getElementById("global-search-input");
+    const results = document.getElementById("global-search-results");
+    const status = document.getElementById("global-search-status");
+    const clearBtn = document.getElementById("global-search-clear");
+    const filters = document.querySelectorAll(".global-search-filter");
+    if (!trigger || !overlay || !input || !results || !status) return;
+
+    let COPY = null;
+    let lang = (localStorage.getItem("lang") || "es").toLowerCase();
+
+    let activeFilter = "all";
+    let index = [];
+    let indexPromise = null;
+    let selectedIndex = -1;
+    let previousFocus = null;
+
+    const text = () => COPY || {};
+    const label = (category) => text().categories?.[category] || category;
+    const normalize = (value) =>
+      String(value || "")
+        .toLocaleLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^\p{L}\p{N}]+/gu, " ")
+        .trim();
+
+    function fuzzyScore(query, item) {
+      const q = normalize(query);
+      if (!q) return 0;
+      const fields = [item.title, item.subtitle, item.description, ...(item.keywords || [])].map(
+        normalize,
+      );
+      const haystack = fields.join(" ");
+      let score = 0;
+      if (fields[0] === q) score += 1000;
+      if (fields[0].startsWith(q)) score += 500;
+      if (haystack.includes(q)) score += 260;
+      const words = q.split(/\s+/).filter(Boolean);
+      for (const word of words) {
+        if (fields.some((field) => field.startsWith(word))) score += 95;
+        else if (haystack.includes(word)) score += 55;
+        else {
+          // Lightweight fuzzy fallback: allow small edit-distance errors.
+          const candidates = haystack.split(/\s+/).filter(Boolean);
+          if (
+            candidates.some(
+              (candidate) =>
+                candidate.length >= 3 &&
+                levenshtein(word, candidate) <= Math.max(1, Math.floor(word.length / 4)),
+            )
+          )
+            score += 24;
+        }
+      }
+      return score;
+    }
+
+    function levenshtein(a, b) {
+      if (a === b) return 0;
+      if (!a) return b.length;
+      if (!b) return a.length;
+      if (Math.abs(a.length - b.length) > 3) return 99;
+      let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+      for (let i = 0; i < a.length; i++) {
+        const curr = [i + 1];
+        for (let j = 0; j < b.length; j++)
+          curr.push(Math.min(curr[j] + 1, prev[j + 1] + 1, prev[j] + (a[i] === b[j] ? 0 : 1)));
+        prev = curr;
+      }
+      return prev[b.length];
+    }
+
+    function addItem(target, category, title, subtitle, description, href, image, keywords = []) {
+      if (!title) return;
+      target.push({
+        category,
+        title: String(title),
+        subtitle: subtitle || "",
+        description: description || "",
+        href,
+        image: image || "",
+        keywords,
+      });
+    }
+
+    async function fetchJson(path) {
+      const response = await fetch(path, { cache: "force-cache" });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
+    }
+
+    async function buildIndex() {
+      if (indexPromise) return indexPromise;
+      indexPromise = (async () => {
+        const target = [];
+        const base = "/src/data/";
+
+        // search-manifest.json is (re)generated at build/dev-server start
+        // (see contentSearchManifest in vite.config.js) by scanning the
+        // actual folders/files under src/data on disk — gallery
+        // subfolders, illustration volumes, and extra-story files. That
+        // way adding a new folder or file is picked up automatically
+        // instead of needing a hardcoded list here.
+        let manifest = {
+          galleryFolders: ["official", "covers", "coversJP", "mangaCoversJP"],
+          illustrationVolumes: [],
+          extras: {},
+        };
+        try {
+          const fetched = await fetchJson(`${base}search-manifest.json`);
+          manifest = {
+            galleryFolders: Array.isArray(fetched.galleryFolders)
+              ? fetched.galleryFolders
+              : manifest.galleryFolders,
+            illustrationVolumes: Array.isArray(fetched.illustrationVolumes)
+              ? fetched.illustrationVolumes
+              : [],
+            extras: fetched.extras && typeof fetched.extras === "object" ? fetched.extras : {},
+          };
+        } catch (error) {
+          console.warn("Search content manifest unavailable, falling back to defaults:", error);
+        }
+
+        const files = [
+          ["novels", `novelas/${lang}.json`],
+          ["manga", `manga/${lang}.json`],
+          ["music", `music/${lang}.json`],
+          ["anime", `anime/${lang}.json`],
+          ["drama", `drama/${lang}.json`],
+          ["stories", `web-stories/${lang}.json`],
+          ...manifest.galleryFolders.map((folder) => ["gallery", `gallery/${folder}/${lang}.json`]),
+          ...manifest.illustrationVolumes.map((v) => [
+            "gallery",
+            `gallery/illustrations/volume-${v}/${lang}.json`,
+          ]),
+        ];
+
+        // Extra stories: read every individual extraN.json file directly
+        // (as discovered by the manifest) instead of relying on a
+        // hand-maintained index.json summary, so a new file shows up in
+        // search even if index.json wasn't updated to match.
+        const extraLangDir = manifest.extras[lang]?.length
+          ? lang
+          : manifest.extras.en?.length
+            ? "en"
+            : null;
+        const extraFiles = extraLangDir
+          ? manifest.extras[extraLangDir].map((id) => [
+              "extras",
+              `extras/${extraLangDir}/extra${id}.json`,
+            ])
+          : [];
+
+        const searchFiles = [...files, ...extraFiles];
+        const payloads = await Promise.allSettled(
+          searchFiles.map(([, path]) => fetchJson(base + path)),
+        );
+
+        payloads.forEach((entry, i) => {
+          if (entry.status !== "fulfilled") return;
+          const category = searchFiles[i][0];
+          const data = entry.value;
+          if (category === "novels") {
+            (data.volumes || []).forEach((v) =>
+              addItem(
+                target,
+                category,
+                v.title,
+                v.desc,
+                `Volume ${v.id}`,
+                "/Adashima_Novelas",
+                v.thumbnail,
+                [v.id, v.translator],
+              ),
+            );
+          } else if (category === "manga") {
+            const versions = data.versions || {};
+            const seen = new Set();
+            Object.entries(versions).forEach(([version, cfg]) =>
+              Object.entries(cfg.chapters || {}).forEach(([chapter, volume]) => {
+                const key = `${version}:${chapter}`;
+                if (seen.has(key)) return;
+                seen.add(key);
+                const versionLabel = cfg.label || version;
+                const volumeImage = data.volumeThumbnails?.[version]?.[`volume_${volume}`] || "";
+                addItem(
+                  target,
+                  category,
+                  `Chapter ${chapter}`,
+                  `${versionLabel} · Volume ${volume}`,
+                  data.descriptions?.[chapter] || "",
+                  "/Adashima_Manga",
+                  volumeImage,
+                  [chapter, volume, versionLabel],
+                );
+              }),
+            );
+          } else if (category === "music") {
+            (data.albums || []).forEach((album) => {
+              addItem(
+                target,
+                category,
+                album.title,
+                `${album.artist || ""} · ${album.year || ""}`,
+                album.classification || "Original soundtrack",
+                "/Adashima_Music",
+                album.coverImage,
+                [album.title_jp, album.artist, album.year],
+              );
+              (album.tracks || []).forEach((track) =>
+                addItem(
+                  target,
+                  category,
+                  track.title,
+                  `${album.title} · ${track.artist || ""}`,
+                  track.title_jp || "",
+                  "/Adashima_Music",
+                  album.coverImage,
+                  [track.title_jp, track.title_es, track.artist, album.title],
+                ),
+              );
+            });
+          } else if (category === "anime") {
+            (data.channels || []).forEach((ch) =>
+              addItem(
+                target,
+                category,
+                ch.title,
+                ch.sub || ch.badge || "",
+                ch.desc || "",
+                "/Adashima_Anime",
+                ch.thumbnail || "",
+                [ch.title_jp, ch.season, ch.audio],
+              ),
+            );
+          } else if (category === "drama") {
+            (data.channels || []).forEach((ch) =>
+              addItem(
+                target,
+                category,
+                ch.title,
+                ch.sub || ch.badge || "",
+                ch.desc || "",
+                "/Adashima_Drama",
+                ch.thumbnail || ch.image || "",
+                [ch.label],
+              ),
+            );
+          } else if (category === "stories") {
+            (data.stories || []).forEach((story) => {
+              const title = story.enTitle || story.title || story.jpTitle;
+              const subtitle =
+                story.jpTitle && (story.enTitle || story.title)
+                  ? story.jpTitle
+                  : story.source || story.store || "Extra Story";
+              const description = story.notes || story.description || story.type || "";
+              const href = story.id
+                ? `/Adashima_Extra_Stories?story=${encodeURIComponent(story.id)}`
+                : "/Adashima_Extra_Stories";
+              addItem(
+                target,
+                category,
+                title,
+                subtitle,
+                description,
+                href,
+                story.cover || story.image || "",
+                [
+                  story.id,
+                  story.jpTitle,
+                  story.enTitle,
+                  story.title,
+                  story.source,
+                  story.store,
+                  story.type,
+                  ...(story.tags || []),
+                ],
+              );
+            });
+          } else if (category === "extras") {
+            const href = data.id
+              ? `/Adashima_Extra_Stories?story=${encodeURIComponent(data.id)}`
+              : "/Adashima_Extra_Stories";
+            addItem(
+              target,
+              "stories",
+              data.title,
+              data.store || data.language || "Extra Story",
+              data.description || "",
+              href,
+              data.cover || data.image || "",
+              [data.id, data.language, data.store, ...(data.tags || [])],
+            );
+          } else if (category === "gallery") {
+            (data.artworks || []).forEach((art) =>
+              addItem(
+                target,
+                category,
+                art.title,
+                `${art.artist || ""} · ${art.collection || ""}`,
+                art.publication || art.curatorNote || "",
+                "/Adashima_Gallery",
+                art.image,
+                [
+                  art.artist,
+                  art.collection,
+                  ...(art.characters || []),
+                  ...(art.tags || []),
+                  art.publication,
+                ],
+              ),
+            );
+          }
+        });
+        index = target;
+        return index;
+      })();
+      return indexPromise;
+    }
+
+    function setCopy() {
+      const c = text();
+      if (!COPY) return;
+      const section = document.getElementById("homepage-search-controls");
+      const triggerLabel = c.triggerLabel || c.placeholder || "";
+      const inputLabel = c.inputPlaceholder || c.placeholder || "";
+      const shortcut = document.querySelector(".homepage-search-shortcut");
+      section?.setAttribute("aria-label", c.sectionLabel || "");
+      trigger?.setAttribute("aria-label", triggerLabel);
+      trigger?.setAttribute("title", triggerLabel);
+      const placeholder = document.getElementById("global-search-placeholder");
+      if (placeholder) placeholder.textContent = c.placeholder || "";
+      const hint = document.getElementById("homepage-search-hint");
+      if (hint) hint.textContent = c.hint || "";
+      if (shortcut) shortcut.textContent = c.shortcut || "";
+      input.placeholder = inputLabel;
+      input.setAttribute("aria-label", inputLabel);
+      clearBtn?.setAttribute("aria-label", c.clear || "");
+      document
+        .getElementById("global-search-title")
+        ?.replaceChildren(document.createTextNode(c.dialogTitle || ""));
+      document
+        .getElementById("global-search-filters")
+        ?.setAttribute("aria-label", c.filtersLabel || "");
+      document
+        .getElementById("global-search-results")
+        ?.setAttribute("aria-label", c.resultsLabel || "");
+      document.querySelectorAll("[data-search-filter]").forEach((btn) => {
+        const cat = btn.dataset.searchFilter;
+        btn.textContent = label(cat);
+      });
+      const footer = overlay.querySelector(".global-search-footer");
+      if (footer)
+        footer.innerHTML = `<span><kbd>↑</kbd><kbd>↓</kbd> ${c.footer?.navigate || ""}</span><span><kbd>Enter</kbd> ${c.footer?.open || ""}</span><span><kbd>Esc</kbd> ${c.footer?.close || ""}</span>`;
+    }
+
+    async function loadSearchCopy() {
+      try {
+        const data = await loadContent(lang);
+        COPY = data.search || null;
+        setCopy();
+      } catch (error) {
+        console.warn("[Search] Failed to load localized copy:", error);
+      }
+    }
+
+    function openSearch() {
+      previousFocus = document.activeElement;
+      overlay.hidden = false;
+      document.body.classList.add("global-search-open");
+      setCopy();
+      input.value = "";
+      clearBtn.hidden = true;
+      selectedIndex = -1;
+      status.textContent = text().status?.start || "";
+      results.innerHTML = "";
+      requestAnimationFrame(() => input.focus());
+      buildIndex().catch(() => {
+        status.textContent = text().status?.none || "";
+      });
+    }
+
+    function closeSearch() {
+      overlay.hidden = true;
+      document.body.classList.remove("global-search-open");
+      if (previousFocus && typeof previousFocus.focus === "function") previousFocus.focus();
+    }
+
+    function render(query) {
+      const q = query.trim();
+      clearBtn.hidden = !q;
+      if (!q) {
+        status.textContent = text().status?.start || "";
+        results.innerHTML = "";
+        selectedIndex = -1;
+        return;
+      }
+      const ranked = index
+        .filter((item) => activeFilter === "all" || item.category === activeFilter)
+        .map((item) => ({ item, score: fuzzyScore(q, item) }))
+        .filter((x) => x.score > 0)
+        .sort((a, b) => b.score - a.score || a.item.title.localeCompare(b.item.title))
+        .slice(0, 12);
+      status.textContent = ranked.length
+        ? `${ranked.length} ${ranked.length === 1 ? text().resultCount?.singular || "" : text().resultCount?.plural || ""}`
+        : text().status?.none || "";
+      selectedIndex = Math.min(selectedIndex, ranked.length - 1);
+      results.innerHTML = ranked
+        .map(({ item }, i) => {
+          const icon =
+            item.category === "music"
+              ? "music"
+              : item.category === "manga"
+                ? "book-open"
+                : item.category === "novels"
+                  ? "book"
+                  : item.category === "stories"
+                    ? "scroll"
+                    : item.category === "anime"
+                      ? "tv"
+                      : item.category === "drama"
+                        ? "clapperboard"
+                        : "image";
+          const thumb = item.image
+            ? '<img src="' + escapeAttr(item.image) + '" alt="" loading="lazy">'
+            : '<i data-lucide="' + icon + '"></i>';
+          return (
+            '<a class="global-search-result' +
+            (i === selectedIndex ? " selected" : "") +
+            '" href="' +
+            escapeAttr(item.href) +
+            '" role="option" aria-selected="' +
+            (i === selectedIndex ? "true" : "false") +
+            '" data-result-index="' +
+            i +
+            '"><span class="global-search-result-thumb">' +
+            thumb +
+            '</span><span class="global-search-result-copy"><strong>' +
+            escapeHtml(item.title) +
+            "</strong><span>" +
+            escapeHtml(item.subtitle || item.description) +
+            '</span></span><span class="global-search-result-tag">' +
+            escapeHtml(label(item.category)) +
+            '</span><i class="global-search-result-arrow" data-lucide="arrow-up-right" aria-hidden="true"></i></a>'
+          );
+        })
+        .join("");
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function escapeHtml(value) {
+      return String(value || "").replace(
+        /[&<>'"]/g,
+        (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[c],
+      );
+    }
+    function escapeAttr(value) {
+      return escapeHtml(value).replace(/`/g, "&#96;");
+    }
+
+    trigger.addEventListener("click", openSearch);
+    input.addEventListener("input", () => {
+      selectedIndex = -1;
+      render(input.value);
+    });
+    clearBtn.addEventListener("click", () => {
+      input.value = "";
+      render("");
+      input.focus();
+    });
+    filters.forEach((btn) =>
+      btn.addEventListener("click", () => {
+        activeFilter = btn.dataset.searchFilter || "all";
+        filters.forEach((b) => {
+          const active = b === btn;
+          b.classList.toggle("active", active);
+          b.setAttribute("aria-selected", active ? "true" : "false");
+        });
+        render(input.value);
+      }),
+    );
+    overlay.addEventListener("click", (event) => {
+      if (event.target.closest("[data-search-close]")) closeSearch();
+    });
+    results.addEventListener("click", () => {
+      closeSearch();
+    });
+    input.addEventListener("keydown", (event) => {
+      const items = [...results.querySelectorAll(".global-search-result")];
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        if (items.length) {
+          selectedIndex = (selectedIndex + 1) % items.length;
+          render(input.value);
+        }
+      } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        if (items.length) {
+          selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+          render(input.value);
+        }
+      } else if (event.key === "Enter" && selectedIndex >= 0 && items[selectedIndex]) {
+        event.preventDefault();
+        items[selectedIndex].click();
+      } else if (event.key === "Escape") {
+        event.preventDefault();
+        closeSearch();
+      }
+    });
+    document.addEventListener("keydown", (event) => {
+      const modifier = event.ctrlKey || event.metaKey;
+      if (modifier && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        if (overlay.hidden) openSearch();
+        else input.focus();
+      } else if (event.key === "Escape" && !overlay.hidden) closeSearch();
+    });
+    document.addEventListener("languageChanged", (event) => {
+      lang = (event.detail?.lang || localStorage.getItem("lang") || "es").toLowerCase();
+      index = [];
+      indexPromise = null;
+      setCopy();
+      if (!overlay.hidden) {
+        status.textContent = text().status?.loading || "";
+        buildIndex().then(() => render(input.value));
+      }
+    });
+    loadSearchCopy();
+  })();
+});
+
 document.addEventListener("DOMContentLoaded", async function () {
   initPwaPromo();
 
@@ -2183,12 +2795,11 @@ document.addEventListener("menuLoaded", function () {
 (function () {
   const APPEARANCE_STORAGE_KEY = "adashima_time_based_appearance";
   const MANUAL_THEME_STORAGE_KEY = "adashima_manual_appearance";
-  const VALID_THEMES = ["morning", "afternoon", "night"];
+  const VALID_THEMES = ["afternoon", "night"];
 
   function getTimePeriod() {
     const hour = new Date().getHours();
-    if (hour >= 5 && hour < 12) return "morning";
-    if (hour >= 12 && hour < 19) return "afternoon";
+    if (hour >= 5 && hour < 19) return "afternoon";
     return "night";
   }
 

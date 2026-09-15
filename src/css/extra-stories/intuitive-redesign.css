@@ -1,0 +1,559 @@
+/* ============================================================
+   EXTRA STORIES — INTUITIVE LIBRARY REDESIGN
+   Purpose: make the browsing hierarchy obvious before adding
+   more visual decoration. Existing reader styles are untouched.
+   ============================================================ */
+
+:root {
+  --es-bg: var(--page-bg);
+  --es-panel: var(--page-surface);
+  --es-panel-strong: var(--page-surface-strong);
+  --es-line: var(--page-border);
+  --es-soft: var(--page-soft);
+  --es-ink: var(--page-text);
+  --es-muted: var(--page-muted);
+  --es-accent: var(--page-accent);
+  --es-accent-strong: var(--page-accent-strong);
+}
+
+.extra-main {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 32px 32px 72px;
+}
+
+.extra-hero {
+  padding: 0 0 28px;
+}
+
+.extra-hero-content {
+  min-height: 230px;
+  padding: 34px 42px;
+  border-radius: 20px;
+  background:
+    linear-gradient(
+      115deg,
+      color-mix(in srgb, var(--es-panel-strong) 96%, var(--es-accent) 4%),
+      var(--es-panel)
+    ),
+    var(--es-panel);
+  box-shadow: 0 12px 32px var(--page-shadow);
+}
+
+.extra-hero-content::before {
+  top: 22px;
+  left: 42px;
+  right: auto;
+  font-family: "Quicksand", sans-serif;
+  letter-spacing: 0.16em;
+}
+
+.extra-hero-content::after {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  right: 8%;
+  top: 24px;
+  border: 1px solid color-mix(in srgb, var(--es-accent) 24%, transparent);
+  border-radius: 50%;
+  opacity: 0.65;
+}
+
+.extra-hero-title {
+  max-width: 760px;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.extra-hero-subtitle {
+  margin-left: 0;
+  max-width: 650px;
+  font-family: "Source Serif 4", serif;
+  font-size: 0.95rem;
+}
+
+/* Stats are supporting information, not a competing navigation bar. */
+.extra-stats {
+  margin-bottom: 28px;
+  border-radius: 14px;
+  box-shadow: none;
+  background: transparent;
+}
+.stat-item {
+  min-height: 64px;
+  padding: 10px 18px;
+  background: color-mix(in srgb, var(--es-panel) 72%, transparent);
+}
+
+/* Replace the old disconnected filter/search blocks with one
+   clearly-labelled library control area. */
+.extra-controls-top,
+.extra-controls {
+  display: none !important;
+}
+
+.library-toolbar {
+  margin: 0 0 34px;
+  padding: 18px 20px;
+  border: 1px solid var(--es-line);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--es-panel) 94%, var(--es-accent) 6%);
+  box-shadow: 0 5px 18px var(--page-shadow);
+}
+
+.library-toolbar-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--es-line);
+}
+
+.library-kicker {
+  margin: 0 0 5px;
+  color: var(--es-accent-strong);
+  font:
+    700 0.62rem/1 "Quicksand",
+    sans-serif;
+  letter-spacing: 0.18em;
+}
+
+.library-heading {
+  margin: 0;
+  color: var(--es-ink);
+  font:
+    700 1.45rem/1.1 "Cormorant Garamond",
+    serif;
+}
+
+.library-hint {
+  margin: 6px 0 0;
+  color: var(--es-muted);
+  font:
+    400 0.78rem/1.5 "Source Serif 4",
+    serif;
+}
+
+.library-result-count {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  color: var(--es-muted);
+  font:
+    600 0.68rem/1 "Quicksand",
+    sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.library-result-count strong {
+  color: var(--es-ink);
+  font-size: 1.2rem;
+}
+
+.library-toolbar-controls {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding-top: 16px;
+}
+
+.search-wrapper {
+  position: relative;
+  max-width: none;
+}
+.search-wrapper input {
+  height: 44px;
+  padding-right: 42px;
+  border-radius: 10px;
+  box-shadow: none;
+  background: var(--es-bg);
+}
+.search-wrapper input:focus {
+  box-shadow: inset 3px 0 0 var(--es-accent);
+}
+.search-clear {
+  position: absolute;
+  top: 50%;
+  right: 9px;
+  width: 28px;
+  height: 28px;
+  transform: translateY(-50%);
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--es-muted);
+  cursor: pointer;
+}
+.search-clear:hover {
+  background: var(--es-soft);
+  color: var(--es-ink);
+}
+
+.status-filter {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.status-filter-label {
+  margin-right: 3px;
+  color: var(--es-muted);
+  font:
+    700 0.62rem/1 "Quicksand",
+    sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.filter-pill {
+  min-height: 36px;
+  padding: 8px 11px;
+  border: 1px solid var(--es-line);
+  border-radius: 9px;
+  background: transparent;
+  color: var(--es-muted);
+  font:
+    700 0.66rem/1 "Quicksand",
+    sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+.filter-pill:hover {
+  color: var(--es-ink);
+  background: var(--es-soft);
+}
+.filter-pill.active {
+  border-color: var(--es-ink);
+  background: var(--es-ink);
+  color: var(--es-panel-strong);
+  box-shadow: none;
+}
+.filter-count {
+  margin-left: 3px;
+  opacity: 0.65;
+}
+
+/* Story groups read as sections, while individual cards read as
+   obvious selectable items. */
+.volume-group {
+  margin-bottom: 42px;
+}
+.volume-header {
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 9px;
+}
+.volume-cover {
+  width: 30px;
+  height: 38px;
+  box-shadow: 2px 2px 0 var(--es-soft);
+}
+.volume-title {
+  font-size: 1.4rem;
+}
+.volume-count {
+  padding: 4px 7px;
+  border: 1px solid var(--es-line);
+  border-radius: 7px;
+  font-size: 0.6rem;
+}
+
+/* Story cards: retain the original visual character, but tighten the footprint. */
+.volume-stories {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.story-card {
+  position: relative;
+  min-height: 166px;
+  overflow: hidden;
+  border-radius: 12px;
+  border-left-width: 4px;
+  box-shadow: 0 4px 14px var(--page-shadow);
+  background: var(--es-panel);
+  cursor: pointer;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+}
+.story-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px var(--page-shadow);
+}
+.story-card:focus-visible {
+  outline: 2px solid var(--es-accent);
+  outline-offset: 3px;
+}
+.story-card::before {
+  width: 46px;
+  height: 46px;
+}
+.story-card-body {
+  min-height: 166px;
+  padding: 14px 17px 12px;
+}
+.story-meta {
+  gap: 6px;
+  min-height: 20px;
+  margin-bottom: 6px;
+}
+.story-type,
+.story-store-badge {
+  padding: 3px 6px;
+  border-radius: 7px;
+}
+.story-title {
+  margin-bottom: 5px;
+  font-size: 1.24rem;
+  line-height: 1.06;
+}
+.story-description {
+  max-width: 94%;
+  font-size: 0.75rem;
+  line-height: 1.42;
+  -webkit-line-clamp: 2;
+}
+.story-footer {
+  padding-top: 7px;
+}
+.story-read-btn {
+  padding: 6px 11px;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--es-accent-strong);
+}
+.story-read-btn:hover {
+  background: var(--es-accent);
+  color: #fff;
+}
+.story-bookmark-btn {
+  width: 29px;
+  height: 29px;
+  border-radius: 7px;
+}
+
+/* Continue reading should look like a personal shelf, not another
+   unexplained row of controls. */
+.continue-reading {
+  margin: 0 0 28px;
+  padding: 18px;
+  border: 1px solid var(--es-line);
+  border-radius: 14px;
+  background: var(--es-panel);
+  box-shadow: 0 6px 18px var(--page-shadow);
+}
+.continue-reading-header {
+  margin-bottom: 12px;
+  font-size: 0.68rem;
+}
+.continue-card {
+  width: 240px;
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+/* Sources are deliberately secondary. */
+.extra-sources {
+  margin-top: 54px;
+  border-radius: 14px;
+  box-shadow: none;
+}
+.sources-header {
+  padding: 16px 18px;
+}
+.sources-title {
+  font-size: 1.2rem;
+}
+
+/* Empty state: make the next action explicit. */
+.extra-empty-state {
+  min-height: 230px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 6px;
+  padding: 30px;
+  border: 1px dashed var(--es-line);
+  border-radius: 14px;
+  text-align: center;
+}
+.extra-empty-state i {
+  margin-bottom: 6px;
+  color: var(--es-accent);
+}
+.extra-empty-state p {
+  margin: 0;
+}
+.extra-empty-state .empty-sub {
+  color: var(--es-muted);
+  font-size: 0.8rem;
+}
+
+/* Theme-aware polish: afternoon stays warm/pink; night stays plum/cool. */
+body.time-afternoon .extra-hero-content {
+  background: linear-gradient(
+    120deg,
+    color-mix(in srgb, var(--es-panel-strong) 88%, var(--es-accent) 12%),
+    var(--es-panel)
+  );
+}
+body.time-afternoon .story-card {
+  box-shadow: 0 4px 14px rgba(112, 62, 86, 0.13);
+}
+body.time-afternoon .story-card:hover {
+  box-shadow: 0 9px 22px rgba(112, 62, 86, 0.18);
+}
+
+body.time-night .extra-hero-content {
+  background: linear-gradient(
+    120deg,
+    color-mix(in srgb, var(--es-panel-strong) 92%, var(--es-accent) 8%),
+    var(--es-panel)
+  );
+}
+body.time-night .library-toolbar {
+  background: color-mix(in srgb, var(--es-panel) 96%, var(--es-accent) 4%);
+}
+body.time-night .story-card {
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.3);
+}
+body.time-night .story-card:hover {
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.42);
+}
+body.time-night .story-read-btn:hover {
+  color: #211f23;
+}
+
+.story-card:active {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 900px) {
+  .extra-main {
+    padding: 24px 18px 52px;
+  }
+  .library-toolbar-controls {
+    grid-template-columns: 1fr;
+  }
+  .status-filter {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 2px;
+  }
+  .status-filter-label {
+    flex: 0 0 auto;
+  }
+  .filter-pill {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+  .volume-stories {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .extra-main {
+    padding: 16px 12px 38px;
+  }
+  .extra-hero {
+    padding-bottom: 18px;
+  }
+  .extra-hero-content {
+    min-height: 245px;
+    padding: 28px 20px 24px;
+    border-radius: 16px;
+  }
+  .extra-hero-content::before {
+    left: 20px;
+    top: 17px;
+  }
+  .extra-hero-content::after {
+    width: 120px;
+    height: 120px;
+    right: 5%;
+    top: 42px;
+  }
+  .extra-hero-title {
+    font-size: 2.7rem;
+    line-height: 0.95;
+  }
+  .extra-hero-subtitle {
+    font-size: 0.83rem;
+    line-height: 1.65;
+  }
+
+  .extra-stats {
+    grid-template-columns: repeat(3, 1fr);
+    border-radius: 10px;
+  }
+  .stat-item {
+    min-height: 62px;
+    padding: 8px 9px;
+    grid-template-columns: 1fr;
+    grid-template-areas: "number" "label";
+    text-align: center;
+  }
+  .stat-item i {
+    display: none;
+  }
+  .stat-item + .stat-item {
+    border-top: 0;
+    border-left: 1px solid var(--es-line);
+  }
+  .stat-number {
+    font-size: 1.05rem;
+  }
+  .stat-item > span:last-child {
+    font-size: 0.5rem;
+    letter-spacing: 0.08em;
+  }
+
+  .library-toolbar {
+    margin-bottom: 26px;
+    padding: 15px;
+    border-radius: 12px;
+  }
+  .library-toolbar-top {
+    display: block;
+    padding-bottom: 14px;
+  }
+  .library-heading {
+    font-size: 1.3rem;
+  }
+  .library-hint {
+    font-size: 0.74rem;
+  }
+  .library-result-count {
+    margin-top: 12px;
+  }
+  .library-toolbar-controls {
+    padding-top: 14px;
+  }
+
+  .story-card,
+  .story-card-body {
+    min-height: 0;
+  }
+  .story-card-body {
+    padding: 17px 16px 14px;
+  }
+  .story-title {
+    font-size: 1.28rem;
+  }
+  .story-description {
+    -webkit-line-clamp: 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-card {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

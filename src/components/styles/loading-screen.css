@@ -26,6 +26,32 @@
   pointer-events: all;
 }
 
+body.time-morning .loading-overlay {
+  background: linear-gradient(
+    165deg,
+    #a8c8e8 0%,
+    #c8b5d8 30%,
+    #e8c8d8 55%,
+    #f5d8c8 80%,
+    #fff5e8 100%
+  );
+}
+
+body.time-afternoon .loading-overlay {
+  background: linear-gradient(165deg, #985b78 0%, #aa6680 30%, #bb748b 60%, #c98291 100%);
+}
+
+body.time-night .loading-overlay {
+  background: linear-gradient(
+    165deg,
+    #1a1028 0%,
+    #2a1a3a 25%,
+    #3a2a4a 55%,
+    #4a2a5a 80%,
+    #3a2a4a 100%
+  );
+}
+
 .loading-overlay.hidden {
   opacity: 0;
   visibility: hidden;

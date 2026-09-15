@@ -22,22 +22,20 @@
   --reader-border: #e8e4de;
 }
 
-body.time-morning {
-  --page-bg: #edf2f4;
-  --page-surface: #f9fbfb;
-  --page-surface-strong: #ffffff;
-  --page-border: #d3dfe2;
-  --page-soft: #e1eaec;
-  --page-accent: #64889a;
-  --page-accent-strong: #466c7d;
-  --page-muted: #64747a;
-  --page-shadow: rgba(49, 75, 84, 0.12);
-  --plum: #385562;
-  --dusty-rose: #7399aa;
-}
-
 body.time-afternoon {
-  --page-bg: #f4f0eb;
+  --page-bg: #f2dce6;
+  --page-text: #3f3038;
+  --page-surface: #fff6f9;
+  --page-surface-strong: #fffafd;
+  --page-border: #dfbdcb;
+  --page-soft: #ecd0dc;
+  --page-accent: #bd5f83;
+  --page-accent-strong: #91445f;
+  --page-muted: #765866;
+  --page-shadow: rgba(128, 58, 86, 0.16);
+  --plum: #4a303d;
+  --dusty-rose: #bd5f83;
+  --blush: #efc4d3;
 }
 
 body.time-night {

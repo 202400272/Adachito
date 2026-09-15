@@ -1,5 +1,5 @@
 (() => {
-  const VALID_THEMES = ["morning", "afternoon", "night"];
+  const VALID_THEMES = ["afternoon", "night"];
   const AUTO_KEY = "adashima_time_based_appearance";
   const MANUAL_KEY = "adashima_manual_appearance";
   const LANGUAGES = ["en", "es", "tg"];
@@ -14,16 +14,19 @@
   });
 
   const escapeHtml = (value) =>
-    String(value ?? "").replace(/[&<>'"]/g, (char) => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      "'": "&#39;",
-      '"': "&quot;",
-    })[char]);
+    String(value ?? "").replace(
+      /[&<>'"]/g,
+      (char) =>
+        ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          "'": "&#39;",
+          '"': "&quot;",
+        })[char],
+    );
 
-  const richText = (value) =>
-    escapeHtml(value).replace(/&lt;(\/?)(strong|em)&gt;/g, "<$1$2>");
+  const richText = (value) => escapeHtml(value).replace(/&lt;(\/?)(strong|em)&gt;/g, "<$1$2>");
 
   const getLanguage = () => {
     const stored =
@@ -43,7 +46,9 @@
 
     document.documentElement.lang = language;
     document.title = data.meta.title;
-    document.querySelector('meta[name="description"]')?.setAttribute("content", data.meta.description);
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute("content", data.meta.description);
   }
 
   const icon = (name) => {
@@ -119,15 +124,17 @@
     $("faqEyebrow").textContent = data.faq.eyebrow;
     $("faqTitle").textContent = data.faq.title;
     $("faqList").innerHTML = data.faq.items
-      .map((item) => `<details><summary>${escapeHtml(item.q)}</summary><p>${richText(item.a)}</p></details>`)
+      .map(
+        (item) =>
+          `<details><summary>${escapeHtml(item.q)}</summary><p>${richText(item.a)}</p></details>`,
+      )
       .join("");
-
   }
 
   function getPeriod() {
     if (typeof window.getTimePeriod === "function") return window.getTimePeriod();
     const hour = new Date().getHours();
-    return hour >= 5 && hour < 12 ? "morning" : hour >= 12 && hour < 19 ? "afternoon" : "night";
+    return hour >= 12 && hour < 19 ? "afternoon" : "night";
   }
 
   function syncTheme() {
@@ -165,7 +172,9 @@
 
     button.addEventListener("click", async () => {
       if (!deferredPrompt) {
-        document.getElementById("installSection")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        document
+          .getElementById("installSection")
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
         return;
       }
       const prompt = deferredPrompt;
@@ -179,7 +188,9 @@
     });
 
     document.getElementById("pwaHeroGuide")?.addEventListener("click", () => {
-      document.getElementById("installSection")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      document
+        .getElementById("installSection")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   }
 

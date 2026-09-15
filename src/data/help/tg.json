@@ -188,6 +188,18 @@
         {
           "question": "What happens if I clear my browser data?",
           "answer": "Some site preferences and local reading data are stored in your browser. Clearing the site's local storage or browsing data can remove things such as Extra Stories bookmarks, reading progress, reader preferences, or language/settings saved locally."
+        },
+        {
+          "question": "Paano gumagana ang EPUB reader?",
+          "answer": "Binubuksan ng EPUB reader ang aklat nang direkta sa browser at may <strong>Light, Sepia, Dark, at AMOLED themes</strong>, font controls, line spacing, reading width, text alignment, paragraph spacing, search, table of contents, fullscreen, at <strong>Continuous Scroll</strong>. Naka-save nang lokal sa browser ang reading position at reader preferences."
+        },
+        {
+          "question": "Bakit awtomatikong nagpapatuloy ang Continuous Scroll pagkatapos ng mga illustration?",
+          "answer": "May ilang EPUB na naglalagay ng full-page illustration o maikling seksyon bilang hiwalay na EPUB document. Sa <strong>Continuous Scroll</strong>, kapag umabot ka sa dulo, awtomatikong binubuksan ang susunod na seksyon para hindi mo na kailangang pindutin ang Next para magpatuloy. Available pa rin ang Previous/Next controls para sa manual navigation."
+        },
+        {
+          "question": "Maaari bang i-preview ang EPUB settings sa mobile?",
+          "answer": "Oo. May <strong>live reading preview</strong> sa settings panel ng EPUB reader. Awtomatiko itong nag-a-update kapag binago ang theme, font, size, weight, spacing, alignment, at iba pang typography settings, kaya makikita mo ang resulta nang hindi isinasara ang settings panel."
         }
       ]
     },
@@ -216,6 +228,10 @@
         {
           "question": "What are Timeline and Constellation for?",
           "answer": "<strong>Timeline</strong> is for chronological reference, while <strong>Constellation</strong> is an interactive reference feature for exploring relationships and details across the series. They are useful when you want context rather than simply reading a volume."
+        },
+        {
+          "question": "Ano ang pinagkaiba ng mga pangunahing application?",
+          "answer": "Ang <strong>Novels</strong> ang pangunahing light-novel archive at may PDF/EPUB reading; ang <strong>Manga</strong> ay para sa visual PDF reading at cascade mode; ang <strong>Extra Stories</strong> ay para sa supplementary stories na may bookmarks at progress; ang <strong>Music</strong> ay para sa album/track playback, favorites, at queue; ang <strong>Anime</strong> ay para sa episode playback, source selection, at progress; ang <strong>Drama CD</strong> ay channel-style audio experience; ang <strong>Gallery</strong> ay nag-aayos ng illustrations at covers; ang <strong>Timeline</strong>, <strong>Constellation</strong>, at <strong>Stats</strong> ay reference/exploration tools; at ang <strong>Others</strong> ay naglalaman ng miscellaneous resources."
         }
       ]
     },

@@ -58,7 +58,7 @@ export default [
     languageOptions: { sourceType: "module" },
   },
   {
-    files: ["src/components/js/feedback.js", "src/js/index.js"],
+    files: ["src/components/js/feedback.js", "src/js/index.js", "src/index.js"],
     languageOptions: { globals: emailjsGlobal },
   },
   {

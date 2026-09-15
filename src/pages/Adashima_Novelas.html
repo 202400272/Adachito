@@ -48,10 +48,17 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+    />
     <link rel="stylesheet" href="/src/components/styles/menu.css" />
     <link rel="stylesheet" href="/src/components/styles/time-theme-pages.css" />
     <link rel="stylesheet" href="/src/css/lang-switch.css" />
     <link rel="stylesheet" href="/src/components/styles/pdf-reader.css" />
+    <link rel="stylesheet" href="/src/components/styles/epub-reader.css" />
     <link rel="stylesheet" href="/src/css/novels/main.css" />
     <!-- pdf.js is no longer loaded here render-blocking on every page view.
          novelas.js lazy-loads it on demand the moment someone opens the
@@ -153,7 +160,7 @@
             <span id="pdfVolumeTitle">Volumen</span>
           </h2>
           <!-- Toolbar merged into header. Only page navigation stays inline —
-               everything else (zoom, page-jump, reading mode, theme,
+               everything else (zoom, page-jump, theme,
                thumbnails, fullscreen, downloads) lives in one dedicated
                settings panel (#pdfToolbarSecondary), opened from the single
                gear button. Same panel markup/behavior on desktop and mobile;
@@ -233,10 +240,7 @@
               aria-label="Ajustes del lector"
             >
               <div class="pdf-settings-header">
-                <span
-                  data-i18n-es="Ajustes"
-                  data-i18n-en="Settings"
-                  data-i18n-tg="Mga setting"
+                <span data-i18n-es="Ajustes" data-i18n-en="Settings" data-i18n-tg="Mga setting"
                   >Ajustes</span
                 >
                 <button
@@ -313,10 +317,7 @@
                       data-i18n-title-tg="I-reset ang zoom (0)"
                     >
                       <i class="fas fa-sync-alt"></i>
-                      <span
-                        data-i18n-es="Ajustar"
-                        data-i18n-en="Reset"
-                        data-i18n-tg="Ayusin"
+                      <span data-i18n-es="Ajustar" data-i18n-en="Reset" data-i18n-tg="Ayusin"
                         >Ajustar</span
                       >
                     </button>
@@ -332,10 +333,30 @@
                   >
                     Lectura
                   </div>
+                  <div class="pdf-settings-item pdf-setting-select">
+                    <i class="fas fa-book-reader" aria-hidden="true"></i>
+                    <label class="pdf-setting-toggle-label" for="readerPreferenceSelect">
+                      <span
+                        data-i18n-es="Lector predeterminado"
+                        data-i18n-en="Default reader"
+                        data-i18n-tg="Default na reader"
+                        >Lector predeterminado</span
+                      >
+                    </label>
+                    <select id="readerPreferenceSelect" aria-label="Default reader">
+                      <option value="epub">EPUB Reader</option>
+                      <option value="pdf">PDF Reader</option>
+                    </select>
+                  </div>
                   <div class="pdf-settings-item pdf-setting-select" id="pdfViewModeSetting">
                     <i class="fas fa-file-alt" aria-hidden="true"></i>
                     <label class="pdf-setting-toggle-label" for="pdfViewModeSelect">
-                      <span data-i18n-es="Modo de lectura" data-i18n-en="Reading mode" data-i18n-tg="Mode ng pagbasa">Modo de lectura</span>
+                      <span
+                        data-i18n-es="Modo de lectura"
+                        data-i18n-en="Reading mode"
+                        data-i18n-tg="Mode ng pagbasa"
+                        >Modo de lectura</span
+                      >
                     </label>
                     <select id="pdfViewModeSelect" aria-label="Modo de lectura">
                       <option value="single">Modo de página única</option>
@@ -698,10 +719,806 @@
       </div>
     </div>
 
+    <!-- EPUB reader. -->
+    <div
+      class="epub-reader-modal"
+      id="epubReaderModal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="EPUB Reader"
+    >
+      <div class="epub-backdrop" id="epubBackdrop"></div>
+      <div class="epub-reader-shell">
+        <header class="epub-reader-header">
+          <button
+            class="epub-reader-btn"
+            id="epubReaderClose"
+            type="button"
+            aria-label="Close reader"
+            title="Close reader"
+          >
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <div class="epub-reader-title-wrap">
+            <h2 class="epub-reader-title" id="epubReaderTitle">Reading</h2>
+            <div class="epub-reader-subtitle">
+              <span id="epubChapterTitle"></span
+              ><span
+                class="epub-chapter-progress"
+                id="epubChapterProgress"
+                aria-live="polite"
+              ></span>
+            </div>
+          </div>
+          <button
+            class="epub-reader-btn"
+            id="epubTocToggle"
+            type="button"
+            aria-label="Table of contents"
+            title="Table of contents"
+          >
+            <i class="fas fa-list"></i>
+          </button>
+          <button
+            class="epub-reader-btn"
+            id="epubSearchToggle"
+            type="button"
+            aria-label="Search book"
+            title="Search book"
+          >
+            <i class="fas fa-search"></i>
+          </button>
+          <button
+            class="epub-reader-btn"
+            id="epubSettingsToggle"
+            type="button"
+            aria-label="Reading settings"
+            title="Reading settings"
+          >
+            <i class="fas fa-sliders-h"></i>
+          </button>
+          <button
+            class="epub-reader-btn epub-desktop-action"
+            id="epubRefreshVolumeHeader"
+            type="button"
+            aria-label="Force refresh volume"
+            title="Force refresh volume"
+          >
+            <i class="fas fa-arrows-rotate"></i>
+          </button>
+          <button
+            class="epub-reader-btn epub-mobile-more-btn"
+            id="epubMobileActionsToggle"
+            type="button"
+            aria-label="More reader actions"
+            title="More reader actions"
+          >
+            <i class="fas fa-ellipsis"></i>
+          </button>
+          <button
+            class="epub-reader-btn epub-desktop-action"
+            id="epubFullscreenToggle"
+            type="button"
+            aria-label="Toggle fullscreen"
+            title="Toggle fullscreen"
+          >
+            <i class="fas fa-expand" id="epubFullscreenIcon"></i>
+          </button>
+          <button
+            class="epub-reader-btn epub-chrome-hide-btn epub-desktop-action"
+            id="epubChromeHide"
+            type="button"
+            aria-label="Hide reader controls"
+            title="Hide reader controls"
+          >
+            <i class="fas fa-eye-slash"></i>
+          </button>
+        </header>
+        <div class="epub-mobile-actions" aria-label="More reader actions">
+          <button
+            class="epub-reader-btn"
+            type="button"
+            id="epubMobileSearch"
+            aria-label="Search book"
+            title="Search book"
+          >
+            <i class="fas fa-search"></i><span>Search</span>
+          </button>
+          <button
+            class="epub-reader-btn"
+            type="button"
+            id="epubMobileFullscreen"
+            aria-label="Toggle fullscreen"
+            title="Toggle fullscreen"
+          >
+            <i class="fas fa-expand"></i><span>Fullscreen</span>
+          </button>
+          <button
+            class="epub-reader-btn"
+            type="button"
+            id="epubMobileRefreshVolume"
+            aria-label="Force refresh volume"
+            title="Force refresh volume"
+          >
+            <i class="fas fa-arrows-rotate"></i><span>Refresh volume</span>
+          </button>
+          <button
+            class="epub-reader-btn"
+            type="button"
+            id="epubMobileChromeHide"
+            aria-label="Hide reader controls"
+            title="Hide reader controls"
+          >
+            <i class="fas fa-eye-slash"></i><span>Hide UI</span>
+          </button>
+        </div>
+        <button
+          class="epub-chrome-reveal"
+          id="epubChromeReveal"
+          type="button"
+          aria-label="Show reader controls"
+          title="Show reader controls"
+        >
+          <i class="fas fa-eye"></i>
+        </button>
+
+        <button
+          class="epub-hidden-header-settings"
+          id="epubHiddenHeaderSettings"
+          type="button"
+          aria-label="Open reading settings"
+          title="Open reading settings"
+        >
+          <i class="fas fa-sliders-h"></i>
+        </button>
+
+        <div class="epub-viewer-wrap">
+          <div id="epubViewer" tabindex="0"></div>
+          <div class="epub-loading-state" id="epubLoadingState">
+            <div class="epub-loading-inner">
+              <i class="fas fa-book-open"></i>
+              <div>Loading book…</div>
+            </div>
+          </div>
+          <div class="epub-error-state" id="epubErrorState" hidden>
+            <div class="epub-error-inner">
+              <i class="fas fa-exclamation-triangle"></i>
+              <p id="epubErrorMessage">The EPUB could not be loaded.</p>
+              <button class="epub-reader-btn" id="epubRetry" type="button" title="Retry">
+                <i class="fas fa-redo"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="epub-drawer-backdrop" id="epubDrawerBackdrop"></div>
+          <aside class="epub-toc-panel" aria-label="Table of contents">
+            <div class="epub-panel-inner">
+              <div class="epub-panel-header">
+                <h3>Contents</h3>
+                <button
+                  class="epub-reader-btn"
+                  type="button"
+                  aria-label="Close contents"
+                  onclick="document.getElementById('epubReaderModal').classList.remove('toc-open')"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <div id="epubTocList"></div>
+            </div>
+          </aside>
+
+          <aside class="epub-search-panel" aria-label="Search book">
+            <div class="epub-panel-inner">
+              <div class="epub-panel-header">
+                <h3>Search book</h3>
+                <button
+                  class="epub-reader-btn"
+                  id="epubSearchClose"
+                  type="button"
+                  aria-label="Close search"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <input
+                class="epub-search-input"
+                id="epubSearchInput"
+                type="search"
+                placeholder="Search in this book…"
+                autocomplete="off"
+              />
+              <div class="epub-search-results" id="epubSearchResults">
+                <div class="epub-search-empty">Type at least 2 characters.</div>
+              </div>
+            </div>
+          </aside>
+
+          <aside class="epub-settings-panel" aria-label="Reading settings">
+            <div class="epub-panel-inner">
+              <div class="epub-panel-header">
+                <div>
+                  <span class="epub-panel-kicker">Customize</span>
+                  <h3>Reading settings</h3>
+                </div>
+                <button
+                  class="epub-reader-btn"
+                  type="button"
+                  aria-label="Close settings"
+                  onclick="
+                    document.getElementById('epubReaderModal').classList.remove('settings-open')
+                  "
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+
+              <div class="epub-reading-stats" aria-label="Reading progress">
+                <div class="epub-reading-stat">
+                  <i class="fas fa-clock" aria-hidden="true"></i>
+                  <span>Read</span>
+                  <strong id="epubReadingTime">0s</strong>
+                </div>
+                <div class="epub-reading-stat">
+                  <i class="fas fa-chart-line" aria-hidden="true"></i>
+                  <span>Progress</span>
+                  <strong id="epubReadingProgress">0%</strong>
+                </div>
+              </div>
+
+              <nav class="epub-settings-tabs" role="tablist" aria-label="Settings categories">
+                <button
+                  type="button"
+                  class="epub-settings-tab is-active"
+                  data-epub-settings-tab="appearance"
+                  role="tab"
+                  aria-selected="true"
+                >
+                  <i class="fas fa-palette"></i><span>Look</span>
+                </button>
+                <button
+                  type="button"
+                  class="epub-settings-tab"
+                  data-epub-settings-tab="text"
+                  role="tab"
+                  aria-selected="false"
+                >
+                  <i class="fas fa-font"></i><span>Text</span>
+                </button>
+                <button
+                  type="button"
+                  class="epub-settings-tab"
+                  data-epub-settings-tab="layout"
+                  role="tab"
+                  aria-selected="false"
+                >
+                  <i class="fas fa-sliders-h"></i><span>Layout</span>
+                </button>
+                <button
+                  type="button"
+                  class="epub-settings-tab"
+                  data-epub-settings-tab="interface"
+                  role="tab"
+                  aria-selected="false"
+                >
+                  <i class="fas fa-display"></i><span>UI</span>
+                </button>
+                <button
+                  type="button"
+                  class="epub-settings-tab"
+                  data-epub-settings-tab="accessibility"
+                  role="tab"
+                  aria-selected="false"
+                >
+                  <i class="fas fa-universal-access"></i><span>A11y</span>
+                </button>
+                <button
+                  type="button"
+                  class="epub-settings-tab"
+                  data-epub-settings-tab="behavior"
+                  role="tab"
+                  aria-selected="false"
+                >
+                  <i class="fas fa-wand-magic-sparkles"></i><span>More</span>
+                </button>
+              </nav>
+
+              <div data-epub-settings-section="appearance">
+                <div class="epub-settings-group-title">Appearance</div>
+                <div class="epub-settings-group">
+                  <div class="epub-setting epub-theme-setting">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-palette" aria-hidden="true"></i><span>Theme</span>
+                    </div>
+                    <select
+                      class="epub-select epub-theme-fallback"
+                      id="epubThemeSelect"
+                      aria-label="Theme"
+                    >
+                      <option value="light">Light</option>
+                      <option value="sepia">Sepia</option>
+                      <option value="dark">Dark</option>
+                      <option value="amoled">AMOLED</option>
+                      <option value="rose">Rose</option>
+                      <option value="ocean">Ocean</option>
+                      <option value="forest">Forest</option>
+                      <option value="lavender">Lavender</option>
+                      <option value="cyber">Cyber</option>
+                      <option value="nightblue">Night Blue</option>
+                      <option value="custom">Custom</option>
+                    </select>
+                    <div class="epub-theme-grid" role="group" aria-label="Reader themes">
+                      <button
+                        type="button"
+                        class="epub-theme-card"
+                        data-epub-theme="light"
+                        aria-label="Light theme"
+                      >
+                        <span class="epub-theme-swatch"></span><span>Light</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="epub-theme-card"
+                        data-epub-theme="sepia"
+                        aria-label="Sepia theme"
+                      >
+                        <span class="epub-theme-swatch"></span><span>Sepia</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="epub-theme-card"
+                        data-epub-theme="dark"
+                        aria-label="Dark theme"
+                      >
+                        <span class="epub-theme-swatch"></span><span>Dark</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="epub-theme-card"
+                        data-epub-theme="amoled"
+                        aria-label="AMOLED theme"
+                      >
+                        <span class="epub-theme-swatch"></span><span>AMOLED</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="epub-theme-card"
+                        data-epub-theme="rose"
+                        aria-label="Rose theme"
+                      >
+                        <span class="epub-theme-swatch"></span><span>Rose</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="epub-theme-card"
+                        data-epub-theme="ocean"
+                        aria-label="Ocean theme"
+                      >
+                        <span class="epub-theme-swatch"></span><span>Ocean</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="epub-theme-card"
+                        data-epub-theme="forest"
+                        aria-label="Forest theme"
+                      >
+                        <span class="epub-theme-swatch"></span><span>Forest</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="epub-theme-card"
+                        data-epub-theme="lavender"
+                        aria-label="Lavender theme"
+                      >
+                        <span class="epub-theme-swatch"></span><span>Lavender</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="epub-theme-card"
+                        data-epub-theme="cyber"
+                        aria-label="Cyber theme"
+                      >
+                        <span class="epub-theme-swatch"></span><span>Cyber</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="epub-theme-card"
+                        data-epub-theme="nightblue"
+                        aria-label="Night Blue theme"
+                      >
+                        <span class="epub-theme-swatch"></span><span>Night Blue</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="epub-theme-card"
+                        data-epub-theme="custom"
+                        aria-label="Custom theme"
+                      >
+                        <span class="epub-theme-swatch"></span><span>Custom</span>
+                      </button>
+                    </div>
+                    <div class="epub-custom-theme">
+                      <div class="epub-custom-theme-title">
+                        <i class="fas fa-sliders"></i><span>Custom theme</span>
+                      </div>
+                      <div class="epub-color-grid">
+                        <label
+                          >Background<input type="color" id="epubCustomBg" value="#17131a"
+                        /></label>
+                        <label
+                          >Text<input type="color" id="epubCustomText" value="#f0e8f1"
+                        /></label>
+                        <label
+                          >Muted<input type="color" id="epubCustomMuted" value="#b5a9b7"
+                        /></label>
+                        <label
+                          >Links<input type="color" id="epubCustomLink" value="#e3a8f2"
+                        /></label>
+                        <label
+                          >Accent<input type="color" id="epubCustomAccent" value="#c978dc"
+                        /></label>
+                      </div>
+                      <button type="button" class="epub-reset-custom" id="epubResetCustomTheme">
+                        Reset custom colors
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div data-epub-settings-section="text" hidden>
+                <div class="epub-settings-group-title">Text</div>
+                <div class="epub-settings-group">
+                  <div class="epub-setting">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-font"></i><span>Font</span>
+                    </div>
+                    <select class="epub-select" id="epubFontSelect">
+                      <option value="system">System UI</option>
+                      <option value="arial">Arial</option>
+                      <option value="verdana">Verdana</option>
+                      <option value="tahoma">Tahoma</option>
+                      <option value="trebuchet">Trebuchet MS</option>
+                      <option value="georgia">Georgia</option>
+                      <option value="lora">Lora</option>
+                      <option value="garamond">Garamond</option>
+                      <option value="palatino">Palatino</option>
+                      <option value="times">Times New Roman</option>
+                      <option value="mono">Courier New</option>
+                      <option value="opendyslexic">OpenDyslexic</option>
+                    </select>
+                  </div>
+                  <div class="epub-setting">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-bold"></i><span>Font weight</span>
+                    </div>
+                    <div class="epub-stepper">
+                      <button type="button" id="epubFontWeightMinus">−</button
+                      ><span class="epub-setting-value" id="epubFontWeightValue">400</span
+                      ><button type="button" id="epubFontWeightPlus">+</button>
+                    </div>
+                    <p class="epub-setting-hint">
+                      System supports fine weight control. Other fonts use Regular/Bold.
+                    </p>
+                  </div>
+                  <div class="epub-setting">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-text-height"></i><span>Font size</span>
+                    </div>
+                    <div class="epub-stepper">
+                      <button type="button" id="epubFontMinus">−</button
+                      ><span class="epub-setting-value" id="epubFontSizeValue">100%</span
+                      ><button type="button" id="epubFontPlus">+</button>
+                    </div>
+                  </div>
+                  <div class="epub-setting">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-arrows-left-right"></i><span>Letter spacing</span>
+                    </div>
+                    <div class="epub-stepper">
+                      <button type="button" id="epubLetterSpacingMinus">−</button
+                      ><span class="epub-setting-value" id="epubLetterSpacingValue">0.00px</span
+                      ><button type="button" id="epubLetterSpacingPlus">+</button>
+                    </div>
+                  </div>
+                  <div class="epub-setting">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-arrows-up-down"></i><span>Word spacing</span>
+                    </div>
+                    <div class="epub-stepper">
+                      <button type="button" id="epubWordSpacingMinus">−</button
+                      ><span class="epub-setting-value" id="epubWordSpacingValue">0.0px</span
+                      ><button type="button" id="epubWordSpacingPlus">+</button>
+                    </div>
+                  </div>
+                  <div class="epub-setting">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-indent"></i><span>Paragraph indent</span>
+                    </div>
+                    <div class="epub-stepper">
+                      <button type="button" id="epubParagraphIndentMinus">−</button
+                      ><span class="epub-setting-value" id="epubParagraphIndentValue">0.0em</span
+                      ><button type="button" id="epubParagraphIndentPlus">+</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div data-epub-settings-section="layout" hidden>
+                <div class="epub-settings-group-title">Layout</div>
+                <div class="epub-settings-group">
+                  <div class="epub-setting">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-grip-lines"></i><span>Line spacing</span>
+                    </div>
+                    <div class="epub-stepper">
+                      <button type="button" id="epubLineMinus">−</button
+                      ><span class="epub-setting-value" id="epubLineHeightValue">1.65</span
+                      ><button type="button" id="epubLinePlus">+</button>
+                    </div>
+                  </div>
+                  <div class="epub-setting" data-setting="content-width">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-arrows-alt-h"></i><span>Reading width</span>
+                    </div>
+                    <div class="epub-stepper">
+                      <button type="button" id="epubWidthMinus">−</button
+                      ><span class="epub-setting-value" id="epubWidthValue">720px</span
+                      ><button type="button" id="epubWidthPlus">+</button>
+                    </div>
+                  </div>
+                  <div class="epub-setting">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-align-left"></i><span>Text alignment</span>
+                    </div>
+                    <select class="epub-select" id="epubTextAlignSelect">
+                      <option value="left">Left</option>
+                      <option value="justify">Justified</option>
+                      <option value="center">Center</option>
+                    </select>
+                  </div>
+                  <div class="epub-setting">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-paragraph"></i><span>Paragraph spacing</span>
+                    </div>
+                    <div class="epub-stepper">
+                      <button type="button" id="epubParagraphSpacingMinus">−</button
+                      ><span class="epub-setting-value" id="epubParagraphSpacingValue">1.25em</span
+                      ><button type="button" id="epubParagraphSpacingPlus">+</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div data-epub-settings-section="interface" hidden>
+                <div class="epub-settings-group-title">Reading interface</div>
+                <div class="epub-settings-group">
+                  <div class="epub-setting epub-setting-toggle">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-eye-slash"></i><span>Auto-hide controls</span>
+                    </div>
+                    <label class="epub-switch"
+                      ><input type="checkbox" id="epubAutoHideChrome" checked /><span
+                        class="epub-switch-track"
+                      ></span
+                    ></label>
+                  </div>
+                  <div class="epub-setting epub-setting-toggle">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-window-maximize"></i><span>Show header</span>
+                    </div>
+                    <label class="epub-switch"
+                      ><input type="checkbox" id="epubShowHeader" checked /><span
+                        class="epub-switch-track"
+                      ></span
+                    ></label>
+                  </div>
+                  <div class="epub-setting epub-setting-toggle">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-window-minimize"></i><span>Show footer</span>
+                    </div>
+                    <label class="epub-switch"
+                      ><input type="checkbox" id="epubShowFooter" checked /><span
+                        class="epub-switch-track"
+                      ></span
+                    ></label>
+                  </div>
+                  <div class="epub-setting epub-setting-toggle">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-heading"></i><span>Show chapter title</span>
+                    </div>
+                    <label class="epub-switch"
+                      ><input type="checkbox" id="epubShowChapterTitle" checked /><span
+                        class="epub-switch-track"
+                      ></span
+                    ></label>
+                  </div>
+                  <div class="epub-setting epub-setting-toggle">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-chart-simple"></i><span>Show reading stats</span>
+                    </div>
+                    <label class="epub-switch"
+                      ><input type="checkbox" id="epubShowReadingStats" checked /><span
+                        class="epub-switch-track"
+                      ></span
+                    ></label>
+                  </div>
+                </div>
+                <div class="epub-settings-group-title">Progress</div>
+                <div class="epub-settings-group">
+                  <div class="epub-setting">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-chart-line"></i><span>Progress display</span>
+                    </div>
+                    <select class="epub-select" id="epubProgressDisplaySelect">
+                      <option value="percentage">Percentage</option>
+                      <option value="chapter">Chapter</option>
+                      <option value="hidden">Hidden</option>
+                    </select>
+                  </div>
+                  <div class="epub-setting">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-ruler-vertical"></i><span>Progress bar size</span>
+                    </div>
+                    <select class="epub-select" id="epubProgressBarSizeSelect">
+                      <option value="2">Thin</option>
+                      <option value="3">Regular</option>
+                      <option value="5">Thick</option>
+                      <option value="7">Extra thick</option>
+                    </select>
+                  </div>
+                  <div class="epub-setting epub-setting-toggle">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-bars-progress"></i><span>Show progress bar</span>
+                    </div>
+                    <label class="epub-switch"
+                      ><input type="checkbox" id="epubShowProgressBar" checked /><span
+                        class="epub-switch-track"
+                      ></span
+                    ></label>
+                  </div>
+                </div>
+              </div>
+
+              <div data-epub-settings-section="accessibility" hidden>
+                <div class="epub-settings-group-title">Accessibility</div>
+                <div class="epub-settings-group">
+                  <div class="epub-setting epub-setting-toggle">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-universal-access"></i><span>Dyslexia-friendly font</span>
+                    </div>
+                    <label class="epub-switch"
+                      ><input type="checkbox" id="epubDyslexiaFont" /><span
+                        class="epub-switch-track"
+                      ></span
+                    ></label>
+                  </div>
+                  <div class="epub-setting epub-setting-toggle">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-circle-half-stroke"></i><span>High contrast</span>
+                    </div>
+                    <label class="epub-switch"
+                      ><input type="checkbox" id="epubHighContrast" /><span
+                        class="epub-switch-track"
+                      ></span
+                    ></label>
+                  </div>
+                  <div class="epub-setting epub-setting-toggle">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-link"></i><span>Underline links</span>
+                    </div>
+                    <label class="epub-switch"
+                      ><input type="checkbox" id="epubUnderlineLinks" /><span
+                        class="epub-switch-track"
+                      ></span
+                    ></label>
+                  </div>
+                  <div class="epub-setting epub-setting-toggle">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-person-running"></i><span>Reduce motion</span>
+                    </div>
+                    <label class="epub-switch"
+                      ><input type="checkbox" id="epubReducedMotion" /><span
+                        class="epub-switch-track"
+                      ></span
+                    ></label>
+                  </div>
+                  <div class="epub-setting epub-setting-toggle">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-text-width"></i><span>Hyphenation</span>
+                    </div>
+                    <label class="epub-switch"
+                      ><input type="checkbox" id="epubHyphenation" /><span
+                        class="epub-switch-track"
+                      ></span
+                    ></label>
+                  </div>
+                </div>
+                <p class="epub-setting-hint epub-accessibility-note">
+                  Accessibility options are saved locally on this device.
+                </p>
+              </div>
+
+              <div data-epub-settings-section="behavior" hidden>
+                <div class="epub-settings-group-title">Reader behavior</div>
+                <div class="epub-settings-group">
+                  <div class="epub-setting epub-setting-toggle">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-image-slash"></i><span>Hide illustrations</span>
+                    </div>
+                    <label class="epub-switch" aria-label="Hide illustrations"
+                      ><input type="checkbox" id="epubHideIllustrations" /><span
+                        class="epub-switch-track"
+                      ></span
+                    ></label>
+                  </div>
+                  <div class="epub-setting">
+                    <div class="epub-setting-label">
+                      <i class="fas fa-book-reader"></i><span>Default reader</span>
+                    </div>
+                    <select class="epub-select" id="epubReaderPreference">
+                      <option value="epub">EPUB Reader</option>
+                      <option value="pdf">PDF Reader</option>
+                    </select>
+                  </div>
+                </div>
+                <button type="button" class="epub-reader-recovery-btn" id="epubRefreshVolume">
+                  <i class="fas fa-arrows-rotate"></i>
+                  <span>Force refresh volume</span>
+                </button>
+                <p class="epub-setting-hint epub-recovery-note">
+                  Re-downloads and re-parses this EPUB, then rebuilds the rendered pages. Your saved
+                  reading position is preserved. Use this if the cover, illustrations, chapters, or
+                  navigation were parsed incorrectly.
+                </p>
+                <button type="button" class="epub-reset-settings" id="epubResetSettings">
+                  <i class="fas fa-rotate-left"></i><span>Reset settings to default</span>
+                </button>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <footer class="epub-reader-footer">
+          <button
+            class="epub-reader-btn"
+            id="epubPrev"
+            type="button"
+            aria-label="Previous chapter"
+            title="Previous chapter"
+          >
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <div class="epub-progress" aria-hidden="true">
+            <div class="epub-progress-bar" id="epubProgressBar"></div>
+          </div>
+          <span class="epub-progress-text" id="epubProgressText">0%</span
+          ><span
+            class="epub-footer-chapter-progress"
+            id="epubFooterChapterProgress"
+            aria-live="polite"
+            >Chapter 1 / 1</span
+          >
+          <div class="epub-reader-nav">
+            <button
+              class="epub-reader-btn"
+              id="epubNext"
+              type="button"
+              aria-label="Next chapter"
+              title="Next chapter"
+            >
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </footer>
+      </div>
+    </div>
+
     <div id="toast-message" class="toast-message"></div>
 
     <!-- Import JS -->
     <script src="/src/js/language-switch.js"></script>
+    <script src="/src/components/js/epub-reader.js"></script>
     <script src="/src/js/novelas.js"></script>
     <script type="module" src="/src/components/js/feedback.js"></script>
   </body>

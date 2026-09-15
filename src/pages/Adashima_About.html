@@ -278,15 +278,15 @@
         const MANUAL_KEY = "adashima_manual_appearance";
 
         function normalize(value) {
-          return VALID.includes(value) ? value : "night";
+          return VALID.includes(value) ? value : getAutoTheme();
         }
 
         function getStoredTheme() {
           try {
             const stored = localStorage.getItem(MANUAL_KEY);
-            return normalize(stored || "night");
+            return normalize(stored);
           } catch {
-            return "night";
+            return getAutoTheme();
           }
         }
 
@@ -310,7 +310,7 @@
             const theme = autoMode ? getAutoTheme() : getStoredTheme();
             applyTheme(theme);
           } catch {
-            applyTheme("night");
+            applyTheme(getAutoTheme());
           }
         }
 
@@ -321,7 +321,8 @@
           }
         });
         document.addEventListener("appearanceThemeChanged", function (event) {
-          const theme = event && event.detail && event.detail.theme ? event.detail.theme : "night";
+          const theme =
+            event && event.detail && event.detail.theme ? event.detail.theme : getAutoTheme();
           applyTheme(theme);
         });
       })();

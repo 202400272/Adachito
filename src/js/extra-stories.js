@@ -5,6 +5,8 @@ let currentStoryIndex = -1;
 let _isSwitching = false;
 let sourcesData = null;
 let currentFilter = "all";
+let currentVolumeFilter = "all";
+let currentViewMode = "grid";
 
 let currentLang = (() => {
   const storedLang =
@@ -557,6 +559,31 @@ function updateFilterCounts() {
   document.getElementById("countUnread").textContent = unread;
 }
 
+function populateVolumeFilter() {
+  const select = document.getElementById("volumeFilter");
+  if (!select) return;
+
+  const current = currentVolumeFilter;
+  const volumes = [...new Set(stories.map((story) => story.volume || "Uncategorized"))].sort(
+    (a, b) => {
+      if (a === "Uncategorized") return 1;
+      if (b === "Uncategorized") return -1;
+      return (parseInt(a.replace(/\D/g, ""), 10) || 0) - (parseInt(b.replace(/\D/g, ""), 10) || 0);
+    },
+  );
+
+  select.innerHTML = [
+    `<option value="all">All volumes</option>`,
+    ...volumes.map((volume) => {
+      const label = volume === "Uncategorized" ? "Other stories" : `${getText("volume")} ${volume}`;
+      return `<option value="${String(volume).replace(/"/g, "&quot;")}">${label}</option>`;
+    }),
+  ].join("");
+
+  select.value = volumes.includes(current) ? current : "all";
+  currentVolumeFilter = select.value;
+}
+
 function getFilteredStories(filter) {
   let result = stories;
 
@@ -574,6 +601,10 @@ function getFilteredStories(filter) {
     default:
       result = stories;
       break;
+  }
+
+  if (currentVolumeFilter !== "all") {
+    result = result.filter((story) => (story.volume || "Uncategorized") === currentVolumeFilter);
   }
 
   const searchInput = document.getElementById("searchInput");
@@ -804,6 +835,9 @@ function renderFilteredStories(filtered) {
   if (!grid) return;
 
   if (filtered.length === 0) {
+    const resultNumber = document.getElementById("libraryResultNumber");
+    if (resultNumber) resultNumber.textContent = "0";
+
     let emptyMessage = "No stories found.";
     let emptySub = "";
     if (currentFilter === "bookmarks") {
@@ -844,11 +878,11 @@ function renderFilteredStories(filtered) {
   });
 
   let html = "";
-  sortedVolumes.forEach((volume) => {
+  sortedVolumes.forEach((volume, volumeIndex) => {
     const storiesInVolume = groupedStories[volume];
 
     html += `
-          <div class="volume-group">
+          <div class="volume-group" id="volume-${volumeIndex}">
             <div class="volume-header">
               <div class="volume-cover">
                 <i class="fas fa-book"></i>
@@ -861,8 +895,9 @@ function renderFilteredStories(filtered) {
             <div class="volume-stories">
         `;
 
-    storiesInVolume.forEach((story) => {
+    storiesInVolume.forEach((story, storyPosition) => {
       const actualIndex = filtered.indexOf(story);
+      const storyNumber = String(storyPosition + 1).padStart(2, "0");
       const isBookmarked = isStoryBookmarked(story.id);
       const isRead = isStoryRead(story.id);
       const progress = getReadingProgress(story.id);
@@ -882,28 +917,30 @@ function renderFilteredStories(filtered) {
 
       html += `
             <div class="story-card" data-index="${actualIndex}" data-story-id="${story.id}">
+              <div class="story-card-number" aria-hidden="true">${storyNumber}</div>
               <div class="story-card-body">
-                <div class="story-meta">
-                  ${typeBadge}
-                  ${storeBadge}
-                  ${progressBadge}
+                <div class="story-card-topline">
+                  <div class="story-meta">
+                    ${typeBadge}
+                    ${storeBadge}
+                    ${progressBadge}
+                  </div>
+                  <button class="story-bookmark-btn ${isBookmarked ? "bookmarked" : ""}" 
+                          data-story-id="${story.id}" 
+                          aria-label="${isBookmarked ? "Remove bookmark" : "Add bookmark"}"
+                          ${currentLang === "es" ? "disabled" : ""}>
+                    <i class="fas fa-bookmark"></i>
+                  </button>
                 </div>
-                <h3 class="story-title">${story.title}</h3>
-                <p class="story-description">${story.description || ""}</p>
+                <div class="story-card-content">
+                  <h3 class="story-title">${story.title}</h3>
+                  <p class="story-description">${story.description || ""}</p>
+                </div>
                 <div class="story-footer">
-                  <div class="story-footer-left">
-                    <button class="story-bookmark-btn ${isBookmarked ? "bookmarked" : ""}" 
-                            data-story-id="${story.id}" 
-                            aria-label="${isBookmarked ? "Remove bookmark" : "Add bookmark"}"
-                            ${currentLang === "es" ? "disabled" : ""}>
-                      <i class="fas fa-bookmark"></i>
-                    </button>
-                  </div>
-                  <div class="story-footer-right">
-                    <button class="story-read-btn" data-story-id="${story.id}" data-index="${actualIndex}">
-                      <i class="fas fa-book-open"></i> ${getText("readButton")}
-                    </button>
-                  </div>
+                  <span class="story-open-hint"><i class="fas fa-arrow-right"></i> ${getText("readButton")}</span>
+                  <button class="story-read-btn" data-story-id="${story.id}" data-index="${actualIndex}">
+                    ${getText("readButton")} <i class="fas fa-arrow-right"></i>
+                  </button>
                 </div>
               </div>
             </div>
@@ -917,9 +954,38 @@ function renderFilteredStories(filtered) {
   });
 
   grid.innerHTML = html;
+  grid.classList.toggle("list-view", currentViewMode === "list");
+  grid.classList.toggle("grid-view", currentViewMode === "grid");
+
+  const resultNumber = document.getElementById("libraryResultNumber");
+  if (resultNumber) resultNumber.textContent = filtered.length;
+
+  // Make the entire story card an obvious entry point, while keeping
+  // bookmark and primary-action controls independently clickable.
+  grid.querySelectorAll(".story-card").forEach((card) => {
+    const index = parseInt(card.dataset.index);
+    card.setAttribute("role", "button");
+    card.setAttribute("tabindex", "0");
+    card.setAttribute(
+      "aria-label",
+      `Open ${card.querySelector(".story-title")?.textContent || "story"}`,
+    );
+    card.addEventListener("click", (event) => {
+      if (event.target.closest("button, a")) return;
+      openReader(index);
+    });
+    card.addEventListener("keydown", (event) => {
+      if (event.target !== card) return;
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openReader(index);
+      }
+    });
+  });
 
   grid.querySelectorAll(".story-read-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", (event) => {
+      event.stopPropagation();
       const index = parseInt(btn.dataset.index);
       openReader(index);
     });
@@ -1486,6 +1552,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   await loadTranslations(currentLang);
   await loadStories(currentLang);
+  populateVolumeFilter();
   await loadSources();
 
   document.getElementById("pageTitle").textContent = getText("pageTitle");
@@ -1504,6 +1571,41 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   });
 
+  const volumeFilter = document.getElementById("volumeFilter");
+  volumeFilter?.addEventListener("change", () => {
+    currentVolumeFilter = volumeFilter.value;
+    renderStories();
+  });
+
+  document.querySelectorAll(".view-toggle-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      currentViewMode = button.dataset.view === "list" ? "list" : "grid";
+      document.querySelectorAll(".view-toggle-btn").forEach((btn) => {
+        const active = btn === button;
+        btn.classList.toggle("active", active);
+        btn.setAttribute("aria-pressed", String(active));
+      });
+      try {
+        localStorage.setItem("adashima_extra_stories_view", currentViewMode);
+      } catch {
+        // Ignore storage issues.
+      }
+      renderStories(searchInput?.value || "");
+    });
+  });
+
+  try {
+    const savedView = localStorage.getItem("adashima_extra_stories_view");
+    if (savedView === "list" || savedView === "grid") currentViewMode = savedView;
+  } catch {
+    // Ignore storage issues.
+  }
+  document.querySelectorAll(".view-toggle-btn").forEach((btn) => {
+    const active = btn.dataset.view === currentViewMode;
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-pressed", String(active));
+  });
+
   updateFilterPillsState();
 
   renderStories();
@@ -1515,9 +1617,22 @@ document.addEventListener("DOMContentLoaded", async function () {
   updateSettingsUI();
   initReaderSettings();
 
-  document.getElementById("searchInput").addEventListener("input", function () {
+  const searchInput = document.getElementById("searchInput");
+  const searchClear = document.getElementById("searchClear");
+
+  searchInput.addEventListener("input", function () {
+    if (searchClear) searchClear.hidden = !this.value;
     renderStories(this.value);
   });
+
+  if (searchClear) {
+    searchClear.addEventListener("click", () => {
+      searchInput.value = "";
+      searchClear.hidden = true;
+      searchInput.focus();
+      renderStories("");
+    });
+  }
 
   document.getElementById("readerClose").addEventListener("click", closeReader);
   document.getElementById("readerOverlay").addEventListener("click", function (e) {

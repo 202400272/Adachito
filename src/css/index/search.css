@@ -1,0 +1,745 @@
+/* Homepage search + quick guide. Controls sit in the same fixed-header tier as the
+   sidebar's mobile burger toggle (see #menu-component-wrapper .mobile-toggle in
+   menu.css) — keep these two z-indexes AND geometry in sync if either changes.
+   Burger sits at left:22/top:22, width 46px on desktop (min-width:901px) and
+   left:14/top:14, width 42px on mobile (max-width:900px) — this row's "left" is
+   burger-right-edge + the row's own 8px gap, so the burger→search gap matches
+   the search→help gap exactly. Both stay well below true full-screen overlays
+   (drawer, modals) so those can still cover them. */
+.homepage-search {
+  position: fixed !important;
+  top: 22px !important;
+  left: 76px !important;
+  z-index: 1300;
+  margin: 0 !important;
+  width: auto !important;
+  min-height: 0 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+.homepage-search-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+/* Matches #menu-component-wrapper .mobile-toggle (the burger launcher) exactly:
+   same size, radius, border, transparent "glass" fill, and nav-driven icon color,
+   so all header controls read as one consistent set. */
+.homepage-search-trigger,
+.homepage-help-trigger {
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  min-height: 46px;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--nav-border, rgba(255, 255, 255, 0.18));
+  border-radius: 13px;
+  background: transparent;
+  color: var(--nav-text, #f2eafc);
+  box-shadow: 0 8px 24px rgba(30, 18, 40, 0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+.homepage-search-trigger:hover,
+.homepage-help-trigger:hover,
+.homepage-search-trigger:focus-visible,
+.homepage-help-trigger:focus-visible {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--nav-border, rgba(255, 255, 255, 0.18)) 55%, #fff 45%);
+  box-shadow: 0 10px 28px rgba(30, 18, 40, 0.2);
+  outline: none;
+}
+.homepage-search-trigger:active,
+.homepage-help-trigger:active {
+  transform: scale(0.96);
+}
+.homepage-search-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.homepage-search-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  color: currentColor;
+  opacity: 1;
+}
+.homepage-help-trigger {
+  font:
+    700 1rem/1 "Quicksand",
+    sans-serif;
+}
+.homepage-help-trigger > span {
+  color: currentColor;
+  opacity: 1;
+}
+body.time-morning .homepage-search-trigger,
+body.time-morning .homepage-help-trigger {
+  color: #4a7fa8;
+}
+body.time-afternoon .homepage-search-trigger,
+body.time-afternoon .homepage-help-trigger {
+  color: #7c2854;
+}
+body.time-night .homepage-search-trigger,
+body.time-night .homepage-help-trigger {
+  color: #c98aa8;
+}
+.homepage-search-placeholder,
+.homepage-search-shortcut,
+.homepage-search-hint {
+  display: none !important;
+}
+.global-search-overlay,
+.homepage-help-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2147483647 !important;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(56px, 9vh, 92px) 20px 28px;
+  isolation: isolate;
+}
+.global-search-overlay[hidden],
+.homepage-help-overlay[hidden] {
+  display: none !important;
+}
+.global-search-backdrop,
+.homepage-help-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 11, 28, 0.66);
+  backdrop-filter: blur(14px) saturate(0.8);
+  -webkit-backdrop-filter: blur(14px) saturate(0.8);
+  animation: globalSearchFade 0.16s ease both;
+}
+.global-search-dialog,
+.homepage-help-dialog {
+  position: relative;
+  z-index: 1;
+  width: min(760px, 100%);
+  max-height: min(760px, calc(100vh - 84px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 24px;
+  background: rgba(30, 21, 39, 0.96);
+  box-shadow:
+    0 36px 110px rgba(0, 0, 0, 0.46),
+    0 8px 35px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  animation: globalSearchPop 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.global-search-dialog::before,
+.homepage-help-dialog::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  left: 20%;
+  width: 360px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(216, 138, 184, 0.16), transparent 68%);
+  pointer-events: none;
+}
+.global-search-header {
+  display: flex;
+  gap: 10px;
+  padding: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.global-search-input-wrap {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  background: rgba(10, 7, 16, 0.58);
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.18);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+.global-search-input-wrap:focus-within {
+  border-color: rgba(216, 138, 184, 0.5);
+  background: rgba(14, 9, 21, 0.72);
+  box-shadow:
+    0 0 0 4px rgba(216, 138, 184, 0.08),
+    inset 0 1px 5px rgba(0, 0, 0, 0.18);
+}
+.global-search-input-wrap > svg {
+  width: 20px;
+  height: 20px;
+  color: #cda4c2;
+  flex: 0 0 auto;
+}
+#global-search-input {
+  width: 100%;
+  min-width: 0;
+  height: 54px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #f4eaf5;
+  font:
+    600 1rem/1.2 "Quicksand",
+    sans-serif;
+}
+#global-search-input::-webkit-search-cancel-button,
+#global-search-input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+#global-search-input::-ms-clear,
+#global-search-input::-ms-reveal {
+  display: none;
+  width: 0;
+  height: 0;
+}
+#global-search-input::placeholder {
+  color: rgba(230, 216, 232, 0.46);
+}
+.global-search-clear,
+.global-search-close,
+.homepage-help-close {
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.045);
+  color: #d9c7dc;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+.global-search-clear[hidden] {
+  display: none;
+}
+.global-search-clear:hover,
+.global-search-close:hover,
+.homepage-help-close:hover,
+.global-search-clear:focus-visible,
+.global-search-close:focus-visible,
+.homepage-help-close:focus-visible {
+  background: rgba(216, 138, 184, 0.12);
+  border-color: rgba(216, 138, 184, 0.32);
+  transform: translateY(-1px);
+  outline: none;
+}
+.global-search-filters {
+  display: flex;
+  gap: 7px;
+  padding: 13px 18px 9px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.global-search-filters::-webkit-scrollbar {
+  display: none;
+}
+.global-search-filter {
+  flex: 0 0 auto;
+  padding: 8px 13px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(221, 207, 224, 0.55);
+  font:
+    700 0.72rem/1 "Quicksand",
+    sans-serif;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.global-search-filter:hover {
+  background: rgba(216, 138, 184, 0.08);
+  color: #eadbea;
+}
+.global-search-filter.active {
+  background: rgba(216, 138, 184, 0.13);
+  border-color: rgba(216, 138, 184, 0.25);
+  color: #e5aeca;
+}
+.global-search-status {
+  padding: 6px 20px 12px;
+  color: rgba(226, 212, 229, 0.52);
+  font-size: 0.73rem;
+  font-weight: 700;
+}
+.global-search-results {
+  min-height: 92px;
+  overflow-y: auto;
+  padding: 0 10px 10px;
+}
+.global-search-result {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-height: 72px;
+  padding: 9px 10px;
+  border-radius: 14px;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background 0.14s ease,
+    transform 0.14s ease;
+}
+.global-search-result:hover,
+.global-search-result.selected {
+  background: rgba(216, 138, 184, 0.08);
+}
+.global-search-result.selected {
+  box-shadow: inset 3px 0 0 rgba(216, 138, 184, 0.7);
+}
+.global-search-result-thumb {
+  width: 50px;
+  height: 54px;
+  flex: 0 0 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
+  background: linear-gradient(145deg, rgba(216, 138, 184, 0.12), rgba(126, 91, 154, 0.12));
+  color: #c99ab9;
+}
+.global-search-result-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.global-search-result-thumb svg {
+  width: 20px;
+  height: 20px;
+}
+.global-search-result-copy {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.global-search-result-copy strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #f0e5f1;
+  font-size: 0.88rem;
+}
+.global-search-result-copy span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgba(220, 205, 223, 0.52);
+  font-size: 0.69rem;
+}
+.global-search-result-tag {
+  flex: 0 0 auto;
+  padding: 5px 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.055);
+  color: rgba(224, 210, 227, 0.58);
+  font-size: 0.61rem;
+  font-weight: 800;
+}
+.global-search-result-arrow {
+  width: 15px;
+  height: 15px;
+  color: rgba(224, 210, 227, 0.34);
+  flex: 0 0 auto;
+}
+.global-search-footer {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 11px 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(224, 210, 227, 0.48);
+  font-size: 0.64rem;
+  font-weight: 700;
+}
+.global-search-footer span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.global-search-dialog kbd,
+.global-search-footer kbd {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom-color: rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ddd0e0;
+  font:
+    700 0.58rem/1 "Quicksand",
+    sans-serif;
+  padding: 4px 6px;
+  white-space: nowrap;
+}
+.homepage-help-dialog {
+  width: min(700px, 100%);
+}
+.homepage-help-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 24px 26px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.homepage-help-header h2 {
+  margin: 5px 0 0;
+  font:
+    700 clamp(1.4rem, 3vw, 1.95rem)/1.2 "Noto Serif JP",
+    serif;
+  color: #f1e7f2;
+}
+.homepage-help-body {
+  overflow: auto;
+  padding: 7px 26px 24px;
+}
+.homepage-help-item {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 14px;
+  padding: 17px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.homepage-help-item:last-child {
+  border-bottom: 0;
+}
+.homepage-help-item-icon {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: rgba(216, 138, 184, 0.1);
+  color: #d99fbd;
+}
+.homepage-help-item h3 {
+  margin: 0 0 4px;
+  font:
+    700 0.95rem "Quicksand",
+    sans-serif;
+  color: #eee2ef;
+}
+.homepage-help-item p {
+  margin: 0;
+  color: rgba(220, 205, 223, 0.62);
+  font:
+    500 0.8rem/1.6 "Quicksand",
+    sans-serif;
+}
+/* The "Visit the full Help page" link is rendered by JS with no styling of its
+   own (falls back to the browser's default blue/purple underlined link, and its
+   arrow icon sits misaligned against the text baseline) — turn it into a proper
+   pill-style button in place, rather than adding a second, duplicate link. */
+#homepage-help-body a[href] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 12px 20px;
+  border-radius: 14px;
+  background: rgba(216, 138, 184, 0.12);
+  border: 1px solid rgba(216, 138, 184, 0.28);
+  color: #e5aeca !important;
+  font:
+    700 0.85rem/1 "Quicksand",
+    sans-serif;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+#homepage-help-body a[href]:visited {
+  color: #e5aeca !important;
+}
+#homepage-help-body a[href]:hover,
+#homepage-help-body a[href]:focus-visible {
+  background: rgba(216, 138, 184, 0.2);
+  border-color: rgba(216, 138, 184, 0.45);
+  color: #f0c6dd !important;
+  transform: translateY(-1px);
+  outline: none;
+}
+#homepage-help-body a[href] svg,
+#homepage-help-body a[href] i {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  width: 15px;
+  height: 15px;
+}
+body.time-morning #homepage-help-body a[href],
+body.time-afternoon #homepage-help-body a[href] {
+  background: rgba(168, 68, 122, 0.1);
+  border-color: rgba(168, 68, 122, 0.28);
+  color: #a8447a !important;
+}
+body.time-morning #homepage-help-body a[href]:hover,
+body.time-afternoon #homepage-help-body a[href]:hover {
+  background: rgba(168, 68, 122, 0.18);
+  border-color: rgba(168, 68, 122, 0.45);
+  color: #8c3465 !important;
+}
+body.time-morning .global-search-dialog,
+body.time-morning .homepage-help-dialog,
+body.time-afternoon .global-search-dialog,
+body.time-afternoon .homepage-help-dialog {
+  background: rgba(255, 250, 254, 0.98);
+  border-color: rgba(100, 70, 115, 0.13);
+  box-shadow:
+    0 30px 90px rgba(55, 30, 70, 0.24),
+    0 8px 30px rgba(55, 30, 70, 0.12);
+}
+body.time-morning #global-search-input,
+body.time-afternoon #global-search-input {
+  color: #3f2c48;
+}
+body.time-morning #global-search-input::placeholder,
+body.time-afternoon #global-search-input::placeholder {
+  color: rgba(73, 51, 84, 0.45);
+}
+body.time-morning .global-search-input-wrap,
+body.time-afternoon .global-search-input-wrap {
+  background: rgba(255, 255, 255, 0.84);
+  border-color: rgba(112, 75, 125, 0.13);
+}
+body.time-morning .global-search-status,
+body.time-afternoon .global-search-status {
+  color: rgba(70, 48, 80, 0.55);
+}
+body.time-morning .global-search-result-copy strong,
+body.time-afternoon .global-search-result-copy strong,
+body.time-morning .homepage-help-header h2,
+body.time-afternoon .homepage-help-header h2,
+body.time-morning .homepage-help-item h3,
+body.time-afternoon .homepage-help-item h3 {
+  color: #4b3456;
+}
+body.time-morning .global-search-result-copy span,
+body.time-afternoon .global-search-result-copy span,
+body.time-morning .homepage-help-item p,
+body.time-afternoon .homepage-help-item p {
+  color: rgba(73, 51, 84, 0.62);
+}
+body.time-morning .global-search-footer,
+body.time-afternoon .global-search-footer,
+body.time-morning .homepage-help-header,
+body.time-afternoon .homepage-help-header,
+body.time-morning .homepage-help-item,
+body.time-afternoon .homepage-help-item {
+  border-color: rgba(111, 77, 123, 0.1);
+}
+body.global-search-open,
+body.homepage-help-open {
+  overflow: hidden;
+}
+@keyframes globalSearchFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes globalSearchPop {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+/* Below 900px, #menu-component-wrapper .mobile-toggle switches from the dark
+   transparent "glass" look to a solid light glass with a pink icon (see menu.css'
+   "MOBILE MENU — FINAL COMPACT DRAWER" rules) — mirror that switch here so these
+   two stay identical to the burger at every breakpoint, not just on desktop. */
+@media (max-width: 900px) {
+  .homepage-search {
+    top: 14px !important;
+    left: 64px !important;
+  }
+  .homepage-search-trigger,
+  .homepage-help-trigger {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    min-height: 42px;
+    border-color: rgba(255, 255, 255, 0.42);
+    background: rgba(255, 248, 252, 0.9);
+    color: var(--burger-color, #4a7fa8);
+    box-shadow: 0 8px 26px rgba(38, 18, 48, 0.2);
+    backdrop-filter: blur(16px) saturate(125%);
+    -webkit-backdrop-filter: blur(16px) saturate(125%);
+  }
+  .homepage-search-trigger:hover,
+  .homepage-help-trigger:hover,
+  .homepage-search-trigger:focus-visible,
+  .homepage-help-trigger:focus-visible {
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+}
+@media (max-width: 600px) {
+  .global-search-overlay,
+  .homepage-help-overlay {
+    padding: 12px;
+    align-items: flex-start;
+  }
+  .global-search-dialog,
+  .homepage-help-dialog {
+    max-height: calc(100vh - 24px);
+    border-radius: 18px;
+  }
+  .global-search-header {
+    padding: 12px;
+  }
+  .global-search-footer {
+    display: none;
+  }
+  .global-search-result-tag {
+    display: none;
+  }
+  .global-search-result {
+    min-height: 64px;
+  }
+  .homepage-help-header {
+    padding: 18px;
+  }
+  .homepage-help-body {
+    padding: 4px 18px 18px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .global-search-backdrop,
+  .global-search-dialog,
+  .homepage-help-backdrop,
+  .homepage-help-dialog {
+    animation: none;
+  }
+}
+
+/* Search UI refinement — intentionally layered over the existing search styles.
+   Keep the existing component rules above intact; these are small visual adjustments only. */
+.global-search-dialog {
+  width: min(900px, calc(100vw - 32px));
+  max-height: min(760px, calc(100vh - 56px));
+  border-radius: 22px;
+  background: rgba(27, 18, 36, 0.98);
+}
+.global-search-header {
+  padding: 14px;
+  gap: 12px;
+}
+.global-search-input-wrap {
+  min-height: 56px;
+  padding: 0 12px 0 16px;
+  border-radius: 16px;
+}
+#global-search-input {
+  height: 56px;
+  font-size: 1rem;
+}
+.global-search-clear,
+.global-search-close {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+}
+.global-search-close {
+  margin: 0;
+}
+.global-search-filters {
+  gap: 5px;
+  padding: 12px 16px 7px;
+}
+.global-search-filter {
+  padding: 8px 12px;
+}
+.global-search-status {
+  padding: 7px 18px 11px;
+}
+.global-search-results {
+  padding: 0 10px 12px;
+}
+.global-search-result {
+  min-height: 68px;
+  padding: 8px 10px;
+}
+.global-search-footer {
+  padding: 10px 16px;
+}
+
+@media (max-width: 700px) {
+  .global-search-overlay {
+    padding: 10px;
+  }
+  .global-search-dialog {
+    width: 100%;
+    max-height: calc(100vh - 20px);
+    border-radius: 18px;
+  }
+  .global-search-header {
+    padding: 10px;
+    gap: 8px;
+  }
+  .global-search-input-wrap {
+    min-height: 52px;
+    padding-left: 13px;
+    border-radius: 14px;
+  }
+  #global-search-input {
+    height: 52px;
+  }
+  .global-search-close {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+  }
+  .global-search-filters {
+    padding: 9px 12px 6px;
+  }
+  .global-search-status {
+    padding: 6px 14px 9px;
+  }
+  .global-search-results {
+    max-height: calc(100vh - 180px);
+    padding-inline: 7px;
+  }
+}

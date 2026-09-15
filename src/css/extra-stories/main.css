@@ -16,6 +16,7 @@
 
 /* Filters & Search */
 @import url("filters.css");
+@import url("volume-filter.css");
 @import url("search.css");
 
 /* Story Display */
@@ -35,6 +36,9 @@
 
 /* Responsive */
 @import url("responsive.css");
+
+@import url("intuitive-redesign.css");
+@import url("card-redesign.css");
 
 /* MOBILE INTERACTION ===== */
 

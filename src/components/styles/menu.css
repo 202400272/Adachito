@@ -171,22 +171,28 @@ body.time-night #menu-component-wrapper {
   position: fixed;
   top: 15px;
   right: 15px;
-  z-index: 13000;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  color: var(--sakura-dark);
+  /* Shared fixed-header tier with #homepage-search-controls in search.css — keep in sync. */
+  z-index: 1300;
+  width: 56px;
+  height: 56px;
   min-width: 56px;
   min-height: 56px;
-  border-radius: 50%;
+  padding: 0;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  color: var(--sakura-dark);
+  border-radius: 16px;
   cursor: pointer;
   display: none;
   justify-content: center;
   align-items: center;
   font-size: 1.2rem;
-  box-shadow: var(--glass-shadow);
-  padding: 0.8rem;
+  box-shadow:
+    0 10px 30px rgba(40, 20, 55, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
   touch-action: manipulation;
   transition:
     background-color 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
@@ -195,9 +201,15 @@ body.time-night #menu-component-wrapper {
     color 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
     transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-#menu-component-wrapper .mobile-toggle:hover {
-  transform: scale(1.1);
-  background: white;
+#menu-component-wrapper .mobile-toggle:hover,
+#menu-component-wrapper .mobile-toggle:focus-visible {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.44);
+  border-color: rgba(255, 255, 255, 0.75);
+  box-shadow:
+    0 14px 34px rgba(40, 20, 55, 0.18),
+    0 0 0 3px rgba(240, 98, 146, 0.1);
+  outline: none;
 }
 #menu-component-wrapper.mobile-toggle-hidden .mobile-toggle {
   display: none !important;
@@ -933,14 +945,6 @@ body.time-night #menu-component-wrapper .toggle-slider::before {
   }
 }
 @media (max-width: 600px) {
-  #menu-component-wrapper .mobile-toggle {
-    width: 56px;
-    height: 56px;
-    font-size: 1.4rem;
-    left: 12px;
-    right: auto;
-    top: 12px;
-  }
   #menu-component-wrapper .sidebar {
     width: 100%;
     max-width: none;
@@ -964,22 +968,24 @@ body.time-night #menu-component-wrapper .toggle-slider::before {
   font-family: "Quicksand", sans-serif;
 }
 #menu-component-wrapper .mobile-toggle {
-  width: 44px !important;
-  height: 44px !important;
-  min-width: 44px !important;
-  min-height: 44px !important;
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  min-height: 38px !important;
+  max-width: 38px !important;
+  max-height: 38px !important;
   padding: 0 !important;
-  top: 12px !important;
-  left: 12px !important;
+  top: 16px !important;
+  left: 30px !important;
   right: auto !important;
-  border-radius: 13px !important;
-  border: 1px solid var(--nav-border) !important;
-  background: color-mix(in srgb, var(--nav-bg) 82%, transparent) !important;
-  color: var(--nav-text) !important;
-  box-shadow: 0 8px 24px rgba(30, 18, 40, 0.14) !important;
+  border-radius: 11px !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  background: rgba(36, 24, 47, 0.78) !important;
+  color: #f2eafc !important;
+  box-shadow: 0 6px 18px rgba(20, 10, 30, 0.18) !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
-  font-size: 1rem !important;
+  font-size: 0.9rem !important;
 }
 #menu-component-wrapper .mobile-toggle:hover {
   transform: translateY(-1px) !important;
@@ -989,8 +995,58 @@ body.time-night #menu-component-wrapper .toggle-slider::before {
 }
 #menu-component-wrapper .mobile-toggle svg,
 #menu-component-wrapper .mobile-toggle i {
-  width: 18px;
-  height: 18px;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+body.time-morning #menu-component-wrapper .mobile-toggle {
+  background: rgba(255, 255, 255, 0.72) !important;
+  border-color: rgba(95, 134, 170, 0.42) !important;
+  color: #4a7fa8 !important;
+}
+
+body.time-afternoon #menu-component-wrapper .mobile-toggle {
+  background: rgba(255, 244, 248, 0.72) !important;
+  border-color: rgba(168, 68, 122, 0.42) !important;
+  color: #a8447a !important;
+}
+
+body.time-night #menu-component-wrapper .mobile-toggle {
+  background: rgba(32, 19, 48, 0.82) !important;
+  border-color: rgba(216, 138, 184, 0.42) !important;
+  color: #d88ab8 !important;
+}
+
+body.time-morning #menu-component-wrapper .mobile-toggle svg,
+body.time-afternoon #menu-component-wrapper .mobile-toggle svg,
+body.time-night #menu-component-wrapper .mobile-toggle svg {
+  color: currentColor !important;
+  stroke: currentColor !important;
+  opacity: 1 !important;
+}
+
+/* Desktop parity with .homepage-search-trigger / .homepage-help-trigger
+   (src/css/index/search.css) — same box, radius, transparent fill, and
+   text color, so the burger reads as part of the same set of controls. */
+@media (min-width: 901px) {
+  #menu-component-wrapper .mobile-toggle {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    min-height: 46px !important;
+    max-width: 46px !important;
+    max-height: 46px !important;
+    border-radius: 13px !important;
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    color: #f2eafc !important;
+    box-shadow: 0 8px 24px rgba(30, 18, 40, 0.14) !important;
+  }
+  #menu-component-wrapper .mobile-toggle svg,
+  #menu-component-wrapper .mobile-toggle i {
+    width: 20px !important;
+    height: 20px !important;
+  }
 }
 #menu-component-wrapper .sidebar {
   width: 286px;
@@ -1128,9 +1184,9 @@ body.time-night #menu-component-wrapper .toggle-slider::before {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    border: 1px solid rgba(255, 255, 255, 0.42) !important;
-    background: rgba(255, 248, 252, 0.9) !important;
-    color: #e45f9a !important;
+    border: 1px solid var(--surface-border) !important;
+    background: var(--surface-bg) !important;
+    color: var(--accent-primary) !important;
     box-shadow: 0 8px 26px rgba(38, 18, 48, 0.2) !important;
     backdrop-filter: blur(16px) saturate(125%) !important;
     -webkit-backdrop-filter: blur(16px) saturate(125%) !important;
@@ -1988,5 +2044,67 @@ body.adashima-reduced-motion *::after {
   #menu-component-wrapper .sidebar.compact .branding-area img {
     max-width: 48px !important;
     max-height: 48px !important;
+  }
+}
+
+/* Mobile drawer close button — keep it on the right, clear of the branding. */
+@media (max-width: 900px) {
+  #menu-component-wrapper .sidebar > .sidebar-controls {
+    position: absolute !important;
+    top: 16px !important;
+    right: 16px !important;
+    left: auto !important;
+    bottom: auto !important;
+    width: auto !important;
+    margin: 0 !important;
+    transform: none !important;
+    z-index: 12003 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    pointer-events: none !important;
+  }
+
+  #menu-component-wrapper .sidebar > .sidebar-controls .drawer-close-btn {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    left: auto !important;
+    margin: 0 !important;
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+    flex: 0 0 36px !important;
+    display: inline-flex !important;
+    box-sizing: border-box !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* ============================================================
+   CLOSE (X) BUTTON — FINAL POSITION FIX
+   The `position: static` rule above lets the button fall into
+   normal document/grid flow, so it renders wherever it sits in
+   the markup (which was landing it in the branding row's first
+   column, on the left). Force it back out of flow and pin it to
+   the top-right corner of the drawer, regardless of DOM order.
+   ============================================================ */
+@media (max-width: 900px) {
+  #menu-component-wrapper .drawer-close-btn,
+  #menu-component-wrapper .sidebar-controls .drawer-close-btn,
+  #menu-component-wrapper .sidebar > .sidebar-controls .drawer-close-btn {
+    position: absolute !important;
+    top: 16px !important;
+    right: 16px !important;
+    left: auto !important;
+    bottom: auto !important;
+    margin: 0 !important;
+    flex: none !important;
+    grid-column: unset !important;
+    grid-row: unset !important;
+    justify-self: auto !important;
+    align-self: auto !important;
+    z-index: 12003 !important;
   }
 }

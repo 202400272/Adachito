@@ -21,7 +21,7 @@ body.time-morning {
   background: linear-gradient(135deg, #edf5fc, #f7edf7);
 }
 body.time-afternoon {
-  background: linear-gradient(135deg, #fbe7ef, #eee5fa);
+  background: linear-gradient(135deg, #f7d6e3 0%, #efd1e8 52%, #f8e0d8 100%);
 }
 body.time-night {
   color: #eee5f4;

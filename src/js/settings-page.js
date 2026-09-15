@@ -1,4 +1,4 @@
-const VERSION = "2.3.8";
+const VERSION = "2.4.2";
 const KEYS = {
   reducedMotion: "adashima_reduced_motion",
   autoplay: "adashima_autoplay_next",
@@ -24,7 +24,6 @@ const copy = {
     appearanceTitle: "Apariencia",
     autoAppearanceTitle: "Apariencia basada en la hora",
     autoAppearanceDesc: "Adapta automáticamente el tema según la hora del día.",
-    morning: "Mañana",
     afternoon: "Tarde",
     night: "Noche",
     accessibilityEyebrow: "ACCESIBILIDAD",
@@ -114,7 +113,6 @@ const copy = {
     appearanceTitle: "Appearance",
     autoAppearanceTitle: "Time-based appearance",
     autoAppearanceDesc: "Automatically adapt the theme to the time of day.",
-    morning: "Morning",
     afternoon: "Afternoon",
     night: "Night",
     accessibilityEyebrow: "ACCESSIBILITY",
@@ -202,7 +200,6 @@ const copy = {
     appearanceTitle: "Itsura",
     autoAppearanceTitle: "Itsura ayon sa oras",
     autoAppearanceDesc: "Awtomatikong iangkop ang tema ayon sa oras ng araw.",
-    morning: "Umaga",
     afternoon: "Hapon",
     night: "Gabi",
     accessibilityEyebrow: "ACCESSIBILITY",
@@ -347,7 +344,6 @@ function renderLanguage(lang) {
     appearanceTitle: "appearanceTitle",
     autoAppearanceTitle: "autoAppearanceTitle",
     autoAppearanceDesc: "autoAppearanceDesc",
-    themeMorning: "morning",
     themeAfternoon: "afternoon",
     themeNight: "night",
     accessibilityEyebrow: "accessibilityEyebrow",

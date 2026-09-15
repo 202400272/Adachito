@@ -25,6 +25,7 @@ const runtimeCopies = [
 // These are classic scripts loaded by URL rather than through Vite's module graph.
 // Minify them with esbuild before placing them in dist/.
 const runtimeJs = [
+  ["src/components/js/epub-reader.js", "src/components/js/epub-reader.js"],
   ["src/js", "src/js"],
   ["src/pages/otros/js", "src/pages/otros/js"],
   ["src/pages/game.js", "src/pages/game.js"],
@@ -53,21 +54,112 @@ const previewRoutes = {
   "/Terms": "src/pages/Terms.html",
 };
 
-function themeBootstrap() {
+// Keeps src/data/search-manifest.json in sync with whatever content folders
+// and files actually exist on disk, so the homepage search doesn't need
+// hardcoded lists of gallery folders, illustration volumes, or extra-story
+// files baked into the JS. Runs once when the dev server / build starts,
+// and again whenever a matching file/folder is added or removed while
+// `npm run dev` is running.
+function contentSearchManifest() {
+  const dataDir = resolve(root, "src/data");
+  const galleryDir = resolve(dataDir, "gallery");
+  const illustrationsDir = resolve(galleryDir, "illustrations");
+  const extrasDir = resolve(dataDir, "extras");
+  const manifestPath = resolve(dataDir, "search-manifest.json");
+  const watchDirs = [galleryDir, illustrationsDir, extrasDir];
+
+  async function listDirNames(dir) {
+    try {
+      const entries = await readdir(dir, { withFileTypes: true });
+      return entries.filter((entry) => entry.isDirectory()).map((entry) => entry.name);
+    } catch (error) {
+      if (error.code === "ENOENT") return [];
+      throw error;
+    }
+  }
+
+  async function listJsonBasenames(dir, exclude = []) {
+    try {
+      const entries = await readdir(dir, { withFileTypes: true });
+      return entries
+        .filter(
+          (entry) =>
+            entry.isFile() && entry.name.endsWith(".json") && !exclude.includes(entry.name),
+        )
+        .map((entry) => entry.name.slice(0, -5));
+    } catch (error) {
+      if (error.code === "ENOENT") return [];
+      throw error;
+    }
+  }
+
+  function sortNumericThenAlpha(list) {
+    return list.slice().sort((a, b) => {
+      const na = Number(a);
+      const nb = Number(b);
+      if (!Number.isNaN(na) && !Number.isNaN(nb)) return na - nb;
+      return a.localeCompare(b);
+    });
+  }
+
+  async function generate() {
+    const galleryFolders = (await listDirNames(galleryDir))
+      .filter((name) => name !== "illustrations")
+      .sort();
+
+    const illustrationVolumes = sortNumericThenAlpha(
+      (await listDirNames(illustrationsDir))
+        .filter((name) => name.startsWith("volume-"))
+        .map((name) => name.slice("volume-".length)),
+    );
+
+    const extrasLangDirs = await listDirNames(extrasDir);
+    const extras = {};
+    for (const langDir of extrasLangDirs) {
+      const basenames = await listJsonBasenames(resolve(extrasDir, langDir), ["index.json"]);
+      extras[langDir] = sortNumericThenAlpha(
+        basenames
+          .filter((name) => /^extra\d+$/.test(name))
+          .map((name) => name.slice("extra".length)),
+      );
+    }
+
+    const manifest = {
+      generatedAt: new Date().toISOString(),
+      galleryFolders,
+      illustrationVolumes,
+      extras,
+    };
+    await mkdir(dataDir, { recursive: true });
+    await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+  }
+
   return {
-    name: "theme-bootstrap",
-    transformIndexHtml: {
-      order: "pre",
-      handler() {
-        const script = `(function(){try{var a=localStorage.getItem("adashima_time_based_appearance"),m=localStorage.getItem("adashima_manual_appearance"),h=new Date().getHours(),t=h>=5&&h<12?"morning":h>=12&&h<19?"afternoon":"night";if(a!==null&&a!=="true"&&["morning","afternoon","night"].includes(m))t=m;document.body.classList.add("time-"+t);document.body.dataset.theme=t}catch(e){}})();`;
-        return [{ tag: "script", children: script, injectTo: "body-prepend" }];
-      },
+    name: "content-search-manifest",
+    async buildStart() {
+      await generate();
+    },
+    configureServer(server) {
+      generate();
+      watchDirs.forEach((dir) => server.watcher.add(dir));
+      server.watcher.on("all", (event, file) => {
+        const resolved = resolve(file);
+        if (
+          watchDirs.some((dir) => resolved.startsWith(dir)) &&
+          ["add", "unlink", "addDir", "unlinkDir"].includes(event)
+        ) {
+          generate();
+        }
+      });
     },
   };
 }
 
 const existingLoadingScreenCss = `
 .loading-overlay{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;background:linear-gradient(165deg,#1a1028 0%,#2a1a3a 25%,#3a2a4a 55%,#4a2a5a 80%,#3a2a4a 100%);display:flex;align-items:center;justify-content:center;z-index:99999;opacity:1;visibility:visible;transition:opacity .7s ease,visibility .7s ease;will-change:opacity;pointer-events:all}
+body.time-morning .loading-overlay{background:linear-gradient(165deg,#a8c8e8 0%,#c8b5d8 30%,#e8c8d8 55%,#f5d8c8 80%,#fff5e8 100%)}
+body.time-afternoon .loading-overlay{background:linear-gradient(165deg,#985b78 0%,#aa6680 30%,#bb748b 60%,#c98291 100%)}
+body.time-night .loading-overlay{background:linear-gradient(165deg,#1a1028 0%,#2a1a3a 25%,#3a2a4a 55%,#4a2a5a 80%,#3a2a4a 100%)}
 .loading-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none}
 .loading-content{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:20px;text-align:center;transform:translateY(0) scale(1);opacity:1;transition:transform .7s cubic-bezier(.22,1,.36,1),opacity .45s ease}
 .loading-overlay.hidden .loading-content{transform:translateY(-8px) scale(.985);opacity:0}
@@ -86,10 +178,11 @@ function globalLoadingScreen() {
     transformIndexHtml: {
       order: "pre",
       handler(html) {
+        const themeScript = `<script>(function(){try{var a=localStorage.getItem("adashima_time_based_appearance"),m=localStorage.getItem("adashima_manual_appearance"),h=new Date().getHours(),t=h>=5&&h<12?"morning":h>=12&&h<19?"afternoon":"night";if(a!==null&&a!=="true"&&["morning","afternoon","night"].includes(m))t=m;document.body.classList.add("time-"+t);document.body.dataset.theme=t}catch(e){}})();</script>`;
         const markup = `<div id="loadingScreen" class="loading-overlay" role="status" aria-label="Loading" aria-hidden="false"><div class="loading-content"><div class="loading-title">AdashimaVerse</div><div class="loading-indicator"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></div><p class="loading-message" id="loadingMessage">Loading archive...</p></div></div>`;
         const script = `(function(){var s=document.getElementById("loadingScreen");if(!s)return;var reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;try{var lang=localStorage.getItem("lang")||"es",msg={es:"Cargando archivo...",en:"Loading archive..."}[lang];if(msg){var el=document.getElementById("loadingMessage");if(el)el.textContent=msg}}catch(e){}var html=document.documentElement,body=document.body,start=performance.now(),hidden=false,navigating=false,maxWait=2200,quietWindow=reduced?0:160,lastMutation=performance.now(),observer;html.classList.add("is-loading");body.classList.add("is-loading");function show(){navigating=true;hidden=false;s.classList.remove("hidden");s.setAttribute("aria-hidden","false");html.classList.add("is-loading");body.classList.add("is-loading")}function hide(){if(hidden)return;hidden=true;if(observer)observer.disconnect();s.classList.add("hidden");s.setAttribute("aria-hidden","true");html.classList.remove("is-loading");body.classList.remove("is-loading");navigating=false}function waitFonts(){return document.fonts&&document.fonts.ready?document.fonts.ready.catch(function(){}):Promise.resolve()}function visibleImagesReady(){var imgs=Array.prototype.filter.call(document.images,function(img){var r=img.getBoundingClientRect();return r.width>0&&r.height>0&&r.top<innerHeight*1.2&&r.bottom>-innerHeight*.2});return Promise.all(imgs.map(function(img){if(img.complete)return img.decode?img.decode().catch(function(){}):Promise.resolve();return new Promise(function(resolve){var done=function(){resolve()};img.addEventListener("load",done,{once:true});img.addEventListener("error",done,{once:true})})}))}function waitForStableDOM(){return new Promise(function(resolve){function check(){var now=performance.now();if(now-start>=maxWait){resolve();return}if(now-lastMutation>=quietWindow){requestAnimationFrame(function(){requestAnimationFrame(resolve)})}else requestAnimationFrame(check)}check()})}function ready(){Promise.all([waitFonts(),visibleImagesReady()]).then(waitForStableDOM).then(function(){var elapsed=performance.now()-start;setTimeout(function(){requestAnimationFrame(function(){requestAnimationFrame(hide)})},reduced?0:Math.max(0,260-elapsed))}).catch(hide)}if(window.MutationObserver){observer=new MutationObserver(function(){lastMutation=performance.now()});observer.observe(body,{subtree:true,childList:true,attributes:true})}document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||a.hasAttribute("download")||a.target&&a.target!=="_self")return;try{var u=new URL(a.href,location.href);if(u.origin!==location.origin||u.pathname===location.pathname&&u.search===location.search)return}catch(err){return}e.preventDefault();show();var href=a.href;setTimeout(function(){location.href=href},reduced?0:180)},true);window.addEventListener("pageshow",function(e){navigating=false;if(e.persisted){hidden=false;hide()}});document.addEventListener("visibilitychange",function(){body.classList.toggle("decor-paused",document.hidden)});if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",ready,{once:true});else ready();setTimeout(function(){if(!hidden)hide()},maxWait)})();`;
         const hasLoader = /id=["']loadingScreen["']/.test(html);
-        const loadingMarkup = hasLoader ? "" : markup;
+        const loadingMarkup = hasLoader ? "" : themeScript + markup;
         return html
           .replace(
             /<head>/i,
@@ -484,7 +577,7 @@ export default defineConfig({
 
   plugins: [
     tailwindcss(),
-    themeBootstrap(),
+    contentSearchManifest(),
     globalLoadingScreen(),
     productionLoadingOptimization(),
     copyRuntimeFiles(),

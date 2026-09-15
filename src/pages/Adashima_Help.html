@@ -19,7 +19,8 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="stylesheet" href="/src/components/styles/menu.css" />
-    <link rel="stylesheet" href="/src/css/help.css" />
+    <link rel="stylesheet" href="/src/components/styles/time-theme-pages.css" />
+    <link rel="stylesheet" href="/src/css/help/main.css" />
     <link rel="icon" href="/assets/Imagenes/favicon.ico" />
     <link rel="stylesheet" href="/src/components/styles/footer.css" />
     <link rel="stylesheet" href="/src/components/styles/feedback.css" />
@@ -30,7 +31,6 @@
       <div id="sidebar-container"></div>
       <main class="help-main">
         <header class="help-hero">
-          <div class="help-hero-orb"></div>
           <div class="help-hero-content">
             <span class="help-kicker"
               ><i class="fa-regular fa-circle-question"></i>
@@ -73,15 +73,15 @@
         const MANUAL_KEY = "adashima_manual_appearance";
 
         function normalize(value) {
-          return VALID.includes(value) ? value : "night";
+          return VALID.includes(value) ? value : getAutoTheme();
         }
 
         function getStoredTheme() {
           try {
             const stored = localStorage.getItem(MANUAL_KEY);
-            return normalize(stored || "night");
+            return normalize(stored);
           } catch {
-            return "night";
+            return getAutoTheme();
           }
         }
 
@@ -105,7 +105,7 @@
             const theme = autoMode ? getAutoTheme() : getStoredTheme();
             applyTheme(theme);
           } catch {
-            applyTheme("night");
+            applyTheme(getAutoTheme());
           }
         }
 
@@ -116,7 +116,8 @@
           }
         });
         document.addEventListener("appearanceThemeChanged", function (event) {
-          const theme = event && event.detail && event.detail.theme ? event.detail.theme : "night";
+          const theme =
+            event && event.detail && event.detail.theme ? event.detail.theme : getAutoTheme();
           applyTheme(theme);
         });
       })();

@@ -345,6 +345,14 @@ const FALLBACK_TRANSLATIONS = {
     readButton: "Leer",
     noResults: "No se encontraron resultados",
     modal: { reading: "Leyendo: ", closeReader: "Cerrar lector" },
+    readerChoice: {
+      title: "Elegir lector",
+      epub: "Lector EPUB",
+      epubDesc: "Lector de texto adaptable",
+      pdf: "Lector PDF",
+      pdfDesc: "Diseño de página original",
+      close: "Cerrar",
+    },
     toastMessages: {
       fileNotAvailable: "Archivo no disponible.",
       documentNotAvailable: "Documento no disponible.",
@@ -553,6 +561,14 @@ const FALLBACK_TRANSLATIONS = {
     readButton: "Read",
     noResults: "No results found",
     modal: { reading: "Reading: ", closeReader: "Close reader" },
+    readerChoice: {
+      title: "Choose a reader",
+      epub: "EPUB Reader",
+      epubDesc: "Responsive text reader",
+      pdf: "PDF Reader",
+      pdfDesc: "Original page layout",
+      close: "Close",
+    },
     toastMessages: {
       fileNotAvailable: "File not available.",
       documentNotAvailable: "Document not available.",
@@ -797,6 +813,14 @@ const FALLBACK_TRANSLATIONS = {
     readButton: "Basahin",
     noResults: "Walang nakitang resulta",
     modal: { reading: "Binabasa: ", closeReader: "Isara ang reader" },
+    readerChoice: {
+      title: "Pumili ng reader",
+      epub: "EPUB Reader",
+      epubDesc: "Responsive na text reader",
+      pdf: "PDF Reader",
+      pdfDesc: "Orihinal na page layout",
+      close: "Isara",
+    },
     toastMessages: {
       fileNotAvailable: "Hindi available ang file.",
       documentNotAvailable: "Hindi available ang dokumento.",
@@ -1222,7 +1246,7 @@ function buildVolumeHTML(vol) {
                 <div class="novel-description"><p>${vol.desc}</p></div>
                 ${translatorCredit}
                 <div class="novel-actions">
-                    <button class="btn btn-read" data-volume-id="${vol.id}" onclick="openPdfModal('${vol.id}')">
+                    <button class="btn btn-read" data-volume-id="${vol.id}" onclick="openVolumeReader('${vol.id}')">
                         <i class="fas fa-book-open"></i> ${getText("readButton")}
                     </button>
                 </div>
@@ -1244,11 +1268,55 @@ function buildCardHTML(vol) {
                 <div class="card-title">${vol.title}</div>
                 <div class="card-desc">${vol.desc || ""}</div>
                 ${badge}
-                <button class="btn btn-read btn-read-card" data-volume-id="${vol.id}" onclick="event.stopPropagation(); openPdfModal('${vol.id}')">
+                <button class="btn btn-read btn-read-card" data-volume-id="${vol.id}" onclick="event.stopPropagation(); openVolumeReader('${vol.id}')">
                     <i class="fas fa-book-open"></i> ${getText("readButton")}
                 </button>
             </div>
         </div>`;
+}
+
+function getReaderPreference() {
+  try {
+    return localStorage.getItem("adashima_reader_preference") || "epub";
+  } catch {
+    return "epub";
+  }
+}
+
+function openVolumeReader(volumeId) {
+  const vol = volumeData.find((v) => v.id === volumeId);
+  if (!vol) return;
+
+  const hasEpub =
+    currentLang === "en" && !!vol.fileEpub && typeof window.openEpubReader === "function";
+  const hasPdf = !!(vol.filePdf || vol.file);
+  const preference = getReaderPreference();
+
+  if (preference === "pdf" && hasPdf) {
+    try {
+      window.closeEpubReader?.();
+    } catch {
+      /* ignore */
+    }
+    openPdfModal(volumeId);
+    return;
+  }
+  if (preference === "epub" && hasEpub) {
+    try {
+      closePdfModal();
+    } catch {
+      /* ignore */
+    }
+    window.openEpubReader(vol);
+    return;
+  }
+  if (hasEpub) {
+    window.openEpubReader(vol);
+    return;
+  }
+  if (hasPdf) {
+    openPdfModal(volumeId);
+  }
 }
 
 function openPdfModal(volumeId) {
@@ -2469,7 +2537,14 @@ function updateCascadeToggleUI(isCascade = modalViewMode === "cascade") {
   // The dropdown reflects the reader's actual live mode, not the saved
   // preference or the mode that will be entered next.
   select.value = isCascade ? "cascade" : "single";
-  select.setAttribute("aria-label", currentLang === "en" ? "Reading mode" : currentLang === "tg" ? "Mode ng pagbasa" : "Modo de lectura");
+  select.setAttribute(
+    "aria-label",
+    currentLang === "en"
+      ? "Reading mode"
+      : currentLang === "tg"
+        ? "Mode ng pagbasa"
+        : "Modo de lectura",
+  );
 
   const options = select.options;
   const labels = {
@@ -2485,17 +2560,32 @@ function updateCascadeToggleUI(isCascade = modalViewMode === "cascade") {
 }
 
 function syncReaderSettingsUI() {
+  const readerPreference = getReaderPreference();
+  const readerSelect = document.getElementById("readerPreferenceSelect");
+  if (readerSelect) readerSelect.value = readerPreference;
   updateCascadeToggleUI(modalViewMode === "cascade");
   const touchToggle = document.getElementById("pdfTouchToggle");
   if (touchToggle) {
     const enabled = getTouchControlsEnabled();
     touchToggle.classList.toggle("active", enabled);
     touchToggle.setAttribute("aria-pressed", String(enabled));
-    touchToggle.querySelector(".pdf-setting-toggle-label")?.replaceChildren(
-      document.createTextNode(enabled
-        ? (currentLang === "en" ? "Touch controls: on" : currentLang === "tg" ? "Touch controls: on" : "Controles táctiles: activados")
-        : (currentLang === "en" ? "Touch controls: off" : currentLang === "tg" ? "Touch controls: off" : "Controles táctiles: desactivados"))
-    );
+    touchToggle
+      .querySelector(".pdf-setting-toggle-label")
+      ?.replaceChildren(
+        document.createTextNode(
+          enabled
+            ? currentLang === "en"
+              ? "Touch controls: on"
+              : currentLang === "tg"
+                ? "Touch controls: on"
+                : "Controles táctiles: activados"
+            : currentLang === "en"
+              ? "Touch controls: off"
+              : currentLang === "tg"
+                ? "Touch controls: off"
+                : "Controles táctiles: desactivados",
+        ),
+      );
   }
 }
 
@@ -2657,7 +2747,6 @@ function setTouchControlsEnabled(enabled) {
   }
   syncReaderSettingsUI();
 }
-
 
 // Tears down observers/DOM/state without touching modalViewMode or the
 // visible containers — resetCascadeUI()/exitCascadeMode() layer that on
@@ -3178,6 +3267,31 @@ function initModalEvents() {
     }
   });
 
+  document.getElementById("readerPreferenceSelect")?.addEventListener("change", (event) => {
+    const preference = event.target.value;
+    try {
+      localStorage.setItem("adashima_reader_preference", preference);
+    } catch {
+      /* ignore */
+    }
+    syncReaderSettingsUI();
+
+    // If the user changes the preference while a reader is already open,
+    // switch the currently-open volume immediately instead of waiting for
+    // the next book.
+    if (
+      preference === "epub" &&
+      modalCurrentVolume &&
+      document.getElementById("pdfModal")?.classList.contains("open")
+    ) {
+      const volume = modalCurrentVolume;
+      closePdfModal();
+      if (currentLang === "en" && volume.fileEpub && typeof window.openEpubReader === "function") {
+        window.openEpubReader(volume);
+      }
+    }
+  });
+
   document.getElementById("pdfViewModeSelect")?.addEventListener("change", (event) => {
     const nextMode = event.target.value;
     const currentMode = modalViewMode;
@@ -3221,7 +3335,10 @@ function initModalEvents() {
       if (e.key === "Escape") return; // first Escape just dismisses the hint
     }
 
-    if (e.key === "Escape" && document.getElementById("pdfToolbarSecondary")?.classList.contains("open")) {
+    if (
+      e.key === "Escape" &&
+      document.getElementById("pdfToolbarSecondary")?.classList.contains("open")
+    ) {
       closeSettingsPanel();
       return; // first Escape closes the settings panel, not the whole reader
     }
@@ -3910,6 +4027,7 @@ function switchLanguage(lang) {
 
 // Expose page handlers
 window.openPdfModal = openPdfModal;
+window.openVolumeReader = openVolumeReader;
 window.closePdfModal = closePdfModal;
 window.switchLanguage = switchLanguage;
 
@@ -3951,6 +4069,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   setTimeout(resetPageScrollToTop, 50);
   setTimeout(resetPageScrollToTop, 200);
   await loadMenu();
+  window.initEpubReader?.();
   initModalEvents();
 
   const searchInput = document.getElementById("searchInput");
